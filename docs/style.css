@@ -54,8 +54,6 @@ code {
   border-radius: 4px;
 }
 
-/* header */
-
 header { border-bottom: 1px solid var(--line); }
 
 .bar {
@@ -78,8 +76,6 @@ header { border-bottom: 1px solid var(--line); }
 
 .bar nav a { color: var(--ink-soft); text-decoration: none; }
 .bar nav a:hover { color: var(--ink); }
-
-/* hero */
 
 .hero { padding: 84px 0 64px; }
 
@@ -120,8 +116,6 @@ header { border-bottom: 1px solid var(--line); }
 
 .note { color: var(--ink-soft); font-size: 15px; }
 
-/* sections */
-
 section { padding: 56px 0; border-top: 1px solid var(--line); }
 
 h2 {
@@ -142,8 +136,6 @@ h3 { font-size: 18px; margin: 0 0 6px; letter-spacing: -.01em; }
 }
 
 .grid p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
-
-/* steps */
 
 ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
 
@@ -168,8 +160,6 @@ ol.steps li::before {
 
 ol.steps p { margin: 4px 0 0; color: var(--ink-soft); font-size: 15.5px; }
 
-/* table */
-
 .facts { width: 100%; border-collapse: collapse; font-size: 15.5px; }
 .facts td { padding: 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .facts td:first-child { color: var(--ink-soft); width: 34%; padding-right: 24px; }
@@ -187,8 +177,6 @@ pre {
 
 pre code { background: none; padding: 0; }
 
-/* footer */
-
 footer {
   border-top: 1px solid var(--line);
   padding: 40px 0 64px;
@@ -203,4 +191,29 @@ footer p { margin: 0 0 10px; max-width: 72ch; }
 @media (max-width: 640px) {
   .bar nav { display: none; }
   .hero { padding: 56px 0 44px; }
+}
+
+main.doc { padding: 56px 0 72px; }
+
+main.doc h1 {
+  font-size: clamp(28px, 4vw, 38px);
+  letter-spacing: -.025em;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+
+main.doc .lede {
+  color: var(--ink-soft);
+  font-size: 17px;
+  max-width: 68ch;
+  margin: 0 0 32px;
+}
+
+pre.legal {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 13.5px;
+  line-height: 1.65;
+  padding: 24px 26px;
+  max-width: 92ch;
 }

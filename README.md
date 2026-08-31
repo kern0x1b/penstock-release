@@ -16,11 +16,24 @@ repository exists so that the things users need are public and permanent:
 
 | | |
 |---|---|
+| [penstock site](https://kern0x1b.github.io/penstock-release/) | What the plugin does and how to set it up |
 | [Issues](../../issues) | Bug reports and feature requests |
 | [LICENSE](LICENSE) | The end-user license agreement |
 | [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) | Licenses of the bundled open-source components |
 | [CHANGELOG.md](CHANGELOG.md) | Release history |
 | [SECURITY.md](SECURITY.md) | How to report a vulnerability |
+
+## The site
+
+The pages under `docs/` are served by GitHub Pages at
+<https://kern0x1b.github.io/penstock-release/>. Plain HTML and one stylesheet, no build step.
+
+`docs/license/` and `docs/notices/` are generated from `LICENSE` and `THIRD-PARTY-NOTICES.md`.
+Regenerate them after changing either source file, so the site cannot drift from the shipped text:
+
+```bash
+node tools/build-legal-pages.mjs
+```
 
 ## Reporting a problem
 
