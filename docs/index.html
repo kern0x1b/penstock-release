@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penstock — BPMN editor for Camunda in JetBrains IDEs</title>
+<meta name="description" content="Penstock edits BPMN 2.0 diagrams for Camunda 7 and Camunda 8 inside JetBrains IDEs, next to the raw XML, with a properties panel, bpmnlint validation and deployment.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta property="og:title" content="Penstock — BPMN editor for Camunda in JetBrains IDEs">
+<meta property="og:description" content="Edit BPMN 2.0 diagrams for Camunda 7 and 8 inside your JetBrains IDE. Diagrams stay in the project and in version control.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <img src="icon.svg" alt="">
+    <span class="name">Penstock</span>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#start">Getting started</a>
+      <a href="#lint">Validation</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<div class="wrap hero">
+  <h1>BPMN diagrams, in the IDE you already use.</h1>
+  <p class="lede">
+    Penstock opens <code>.bpmn</code> and <code>.bpmn20.xml</code> files in a visual modeler inside
+    JetBrains IDEs, right next to the raw XML. Process models stay in the project and in version
+    control, so they are reviewed the same way as code.
+  </p>
+  <div class="cta">
+    <a class="btn" href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Install from JetBrains Marketplace</a>
+    <span class="note">Any JetBrains IDE from 2025.2 · 30-day trial</span>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <div class="grid">
+      <div>
+        <h3>Three modeling profiles</h3>
+        <p>Classic BPMN 2.0, Camunda 7 and Camunda 8, chosen per project. The palette and the
+          properties panel follow the profile.</p>
+      </div>
+      <div>
+        <h3>Properties panel</h3>
+        <p>Edit element properties, including the Camunda extension attributes, without leaving the
+          diagram.</p>
+      </div>
+      <div>
+        <h3>Inline scripts as real files</h3>
+        <p>Groovy and JavaScript inside a script task open as an IDE tab with syntax highlighting and
+          completion, and are written back into the diagram as you type. Camunda 7.</p>
+      </div>
+      <div>
+        <h3>Element templates</h3>
+        <p>Load Camunda 8 connector templates from the project, or pick them from the built-in
+          template browser.</p>
+      </div>
+      <div>
+        <h3>Deployment</h3>
+        <p>Deploy the open diagram to Camunda 7 REST or Camunda 8, with basic auth or OAuth 2.0.
+          Credentials go to the IDE password safe, never to a project file.</p>
+      </div>
+      <div>
+        <h3>Validation</h3>
+        <p>bpmnlint runs against the project’s own <code>.bpmnlintrc</code> and reports errors and
+          warnings on the diagram itself.</p>
+      </div>
+      <div>
+        <h3>Auto layout</h3>
+        <p>Reformats a diagram you already have — separates overlapping elements, aligns sequence
+          flows and routes connections orthogonally — and shows the result before applying it.</p>
+      </div>
+      <div>
+        <h3>Token simulation</h3>
+        <p>Step a token through the process to check that the flow behaves the way the model says it
+          does.</p>
+      </div>
+      <div>
+        <h3>Export and navigation</h3>
+        <p>Export to SVG, PNG and PDF. A tool window lists every BPMN file in the project as a tree.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <h2>Getting started</h2>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Open a <code>.bpmn</code> file</h3>
+          <p>It opens in the diagram editor. The editor tabs at the bottom switch to the raw XML and
+            back, so nothing is hidden from you.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Choose the engine</h3>
+          <p>You are asked once per project, and can change it later in
+            <span class="mono">Settings | Tools | Penstock</span>.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Add connector templates, if you are on Camunda 8</h3>
+          <p>Point the same settings page at template files or folders in the project, or install them
+            from the built-in browser.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="lint">
+  <div class="wrap">
+    <h2>Validation with bpmnlint</h2>
+    <p style="max-width:68ch;color:var(--ink-soft);margin-top:0">
+      Validation stays off until all three paths are set in
+      <span class="mono">Settings | Tools | Penstock</span>: the <code>bpmnlint</code> binary, the
+      <code>.bpmnlintrc</code> configuration and the <code>client.bundle.js</code> browser bundle.
+      A minimal configuration in the project root:
+    </p>
+<pre><code>{
+  "extends": ["bpmnlint:recommended"],
+  "rules": {
+    "label-required": "error",
+    "no-implicit-split": "warn"
+  }
+}</code></pre>
+    <p style="max-width:68ch;color:var(--ink-soft)">
+      Custom rules work two ways: put a <code>bpmnlint-plugin-{name}</code> folder in the project, or
+      declare the plugin in <code>package.json</code> and run <code>npm install</code>. The linter runs
+      when a BPMN file is opened or changed, and requires the project to be trusted first.
+    </p>
+  </div>
+</section>
+
+<section id="requirements">
+  <div class="wrap">
+    <h2>Requirements and support</h2>
+    <table class="facts">
+      <tr>
+        <td>IDEs</td>
+        <td>Any JetBrains IDE from 2025.2 with JCEF, which the standard distributions bundle —
+          IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td>
+      </tr>
+      <tr>
+        <td>Engines</td>
+        <td>Classic BPMN 2.0, Camunda 7, Camunda 8.</td>
+      </tr>
+      <tr>
+        <td>Licensing</td>
+        <td>Commercial, sold through the JetBrains Marketplace, which also grants a 30-day trial.
+          See the <a href="https://github.com/kern0x1b/penstock-release/blob/main/LICENSE">license</a>.</td>
+      </tr>
+      <tr>
+        <td>Bugs and requests</td>
+        <td><a href="https://github.com/kern0x1b/penstock-release/issues">GitHub issues</a>. A
+          <code>.bpmn</code> file that reproduces the problem saves the most time.</td>
+      </tr>
+      <tr>
+        <td>Vulnerabilities</td>
+        <td>Reported privately — see
+          <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>.
+          Please do not open a public issue.</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/LICENSE">License</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/THIRD-PARTY-NOTICES.md">Third-party notices</a>
+    </div>
+    <p>
+      Penstock was published as <strong>Camunda BPMN Editor</strong> until 2026. Same plugin, same
+      vendor, new name — it updates in place and nothing needs to be reinstalled.
+    </p>
+    <p>
+      Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by
+      Camunda Services GmbH. “Camunda” and “BPMN” are used only to describe the process engines and
+      the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH; BPMN is a
+      trademark of the Object Management Group.
+    </p>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
