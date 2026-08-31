@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/kern0x1b/penstock-release/security/advisories/new
+    about: Report privately. Never open a public issue for a vulnerability.
+  - name: Marketplace listing
+    url: https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor
+    about: Install the plugin, read reviews, or contact the vendor.

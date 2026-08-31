@@ -1,0 +1,63 @@
+name: Bug Report
+description: Report a plugin issue
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here — see [SECURITY.md](../blob/main/SECURITY.md).
+  - type: input
+    id: ide
+    attributes:
+      label: IDE & Version
+      placeholder: "IntelliJ IDEA 2026.2 Ultimate"
+    validations:
+      required: true
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin Version
+      placeholder: "2.3.7"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "macOS 15.4 / Windows 11 / Ubuntu 24.04"
+  - type: dropdown
+    id: engine
+    attributes:
+      label: Engine
+      options:
+        - Classic BPMN
+        - Camunda 7
+        - Camunda 8
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this?
+      value: |
+        1. Open a BPMN file
+        2. ...
+        3. ...
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Paste from Help | Show Log in Explorer/Finder. For editor errors, also attach the JCEF DevTools console output.
+      render: text
