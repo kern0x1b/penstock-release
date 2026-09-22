@@ -108,7 +108,10 @@ deployment:
 
     <p>Penstock reads every <span class="mono">penstock.yaml</span> from the project root down to
       the folder holding the diagram, and merges them in that order, so the file nearest the diagram
-      wins. Keys you do not mention are inherited rather than reset.</p>
+      wins. Keys you do not mention are inherited rather than reset. The engine, theme, rendering,
+      script type, lint, element templates, auto-layout spacing and deployment target are all
+      resolved for the diagram you have open, so two folders can target two different engines and
+      deploy to two different servers in the same project.</p>
 
 <pre><code>penstock.yaml                  engine: camunda-8, theme: system
   orders/
@@ -136,12 +139,33 @@ deployment:
       <tr><td>deployment.*</td><td>Engine URLs, deployment name, tenant, source, duplicate filtering, changed-only, and the non-secret half of authentication.</td></tr>
     </table>
 
+    <h2>When the file does not parse</h2>
+
+    <p>A file Penstock cannot read is reported in a notification naming the file and the syntax
+      error, and the settings from the IDE are used until it parses. It is not ignored quietly —
+      a config file that silently does nothing is worse than no config file.</p>
+
     <h2>Secrets</h2>
 
     <p>Passwords, bearer tokens, client secrets and API keys are never read from this file and never
       written to it. They go to the IDE password safe, keyed per project, and only when you ask for
       them to be remembered. A user name or a client id is not a secret and can live in the file;
       what unlocks them cannot.</p>
+
+    <h2>Coming from the IDE settings</h2>
+
+    <p>A project that already has settings in the IDE is offered the move once, in a notification
+      when it opens: <em>Create penstock.yaml</em> writes what is currently configured, comments and
+      all, and opens it. The same thing sits on the settings page as a link, for whenever you want
+      it instead of when we asked.</p>
+
+    <p>The first-run <em>Configure BPMN Engine</em> screen writes the file too. If the project has
+      no <span class="mono">penstock.yaml</span>, picking an engine there creates one; if it has one
+      that does not name an engine, the engine is appended and nothing else in the file is touched.
+      A file that already names an engine means the screen never appears at all.</p>
+
+    <p>Nothing rewrites a file you wrote. Keys the file already answers for are left exactly as they
+      are, which is why the appending rule exists rather than a regenerate-on-save rule.</p>
 
     <h2>When there is no file</h2>
 
