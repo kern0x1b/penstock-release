@@ -44,7 +44,7 @@
       <li><a href="diagram-check.html">Diagram check</a></li>
       <li><a href="deployment.html">Deployment</a></li>
       <li><a href="auto-layout.html" aria-current="page">Auto layout</a></li>
-      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="settings.html">Configuration</a></li>
       <li><a href="troubleshooting.html">Troubleshooting</a></li>
     </ul>
   </nav>
@@ -162,7 +162,7 @@
     <h2>Spacing</h2>
 
     <p>Four values control how much room the engine leaves. They come from a
-    <code>.bpmnlayoutrc</code> file in the project root, which you write yourself; if it is absent
+    <code>layout</code> in <code>penstock.yaml</code> file in the project root, which you write yourself; if it is absent
     or unreadable, the defaults are used.</p>
 
     <table class="facts">
@@ -172,7 +172,7 @@
       <tr><td>marginY</td><td>Default <code>40</code>. Vertical margin.</td></tr>
     </table>
 
-    <p>The file is read on every run. See <a href="settings.html">Settings and project files</a> for
+    <p>The file is read on every run. See <a href="settings.html">Configuration</a> for
     the full description.</p>
 
     <h2>What it trades away</h2>

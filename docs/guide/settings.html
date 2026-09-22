@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Settings and project files — Penstock</title>
-<meta name="description" content="Every Penstock setting, the bpmn-project.xml file the IDE writes, the hand-authored .bpmnlayoutrc, and which of them belong in version control.">
+<meta name="description" content="penstock.yaml decides how Penstock behaves for a project - engine, theme, lint, element templates, auto-layout spacing and deployment - with per-folder overrides and a JSON schema for completion.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,125 +44,128 @@
       <li><a href="diagram-check.html">Diagram check</a></li>
       <li><a href="deployment.html">Deployment</a></li>
       <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html" aria-current="page">Settings and project files</a></li>
+      <li><a href="settings.html" aria-current="page">Configuration</a></li>
       <li><a href="troubleshooting.html">Troubleshooting</a></li>
     </ul>
   </nav>
 
   <div class="docbody">
-    <h1>Settings and project files</h1>
+    <h1>Configuration</h1>
 
-    <p class="lede">Penstock is configured per project. Almost everything is set on one settings
-      page and stored by the IDE in a file you should not edit by hand. Auto-layout spacing is the
-      exception: it is read from a file you write yourself.</p>
+    <p class="lede">One file in the project root, <span class="mono">penstock.yaml</span>, decides
+      how Penstock behaves for that project: the engine, the theme, lint, element templates,
+      auto-layout spacing and where deploy sends the diagram. It is hand-written, it is committed
+      with the diagrams, and a file in a subfolder overrides it for everything underneath.</p>
 
-    <h2>The settings page</h2>
+    <h2>penstock.yaml</h2>
+
+    <p>Create it yourself, or open <span class="mono">Settings | Tools | Penstock</span> and click
+      <em>Move this project's settings into penstock.yaml</em> to have the current settings written
+      out for you. <span class="mono">penstock.yml</span> and <span class="mono">penstock.json</span>
+      are read the same way; JSON is valid YAML, so one parser handles both.</p>
+
+<pre><code># yaml-language-server: $schema=https://kern0x1b.github.io/penstock-release/schema/penstock.schema.json
+
+engine: camunda-7        # classic | camunda-7 | camunda-8
+theme: system            # system | light | dark | dracula
+schema: default          # default | sketchy
+scriptType: groovy       # none | groovy | javascript
+
+toolbar:
+  labels: false
+toolWindow:
+  tree: true
+
+elementTemplates:
+  - .camunda/element-templates
+
+lint:
+  binaryPath: node_modules/.bin/bpmnlint
+  configPath: .bpmnlintrc
+  clientBundlePath: .bpmnlint/client.bundle.js
+
+layout:
+  nodesep: 40
+  ranksep: 80
+  marginX: 40
+  marginY: 40
+
+# Passwords and secrets stay in the IDE password safe, never here.
+deployment:
+  camunda7Url: http://localhost:8080/engine-rest
+  name: Order handling
+  source: penstock
+  auth:
+    type: basic
+    username: demo</code></pre>
+
+    <p>The first line is what gives you completion, validation and hover documentation while you
+      type: the IDE reads the schema from that URL and treats the file the way it treats a
+      <span class="mono">pom.xml</span>. Every key is optional — what you leave out keeps its
+      default.</p>
+
+    <h2>Overriding per folder</h2>
+
+    <p>Penstock reads every <span class="mono">penstock.yaml</span> from the project root down to
+      the folder holding the diagram, and merges them in that order, so the file nearest the diagram
+      wins. Keys you do not mention are inherited rather than reset.</p>
+
+<pre><code>penstock.yaml                  engine: camunda-8, theme: system
+  orders/
+    penstock.yaml              engine: camunda-7
+    order-handling.bpmn        -> camunda-7, theme: system
+  archive/
+    legacy.bpmn                -> camunda-8, theme: system</code></pre>
+
+    <p>Maps are merged key by key, so a subfolder can set <code>lint.configPath</code> without
+      restating the other two paths. Lists replace: an <code>elementTemplates</code> list in a
+      subfolder is used instead of the one above it, not appended to it.</p>
+
+    <h2>What each key does</h2>
+
+    <table class="facts">
+      <tr><td>engine</td><td><code>classic</code>, <code>camunda-7</code> or <code>camunda-8</code>. Decides the palette, the properties panel, whether the script type applies and what deploy talks to.</td></tr>
+      <tr><td>theme</td><td><code>system</code> follows the IDE and switches with it. <code>light</code>, <code>dark</code> and <code>dracula</code> are fixed.</td></tr>
+      <tr><td>schema</td><td><code>default</code> for standard BPMN 2.0 rendering, <code>sketchy</code> for the hand-drawn style.</td></tr>
+      <tr><td>scriptType</td><td>Default language for script tasks: <code>none</code>, <code>groovy</code> or <code>javascript</code>. Camunda 7 only.</td></tr>
+      <tr><td>toolbar.labels</td><td>Text under every toolbar button. Off by default.</td></tr>
+      <tr><td>toolWindow.tree</td><td>Whether the Penstock tool window shows the diagram tree.</td></tr>
+      <tr><td>elementTemplates</td><td>Files and folders to read Camunda element templates from. A folder is scanned for <code>.json</code> files.</td></tr>
+      <tr><td>lint.*</td><td>The three bpmnlint paths. All three are needed before linting runs; leave the section out to turn linting off.</td></tr>
+      <tr><td>layout.*</td><td>Auto-layout spacing in pixels: <code>nodesep</code> between shapes in a column, <code>ranksep</code> between columns, <code>marginX</code> and <code>marginY</code> inside a container.</td></tr>
+      <tr><td>deployment.*</td><td>Engine URLs, deployment name, tenant, source, duplicate filtering, changed-only, and the non-secret half of authentication.</td></tr>
+    </table>
+
+    <h2>Secrets</h2>
+
+    <p>Passwords, bearer tokens, client secrets and API keys are never read from this file and never
+      written to it. They go to the IDE password safe, keyed per project, and only when you ask for
+      them to be remembered. A user name or a client id is not a secret and can live in the file;
+      what unlocks them cannot.</p>
+
+    <h2>When there is no file</h2>
 
     <figure class="shot">
       <img src="../img/settings-penstock.png" alt="Settings, Tools, Penstock">
-      <figcaption>Every setting the plugin has lives on one page, per project.</figcaption>
+      <figcaption>Without a penstock.yaml the same settings are editable here, per project.</figcaption>
     </figure>
 
-    <p>Open <span class="mono">Settings | Tools | Penstock</span>. The page belongs to the open
-      project, and it is not offered in the settings for new projects, so open a project first.</p>
+    <p>A project with no <span class="mono">penstock.yaml</span> falls back to
+      <span class="mono">Settings | Tools | Penstock</span>, which writes
+      <span class="mono">.idea/bpmn-project.xml</span> the way it always did. Once a file exists, the
+      keys it sets are shown on that page as read-only — the file is the answer, and two places
+      claiming to decide the same thing is how projects end up disagreeing with themselves.</p>
 
-    <p>The first group is headed <span class="mono">'&lt;project name&gt;' Settings</span>.</p>
-
-    <table class="facts">
-      <tr><td>Default BPMN engine</td><td>The engine profile for this project: <code>CLASSIC_BPMN</code>, <code>CAMUNDA_7</code> or <code>CAMUNDA_8</code>. It decides the palette and the properties panel, whether the script type row appears, and whether the Element Templates group appears.</td></tr>
-      <tr><td>Color theme</td><td><code>SYSTEM</code>, <code>LIGHT</code>, <code>DARK</code> or <code>DRACULA</code>. <code>SYSTEM</code> follows the IDE theme and switches with it. The change is pushed to every open diagram when you apply it.</td></tr>
-      <tr><td>Scheme theme</td><td><code>DEFAULT</code> for the standard BPMN 2.0 rendering, <code>SKETCHY</code> for a hand-drawn style.</td></tr>
-      <tr><td>Default script type</td><td>Blank, <code>groovy</code> or <code>javascript</code>. Shown only when the engine is <code>CAMUNDA_7</code>.</td></tr>
-      <tr><td>Show text labels on toolbar buttons</td><td>Off by default. Adds text beside the icons in the editor toolbar.</td></tr>
-    </table>
-
-    <h3>BPMN Lint Configuration</h3>
-
-    <p>Three paths, each with a browse button: the <code>bpmnlint</code> binary (for example
-      <code>node_modules/.bin/bpmnlint</code>), the <code>.bpmnlintrc</code> config, and
-      <code>client.bundle.js</code> (for example <code>.bpmnlint/client.bundle.js</code>).</p>
-
-    <p>The three are all-or-none. Leave every field empty to turn linting off. If you fill in one,
-      you must fill in all three, and each file must exist — applying a partial or broken set is
-      refused with an error rather than saved.</p>
-
-    <h3>Element Templates</h3>
-
-    <p>Shown only when the engine is <code>CAMUNDA_8</code>. A list with add and remove buttons.
-      The add action opens a chooser that takes files or folders; a folder is scanned recursively and
-      every <code>.json</code> file inside it is added individually, and a path already in the list is
-      skipped. The list stores absolute file paths, and each file is read from disk when the editor
-      loads its configuration.</p>
-
-    <h3>About</h3>
-
-    <p>One link, <em>Open source licenses</em>, which opens the third-party notices bundled with
-      the plugin.</p>
-
-    <h2>Setting the engine from the editor</h2>
-
-    <p>A project starts with no engine chosen. Until one is set, opening a BPMN file shows a
-      <em>Configure BPMN Engine</em> screen instead of the modeler, where you pick the engine and,
-      depending on the engine, the script type or the element templates, plus the same three lint
-      paths. Saving there writes the engine, script type, element templates and lint paths into the
-      same project configuration the settings page uses; it does not touch the themes or the toolbar
-      label setting.</p>
-
-    <p>Because both routes write the same file, the settings dialog checks before applying. If the
-      configuration changed elsewhere while the dialog was open, it asks whether to overwrite that
-      change, and cancelling leaves the other change in place.</p>
-
-    <h2>bpmn-project.xml</h2>
-
-    <p>The IDE stores the project configuration as <code>bpmn-project.xml</code> in the project's
-      <code>.idea</code> directory. It is written by the platform's settings machinery, so treat it
-      as generated: change the values through the settings page, not in the editor.</p>
-
-    <p>It holds the engine, colour theme, scheme theme, default script type, the toolbar label
-      setting, the three lint paths, the list of element template paths, whether the
-      <strong>BPMN Project</strong> tool window is showing its tree view, and the non-secret part
-      of the deployment configuration — base URLs for Camunda 7 and Camunda 8, deployment name,
-      tenant id, deployment source, duplicate filtering, deploy-changed-only, activation time,
-      authentication type, user name, client id, token URL, audience, and whether credentials
-      should be remembered.</p>
-
-    <p>Passwords, bearer tokens, client secrets and API keys are never written to it. They go to
-      the IDE password safe, and only when you ask for them to be saved.</p>
-
-    <h2>.bpmnlayoutrc</h2>
-
-    <p>Auto-layout spacing comes from a file named <code>.bpmnlayoutrc</code> in the project root.
-      Nothing creates it for you and nothing writes to it; it exists only if you add it. It is read
-      each time auto layout runs, so an edit takes effect on the next run without restarting the
-      IDE.</p>
-
-    <table class="facts">
-      <tr><td>nodesep</td><td>Integer, default <code>40</code>. Pixels between nodes in the same rank.</td></tr>
-      <tr><td>ranksep</td><td>Integer, default <code>80</code>. Pixels between ranks, along the direction of flow.</td></tr>
-      <tr><td>marginX</td><td>Integer, default <code>40</code>. Horizontal margin around the diagram.</td></tr>
-      <tr><td>marginY</td><td>Integer, default <code>40</code>. Vertical margin around the diagram.</td></tr>
-    </table>
-
-    <p>The file is JSON, read with Java-style comments and trailing commas allowed, so this is
-      valid:</p>
-
-<pre><code>{
-  // more space between rows, less between columns
-  "nodesep": 56,
-  "ranksep": 64,
-  "marginX": 40,
-  "marginY": 40,
-}</code></pre>
-
-    <p>Every field is optional and falls back to its default on its own. If the file is missing, or
-      cannot be parsed, the four defaults are used and auto layout runs as normal — there is no
-      error to dismiss, so check the values here first if a change appears to have no effect.</p>
+    <p>A project that has never chosen an engine shows a <em>Configure BPMN Engine</em> screen the
+      first time you open a diagram. What you pick there is saved the same way, and you can move it
+      into the file afterwards.</p>
 
     <h2>What belongs in version control</h2>
 
     <table class="facts">
-      <tr><td>.bpmnlayoutrc</td><td>Commit it. It is hand-written, it has no machine-specific content, and committing it is what gives everyone on the project the same auto-layout spacing.</td></tr>
-      <tr><td>.idea/bpmn-project.xml</td><td>Your call. It carries no secrets, and committing it gives everyone the same engine profile and deployment targets. Note that element template entries are absolute paths, so they only resolve for people whose checkout sits in the same place.</td></tr>
+      <tr><td>penstock.yaml</td><td>Commit it. That is the point: everyone on the project gets the same engine, the same lint setup and the same layout spacing, and a change to any of it is reviewed like any other change.</td></tr>
+      <tr><td>.bpmnlayoutrc</td><td>Still read for auto-layout spacing if you have one, and still fine to commit. <code>layout</code> in <span class="mono">penstock.yaml</span> replaces it and wins.</td></tr>
+      <tr><td>.idea/bpmn-project.xml</td><td>Your call, and needed only for what the file does not set. It carries no secrets.</td></tr>
       <tr><td>Credentials</td><td>Nothing to commit. They live in the IDE password safe, outside the project.</td></tr>
       <tr><td>.bpmn and .bpmn20.xml</td><td>Commit them. They are the process definitions, and reviewing them alongside code is the point.</td></tr>
     </table>

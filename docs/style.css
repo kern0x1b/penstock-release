@@ -54,13 +54,22 @@ code {
   border-radius: 4px;
 }
 
-header { border-bottom: 1px solid var(--line); }
+header {
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--ground);
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
 
 .bar {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 0;
+  padding: 14px 0;
 }
 
 .bar img { width: 28px; height: 28px; }
@@ -227,7 +236,7 @@ main.doc.guide {
   align-items: start;
 }
 
-.docnav { position: sticky; top: 32px; }
+.docnav { position: sticky; top: 92px; max-height: calc(100vh - 116px); overflow-y: auto; }
 
 .docnav h2 { margin: 0 0 12px; }
 
@@ -292,3 +301,5 @@ figure.shot figcaption {
   font-size: 14px;
   color: var(--ink-soft);
 }
+
+main.doc h2, main.doc h3, main.doc section { scroll-margin-top: 84px; }
