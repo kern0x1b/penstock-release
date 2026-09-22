@@ -217,3 +217,78 @@ pre.legal {
   padding: 24px 26px;
   max-width: 92ch;
 }
+
+main.doc.guide {
+  padding-left: 24px;
+  padding-right: 24px;
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.docnav { position: sticky; top: 32px; }
+
+.docnav h2 { margin: 0 0 12px; }
+
+.docnav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--line);
+}
+
+.docnav li { margin: 0; }
+
+.docnav a {
+  display: block;
+  padding: 6px 0 6px 14px;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  font-size: 15px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.docnav a:hover { color: var(--ink); }
+
+.docnav a[aria-current="page"] {
+  color: var(--ink);
+  border-left-color: var(--accent);
+}
+
+.docbody { min-width: 0; }
+
+.docbody h2 { margin: 40px 0 12px; }
+
+.docbody h3 { margin: 28px 0 8px; }
+
+.docbody p, .docbody ul, .docbody ol { max-width: 68ch; }
+
+.docbody pre { margin: 16px 0; }
+
+.docbody table.facts { margin: 16px 0; }
+
+@media (max-width: 820px) {
+  main.doc.guide { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .docnav { position: static; }
+}
+
+figure.shot {
+  margin: 28px 0;
+}
+
+figure.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(15, 18, 22, 0.12);
+}
+
+figure.shot figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}

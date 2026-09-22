@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment — Penstock</title>
+<meta name="description" content="How Penstock sends the open diagram to a Camunda 7 or Camunda 8 engine, which authentication methods it supports, and where credentials are stored.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html" aria-current="page">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Deployment</h1>
+
+    <p class="lede">
+      Penstock can send the diagram you are editing to a running Camunda 7 or Camunda 8 engine.
+      The request to the engine is made by the IDE process, not by the embedded browser, so no CORS
+      configuration is needed on the engine. Credentials are typed into the dialog and handed to the
+      IDE with the request. A credential that is kept for next time goes to the IDE password safe,
+      never to a project file.
+    </p>
+
+    <h2>Opening the dialog</h2>
+
+    <figure class="shot">
+      <img src="../img/deploy-dialog.png" alt="The deployment dialog for Camunda 7">
+      <figcaption>Deploying to Camunda 7. The fields change with the engine the project is set to.</figcaption>
+    </figure>
+
+    <p>
+      The <strong>Deploy</strong> button appears in the editor toolbar when the project's engine
+      profile is Camunda 7 or Camunda 8. Under the Classic BPMN 2.0 profile there is no deployment
+      target, so the button is not shown. See
+      <a href="engine-profiles.html">Engine profiles</a> for how the profile is chosen.
+    </p>
+
+    <p>
+      Pressing Deploy exports the current state of the canvas and opens a dialog titled
+      <strong>Deploy to Camunda 7</strong> or <strong>Deploy to Camunda 8</strong>, depending on the
+      profile. What is sent is the diagram as it stands in the editor, including edits you have not
+      saved to disk yet.
+    </p>
+
+    <h2>What is sent</h2>
+
+    <p>
+      The diagram goes to the engine as one <code>multipart/form-data</code> POST. It carries a
+      single file part, filename <code>process.bpmn</code>, content type
+      <code>application/xml</code>. The form field name of that part is <code>process.bpmn</code>
+      on Camunda 7 and <code>upload</code> on Camunda 8. Camunda 7 sends the dialog's other settings
+      as plain form fields beside it. Nothing else from the project is included — no other diagrams,
+      no element templates, no settings file. OAuth2 is the one case that makes a second request:
+      the token request that precedes the deployment.
+    </p>
+
+    <h2>Camunda 7</h2>
+
+    <p>
+      The URL you give is the base of the engine's REST API; Penstock appends
+      <code>/deployment/create</code> to it. The dialog's fields map one to one onto the form fields
+      of that endpoint.
+    </p>
+
+    <table class="facts">
+      <tr><td>Camunda 7 REST API URL</td><td>Defaults to <code>http://localhost:8080/engine-rest</code></td></tr>
+      <tr><td>Deployment Name</td><td>Required. Defaults to <code>BPMN Deployment - </code> followed by today's date</td></tr>
+      <tr><td>Tenant ID</td><td>Optional. Empty means the default tenant</td></tr>
+      <tr><td>Deployment Source</td><td>Optional. Defaults to <code>jetbrains-bpmn-editor</code></td></tr>
+      <tr><td>Enable Duplicate Filtering</td><td>Off by default</td></tr>
+      <tr><td>Deploy Changed Only</td><td>Off by default. Overrides duplicate filtering</td></tr>
+      <tr><td>Activation Time</td><td>Optional ISO 8601 timestamp. Empty means activate immediately</td></tr>
+    </table>
+
+    <p>
+      Authentication for Camunda 7 is HTTP basic only. Tick <strong>Use Authentication</strong> and
+      give a username and password; both are then required before the dialog will submit. The
+      credentials are sent as an <code>Authorization: Basic</code> header.
+    </p>
+
+    <h2>Camunda 8</h2>
+
+    <p>
+      Camunda 8 deployment goes to the Orchestration Cluster REST API. Give the v2 API base URL; if
+      it does not already end in <code>/deployments</code>, that path is appended. The field
+      defaults to <code>http://localhost:8080/v2</code>. For SaaS the dialog shows the shape of the
+      cluster endpoint:
+    </p>
+
+<pre><code>https://[region].zeebe.camunda.io/[cluster]/v2</code></pre>
+
+    <p>
+      There are no deployment name, tenant or filtering options here — Camunda 8 takes none. The
+      dialog notes that a Camunda 8 deployment is atomic and that the maximum request size is 4 MB.
+    </p>
+
+    <h3>Authentication methods</h3>
+
+    <table class="facts">
+      <tr><td>None</td><td>No authorization header. Intended for local development</td></tr>
+      <tr><td>Basic Authentication</td><td>Username and password, sent as <code>Authorization: Basic</code></td></tr>
+      <tr><td>Bearer Token</td><td>A token you have already obtained, sent as <code>Authorization: Bearer</code></td></tr>
+      <tr><td>OAuth2 / OIDC</td><td>Client credentials grant. Client ID, client secret, token URL, and an optional audience</td></tr>
+      <tr><td>API Key</td><td>A key for Camunda SaaS, sent as <code>Authorization: Bearer</code></td></tr>
+    </table>
+
+    <p>
+      With OAuth2 selected, Penstock first POSTs <code>grant_type=client_credentials</code> to the
+      token URL as a form-encoded body, reads <code>access_token</code> out of the JSON response,
+      and uses it as a bearer token on the deployment request. If the token endpoint cannot be
+      reached, answers with a non-2xx status, or returns a body without an access token, the
+      deployment stops there and the error says which of the three happened. The audience field is
+      sent only when you fill it in. The token request has its own 15-second timeout.
+    </p>
+
+    <h2>Saved settings and credentials</h2>
+
+    <p>
+      What you enter is remembered for the next deployment, in two different places depending on
+      whether it is a secret. Pressing Deploy writes the non-secret fields to the project
+      configuration whether or not <strong>Save Preferences</strong> is ticked; the checkbox governs
+      the secrets only.
+    </p>
+
+    <div class="grid">
+      <div>
+        <h3>Project configuration</h3>
+        <p>URLs, deployment name, tenant, source, the filtering checkboxes, activation time,
+          authentication type, username, client ID, token URL and audience. These go to the
+          project's <code>bpmn-project.xml</code>.</p>
+      </div>
+      <div>
+        <h3>IDE password safe</h3>
+        <p>Password, bearer token, client secret and API key. These go to the IDE's own credential
+          store, scoped to the project, and are never written to a project file.</p>
+      </div>
+    </div>
+
+    <p>
+      Unticking Save Preferences and deploying again erases the stored secrets from the password
+      safe. Secrets are read back into the dialog only while Save Preferences is on.
+    </p>
+
+    <h2>Feedback</h2>
+
+    <p>
+      A notification appears in the editor while the request is in flight, and again when it
+      finishes. A successful Camunda 7 deployment reports the deployment ID, and the name of the
+      deployed process definition when the engine's reply lists one; a successful Camunda 8
+      deployment reports the deployment key.
+    </p>
+
+    <p>
+      If the engine rejects the deployment, the notification carries the HTTP status code and the
+      engine's response body verbatim, which is where the useful detail usually is. A Camunda 8
+      reply of 503 mentioning <code>RESOURCE_EXHAUSTED</code> is reported as backpressure, with the
+      advice to retry with exponential backoff.
+    </p>
+
+    <p>
+      While a deployment is running, the dialog's Cancel button aborts it. The request also times
+      out on its own after 30 seconds.
+    </p>
+
+    <h2>Security</h2>
+
+    <p>
+      Deployment is the only thing that sends anything off the machine. The plugin makes no
+      outbound calls of its own — no telemetry, no update polling, no background fetches. The
+      licence is checked against the data the IDE already holds, and the element template catalogue
+      the editor shows is read from files bundled with the plugin. A diagram leaves the machine only
+      when you press Deploy, and only to the URL configured in the dialog.
+    </p>
+
+    <p>
+      Because credentials are held by the IDE password safe rather than the project file, a
+      <code>bpmn-project.xml</code> committed to version control carries the endpoint and the
+      username but no secret.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

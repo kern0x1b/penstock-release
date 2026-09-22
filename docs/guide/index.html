@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — Penstock</title>
+<meta name="description" content="Contents page for the Penstock documentation: getting started, engine profiles, editing, element templates, validation, deployment, auto layout, settings and troubleshooting.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html" aria-current="page">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Documentation</h1>
+
+    <p class="lede">Penstock is a BPMN 2.0 editor that runs inside JetBrains IDEs. These eleven
+    pages cover it from installation to troubleshooting. Read them in order the first time, or go
+    straight to the one you need.</p>
+
+    <h2>Pages</h2>
+
+    <table class="facts">
+      <tr>
+        <td><a href="getting-started.html">Getting started</a></td>
+        <td>Requirements, installing from the Marketplace, which files open in the diagram
+          editor, choosing the engine profile, and a tour of the toolbar and the BPMN Project
+          tool window.</td>
+      </tr>
+      <tr>
+        <td><a href="engine-profiles.html">Engine profiles</a></td>
+        <td>What separates the Classic BPMN 2.0, Camunda 7 and Camunda 8 profiles, which
+          namespaces each one writes into the XML, and what else the choice changes.</td>
+      </tr>
+      <tr>
+        <td><a href="elements.html">BPMN elements</a></td>
+        <td>Every element the editor can draw: the four tools and ten elements on the palette,
+          the searchable Create element catalogue, what each task, gateway, event and data element
+          is for, and how to change one element into another.</td>
+      </tr>
+      <tr>
+        <td><a href="editing.html">Editing a diagram</a></td>
+        <td>Working on the canvas and in the properties panel: the palette, the XML tab, editing a
+          script in its own IDE tab, copy and paste, undo and redo, the minimap, token simulation,
+          export, and comparing two revisions of a file as two diagrams side by side.</td>
+      </tr>
+      <tr>
+        <td><a href="element-templates.html">Element templates</a></td>
+        <td>Which JSON files Penstock reads as element templates — the list you keep in settings,
+          not a scan of the project — what it does with each one, and how the bundled connector
+          browser, shown under Camunda 8, writes a template into the project and adds it to that
+          list.</td>
+      </tr>
+      <tr>
+        <td><a href="validation.html">Validation</a></td>
+        <td>Running the project's own <code>bpmnlint</code>: the three paths it needs, the trusted
+          project requirement, and what each message in the Run window means.</td>
+      </tr>
+      <tr>
+        <td><a href="diagram-check.html">Diagram check</a></td>
+        <td>The panel that lists what is wrong with the drawing — overlapping shapes, connections
+          that do not reach what they connect, elements outside their pool — points at each one on
+          the canvas, and separates real problems from readability.</td>
+      </tr>
+      <tr>
+        <td><a href="deployment.html">Deployment</a></td>
+        <td>Sending the open diagram to a Camunda 7 or Camunda 8 engine, the authentication
+          methods for each, and where the credentials are stored.</td>
+      </tr>
+      <tr>
+        <td><a href="auto-layout.html">Auto layout</a></td>
+        <td>What the layout engine does to a diagram and what it will not produce, the preview
+          that shows the result before it is applied, and the spacing values you can set in
+          <code>.bpmnlayoutrc</code>.</td>
+      </tr>
+      <tr>
+        <td><a href="settings.html">Settings and project files</a></td>
+        <td>Every setting on the Penstock settings page, the <code>bpmn-project.xml</code> the IDE
+          writes, the hand-authored <code>.bpmnlayoutrc</code>, and which of them belong in version
+          control.</td>
+      </tr>
+      <tr>
+        <td><a href="troubleshooting.html">Troubleshooting</a></td>
+        <td>Fixes for a blank editor, validation that does nothing, failed deployments and missing
+          element templates, plus answers to common questions.</td>
+      </tr>
+    </table>
+
+    <p>If a page does not answer your question, open an issue on
+    <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

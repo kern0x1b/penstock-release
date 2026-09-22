@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Element templates and connectors — Penstock</title>
+<meta name="description" content="How Penstock loads Camunda element templates from a project and how the built-in connector browser installs them.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html" aria-current="page">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Element templates and connectors</h1>
+
+    <p class="lede">An element template is a JSON file that turns a plain task or event into a
+    pre-configured one, with its own properties panel. Penstock reads templates from files listed
+    in the project settings, and ships a browser for the Camunda connector templates so you can
+    install one without leaving the IDE.</p>
+
+    <h2>Where templates come from</h2>
+
+    <p>Penstock does not scan the project for templates. It reads exactly the files listed under
+    <span class="mono">Settings | Tools | Penstock</span>, in the <strong>Element Templates</strong>
+    section. That section is shown when the project's default BPMN engine is Camunda 8.</p>
+
+    <p>Use the <code>+</code> button to add entries. The chooser accepts both files and folders, and
+    filters on the <code>json</code> extension. Selecting a folder expands it: the folder is walked
+    recursively, behind a cancellable <em>Scanning Selected Folders</em> progress dialog, and every
+    matching file it finds is added to the list as its own entry. The <code>-</code> button removes
+    the selected entry. Nothing is copied — the list holds absolute paths to files that stay where
+    they are.</p>
+
+    <p>The list is stored per project in <code>bpmn-project.xml</code>, alongside the engine
+    profile, the theme and the bpmnlint paths.</p>
+
+    <h2>What Penstock does with each file</h2>
+
+    <p>Every listed file is read and parsed as JSON. A file may contain a single template object or
+    an array of them; both are accepted, and an array is expanded into its members. The parsed
+    templates are handed to the modeler when a diagram opens, so the properties panel can offer
+    them.</p>
+
+    <p>Three cases are handled quietly rather than with an error dialog:</p>
+
+    <ul>
+      <li>A path that no longer exists is skipped.</li>
+      <li>A file larger than 10 MB is skipped, and a warning is written to the IDE log.</li>
+      <li>A file that fails to parse is skipped, and the error is written to the IDE log with the
+        path.</li>
+    </ul>
+
+    <p>Results are cached per file and invalidated by the file's modification time, so editing a
+    template on disk is picked up without restarting the IDE.</p>
+
+    <p>Penstock does not define the template format — it consumes the Camunda one. For the schema,
+    the binding types and the property definitions, see
+    <a href="https://docs.camunda.io/docs/components/modeler/element-templates/about-templates/">Camunda's
+    own element template documentation</a>.</p>
+
+    <h2>The connector browser</h2>
+
+    <p>The toolbar's <strong>Marketplace</strong> button opens <em>Element Templates
+    Marketplace</em>, a browser over the Camunda connector templates bundled with the plugin. The
+    button is present only when the project's engine profile is Camunda 8.</p>
+
+    <p>The catalogue is part of the plugin. The template files are taken from the
+    <code>camunda/connectors</code> repository when the plugin is built, and are read from disk at
+    runtime, so the browser works without network access and without a Camunda account.</p>
+
+    <p>The left sidebar has a search box, an <em>Installed only</em> toggle and a <em>Categories</em>
+    list with a count against each entry. The list starts with <em>All Connectors</em>, then the
+    eight fixed categories:</p>
+
+    <table class="facts">
+      <tr><td>Communication</td><td>Messaging and notification connectors</td></tr>
+      <tr><td>Cloud &amp; Infrastructure</td><td>Cloud provider services</td></tr>
+      <tr><td>Business Applications</td><td>CRM, service management, project and content tools</td></tr>
+      <tr><td>Data &amp; Messaging</td><td>Databases, brokers, HTTP and file formats</td></tr>
+      <tr><td>Development</td><td>Source hosting and CI</td></tr>
+      <tr><td>AI &amp; Machine Learning</td><td>Model inference and agent connectors</td></tr>
+      <tr><td>Automation &amp; RPA</td><td>Robotic process automation and orchestration</td></tr>
+      <tr><td>Other</td><td>The Camunda-specific connectors, and anything the catalogue has no
+        category for</td></tr>
+    </table>
+
+    <p>Each connector is a card carrying its description, its template count and its category, with
+    a <strong>Details</strong> button. For a connector with one template that opens the template
+    straight away; for a connector with several it opens the list first, and you pick one from
+    there.</p>
+
+    <p>A template's own view shows its description, the element type it creates, the BPMN element
+    types it applies to, the engine versions it declares, the number of properties that are not
+    hidden, and the properties themselves under the template's own groups, with anything ungrouped
+    collected under <em>Other Properties</em>. Where the template carries a documentation reference,
+    a <em>View Documentation</em> link opens it in a browser.</p>
+
+    <h2>Installing from the browser</h2>
+
+    <p>Installing writes the template file into your project and adds it to the settings list, in
+    one action:</p>
+
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>The template is read and parsed</h3>
+          <p>The JSON is read from the bundled catalogue and parsed first, so a template that would
+          not load never reaches the next step.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Choose where it goes</h3>
+          <p>A save dialog opens, pre-filled with the template's own file name. Nothing is written
+          if you cancel.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The file is written</h3>
+          <p>The template JSON is saved to the path you picked.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The settings list is updated</h3>
+          <p>The new path is appended to the project's element template list, unless it is already
+          there.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The open diagram picks it up</h3>
+          <p>The template is applied to the running modeler immediately. You do not have to reopen
+          the diagram or restart the IDE.</p>
+        </div>
+      </li>
+    </ol>
+
+    <p>For a connector that ships several templates, the card's install button takes every template
+    of that connector you do not already have. That path asks for a folder rather than a file name,
+    then warns that it will write one file per template into that folder and overwrite existing
+    files with the same names, and waits for you to confirm. Each file is saved under the template's
+    own file name and added to the settings list as it goes; progress is shown on the connector's
+    button. To take one template of such a connector on its own, open <em>Details</em> and install
+    it from the list.</p>
+
+    <p>Templates already present are marked as installed and their install buttons are disabled.
+    Penstock compares against both halves of what the settings list produces: an entry matches if
+    its path ends in the same file name as the catalogue template, or if a template parsed out of
+    one of the listed files carries the same name.</p>
+
+    <h2>Camunda 7 and Classic BPMN</h2>
+
+    <p>Two things are gated on Camunda 8: the <strong>Element Templates</strong> section of the
+    settings page, and the <strong>Marketplace</strong> toolbar button. Under Camunda 7 or Classic
+    BPMN you get neither, so there is no way to build the list from the user interface.</p>
+
+    <p>Loading is not gated the same way. Whatever the list already holds is read and handed to the
+    editor whichever profile the project uses. The Camunda 7 editor applies templates — it carries
+    the same element template properties provider and template chooser as the Camunda 8 one — so a
+    list carried over from a Camunda 8 project keeps working after you switch the profile. The
+    Classic BPMN editor has no element template support at all, and templates handed to it are
+    ignored.</p>
+
+    <h2>When a template does not appear</h2>
+
+    <p>Check, in this order: that the project's engine profile is Camunda 8 or Camunda 7 rather than
+    Classic BPMN, that the file is listed under
+    <span class="mono">Settings | Tools | Penstock</span>, and that the file still exists at that
+    path. If all three hold, look in the IDE log — a file that is too large or does not parse is
+    skipped with a message naming the path.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

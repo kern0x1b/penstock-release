@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editing a diagram — Penstock</title>
+<meta name="description" content="The Penstock diagram editor: canvas and palette, the properties panel, inline script editing in a real IDE tab, the XML tab, copy and paste, the minimap, token simulation, export and the BPMN diff viewer.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html" aria-current="page">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Editing a diagram</h1>
+
+    <p class="lede">The editor is bpmn-js running in a JCEF browser inside the IDE window. The
+    modelling surface is the familiar one; what Penstock adds is the IDE around it — the system
+    clipboard, script files that open as real editor tabs, and a diagram-level diff in the IDE's own
+    diff window.</p>
+
+    <h2>Canvas and palette</h2>
+
+    <p>Which modeller is built depends on the engine profile. Camunda 7 and Camunda 8 get the
+    matching <code>camunda-bpmn-js</code> modeller, which carries that platform's moddle extensions,
+    its properties provider and its element template support; Penstock adds the element template
+    create and append module to both, and create and append anything to Camunda 8. Classic BPMN gets
+    plain <code>bpmn-js</code> with the standard properties panel and provider. All three load task
+    resizing, token simulation and the minimap. The palette is bpmn-js's own — Penstock replaces
+    nothing — extended by whichever create and append modules the profile loads.</p>
+
+    <p>Hovering an element for half a second shows a tooltip with its id, type, name and connected
+    flows — plus the implementation, class or delegate expression on a service task, and the assignee
+    and candidate users and groups on a user task. The right-click menu holds Reload, Undo, Redo,
+    Copy, Paste, Delete and Export.</p>
+
+    <h2>The properties panel</h2>
+
+    <figure class="shot">
+      <img src="../img/properties-panel.png" alt="The properties panel showing the implementation of a service task">
+      <figcaption>A Camunda 7 service task selected: the Implementation group carries the Java class the job runs.</figcaption>
+    </figure>
+
+    <p>The canvas and the panel are two halves of a resizable split; the panel opens about 300
+    pixels wide. Toggle Properties Panel collapses it to zero width and restores it. While collapsed
+    it is detached from the modeller entirely, so it does not keep re-rendering in the background,
+    and is re-attached when reopened. Collapsing is remembered: selecting an element does not force
+    the panel open again.</p>
+
+    <h2>Editing scripts in an IDE tab</h2>
+
+    <p>Under Camunda 7, script fields get a CodeMirror editor instead of a plain text area — Groovy
+    highlighted as Groovy, everything else as JavaScript. It is installed into the Script and
+    Condition groups and into the input mapping, output mapping, execution listener and task listener
+    entries, so a script nested in a listener is edited like the task's own. Typing reaches the model
+    400&nbsp;ms after you stop.</p>
+
+    <p>Below each editor is an <strong>Edit in new tab</strong> button. It hands the current text to
+    the IDE, which opens it as an editor tab carrying the script format's extension —
+    <code>.groovy</code>, or <code>.js</code> for JavaScript — so the IDE's own highlighting,
+    completion and inspections apply. The file is in-memory only; nothing is written to disk. While
+    that tab is open the in-panel editor is read-only, so there is one place to type. Every keystroke
+    in that tab is pushed back to the in-panel editor, debounced by 100&nbsp;ms, and reaches the
+    model on the same 400&nbsp;ms rule as typing in the panel. Close the tab and the in-panel editor
+    becomes editable again; press the button again and the existing tab is focused.</p>
+
+    <h2>The XML tab</h2>
+
+    <p>The diagram editor is registered ahead of the IDE's own editor, not in place of it, so the
+    plain XML editor stays available as a second tab on the same file.</p>
+
+    <p>Edits round-trip in both directions. Every change on the canvas re-serialises the diagram and
+    writes the whole file: the content goes to a temporary file beside the target, which is moved
+    over it atomically and refreshed in the VFS. There is no save step; the XML tab shows the new
+    content at once.</p>
+
+    <p>The other direction is watched rather than merged. Penstock tracks the file's modification
+    stamp and ignores its own writes. When something else changes the file — the XML tab, a Git
+    checkout, a formatter — the editor asks whether to reload. Reloading takes the external content
+    and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites
+    the external one. Renames are handled silently.</p>
+
+    <h2>Copy, paste, undo and redo</h2>
+
+    <p>Undo and redo drive the modeller's command stack, covering every modelling operation in the
+    order it happened. Copy and paste go through the IDE's own <code>CopyPasteManager</code> — the
+    system clipboard — rather than a clipboard private to one diagram, which is what makes copying a
+    pool out of one diagram and pasting it into another open diagram work. Paste from the toolbar or
+    the context menu, having no mouse position to attach to, drops the elements at the centre of the
+    view.</p>
+
+    <h2>Minimap</h2>
+
+    <p>The Minimap button toggles the <code>diagram-js-minimap</code> overview.</p>
+
+    <h2>Token simulation</h2>
+
+    <figure class="shot">
+      <img src="../img/token-simulation.png" alt="Token simulation running on a collaboration">
+      <figcaption>In simulation the canvas is framed in green, each start event gains a play button, and the speed controls sit at the bottom.</figcaption>
+    </figure>
+
+    <p>Token Simulation switches the canvas into <code>bpmn-js-token-simulation</code>'s simulation
+    mode; the button stays highlighted until you switch it off. The module blocks dragging, the
+    context pad, popup menus and direct editing, but not programmatic changes, so Penstock blocks the
+    rest itself: Undo, Redo, Copy, Paste, Delete and Auto Layout refuse to run and say <em>Stop Token
+    Simulation before editing the diagram</em>. Otherwise an edit made during what looks like a
+    read-only preview would be written to the file like any other.</p>
+
+    <h2>Export</h2>
+
+    <figure class="shot">
+      <img src="../img/export-dialog.png" alt="The export dialog with a preview of the diagram">
+      <figcaption>Export renders the diagram at the theme and format you choose, with a live preview.</figcaption>
+    </figure>
+
+    <p>Export opens a dialog with a live preview beside four choices: theme (Light, Dark, Dracula),
+    schema (Default, or Sketchy, which draws the diagram hand-drawn in the Virgil font), format (SVG,
+    PNG or PDF), and whether to paint the theme background behind the diagram or leave it
+    transparent. Collapsed subprocesses get a fifth control, to export one of those instead.</p>
+
+    <p>SVG is written as rendered. PNG is rasterised at twice the diagram's size, capped at 8192
+    pixels on the longer side so large diagrams stay inside the browser's canvas limit. PDF is that
+    PNG on a single A4 page, portrait or landscape by aspect ratio, scaled to fit under a heading.
+    The IDE's save dialog then asks where to put it.</p>
+
+    <h2>Comparing two versions of a diagram</h2>
+
+    <p>Penstock registers a diff tool with the IDE, so any two-sided comparison where one side is a
+    BPMN file — <span class="mono">Compare with Revision</span>, a commit in the Git log, a shelved
+    change — is shown as two diagrams rather than two blocks of XML: Before on the left, After on the
+    right, each read-only, with the palette and context pad hidden.</p>
+
+    <p>The comparison is semantic, not textual. Both revisions are parsed with
+    <code>bpmn-moddle</code> and compared with <code>bpmn-js-differ</code>, which sorts elements into
+    added, removed, changed, and changed in layout only. Each is outlined in its bucket's colour:
+    removed on the Before side, added on the After side, changed on both.</p>
+
+    <p>The fourth bucket is the useful one. An element that only moved or was resized is marked in
+    its own colour on the After side, apart from real changes, so a commit that ran auto layout reads
+    as what it is rather than as every element having been edited.</p>
+
+    <h2>Toolbar reference</h2>
+
+    <p>The toolbar sits across the top, in this order:</p>
+
+    <table class="facts">
+      <tr><td>Reload Content</td><td>Reloads the editor view. Nothing is lost — changes are already
+        on disk.</td></tr>
+      <tr><td>Undo</td><td>Undo Last Operation.</td></tr>
+      <tr><td>Redo</td><td>Redo Last Operation.</td></tr>
+      <tr><td>Copy</td><td>Copy Selected Content, to the system clipboard.</td></tr>
+      <tr><td>Paste</td><td>Paste Content, from the system clipboard.</td></tr>
+      <tr><td>Auto Layout</td><td>Auto Layout Diagram, in place. See
+        <a href="auto-layout.html">Auto layout</a>.</td></tr>
+      <tr><td>Export</td><td>Export Diagram — opens the export dialog.</td></tr>
+      <tr><td>Token Simulation</td><td>Simulate Process Execution.</td></tr>
+      <tr><td>Minimap</td><td>Navigate Diagram.</td></tr>
+      <tr><td>Deploy</td><td>Deploy Diagram. Camunda 7 and Camunda 8 only. See
+        <a href="deployment.html">Deployment</a>.</td></tr>
+      <tr><td>Marketplace</td><td>Element Templates Marketplace. Camunda 8 only. See
+        <a href="element-templates.html">Element templates</a>.</td></tr>
+      <tr><td>Toggle Properties Panel</td><td>Collapses or restores the properties panel.</td></tr>
+    </table>
+
+    <p>Token Simulation and Minimap stay highlighted while active; Undo, Redo, Copy, Paste and Auto
+    Layout are blocked while a simulation runs.</p>
+
+    <p>Deploy and Marketplace are the only two that depend on the engine profile; under BPMN Classic
+    neither appears. A spacer sits after Deploy, pushing whatever follows it to the right. Buttons
+    are icons only unless <span class="mono">Show text labels on toolbar buttons</span> is ticked in
+    <span class="mono">Settings | Tools | Penstock</span>.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

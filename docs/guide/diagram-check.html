@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagram check — Penstock</title>
+<meta name="description" content="The diagram check lists what is wrong with a BPMN drawing — overlapping shapes, detached connections, elements outside their pool — and points at each one on the canvas.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html" aria-current="page">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Diagram check</h1>
+
+    <p class="lede">The check reads the diagram the way a person does and lists what is wrong with
+    the drawing: shapes on top of each other, a connection that does not reach the shape it
+    connects, an element that has drifted out of its pool. It is the same set of measures the
+    auto layout engine is held to, run against the diagram you have open.</p>
+
+    <figure class="shot">
+      <img src="../img/diagram-check-problems.png" alt="The diagram check panel listing problems beside the diagram">
+      <figcaption>Press <strong>Check</strong> in the toolbar. Each line names what is wrong and
+      what it is about.</figcaption>
+    </figure>
+
+    <h2>What it is not</h2>
+
+    <p>This is not <a href="validation.html">bpmnlint</a>. bpmnlint answers whether the process is
+    modelled correctly — an event with no outgoing flow, a gateway with no condition. The check
+    answers whether the diagram can be read: it knows nothing about process semantics and never
+    looks at an attribute. Both can be useful on the same file, and they never report the same
+    thing.</p>
+
+    <h2>Problems</h2>
+
+    <p>The first group is defects that make a diagram wrong rather than untidy. A reader cannot
+    tell what a diagram means when two shapes sit on top of each other, so these are listed
+    expanded and counted in the header.</p>
+
+    <table class="facts">
+      <tr><td>Shapes sit on top of each other</td><td>Two shapes overlap. Neither can be read, and
+        a click lands on whichever happens to be on top.</td></tr>
+      <tr><td>Connection runs through a shape</td><td>A line crosses the interior of a shape it
+        does not connect, so it reads as though it stops there.</td></tr>
+      <tr><td>Connection does not reach the shape it connects</td><td>The line ends short of, or
+        past, the element it is attached to. Usually the result of moving a shape without the
+        line following it.</td></tr>
+      <tr><td>Element outside the container it belongs to</td><td>An element is drawn outside the
+        pool, lane or sub-process that owns it in the model, or inside one that does not.</td></tr>
+      <tr><td>Boundary event is off its host</td><td>A boundary event is no longer on the border of
+        the activity it is attached to.</td></tr>
+      <tr><td>Labels cover each other</td><td>Two labels overlap, so at least one of them cannot be
+        read.</td></tr>
+      <tr><td>Connection doubles back along itself</td><td>A route leaves a point, goes past it and
+        comes back along the same line. It reads as a single line drawn twice.</td></tr>
+    </table>
+
+    <h2>Readability</h2>
+
+    <p>The second group is collapsed, and deliberately so: a diagram drawn by hand always has some
+    of these, and a count of zero is not the goal. They are worth reading when a diagram is hard
+    to follow and you want to know why.</p>
+
+    <table class="facts">
+      <tr><td>Connections cross</td><td>Two lines cross each other.</td></tr>
+      <tr><td>Connections run along the same line</td><td>Two lines run parallel close enough to be
+        read as one.</td></tr>
+      <tr><td>Connection runs along the border of a shape</td><td>A line runs beside a shape's edge
+        for long enough to look attached to it.</td></tr>
+      <tr><td>Connection crosses a label</td><td>A line is drawn over a label that belongs to
+        something else.</td></tr>
+      <tr><td>Connection takes a long way round</td><td>The route is more than twice the distance
+        between the two shapes it connects.</td></tr>
+      <tr><td>Connection sidesteps for no reason</td><td>A short jog between two parallel runs with
+        nothing in the way of the straight line.</td></tr>
+      <tr><td>Label sits far from what it names</td><td>A label has drifted away from its shape or
+        its own line.</td></tr>
+      <tr><td>Annotation sits far from what it describes</td><td>A text annotation is joined to its
+        element by an unusually long association.</td></tr>
+      <tr><td>Connection is not drawn at right angles</td><td>A segment runs diagonally rather than
+        horizontally or vertically.</td></tr>
+    </table>
+
+    <h2>Working through the list</h2>
+
+    <p>While the panel is open, every element a problem is about carries a dashed outline on the
+    canvas, so the trouble is visible without reading a single line of the list. Moving the
+    pointer down the list outlines the one under the pointer. Clicking a line scrolls the canvas
+    to it, selects it and outlines it in red — the selection is a normal one, so the properties
+    panel and the context pad are right there and the next edit is one click away.</p>
+
+    <p>The list refreshes as you edit, a few hundred milliseconds after the diagram settles, and
+    <strong>Recheck</strong> forces a fresh pass. <strong>Close</strong> puts the outlines away.</p>
+
+    <figure class="shot">
+      <img src="../img/diagram-check-selected.png" alt="A defect selected in the list and outlined in red on the diagram">
+      <figcaption>The selected defect is outlined in red and scrolled into view; everything else
+      the check found keeps a dashed outline.</figcaption>
+    </figure>
+
+    <h2>Fixing a whole diagram at once</h2>
+
+    <p><a href="auto-layout.html">Auto layout</a> is the other half of this. The check measures a
+    diagram against a set of rules; auto layout draws a diagram that satisfies them. On a diagram
+    that has drifted far enough to collect a long list, laying it out again is usually faster than
+    working down the list by hand.</p>
+
+    <h2>What it cannot see</h2>
+
+    <p>Three of the engine's measures need the file rather than the canvas — a connection declared
+    in the XML that was never drawn, one drawn with an end missing, and a comparison of what the
+    diagram meant before an operation against what it means after. The panel leaves those out
+    rather than reporting them as passing.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engine profiles — Penstock</title>
+<meta name="description" content="What changes between the Classic BPMN 2.0, Camunda 7 and Camunda 8 profiles in Penstock, and which namespaces each one writes into the diagram.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html" aria-current="page">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Engine profiles</h1>
+
+    <p class="lede">A project targets one of three engines: Classic BPMN 2.0, Camunda 7 or Camunda 8.
+    The choice decides which modeler is built, which groups the properties panel shows, and which
+    namespace the editor is able to write into the diagram.</p>
+
+    <h2>Choosing a profile</h2>
+
+    <figure class="shot">
+      <img src="../img/engine-setup-camunda7.png" alt="The engine setup page with Camunda 7 selected">
+      <figcaption>Choosing Camunda 7. The panel on the right shows what the profile needs before it can be saved.</figcaption>
+    </figure>
+
+    <p>A project starts with no engine set. Until one is set, opening a diagram shows a setup page
+    titled <em>Configure BPMN Engine</em> instead of the canvas. Pick an engine on the left, fill in
+    whatever the panel on the right offers, and press <em>Save and Continue</em>.</p>
+
+    <p>Afterwards the same choice lives in <span class="mono">Settings | Tools | Penstock</span>, in
+    the <em>Default BPMN engine</em> row. It is stored per project, in
+    <code>bpmn-project.xml</code>, as one of <code>CLASSIC_BPMN</code>, <code>CAMUNDA_7</code> or
+    <code>CAMUNDA_8</code>. Changing it takes effect when the diagram editor is reloaded, because
+    the modeler is constructed from the engine value.</p>
+
+    <h2>What each profile builds</h2>
+
+    <h3>Classic BPMN 2.0</h3>
+
+    <p>Classic uses the plain <code>bpmn-js</code> modeler with the standard properties panel and
+    the standard BPMN properties provider, and it registers no Camunda moddle extension at all.
+    Because no extension is registered, this profile cannot write <code>camunda:</code> or
+    <code>zeebe:</code> attributes: there is nothing in the model that knows those types exist. The
+    panel shows the groups the BPMN provider defines — General, Documentation, and the
+    element-specific ones such as Message, Signal, Error, Escalation, Link, Timer, Compensation,
+    Multi-instance and Ad-hoc completion.</p>
+
+    <p>The setup page lists this profile as <em>BPMN Classic</em>, and when it is selected it states
+    the same thing plainly: no additional configuration is required for it.</p>
+
+    <h3>Camunda 7</h3>
+
+    <p>Camunda 7 uses the Camunda Platform modeler from <code>camunda-bpmn-js</code>. That modeler
+    registers the <code>camunda</code> moddle extension and adds the Camunda Platform properties
+    provider and the element-templates properties provider on top of the standard BPMN groups, so
+    the panel gains the execution groups — among them Script, Condition, Execution listeners, Task
+    listeners, Inputs and Outputs.</p>
+
+    <p>Penstock loads two more modules into this profile. One is the element-template create and
+    append module, which the Camunda Platform modeler does not carry on its own — though the
+    template list that would feed it is only editable under Camunda 8. The other is a properties
+    provider of Penstock's own: script, condition, listener and input/output entries that hold an
+    inline script are replaced with a CodeMirror field with Groovy or JavaScript highlighting, and
+    that field can be opened as a real file in the IDE; while
+    the file is open the field in the panel is read-only and the two stay in step. When the project
+    has a default script type set, it is used as the <code>scriptFormat</code> of a script that does
+    not have one yet, and as the <code>language</code> of a condition expression that does not have
+    one yet. The <em>Default script type</em> row in settings is shown only for this profile.</p>
+
+    <h3>Camunda 8</h3>
+
+    <p>Camunda 8 uses the Camunda Cloud modeler from <code>camunda-bpmn-js</code>. It registers the
+    <code>zeebe</code> moddle extension and adds, among others, the Zeebe properties provider, the
+    cloud element-templates provider and the example data provider, and it points the panel's FEEL
+    popup at the Camunda documentation for FEEL and for templating syntax. This modeler already
+    carries both create and append modules, so a new element can be started from an element template
+    or from the full element list.</p>
+
+    <p>Element templates are a Camunda 8 feature in the plugin's own UI: the template list in
+    settings and the Marketplace button in the editor toolbar both appear only for this profile.</p>
+
+    <h2>What reaches the XML</h2>
+
+    <table class="facts">
+      <tr><td>Classic BPMN 2.0</td><td>BPMN 2.0 only. No engine namespace is registered, so none can be written.</td></tr>
+      <tr><td>Camunda 7</td><td><code>camunda</code>, bound to <code>http://camunda.org/schema/1.0/bpmn</code>.</td></tr>
+      <tr><td>Camunda 8</td><td><code>zeebe</code>, bound to <code>http://camunda.org/schema/zeebe/1.0</code>.</td></tr>
+    </table>
+
+    <p>So a service task configured under Camunda 7 carries attributes and extension elements such
+    as <code>camunda:asyncBefore</code> or <code>camunda:executionListener</code>, and the same task
+    configured under Camunda 8 carries <code>zeebe:taskDefinition</code> or
+    <code>zeebe:ioMapping</code>. An element created from an element template records the template
+    it came from in the same namespace — <code>camunda:modelerTemplate</code> under Camunda 7,
+    <code>zeebe:modelerTemplate</code> under Camunda 8.</p>
+
+    <p>Nothing rewrites a diagram on open. If you switch a project from Camunda 7 to Classic, the
+    <code>camunda:</code> content already in the file is left alone; the editor no longer has a
+    panel for it, and the model no longer recognises those types.</p>
+
+    <h2>What else the profile changes</h2>
+
+    <table class="facts">
+      <tr><td>Deploy button</td><td>Toolbar, Camunda 7 and Camunda 8 only. The dialog is the Camunda 7 one or the Camunda 8 one, chosen from the profile.</td></tr>
+      <tr><td>Marketplace button</td><td>Toolbar, Camunda 8 only.</td></tr>
+      <tr><td>Element templates list</td><td>Settings, Camunda 8 only.</td></tr>
+      <tr><td>Default script type</td><td>Settings, Camunda 7 only.</td></tr>
+      <tr><td><code>copyProcessId</code></td><td>BPMN Project tool window, under each diagram, Camunda 7 and Camunda 8 only.</td></tr>
+      <tr><td>bpmnlint</td><td>All three profiles. It is enabled by the three bpmnlint paths, not by the engine.</td></tr>
+      <tr><td>Auto layout, Check, minimap, token simulation, task resizing, image export</td><td>All three profiles.</td></tr>
+    </table>
+
+    <p>The stored engine value is also shown in grey beside each diagram in the BPMN Project tool
+    window, so you can see which profile a file is being edited under.</p>
+
+    <h2>Known limitations</h2>
+
+    <p>Classic has no editor for standards-only input and output. The plugin's element tooltip can
+    display parameters it finds in <code>bpmn:ioSpecification</code>, in
+    <code>zeebe:ioMapping</code> and in <code>camunda:inputOutput</code>, but the properties panel in
+    Classic offers no group for editing <code>bpmn:ioSpecification</code>: data inputs and outputs
+    have to be edited in the XML. The input and output groups in the panel belong to the Camunda 7
+    and Camunda 8 providers and are written in their own namespaces, not in standard BPMN.</p>
+
+    <p>There is no per-file override. The engine is a project setting, so every diagram in the
+    project is edited under the same profile.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

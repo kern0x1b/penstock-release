@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validation with bpmnlint — Penstock</title>
+<meta name="description" content="How Penstock runs bpmnlint against a BPMN file: the three paths it needs, the project trust requirement, where results appear, and what each error notification means.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html" aria-current="page">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Settings and project files</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Validation with bpmnlint</h1>
+
+    <p class="lede">Penstock ships no rules of its own. A command-line run uses the
+    <code>bpmnlint</code> binary installed in your project, against the <code>.bpmnlintrc</code>
+    you write; the overlays in the diagram editor use the rules you compile into
+    <code>client.bundle.js</code>. Validation stays off until you tell it where those three files
+    are.</p>
+
+    <h2>The three paths</h2>
+
+    <p>Open <span class="mono">Settings | Tools | Penstock</span> and fill in the
+    <strong>BPMN Lint Configuration</strong> group. Each field has a browse button.</p>
+
+    <table class="facts">
+      <tr>
+        <td>bpmnlint binary:</td>
+        <td>The executable Penstock runs. The field's own hint is
+          <code>e.g. node_modules/.bin/bpmnlint</code>.</td>
+      </tr>
+      <tr>
+        <td>.bpmnlintrc config:</td>
+        <td>Your rule configuration. The hint is <code>project root or custom location</code>.
+          Its containing folder becomes the working directory of the lint process, which is how
+          plugin resolution finds your rules.</td>
+      </tr>
+      <tr>
+        <td>client.bundle.js:</td>
+        <td>The browser build of the same rule set, loaded into the diagram editor. The hint is
+          <code>e.g. .bpmnlint/client.bundle.js</code>.</td>
+      </tr>
+    </table>
+
+    <p>The three are all-or-none. If you set some and leave others empty, applying the settings
+    fails with <em>All three BPMN Lint paths must be configured</em>. If a path is set but the file
+    is not there, it fails with <em>&lt;path&gt; not found</em>. With all three empty, validation is
+    off and nothing complains. The same rule is enforced when the paths are saved from the
+    editor's own setup page.</p>
+
+    <p>Penstock starts the linter by invoking <code>node</code>, so Node.js has to be on the
+    <code>PATH</code> the IDE was launched with.</p>
+
+    <h2>A minimal .bpmnlintrc</h2>
+
+    <p>Put this in the project root and point the config path at it:</p>
+
+<pre><code>{
+  "extends": ["bpmnlint:recommended"],
+  "rules": {
+    "label-required": "error",
+    "no-implicit-split": "warn"
+  }
+}</code></pre>
+
+    <h2>Custom rules</h2>
+
+    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. bpmnlint resolves
+    it with Node's own module resolution, starting from the folder that holds
+    <code>.bpmnlintrc</code>, so the plugin has to be installed under that folder: declare it in
+    <code>package.json</code> and run <code>npm install</code>, and keep the configuration next to
+    the <code>node_modules</code> it depends on. Rebuild
+    <code>client.bundle.js</code> whenever the rules change; the editor loads that bundle, not the
+    <code>.bpmnlintrc</code>.</p>
+
+    <h2>Trusted projects</h2>
+
+    <p>A command-line run refuses to start in an untrusted project. This is deliberate — the run
+    executes a binary from the project's own <code>node_modules</code>. Trust the project in the IDE
+    first; until you do, nothing is started and the run reports <em>BPMN Lint requires trusting this
+    project first</em>.</p>
+
+    <h2>In the diagram editor</h2>
+
+    <p>When all three paths are set, the editor loads the bpmnlint integration and reads
+    <code>client.bundle.js</code> from disk, using its default export as the linter configuration.
+    Overlays are toggled from the linting button on the canvas, which starts inactive. The button is
+    hidden while token simulation is running, since the canvas is showing something else at that
+    point. If the bundle cannot be read or evaluated, the editor reports <em>Failed to load custom
+    lint rules</em> and the rest of the editor carries on working.</p>
+
+    <h2>Running bpmnlint over a file</h2>
+
+    <p>A full command-line run is started from the <strong>BPMN Project</strong> tool window, anchored
+    on the left. Expand a diagram and you get a <code>checkBpmnLint</code> entry under it; double-click
+    it, or select it and press Enter. The entry only appears once all three paths are configured, and
+    the tool window only lists files once an engine profile has been chosen for the project.</p>
+
+    <p>Penstock then runs <code>node &lt;binary&gt; --format pretty &lt;file&gt;</code> with the
+    working directory set to the folder containing your <code>.bpmnlintrc</code>, and attaches the
+    process to the Run tool window under the title <code>BPMN Lint – &lt;name&gt;</code>, where the
+    name is the diagram's file name without its extension. The
+    window is brought to the front automatically. The stop button kills the process; a cancelled run
+    prints <em>BPMN lint execution cancelled.</em> rather than pretending to have finished.</p>
+
+    <p>Output starts with <em>Starting BPMN lint...</em>, then bpmnlint's own pretty-printed report,
+    then one closing line:</p>
+
+    <table class="facts">
+      <tr>
+        <td>BPMN lint found critical issues.</td>
+        <td>The report contains at least one error.</td>
+      </tr>
+      <tr>
+        <td>BPMN lint found non-critical issues.</td>
+        <td>Warnings, no errors.</td>
+      </tr>
+      <tr>
+        <td>BPMN lint: no issues found.</td>
+        <td>Clean report, process exited normally.</td>
+      </tr>
+      <tr>
+        <td>BPMN lint exited with errors (exit code N).</td>
+        <td>A non-zero exit that produced no recognisable report — usually a broken configuration or a
+          missing rule plugin. Read the lines above it.</td>
+      </tr>
+    </table>
+
+    <h2>Timeout and concurrent runs</h2>
+
+    <p>A run is given 180 seconds. If the process is still alive after that and you have not stopped
+    it yourself, Penstock terminates it, prints <em>BPMN lint execution timed out.</em> in the Run
+    window, and raises a notification. Only one run per file is allowed at a time; starting a second
+    one while the first is still going is refused rather than queued. Different files can be linted
+    concurrently.</p>
+
+    <h2>Error notifications</h2>
+
+    <p>Failures are reported as error balloons titled <em>Penstock</em>.</p>
+
+    <table class="facts">
+      <tr>
+        <td>Failed to find 'bpmnlint' npm package</td>
+        <td>Shown with the suggestion to run <code>npm install bpmnlint</code>. Raised when the three
+          paths are not all configured, when the configured <code>.bpmnlintrc</code> does not exist on
+          disk, or when the binary path is blank.</td>
+      </tr>
+      <tr>
+        <td>BPMN Lint requires trusting this project first</td>
+        <td>The project is not trusted. Nothing was executed.</td>
+      </tr>
+      <tr>
+        <td>BPMN Lint is already running for '&lt;file&gt;'</td>
+        <td>A run for that same file has not finished. Wait for it, or stop it from the Run window.</td>
+      </tr>
+      <tr>
+        <td>BPMN lint execution timed out for file: '&lt;file&gt;'</td>
+        <td>The 180-second limit was reached and the process was terminated.</td>
+      </tr>
+      <tr>
+        <td>Failed to run bpmnlint</td>
+        <td>The process could not be started at all. The most common cause is <code>node</code> not
+          being on the IDE's <code>PATH</code>; the IDE log has the underlying exception.</td>
+      </tr>
+    </table>
+
+    <h2>Where the paths are stored</h2>
+
+    <p>The three paths are project settings and are written to <code>bpmn-project.xml</code> along
+    with the engine profile and the rest of the project configuration. See
+    <a href="settings.html">Settings and project files</a>.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
