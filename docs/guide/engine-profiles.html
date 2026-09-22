@@ -153,14 +153,42 @@
     <p>The stored engine value is also shown in grey beside each diagram in the BPMN Project tool
     window, so you can see which profile a file is being edited under.</p>
 
+
+    <h2>Input and output in Classic</h2>
+
+    <p>Classic writes data inputs and outputs the way BPMN defines them, not the way an engine
+    extends it. Select a task, a sub-process or the process itself and the panel offers an
+    <strong>Inputs</strong> and an <strong>Outputs</strong> group; adding an entry writes a
+    <code>bpmn:ioSpecification</code> with a <code>bpmn:dataInput</code> or
+    <code>bpmn:dataOutput</code> inside it, and a reference from the input or output set:</p>
+
+<pre><code>&lt;bpmn:serviceTask id="Task_check" name="Check stock"&gt;
+  &lt;bpmn:ioSpecification&gt;
+    &lt;bpmn:dataInput id="DataInput_1" name="quantity" /&gt;
+    &lt;bpmn:inputSet id="InputSet_1" name="Inputs"&gt;
+      &lt;bpmn:dataInputRefs&gt;DataInput_1&lt;/bpmn:dataInputRefs&gt;
+    &lt;/bpmn:inputSet&gt;
+    &lt;bpmn:outputSet id="OutputSet_1" name="Outputs" /&gt;
+  &lt;/bpmn:ioSpecification&gt;
+&lt;/bpmn:serviceTask&gt;</code></pre>
+
+
+    <figure class="shot">
+      <img src="../img/classic-io.png" alt="The Inputs and Outputs groups on a task in the Classic profile">
+      <figcaption>An input on a service task in Classic. The ID is the one written into the file;
+      the name is what the diagram calls it.</figcaption>
+    </figure>
+
+    <p>Removing the last input and the last output removes the specification with them, so a file
+    never carries an empty one. The groups are registered only in the Classic profile: Camunda 7
+    and Camunda 8 keep their own input and output editors, which write
+    <code>camunda:inputOutput</code> and <code>zeebe:ioMapping</code>, because that is what those
+    engines read.</p>
+
     <h2>Known limitations</h2>
 
-    <p>Classic has no editor for standards-only input and output. The plugin's element tooltip can
-    display parameters it finds in <code>bpmn:ioSpecification</code>, in
-    <code>zeebe:ioMapping</code> and in <code>camunda:inputOutput</code>, but the properties panel in
-    Classic offers no group for editing <code>bpmn:ioSpecification</code>: data inputs and outputs
-    have to be edited in the XML. The input and output groups in the panel belong to the Camunda 7
-    and Camunda 8 providers and are written in their own namespaces, not in standard BPMN.</p>
+    <p>There is no per-file override of the engine profile beyond the project setting, so every
+    diagram in the project is edited under the same profile.</p>
 
     <p>There is no per-file override. The engine is a project setting, so every diagram in the
     project is edited under the same profile.</p>

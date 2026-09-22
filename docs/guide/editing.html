@@ -102,6 +102,23 @@
     model on the same 400&nbsp;ms rule as typing in the panel. Close the tab and the in-panel editor
     becomes editable again; press the button again and the existing tab is focused.</p>
 
+
+    <h2>From a delegate class to the class</h2>
+
+    <p>Right-click a task that names a Java class — a Camunda 7 <code>camunda:class</code>, a
+    delegate expression that unwraps to a fully qualified name, a listener that names one — and
+    the menu offers <strong>Go to</strong> that class. It opens the file in the IDE, found by name
+    and package in the project's own sources.</p>
+
+    <figure class="shot">
+      <img src="../img/goto-class.png" alt="The context menu offering Go to CheckStockDelegate">
+      <figcaption>The entry appears only when the element actually names a class. A delegate
+      expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no
+      class and is left alone.</figcaption>
+    </figure>
+
+    <p>A class that lives in a dependency rather than in the project's sources is not found.</p>
+
     <h2>The XML tab</h2>
 
     <p>The diagram editor is registered ahead of the IDE's own editor, not in place of it, so the
