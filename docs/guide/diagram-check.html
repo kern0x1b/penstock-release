@@ -89,6 +89,13 @@
         off.</td></tr>
       <tr><td>The process may never finish</td><td>Once it gets to a certain point, no path leads
         to an end: it can only go round.</td></tr>
+      <tr><td>A decision has no way out for some values</td><td>A gateway without a default flow whose
+        conditions leave a value uncovered — <code>amount &gt; 100</code> and <code>amount &lt; 100</code>
+        stop at exactly 100 — so the process stops there with an incident.</td></tr>
+      <tr><td>Two ways out of a decision can both hold</td><td>Two conditions of an exclusive gateway
+        overlap, and the engine takes whichever it checks first.</td></tr>
+      <tr><td>Two variables look like one</td><td>Names that differ only by letter case or one
+        character, such as <code>orderId</code> and <code>orderID</code>: one of them is probably a typo.</td></tr>
     </table>
 
     <p>Without Pro, the panel says how many such problems it found. The same analysis runs in a
