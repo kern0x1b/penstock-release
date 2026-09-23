@@ -101,7 +101,7 @@ penstock/wrapper/penstock-wrapper.properties the version, and where to get it</c
       <tr><td>analyze</td><td>Pro. Whether each process can actually run: deadlocks, branches that run twice, steps that can never run, loops with no way out — each with the path that leads there. Exits non-zero when it finds any.</td></tr>
       <tr><td>code</td><td>Pro. Compare the diagrams with the code: a service task, listener or external task whose job type, topic, class or Spring bean has nothing in the project to run it, a call activity that calls a process no diagram defines, and a worker no diagram uses — each with the file and line. Workers are read from Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#; connectors and job types set by an expression are left alone.</td></tr>
       <tr><td>paths</td><td>Pro. Every distinct way through each process, with the decision taken at each gateway and its condition. <code>--format md</code> writes it as a checklist for a test plan.</td></tr>
-      <tr><td>docs</td><td>Pro. A page for every process — its picture, steps with who and what runs them, decisions and their conditions, events, the data each step sets and reads, and whether it runs to its end. HTML by default, <code>--format md</code> for a wiki, into <code>--out</code>.</td></tr>
+      <tr><td>docs</td><td>Pro. A page for every process — its picture, steps with who and what runs them, decisions and their conditions, events, the data each step sets and reads, and whether it runs to its end — and a page for every <code>.dmn</code> file, with each decision's rules, hit policy and what it needs, and the table check. HTML by default, <code>--format md</code> for a wiki, into <code>--out</code>.</td></tr>
       <tr><td>layout</td><td>Pro. Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
       <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
       <tr><td>diff</td><td>What changed between two versions of a process: added, removed and changed elements by name, and "only the drawing moved" when that is all.</td></tr>
@@ -109,7 +109,7 @@ penstock/wrapper/penstock-wrapper.properties the version, and where to get it</c
       <tr><td>against</td><td>What this working tree changed since a commit, branch or tag. <code>--images</code> renders before and after with the changes coloured in.</td></tr>
       <tr><td>report</td><td>Team. One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
       <tr><td>upgrade, login, logout, license</td><td>Buy Penstock, sign in, release this machine, and see or print the licence. See <a href="plans.html">plans and licence</a>.</td></tr>
-      <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
+      <tr><td>deploy</td><td>Send the diagrams, decisions (<code>.dmn</code>) and forms (<code>.form</code>) to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
     </table>
 
     <h2>In a pipeline</h2>
