@@ -33,7 +33,7 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
-      run: npx --yes "penstock@${{ steps.pinned.outputs.version }}" bot . --stage draw
+      run: npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" bot . --stage draw
 
     - name: Keep the picture with this run
       id: picture
@@ -49,4 +49,4 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
         PENSTOCK_PICTURES_URL: ${{ steps.picture.outputs.artifact-url }}
-      run: npx --yes "penstock@${{ steps.pinned.outputs.version }}" bot . --stage post
+      run: npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" bot . --stage post

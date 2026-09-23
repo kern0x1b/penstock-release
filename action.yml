@@ -59,9 +59,9 @@ runs:
         [ "${{ inputs.baseline }}" = "true" ] && extra="$extra --baseline"
 
         if [ -n "${{ inputs.sarif }}" ]; then
-          npx --yes "penstock@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
+          npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
             --format sarif $extra > "${{ inputs.sarif }}"
         else
-          npx --yes "penstock@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
+          npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
             --format github $extra
         fi

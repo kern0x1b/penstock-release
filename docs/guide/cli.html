@@ -59,9 +59,9 @@
 
     <h2>Running it</h2>
 
-<pre><code>npx penstock check .
-npx penstock lint .
-npx penstock deploy . --profile prod</code></pre>
+<pre><code>npx @penstock/cli check .
+npx @penstock/cli lint .
+npx @penstock/cli deploy . --profile prod</code></pre>
 
     <p>Or pin a version for everyone, the way <span class="mono">gradlew</span> does:
       <span class="mono">penstock init</span> drops a <span class="mono">penstockw</span> wrapper and
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npx penstock check . --format sarif &gt; penstock.sarif
+      - run: npx @penstock/cli check . --format sarif &gt; penstock.sarif
       - uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
@@ -200,7 +200,7 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 
 <pre><code>PENSTOCK_PROFILE=prod \
 PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
-npx penstock deploy . </code></pre>
+npx @penstock/cli deploy . </code></pre>
 
     <p>The profile chooses the environment, and the secret arrives through the environment rather
       than through the repository. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the
