@@ -1,0 +1,52 @@
+name: Penstock bot
+description: Answers in pull requests that change BPMN diagrams — problems, what changed, and a picture of it.
+author: kern0x1b
+
+branding:
+  icon: message-square
+  color: blue
+
+inputs:
+  token:
+    description: The token the bot answers with. The workflow's own token is enough.
+    required: false
+    default: ${{ github.token }}
+  version:
+    description: The version of penstock to run. Defaults to the one the project pins, or the latest.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Resolve the version
+      id: pinned
+      shell: bash
+      run: |
+        version="${{ inputs.version }}"
+        if [ -z "$version" ] && [ -f penstock-wrapper.properties ]; then
+          version=$(grep '^version=' penstock-wrapper.properties | cut -d= -f2 | tr -d '[:space:]')
+        fi
+        echo "version=${version:-latest}" >> "$GITHUB_OUTPUT"
+
+    - name: Read the change
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+      run: npx --yes "penstock@${{ steps.pinned.outputs.version }}" bot . --stage draw
+
+    - name: Keep the picture with this run
+      id: picture
+      uses: actions/upload-artifact@v7
+      with:
+        path: ${{ runner.temp }}/penstock-bot/penstock-diagrams.svg
+        archive: false
+        overwrite: true
+        if-no-files-found: ignore
+
+    - name: Answer
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        PENSTOCK_PICTURES_URL: ${{ steps.picture.outputs.artifact-url }}
+      run: npx --yes "penstock@${{ steps.pinned.outputs.version }}" bot . --stage post

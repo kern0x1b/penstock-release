@@ -149,34 +149,41 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 
     <h2>A bot in the repository</h2>
 
-    <p><code>penstock init --ci github</code> writes four workflows. The first checks every push. The
-      second comments on any pull request that touches a diagram, with what broke, what changed in
-      the process — by element, from the semantic diff, not from the XML — and a picture of the
-      result. It edits the same comment rather than adding a new one each time.</p>
+    <p>The bot is <span class="mono">penstock bot</span> running in your own CI. There is no service
+      behind it and nothing to register: it answers with the token of the pipeline it runs in, and
+      <code>penstock init --ci &lt;github|gitea|forgejo|gitlab|bitbucket|azure&gt;</code> writes the
+      pipeline for it.</p>
 
-    <p>Anything the command line can do, the bot can do, because it is the same command line. Ask it
-      for a diff against a commit and it answers with the elements that changed; add
-      <code>--images</code> and it answers with two pictures, the one before and the one after, with
-      what arrived in green and what differs in amber.</p>
+    <p>On a pull or merge request that touches a diagram it leaves one comment and edits that same
+      comment on every push: what broke against the baseline, what changed in the process — by
+      element, from the semantic diff, not from the XML — and a picture with what arrived in green
+      and what differs in amber. In the conversation it answers:</p>
 
-<pre><code>/penstock check .
-/penstock against v1.4.0 --images
-/penstock diff old.bpmn new.bpmn
-/penstock export . --format png</code></pre>
+<pre><code>/penstock                    the full review
+/penstock check              only the problems
+/penstock diff v1.4.0        what changed since a commit, branch or tag, outlined
+/penstock image orders.bpmn  a picture of the diagram as it is now
+/penstock help</code></pre>
 
-    <p>The third answers a mention. Anyone can write <code>/penstock check .</code> or
-      <code>/penstock diff a.bpmn b.bpmn</code> in the conversation and get the output back as a
-      reply, which is how a reviewer asks a question without leaving the page.</p>
+    <p>The picture is drawn by penstock itself, without a browser, and goes wherever the platform
+      lets a pipeline put it. Nothing is ever committed to the repository.</p>
 
-    <p>The fourth publishes: on merge, <code>penstock deploy . --wait</code> with the
-      <code>prod</code> profile and the secrets from the environment. <code>--wait</code> matters —
-      it asks the engine for the definitions it just accepted until the engine answers, because
-      "deployed" and "running" are not the same claim.</p>
+    <table>
+      <tr><th>Platform</th><th>Comments answered</th><th>The picture</th><th>What to add</th></tr>
+      <tr><td>GitHub</td><td>yes</td><td>kept with the run, opens in the browser from the link in the comment</td><td>nothing</td></tr>
+      <tr><td>Gitea, Forgejo</td><td>yes</td><td>attached to the pull request, shown inline</td><td>nothing</td></tr>
+      <tr><td>GitLab</td><td>yes, through a webhook on the pipeline trigger</td><td>uploaded to the project, shown inline</td><td><span class="mono">PENSTOCK_TOKEN</span>, a project access token</td></tr>
+      <tr><td>Azure DevOps</td><td>no, the review only</td><td>attached to the pull request, shown inline</td><td>let the build service contribute to pull requests</td></tr>
+      <tr><td>Bitbucket</td><td>no, the review only</td><td>a pipeline artifact, linked from the comment</td><td><span class="mono">PENSTOCK_TOKEN</span>, a repository access token</td></tr>
+    </table>
 
-    <p>Pictures in the review comment are published to a <span class="mono">penstock-previews</span>
-      branch in the same repository, which is what lets them appear inline. On a private repository
-      GitHub will not render them for people without access; the comment still carries everything
-      else.</p>
+    <p>The bot reads the diagrams and <span class="mono">penstock.yaml</span>, and never runs the
+      hooks a pull request's configuration might declare.</p>
+
+    <p><code>init --ci github</code> also writes a publishing workflow: on merge,
+      <code>penstock deploy . --wait</code> with the <code>prod</code> profile and the secrets from
+      the environment. <code>--wait</code> matters — it asks the engine for the definitions it just
+      accepted until the engine answers, because "deployed" and "running" are not the same claim.</p>
 
     <h2>The action</h2>
 
