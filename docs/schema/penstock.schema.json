@@ -114,6 +114,29 @@
         }
       }
     },
+    "tests": {
+      "description": "Where `penstock tests` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "language": {
+          "description": "The language of the tests. By default Kotlin if the module has Kotlin sources, otherwise Java.",
+          "type": "string",
+          "enum": [
+            "java",
+            "kotlin"
+          ]
+        },
+        "out": {
+          "description": "The source folder the tests go to, relative to the project root. By default src/test/java or src/test/kotlin of the module.",
+          "type": "string"
+        },
+        "package": {
+          "description": "The package of the tests. By default the package of the Spring Boot application, or the one all sources share, followed by .process.",
+          "type": "string"
+        }
+      }
+    },
     "hooks": {
       "description": "Commands to run around a stage. They run in the project root with PENSTOCK_FILES and PENSTOCK_PROFILE set; a non-zero exit from a \"pre\" hook stops the stage.",
       "type": "object",
@@ -333,6 +356,29 @@
                   ]
                 }
               }
+            }
+          }
+        },
+        "tests": {
+          "description": "Where `penstock tests` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "language": {
+              "description": "The language of the tests. By default Kotlin if the module has Kotlin sources, otherwise Java.",
+              "type": "string",
+              "enum": [
+                "java",
+                "kotlin"
+              ]
+            },
+            "out": {
+              "description": "The source folder the tests go to, relative to the project root. By default src/test/java or src/test/kotlin of the module.",
+              "type": "string"
+            },
+            "package": {
+              "description": "The package of the tests. By default the package of the Spring Boot application, or the one all sources share, followed by .process.",
+              "type": "string"
             }
           }
         },

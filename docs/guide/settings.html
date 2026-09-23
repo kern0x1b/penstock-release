@@ -80,6 +80,11 @@ layout:
   marginX: 40
   marginY: 40
 
+tests:
+  language: kotlin       # java | kotlin
+  out: src/test/kotlin
+  package: com.example.orders.process
+
 deployment:
   url: http://localhost:8080/engine-rest
   name: Order handling
@@ -104,6 +109,12 @@ profiles:
     <p>There is one <code>deployment.url</code>, not one per engine: <code>engine</code> already says
       whether that address is a Camunda 7 REST API or a Camunda 8 gateway. Everything is optional —
       what you leave out keeps its default.</p>
+
+    <p><code>tests</code> is only needed when the defaults are wrong. Without it,
+      <code>penstock tests</code> puts each diagram's tests in its own module - the nearest folder
+      with a Gradle or Maven build - in Kotlin if that module has Kotlin sources and Java otherwise,
+      in the package of its Spring Boot application, or the one all its sources share, followed by
+      <code>.process</code>. <code>out</code> is relative to the project root.</p>
 
     <h2>Profiles</h2>
 
