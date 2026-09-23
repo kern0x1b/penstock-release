@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings and project files — Penstock</title>
+<meta name="description" content="The penstock command line: check, lint, layout and deploy from a terminal or a pipeline, reading the same penstock.yaml the editor reads.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Diagram check</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Configuration</a></li>
+      <li><a href="cli.html" aria-current="page">Command line</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Command line</h1>
+
+    <p class="lede">The editor is one way to use this project; a terminal is the other. The same
+      <span class="mono">penstock.yaml</span>, the same profiles, the same checks — without an IDE,
+      which is what makes them usable in a pipeline.</p>
+
+    <h2>Running it</h2>
+
+<pre><code>npx penstock check .
+npx penstock lint .
+npx penstock deploy . --profile prod</code></pre>
+
+    <p>Or pin a version for everyone, the way <span class="mono">gradlew</span> does:
+      <span class="mono">penstock init</span> drops a <span class="mono">penstockw</span> wrapper and
+      a <span class="mono">penstock-wrapper.properties</span> next to your diagrams. Commit both, and
+      a laptop and a CI runner cannot disagree about which version they are using.</p>
+
+<pre><code>./penstockw check .</code></pre>
+
+    <p>Paths default to the working directory, and the configuration is read from there upward, so
+      it does not matter which folder you run it in — the same rule Maven follows with a pom.</p>
+
+    <h2>Commands</h2>
+
+    <table class="facts">
+      <tr><td>init</td><td>Write a <code>penstock.yaml</code> with the engine guessed from the diagrams already in the repository, add the local file to <code>.gitignore</code>, install the wrapper. <code>--ci github</code> or <code>--ci gitlab</code> writes the pipeline as well.</td></tr>
+      <tr><td>config</td><td>Print what applies and which layers it came from. <code>--json</code> for a machine.</td></tr>
+      <tr><td>profiles</td><td>List the profiles on offer, marking the active one.</td></tr>
+      <tr><td>doctor</td><td>Answer "why does it not work": configuration found, linter present, templates resolvable, engine reachable.</td></tr>
+      <tr><td>check</td><td>The drawing defects the editor's own panel reports — overlaps, detached connections, elements outside their pool. Exits non-zero when it finds any.</td></tr>
+      <tr><td>lint</td><td>bpmnlint with the project's own rules, grouped by the folder each diagram belongs to.</td></tr>
+      <tr><td>layout</td><td>Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
+      <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending.</td></tr>
+    </table>
+
+    <h2>In a pipeline</h2>
+
+    <p><code>penstock init --ci github</code> writes this, and <code>--ci gitlab</code> writes its
+      equivalent:</p>
+
+<pre><code>name: Diagrams
+
+on: [push, pull_request]
+
+jobs:
+  penstock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npx penstock check . --format sarif &gt; penstock.sarif
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: penstock.sarif</code></pre>
+
+    <p><code>check</code> speaks three machine formats besides its own: <code>--format sarif</code>
+      produces SARIF 2.1.0, which GitHub code scanning reads directly and turns into annotations on
+      the pull request; <code>--format github</code> produces the annotation lines for a workflow
+      that does not use code scanning; <code>--format json</code> is for everything else.</p>
+
+    <h2>Deploying from CI</h2>
+
+<pre><code>PENSTOCK_PROFILE=prod \
+PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
+npx penstock deploy . </code></pre>
+
+    <p>The profile chooses the environment, and the secret arrives through the environment rather
+      than through the repository. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the
+      engine wants one, and any <code>PENSTOCK_*</code> variable matching a configuration key
+      overrides it for that run — <code>PENSTOCK_DEPLOYMENT_URL</code> to send one build somewhere
+      else, for instance.</p>
+
+    <p>Run <code>penstock deploy --dry-run</code> first in a new pipeline: it prints the target and
+      the file list, and sends nothing.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
