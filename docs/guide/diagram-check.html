@@ -46,6 +46,7 @@
       <li><a href="auto-layout.html">Auto layout</a></li>
       <li><a href="settings.html">Configuration</a></li>
       <li><a href="cli.html">Command line</a></li>
+      <li><a href="plans.html">Plans and licence</a></li>
       <li><a href="troubleshooting.html">Troubleshooting</a></li>
     </ul>
   </nav>
@@ -71,6 +72,27 @@
     answers whether the diagram can be read: it knows nothing about process semantics and never
     looks at an attribute. Both can be useful on the same file, and they never report the same
     thing.</p>
+
+    <h2>How it runs</h2>
+
+    <p>With Pro, the check also runs the process: it follows every way a token can take from each
+      start event, and reports what goes wrong on the way. Each finding names the cause, and
+      clicking it outlines the path that leads there on the diagram.</p>
+
+    <table class="facts">
+      <tr><td>The process can get stuck</td><td>A gateway waits for something that never comes —
+        usually a parallel gateway joining branches an exclusive gateway chose between, or a
+        boundary event that took the run somewhere else.</td></tr>
+      <tr><td>A part of the process can run twice</td><td>Branches that run at the same time meet
+        at an exclusive gateway or a task, so everything after it runs once per branch.</td></tr>
+      <tr><td>An element can never run</td><td>Nothing leads to it, or every way to it is closed
+        off.</td></tr>
+      <tr><td>The process may never finish</td><td>Once it gets to a certain point, no path leads
+        to an end: it can only go round.</td></tr>
+    </table>
+
+    <p>Without Pro, the panel says how many such problems it found. The same analysis runs in a
+      terminal as <span class="mono">penstock analyze</span>.</p>
 
     <h2>Problems</h2>
 

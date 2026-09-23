@@ -46,6 +46,7 @@
       <li><a href="auto-layout.html">Auto layout</a></li>
       <li><a href="settings.html">Configuration</a></li>
       <li><a href="cli.html" aria-current="page">Command line</a></li>
+      <li><a href="plans.html">Plans and licence</a></li>
       <li><a href="troubleshooting.html">Troubleshooting</a></li>
     </ul>
   </nav>
@@ -97,12 +98,16 @@ penstock/wrapper/penstock-wrapper.properties the version, and where to get it</c
       <tr><td>doctor</td><td>Answer "why does it not work": configuration found, linter present, templates resolvable, engine reachable.</td></tr>
       <tr><td>check</td><td>The drawing defects the editor's own panel reports — overlaps, detached connections, elements outside their pool. Exits non-zero when it finds any.</td></tr>
       <tr><td>lint</td><td>bpmnlint with the project's own rules, grouped by the folder each diagram belongs to.</td></tr>
-      <tr><td>layout</td><td>Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
+      <tr><td>analyze</td><td>Pro. Whether each process can actually run: deadlocks, branches that run twice, steps that can never run, loops with no way out — each with the path that leads there. Exits non-zero when it finds any.</td></tr>
+      <tr><td>paths</td><td>Pro. Every distinct way through each process, with the decision taken at each gateway and its condition. <code>--format md</code> writes it as a checklist for a test plan.</td></tr>
+      <tr><td>docs</td><td>Pro. A page for every process — its picture, steps with who and what runs them, decisions and their conditions, events, the data each step sets and reads, and whether it runs to its end. HTML by default, <code>--format md</code> for a wiki, into <code>--out</code>.</td></tr>
+      <tr><td>layout</td><td>Pro. Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
       <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
       <tr><td>diff</td><td>What changed between two versions of a process: added, removed and changed elements by name, and "only the drawing moved" when that is all.</td></tr>
       <tr><td>export</td><td>Render the diagrams as SVG, with nothing to install. PNG needs <span class="mono">puppeteer</span> in the project.</td></tr>
       <tr><td>against</td><td>What this working tree changed since a commit, branch or tag. <code>--images</code> renders before and after with the changes coloured in.</td></tr>
-      <tr><td>report</td><td>One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
+      <tr><td>report</td><td>Team. One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
+      <tr><td>upgrade, login, logout, license</td><td>Buy Penstock, sign in, release this machine, and see or print the licence. See <a href="plans.html">plans and licence</a>.</td></tr>
       <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
     </table>
 
@@ -187,8 +192,10 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
     <p><span class="mono">penstock mcp</span> serves the project's diagrams over the Model Context
       Protocol, with the same contract: <span class="mono">list_diagrams</span>,
-      <span class="mono">show_diagram</span>, <span class="mono">check_diagram</span> and
-      <span class="mono">edit_diagram</span>, limited to files inside the project.
+      <span class="mono">show_diagram</span>, <span class="mono">check_diagram</span>,
+      <span class="mono">analyze_flow</span>, <span class="mono">list_scenarios</span> and
+      <span class="mono">edit_diagram</span>, limited to files inside the project. An agent that
+      edits a diagram can check straight away that it still runs to its end.
       <span class="mono">penstock mcp --config</span> prints the entry for a client's configuration.</p>
 
     <h2>A bot in the repository</h2>
