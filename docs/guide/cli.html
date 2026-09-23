@@ -85,7 +85,7 @@ npx penstock deploy . --profile prod</code></pre>
       <tr><td>layout</td><td>Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
       <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
       <tr><td>diff</td><td>What changed between two versions of a process: added, removed and changed elements by name, and "only the drawing moved" when that is all.</td></tr>
-      <tr><td>export</td><td>Render the diagrams as SVG or PNG. Needs <span class="mono">puppeteer</span> installed in the project.</td></tr>
+      <tr><td>export</td><td>Render the diagrams as SVG, with nothing to install. PNG needs <span class="mono">puppeteer</span> in the project.</td></tr>
       <tr><td>against</td><td>What this working tree changed since a commit, branch or tag. <code>--images</code> renders before and after with the changes coloured in.</td></tr>
       <tr><td>report</td><td>One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
       <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
@@ -139,12 +139,13 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 
     <h2>Pictures</h2>
 
-<pre><code>penstock export . --format png --out docs/img</code></pre>
+<pre><code>penstock export . --out docs/img</code></pre>
 
-    <p>SVG or PNG, rendered by a real browser so the result looks like the diagram rather than an
-      approximation of it. That browser is not carried in the package — install
-      <span class="mono">puppeteer</span> once in the project and the command starts working; without
-      it, it says so and nothing else is affected.</p>
+    <p>SVG, drawn by penstock itself from the diagram's own coordinates — no browser, nothing to
+      install, the same picture on a laptop and in CI. <span class="mono">--format png</span> paints
+      that SVG into pixels, and that one step does need a browser: install
+      <span class="mono">puppeteer</span> in the project for it. Everything else, including the
+      pictures in pull request reviews, is SVG.</p>
 
     <h2>A bot in the repository</h2>
 
