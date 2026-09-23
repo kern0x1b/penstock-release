@@ -86,7 +86,8 @@ npx penstock deploy . --profile prod</code></pre>
       <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
       <tr><td>diff</td><td>What changed between two versions of a process: added, removed and changed elements by name, and "only the drawing moved" when that is all.</td></tr>
       <tr><td>export</td><td>Render the diagrams as SVG or PNG. Needs <span class="mono">puppeteer</span> installed in the project.</td></tr>
-      <tr><td>report</td><td>One markdown comment for a pull request: check, diff against the base, and pictures.</td></tr>
+      <tr><td>against</td><td>What this working tree changed since a commit, branch or tag. <code>--images</code> renders before and after with the changes coloured in.</td></tr>
+      <tr><td>report</td><td>One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
       <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
     </table>
 
@@ -151,6 +152,16 @@ penstock check . --baseline          # fails only on what is new</code></pre>
       second comments on any pull request that touches a diagram, with what broke, what changed in
       the process — by element, from the semantic diff, not from the XML — and a picture of the
       result. It edits the same comment rather than adding a new one each time.</p>
+
+    <p>Anything the command line can do, the bot can do, because it is the same command line. Ask it
+      for a diff against a commit and it answers with the elements that changed; add
+      <code>--images</code> and it answers with two pictures, the one before and the one after, with
+      what arrived in green and what differs in amber.</p>
+
+<pre><code>/penstock check .
+/penstock against v1.4.0 --images
+/penstock diff old.bpmn new.bpmn
+/penstock export . --format png</code></pre>
 
     <p>The third answers a mention. Anyone can write <code>/penstock check .</code> or
       <code>/penstock diff a.bpmn b.bpmn</code> in the conversation and get the output back as a

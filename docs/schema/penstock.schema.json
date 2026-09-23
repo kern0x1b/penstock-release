@@ -77,6 +77,74 @@
         }
       }
     },
+    "conventions": {
+      "description": "Rules the editor applies while modelling, so a team does not have to remember them.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ids": {
+          "description": "How technical ids are derived from what an element is called.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fromName": {
+              "description": "Rewrite the id when the name changes.",
+              "type": "boolean"
+            },
+            "pattern": {
+              "description": "The shape of the id. {Type} is the element type, {Name} the label in PascalCase.",
+              "type": "string",
+              "default": "{Type}_{Name}"
+            }
+          }
+        },
+        "defaults": {
+          "description": "Attributes to set on a newly created element, keyed by its BPMN type — \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "boolean",
+                "number"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "hooks": {
+      "description": "Commands to run around a stage. They run in the project root with PENSTOCK_FILES and PENSTOCK_PROFILE set; a non-zero exit from a \"pre\" hook stops the stage.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preCheck": {
+          "description": "Before check runs.",
+          "type": "string"
+        },
+        "postCheck": {
+          "description": "After check runs, whatever it found.",
+          "type": "string"
+        },
+        "preLayout": {
+          "description": "Before layout runs.",
+          "type": "string"
+        },
+        "postLayout": {
+          "description": "After layout has written its result.",
+          "type": "string"
+        },
+        "preDeploy": {
+          "description": "Before anything is sent. Stops the deployment if it fails.",
+          "type": "string"
+        },
+        "postDeploy": {
+          "description": "After a successful deployment — a notification, a tag, a release note.",
+          "type": "string"
+        }
+      }
+    },
     "deployment": {
       "description": "Where deploy sends the diagram. One target; a profile overrides it for another environment. Secrets are referenced with ${VAR}, never written here.",
       "type": "object",
@@ -228,6 +296,74 @@
               "description": "Top and bottom margin inside a container.",
               "type": "integer",
               "minimum": 0
+            }
+          }
+        },
+        "conventions": {
+          "description": "Rules the editor applies while modelling, so a team does not have to remember them.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ids": {
+              "description": "How technical ids are derived from what an element is called.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "fromName": {
+                  "description": "Rewrite the id when the name changes.",
+                  "type": "boolean"
+                },
+                "pattern": {
+                  "description": "The shape of the id. {Type} is the element type, {Name} the label in PascalCase.",
+                  "type": "string",
+                  "default": "{Type}_{Name}"
+                }
+              }
+            },
+            "defaults": {
+              "description": "Attributes to set on a newly created element, keyed by its BPMN type — \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "boolean",
+                    "number"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "hooks": {
+          "description": "Commands to run around a stage. They run in the project root with PENSTOCK_FILES and PENSTOCK_PROFILE set; a non-zero exit from a \"pre\" hook stops the stage.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "preCheck": {
+              "description": "Before check runs.",
+              "type": "string"
+            },
+            "postCheck": {
+              "description": "After check runs, whatever it found.",
+              "type": "string"
+            },
+            "preLayout": {
+              "description": "Before layout runs.",
+              "type": "string"
+            },
+            "postLayout": {
+              "description": "After layout has written its result.",
+              "type": "string"
+            },
+            "preDeploy": {
+              "description": "Before anything is sent. Stops the deployment if it fails.",
+              "type": "string"
+            },
+            "postDeploy": {
+              "description": "After a successful deployment — a notification, a tag, a release note.",
+              "type": "string"
             }
           }
         },

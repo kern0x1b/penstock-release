@@ -129,6 +129,37 @@ profiles:
       when it may be missing. That is how a secret gets into the configuration without being written
       down in it.</p>
 
+    <h2>Rules the editor applies for you</h2>
+
+    <p>Camunda's own guidance asks for readable technical ids, and every team writes the convention
+      down somewhere and then forgets it. Put it in the file instead:</p>
+
+<pre><code>conventions:
+  ids:
+    fromName: true
+    pattern: "{Type}_{Name}"      # "Check stock" on a service task -> ServiceTask_CheckStock
+  defaults:
+    bpmn:ServiceTask:
+      camunda:asyncBefore: true</code></pre>
+
+    <p><code>ids</code> rewrites the id when the label changes, keeping it unique by adding a number
+      rather than colliding. <code>defaults</code> sets attributes on an element as it is created —
+      and morphing counts as creating, since a task that becomes a service task is how most service
+      tasks are made. Both happen inside the same modelling command, so one undo takes them back
+      together with the change that caused them.</p>
+
+    <h2>Commands around a stage</h2>
+
+<pre><code>hooks:
+  preDeploy: npm run verify-workers
+  postDeploy: ./notify-release.sh
+  postLayout: git add -A</code></pre>
+
+    <p>These run when the command line reaches that stage, in the project root, with
+      <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and the
+      active profile in the environment. A <code>pre</code> hook that exits non-zero stops the
+      stage — which is how a project says "not without this check".</p>
+
     <h2>Secrets</h2>
 
     <p>Passwords, bearer tokens, client secrets and API keys are never read from these files and never
