@@ -162,6 +162,35 @@ penstock check . --baseline          # fails only on what is new</code></pre>
       <span class="mono">puppeteer</span> in the project for it. Everything else, including the
       pictures in pull request reviews, is SVG.</p>
 
+    <h2>Editing from the command line</h2>
+
+    <p><span class="mono">penstock edit</span> changes a diagram the way the editor would, not by
+      rewriting XML: a new element is placed and connected by the editor's own modelling, gets an id
+      from the project's conventions, and carries only properties the project's engine knows.</p>
+
+<pre><code>penstock show orders.bpmn
+penstock edit orders.bpmn add service-task --after Task_check --name "Reserve stock" --set jobType=reserve-stock
+penstock edit orders.bpmn connect Gateway_stock Task_notify --condition "=not(inStock)"
+penstock edit orders.bpmn set Task_notify --set assignee=support --input customer==order.customer
+penstock edit orders.bpmn remove Task_legacy</code></pre>
+
+    <p>The same changes can be given as JSON with <span class="mono">--ops</span>, which is the
+      contract: <span class="mono">penstock edit orders.bpmn --schema</span> prints it for the
+      project's engine, and an unknown operation, field or property is refused rather than ignored.
+      Several operations apply together or not at all. After an edit the diagram is read back and
+      checked; one that would break the drawing — shapes on top of each other, a flow through a
+      shape, a flow torn from its element — is not written, and a crossing or a flow running along a
+      shape is reported without stopping it. <span class="mono">--dry-run</span> shows the result
+      without writing.</p>
+
+    <h2>For an AI agent</h2>
+
+    <p><span class="mono">penstock mcp</span> serves the project's diagrams over the Model Context
+      Protocol, with the same contract: <span class="mono">list_diagrams</span>,
+      <span class="mono">show_diagram</span>, <span class="mono">check_diagram</span> and
+      <span class="mono">edit_diagram</span>, limited to files inside the project.
+      <span class="mono">penstock mcp --config</span> prints the entry for a client's configuration.</p>
+
     <h2>A bot in the repository</h2>
 
     <p>The bot is <span class="mono">penstock bot</span> running in your own CI. There is no service
