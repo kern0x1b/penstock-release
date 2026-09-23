@@ -1,71 +1,53 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://penstock.dev/schema/penstock.schema.json",
+  "$id": "https://kern0x1b.github.io/penstock-release/schema/penstock.schema.json",
   "title": "Penstock project configuration",
-  "description": "Configuration for the Penstock BPMN editor. A file in a subfolder overrides the one above it, and the file nearest a diagram wins.",
+  "description": "Configuration for Penstock. A file in a subfolder overrides the one above it, penstock.local.yaml overrides the file beside it, the active profile overrides both, and PENSTOCK_* environment variables have the last word.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "engine": {
       "description": "Which engine the diagrams target. Decides the palette, the properties panel and what deploy does.",
       "type": "string",
-      "enum": ["classic", "camunda-7", "camunda-8"],
-      "default": "camunda-7"
-    },
-    "theme": {
-      "description": "Editor theme. 'system' follows the IDE.",
-      "type": "string",
-      "enum": ["system", "light", "dark", "dracula"],
-      "default": "system"
-    },
-    "schema": {
-      "description": "How shapes are drawn. 'sketchy' renders the diagram hand-drawn.",
-      "type": "string",
-      "enum": ["default", "sketchy"],
-      "default": "default"
+      "enum": [
+        "classic",
+        "camunda-7",
+        "camunda-8"
+      ]
     },
     "scriptType": {
       "description": "Default language for script tasks. Camunda 7 only.",
       "type": "string",
-      "enum": ["none", "groovy", "javascript"],
-      "default": "none"
-    },
-    "toolbar": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "labels": {
-          "description": "Show a text label under every toolbar button.",
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
-    "toolWindow": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "tree": {
-          "description": "Show the diagram tree in the Penstock tool window.",
-          "type": "boolean",
-          "default": true
-        }
-      }
+      "enum": [
+        "none",
+        "groovy",
+        "javascript"
+      ]
     },
     "elementTemplates": {
       "description": "Folders and files to read Camunda element templates from, relative to this file.",
       "type": "array",
-      "items": { "type": "string" },
-      "default": []
+      "items": {
+        "type": "string"
+      }
     },
     "lint": {
       "description": "bpmnlint wiring. All three paths are needed before linting runs.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "binaryPath": { "description": "Path to the bpmnlint executable.", "type": "string" },
-        "configPath": { "description": "Path to .bpmnlintrc.", "type": "string" },
-        "clientBundlePath": { "description": "Path to the bundled browser build of the rules.", "type": "string" }
+        "binaryPath": {
+          "description": "Path to the bpmnlint executable.",
+          "type": "string"
+        },
+        "configPath": {
+          "description": "Path to .bpmnlintrc.",
+          "type": "string"
+        },
+        "clientBundlePath": {
+          "description": "Path to the bundled browser build of the rules.",
+          "type": "string"
+        }
       }
     },
     "layout": {
@@ -73,34 +55,246 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "nodesep": { "description": "Space between two shapes in the same column.", "type": "integer", "minimum": 1, "default": 40 },
-        "ranksep": { "description": "Space between two columns.", "type": "integer", "minimum": 1, "default": 80 },
-        "marginX": { "description": "Left and right margin inside a container.", "type": "integer", "minimum": 0, "default": 40 },
-        "marginY": { "description": "Top and bottom margin inside a container.", "type": "integer", "minimum": 0, "default": 40 }
+        "nodesep": {
+          "description": "Space between two shapes in the same column.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "ranksep": {
+          "description": "Space between two columns.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "marginX": {
+          "description": "Left and right margin inside a container.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "marginY": {
+          "description": "Top and bottom margin inside a container.",
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "deployment": {
-      "description": "Where deploy sends the diagram. Passwords and secrets are never read from this file - they live in the IDE password safe.",
+      "description": "Where deploy sends the diagram. One target; a profile overrides it for another environment. Secrets are referenced with ${VAR}, never written here.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "camunda7Url": { "description": "Camunda 7 REST API, for example http://localhost:8080/engine-rest.", "type": "string" },
-        "camunda8Url": { "description": "Camunda 8 Zeebe REST gateway.", "type": "string" },
-        "name": { "description": "Deployment name shown in the engine.", "type": "string" },
-        "tenantId": { "description": "Tenant to deploy to. Empty means the default tenant.", "type": "string" },
-        "source": { "description": "Deployment source recorded by the engine.", "type": "string" },
-        "duplicateFiltering": { "description": "Skip a deployment identical to the last one.", "type": "boolean", "default": false },
-        "changedOnly": { "description": "Send only the diagrams that changed.", "type": "boolean", "default": false },
-        "activationTime": { "description": "ISO timestamp the deployment becomes active.", "type": "string" },
+        "url": {
+          "description": "Where to deploy. The engine decides what this address means: the Camunda 7 REST API (http://localhost:8080/engine-rest) or the Camunda 8 Zeebe REST gateway.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Deployment name shown in the engine.",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "Tenant to deploy to. Empty means the default tenant.",
+          "type": "string"
+        },
+        "source": {
+          "description": "Deployment source recorded by the engine.",
+          "type": "string"
+        },
+        "duplicateFiltering": {
+          "description": "Skip a deployment identical to the last one.",
+          "type": "boolean"
+        },
+        "changedOnly": {
+          "description": "Send only the diagrams that changed.",
+          "type": "boolean"
+        },
+        "activationTime": {
+          "description": "ISO timestamp the deployment becomes active.",
+          "type": "string"
+        },
         "auth": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "type": { "description": "How to authenticate against the engine.", "type": "string", "enum": ["none", "basic", "oauth"], "default": "none" },
-            "username": { "description": "Basic auth user. The password lives in the IDE password safe.", "type": "string" },
-            "clientId": { "description": "OAuth client id. The secret lives in the IDE password safe.", "type": "string" },
-            "tokenUrl": { "description": "OAuth token endpoint.", "type": "string" },
-            "audience": { "description": "OAuth audience.", "type": "string" }
+            "type": {
+              "description": "How to authenticate against the engine.",
+              "type": "string",
+              "enum": [
+                "none",
+                "basic",
+                "oauth"
+              ]
+            },
+            "username": {
+              "description": "Basic auth user. The password lives in the IDE password safe.",
+              "type": "string"
+            },
+            "clientId": {
+              "description": "OAuth client id. The secret lives in the IDE password safe.",
+              "type": "string"
+            },
+            "tokenUrl": {
+              "description": "OAuth token endpoint.",
+              "type": "string"
+            },
+            "audience": {
+              "description": "OAuth audience.",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "profile": {
+      "description": "Profile to apply. PENSTOCK_PROFILE overrides this.",
+      "type": "string"
+    },
+    "profiles": {
+      "description": "Named overrides, applied on top of the settings above when the profile is active.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/settings"
+      }
+    }
+  },
+  "$defs": {
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "description": "Which engine the diagrams target. Decides the palette, the properties panel and what deploy does.",
+          "type": "string",
+          "enum": [
+            "classic",
+            "camunda-7",
+            "camunda-8"
+          ]
+        },
+        "scriptType": {
+          "description": "Default language for script tasks. Camunda 7 only.",
+          "type": "string",
+          "enum": [
+            "none",
+            "groovy",
+            "javascript"
+          ]
+        },
+        "elementTemplates": {
+          "description": "Folders and files to read Camunda element templates from, relative to this file.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lint": {
+          "description": "bpmnlint wiring. All three paths are needed before linting runs.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "binaryPath": {
+              "description": "Path to the bpmnlint executable.",
+              "type": "string"
+            },
+            "configPath": {
+              "description": "Path to .bpmnlintrc.",
+              "type": "string"
+            },
+            "clientBundlePath": {
+              "description": "Path to the bundled browser build of the rules.",
+              "type": "string"
+            }
+          }
+        },
+        "layout": {
+          "description": "Auto layout spacing, in pixels.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "nodesep": {
+              "description": "Space between two shapes in the same column.",
+              "type": "integer",
+              "minimum": 1
+            },
+            "ranksep": {
+              "description": "Space between two columns.",
+              "type": "integer",
+              "minimum": 1
+            },
+            "marginX": {
+              "description": "Left and right margin inside a container.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "marginY": {
+              "description": "Top and bottom margin inside a container.",
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "deployment": {
+          "description": "Where deploy sends the diagram. One target; a profile overrides it for another environment. Secrets are referenced with ${VAR}, never written here.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "description": "Where to deploy. The engine decides what this address means: the Camunda 7 REST API (http://localhost:8080/engine-rest) or the Camunda 8 Zeebe REST gateway.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Deployment name shown in the engine.",
+              "type": "string"
+            },
+            "tenantId": {
+              "description": "Tenant to deploy to. Empty means the default tenant.",
+              "type": "string"
+            },
+            "source": {
+              "description": "Deployment source recorded by the engine.",
+              "type": "string"
+            },
+            "duplicateFiltering": {
+              "description": "Skip a deployment identical to the last one.",
+              "type": "boolean"
+            },
+            "changedOnly": {
+              "description": "Send only the diagrams that changed.",
+              "type": "boolean"
+            },
+            "activationTime": {
+              "description": "ISO timestamp the deployment becomes active.",
+              "type": "string"
+            },
+            "auth": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "description": "How to authenticate against the engine.",
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "basic",
+                    "oauth"
+                  ]
+                },
+                "username": {
+                  "description": "Basic auth user. The password lives in the IDE password safe.",
+                  "type": "string"
+                },
+                "clientId": {
+                  "description": "OAuth client id. The secret lives in the IDE password safe.",
+                  "type": "string"
+                },
+                "tokenUrl": {
+                  "description": "OAuth token endpoint.",
+                  "type": "string"
+                },
+                "audience": {
+                  "description": "OAuth audience.",
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
