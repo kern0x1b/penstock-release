@@ -1,0 +1,67 @@
+name: Penstock
+description: Check, lint, lay out and deploy BPMN diagrams with the configuration the project already has.
+author: kern0x1b
+
+branding:
+  icon: git-branch
+  color: blue
+
+inputs:
+  command:
+    description: Which penstock command to run — check, lint, layout, fmt, deploy, doctor.
+    required: false
+    default: check
+  paths:
+    description: What to run it on. Defaults to the whole checkout.
+    required: false
+    default: .
+  profile:
+    description: The profile to use, as PENSTOCK_PROFILE would.
+    required: false
+    default: ''
+  version:
+    description: The version of penstock to run. Defaults to the one the project pins, or the latest.
+    required: false
+    default: ''
+  baseline:
+    description: For check — fail only on findings the baseline does not already accept.
+    required: false
+    default: 'false'
+  sarif:
+    description: For check — write SARIF to the path given, for upload to code scanning.
+    required: false
+    default: ''
+  args:
+    description: Anything else to pass through, such as --write or --dry-run.
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Resolve the version
+      id: pinned
+      shell: bash
+      run: |
+        version="${{ inputs.version }}"
+        if [ -z "$version" ] && [ -f penstock-wrapper.properties ]; then
+          version=$(grep '^version=' penstock-wrapper.properties | cut -d= -f2 | tr -d '[:space:]')
+        fi
+        echo "version=${version:-latest}" >> "$GITHUB_OUTPUT"
+
+    - name: Run penstock
+      shell: bash
+      env:
+        PENSTOCK_PROFILE: ${{ inputs.profile }}
+      run: |
+        set -o pipefail
+        extra="${{ inputs.args }}"
+        [ "${{ inputs.baseline }}" = "true" ] && extra="$extra --baseline"
+
+        if [ -n "${{ inputs.sarif }}" ]; then
+          npx --yes "penstock@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
+            --format sarif $extra > "${{ inputs.sarif }}"
+        else
+          npx --yes "penstock@${{ steps.pinned.outputs.version }}" ${{ inputs.command }} ${{ inputs.paths }} \
+            --format github $extra
+        fi

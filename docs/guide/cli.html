@@ -83,7 +83,11 @@ npx penstock deploy . --profile prod</code></pre>
       <tr><td>check</td><td>The drawing defects the editor's own panel reports — overlaps, detached connections, elements outside their pool. Exits non-zero when it finds any.</td></tr>
       <tr><td>lint</td><td>bpmnlint with the project's own rules, grouped by the folder each diagram belongs to.</td></tr>
       <tr><td>layout</td><td>Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
-      <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending.</td></tr>
+      <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
+      <tr><td>diff</td><td>What changed between two versions of a process: added, removed and changed elements by name, and "only the drawing moved" when that is all.</td></tr>
+      <tr><td>export</td><td>Render the diagrams as SVG or PNG. Needs <span class="mono">puppeteer</span> installed in the project.</td></tr>
+      <tr><td>report</td><td>One markdown comment for a pull request: check, diff against the base, and pictures.</td></tr>
+      <tr><td>deploy</td><td>Send the diagrams to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
     </table>
 
     <h2>In a pipeline</h2>
@@ -113,6 +117,65 @@ jobs:
       produces SARIF 2.1.0, which GitHub code scanning reads directly and turns into annotations on
       the pull request; <code>--format github</code> produces the annotation lines for a workflow
       that does not use code scanning; <code>--format json</code> is for everything else.</p>
+
+    <h2>Only what is new</h2>
+
+    <p>A first run on a repository that has been drawing diagrams for years is red, and a red build
+      nobody can fix gets switched off. Record what the project already lives with, and check against
+      it from then on:</p>
+
+<pre><code>penstock check . --update-baseline   # writes penstock-baseline.json, commit it
+penstock check . --baseline          # fails only on what is new</code></pre>
+
+    <p>It also says what has been fixed since the baseline was taken, so the file can be refreshed
+      when the backlog shrinks.</p>
+
+    <h2>Before the commit</h2>
+
+    <p><code>penstock init --hooks</code> installs a pre-commit hook that formats and checks the
+      diagrams a commit is carrying, and nothing else. It lives in <span class="mono">.git/hooks</span>,
+      so it is yours rather than the repository's, and deleting the file removes it.</p>
+
+    <h2>Pictures</h2>
+
+<pre><code>penstock export . --format png --out docs/img</code></pre>
+
+    <p>SVG or PNG, rendered by a real browser so the result looks like the diagram rather than an
+      approximation of it. That browser is not carried in the package — install
+      <span class="mono">puppeteer</span> once in the project and the command starts working; without
+      it, it says so and nothing else is affected.</p>
+
+    <h2>A bot in the repository</h2>
+
+    <p><code>penstock init --ci github</code> writes four workflows. The first checks every push. The
+      second comments on any pull request that touches a diagram, with what broke, what changed in
+      the process — by element, from the semantic diff, not from the XML — and a picture of the
+      result. It edits the same comment rather than adding a new one each time.</p>
+
+    <p>The third answers a mention. Anyone can write <code>/penstock check .</code> or
+      <code>/penstock diff a.bpmn b.bpmn</code> in the conversation and get the output back as a
+      reply, which is how a reviewer asks a question without leaving the page.</p>
+
+    <p>The fourth publishes: on merge, <code>penstock deploy . --wait</code> with the
+      <code>prod</code> profile and the secrets from the environment. <code>--wait</code> matters —
+      it asks the engine for the definitions it just accepted until the engine answers, because
+      "deployed" and "running" are not the same claim.</p>
+
+    <p>Pictures in the review comment are published to a <span class="mono">penstock-previews</span>
+      branch in the same repository, which is what lets them appear inline. On a private repository
+      GitHub will not render them for people without access; the comment still carries everything
+      else.</p>
+
+    <h2>The action</h2>
+
+<pre><code>- uses: kern0x1b/penstock-release@main
+  with:
+    command: check
+    baseline: 'true'
+    sarif: penstock.sarif</code></pre>
+
+    <p>The same thing as the npx line, with the version taken from
+      <span class="mono">penstock-wrapper.properties</span> when the project pins one.</p>
 
     <h2>Deploying from CI</h2>
 
