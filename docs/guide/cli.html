@@ -99,6 +99,7 @@ penstock/wrapper/penstock-wrapper.properties the version, and where to get it</c
       <tr><td>check</td><td>The drawing defects the editor's own panel reports — overlaps, detached connections, elements outside their pool. Exits non-zero when it finds any.</td></tr>
       <tr><td>lint</td><td>bpmnlint with the project's own rules, grouped by the folder each diagram belongs to.</td></tr>
       <tr><td>analyze</td><td>Pro. Whether each process can actually run: deadlocks, branches that run twice, steps that can never run, loops with no way out — each with the path that leads there. Exits non-zero when it finds any.</td></tr>
+      <tr><td>code</td><td>Pro. Compare the diagrams with the code: a service task, listener or external task whose job type, topic, class or Spring bean has nothing in the project to run it, a call activity that calls a process no diagram defines, and a worker no diagram uses — each with the file and line. Workers are read from Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#; connectors and job types set by an expression are left alone.</td></tr>
       <tr><td>paths</td><td>Pro. Every distinct way through each process, with the decision taken at each gateway and its condition. <code>--format md</code> writes it as a checklist for a test plan.</td></tr>
       <tr><td>docs</td><td>Pro. A page for every process — its picture, steps with who and what runs them, decisions and their conditions, events, the data each step sets and reads, and whether it runs to its end. HTML by default, <code>--format md</code> for a wiki, into <code>--out</code>.</td></tr>
       <tr><td>layout</td><td>Pro. Lay the diagrams out with the project's spacing. <code>--write</code> saves; without it, it says what would change.</td></tr>
@@ -193,7 +194,8 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
     <p><span class="mono">penstock mcp</span> serves the project's diagrams over the Model Context
       Protocol, with the same contract: <span class="mono">list_diagrams</span>,
       <span class="mono">show_diagram</span>, <span class="mono">check_diagram</span>,
-      <span class="mono">analyze_flow</span>, <span class="mono">list_scenarios</span> and
+      <span class="mono">analyze_flow</span>, <span class="mono">list_scenarios</span>,
+      <span class="mono">check_code_links</span> and
       <span class="mono">edit_diagram</span>, limited to files inside the project. An agent that
       edits a diagram can check straight away that it still runs to its end.
       <span class="mono">penstock mcp --config</span> prints the entry for a client's configuration.</p>
