@@ -12,28 +12,37 @@ inputs:
     required: false
     default: ${{ github.token }}
   version:
-    description: The version of penstock to run. Defaults to the one the project pins, or the latest.
+    description: The version of Penstock to run. By default the project's penstockw runs the version it pins.
     required: false
     default: ''
 
 runs:
   using: composite
   steps:
-    - name: Resolve the version
+    - name: Keep downloaded Penstock versions between runs
+      if: inputs.version == '' && hashFiles('penstock/wrapper/penstock-wrapper.properties') != ''
+      uses: actions/cache@v4
+      with:
+        path: ~/.penstock/wrapper/dists
+        key: penstock-${{ runner.os }}-${{ hashFiles('penstock/wrapper/penstock-wrapper.properties') }}
+
+    - name: Choose how to run Penstock
       id: pinned
       shell: bash
       run: |
-        version="${{ inputs.version }}"
-        if [ -z "$version" ] && [ -f penstock-wrapper.properties ]; then
-          version=$(grep '^version=' penstock-wrapper.properties | cut -d= -f2 | tr -d '[:space:]')
+        if [ -n "${{ inputs.version }}" ]; then
+          echo "run=npx --yes @penstock/cli@${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+        elif [ -f penstockw ]; then
+          echo "run=sh ./penstockw" >> "$GITHUB_OUTPUT"
+        else
+          echo "run=npx --yes @penstock/cli@latest" >> "$GITHUB_OUTPUT"
         fi
-        echo "version=${version:-latest}" >> "$GITHUB_OUTPUT"
 
     - name: Read the change
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
-      run: npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" bot . --stage draw
+      run: ${{ steps.pinned.outputs.run }} bot . --stage draw
 
     - name: Keep the picture with this run
       id: picture
@@ -49,4 +58,4 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
         PENSTOCK_PICTURES_URL: ${{ steps.picture.outputs.artifact-url }}
-      run: npx --yes "@penstock/cli@${{ steps.pinned.outputs.version }}" bot . --stage post
+      run: ${{ steps.pinned.outputs.run }} bot . --stage post

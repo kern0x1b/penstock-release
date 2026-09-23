@@ -63,12 +63,27 @@
 npx @penstock/cli lint .
 npx @penstock/cli deploy . --profile prod</code></pre>
 
-    <p>Or pin a version for everyone, the way <span class="mono">gradlew</span> does:
-      <span class="mono">penstock init</span> drops a <span class="mono">penstockw</span> wrapper and
-      a <span class="mono">penstock-wrapper.properties</span> next to your diagrams. Commit both, and
-      a laptop and a CI runner cannot disagree about which version they are using.</p>
+    <p>Or pin a version for everyone, the way <span class="mono">gradlew</span> does.
+      <span class="mono">penstock init</span> writes the same layout Gradle uses:</p>
 
-<pre><code>./penstockw check .</code></pre>
+<pre><code>penstockw                                    run this instead of penstock
+penstockw.cmd                                the same, on Windows
+penstock/wrapper/penstock-wrapper.properties the version, and where to get it</code></pre>
+
+    <p>Commit all three, and a laptop and a CI runner cannot disagree about which version they are
+      running. The CLI itself is not committed: the first run downloads the pinned version into
+      <span class="mono">~/.penstock/wrapper/dists</span>, and every run after that starts from
+      there, offline.</p>
+
+<pre><code>./penstockw check .
+./penstockw update          # the latest version
+./penstockw update 2.5.0    # a version of your choosing</code></pre>
+
+    <p><span class="mono">update</span> pins the version, downloads it, and replaces the wrapper
+      scripts with the ones that version ships, as <span class="mono">gradle wrapper</span> does.
+      Editing the version in the properties file by hand works too — the next run notices it is not
+      downloaded yet and fetches it. A company registry or a tarball goes in
+      <span class="mono">distribution=</span> in the same file.</p>
 
     <p>Paths default to the working directory, and the configuration is read from there upward, so
       it does not matter which folder you run it in — the same rule Maven follows with a pom.</p>
@@ -193,8 +208,8 @@ penstock check . --baseline          # fails only on what is new</code></pre>
     baseline: 'true'
     sarif: penstock.sarif</code></pre>
 
-    <p>The same thing as the npx line, with the version taken from
-      <span class="mono">penstock-wrapper.properties</span> when the project pins one.</p>
+    <p>The action runs the project's <span class="mono">penstockw</span> when there is one, so CI
+      runs exactly the version the project pins, and keeps the download cached between runs.</p>
 
     <h2>Deploying from CI</h2>
 
