@@ -32,20 +32,16 @@
       }
     },
     "lint": {
-      "description": "bpmnlint wiring. All three paths are needed before linting runs.",
+      "description": "Which bpmnlint rules the check and penstock lint apply. Without it, .bpmnlintrc in the project root, or bpmnlint:recommended when there is none.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "binaryPath": {
-          "description": "Path to the bpmnlint executable.",
-          "type": "string"
-        },
         "configPath": {
-          "description": "Path to .bpmnlintrc.",
+          "description": "Path to the .bpmnlintrc to use, relative to the project root.",
           "type": "string"
         },
         "clientBundlePath": {
-          "description": "Path to the bundled browser build of the rules.",
+          "description": "A bundle of rules from bpmnlint plugins for the editor, built with bpmnlint-pack-config. Needed only when .bpmnlintrc uses a plugin; the command line reads plugins from node_modules.",
           "type": "string"
         }
       }
@@ -246,20 +242,16 @@
           }
         },
         "lint": {
-          "description": "bpmnlint wiring. All three paths are needed before linting runs.",
+          "description": "Which bpmnlint rules the check and penstock lint apply. Without it, .bpmnlintrc in the project root, or bpmnlint:recommended when there is none.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "binaryPath": {
-              "description": "Path to the bpmnlint executable.",
-              "type": "string"
-            },
             "configPath": {
-              "description": "Path to .bpmnlintrc.",
+              "description": "Path to the .bpmnlintrc to use, relative to the project root.",
               "type": "string"
             },
             "clientBundlePath": {
-              "description": "Path to the bundled browser build of the rules.",
+              "description": "A bundle of rules from bpmnlint plugins for the editor, built with bpmnlint-pack-config. Needed only when .bpmnlintrc uses a plugin; the command line reads plugins from node_modules.",
               "type": "string"
             }
           }
