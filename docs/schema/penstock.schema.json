@@ -189,12 +189,8 @@
           "description": "Deployment source recorded by the engine.",
           "type": "string"
         },
-        "duplicateFiltering": {
-          "description": "Skip a deployment identical to the last one.",
-          "type": "boolean"
-        },
         "changedOnly": {
-          "description": "Send only the diagrams that changed.",
+          "description": "Leave out what the engine already has unchanged. On unless set to false.",
           "type": "boolean"
         },
         "activationTime": {
@@ -206,7 +202,7 @@
           "additionalProperties": false,
           "properties": {
             "type": {
-              "description": "How to authenticate against the engine.",
+              "description": "How to authenticate against the engine. The password or client secret comes from the IDE password safe, or from PENSTOCK_PASSWORD and PENSTOCK_CLIENT_SECRET on the command line.",
               "type": "string",
               "enum": [
                 "none",
@@ -434,12 +430,8 @@
               "description": "Deployment source recorded by the engine.",
               "type": "string"
             },
-            "duplicateFiltering": {
-              "description": "Skip a deployment identical to the last one.",
-              "type": "boolean"
-            },
             "changedOnly": {
-              "description": "Send only the diagrams that changed.",
+              "description": "Leave out what the engine already has unchanged. On unless set to false.",
               "type": "boolean"
             },
             "activationTime": {
@@ -451,7 +443,7 @@
               "additionalProperties": false,
               "properties": {
                 "type": {
-                  "description": "How to authenticate against the engine.",
+                  "description": "How to authenticate against the engine. The password or client secret comes from the IDE password safe, or from PENSTOCK_PASSWORD and PENSTOCK_CLIENT_SECRET on the command line.",
                   "type": "string",
                   "enum": [
                     "none",
