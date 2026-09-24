@@ -168,16 +168,20 @@
 
     <h2>Export</h2>
 
-    <p><strong>Export…</strong> in the More menu opens the save dialog straight away. The name you
-      give decides the format: <span class="mono">.svg</span>, <span class="mono">.png</span> or
-      <span class="mono">.pdf</span>. The picture is always drawn light on white, whatever the IDE's
-      theme, in the style the editor is using - Sketchy Drawing included. A PDF has the diagram on
-      its first page and then a page for each collapsed subprocess that has something drawn in it,
-      titled with the subprocess's name.</p>
+    <figure class="shot">
+      <img src="../img/export-dialog.png" alt="The export dialog with a preview of the diagram">
+      <figcaption>Export renders the diagram at the theme and format you choose, with a live preview.</figcaption>
+    </figure>
 
-    <p>To export many diagrams at once, right-click a folder in the Penstock tool window and choose
-      <strong>Export…</strong>: it asks for a target folder and SVG or PNG, and runs
-      <span class="mono">penstock export</span>. PNG there needs puppeteer installed in the project.</p>
+    <p>Export opens a dialog with a live preview beside four choices: theme (Light, Dark, Dracula),
+    schema (Default, or Sketchy, which draws the diagram hand-drawn in the Virgil font), format (SVG,
+    PNG or PDF), and whether to paint the theme background behind the diagram or leave it
+    transparent. Collapsed subprocesses get a fifth control, to export one of those instead.</p>
+
+    <p>SVG is written as rendered. PNG is rasterised at twice the diagram's size, capped at 8192
+    pixels on the longer side so large diagrams stay inside the browser's canvas limit. PDF is that
+    PNG on a single A4 page, portrait or landscape by aspect ratio, scaled to fit under a heading.
+    The IDE's save dialog then asks where to put it.</p>
 
     <h2>Comparing two versions of a diagram</h2>
 
@@ -216,7 +220,7 @@
         <a href="deployment.html">Deployment</a>.</td></tr>
       <tr><td>Minimap</td><td>Toggles the overview.</td></tr>
       <tr><td>Copy, Paste</td><td>To and from the system clipboard.</td></tr>
-      <tr><td>Export…</td><td>Saves the diagram as a picture.</td></tr>
+      <tr><td>Export…</td><td>Opens the export dialog: theme, drawing style, format and background, with a preview.</td></tr>
       <tr><td>Templates…</td><td>The connector template browser. Camunda 8 only. See
         <a href="element-templates.html">Element templates</a>.</td></tr>
       <tr><td>Sketchy Drawing</td><td>Draws the diagram as if by hand. A personal choice; the file
