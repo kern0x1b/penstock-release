@@ -65,13 +65,13 @@
       what it is about.</figcaption>
     </figure>
 
-    <h2>What it is not</h2>
+    <h2>Drawing and rules</h2>
 
-    <p>This is not <a href="validation.html">bpmnlint</a>. bpmnlint answers whether the process is
-    modelled correctly — an event with no outgoing flow, a gateway with no condition. The check
-    answers whether the diagram can be read: it knows nothing about process semantics and never
-    looks at an attribute. Both can be useful on the same file, and they never report the same
-    thing.</p>
+    <p>The drawing measures are not <a href="validation.html">bpmnlint</a>. bpmnlint answers whether
+    the process is modelled correctly — an event with no outgoing flow, a gateway with no
+    condition. The drawing measures answer whether the diagram can be read: they know nothing about
+    process semantics and never look at an attribute. The card shows both, in separate groups, and
+    they never report the same thing.</p>
 
     <h2>How it runs</h2>
 
@@ -99,7 +99,8 @@
     </table>
 
     <p>Without Pro, the panel says how many such problems it found. The same analysis runs in a
-      terminal as <span class="mono">penstock analyze</span>.</p>
+      terminal as the flow section of <span class="mono">penstock check</span>, or alone as
+      <span class="mono">penstock check --only flow</span>.</p>
 
     <h2>Problems</h2>
 
@@ -125,9 +126,17 @@
         comes back along the same line. It reads as a single line drawn twice.</td></tr>
     </table>
 
+    <h2>Rules</h2>
+
+    <p>The next group is what bpmnlint reports, with the project's <code>.bpmnlintrc</code> or,
+    when there is none, <code>bpmnlint:recommended</code>. Each line gives the message, the element
+    it is about and the rule's name; a rule set to warn is marked as a warning and is not counted
+    as a problem in the header. If the rules cannot run, the group says why instead. See
+    <a href="validation.html">Validation</a>.</p>
+
     <h2>Readability</h2>
 
-    <p>The second group is collapsed, and deliberately so: a diagram drawn by hand always has some
+    <p>The last group is collapsed, and deliberately so: a diagram drawn by hand always has some
     of these, and a count of zero is not the goal. They are worth reading when a diagram is hard
     to follow and you want to know why.</p>
 

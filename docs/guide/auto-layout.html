@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Auto layout — Penstock</title>
-<meta name="description" content="What Penstock's Auto Layout does to a BPMN diagram: a full reflow into a left-to-right flow, the properties it will not violate, the preview tab you apply it from, and the spacing values in .bpmnlayoutrc.">
+<meta name="description" content="What Penstock's Auto Layout does to a BPMN diagram: a full reflow into a left-to-right flow, the properties it will not violate, and how to run it and take it back.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,44 +138,25 @@
     type with the same source and the same target, the second one is deleted before the layout
     runs.</p>
 
-    <h2>Running it, and the preview</h2>
+    <h2>Running it</h2>
 
-    <p>There are two ways in. The diagram editor's toolbar has an <strong>Auto Layout</strong>
-    button, which lays out the open diagram directly. In the <strong>BPMN Project</strong> tool
-    window, expanding a diagram gives an <code>autoLayout</code> entry; that one opens the diagram
-    and then a preview beside it, in a read-only tab named <span class="mono">Auto Layout:
-    &lt;name&gt;</span>, where the name is the file's without its extension. Nothing in your file
-    has changed at that point.</p>
+    <p>Auto layout is part of Penstock Pro. The diagram editor's toolbar has an <strong>Auto
+    Layout</strong> button, which lays out the open diagram at once. A message follows, with
+    <strong>Undo</strong> in it: the change goes through the editor's command stack like any other
+    edit, so that button, or Undo in the toolbar, takes it back. There is no save step: the new
+    positions are written to the file as soon as they land on the canvas, the same as any other
+    edit. To compare the result with what was saved before, use the diagram diff described under
+    <a href="editing.html">Editing a diagram</a>.</p>
 
-    <p>The preview shows two canvases, <em>Current</em> above <em>After auto layout</em>, switchable
-    to side by side. A <strong>Changes</strong> panel lists everything the layout would do, one row
-    per element: moved, resized, added, removed or changed, colour-coded, with the move written out
-    as <span class="mono">x +120, y -40</span> and a resize as the old size and the new one. Counts
-    per kind sit in the toolbar. Selecting a row scrolls both canvases to that element and selects
-    it, so you can compare the before and the after of one thing at a time. <strong>Open XML
-    diff</strong> puts the two XML documents into the IDE's own diff viewer if you would rather read
-    the change that way.</p>
-
-    <p><strong>Apply layout</strong> runs the layout on the open diagram and closes the preview
-    tab. The change goes through the editor's command stack like any other edit, so Undo takes it
-    back. There is no save step: the new positions are written to the file as soon as they land on
-    the canvas, the same as any other edit. See <a href="editing.html">Editing a diagram</a>.</p>
+    <p>In a terminal, <span class="mono">penstock layout</span> lays the diagrams out and says what
+    would change; <span class="mono">--write</span> saves the result. See
+    <a href="cli.html">Command line</a>.</p>
 
     <h2>Spacing</h2>
 
-    <p>Four values control how much room the engine leaves. They come from a
-    <code>layout</code> in <code>penstock.yaml</code> file in the project root, which you write yourself; if it is absent
-    or unreadable, the defaults are used.</p>
-
-    <table class="facts">
-      <tr><td>nodesep</td><td>Default <code>40</code>. Pixels between elements in the same column.</td></tr>
-      <tr><td>ranksep</td><td>Default <code>80</code>. Pixels between columns.</td></tr>
-      <tr><td>marginX</td><td>Default <code>40</code>. Horizontal margin.</td></tr>
-      <tr><td>marginY</td><td>Default <code>40</code>. Vertical margin.</td></tr>
-    </table>
-
-    <p>The file is read on every run. See <a href="settings.html">Configuration</a> for
-    the full description.</p>
+    <p>Spacing is not a setting. The engine is tuned to its own spacing, and a few pixels either way
+    made its layouts measurably worse, so <code>layout</code> in <code>penstock.yaml</code> and
+    <code>.bpmnlayoutrc</code> are no longer read.</p>
 
     <h2>What it trades away</h2>
 
@@ -191,7 +172,7 @@
     layout gives back, particularly a collaboration with several pools talking to each other. Auto
     layout is worth reaching for on a diagram you did not draw, on one that has been edited until
     it is unreadable, and on generated output. On a drawing you have already tuned, look at the
-    preview before you apply it.</p>
+    result before you go on, and take it back with Undo if it reads worse.</p>
 
   </div>
 

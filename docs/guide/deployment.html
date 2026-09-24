@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deployment — Penstock</title>
-<meta name="description" content="How Penstock sends the open diagram to a Camunda 7 or Camunda 8 engine, which authentication methods it supports, and where credentials are stored.">
+<meta name="description" content="How Penstock sends the open diagram to a Camunda 7 or Camunda 8 engine in one click, how profiles and the Connection dialog work, which authentication methods it supports, and where the address and credentials are stored.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,172 +51,194 @@
     </ul>
   </nav>
 
-  <div class="docbody">
+    <div class="docbody">
     <h1>Deployment</h1>
 
     <p class="lede">
-      Penstock can send the diagram you are editing to a running Camunda 7 or Camunda 8 engine.
-      The request to the engine is made by the IDE process, not by the embedded browser, so no CORS
-      configuration is needed on the engine. Credentials are typed into the dialog and handed to the
-      IDE with the request. A credential that is kept for next time goes to the IDE password safe,
-      never to a project file.
+      Deploy is one click. It sends the diagram you are editing to the engine
+      <code>penstock.yaml</code> points at - the profile in force, with its deployment name, tenant
+      and hooks - and asks only for the engine address and the sign-in, the first time. The request
+      to the engine is made by the IDE process, not by the embedded browser, so no CORS
+      configuration is needed on the engine. Secrets go to the IDE password safe, never to a
+      project file.
     </p>
 
-    <h2>Opening the dialog</h2>
-
-    <figure class="shot">
-      <img src="../img/deploy-dialog.png" alt="The deployment dialog for Camunda 7">
-      <figcaption>Deploying to Camunda 7. The fields change with the engine the project is set to.</figcaption>
-    </figure>
+    <h2>Deploying</h2>
 
     <p>
-      The <strong>Deploy</strong> button appears in the editor toolbar when the project's engine
-      profile is Camunda 7 or Camunda 8. Under the Classic BPMN 2.0 profile there is no deployment
-      target, so the button is not shown. See
-      <a href="engine-profiles.html">Engine profiles</a> for how the profile is chosen.
+      The <strong>Deploy</strong> button sits at the right of the editor toolbar when the diagram's
+      engine profile is Camunda 7 or Camunda 8. Under the Classic BPMN 2.0 profile there is no
+      deployment target, so the button is not shown. See
+      <a href="engine-profiles.html">Engine profiles</a> for how the profile is chosen. The DMN and
+      form editors have the same button.
     </p>
 
     <p>
-      Pressing Deploy exports the current state of the canvas and opens a dialog titled
-      <strong>Deploy to Camunda 7</strong> or <strong>Deploy to Camunda 8</strong>, depending on the
-      profile. What is sent is the diagram as it stands in the editor, including edits you have not
-      saved to disk yet.
+      Pressing Deploy sends the current state of the canvas, including edits that have not reached
+      the disk yet, to the profile in force. Its tooltip names the address it will use. A message
+      says where the diagram went, or what the engine answered.
     </p>
+
+    <p>
+      The arrow next to Deploy opens a short menu. When <code>penstock.yaml</code> defines profiles,
+      it has a <strong>Deploy to &lt;profile&gt;</strong> entry for each of them, and
+      <strong>Deploy to default</strong> for the plain settings, so a diagram can go to staging
+      without changing which profile is in force. <strong>Connection…</strong> edits the engine
+      address and the sign-in of the profile in force.
+    </p>
+
+    <h2>The Connection dialog</h2>
+
+    <p>
+      The first time you deploy to a profile that has no engine address, or whose sign-in has no
+      password or client secret stored yet, the Connection dialog opens instead. Its title names the
+      engine and the profile, such as <em>Camunda 8 · prod</em>.
+    </p>
+
+    <table class="facts">
+      <tr><td>Engine address</td><td>The Camunda 7 REST API, such as
+        <code>http://localhost:8080/engine-rest</code>, or the Camunda 8 REST address, such as
+        <code>http://localhost:8088</code>. Required, <code>http</code> or <code>https</code></td></tr>
+      <tr><td>Sign in</td><td><em>Not needed</em>, <em>User and password</em>, or <em>OAuth
+        client</em></td></tr>
+      <tr><td>User, Password</td><td>For <em>User and password</em>, sent as
+        <code>Authorization: Basic</code></td></tr>
+      <tr><td>Client id, Client secret, Token address, Audience</td><td>For <em>OAuth client</em>:
+        the client credentials grant. The audience is optional</td></tr>
+    </table>
+
+    <p>
+      <strong>Save and Deploy</strong> keeps what you entered and deploys. The address and the
+      sign-in type, user name, client id, token address and audience go to
+      <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which
+      stays on this machine; see <a href="settings.html">Configuration</a>. The password or client
+      secret goes to the IDE password safe, separately for each profile.
+    </p>
+
+    <h2>What is set in penstock.yaml</h2>
+
+    <p>
+      Everything else about a deployment is part of the project, not the dialog: the deployment
+      name, the tenant, the source, the activation time and whether to leave out what the engine
+      already has. A profile overrides any of it for another environment.
+    </p>
+
+<pre><code>deployment:
+  url: http://localhost:8080/engine-rest
+  name: Order handling
+  tenantId: orders
+  changedOnly: true
+
+profiles:
+  prod:
+    deployment:
+      url: https://bpm.example.com/engine-rest
+      auth:
+        type: oauth
+        clientId: penstock
+        tokenUrl: https://auth.example.com/oauth/token
+
+hooks:
+  preDeploy: npm run verify-workers
+  postDeploy: ./notify-release.sh</code></pre>
+
+    <table class="facts">
+      <tr><td><code>name</code></td><td>Defaults to <code>Penstock deployment</code>, so the
+        engine's duplicate check can match one deployment to the next</td></tr>
+      <tr><td><code>source</code></td><td>Defaults to <code>penstock</code></td></tr>
+      <tr><td><code>tenantId</code></td><td>Empty means the default tenant</td></tr>
+      <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has unchanged.
+        On unless set to <code>false</code></td></tr>
+      <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means activate
+        immediately. Camunda 7</td></tr>
+    </table>
 
     <h2>What is sent</h2>
 
     <p>
-      The diagram goes to the engine as one <code>multipart/form-data</code> POST. It carries a
-      single file part, filename <code>process.bpmn</code>, content type
-      <code>application/xml</code>. The form field name of that part is <code>process.bpmn</code>
-      on Camunda 7 and <code>upload</code> on Camunda 8. Camunda 7 sends the dialog's other settings
-      as plain form fields beside it. Nothing else from the project is included — no other diagrams,
-      no element templates, no settings file. OAuth2 is the one case that makes a second request:
-      the token request that precedes the deployment.
-    </p>
-
-    <h2>Camunda 7</h2>
-
-    <p>
-      The URL you give is the base of the engine's REST API; Penstock appends
-      <code>/deployment/create</code> to it. The dialog's fields map one to one onto the form fields
-      of that endpoint.
+      The diagram goes to the engine as one <code>multipart/form-data</code> POST carrying a single
+      file part named after the file, with content type <code>application/xml</code>
+      (<code>application/json</code> for a form). Nothing else from the project is included - no
+      other diagrams, no element templates, no settings file. OAuth is the one case that makes a
+      second request: the token request that precedes the deployment.
     </p>
 
     <table class="facts">
-      <tr><td>Camunda 7 REST API URL</td><td>Defaults to <code>http://localhost:8080/engine-rest</code></td></tr>
-      <tr><td>Deployment Name</td><td>Required. Defaults to <code>BPMN Deployment - </code> followed by today's date</td></tr>
-      <tr><td>Tenant ID</td><td>Optional. Empty means the default tenant</td></tr>
-      <tr><td>Deployment Source</td><td>Optional. Defaults to <code>jetbrains-bpmn-editor</code></td></tr>
-      <tr><td>Enable Duplicate Filtering</td><td>Off by default</td></tr>
-      <tr><td>Deploy Changed Only</td><td>Off by default. Overrides duplicate filtering</td></tr>
-      <tr><td>Activation Time</td><td>Optional ISO 8601 timestamp. Empty means activate immediately</td></tr>
+      <tr><td>Camunda 7</td><td><code>/deployment/create</code> is appended to the address. The
+        deployment name, source, tenant and activation time go as form fields beside the file, and
+        <code>changedOnly</code> sets both <code>enable-duplicate-filtering</code> and
+        <code>deploy-changed-only</code></td></tr>
+      <tr><td>Camunda 8</td><td><code>/v2/deployments</code> is appended to the address; an
+        address that already ends in <code>/v2</code> works as well. The file goes as
+        <code>resources</code>, with <code>tenantId</code> beside it when one is set</td></tr>
     </table>
 
     <p>
-      Authentication for Camunda 7 is HTTP basic only. Tick <strong>Use Authentication</strong> and
-      give a username and password; both are then required before the dialog will submit. The
-      credentials are sent as an <code>Authorization: Basic</code> header.
+      <code>penstock deploy</code> on the command line uses the same addresses and the same
+      settings, so the IDE and a pipeline mean the same thing by <code>deployment.url</code>. See
+      <a href="cli.html">Command line</a>.
     </p>
 
-    <h2>Camunda 8</h2>
+    <h2>OAuth</h2>
 
     <p>
-      Camunda 8 deployment goes to the Orchestration Cluster REST API. Give the v2 API base URL; if
-      it does not already end in <code>/deployments</code>, that path is appended. The field
-      defaults to <code>http://localhost:8080/v2</code>. For SaaS the dialog shows the shape of the
-      cluster endpoint:
+      With <em>OAuth client</em>, Penstock first POSTs <code>grant_type=client_credentials</code>
+      with the client id and secret to the token address as a form-encoded body, reads
+      <code>access_token</code> out of the JSON response, and uses it as a bearer token on the
+      deployment request. If the token endpoint cannot be reached, answers with a non-2xx status,
+      or returns a body without an access token, the deployment stops there and the error says which
+      of the three happened. The audience is sent only when you fill it in. The token request has
+      its own 15-second timeout.
     </p>
 
-<pre><code>https://[region].zeebe.camunda.io/[cluster]/v2</code></pre>
+    <h2>Hooks</h2>
 
     <p>
-      There are no deployment name, tenant or filtering options here — Camunda 8 takes none. The
-      dialog notes that a Camunda 8 deployment is atomic and that the maximum request size is 4 MB.
+      <code>preDeploy</code> and <code>postDeploy</code> in <code>penstock.yaml</code> run around a
+      deployment from the IDE, as they do on the command line. They run in the project root with
+      <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and
+      <code>PENSTOCK_PROFILE</code> set. A <code>preDeploy</code> that fails stops the deployment,
+      and nothing is sent; <code>postDeploy</code> runs after a successful one.
     </p>
 
-    <h3>Authentication methods</h3>
-
-    <table class="facts">
-      <tr><td>None</td><td>No authorization header. Intended for local development</td></tr>
-      <tr><td>Basic Authentication</td><td>Username and password, sent as <code>Authorization: Basic</code></td></tr>
-      <tr><td>Bearer Token</td><td>A token you have already obtained, sent as <code>Authorization: Bearer</code></td></tr>
-      <tr><td>OAuth2 / OIDC</td><td>Client credentials grant. Client ID, client secret, token URL, and an optional audience</td></tr>
-      <tr><td>API Key</td><td>A key for Camunda SaaS, sent as <code>Authorization: Bearer</code></td></tr>
-    </table>
-
     <p>
-      With OAuth2 selected, Penstock first POSTs <code>grant_type=client_credentials</code> to the
-      token URL as a form-encoded body, reads <code>access_token</code> out of the JSON response,
-      and uses it as a bearer token on the deployment request. If the token endpoint cannot be
-      reached, answers with a non-2xx status, or returns a body without an access token, the
-      deployment stops there and the error says which of the three happened. The audience field is
-      sent only when you fill it in. The token request has its own 15-second timeout.
-    </p>
-
-    <h2>Saved settings and credentials</h2>
-
-    <p>
-      What you enter is remembered for the next deployment, in two different places depending on
-      whether it is a secret. Pressing Deploy writes the non-secret fields to the project
-      configuration whether or not <strong>Save Preferences</strong> is ticked; the checkbox governs
-      the secrets only.
-    </p>
-
-    <div class="grid">
-      <div>
-        <h3>Project configuration</h3>
-        <p>URLs, deployment name, tenant, source, the filtering checkboxes, activation time,
-          authentication type, username, client ID, token URL and audience. These go to the
-          project's <code>bpmn-project.xml</code>.</p>
-      </div>
-      <div>
-        <h3>IDE password safe</h3>
-        <p>Password, bearer token, client secret and API key. These go to the IDE's own credential
-          store, scoped to the project, and are never written to a project file.</p>
-      </div>
-    </div>
-
-    <p>
-      Unticking Save Preferences and deploying again erases the stored secrets from the password
-      safe. Secrets are read back into the dialog only while Save Preferences is on.
+      Hooks run only in a trusted project. In a project the IDE does not trust, a configured
+      <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.
     </p>
 
     <h2>Feedback</h2>
 
     <p>
-      A notification appears in the editor while the request is in flight, and again when it
-      finishes. A successful Camunda 7 deployment reports the deployment ID, and the name of the
-      deployed process definition when the engine's reply lists one; a successful Camunda 8
-      deployment reports the deployment key.
+      A message appears in the editor while the request is in flight, and again when it finishes. A
+      successful deployment names the file and the address it went to.
     </p>
 
     <p>
-      If the engine rejects the deployment, the notification carries the HTTP status code and the
-      engine's response body verbatim, which is where the useful detail usually is. A Camunda 8
-      reply of 503 mentioning <code>RESOURCE_EXHAUSTED</code> is reported as backpressure, with the
-      advice to retry with exponential backoff.
-    </p>
-
-    <p>
-      While a deployment is running, the dialog's Cancel button aborts it. The request also times
-      out on its own after 30 seconds.
+      If the engine rejects the deployment, the message carries the address, the HTTP status code
+      and the engine's own message from its response, which is where the useful detail usually is.
+      A request that never reached the engine says <em>Could not reach the engine at
+      &lt;url&gt;</em>. A deployment with no address anywhere says so and points at
+      <code>deployment.url</code> or the Connection dialog. The request times out on its own after 30
+      seconds, and the connection after 10.
     </p>
 
     <h2>Security</h2>
 
     <p>
-      Deployment is the only thing that sends anything off the machine. The plugin makes no
-      outbound calls of its own — no telemetry, no update polling, no background fetches. The
-      licence is checked against the data the IDE already holds, and the element template catalogue
-      the editor shows is read from files bundled with the plugin. A diagram leaves the machine only
-      when you press Deploy, and only to the URL configured in the dialog.
+      Deployment is the only thing that sends a diagram off the machine. The plugin makes no other
+      outbound calls of its own apart from the licence check, which talks to the licence service
+      about the licence and nothing else - no telemetry, no update polling. A command-line action
+      run from the Penstock tool window downloads the penstock CLI the first time it needs a
+      version it does not have yet. The element template
+      catalogue the editor shows is read from files bundled with the plugin. A diagram leaves the
+      machine only when you press Deploy, and only to the address configured for the profile.
     </p>
 
     <p>
-      Because credentials are held by the IDE password safe rather than the project file, a
-      <code>bpmn-project.xml</code> committed to version control carries the endpoint and the
-      username but no secret.
+      Because secrets are held by the IDE password safe, nothing a deployment needs to sign in is
+      committed with the project. The address typed into the Connection dialog stays in
+      <code>penstock.local.yaml</code>, which Penstock adds to <code>.gitignore</code> when the
+      project has one.
     </p>
   </div>
 

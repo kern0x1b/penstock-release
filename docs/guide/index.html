@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Documentation — Penstock</title>
-<meta name="description" content="Contents page for the Penstock documentation: getting started, engine profiles, editing, element templates, validation, deployment, auto layout, settings and troubleshooting.">
+<meta name="description" content="Contents page for the Penstock documentation: getting started, engine profiles, editing, element templates, validation, deployment, auto layout, configuration, the command line, plans and troubleshooting.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@
   <div class="docbody">
     <h1>Documentation</h1>
 
-    <p class="lede">Penstock is a BPMN 2.0 editor that runs inside JetBrains IDEs. These eleven
+    <p class="lede">Penstock is a BPMN 2.0 editor that runs inside JetBrains IDEs. These thirteen
     pages cover it from installation to troubleshooting. Read them in order the first time, or go
     straight to the one you need.</p>
 
@@ -64,8 +64,8 @@
       <tr>
         <td><a href="getting-started.html">Getting started</a></td>
         <td>Requirements, installing from the Marketplace, which files open in the diagram
-          editor, choosing the engine profile, and a tour of the toolbar and the BPMN Project
-          tool window.</td>
+          editor, how the engine is chosen, and a tour of the toolbar and the Penstock tool
+          window.</td>
       </tr>
       <tr>
         <td><a href="engine-profiles.html">Engine profiles</a></td>
@@ -86,15 +86,16 @@
       </tr>
       <tr>
         <td><a href="element-templates.html">Element templates</a></td>
-        <td>Which JSON files Penstock reads as element templates — the list you keep in settings,
-          not a scan of the project — what it does with each one, and how the bundled connector
-          browser, shown under Camunda 8, writes a template into the project and adds it to that
-          list.</td>
+        <td>Which JSON files Penstock reads as element templates - the files and folders
+          <code>penstock.yaml</code> lists, and every <code>.camunda/element-templates</code> folder
+          from the diagram up - what it does with each one, and how the bundled connector browser,
+          shown under Camunda 8, writes a template into the project.</td>
       </tr>
       <tr>
         <td><a href="validation.html">Validation</a></td>
-        <td>Running the project's own <code>bpmnlint</code>: the three paths it needs, the trusted
-          project requirement, and what each message in the Run window means.</td>
+        <td>bpmnlint without setup: the built-in rules, a project <code>.bpmnlintrc</code> that
+          replaces them, rules from plugins, and where the findings appear in the editor and on the
+          command line.</td>
       </tr>
       <tr>
         <td><a href="diagram-check.html">Diagram check</a></td>
@@ -104,14 +105,14 @@
       </tr>
       <tr>
         <td><a href="deployment.html">Deployment</a></td>
-        <td>Sending the open diagram to a Camunda 7 or Camunda 8 engine, the authentication
-          methods for each, and where the credentials are stored.</td>
+        <td>Sending the open diagram to a Camunda 7 or Camunda 8 engine in one click, deploying to
+          another profile, the Connection dialog, hooks, and where the address and the credentials
+          are stored.</td>
       </tr>
       <tr>
         <td><a href="auto-layout.html">Auto layout</a></td>
-        <td>What the layout engine does to a diagram and what it will not produce, the preview
-          that shows the result before it is applied, and the spacing values you can set in
-          <code>.bpmnlayoutrc</code>.</td>
+        <td>What the layout engine does to a diagram and what it will not produce, how to run it,
+          and how to take it back.</td>
       </tr>
       <tr>
         <td><a href="cli.html">Command line</a></td>
@@ -121,13 +122,18 @@
       <tr>
         <td><a href="settings.html">Configuration</a></td>
         <td>One hand-written <code>penstock.yaml</code> per project, overridden by the one nearest
-          the diagram, with a schema the IDE reads for completion - and the settings page it
-          replaces.</td>
+          the diagram, with a schema the IDE reads for completion - and the personal view settings
+          kept outside it.</td>
+      </tr>
+      <tr>
+        <td><a href="plans.html">Plans and licence</a></td>
+        <td>What is free, what Pro and Team add, the one rule that decides which a feature needs,
+          buying and signing in, and the licence in a pipeline.</td>
       </tr>
       <tr>
         <td><a href="troubleshooting.html">Troubleshooting</a></td>
-        <td>Fixes for a blank editor, validation that does nothing, failed deployments and missing
-          element templates, plus answers to common questions.</td>
+        <td>Fixes for a blank editor, lint findings that do not appear, failed deployments and
+          missing element templates, plus answers to common questions.</td>
       </tr>
     </table>
 

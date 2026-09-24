@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Troubleshooting and FAQ — Penstock</title>
-<meta name="description" content="Fixes for a blank editor, validation that does nothing, failed deployments and missing element templates in Penstock, plus answers to common questions.">
+<meta name="description" content="Fixes for a blank editor, lint findings that do not appear, failed deployments and missing element templates in Penstock, plus answers to common questions.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,9 +55,9 @@
     <h1>Troubleshooting and FAQ</h1>
 
     <p class="lede">
-      Most reports come down to one of a handful of causes: a missing path, an untrusted project, a
-      file type that was never registered, or an engine that answered with an error the dialog then
-      repeated word for word. This page covers those, and says where to look when none of them fit.
+      Most reports come down to one of a handful of causes: an untrusted project, a configuration
+      that is not where Penstock looks for it, or an engine that answered with an error the message
+      then repeated word for word. This page covers those, and says where to look when none of them fit.
     </p>
 
     <h2>The editor area is blank</h2>
@@ -70,9 +70,8 @@
       back before investigating anything else.
     </p>
     <p>
-      If the tab is not blank but reads <em>A valid license is required to use Penstock</em> with a
-      <strong>Buy License</strong> button, the plugin loaded correctly and the licence check
-      returned nothing. Penstock has no free tier; the Marketplace grants a 30-day trial.
+      The editor needs no licence. A paid feature, such as auto layout, says what it does and offers
+      to buy it or to sign in when you reach for it; the rest of the editor carries on working.
     </p>
     <p>
       Whatever the diagram is doing, the raw XML is never locked away. Penstock registers itself
@@ -80,47 +79,36 @@
       the plain XML view of the same file.
     </p>
 
-    <h2>A .bpmn20.xml file opens as plain XML</h2>
+    <h2>A file does not open in its editor</h2>
 
     <p>
-      The BPMN file type is registered for the extensions <code>bpmn</code> and
-      <code>bpmn.xml</code>. A file named <code>order.bpmn20.xml</code> matches neither, so the IDE
-      opens it with the XML editor. Other parts of the plugin do recognise that suffix by name — the
-      <strong>BPMN Project</strong> tool window lists files ending in <code>.bpmn</code> and
-      <code>.bpmn20.xml</code> — which is why such a file can appear in the tree and still refuse to
-      open as a diagram. Add the pattern to the BPMN file type in the IDE's file type settings, or
-      rename the file.
+      The BPMN file type is registered for the extensions <code>bpmn</code>, <code>bpmn.xml</code>
+      and <code>bpmn20.xml</code>, and the DMN file type for <code>dmn</code>. If such a file still
+      opens as plain XML, the pattern has probably been assigned to another file type in the IDE's
+      file type settings; move it back to BPMN or DMN. A <code>.form</code> file opens in the form
+      editor only when it is a Camunda Form, a JSON object with <code>components</code>; any other
+      <code>.form</code> file is left to the IntelliJ GUI Designer.
     </p>
     <p>
       The tool window only lists files inside a project content root. A diagram kept outside the
       project's content will not appear there.
     </p>
 
-    <h2>Validation does nothing</h2>
+    <h2>Lint findings do not appear</h2>
 
     <p>
-      Validation stays off until all three paths in
-      <span class="mono">Settings | Tools | Penstock</span>, under <strong>BPMN Lint
-      Configuration</strong>, are set: <strong>bpmnlint binary:</strong>,
-      <strong>.bpmnlintrc config:</strong> and <strong>client.bundle.js:</strong>. The rule is
-      all-or-none. Applying the page with one or two of them filled in is rejected with
-      <em>All three BPMN Lint paths must be configured</em>, and a path that does not exist on disk
-      is rejected with <em>&lt;path&gt; not found</em>.
+      bpmnlint needs no setup: without a configuration the editor applies
+      <code>bpmnlint:recommended</code>, and a <code>.bpmnlintrc</code> in the project root replaces
+      it. See <a href="validation.html">Validation</a>.
     </p>
 
     <table class="facts">
-      <tr><td>Nothing happens, no message</td><td>One of the three paths is blank, so linting is disabled. The plugin reports that it could not find the <code>bpmnlint</code> npm package.</td></tr>
-      <tr><td>Requires trusting this project</td><td>bpmnlint runs an external process, which the IDE only permits in a trusted project. Trust the project and run it again.</td></tr>
-      <tr><td>Failed to run bpmnlint</td><td>The linter is started as <code>node</code> with the configured binary as its first argument. <code>node</code> must be on the PATH the IDE inherited.</td></tr>
-      <tr><td>Already running</td><td>One run per file at a time. Wait for the current run, or stop it from the run panel.</td></tr>
-      <tr><td>Execution timed out</td><td>A run is killed after 180 seconds.</td></tr>
+      <tr><td>No markers on the canvas</td><td>The linting button on the canvas turns them off and on, and it is hidden while token simulation runs. The findings are also listed under Rules in the diagram check.</td></tr>
+      <tr><td>The bpmnlint rules could not run</td><td>Shown under Rules in the diagram check. Usually the <code>.bpmnlintrc</code> uses a bpmnlint plugin, which the editor can only load from a bundle named by <code>lint.clientBundlePath</code> in <code>penstock.yaml</code>.</td></tr>
+      <tr><td>My own rules are ignored</td><td><code>lint.configPath</code> is relative to the project root. <span class="mono">penstock doctor</span> prints the rules file it uses, or says that it is missing.</td></tr>
+      <tr><td>Running Penstock requires trusting this project first</td><td>The command-line actions in the Penstock tool window start an external process, which the IDE only permits in a trusted project. Trust the project and run it again.</td></tr>
+      <tr><td>Penstock could not start</td><td>The command-line actions run the project's <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited.</td></tr>
     </table>
-
-    <p>
-      The process runs with its working directory set to the folder holding
-      <code>.bpmnlintrc</code>, so relative plugin resolution is relative to that folder, not to the
-      diagram. Output appears in a run tab titled <code>BPMN Lint – &lt;file name&gt;</code>.
-    </p>
 
     <h2>Deployment fails</h2>
 
@@ -128,15 +116,16 @@
       When the engine answers with anything outside the 2xx range, the failure notice repeats the
       status code and the engine's own response body. Read that first — it is the engine talking,
       not Penstock. A request that never reached the engine reports
-      <em>Failed to reach Camunda engine at &lt;url&gt;</em> instead.
+      <em>Could not reach the engine at &lt;url&gt;</em> instead.
     </p>
 
     <table class="facts">
-      <tr><td>Camunda 7 endpoint</td><td>The base URL you enter has <code>/deployment/create</code> appended. A deployment name is required; basic authentication is the only scheme offered.</td></tr>
-      <tr><td>Camunda 8 endpoint</td><td><code>/deployments</code> is appended unless the URL already ends with it. Basic, bearer token, OAuth 2.0 client credentials and API key are available.</td></tr>
-      <tr><td>OAuth 2.0</td><td>A failed token request is reported separately, as <em>OAuth2 token request failed</em> with the token endpoint's status and body, or as a missing <code>access_token</code>.</td></tr>
+      <tr><td>Camunda 7 endpoint</td><td>The address has <code>/deployment/create</code> appended. The deployment name defaults to <code>Penstock deployment</code>.</td></tr>
+      <tr><td>Camunda 8 endpoint</td><td><code>/v2/deployments</code> is appended; an address that already ends in <code>/v2</code> works as well. The IDE and <code>penstock deploy</code> use the same address.</td></tr>
+      <tr><td>No engine address</td><td>Neither <code>deployment.url</code> nor the Connection dialog gives one for the profile in force. Enter it under <strong>Connection…</strong>, in the menu next to Deploy.</td></tr>
+      <tr><td>OAuth</td><td>A failed token request is reported separately: the token endpoint could not be reached, answered with an error status and body, or returned no <code>access_token</code>.</td></tr>
+      <tr><td>The preDeploy hook failed</td><td>Nothing was sent. The hook's output follows the message. In a project the IDE does not trust, a configured <code>preDeploy</code> is not run, and the deployment stops.</td></tr>
       <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the deployment request, 15 seconds for the token request.</td></tr>
-      <tr><td>Camunda 8 under load</td><td>A 503 mentioning <code>RESOURCE_EXHAUSTED</code> is reported as engine backpressure. Retry with a backoff.</td></tr>
     </table>
 
     <p>
@@ -145,21 +134,24 @@
       otherwise the request fails before the engine is reached.
     </p>
     <p>
-      Secrets are written to the IDE password safe only when <strong>save credentials</strong> is
-      on, and are cleared from it when you turn that off. With it off, a password or token has to be
-      entered each time — that is the setting, not a bug.
+      Secrets are kept in the IDE password safe, separately for each profile, when you save the
+      Connection dialog. To change one, or to forget it, open <strong>Connection…</strong> from the
+      arrow next to Deploy while that profile is in force. Saving it with <em>Sign in</em> set to
+      <em>Not needed</em> removes the stored secret.
     </p>
 
     <h2>Element templates do not appear</h2>
 
     <p>
-      The <strong>Element Templates</strong> group in
-      <span class="mono">Settings | Tools | Penstock</span> is shown only when the project's engine
-      is Camunda 8. If you cannot find it, check the engine first.
+      Templates are read from <code>.camunda/element-templates</code> folders next to the diagram or
+      above it, and from the paths <code>elementTemplates</code> lists in
+      <code>penstock.yaml</code>, relative to the project root. The Classic BPMN editor ignores them,
+      so check the engine first.
     </p>
     <p>
-      Templates are remembered as file paths. A path that no longer exists contributes nothing and
-      says nothing, so a moved or renamed template file simply disappears from the palette. A file
+      A listed path that no longer exists contributes nothing and says nothing in the editor, so a
+      moved or renamed template file simply disappears from the palette;
+      <span class="mono">penstock doctor</span> reports it as missing. A file
       larger than 10 MB is skipped, and a file that is not valid JSON is skipped with an entry in
       the IDE log. Both a single template object and an array of them are accepted. Parsed templates
       are cached against the file's modification time, so an edit to a template file is picked up on
@@ -182,36 +174,41 @@
       package names, so failures that were swallowed — a template that would not parse, a file that
       could not be written — are in the IDE log with a stack trace. The diagram itself is a browser:
       the context menu inside it has an <strong>Open DevTools</strong> item, which is the fastest
-      way to see a frontend error. The auto layout preview forwards its browser console to the IDE
+      way to see a frontend error. The diagram diff viewer forwards its browser console to the IDE
       log with a <code>[bpmn-preview]</code> prefix.
     </p>
     <p>
-      Project settings live in <code>bpmn-project.xml</code> in the project's IDE configuration
-      folder. Deleting it resets the engine choice, the lint paths and the template list for that
-      project, and nothing else.
+      Project settings live in <code>penstock.yaml</code>, and this machine's in
+      <code>penstock.local.yaml</code>. <span class="mono">penstock doctor</span>, or
+      <strong>Doctor</strong> in the Penstock tool window, prints which files apply, the engine, the
+      profiles and whether the engine can be reached. Personal view settings - the toolbar and
+      Sketchy Drawing - are in <code>~/.penstock/preferences.json</code>.
     </p>
 
     <h2>Questions</h2>
 
     <h3>Does Classic mode write vendor-neutral BPMN?</h3>
     <p>
-      Yes, for what it writes. Classic loads plain <code>bpmn-js</code> with the standard properties
-      panel and none of the Camunda modelling modules, so nothing it edits adds Camunda extension
-      attributes. The limitation worth knowing is on the other side: there is no editor for standard
-      <code>ioSpecification</code> data inputs and outputs. The element tooltip will read them out
-      of a diagram that already has them, but the panel cannot create them.
+      Yes. Classic loads plain <code>bpmn-js</code> with the standard properties panel and none of
+      the Camunda modelling modules, so nothing it edits adds Camunda extension attributes. Data
+      inputs and outputs are written the way BPMN defines them, as a
+      <code>bpmn:ioSpecification</code>, from the Inputs and Outputs groups of the panel; see
+      <a href="engine-profiles.html">Engine profiles</a>.
     </p>
 
     <h3>Can I jump from a delegate class name to the class in my project?</h3>
     <p>
-      Not yet. The element tooltip shows a delegate expression as text; it is not a link, and there
-      is no navigation action. It is on the roadmap.
+      Yes. Right-click a task that names a Java class - <code>camunda:class</code>, a delegate
+      expression that unwraps to a fully qualified name, or a listener that names one - and choose
+      <strong>Go to</strong> that class. See <a href="editing.html">Editing a diagram</a>.
     </p>
 
     <h3>Does the plugin send my diagrams anywhere?</h3>
     <p>
-      No. The only outbound requests the plugin makes are the deployment itself and, for OAuth 2.0,
-      the token request to the endpoint you configured. The connector template catalogue is served
+      No. The only outbound requests the plugin makes with a diagram are the deployment itself and,
+      for OAuth, the token request to the endpoint you configured. Apart from those, it checks the
+      licence with the licence service once a day, and a command-line action downloads the penstock
+      CLI the first time it needs it. The connector template catalogue is served
       from resources bundled inside the plugin, not fetched. Nothing is reported, and there is no
       telemetry.
     </p>
@@ -225,8 +222,10 @@
 
     <h3>Is there a free version?</h3>
     <p>
-      No. Penstock is commercial and has no free tier — without a licence the editor shows a notice
-      instead of the diagram. The Marketplace grants a 30-day trial.
+      Yes. Penstock is free on the JetBrains Marketplace, and the editors, the properties panels,
+      templates, token simulation, the check, lint, deployment and export stay free. Pro and Team
+      add auto layout, flow analysis, the diagram diff, the review bot and more; every machine starts
+      with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.
     </p>
 
     <h3>How do I report a bug?</h3>

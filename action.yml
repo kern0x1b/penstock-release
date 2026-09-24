@@ -8,7 +8,7 @@ branding:
 
 inputs:
   command:
-    description: Which penstock command to run — check, lint, layout, fmt, deploy, doctor.
+    description: Which penstock command to run - check, layout, fmt, deploy, doctor.
     required: false
     default: check
   paths:

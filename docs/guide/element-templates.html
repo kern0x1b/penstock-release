@@ -55,25 +55,29 @@
     <h1>Element templates and connectors</h1>
 
     <p class="lede">An element template is a JSON file that turns a plain task or event into a
-    pre-configured one, with its own properties panel. Penstock reads templates from files listed
-    in the project settings, and ships a browser for the Camunda connector templates so you can
-    install one without leaving the IDE.</p>
+    pre-configured one, with its own properties panel. Penstock reads templates from the folders
+    Camunda Modeler uses and from the ones <code>penstock.yaml</code> lists, and ships a browser for
+    the Camunda connector templates so you can install one without leaving the IDE.</p>
 
     <h2>Where templates come from</h2>
 
-    <p>Penstock does not scan the project for templates. It reads exactly the files listed under
-    <span class="mono">Settings | Tools | Penstock</span>, in the <strong>Element Templates</strong>
-    section. That section is shown when the project's default BPMN engine is Camunda 8.</p>
+    <p>Two places, and nothing else in the project is scanned:</p>
 
-    <p>Use the <code>+</code> button to add entries. The chooser accepts both files and folders, and
-    filters on the <code>json</code> extension. Selecting a folder expands it: the folder is walked
-    recursively, behind a cancellable <em>Scanning Selected Folders</em> progress dialog, and every
-    matching file it finds is added to the list as its own entry. The <code>-</code> button removes
-    the selected entry. Nothing is copied — the list holds absolute paths to files that stay where
-    they are.</p>
+    <ul>
+      <li>A folder named <code>.camunda/element-templates</code>, next to the diagram or in any
+        folder above it up to the project root. That is where Camunda Modeler keeps templates, and
+        they are used without being listed.</li>
+      <li>The files and folders listed under <code>elementTemplates</code> in
+        <code>penstock.yaml</code>, relative to the project root. A folder is read whole, with every
+        <code>.json</code> file in it and in the folders below it.</li>
+    </ul>
 
-    <p>The list is stored per project in <code>bpmn-project.xml</code>, alongside the engine
-    profile, the theme and the bpmnlint paths.</p>
+<pre><code>elementTemplates:
+  - templates/connectors
+  - shared/payment-task.json</code></pre>
+
+    <p>Like the rest of <code>penstock.yaml</code>, the list can differ per folder: the file nearest
+    the diagram wins. See <a href="settings.html">Configuration</a>.</p>
 
     <h2>What Penstock does with each file</h2>
 
@@ -101,9 +105,9 @@
 
     <h2>The connector browser</h2>
 
-    <p>The toolbar's <strong>Marketplace</strong> button opens <em>Element Templates
+    <p><strong>Templates…</strong> in the editor's More menu opens <em>Element Templates
     Marketplace</em>, a browser over the Camunda connector templates bundled with the plugin. The
-    button is present only when the project's engine profile is Camunda 8.</p>
+    menu item is present only when the diagram's engine profile is Camunda 8.</p>
 
     <p>The catalogue is part of the plugin. The template files are taken from the
     <code>camunda/connectors</code> repository when the plugin is built, and are read from disk at
@@ -138,8 +142,9 @@
 
     <h2>Installing from the browser</h2>
 
-    <p>Installing writes the template file into your project and adds it to the settings list, in
-    one action:</p>
+    <p>Installing writes the template file into your project, in one action. Save it into a
+    <code>.camunda/element-templates</code> folder, or into a folder <code>elementTemplates</code>
+    already lists, and every diagram that looks there picks it up:</p>
 
     <ol class="steps">
       <li>
@@ -164,9 +169,10 @@
       </li>
       <li>
         <div>
-          <h3>The settings list is updated</h3>
-          <p>The new path is appended to the project's element template list, unless it is already
-          there.</p>
+          <h3>The configuration is updated, the first time</h3>
+          <p>When the project's <code>penstock.yaml</code> has no <code>elementTemplates</code> list
+          yet, the new file becomes its first entry. A list that is already there is not
+          changed.</p>
         </div>
       </li>
       <li>
@@ -182,35 +188,33 @@
     of that connector you do not already have. That path asks for a folder rather than a file name,
     then warns that it will write one file per template into that folder and overwrite existing
     files with the same names, and waits for you to confirm. Each file is saved under the template's
-    own file name and added to the settings list as it goes; progress is shown on the connector's
+    own file name; progress is shown on the connector's
     button. To take one template of such a connector on its own, open <em>Details</em> and install
     it from the list.</p>
 
     <p>Templates already present are marked as installed and their install buttons are disabled.
-    Penstock compares against both halves of what the settings list produces: an entry matches if
-    its path ends in the same file name as the catalogue template, or if a template parsed out of
-    one of the listed files carries the same name.</p>
+    A catalogue template counts as present when an entry in <code>elementTemplates</code> ends in the
+    same file name, or when a template already loaded for the diagram carries the same name.</p>
 
     <h2>Camunda 7 and Classic BPMN</h2>
 
-    <p>Two things are gated on Camunda 8: the <strong>Element Templates</strong> section of the
-    settings page, and the <strong>Marketplace</strong> toolbar button. Under Camunda 7 or Classic
-    BPMN you get neither, so there is no way to build the list from the user interface.</p>
+    <p>Only the connector browser is gated on Camunda 8: under Camunda 7 or Classic BPMN the More
+    menu has no <strong>Templates…</strong>.</p>
 
-    <p>Loading is not gated the same way. Whatever the list already holds is read and handed to the
-    editor whichever profile the project uses. The Camunda 7 editor applies templates — it carries
-    the same element template properties provider and template chooser as the Camunda 8 one — so a
-    list carried over from a Camunda 8 project keeps working after you switch the profile. The
-    Classic BPMN editor has no element template support at all, and templates handed to it are
-    ignored.</p>
+    <p>Loading is not gated the same way. The templates are read and handed to the editor whichever
+    profile the diagram uses. The Camunda 7 editor applies templates — it carries the same element
+    template properties provider and template chooser as the Camunda 8 one — so Camunda 7 templates
+    in <code>.camunda/element-templates</code> work there as well. The Classic BPMN editor has no
+    element template support at all, and templates handed to it are ignored.</p>
 
     <h2>When a template does not appear</h2>
 
-    <p>Check, in this order: that the project's engine profile is Camunda 8 or Camunda 7 rather than
-    Classic BPMN, that the file is listed under
-    <span class="mono">Settings | Tools | Penstock</span>, and that the file still exists at that
-    path. If all three hold, look in the IDE log — a file that is too large or does not parse is
-    skipped with a message naming the path.</p>
+    <p>Check, in this order: that the diagram's engine profile is Camunda 8 or Camunda 7 rather than
+    Classic BPMN, that the file is in a <code>.camunda/element-templates</code> folder at or above
+    the diagram or under a path <code>elementTemplates</code> lists, relative to the project root,
+    and that the file still exists there. <span class="mono">penstock doctor</span> reports a listed
+    path that is missing. If all of that holds, look in the IDE log — a file that is too large or
+    does not parse is skipped with a message naming the path.</p>
 
   </div>
 

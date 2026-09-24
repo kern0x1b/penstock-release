@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Validation with bpmnlint — Penstock</title>
-<meta name="description" content="How Penstock runs bpmnlint against a BPMN file: the three paths it needs, the project trust requirement, where results appear, and what each error notification means.">
+<meta name="description" content="How Penstock runs bpmnlint without setup: the built-in rules, a project .bpmnlintrc that replaces them, rules from plugins, and where the findings appear in the editor and on the command line.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,51 +51,23 @@
     </ul>
   </nav>
 
-  <div class="docbody">
+    <div class="docbody">
     <h1>Validation with bpmnlint</h1>
 
-    <p class="lede">Penstock ships no rules of its own. A command-line run uses the
-    <code>bpmnlint</code> binary installed in your project, against the <code>.bpmnlintrc</code>
-    you write; the overlays in the diagram editor use the rules you compile into
-    <code>client.bundle.js</code>. Validation stays off until you tell it where those three files
-    are.</p>
+    <p class="lede">bpmnlint answers whether a process is modelled correctly: an event with no
+    outgoing flow, a gateway that splits without saying how. Penstock runs it without any setup, in
+    the editor as you draw and in <span class="mono">penstock check</span>, with nothing to install
+    and no paths to configure.</p>
 
-    <h2>The three paths</h2>
+    <h2>Which rules apply</h2>
 
-    <p>Open <span class="mono">Settings | Tools | Penstock</span> and fill in the
-    <strong>BPMN Lint Configuration</strong> group. Each field has a browse button.</p>
+    <p>Without a configuration the rules are bpmnlint's own recommended set,
+    <code>bpmnlint:recommended</code>. A <code>.bpmnlintrc</code> in the project root replaces that
+    set, and the editor and the command line both read it. To keep it somewhere else, name it with
+    <code>lint.configPath</code> in <code>penstock.yaml</code>, relative to the project root; see
+    <a href="settings.html">Configuration</a>.</p>
 
-    <table class="facts">
-      <tr>
-        <td>bpmnlint binary:</td>
-        <td>The executable Penstock runs. The field's own hint is
-          <code>e.g. node_modules/.bin/bpmnlint</code>.</td>
-      </tr>
-      <tr>
-        <td>.bpmnlintrc config:</td>
-        <td>Your rule configuration. The hint is <code>project root or custom location</code>.
-          Its containing folder becomes the working directory of the lint process, which is how
-          plugin resolution finds your rules.</td>
-      </tr>
-      <tr>
-        <td>client.bundle.js:</td>
-        <td>The browser build of the same rule set, loaded into the diagram editor. The hint is
-          <code>e.g. .bpmnlint/client.bundle.js</code>.</td>
-      </tr>
-    </table>
-
-    <p>The three are all-or-none. If you set some and leave others empty, applying the settings
-    fails with <em>All three BPMN Lint paths must be configured</em>. If a path is set but the file
-    is not there, it fails with <em>&lt;path&gt; not found</em>. With all three empty, validation is
-    off and nothing complains. The same rule is enforced when the paths are saved from the
-    editor's own setup page.</p>
-
-    <p>Penstock starts the linter by invoking <code>node</code>, so Node.js has to be on the
-    <code>PATH</code> the IDE was launched with.</p>
-
-    <h2>A minimal .bpmnlintrc</h2>
-
-    <p>Put this in the project root and point the config path at it:</p>
+    <p>A minimal <code>.bpmnlintrc</code>:</p>
 
 <pre><code>{
   "extends": ["bpmnlint:recommended"],
@@ -105,112 +77,50 @@
   }
 }</code></pre>
 
-    <h2>Custom rules</h2>
-
-    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. bpmnlint resolves
-    it with Node's own module resolution, starting from the folder that holds
-    <code>.bpmnlintrc</code>, so the plugin has to be installed under that folder: declare it in
-    <code>package.json</code> and run <code>npm install</code>, and keep the configuration next to
-    the <code>node_modules</code> it depends on. Rebuild
-    <code>client.bundle.js</code> whenever the rules change; the editor loads that bundle, not the
-    <code>.bpmnlintrc</code>.</p>
-
-    <h2>Trusted projects</h2>
-
-    <p>A command-line run refuses to start in an untrusted project. This is deliberate — the run
-    executes a binary from the project's own <code>node_modules</code>. Trust the project in the IDE
-    first; until you do, nothing is started and the run reports <em>BPMN Lint requires trusting this
-    project first</em>.</p>
-
     <h2>In the diagram editor</h2>
 
-    <p>When all three paths are set, the editor loads the bpmnlint integration and reads
-    <code>client.bundle.js</code> from disk, using its default export as the linter configuration.
-    Overlays are toggled from the linting button on the canvas, which starts inactive. The button is
-    hidden while token simulation is running, since the canvas is showing something else at that
-    point. If the bundle cannot be read or evaluated, the editor reports <em>Failed to load custom
-    lint rules</em> and the rest of the editor carries on working.</p>
+    <p>The editor marks problems on the elements as you draw, with a marker on each element a rule
+    reports. The linting button on the canvas turns the markers off and on; it
+    starts on, and is hidden while token simulation is running, since the canvas is showing
+    something else at that point.</p>
 
-    <h2>Running bpmnlint over a file</h2>
+    <p>The same findings are listed under <strong>Rules</strong> in the
+    <a href="diagram-check.html">diagram check</a>, beside the drawing problems. Each line gives the
+    message, the element it is about and the rule's name, with <em>warning</em> after the name for
+    a rule set to warn. Clicking a line scrolls to the element and selects it.</p>
 
-    <p>A full command-line run is started from the <strong>BPMN Project</strong> tool window, anchored
-    on the left. Expand a diagram and you get a <code>checkBpmnLint</code> entry under it; double-click
-    it, or select it and press Enter. The entry only appears once all three paths are configured, and
-    the tool window only lists files once an engine profile has been chosen for the project.</p>
+    <h2>On the command line</h2>
 
-    <p>Penstock then runs <code>node &lt;binary&gt; --format pretty &lt;file&gt;</code> with the
-    working directory set to the folder containing your <code>.bpmnlintrc</code>, and attaches the
-    process to the Run tool window under the title <code>BPMN Lint – &lt;name&gt;</code>, where the
-    name is the diagram's file name without its extension. The
-    window is brought to the front automatically. The stop button kills the process; a cancelled run
-    prints <em>BPMN lint execution cancelled.</em> rather than pretending to have finished.</p>
+    <p><span class="mono">penstock check</span> runs the same rules as one section of its report,
+    beside the drawing and, on Pro, the flow analysis. <span class="mono">penstock check --only
+    rules</span> runs the rules alone. A rule set to error makes the run fail; a warning is reported
+    as a note. See <a href="cli.html">Command line</a>.</p>
 
-    <p>Output starts with <em>Starting BPMN lint...</em>, then bpmnlint's own pretty-printed report,
-    then one closing line:</p>
+<pre><code>penstock check --only rules .</code></pre>
 
-    <table class="facts">
-      <tr>
-        <td>BPMN lint found critical issues.</td>
-        <td>The report contains at least one error.</td>
-      </tr>
-      <tr>
-        <td>BPMN lint found non-critical issues.</td>
-        <td>Warnings, no errors.</td>
-      </tr>
-      <tr>
-        <td>BPMN lint: no issues found.</td>
-        <td>Clean report, process exited normally.</td>
-      </tr>
-      <tr>
-        <td>BPMN lint exited with errors (exit code N).</td>
-        <td>A non-zero exit that produced no recognisable report — usually a broken configuration or a
-          missing rule plugin. Read the lines above it.</td>
-      </tr>
-    </table>
+    <p>In the IDE, <span class="mono">Check</span> in the context menu of the Penstock tool window
+    runs <span class="mono">penstock check</span> on a file or folder and shows the report in the Run
+    window. It runs only in a trusted project.</p>
 
-    <h2>Timeout and concurrent runs</h2>
+    <p><span class="mono">penstock lint</span> still works in this release and says that it is now
+    <span class="mono">penstock check --only rules</span>.</p>
 
-    <p>A run is given 180 seconds. If the process is still alive after that and you have not stopped
-    it yourself, Penstock terminates it, prints <em>BPMN lint execution timed out.</em> in the Run
-    window, and raises a notification. Only one run per file is allowed at a time; starting a second
-    one while the first is still going is refused rather than queued. Different files can be linted
-    concurrently.</p>
+    <h2>Custom rules</h2>
 
-    <h2>Error notifications</h2>
+    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. Declare it in the
+    project's <code>package.json</code> and run <code>npm install</code>: the command line reads
+    plugins from the project's <code>node_modules</code>, with no installed bpmnlint needed.</p>
 
-    <p>Failures are reported as error balloons titled <em>Penstock</em>.</p>
+    <p>The editor cannot load packages from <code>node_modules</code>. For a
+    <code>.bpmnlintrc</code> that uses a plugin, build a bundle of the rules with
+    <code>bpmnlint-pack-config</code> and name it with <code>lint.clientBundlePath</code> in
+    <code>penstock.yaml</code>. Rebuild it whenever the rules change; the editor loads that bundle,
+    not the <code>.bpmnlintrc</code>. Without it, the diagram check says <em>The bpmnlint rules could
+    not run</em> and points at <code>lint.clientBundlePath</code>.</p>
 
-    <table class="facts">
-      <tr>
-        <td>Failed to find 'bpmnlint' npm package</td>
-        <td>Shown with the suggestion to run <code>npm install bpmnlint</code>. Raised when the three
-          paths are not all configured, when the configured <code>.bpmnlintrc</code> does not exist on
-          disk, or when the binary path is blank.</td>
-      </tr>
-      <tr>
-        <td>BPMN Lint requires trusting this project first</td>
-        <td>The project is not trusted. Nothing was executed.</td>
-      </tr>
-      <tr>
-        <td>BPMN Lint is already running for '&lt;file&gt;'</td>
-        <td>A run for that same file has not finished. Wait for it, or stop it from the Run window.</td>
-      </tr>
-      <tr>
-        <td>BPMN lint execution timed out for file: '&lt;file&gt;'</td>
-        <td>The 180-second limit was reached and the process was terminated.</td>
-      </tr>
-      <tr>
-        <td>Failed to run bpmnlint</td>
-        <td>The process could not be started at all. The most common cause is <code>node</code> not
-          being on the IDE's <code>PATH</code>; the IDE log has the underlying exception.</td>
-      </tr>
-    </table>
-
-    <h2>Where the paths are stored</h2>
-
-    <p>The three paths are project settings and are written to <code>bpmn-project.xml</code> along
-    with the engine profile and the rest of the project configuration. See
-    <a href="settings.html">Configuration</a>.</p>
+<pre><code>lint:
+  configPath: .bpmnlintrc
+  clientBundlePath: .bpmnlint/client.bundle.js</code></pre>
 
   </div>
 

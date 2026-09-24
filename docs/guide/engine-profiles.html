@@ -60,20 +60,18 @@
 
     <h2>Choosing a profile</h2>
 
-    <figure class="shot">
-      <img src="../img/engine-setup-camunda7.png" alt="The engine setup page with Camunda 7 selected">
-      <figcaption>Choosing Camunda 7. The panel on the right shows what the profile needs before it can be saved.</figcaption>
-    </figure>
+    <p>The engine is <code>engine</code> in <code>penstock.yaml</code>: one of
+    <code>classic</code>, <code>camunda-7</code> or <code>camunda-8</code>. The file nearest the
+    diagram wins, so a folder can have an engine of its own; see
+    <a href="settings.html">Configuration</a>. When no file sets it, the diagram decides: the
+    execution platform the Camunda Modeler records in it, or the <code>zeebe:</code> or
+    <code>camunda:</code> attributes it already carries.</p>
 
-    <p>A project starts with no engine set. Until one is set, opening a diagram shows a setup page
-    titled <em>Configure BPMN Engine</em> instead of the canvas. Pick an engine on the left, fill in
-    whatever the panel on the right offers, and press <em>Save and Continue</em>.</p>
-
-    <p>Afterwards the same choice lives in <span class="mono">Settings | Tools | Penstock</span>, in
-    the <em>Default BPMN engine</em> row. It is stored per project, in
-    <code>bpmn-project.xml</code>, as one of <code>CLASSIC_BPMN</code>, <code>CAMUNDA_7</code> or
-    <code>CAMUNDA_8</code>. Changing it takes effect when the diagram editor is reloaded, because
-    the modeler is constructed from the engine value.</p>
+    <p>A diagram opens straight away either way. Only an empty new diagram, which names no engine,
+    asks: one line above the canvas, <em>Which engine runs this diagram?</em>, with a button for
+    Camunda 8, Camunda 7 and Plain BPMN. The answer goes into <code>penstock.yaml</code>. Changing
+    the engine takes effect when the diagram editor is reloaded, because the modeler is constructed
+    from it.</p>
 
     <h2>What each profile builds</h2>
 
@@ -87,8 +85,7 @@
     element-specific ones such as Message, Signal, Error, Escalation, Link, Timer, Compensation,
     Multi-instance and Ad-hoc completion.</p>
 
-    <p>The setup page lists this profile as <em>BPMN Classic</em>, and when it is selected it states
-    the same thing plainly: no additional configuration is required for it.</p>
+    <p>The engine question offers this profile as <em>Plain BPMN</em>.</p>
 
     <h3>Camunda 7</h3>
 
@@ -99,15 +96,16 @@
     listeners, Inputs and Outputs.</p>
 
     <p>Penstock loads two more modules into this profile. One is the element-template create and
-    append module, which the Camunda Platform modeler does not carry on its own — though the
-    template list that would feed it is only editable under Camunda 8. The other is a properties
+    append module, which the Camunda Platform modeler does not carry on its own, fed by the same
+    template files as Camunda 8. The other is a properties
     provider of Penstock's own: script, condition, listener and input/output entries that hold an
     inline script are replaced with a CodeMirror field with Groovy or JavaScript highlighting, and
     that field can be opened as a real file in the IDE; while
-    the file is open the field in the panel is read-only and the two stay in step. When the project
-    has a default script type set, it is used as the <code>scriptFormat</code> of a script that does
-    not have one yet, and as the <code>language</code> of a condition expression that does not have
-    one yet. The <em>Default script type</em> row in settings is shown only for this profile.</p>
+    the file is open the field in the panel is read-only and the two stay in step. When
+    <code>scriptType</code> is set in <code>penstock.yaml</code>, it is used as the
+    <code>scriptFormat</code> of a script that does not have one yet, and as the
+    <code>language</code> of a condition expression that does not have one yet. It applies to this
+    profile only.</p>
 
     <h3>Camunda 8</h3>
 
@@ -118,8 +116,8 @@
     carries both create and append modules, so a new element can be started from an element template
     or from the full element list.</p>
 
-    <p>Element templates are a Camunda 8 feature in the plugin's own UI: the template list in
-    settings and the Marketplace button in the editor toolbar both appear only for this profile.</p>
+    <p>The connector template browser, <strong>Templates…</strong> in the editor's More menu,
+    appears only for this profile.</p>
 
     <h2>What reaches the XML</h2>
 
@@ -143,17 +141,13 @@
     <h2>What else the profile changes</h2>
 
     <table class="facts">
-      <tr><td>Deploy button</td><td>Toolbar, Camunda 7 and Camunda 8 only. The dialog is the Camunda 7 one or the Camunda 8 one, chosen from the profile.</td></tr>
-      <tr><td>Marketplace button</td><td>Toolbar, Camunda 8 only.</td></tr>
-      <tr><td>Element templates list</td><td>Settings, Camunda 8 only.</td></tr>
-      <tr><td>Default script type</td><td>Settings, Camunda 7 only.</td></tr>
-      <tr><td><code>copyProcessId</code></td><td>BPMN Project tool window, under each diagram, Camunda 7 and Camunda 8 only.</td></tr>
-      <tr><td>bpmnlint</td><td>All three profiles. It is enabled by the three bpmnlint paths, not by the engine.</td></tr>
+      <tr><td>Deploy</td><td>Toolbar, Camunda 7 and Camunda 8 only. It sends to the Camunda 7 REST API or the Camunda 8 REST API, chosen from the profile.</td></tr>
+      <tr><td>Templates…</td><td>The More menu, Camunda 8 only.</td></tr>
+      <tr><td>Element templates</td><td>Read under Camunda 7 and Camunda 8; the Classic editor has no template support.</td></tr>
+      <tr><td><code>scriptType</code></td><td><code>penstock.yaml</code>, Camunda 7 only.</td></tr>
+      <tr><td>bpmnlint</td><td>All three profiles, without setup.</td></tr>
       <tr><td>Auto layout, Check, minimap, token simulation, task resizing, image export</td><td>All three profiles.</td></tr>
     </table>
-
-    <p>The stored engine value is also shown in grey beside each diagram in the BPMN Project tool
-    window, so you can see which profile a file is being edited under.</p>
 
 
     <h2>Input and output in Classic</h2>
@@ -189,11 +183,9 @@
 
     <h2>Known limitations</h2>
 
-    <p>There is no per-file override of the engine profile beyond the project setting, so every
-    diagram in the project is edited under the same profile.</p>
-
-    <p>There is no per-file override. The engine is a project setting, so every diagram in the
-    project is edited under the same profile.</p>
+    <p>The engine is set per folder, not per file: a <code>penstock.yaml</code> that sets
+    <code>engine</code> applies to every diagram under its folder. The diagram's own attributes are
+    read only where no file sets it.</p>
 
   </div>
 

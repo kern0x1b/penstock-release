@@ -82,7 +82,8 @@
     </figure>
 
     <p>The canvas and the panel are two halves of a resizable split; the panel opens about 300
-    pixels wide. Toggle Properties Panel collapses it to zero width and restores it. While collapsed
+    pixels wide. The properties panel toggle, an icon at the right edge of the toolbar that stays
+    pressed while the panel is open, collapses it to zero width and restores it. While collapsed
     it is detached from the modeller entirely, so it does not keep re-rendering in the background,
     and is re-attached when reopened. Collapsing is remembered: selecting an element does not force
     the panel open again.</p>
@@ -148,7 +149,8 @@
 
     <h2>Minimap</h2>
 
-    <p>The Minimap button toggles the <code>diagram-js-minimap</code> overview.</p>
+    <p><strong>Minimap</strong>, in the More menu, toggles the <code>diagram-js-minimap</code>
+    overview.</p>
 
     <h2>Token simulation</h2>
 
@@ -157,7 +159,7 @@
       <figcaption>In simulation the canvas is framed in green, each start event gains a play button, and the speed controls sit at the bottom.</figcaption>
     </figure>
 
-    <p>Token Simulation switches the canvas into <code>bpmn-js-token-simulation</code>'s simulation
+    <p><strong>Simulate</strong> switches the canvas into <code>bpmn-js-token-simulation</code>'s simulation
     mode; the button stays highlighted until you switch it off. The module blocks dragging, the
     context pad, popup menus and direct editing, but not programmatic changes, so Penstock blocks the
     rest itself: Undo, Redo, Copy, Paste, Delete and Auto Layout refuse to run and say <em>Stop Token
@@ -166,27 +168,24 @@
 
     <h2>Export</h2>
 
-    <figure class="shot">
-      <img src="../img/export-dialog.png" alt="The export dialog with a preview of the diagram">
-      <figcaption>Export renders the diagram at the theme and format you choose, with a live preview.</figcaption>
-    </figure>
+    <p><strong>Export…</strong> in the More menu opens the save dialog straight away. The name you
+      give decides the format: <span class="mono">.svg</span>, <span class="mono">.png</span> or
+      <span class="mono">.pdf</span>. The picture is always drawn light on white, whatever the IDE's
+      theme, in the style the editor is using - Sketchy Drawing included. A PDF has the diagram on
+      its first page and then a page for each collapsed subprocess that has something drawn in it,
+      titled with the subprocess's name.</p>
 
-    <p>Export opens a dialog with a live preview beside four choices: theme (Light, Dark, Dracula),
-    schema (Default, or Sketchy, which draws the diagram hand-drawn in the Virgil font), format (SVG,
-    PNG or PDF), and whether to paint the theme background behind the diagram or leave it
-    transparent. Collapsed subprocesses get a fifth control, to export one of those instead.</p>
-
-    <p>SVG is written as rendered. PNG is rasterised at twice the diagram's size, capped at 8192
-    pixels on the longer side so large diagrams stay inside the browser's canvas limit. PDF is that
-    PNG on a single A4 page, portrait or landscape by aspect ratio, scaled to fit under a heading.
-    The IDE's save dialog then asks where to put it.</p>
+    <p>To export many diagrams at once, right-click a folder in the Penstock tool window and choose
+      <strong>Export…</strong>: it asks for a target folder and SVG or PNG, and runs
+      <span class="mono">penstock export</span>. PNG there needs puppeteer installed in the project.</p>
 
     <h2>Comparing two versions of a diagram</h2>
 
     <p>Penstock registers a diff tool with the IDE, so any two-sided comparison where one side is a
     BPMN file — <span class="mono">Compare with Revision</span>, a commit in the Git log, a shelved
     change — is shown as two diagrams rather than two blocks of XML: Before on the left, After on the
-    right, each read-only, with the palette and context pad hidden.</p>
+    right, each read-only, with the palette and context pad hidden. The visual diff is part of
+    Penstock Pro.</p>
 
     <p>The comparison is semantic, not textual. Both revisions are parsed with
     <code>bpmn-moddle</code> and compared with <code>bpmn-js-differ</code>, which sorts elements into
@@ -199,34 +198,38 @@
 
     <h2>Toolbar reference</h2>
 
-    <p>The toolbar sits across the top, in this order:</p>
+    <p>Undo and Redo always sit on the toolbar, as icons. Every other action is in the
+    <strong>More</strong> menu, the button marked with three dots, with its icon and its name, and
+    the pin in each row puts it on the toolbar or takes it off.</p>
 
     <table class="facts">
-      <tr><td>Reload Content</td><td>Reloads the editor view. Nothing is lost — changes are already
-        on disk.</td></tr>
-      <tr><td>Undo</td><td>Undo Last Operation.</td></tr>
-      <tr><td>Redo</td><td>Redo Last Operation.</td></tr>
-      <tr><td>Copy</td><td>Copy Selected Content, to the system clipboard.</td></tr>
-      <tr><td>Paste</td><td>Paste Content, from the system clipboard.</td></tr>
-      <tr><td>Auto Layout</td><td>Auto Layout Diagram, in place. See
+      <tr><td>Undo, Redo</td><td>Undo or redo the last operation. Always on the toolbar.</td></tr>
+      <tr><td>Auto Layout</td><td>Lays the diagram out in place. Pinned to start with. See
         <a href="auto-layout.html">Auto layout</a>.</td></tr>
-      <tr><td>Export</td><td>Export Diagram — opens the export dialog.</td></tr>
-      <tr><td>Token Simulation</td><td>Simulate Process Execution.</td></tr>
-      <tr><td>Minimap</td><td>Navigate Diagram.</td></tr>
-      <tr><td>Deploy</td><td>Deploy Diagram. Camunda 7 and Camunda 8 only. See
+      <tr><td>Check</td><td>Opens the diagram check. Pinned to start with. See
+        <a href="diagram-check.html">Diagram check</a>.</td></tr>
+      <tr><td>Simulate</td><td>Token simulation. Pinned to start with.</td></tr>
+      <tr><td>Properties Panel</td><td>Collapses or restores the properties panel. Pinned to start
+        with, as an icon at the right edge.</td></tr>
+      <tr><td>Deploy</td><td>Deploys the diagram; the arrow beside it deploys to another profile or
+        edits the connection. Pinned to start with, on the right. Camunda 7 and Camunda 8 only. See
         <a href="deployment.html">Deployment</a>.</td></tr>
-      <tr><td>Marketplace</td><td>Element Templates Marketplace. Camunda 8 only. See
+      <tr><td>Minimap</td><td>Toggles the overview.</td></tr>
+      <tr><td>Copy, Paste</td><td>To and from the system clipboard.</td></tr>
+      <tr><td>Export…</td><td>Saves the diagram as a picture.</td></tr>
+      <tr><td>Templates…</td><td>The connector template browser. Camunda 8 only. See
         <a href="element-templates.html">Element templates</a>.</td></tr>
-      <tr><td>Toggle Properties Panel</td><td>Collapses or restores the properties panel.</td></tr>
+      <tr><td>Sketchy Drawing</td><td>Draws the diagram as if by hand. A personal choice; the file
+        is not changed.</td></tr>
     </table>
 
-    <p>Token Simulation and Minimap stay highlighted while active; Undo, Redo, Copy, Paste and Auto
-    Layout are blocked while a simulation runs.</p>
+    <p>Check, Simulate, Minimap and Sketchy Drawing stay highlighted while active; Undo, Redo, Copy,
+    Paste and Auto Layout are blocked while a simulation runs.</p>
 
-    <p>Deploy and Marketplace are the only two that depend on the engine profile; under BPMN Classic
-    neither appears. A spacer sits after Deploy, pushing whatever follows it to the right. Buttons
-    are icons only unless <span class="mono">Show text labels on toolbar buttons</span> is ticked in
-    <span class="mono">Settings | Tools | Penstock</span>.</p>
+    <p>Deploy and Templates… are the only two that depend on the engine profile; under BPMN
+    Classic neither appears. Which actions are pinned, and Sketchy Drawing, are kept in
+    <code>~/.penstock/preferences.json</code>, so they are the same in every IDE on the machine. The
+    diagram always takes the IDE's theme.</p>
 
 
     <h2>Decisions (DMN)</h2>
@@ -239,11 +242,11 @@
 
     <p>With Pro, <strong>Check</strong> in the bar compares the rules of every decision table: two
       rules of a Unique table that match the same input, which is an error at run time, and inputs
-      no rule matches, each with the values. <span class="mono">penstock analyze</span> does the same
+      no rule matches, each with the values. <span class="mono">penstock check</span> does the same
       for the <span class="mono">.dmn</span> files in a project.</p>
 
     <p><strong>Deploy</strong> in the bar sends the file to the engine with the same settings a
-      diagram uses, and the <strong>BPMN Project</strong> tool window lists decision files beside the
+      diagram uses, and the <strong>Penstock</strong> tool window lists decision files beside the
       processes.</p>
 
     <h2>Forms</h2>
@@ -256,7 +259,7 @@
     <p>With Pro, <strong>Check</strong> finds two fields writing one variable, or a field writing
       the path of a group — Tasklist refuses to open such a form — fields that write no variable,
       option lists that offer one value twice and inputs with no label.
-      <span class="mono">penstock analyze</span> does the same for the forms in a project.</p>
+      <span class="mono">penstock check</span> does the same for the forms in a project.</p>
   </div>
 
 </main>
