@@ -25,7 +25,7 @@
       ]
     },
     "elementTemplates": {
-      "description": "Folders and files to read Camunda element templates from, relative to this file.",
+      "description": "Folders and files to read Camunda element templates from, relative to the project root. .camunda/element-templates next to a diagram or in any folder above it is read without being listed.",
       "type": "array",
       "items": {
         "type": "string"
@@ -47,33 +47,6 @@
         "clientBundlePath": {
           "description": "Path to the bundled browser build of the rules.",
           "type": "string"
-        }
-      }
-    },
-    "layout": {
-      "description": "Auto layout spacing, in pixels.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "nodesep": {
-          "description": "Space between two shapes in the same column.",
-          "type": "integer",
-          "minimum": 1
-        },
-        "ranksep": {
-          "description": "Space between two columns.",
-          "type": "integer",
-          "minimum": 1
-        },
-        "marginX": {
-          "description": "Left and right margin inside a container.",
-          "type": "integer",
-          "minimum": 0
-        },
-        "marginY": {
-          "description": "Top and bottom margin inside a container.",
-          "type": "integer",
-          "minimum": 0
         }
       }
     },
@@ -266,7 +239,7 @@
           ]
         },
         "elementTemplates": {
-          "description": "Folders and files to read Camunda element templates from, relative to this file.",
+          "description": "Folders and files to read Camunda element templates from, relative to the project root. .camunda/element-templates next to a diagram or in any folder above it is read without being listed.",
           "type": "array",
           "items": {
             "type": "string"
@@ -288,33 +261,6 @@
             "clientBundlePath": {
               "description": "Path to the bundled browser build of the rules.",
               "type": "string"
-            }
-          }
-        },
-        "layout": {
-          "description": "Auto layout spacing, in pixels.",
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "nodesep": {
-              "description": "Space between two shapes in the same column.",
-              "type": "integer",
-              "minimum": 1
-            },
-            "ranksep": {
-              "description": "Space between two columns.",
-              "type": "integer",
-              "minimum": 1
-            },
-            "marginX": {
-              "description": "Left and right margin inside a container.",
-              "type": "integer",
-              "minimum": 0
-            },
-            "marginY": {
-              "description": "Top and bottom margin inside a container.",
-              "type": "integer",
-              "minimum": 0
             }
           }
         },
