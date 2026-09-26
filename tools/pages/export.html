@@ -1,0 +1,56 @@
+<!--
+title: Export
+lede: Save the diagram as a picture: SVG, PNG or PDF.
+tags: free
+related: share-html, toolbar, cli-reference
+-->
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Open <span class="ui">More</span> and choose <span class="ui">Export…</span>. A dialog called <em>Export BPMN Diagram</em> opens. It shows a live preview.</li>
+  <li>Choose the options on the right: <span class="ui">Theme</span>, <span class="ui">Schema</span>, <span class="ui">Format</span> and <span class="ui">Use Background</span>.</li>
+  <li>Press <span class="ui">Export</span>. The IDE's save dialog asks where to put the file.</li>
+</ol>
+
+<figure class="shot">
+  <img src="@img/export-dialog.png" alt="The export dialog with a preview of the diagram">
+  <figcaption>The export dialog renders the diagram with the theme and format you choose, with a live preview.</figcaption>
+</figure>
+
+<h2>The options</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>Choices</th></tr></thead>
+  <tbody>
+  <tr><td>Diagram</td><td>Only shown when the diagram has collapsed sub-processes. <em>Main Diagram</em>, or one of the sub-processes.</td></tr>
+  <tr><td>Theme</td><td>Light, Dark, Dracula</td></tr>
+  <tr><td>Schema</td><td>Default, or Sketchy, which draws the diagram as if by hand in the Virgil font</td></tr>
+  <tr><td>Format</td><td>SVG, PNG, PDF</td></tr>
+  <tr><td>Use Background</td><td>Off: the picture is transparent. On: the theme's background colour is painted behind the diagram.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>About the formats</h2>
+
+<ul>
+  <li><strong>SVG</strong> is written exactly as drawn. It stays sharp at any size and text stays text.</li>
+  <li><strong>PNG</strong> is drawn at twice the diagram's size. The longer side is capped at 8192 pixels, so large diagrams fit in the browser's limit.</li>
+  <li><strong>PDF</strong> is that PNG on one A4 page. Portrait or landscape follows the shape of the diagram. It is scaled to fit under a heading.</li>
+</ul>
+
+<h2>From a terminal</h2>
+
+<pre><code>penstock export . --out docs/img</code></pre>
+
+<p>This writes SVG, drawn by Penstock from the diagram's coordinates. It needs no browser. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="cli-reference.html#export">Every command</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My PNG is blurry when I zoom in.</dt>
+  <dd>PNG is a picture of pixels. Use SVG when you need to zoom.</dd>
+  <dt>The exported picture has no background.</dt>
+  <dd>Turn on <span class="ui">Use Background</span>.</dd>
+  <dt>I want a file someone can open without a picture viewer.</dt>
+  <dd>Use <a href="share-html.html">Share as HTML</a>. It makes one file that opens in any browser, with zoom and click-for-documentation.</dd>
+</dl>

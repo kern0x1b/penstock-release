@@ -1,0 +1,79 @@
+<!--
+title: The toolbar and the More menu
+lede: The toolbar holds the actions you use most, the More menu holds all of them, and you choose which ones sit on the bar.
+tags: free
+related: bpmn-editor, diagram-check, deployment
+-->
+<h2>How it works</h2>
+
+<p>Two actions are always on the bar: <strong>Undo</strong> and <strong>Redo</strong>. Every other action is in the <span class="ui">More</span> menu, the button with three dots. Each row of the menu shows the action's icon and its name.</p>
+
+<p>Some actions are also pinned to the bar to start with. You can change that.</p>
+
+<figure class="shot">
+  <img src="@img/share-and-import/more-menu.png" alt="The More menu of the editor listing every action, with a pin beside the pinned ones">
+  <figcaption>The More menu. Each row has the action's icon and name. A blue pin marks an action that is on the bar. Click the pin to move it.</figcaption>
+</figure>
+
+<h2>Pin or unpin an action</h2>
+
+<ol class="steps">
+  <li>Click <span class="ui">More</span> (three dots).</li>
+  <li>Find the action. Next to its name there is a small pin.</li>
+  <li>Click the pin. The action moves onto the bar. Click it again and the action goes back into the menu only.</li>
+</ol>
+
+<p>Penstock remembers your choice in <code>~/.penstock/preferences.json</code>. It is the same in every IDE on your machine and survives a restart. It is never stored in <code>penstock.yaml</code>, so your toolbar never lands in a teammate's checkout. If a later version adds a new action, you still get it, even if you rearranged the bar.</p>
+
+<h2>Every action in the BPMN editor</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Action</th><th>What it does</th><th>Pinned at first</th><th>Shown for</th></tr></thead>
+  <tbody>
+  <tr><td>Undo, Redo</td><td>Take back or repeat the last change.</td><td>Always on the bar</td><td>All</td></tr>
+  <tr><td>Auto Layout <span class="tag pro">Pro</span></td><td>Tidies the whole diagram at once, then offers Undo. <a href="auto-layout.html">Auto layout</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Check</td><td>Opens the check card. <a href="diagram-check.html">Diagram check</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Simulate</td><td>Moves a token through the process. <a href="token-simulation.html">Token simulation</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Coverage <span class="tag pro">Pro</span></td><td>Colours what your process tests reached. <a href="process-tests.html">Process tests and coverage</a></td><td>Yes</td><td>Appears once test reports exist</td></tr>
+  <tr><td>Live</td><td>Shows what the engine is doing with this diagram. <a href="live.html">Live</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Runs <span class="tag pro">Pro</span></td><td>Runs the diagram's test cases on a local engine. <a href="test-cases.html">Runs and test cases</a></td><td>Yes</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>Shows what would not carry over. <a href="migration.html">Camunda 7 to 8</a></td><td>Yes</td><td>Camunda 7, Operaton, CIB seven</td></tr>
+  <tr><td>Properties Panel</td><td>An icon at the right edge. It stays pressed while the panel is open.</td><td>Yes</td><td>All</td></tr>
+  <tr><td>Deploy</td><td>Sends the diagram to the engine. The arrow beside it picks another profile or edits the connection. <a href="deployment.html">Deployment</a></td><td>Yes, on the right</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+  <tr><td>Minimap</td><td>Shows a small overview of a large diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Copy, Paste</td><td>Use the system clipboard. You can paste into another diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Export…</td><td>Opens the export dialog. <a href="export.html">Export</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Import diagram…</td><td>Turns a draw.io, Visio, Signavio or Bizagi file into BPMN. <a href="import.html">Import a diagram</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Share as HTML…</td><td>Writes one offline HTML file. <a href="share-html.html">Share as HTML</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Templates…</td><td>Opens the connector template browser. <a href="element-templates.html">Element templates</a></td><td>No</td><td>Camunda 8</td></tr>
+  <tr><td>Sketchy Drawing</td><td>Draws the diagram as if by hand, on your screen only.</td><td>No</td><td>All</td></tr>
+  <tr><td>Show the tour again</td><td>Replays the five-step tour of the editor.</td><td>No</td><td>All</td></tr>
+  </tbody>
+</table></div>
+
+<p>Check, Simulate, Live, Runs, Coverage, Minimap and Sketchy Drawing stay highlighted while they are on. Undo, Redo, Copy, Paste and Auto Layout are blocked while a token simulation runs.</p>
+
+<h2>The DMN and form editors</h2>
+
+<p>They have the same kind of bar: icon buttons, a More menu, and a Deploy button on the right. Check results appear in the same floating card. See <a href="dmn-editor.html">The DMN editor</a> and <a href="form-editor.html">The form editor</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>Words for the actions you use, and icons only where an icon is well known: undo, redo and the panel toggle.</li>
+  <li>One main button on the right: Deploy.</li>
+  <li>A pinned action that needs a feature you do not have shows what it would do and offers to buy Pro or sign in when you press it.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Deploy is not on the toolbar.</dt>
+  <dd>It is shown when the engine is Camunda 7, Camunda 8, Operaton or CIB seven. A Plain BPMN project has none. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>Coverage is not there.</dt>
+  <dd>It appears only after your process tests have run and left reports under <code>target</code> or <code>build</code>. See <a href="process-tests.html">Process tests and coverage</a>.</dd>
+  <dt>Migrate to Camunda 8 is not there.</dt>
+  <dd>It is for Camunda 7, Operaton and CIB seven diagrams only.</dd>
+  <dt>I pinned something and it is gone after I changed IDE.</dt>
+  <dd>Your choice is kept in <code>~/.penstock/preferences.json</code>. If <code>PENSTOCK_HOME</code> is set, the file is under that folder instead. Check both IDEs see the same one.</dd>
+</dl>

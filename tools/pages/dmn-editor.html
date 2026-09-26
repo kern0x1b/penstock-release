@@ -1,0 +1,78 @@
+<!--
+title: The DMN editor
+lede: The DMN editor draws decisions as tables, so business rules live in a file you can review, check and deploy.
+tags: free
+needs: The decision table check needs Pro
+related: form-editor, deployment, share-html, flow-analysis
+-->
+<h2>What it is</h2>
+
+<p>DMN is a standard for writing decisions as tables. A row says: when these inputs match, give this output. Penstock opens <code>.dmn</code> files in an editor built on <a href="https://bpmn.io/toolkit/dmn-js/">dmn-js</a>. The file is saved as you edit, like a diagram.</p>
+
+<h2>Open a decision</h2>
+
+<ol class="steps">
+  <li>Double-click a <code>.dmn</code> file.</li>
+  <li>The bar at the top shows one button for the <strong>Requirements</strong> diagram, and one for each decision in the file. Press a decision to open its table.</li>
+  <li>Edit the table. Add rows, change the inputs and outputs, set the <em>hit policy</em>. The hit policy says what happens when several rows match, for example <code>FIRST</code> takes the first row.</li>
+  <li>Use the extra column for annotations on each rule.</li>
+</ol>
+
+<h2>What you can edit</h2>
+
+<ul>
+  <li>The requirements diagram (DRD): which decisions depend on which.</li>
+  <li>Decision tables, with typed inputs and outputs and rule annotations.</li>
+  <li>Literal expressions and boxed expressions.</li>
+  <li>The Camunda DMN extensions. They are read and kept.</li>
+</ul>
+
+<h2>The toolbar</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>View buttons</td><td>Requirements, then one per decision.</td></tr>
+  <tr><td>Check</td><td>Runs the decision table check. Pro.</td></tr>
+  <tr><td>Deploy</td><td>Sends the file to the engine with the settings a diagram uses. Shown when the engine is known. See <a href="deployment.html">Deployment</a>.</td></tr>
+  <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The DMN editor follows the theme of the IDE, and looks like the diagram editor. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
+
+<h2>The decision table check</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>Open a decision table and press <span class="ui">Check</span>. A card called <em>Decision check</em> opens.</li>
+  <li>Each finding names the rules and a value that both match, or the values that no rule matches.</li>
+  <li>Click a finding. The editor goes to it.</li>
+</ol>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Two rules of a table that expects one match match the same input. For an Any table, rules that do so with different results.</td><td><a href="../rules/table-rule-overlap">table/rule-overlap</a></td></tr>
+  <tr><td>An input that no rule matches</td><td><a href="../rules/table-rule-gap">table/rule-gap</a></td></tr>
+  <tr><td>A table with an expression the check cannot read</td><td><a href="../rules/table-table-unread">table/table-unread</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
+
+<p>In a terminal: <code>penstock check .</code> checks every <code>.dmn</code> file in the project.</p>
+
+<h2>Documentation of a decision</h2>
+
+<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="cli-reference.html#docs">Every command</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The file "could not be read as DMN".</dt>
+  <dd>The editor shows the reason. The file may not be valid DMN XML. Open the <span class="ui">Text</span> tab and look at the message.</dd>
+  <dt>The table check says a table cannot be checked.</dt>
+  <dd>A cell holds an expression the check cannot read. Simplify the cell named in the finding.</dd>
+  <dt>Deploy is missing.</dt>
+  <dd>It shows when the engine is known. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
+</dl>

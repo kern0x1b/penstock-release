@@ -1,0 +1,44 @@
+<!--
+title: Scripts in their own tab
+lede: Edit a script from a task as a real file in the IDE, with the IDE's colours, completion and checks.
+tags: free
+needs: Camunda 7, Operaton and CIB seven
+related: properties-panel, engine-profiles
+-->
+<h2>Why</h2>
+
+<p>The small editor in the properties panel is fine for one line. For a longer script you want the full IDE. Penstock hands the script to the IDE as a file and writes every keystroke back into the diagram.</p>
+
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Select a script task, or any element that holds a script: a condition, an input or output mapping, an execution listener or a task listener.</li>
+  <li>In the properties panel, find the script field. Under it is a button <span class="ui">Edit in new tab</span>. Press it.</li>
+  <li>The IDE opens a new editor tab. The file has the extension <code>.groovy</code> for Groovy or <code>.js</code> for JavaScript, so the IDE's own colours, completion and inspections apply.</li>
+  <li>Type. Your changes go back into the diagram about 100 milliseconds after each keystroke, and reach the diagram model 400 milliseconds after you stop.</li>
+  <li>Close the tab when you are done.</li>
+</ol>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>While the tab is open, the field in the properties panel is read-only. There is exactly one place to type.</li>
+  <li>The tab is a temporary file kept in memory. Nothing is written to your disk.</li>
+  <li>When you close the tab, the field in the panel becomes editable again.</li>
+  <li>If you press the button again while the tab is open, the IDE brings that tab to the front. It does not open a second one.</li>
+</ul>
+
+<h2>The default language</h2>
+
+<p>Set <code>scriptType</code> in <code>penstock.yaml</code> to <code>groovy</code>, <code>javascript</code> or <code>none</code>. It is used for a script that has no format yet, and for a condition expression that has no language yet. It applies to Camunda 7, Operaton and CIB seven only. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>There is no <span class="ui">Edit in new tab</span> button.</dt>
+  <dd>The button exists for Camunda 7, Operaton and CIB seven. In Camunda 8 a script is a FEEL expression and is edited in the panel.</dd>
+  <dt>The IDE colours the script as the wrong language.</dt>
+  <dd>The script format is JavaScript or Groovy as set on the element. Change the script format in the panel and open the tab again.</dd>
+  <dt>I closed the tab and lost text.</dt>
+  <dd>You did not lose it. Everything you typed was already written back into the diagram. Undo in the diagram if you need an older version.</dd>
+</dl>

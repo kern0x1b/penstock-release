@@ -1,0 +1,68 @@
+<!--
+title: The form editor
+lede: The form editor builds the screens a user sees in a user task, and saves them as a Camunda Form.
+tags: free
+needs: The form check needs Pro
+related: dmn-editor, deployment, share-html
+-->
+<h2>What it is</h2>
+
+<p>A Camunda Form is a JSON file with the extension <code>.form</code>. A user task shows it to a person. The editor is built on <a href="https://bpmn.io/toolkit/form-js/">form-js</a>. The file is saved as you edit.</p>
+
+<h2>Open and edit a form</h2>
+
+<ol class="steps">
+  <li>Double-click a <code>.form</code> file. A file from the IntelliJ GUI Designer is left to the GUI Designer. Penstock takes only files that are Camunda Forms.</li>
+  <li>The palette of fields is on the left, the form in the middle and the properties on the right.</li>
+  <li>Drag a field onto the form. Give it a <strong>label</strong>, and a <strong>key</strong>. The key is the name of the process variable the field writes.</li>
+  <li>Press <span class="ui">Deploy</span> to send it to the engine, with the same settings a diagram uses.</li>
+</ol>
+
+<h2>The toolbar</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Check</td><td>Runs the form check. Pro.</td></tr>
+  <tr><td>Deploy</td><td>Sends the form to the engine. See <a href="deployment.html">Deployment</a>.</td></tr>
+  <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The form check</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>Press <span class="ui">Check</span>. A card called <em>Form check</em> opens.</li>
+  <li>Click a finding to go to the field.</li>
+</ol>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Two fields write the same variable, or a field writes a group's path. Tasklist refuses to open such a form.</td><td><a href="../rules/form-key-clash">form/key-clash</a></td></tr>
+  <tr><td>A field writes no variable</td><td><a href="../rules/form-no-key">form/no-key</a></td></tr>
+  <tr><td>An option list offers one value twice</td><td><a href="../rules/form-repeated-option">form/repeated-option</a></td></tr>
+  <tr><td>An input has no label</td><td><a href="../rules/form-no-label">form/no-label</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>When all is well the card says <em>Every field writes its own variable, and every option means something different.</em> In a terminal, <code>penstock check .</code> checks every form in the project.</p>
+
+<h2>Forms and the rest of the project</h2>
+
+<ul>
+  <li>A user task links to a form by its id. If no <code>.form</code> file has that id, the check reports <a href="../rules/code-unknown-form">code/unknown-form</a>.</li>
+  <li><code>penstock docs</code> writes a page for each form with the variable every field writes, whether it is required, its options and when it is hidden.</li>
+  <li>The <a href="tool-window.html">Penstock tool window</a> lists forms and the tasks that use them.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My .form file opens in the GUI Designer.</dt>
+  <dd>It is a GUI Designer form, not a Camunda Form. Penstock leaves those alone.</dd>
+  <dt>"This file could not be read as a Camunda form".</dt>
+  <dd>The JSON is not a valid form. The editor shows the reason.</dd>
+  <dt>Tasklist will not open my form.</dt>
+  <dd>Run <span class="ui">Check</span>. Two fields with the same key is the usual reason.</dd>
+</dl>

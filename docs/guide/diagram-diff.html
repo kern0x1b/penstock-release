@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Diagram diff - Penstock</title>
+<meta name="description" content="See what changed between two versions of a diagram as two pictures, instead of two blocks of XML.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/diagram-diff.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html" aria-current="page">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>Diagram diff</h1>
+<p class="lede">See what changed between two versions of a diagram as two pictures, instead of two blocks of XML.</p>
+<p class="meta"><span class="tag pro">Pro</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#steps">Steps</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#the-same-from-a-terminal">The same from a terminal</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>Penstock adds a diff tool to the IDE. When you compare two versions of a <code>.bpmn</code> file, you see the two diagrams side by side: <em>Before</em> on the left, <em>After</em> on the right. Both are read-only.</p>
+
+<h2 id="steps"><a href="#steps">Steps</a></h2>
+
+<ol class="steps">
+  <li>Open a <code>.bpmn</code> file that is under version control.</li>
+  <li>Compare it with an earlier version. Use <span class="ui">Compare with Revision</span>, open a commit in the Git log, or open a shelved change.</li>
+  <li>The IDE shows the two diagrams instead of two blocks of XML.</li>
+</ol>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<p>Every changed element is outlined in a colour. The comparison is by meaning, not by text. Penstock reads both versions and sorts each element into a bucket:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Bucket</th><th>Shown on</th></tr></thead>
+  <tbody>
+  <tr><td>Removed</td><td>The Before side</td></tr>
+  <tr><td>Added</td><td>The After side</td></tr>
+  <tr><td>Changed</td><td>Both sides</td></tr>
+  <tr><td>Only moved or resized</td><td>The After side, in its own colour</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The last bucket is the useful one. A commit that only ran auto layout reads as what it is: everything moved, nothing changed in meaning.</p>
+
+<h2 id="the-same-from-a-terminal"><a href="#the-same-from-a-terminal">The same from a terminal</a></h2>
+
+<ul>
+  <li><code>penstock diff before.bpmn after.bpmn</code> lists added, removed and changed elements by name. It says <em>only the drawing moved</em> when that is all.</li>
+  <li><code>penstock diff main</code> compares the working tree against a commit, branch or tag.</li>
+  <li><code>penstock diff main --images</code> renders before and after with the changes coloured. Needs Pro.</li>
+</ul>
+
+<p>A pull request report and the review bot use the same comparison. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>I see XML, not two diagrams.</dt>
+  <dd>The visual diff is a Pro feature. Without Pro, the IDE shows its normal text diff. See <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>Everything is marked as changed.</dt>
+  <dd>Check whether the commit reformatted the file. <code>penstock fmt</code> makes the XML stable so later diffs stay small.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../guide/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../guide/auto-layout.html">Auto layout</a> - Tidy a diagram in one click.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/export.html"><span>Previous</span>Export</a>
+<a class="next" href="../guide/dmn-editor.html"><span>Next</span>The DMN editor</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

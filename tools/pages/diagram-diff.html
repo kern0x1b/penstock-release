@@ -1,0 +1,52 @@
+<!--
+title: Diagram diff
+lede: See what changed between two versions of a diagram as two pictures, instead of two blocks of XML.
+tags: pro
+related: cli-reference, ci, auto-layout
+-->
+<h2>What it is</h2>
+
+<p>Penstock adds a diff tool to the IDE. When you compare two versions of a <code>.bpmn</code> file, you see the two diagrams side by side: <em>Before</em> on the left, <em>After</em> on the right. Both are read-only.</p>
+
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Open a <code>.bpmn</code> file that is under version control.</li>
+  <li>Compare it with an earlier version. Use <span class="ui">Compare with Revision</span>, open a commit in the Git log, or open a shelved change.</li>
+  <li>The IDE shows the two diagrams instead of two blocks of XML.</li>
+</ol>
+
+<h2>What you see</h2>
+
+<p>Every changed element is outlined in a colour. The comparison is by meaning, not by text. Penstock reads both versions and sorts each element into a bucket:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Bucket</th><th>Shown on</th></tr></thead>
+  <tbody>
+  <tr><td>Removed</td><td>The Before side</td></tr>
+  <tr><td>Added</td><td>The After side</td></tr>
+  <tr><td>Changed</td><td>Both sides</td></tr>
+  <tr><td>Only moved or resized</td><td>The After side, in its own colour</td></tr>
+  </tbody>
+</table></div>
+
+<p>The last bucket is the useful one. A commit that only ran auto layout reads as what it is: everything moved, nothing changed in meaning.</p>
+
+<h2>The same from a terminal</h2>
+
+<ul>
+  <li><code>penstock diff before.bpmn after.bpmn</code> lists added, removed and changed elements by name. It says <em>only the drawing moved</em> when that is all.</li>
+  <li><code>penstock diff main</code> compares the working tree against a commit, branch or tag.</li>
+  <li><code>penstock diff main --images</code> renders before and after with the changes coloured. Needs Pro.</li>
+</ul>
+
+<p>A pull request report and the review bot use the same comparison. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I see XML, not two diagrams.</dt>
+  <dd>The visual diff is a Pro feature. Without Pro, the IDE shows its normal text diff. See <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>Everything is marked as changed.</dt>
+  <dd>Check whether the commit reformatted the file. <code>penstock fmt</code> makes the XML stable so later diffs stay small.</dd>
+</dl>
