@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "origin": "site",
+  "readAt": null,
+  "api": "https://sandbox-api.polar.sh",
+  "sandbox": true,
+  "organizationId": "41b3d888-5d09-4eca-9b7b-4d401c9306e8",
+  "plans": {
+    "pro": {
+      "name": "Pro",
+      "checkoutLink": "polar_cl_enzGoxymRLFxHfHrpf6GHQHx7muDPJDdUEoUq0Vtn3d",
+      "products": [],
+      "prices": [
+        { "currency": "eur", "amount": 300, "interval": "month", "intervalCount": 1 },
+        { "currency": "eur", "amount": 3000, "interval": "year", "intervalCount": 1 }
+      ]
+    },
+    "team": {
+      "name": "Team",
+      "checkoutLink": "polar_cl_pmR7pqf7293ZBbpBvKDQo7F6NgNcvBrfOuxRb2XigJQ",
+      "products": [],
+      "prices": [
+        { "currency": "eur", "amount": 1200, "interval": "month", "intervalCount": 1 },
+        { "currency": "eur", "amount": 12000, "interval": "year", "intervalCount": 1 }
+      ]
+    }
+  }
+}
