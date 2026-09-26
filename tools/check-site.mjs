@@ -66,7 +66,22 @@ for (const page of pages) {
 }
 
 for (const page of pages) {
-  if (!linked.has(page) && path.basename(page) !== 'index.html') problems.push(`${path.relative(docs, page)}: no page links to it`);
+  const redirect = fs.readFileSync(page, 'utf8').includes('http-equiv="refresh"');
+  if (!linked.has(page) && path.basename(page) !== 'index.html' && !redirect) problems.push(`${path.relative(docs, page)}: no page links to it`);
+}
+
+const HOST_WORDS = /Settings \||Tools \||Run Penstock|\bCmd\b|\bCtrl\b|[Tt]ool window|[Gg]utter|Run window|IntelliJ|Code Vision|[Ss]tatus bar|Marketplace|\bIDEs?\b|JetBrains(?! Mono)/;
+const HOST_PAGES_OK = new Set(['faq.html', 'glossary.html', 'index.html']);
+for (const page of pages) {
+  const relative = path.relative(docs, page);
+  if (!relative.startsWith(`guide${path.sep}`) || HOST_PAGES_OK.has(path.basename(page))) continue;
+  const main = fs.readFileSync(page, 'utf8').match(/<main class="doc"[\s\S]*?<\/main>/)?.[0] ?? '';
+  const core = main
+    .replace(/<div class="hosts">[\s\S]*?<\/section>\n<\/div>\n<\/div>/g, '')
+    .replace(/<div class="related">[\s\S]*?<\/div>/, '')
+    .replace(/<nav class="pager"[\s\S]*?<\/nav>/, '');
+  const found = core.match(HOST_WORDS);
+  if (found) problems.push(`${relative}: host-specific wording in the core guide: "${found[0]}" near "${core.slice(Math.max(0, found.index - 40), found.index + 60).replace(/\s+/g, ' ')}"`);
 }
 
 const warnings = [];

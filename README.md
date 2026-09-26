@@ -33,19 +33,71 @@ The font, JetBrains Mono, is in `docs/fonts` with its SIL Open Font License.
 The look follows the product: its own colours for light and dark, JetBrains Mono, a 4px grid and no
 frames. `docs/style.css` is the only stylesheet.
 
-The HTML is generated and committed, so the site can be served as it is. The guide pages are written
-as fragments in `tools/pages/`, one file per page. `tools/nav.json` is the one list of pages: it
-makes the sidebar, the previous and next links and the contents page. After changing a fragment, the
-list or the shell in `tools/site.mjs`, regenerate:
+### How the documentation is organised
+
+The site is organised by what a thing is, not by where it runs.
+
+| Address | What it holds | Source |
+|---|---|---|
+| `/guide/` | The **core guide**: every feature that behaves the same in every tool. Written once, in host-neutral words ("the editor", "the More menu"), with no IDE menu paths or shortcuts in the body. | `tools/pages/guide/` |
+| `/jetbrains/` | The JetBrains host: install from the Marketplace, where things are in the IDE, the tool window, code links, tests, shortcuts, licence. | `tools/pages/jetbrains/` |
+| `/cli/` | The command line host: install, every command, pipelines, the MCP server. | `tools/pages/cli/` |
+| `/vscode/`, `/desktop/` | Slots that are ready but empty. They are not in any navigation until they are switched on. | `tools/pages/vscode/`, `tools/pages/desktop/` |
+| `/rules/` | One page for every rule, generated from the product. The product links to these addresses. | `tools/build-rules.mjs` |
+
+`tools/nav.json` is the one list. It has one entry per section (`guide`, `jetbrains`, `cli`, `vscode`,
+`desktop`) with its groups and pages. It makes the sidebar, the previous and next links, the contents
+pages and the "Pick your tool" row. A page is a fragment, one file, in `tools/pages/<section>/<slug>.html`.
+Its first lines are a comment with `title`, `lede` and optional `tags`, `needs` and `related`. In a page:
+
+- `@guide/x.html`, `@jetbrains/x.html`, `@cli/x.html`, `@rules/x` and `@img/x.png` are links that work from any section.
+- `{{contents}}` lists the section's pages as cards, and `{{tools}}` is the "Pick your tool" row.
+
+**Per-tool blocks.** Where a core page has a step that depends on the tool, it holds a slot:
+`{{host:run-tests-open|Open the Run tests panel}}`. The generator draws it as one short block with a
+labelled card for every tool that is switched on. The text of a card is not in the core page. It is in
+`tools/blocks/<tool>/<slot>.html`. A card for a feature that does not exist in a tool is a file that only says
+why:
+
+```html
+<!--
+unavailable: The command line has no editor. Use penstock show instead.
+-->
+```
+
+If a tool that is switched on has no file for a slot, the build stops and lists every missing file. So a
+new tool never leaves a hole, and it never needs a change in a core page.
+
+### Add a tool (VS Code, a desktop app)
+
+1. Write its pages in `tools/pages/vscode/` (at least `index.html`), the way `tools/pages/jetbrains/` does.
+2. In `tools/nav.json`, in the section `vscode`: put the page list under `groups`, and set `"enabled": true`.
+   That one entry is the whole navigation change. The top bar, the footer, the sidebar, the contents pages and the
+   "Pick your tool" row pick it up, and the "coming" card turns into a link.
+3. Run `node tools/list-blocks.mjs vscode`. It prints every slot the core guide has and the file each one still needs.
+4. Write those files in `tools/blocks/vscode/`. Use `unavailable:` where the tool lacks the feature.
+5. `node tools/build-pages.mjs`, then `node tools/check-site.mjs`.
+
+`check-site.mjs` also fails when a core guide page contains tool-specific words (IDE, tool window, gutter,
+Cmd, Ctrl, Settings paths, JetBrains) outside a block. That keeps the core host-neutral.
+
+### Generating
+
+The HTML is generated and committed, so the site can be served as it is. After changing a fragment,
+`tools/nav.json` or the shell in `tools/site.mjs`, regenerate:
 
 ```bash
-node tools/build-guide.mjs        # docs/guide/*.html from tools/pages
-node tools/build-home.mjs         # docs/index.html
+node tools/build-pages.mjs        # every section: docs/guide, docs/jetbrains, docs/cli (and later docs/vscode)
+node tools/build-home.mjs         # docs/index.html and docs/404.html
 node tools/build-legal-pages.mjs  # docs/license and docs/notices, from LICENSE and THIRD-PARTY-NOTICES.md
 node tools/build-rules.mjs <path to the product's docs/rules>   # docs/rules
+node tools/list-blocks.mjs [tool] # which per-tool blocks exist, and which a tool still needs
 node tools/check-site.mjs         # every internal link and image resolves, no external loads, no em dashes
 node tools/check-site.mjs --release   # the same, and it fails while prices or checkout are not ready to publish
 ```
+
+`docs/guide/cli.html` is a redirect stub (a plain `meta refresh`, no script) to `/cli/`. Redirects are listed in
+`tools/nav.json` under `redirects`.
 
 The rule pages are generated from the product's `docs/rules`, which the product generates from its
 rule catalogue. The product links to `https://kern0x1b.github.io/penstock-release/rules/<rule>`, so
@@ -61,7 +113,7 @@ generated and written to `tools/prices.json`, which holds no secret and is commi
 
 ```bash
 # read the prices from Polar, write tools/prices.json, and generate the pages
-POLAR_ACCESS_TOKEN=polar_oat_... node tools/build-guide.mjs
+POLAR_ACCESS_TOKEN=polar_oat_... node tools/build-pages.mjs
 # or only read the prices
 POLAR_ACCESS_TOKEN=polar_oat_... node tools/fetch-prices.mjs
 ```

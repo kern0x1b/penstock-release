@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { escapeHtml, MARKETPLACE } from './site.mjs';
+import { escapeHtml } from './site.mjs';
 import { readPrices } from './fetch-prices.mjs';
 
 export const checkoutSettings = () => JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'checkout.json'), 'utf8'));
@@ -71,8 +71,8 @@ export function plansHtml({ prices = readPrices(), checkout = checkoutSettings()
   <div class="plan" id="buy-free">
       <p class="name"><span class="tag free">Free</span></p>
       <p class="price">No charge</p>
-      <p class="about">The editors, checks, deploy, Live, export, share and import. Every new machine also starts with 30 days of Pro.</p>
-      <a class="btn quiet" href="${MARKETPLACE}">Install from the Marketplace</a>
+      <p class="about">The editors, checks, deploy, Monitor, export, share and import. Every new machine also starts with 30 days of Pro.</p>
+      <a class="btn quiet" href="getting-started.html">Get Penstock</a>
     </div>
 ${cards}
 </div>

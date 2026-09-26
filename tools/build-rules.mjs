@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { escapeHtml, root } from './site.mjs';
-import { pageHtml } from './build-guide.mjs';
+import { pageHtml } from './build-pages.mjs';
 
 const source = process.argv[2] ?? process.env.PENSTOCK_RULES ?? path.resolve(root, '..', 'jetbrains-bpmn-editor', 'docs', 'rules');
 const outDir = path.join(root, 'docs', 'rules');
@@ -37,6 +37,12 @@ const FAMILIES = {
     guide: ['validation', 'Validation with bpmnlint'],
     where: (rule) => `<p>The editor puts a marker on the element while you draw. The check card lists it under <strong>Rules</strong>, with the rule name <code>${rule.id}</code>. In a terminal, <code>penstock check --only rules</code> reports it.</p>
 <p>To change how strict this rule is, set <code>${rule.id.replace('bpmnlint/', '')}</code> to <code>error</code>, <code>warn</code> or <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
+  },
+  compat: {
+    pro: false,
+    guide: ['validation', 'Validation'],
+    where: (rule) => `<p>The check card lists it under <strong>Rules</strong>, the editor marks the element on the canvas, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It checks the diagram against the engine and the version it is written for: the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none. Operaton and CIB seven are checked as Camunda 7. This check is free.</p>
+<p>To turn it off, set <code>${rule.id.replace('compat/', 'camunda-compat/')}</code> or <code>${rule.id}</code> to <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
   },
   drawing: {
     pro: false,
@@ -114,8 +120,10 @@ ${family.where(rule)}
 
 <p>Read more: <a href="../guide/${guideSlug}.html">${escapeHtml(guideTitle)}</a>. All rules: <a href="./">Every rule</a>.</p>`;
   const html = pageHtml({
+    section: 'guide',
     slug: `rules/${rule.slug}`,
     meta: {
+      canonical: `rules/${rule.slug}`,
       title: escapeHtml(rule.title),
       lede: `The check <code>${rule.id}</code>, in the group ${escapeHtml(rule.family)}.`,
       description: `${rule.title}. ${rule.why} ${rule.fix}`,
@@ -143,6 +151,12 @@ const listed = new Set(sections.flatMap((section) => section.ids));
 const missing = rules.filter((rule) => !listed.has(rule.id));
 if (missing.length > 0) throw new Error(`Not in the index: ${missing.map((rule) => rule.id).join(', ')}`);
 
+const slugOf = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const familyOfSection = (section) => FAMILIES[section.ids[0].split('/')[0]];
+const groupLink = (section) => `<a href="#${slugOf(section.title)}">${escapeHtml(section.title.toLowerCase())}</a>`;
+const paidGroups = sections.filter((section) => familyOfSection(section).pro);
+const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: ${sections.map(groupLink).join(', ')}. ${paidGroups.map((section) => escapeHtml(section.title.toLowerCase())).join(', ')} are part of Pro. The rest is free.</p>`;
+
 const indexBody = `<h2>How to read a rule page</h2>
 
 <p>Every check Penstock makes has a page. It says <strong>why it matters</strong>, <strong>how to fix it</strong>, and where you see it. In the diagram check, select a finding and its link opens the page. In <code>penstock check --format json</code>, SARIF and GitHub annotations, every finding carries the rule id and the address of its page.</p>
@@ -156,18 +170,20 @@ const indexBody = `<h2>How to read a rule page</h2>
   </tbody>
 </table></div>
 
-<p>${rules.length} rules in ${sections.length} groups. The groups: <a href="#modelling-rules">modelling rules</a> (bpmnlint), <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a> and <a href="#modelling-conventions">modelling conventions</a>. Process flow, decision tables, forms and diagrams and code are part of Pro.</p>
+${groupsSentence}
 
 ${tables}`;
 
 fs.writeFileSync(
   path.join(outDir, 'index.html'),
   pageHtml({
+    section: 'guide',
     slug: 'rules/index',
     meta: {
+      canonical: 'rules/',
       title: 'Every rule',
       lede: 'One page for each check Penstock makes: why it matters and how to fix it.',
-      description: 'Every Penstock check with its reason and its fix: modelling rules, drawing, process flow, decision tables, forms, diagrams and code.',
+      description: 'Every Penstock check with its reason and its fix: modelling rules, engine compatibility, drawing, process flow, decision tables, forms, diagrams and code.',
       tags: 'free',
       group: 'Checking',
       related: 'diagram-check, validation, flow-analysis',

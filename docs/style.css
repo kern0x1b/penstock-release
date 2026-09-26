@@ -475,7 +475,7 @@ details.faq[open] { padding-bottom: 8px; }
 
 .card:hover { background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
 .card strong { display: block; color: var(--accent); margin-bottom: 4px; }
-.card span { color: var(--muted); font-size: 13px; display: block; line-height: 1.5; }
+.card > span { color: var(--muted); font-size: 13px; display: block; line-height: 1.5; }
 
 /* landing page */
 
@@ -599,3 +599,50 @@ footer p { margin: 0 0 8px; max-width: 84ch; }
   .buy-light { display: none; }
   .buy-dark { display: inline-block; }
 }
+
+/* one short block per tool inside a page that works the same everywhere */
+
+.hosts { margin: 16px 0; }
+
+.hosts-title {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.host-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.host {
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 0;
+}
+
+.host h4 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.host > :not(h4) { font-size: 13px; line-height: 1.6; }
+.host p, .host ul, .host ol { margin: 4px 0; }
+.host pre { margin: 8px 0; background: color-mix(in srgb, var(--fg) 6%, transparent); }
+.host .unavailable { color: var(--muted); }
+
+.cards.tools { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.card.soon { opacity: 0.7; }
+.card.soon:hover { background: var(--surface); }
+.card.soon strong { color: var(--muted); }
+
+.band .prose-note { margin: -4px 0 12px; color: var(--muted); font-size: 12px; }

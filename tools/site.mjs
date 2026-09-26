@@ -8,63 +8,93 @@ export const MARKETPLACE = 'https://plugins.jetbrains.com/plugin/25710-camunda-b
 
 export const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const sourceExists = (slug) => slug === 'index' || slug.startsWith('rules/') || fs.existsSync(path.join(import.meta.dirname, 'pages', `${slug}.html`));
+export const pagesDir = path.join(import.meta.dirname, 'pages');
+export const blocksDir = path.join(import.meta.dirname, 'blocks');
 
-export const NAV = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'nav.json'), 'utf8'))
-  .map((group) => ({ ...group, pages: group.pages.filter((page) => sourceExists(page.slug)) }))
-  .filter((group) => group.pages.length > 0);
+const config = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'nav.json'), 'utf8'));
 
-export const PAGES = NAV.flatMap((group) => group.pages.map((page) => ({ ...page, group: group.title })));
+export const REDIRECTS = config.redirects ?? [];
 
-const TOP_LINKS = [
-  { href: 'guide/', label: 'Guide', key: 'guide' },
-  { href: 'guide/plans.html', label: 'Plans', key: 'plans' },
-  { href: 'guide/cli.html', label: 'Command line', key: 'cli' },
-  { href: 'license/', label: 'Licence', key: 'license' },
-  { href: `${REPO}/issues`, label: 'Support', key: 'support' },
-];
+const sourceExists = (section, slug) => slug.startsWith('rules/') || fs.existsSync(path.join(pagesDir, section, `${slug}.html`));
 
-function up(depth) {
-  return '../'.repeat(depth);
-}
+export const ALL_SECTIONS = config.sections;
 
-function href(base, target) {
-  return /^https?:/.test(target) ? target : base + target;
-}
+export const SECTIONS = config.sections
+  .filter((section) => section.enabled !== false)
+  .map((section) => ({
+    ...section,
+    groups: section.groups
+      .map((group) => ({ ...group, pages: group.pages.filter((page) => sourceExists(section.id, page.slug)) }))
+      .filter((group) => group.pages.length > 0),
+  }));
+
+export const HOSTS = SECTIONS.filter((section) => section.kind === 'host');
+export const ANNOUNCED = config.sections.filter((section) => section.kind === 'host' && section.enabled === false && section.announce);
+
+export const PAGES = SECTIONS.flatMap((section) =>
+  section.groups.flatMap((group) => group.pages.map((page) => ({ ...page, section: section.id, group: group.title, key: `${section.id}/${page.slug}` }))),
+);
+
+export const sectionOf = (id) => SECTIONS.find((section) => section.id === id);
 
 export function urlOf(page, base) {
-  if (page.slug === 'index') return `${base}guide/`;
   if (page.href) return `${base}${page.href}`;
-  return `${base}guide/${page.slug}.html`;
+  if (page.slug === 'index') return `${base}${page.section}/`;
+  return `${base}${page.section}/${page.slug}.html`;
 }
 
-export function sidebar({ base, current }) {
-  const items = NAV.map((group) => {
-    const links = group.pages
-      .map((page) => {
-        const isCurrent = page.slug === current;
-        const isParent = current && current.startsWith('rules/') && page.slug === 'rules/index';
-        const attributes = isCurrent ? ' aria-current="page"' : isParent ? ' class="parent"' : '';
-        return `      <li><a href="${urlOf(page, base)}"${attributes}>${escapeHtml(page.title)}</a></li>`;
-      })
-      .join('\n');
-    return `    <h2>${escapeHtml(group.title)}</h2>\n    <ul>\n${links}\n    </ul>`;
-  }).join('\n');
-  return `  <nav class="side" id="menu" aria-label="Guide">\n${items}\n  </nav>`;
+export function sectionUrl(section, base) {
+  return `${base}${section.id}/`;
+}
+
+export function sidebar({ base, section, key }) {
+  const own = sectionOf(section);
+  const items = own.groups
+    .map((group) => {
+      const links = group.pages
+        .map((page) => {
+          const pageKey = `${section}/${page.slug}`;
+          const isCurrent = pageKey === key;
+          const isParent = page.slug === 'rules/index' && key.startsWith(`${section}/rules/`) && !isCurrent;
+          const attributes = isCurrent ? ' aria-current="page"' : isParent ? ' class="parent"' : '';
+          return `      <li><a href="${urlOf({ ...page, section }, base)}"${attributes}>${escapeHtml(page.title)}</a></li>`;
+        })
+        .join('\n');
+      return `    <h2>${escapeHtml(group.title)}</h2>\n    <ul>\n${links}\n    </ul>`;
+    })
+    .join('\n');
+  return `  <nav class="side" id="menu" aria-label="${escapeHtml(own.title)}">\n${items}\n  </nav>`;
+}
+
+export function toolsRow(base) {
+  const cards = [
+    ...HOSTS.map((host) => `<a class="card" href="${sectionUrl(host, base)}"><strong>${escapeHtml(host.title)}</strong><span>${escapeHtml(host.summary ?? '')}</span></a>`),
+    ...ANNOUNCED.map((host) => `<div class="card soon"><strong>${escapeHtml(host.title)} <span class="tag off">Coming</span></strong><span>${escapeHtml(host.summary ?? '')}</span></div>`),
+  ];
+  return `<div class="cards tools">\n${cards.join('\n')}\n</div>`;
 }
 
 const EMBED = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'checkout.json'), 'utf8')).embed === true;
 
-export function shell({ depth, title, description, canonical, body, current, withSidebar = true, section = 'guide', wrap = 'layout', checkout = false }) {
-  const base = up(depth);
-  const links = TOP_LINKS.map(({ href: target, label, key }) => {
-    const current = key === section ? ' aria-current="true"' : '';
-    return `      <a href="${href(base, target)}"${current}>${label}</a>`;
-  }).join('\n');
+export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false }) {
+  const base = '../'.repeat(depth);
+  const links = [
+    ...SECTIONS.map((entry) => ({ href: `${entry.id}/`, label: entry.title, key: entry.id })),
+    { href: 'guide/plans.html', label: 'Plans', key: 'plans' },
+    { href: 'license/', label: 'Licence', key: 'license' },
+    { href: `${REPO}/issues`, label: 'Support', key: 'support' },
+  ]
+    .map(({ href: target, label, key: linkKey }) => {
+      const mark = linkKey === section ? ' aria-current="true"' : '';
+      const url = /^https?:/.test(target) ? target : base + target;
+      return `      <a href="${url}"${mark}>${label}</a>`;
+    })
+    .join('\n');
   const inner =
     wrap === 'layout'
-      ? `<div class="layout">\n${withSidebar ? sidebar({ base, current }) : ''}\n${body}\n</div>`
+      ? `<div class="layout">\n${withSidebar ? sidebar({ base, section, key }) : ''}\n${body}\n</div>`
       : body;
+  const hostLinks = HOSTS.map((host) => `<a href="${sectionUrl(host, base)}">${escapeHtml(host.title)}</a>`).join('\n    ');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -97,6 +127,7 @@ ${inner}
   <div class="links">
     <a href="${base}">Home</a>
     <a href="${base}guide/">Guide</a>
+    ${hostLinks}
     <a href="${MARKETPLACE}">Marketplace</a>
     <a href="${REPO}/issues">Issues</a>
     <a href="${REPO}/blob/main/CHANGELOG.md">Changelog</a>
