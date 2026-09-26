@@ -3,7 +3,7 @@ title: The example project
 lede: A small order process that runs from the first minute, so you can see every part of Penstock work on something real.
 tags: free
 needs: Test cases need Pro. Every machine starts with 30 days of Pro.
-related: getting-started, run-tests, deployment, cli/commands
+related: getting-started, scenarios, deployment, cli/commands
 -->
 <h2>What it is</h2>
 
@@ -55,9 +55,9 @@ related: getting-started, run-tests, deployment, cli/commands
   <li><strong>Approve it</strong> in Tasklist, then send the message <code>shipment-confirmed</code> to tell the process the parcel has shipped.</li>
 </ol>
 
-<h2>Run the test cases</h2>
+<h2>Run the scenarios</h2>
 
-<p>The example has three test cases. Running them deploys a test build, mocks the workers and runs the cases against your local engine. The first run on a local engine asks once whether it may. See <a href="run-tests.html">Run tests</a>.</p>
+<p>The example has three scenarios. Running them deploys a test build, mocks the workers and runs them against your local engine. The first run on a local engine asks once whether it may. See <a href="scenarios.html">Scenarios</a>.</p>
 
 <ul>
   <li>A home order is approved, paid, shipped standard and completed.</li>
@@ -65,7 +65,7 @@ related: getting-started, run-tests, deployment, cli/commands
   <li>A declined card ends the order without a shipment.</li>
 </ul>
 
-{{host:example-run-tests|Run the three test cases}}
+{{host:example-scenarios|Run the three scenarios}}
 
 <h2>What you see</h2>
 
@@ -86,6 +86,6 @@ related: getting-started, run-tests, deployment, cli/commands
   <dd>The only names are <code>camunda-8</code> and <code>camunda-7</code>.</dd>
   <dt>Deploy says the engine is not reachable.</dt>
   <dd>Start the engine first, and check <code>deployment.url</code> in <code>penstock.yaml</code>. See <a href="deployment.html">Deployment</a>.</dd>
-  <dt>The test cases ask a question the first time.</dt>
-  <dd>Test cases deploy a test build. On a local engine Penstock asks once before it does. See <a href="run-tests.html">Run tests</a>.</dd>
+  <dt>The scenarios ask a question the first time.</dt>
+  <dd>Scenarios deploy a test build. On a local engine Penstock asks once before it does. See <a href="scenarios.html">Scenarios</a>.</dd>
 </dl>

@@ -54,7 +54,7 @@ Its first lines are a comment with `title`, `lede` and optional `tags`, `needs` 
 - `{{contents}}` lists the section's pages as cards, and `{{tools}}` is the "Pick your tool" row.
 
 **Per-tool blocks.** Where a core page has a step that depends on the tool, it holds a slot:
-`{{host:run-tests-open|Open the Run tests panel}}`. The generator draws it as one short block with a
+`{{host:scenarios-open|Open the Scenarios panel}}`. The generator draws it as one short block with a
 labelled card for every tool that is switched on. The text of a card is not in the core page. It is in
 `tools/blocks/<tool>/<slot>.html`. A card for a feature that does not exist in a tool is a file that only says
 why:

@@ -74,7 +74,7 @@
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
-      <li><a href="../guide/run-tests.html">Run tests</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -109,7 +109,7 @@
 <li><a href="#everything-that-talks-to-the-network">Everything that talks to the network</a></li>
 <li><a href="#what-a-deployment-sends">What a deployment sends</a></li>
 <li><a href="#credentials">Credentials</a></li>
-<li><a href="#test-case-runs-are-safe-by-design">Test-case runs are safe by design</a></li>
+<li><a href="#scenario-runs-are-safe-by-design">Scenario runs are safe by design</a></li>
 <li><a href="#trust">Trust</a></li>
 <li><a href="#the-shared-html-file">The shared HTML file</a></li>
 <li><a href="#checkout">Opening the checkout</a></li>
@@ -146,7 +146,7 @@
   </tr>
   <tr>
     <td>Engine questions</td>
-    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="run-tests.html">Run tests</a>, or Open run.</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="scenarios.html">Scenarios</a>, or Open run.</td>
     <td>The engine of the profile in force.</td>
     <td>Requests to the engine's REST API, with the profile's credentials. The tool adds the credentials. The web page in the editor never sees them.</td>
   </tr>
@@ -205,9 +205,9 @@
   <li>Penstock has no option to skip TLS certificate checks. An engine with a private certificate must be trusted by the runtime of your tool.</li>
 </ul>
 
-<h2 id="test-case-runs-are-safe-by-design"><a href="#test-case-runs-are-safe-by-design">Test-case runs are safe by design</a></h2>
+<h2 id="scenario-runs-are-safe-by-design"><a href="#scenario-runs-are-safe-by-design">Scenario runs are safe by design</a></h2>
 
-<p>A <a href="run-tests.html">test-case run</a> deploys a test build. The build has mocked job types and topics prefixed with the run id. Every resource is marked with the run, so the engine never takes it for a version it already has.</p>
+<p>A <a href="scenarios.html">scenario run</a> deploys a test build. The build has mocked job types and topics prefixed with the run id. Every resource is marked with the run, so the engine never takes it for a version it already has.</p>
 
 <ul>
   <li>It goes only to an engine marked <code>deployment.forTests: true</code>, or to a local engine on this machine after one confirmation. In the editor it asks once per profile. In a terminal it asks once per run. A pipeline is never asked: without the <code>forTests</code> mark, the run is refused.</li>
@@ -288,7 +288,7 @@
 <li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
 <li><a href="../guide/files.html">Files Penstock reads and writes</a> - Every file, and where it lives.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
-<li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">

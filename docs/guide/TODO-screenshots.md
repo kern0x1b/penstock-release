@@ -19,12 +19,12 @@ shows a colour that matters. Keep the file names in `docs/img/`.
 
 ## Pictures that show the old names
 
-The toolbar buttons were renamed: Live is now Monitor, and Runs is now Run tests. These pictures still show
+The toolbar buttons were renamed: Live is now Monitor, and Runs is now Scenarios. These pictures still show
 the old names and should be retaken. The captions on the site say so where it matters.
 
 | File | Shows | Used on |
 |---|---|---|
-| `img/test-case-runs/01-runs-panel-passed.png`, `02-run-with-input-dialog.png`, `03-waiting-for-an-answer.png` | "Live" and "Runs" on the toolbar, and a panel titled "Runs" | run-tests |
+| `img/test-case-runs/01-runs-panel-passed.png`, `02-run-with-input-dialog.png`, `03-waiting-for-an-answer.png` | "Live" and "Runs" on the toolbar, and a panel titled "Runs" | scenarios |
 | `img/share-and-import/more-menu.png` | "Live" and "Runs" in the More menu | toolbar, share-html |
 | `img/migration/02-check-card-camunda-8-section.png` | "Live" and "Runs" on the toolbar | bpmn-editor, getting-started, migration, home page |
 

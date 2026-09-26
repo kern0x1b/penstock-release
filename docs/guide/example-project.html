@@ -74,7 +74,7 @@
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
-      <li><a href="../guide/run-tests.html">Run tests</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -109,7 +109,7 @@
 <li><a href="#write-it-into-a-folder">Write it into a folder</a></li>
 <li><a href="#the-files">The files</a></li>
 <li><a href="#run-it">Run it</a></li>
-<li><a href="#run-the-test-cases">Run the test cases</a></li>
+<li><a href="#run-the-scenarios">Run the scenarios</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -177,9 +177,9 @@
   <li><strong>Approve it</strong> in Tasklist, then send the message <code>shipment-confirmed</code> to tell the process the parcel has shipped.</li>
 </ol>
 
-<h2 id="run-the-test-cases"><a href="#run-the-test-cases">Run the test cases</a></h2>
+<h2 id="run-the-scenarios"><a href="#run-the-scenarios">Run the scenarios</a></h2>
 
-<p>The example has three test cases. Running them deploys a test build, mocks the workers and runs the cases against your local engine. The first run on a local engine asks once whether it may. See <a href="run-tests.html">Run tests</a>.</p>
+<p>The example has three scenarios. Running them deploys a test build, mocks the workers and runs them against your local engine. The first run on a local engine asks once whether it may. See <a href="scenarios.html">Scenarios</a>.</p>
 
 <ul>
   <li>A home order is approved, paid, shipped standard and completed.</li>
@@ -188,11 +188,11 @@
 </ul>
 
 <div class="hosts">
-<p class="hosts-title">Run the three test cases</p>
+<p class="hosts-title">Run the three scenarios</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
 <h4>JetBrains</h4>
-<p>Open <code>order-process.json</code> and press the green triangle in the gutter next to a test case. The IDE test runner shows the result. Or press <span class="ui">Run tests</span> on the diagram's toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
+<p>Open <code>order-process.json</code> and press the green triangle in the gutter next to a scenario. The IDE test runner shows the result. Or press <span class="ui">Scenarios</span> on the diagram's toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
@@ -242,14 +242,14 @@ src/main/resources/order-process.bpmn  2 scenario(s)
   <dd>The only names are <code>camunda-8</code> and <code>camunda-7</code>.</dd>
   <dt>Deploy says the engine is not reachable.</dt>
   <dd>Start the engine first, and check <code>deployment.url</code> in <code>penstock.yaml</code>. See <a href="deployment.html">Deployment</a>.</dd>
-  <dt>The test cases ask a question the first time.</dt>
-  <dd>Test cases deploy a test build. On a local engine Penstock asks once before it does. See <a href="run-tests.html">Run tests</a>.</dd>
+  <dt>The scenarios ask a question the first time.</dt>
+  <dd>Scenarios deploy a test build. On a local engine Penstock asks once before it does. See <a href="scenarios.html">Scenarios</a>.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/getting-started.html">Getting started</a> - Get Penstock, open a diagram, deploy it.</li>
-<li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>

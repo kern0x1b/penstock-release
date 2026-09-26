@@ -2,7 +2,7 @@
 title: Security and privacy
 lede: A complete list of what leaves your machine, when, and to whom. Nothing is sent by surprise, and nothing is sent to track you.
 tags: free
-related: sign-in, files, deployment, run-tests
+related: sign-in, files, deployment, scenarios
 -->
 <h2>The short version</h2>
 
@@ -32,7 +32,7 @@ related: sign-in, files, deployment, run-tests
   </tr>
   <tr>
     <td>Engine questions</td>
-    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="run-tests.html">Run tests</a>, or Open run.</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="scenarios.html">Scenarios</a>, or Open run.</td>
     <td>The engine of the profile in force.</td>
     <td>Requests to the engine's REST API, with the profile's credentials. The tool adds the credentials. The web page in the editor never sees them.</td>
   </tr>
@@ -91,9 +91,9 @@ related: sign-in, files, deployment, run-tests
   <li>Penstock has no option to skip TLS certificate checks. An engine with a private certificate must be trusted by the runtime of your tool.</li>
 </ul>
 
-<h2>Test-case runs are safe by design</h2>
+<h2>Scenario runs are safe by design</h2>
 
-<p>A <a href="run-tests.html">test-case run</a> deploys a test build. The build has mocked job types and topics prefixed with the run id. Every resource is marked with the run, so the engine never takes it for a version it already has.</p>
+<p>A <a href="scenarios.html">scenario run</a> deploys a test build. The build has mocked job types and topics prefixed with the run id. Every resource is marked with the run, so the engine never takes it for a version it already has.</p>
 
 <ul>
   <li>It goes only to an engine marked <code>deployment.forTests: true</code>, or to a local engine on this machine after one confirmation. In the editor it asks once per profile. In a terminal it asks once per run. A pipeline is never asked: without the <code>forTests</code> mark, the run is refused.</li>

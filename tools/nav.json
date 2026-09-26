@@ -178,9 +178,9 @@
               "about": "See what waits at each step, and where the incidents are, right now."
             },
             {
-              "slug": "run-tests",
-              "title": "Run tests",
-              "about": "Run the diagram's test cases on a local engine and see every step."
+              "slug": "scenarios",
+              "title": "Scenarios",
+              "about": "Run the diagram's scenarios on a local engine and see every step."
             },
             {
               "slug": "process-tests",

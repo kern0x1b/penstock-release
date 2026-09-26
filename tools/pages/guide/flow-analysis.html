@@ -3,7 +3,7 @@ title: Flow analysis
 lede: Flow analysis follows every way a token can take through your process and tells you what will go wrong before you run anything.
 tags: pro
 needs: Team in a pipeline
-related: diagram-check, run-tests, cli/ci
+related: diagram-check, scenarios, cli/ci
 -->
 <h2>What it finds</h2>
 
@@ -25,6 +25,8 @@ related: diagram-check, run-tests, cli/ci
 </table></div>
 
 <p>Conditions are read when they are simple: comparisons, <code>and</code>, <code>or</code> and <code>not</code>, in FEEL (Camunda 8) and JUEL (Camunda 7). A condition that cannot be read, with no default flow, is reported as a note.</p>
+
+<p>The same walk finds the <strong>scenarios</strong> of a diagram: the ways through it. See <a href="scenarios.html">Scenarios</a>, where <span class="ui">Generate</span> turns them into runnable ones.</p>
 
 <h2>In the editor</h2>
 

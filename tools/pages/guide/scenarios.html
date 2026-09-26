@@ -1,15 +1,13 @@
 <!--
-title: Run tests
-lede: Run tests lets you run the diagram's test cases on a local engine and see every step: the path taken and the variables that came in, went out and changed.
+title: Scenarios
+lede: Run the diagram's scenarios on a local engine and see every step: the path taken and the variables that came in, went out and changed.
 tags: pro
 needs: Team in a pipeline. A local Camunda 7, Camunda 8, Operaton or CIB seven engine.
-related: process-tests, monitor, security, example-project, jetbrains/test-runner, cli/commands
+related: process-tests, flow-analysis, monitor, security, example-project, jetbrains/test-runner, cli/commands
 -->
 <h2>What it is</h2>
 
-<p>Do not confuse it with <a href="process-tests.html">Process tests</a>, which are JUnit tests that you run with your build. Run tests needs no build setup: the test cases are JSON files that Penstock runs against an engine for you.</p>
-
-<p>A <strong>run</strong> starts the process on a real engine, answers its tasks with mocks that you choose, and shows the path it took on the diagram. For each step you see what came in, what went out, and what changed. A <strong>test case</strong> is a saved run that can be repeated. Test cases are ordinary JSON files, so they live in Git and run in a pipeline.</p>
+<p>A <strong>scenario</strong> is one way through a process, with the variables it starts with and an answer for each task. A <strong>run</strong> starts the process on a real engine, answers its tasks with mocks that you choose, and shows the path it took on the diagram. For each step you see what came in, what went out, and what changed. Scenarios need no build setup. They are stored in Camunda's test-case format (<code>cpt-test-cases</code> JSON), so they are ordinary files that live in Git and run in a pipeline. <a href="flow-analysis.html">Flow analysis</a> finds the scenarios of a diagram, and <span class="ui">Generate</span> turns them into runnable ones.</p>
 
 <p>A step that a mock answered carries a <span class="tag pro">Mocked</span> badge. A green run over mocks is not proof that your code works. The badge says so.</p>
 
@@ -26,17 +24,17 @@ related: process-tests, monitor, security, example-project, jetbrains/test-runne
   <p>A run deploys a test build, starts instances and answers jobs. So Penstock runs only on an engine that is marked for tests: <code>deployment.forTests: true</code> in <code>penstock.yaml</code>, or an engine on this machine that you confirm once. It asks once per profile in the editor, and once per run in a terminal. It never asks in a pipeline: there you need the <code>forTests</code> mark. Every other engine is refused, by the editor and by the host. See <a href="security.html">Security and privacy</a>.</p>
 </div>
 
-<h2>Run a test case in the editor</h2>
+<h2>Run a scenario in the editor</h2>
 
 <ol class="steps">
-  <li>Open the diagram and press <span class="ui">Run tests</span> on the toolbar. A panel opens under the canvas. It lists the diagram's test cases with their last result.</li>
-  <li>Press <span class="ui">Run all</span>, or click one test case.</li>
+  <li>Open the diagram and press <span class="ui">Scenarios</span> on the toolbar. A panel opens under the canvas. It lists the diagram's scenarios with their last result.</li>
+  <li>Press <span class="ui">Run all</span>, or click one scenario.</li>
   <li>Watch the diagram. Completed steps turn green, the step that failed turns red, the step it is waiting at turns blue.</li>
   <li>Read the table: <em>Step</em>, <em>State</em>, <em>In</em>, <em>Out</em>, <em>Changed</em>. Click a row to select the element. Select an element to see its row.</li>
 </ol>
 
 <figure class="shot">
-  <img src="@img/test-case-runs/01-runs-panel-passed.png" alt="The Run tests panel under the canvas after a passed test case, with Mocked badges on two steps">
+  <img src="@img/test-case-runs/01-runs-panel-passed.png" alt="The Scenarios panel under the canvas after a passed scenario, with Mocked badges on two steps">
   <figcaption>A passed run. The path is green, two steps carry a Mocked badge, and the table shows every step. The log is below. In this picture the toolbar button is still called Runs and the next one Live (now Monitor).</figcaption>
 </figure>
 
@@ -49,7 +47,7 @@ related: process-tests, monitor, security, example-project, jetbrains/test-runne
 <p>Use it to try a process by hand.</p>
 
 <ol class="steps">
-  <li>In the Run tests panel press <span class="ui">Run with input…</span>. A dialog called <em>Run with input</em> opens.</li>
+  <li>In the Scenarios panel press <span class="ui">Run with input…</span>. A dialog called <em>Run with input</em> opens.</li>
   <li>Type the <strong>Start variables</strong> as JSON. They are filled in from the variables the diagram reads.</li>
   <li>Under <strong>Steps</strong> choose what happens at each service task: <span class="ui">Ask me</span>, <span class="ui">Complete</span> (with variables), <span class="ui">Throw error</span>, <span class="ui">Fail, then complete</span>, or <span class="ui">Real worker</span>. For a timer choose <span class="ui">Fire now</span> or <span class="ui">Wait for it</span>.</li>
   <li>Press <span class="ui">Run</span>.</li>
@@ -62,21 +60,21 @@ related: process-tests, monitor, security, example-project, jetbrains/test-runne
 </figure>
 
 <figure class="shot">
-  <img src="@img/test-case-runs/03-waiting-for-an-answer.png" alt="The Run tests panel waiting at a step for an answer">
+  <img src="@img/test-case-runs/03-waiting-for-an-answer.png" alt="The Scenarios panel waiting at a step for an answer">
   <figcaption>The run is waiting at Charge card. Send variables, or an error code, to answer it.</figcaption>
 </figure>
 
-<h2>Save a run as a test case</h2>
+<h2>Save a run as a scenario</h2>
 
 <ol class="steps">
   <li>When an ad-hoc run has finished, press <span class="ui">Save as test case…</span>.</li>
-  <li>Give it a name. Untick any variable that is incidental: the test case checks the path taken and the variables that are ticked.</li>
-  <li>Press <span class="ui">Save</span>. The test case is written to the file for this diagram.</li>
+  <li>Give it a name. Untick any variable that is incidental: the scenario checks the path taken and the variables that are ticked.</li>
+  <li>Press <span class="ui">Save</span>. The scenario is written to the file for this diagram.</li>
 </ol>
 
-<h2>Generate test cases</h2>
+<h2>Generate scenarios</h2>
 
-<p>Press <span class="ui">Generate</span> in the Run tests panel, or run <code>penstock test-cases --generate .</code>. Penstock writes one test case for every way through the process, with example variables and a completing mock for every task. Test cases already in the file are kept.</p>
+<p>Press <span class="ui">Generate</span> in the Scenarios panel, or run <code>penstock test-cases --generate .</code>. Penstock writes one scenario for every way through the process, with example variables and a completing mock for every task. Scenarios already in the file are kept.</p>
 
 <pre><code>$ penstock test-cases --generate .
 wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code></pre>
@@ -85,11 +83,11 @@ wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code
 
 <p>Press <span class="ui">Open run…</span> and give the key or id of a process instance. Penstock reads its path and steps from the engine of the profile and shows them on the diagram. It only reads, so it works on any engine the profile can read, and it is free.</p>
 
-<h2>The test case file</h2>
+<h2>The scenario file</h2>
 
-<p>Test cases are Camunda Process Test JSON test cases, the same format that Camunda's Web Modeler reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
+<p>Scenarios are Camunda Process Test JSON test cases, the same format that Camunda's Web Modeler reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
 
-<p>Penstock's own additions go in an <code>x-penstock</code> block on the test case, which Camunda's tools ignore:</p>
+<p>Penstock's own additions go in an <code>x-penstock</code> block on the scenario, which Camunda's tools ignore:</p>
 
 <pre><code>"x-penstock": {
   "engines": ["camunda-8", "camunda-7"],
@@ -99,20 +97,20 @@ wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code
   }
 }</code></pre>
 
-<p>A test case that needs a behaviour is tagged <span class="tag">Penstock only</span>, because Camunda Process Test would run it differently.</p>
+<p>A scenario that needs a behaviour is tagged <span class="tag">Penstock only</span>, because Camunda Process Test would run it differently.</p>
 
-<h2>Run many test cases at once</h2>
+<h2>Run many scenarios at once</h2>
 
-<p>The panel runs the test cases of the diagram you have open. Your tool can also run the test-case files of a whole project, one after another, and report pass or fail for each.</p>
+<p>The panel runs the scenarios of the diagram you have open. Your tool can also run the scenario files of a whole project, one after another, and report pass or fail for each.</p>
 
-{{host:run-tests-batch|Run test-case files in your tool}}
+{{host:scenarios-batch|Run scenario files in your tool}}
 
 <h2>What you see</h2>
 
 <ul>
   <li>The path of the run on the diagram, and a table of every step with what came in, went out and changed.</li>
   <li>A <span class="tag pro">Mocked</span> badge on each step that a mock answered.</li>
-  <li>For a whole project: <code>pass</code> or <code>fail</code> for each test case, and a total such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
+  <li>For a whole project: <code>pass</code> or <code>fail</code> for each scenario, and a total such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
 </ul>
 
 <h2>Common problems</h2>
@@ -124,8 +122,8 @@ wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code
   <dd>A step without a mock runs the real code. If no worker takes it within the timeout, the run fails and says what it was waiting for. Start the worker, or mock the step.</dd>
   <dt>"No test-case files found."</dt>
   <dd>Run <code>penstock test-cases --generate .</code> first.</dd>
-  <dt>The Run tests button is not there.</dt>
-  <dd>Run tests is shown for Camunda 7, Camunda 8, Operaton and CIB seven. Pin it from the <span class="ui">More</span> menu if you unpinned it.</dd>
+  <dt>The Scenarios button is not there.</dt>
+  <dd>Scenarios is shown for Camunda 7, Camunda 8, Operaton and CIB seven. Pin it from the <span class="ui">More</span> menu if you unpinned it.</dd>
   <dt>The run left builds in my engine.</dt>
   <dd>An interrupted run is cleaned up by the next run, once it is 15 minutes old.</dd>
 </dl>
