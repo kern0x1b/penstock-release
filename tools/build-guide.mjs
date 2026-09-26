@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { NAV, PAGES, escapeHtml, root, shell, urlOf } from './site.mjs';
+import { plansHtml } from './plans.mjs';
+import { refreshPrices } from './fetch-prices.mjs';
 
 const pagesDir = path.join(import.meta.dirname, 'pages');
 const outDir = path.join(root, 'docs', 'guide');
@@ -104,6 +106,7 @@ ${tags || meta.needs ? `<p class="meta">${tags}${meta.needs ? ` <span>${meta.nee
     canonical: slug === 'index' ? 'guide/' : slug === 'rules/index' ? 'rules/' : slug.startsWith('rules/') ? `${slug}` : `guide/${slug}.html`,
     body: main,
     current: slug,
+    checkout: meta.checkout === 'true',
     section: slug === 'plans' ? 'plans' : slug === 'cli' ? 'cli' : 'guide',
   });
 }
@@ -116,7 +119,7 @@ export function buildHandWritten() {
     if (!known.has(slug)) throw new Error(`${file} is not listed in tools/nav.json`);
     const parsed = parse(fs.readFileSync(path.join(pagesDir, file), 'utf8'));
     const { meta } = parsed;
-    const body = parsed.body.replace('{{contents}}', contents());
+    const body = parsed.body.replace('{{contents}}', contents()).replace('{{plans}}', plansHtml());
     meta.group = PAGES.find((page) => page.slug === slug).group;
     const target = path.join(outDir, slug === 'index' ? 'index.html' : `${slug}.html`);
     fs.writeFileSync(target, pageHtml({ slug, meta, body }));
@@ -128,4 +131,7 @@ export function buildHandWritten() {
   console.log(`wrote ${files.length} guide pages`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) buildHandWritten();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  if (process.env.POLAR_ACCESS_TOKEN) await refreshPrices();
+  buildHandWritten();
+}

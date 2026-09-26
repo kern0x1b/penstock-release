@@ -112,14 +112,47 @@
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
+<li><a href="#choose-a-plan">Choose a plan</a></li>
 <li><a href="#the-one-rule">The one rule</a></li>
 <li><a href="#what-each-plan-gives">What each plan gives</a></li>
 <li><a href="#what-you-see-when-you-reach-a-paid-feature">What you see when you reach a paid feature</a></li>
-<li><a href="#prices">Prices</a></li>
+<li><a href="#paying">Paying</a></li>
 <li><a href="#free-pro-for-students-teachers-and-open-source-maintainers">Free Pro for students, teachers and open-source maintainers</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
+<h2 id="choose-a-plan"><a href="#choose-a-plan">Choose a plan</a></h2>
+
+<div class="plans">
+  <div class="plan" id="buy-free">
+      <p class="name"><span class="tag free">Free</span></p>
+      <p class="price">No charge</p>
+      <p class="about">The editors, checks, deploy, Live, export, share and import. Every new machine also starts with 30 days of Pro.</p>
+      <a class="btn quiet" href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Install from the Marketplace</a>
+    </div>
+  <div class="plan" id="buy-pro">
+      <p class="name"><span class="tag pro">Pro</span></p>
+      <p class="price">EUR 3.00 <span>per month</span></p>
+      <p class="price alt">EUR 30.00 <span>per year</span></p>
+      <p class="about">For your own machine. Adds what only Penstock does: auto layout, flow analysis, code links, test-case runs, the visual diagram diff and more.</p>
+      <a class="btn" href="https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_enzGoxymRLFxHfHrpf6GHQHx7muDPJDdUEoUq0Vtn3d/redirect" rel="noopener">Buy Pro</a>
+    </div>
+  <div class="plan" id="buy-team">
+      <p class="name"><span class="tag team">Team</span></p>
+      <p class="price">EUR 12.00 <span>per month</span></p>
+      <p class="price alt">EUR 120.00 <span>per year</span></p>
+      <p class="about">Everything in Pro, inside a pipeline as well: the review bot, pull request reports, baselines and SARIF.</p>
+      <a class="btn" href="https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_pmR7pqf7293ZBbpBvKDQo7F6NgNcvBrfOuxRb2XigJQ/redirect" rel="noopener">Buy Team</a>
+    </div>
+</div>
+
+<div class="callout warn">
+  <span class="label">Test mode</span>
+  <p>This checkout runs in Polar's sandbox. No real payment is taken and the licence it makes is a test licence.</p>
+</div>
+
+<p class="note">The price you pay is the one shown at checkout. You choose monthly or yearly at checkout. A Buy button opens the checkout on Polar's own page. See <a href="security.html#checkout">Security and privacy</a>.</p>
+
 <h2 id="the-one-rule"><a href="#the-one-rule">The one rule</a></h2>
 
 <p>Everything that earlier releases had, and everything other tools give away, is <strong>free</strong>. What only Penstock does is <strong>Pro</strong> or <strong>Team</strong>.</p>
@@ -180,16 +213,9 @@
   <li>An MCP tool called without the licence says the same in its error result. It also shows in the tool list with a note on what it needs.</li>
 </ul>
 
-<h2 id="prices"><a href="#prices">Prices</a></h2>
+<h2 id="paying"><a href="#paying">Paying</a></h2>
 
-<div class="table-wrap"><div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td>Pro</td><td>3 euro a month, or 30 euro a year</td></tr>
-  <tr><td>Team</td><td>12 euro a month, or 120 euro a year</td></tr>
-  </tbody>
-</table></div></div>
-
-<p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of record. Polar also takes care of VAT and invoices. You can cancel at any time from the link in the receipt.</p>
+<p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of record. Polar also takes care of VAT and invoices. You can cancel at any time from the link in the receipt. After you pay, Penstock notices by itself and sends a sign-in code to the address that paid. See <a href="sign-in.html">Buying and signing in</a>.</p>
 
 <h2 id="free-pro-for-students-teachers-and-open-source-maintainers"><a href="#free-pro-for-students-teachers-and-open-source-maintainers">Free Pro for students, teachers and open-source maintainers</a></h2>
 
@@ -233,7 +259,7 @@
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 

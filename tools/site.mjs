@@ -53,7 +53,9 @@ export function sidebar({ base, current }) {
   return `  <nav class="side" id="menu" aria-label="Guide">\n${items}\n  </nav>`;
 }
 
-export function shell({ depth, title, description, canonical, body, current, withSidebar = true, section = 'guide', wrap = 'layout' }) {
+const EMBED = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'checkout.json'), 'utf8')).embed === true;
+
+export function shell({ depth, title, description, canonical, body, current, withSidebar = true, section = 'guide', wrap = 'layout', checkout = false }) {
   const base = up(depth);
   const links = TOP_LINKS.map(({ href: target, label, key }) => {
     const current = key === section ? ' aria-current="true"' : '';
@@ -104,10 +106,10 @@ ${inner}
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="${base}fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. ${EMBED ? 'Its one script, on the Plans page, opens the checkout, and it is served from this site.' : 'It runs no scripts.'} It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="${base}fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
-
+${checkout && EMBED ? `\n<script src="${base}vendor/polar-checkout/embed.global.js" data-auto-init defer></script>\n` : ''}
 </body>
 </html>
 `;
