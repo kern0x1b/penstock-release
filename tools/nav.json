@@ -183,8 +183,8 @@
               "about": "Run the diagram's test cases on a local engine and see every step."
             },
             {
-              "slug": "process-tests",
-              "title": "Process tests and coverage",
+              "slug": "code-tests",
+              "title": "Code tests and coverage",
               "about": "A JUnit test for every way through a process."
             },
             {
@@ -304,7 +304,7 @@
             {
               "slug": "test-runner",
               "title": "Tests in the IDE",
-              "about": "Test-case files in the test runner, gutter icons, process tests, coverage."
+              "about": "Test-case files in the test runner, gutter icons, code tests, coverage."
             },
             {
               "slug": "shortcuts",

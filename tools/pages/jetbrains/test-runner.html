@@ -1,11 +1,11 @@
 <!--
 title: Tests in the IDE
-lede: In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.
+lede: In a JetBrains IDE, test-case files run in the IDE's own test runner, and code tests run and debug from the diagram.
 tags: pro
 needs: Team in a pipeline
-related: guide/run-tests, guide/process-tests, tool-window, code-links
+related: guide/run-tests, guide/code-tests, tool-window, code-links
 -->
-<p>The Run tests panel and the test cases themselves are described once in <a href="@guide/run-tests.html">Run tests</a>, and process tests and coverage in <a href="@guide/process-tests.html">Process tests and coverage</a>. This page is about how they use the IDE.</p>
+<p>The Run tests panel and the test cases themselves are described once in <a href="@guide/run-tests.html">Run tests</a>, and code tests and coverage in <a href="@guide/code-tests.html">Code tests and coverage</a>. This page is about how they use the IDE.</p>
 
 <h2>Run test-case files in the test runner</h2>
 
@@ -40,13 +40,13 @@ related: guide/run-tests, guide/process-tests, tool-window, code-links
 
 <ul>
   <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run code tests</span> or <span class="ui">Debug code tests</span>. It runs the test methods that name the element or its process, with the project's own test runner. When you debug, the diagram shows where the process stops.</li>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the tool window's toolbar.</li>
+  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every code test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Code Tests</span> is on the tool window's toolbar.</li>
   <li>Code Vision above a test says how much of each process it covers.</li>
 </ul>
 
 <h2>Coverage</h2>
 
-<p>After the process tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
+<p>After the code tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
 
 <h2>What you see</h2>
 
@@ -61,7 +61,7 @@ related: guide/run-tests, guide/process-tests, tool-window, code-links
   <dt>The Run window says the engine is not marked for tests.</dt>
   <dd>Set <code>deployment.forTests: true</code> on the profile, or confirm a local engine when asked.</dd>
   <dt>There is no Coverage button.</dt>
-  <dd>No test report was found yet. Run the process tests first.</dd>
+  <dd>No test report was found yet. Run the code tests first.</dd>
   <dt>There is no green triangle in the gutter.</dt>
   <dd>The file is not a Camunda Process Test JSON test-case file, or Pro is not active.</dd>
 </dl>

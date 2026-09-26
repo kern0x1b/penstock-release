@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Process tests and coverage - Penstock</title>
+<title>Code tests and coverage - Penstock</title>
 <meta name="description" content="Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/process-tests.html">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/code-tests.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -75,7 +75,7 @@
       <li><a href="../guide/deployment.html">Deployment</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
       <li><a href="../guide/run-tests.html">Run tests</a></li>
-      <li><a href="../guide/process-tests.html" aria-current="page">Process tests and coverage</a></li>
+      <li><a href="../guide/code-tests.html" aria-current="page">Code tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -99,7 +99,7 @@
   </nav>
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Running</p>
-<h1>Process tests and coverage</h1>
+<h1>Code tests and coverage</h1>
 <p class="lede">Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.</p>
 <p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline</span></p>
 <nav class="toc" aria-label="On this page">
@@ -200,7 +200,7 @@ The tests need these test dependencies in pom.xml:
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
 <h4>JetBrains</h4>
-<p>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run code tests</span> or <span class="ui">Debug code tests</span>. In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> a <strong>Tests</strong> node lists every process test by class, and <span class="ui">Run All Process Tests</span> is on its toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
+<p>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run code tests</span> or <span class="ui">Debug code tests</span>. In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> a <strong>Tests</strong> node lists every code test by class, and <span class="ui">Run All Code Tests</span> is on its toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
@@ -213,7 +213,7 @@ The tests need these test dependencies in pom.xml:
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>Run your process tests with your build. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
+  <li>Run your code tests with your build. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
   <li>A button <span class="ui">Coverage</span> appears on the toolbar. Press it.</li>
   <li>The diagram colours what the tests reached and dims what they did not.</li>
   <li>The panel lists the tests with how much of the diagram each covers. Pick one to see the way it takes. It also lists the elements no test reaches.</li>
@@ -233,7 +233,7 @@ The tests need these test dependencies in pom.xml:
 
 <dl class="problems">
   <dt>There is no Coverage button.</dt>
-  <dd>No test report was found yet. Run the process tests first. Reports must be under <code>target</code> or <code>build</code>.</dd>
+  <dd>No test report was found yet. Run the code tests first. Reports must be under <code>target</code> or <code>build</code>.</dd>
   <dt>The generated test does not compile.</dt>
   <dd>Add the test dependencies the command printed to your build file.</dd>
   <dt>The tests went to the wrong place.</dt>
@@ -249,7 +249,7 @@ The tests need these test dependencies in pom.xml:
 <li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
 <li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
-<li><a href="../jetbrains/test-runner.html">Tests in the IDE</a> - Test-case files in the test runner, gutter icons, process tests, coverage.</li>
+<li><a href="../jetbrains/test-runner.html">Tests in the IDE</a> - Test-case files in the test runner, gutter icons, code tests, coverage.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">

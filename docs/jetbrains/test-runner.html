@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Tests in the IDE - Penstock</title>
-<meta name="description" content="In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.">
+<meta name="description" content="In a JetBrains IDE, test-case files run in the IDE's own test runner, and code tests run and debug from the diagram.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/test-runner.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -55,7 +55,7 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Using it</p>
 <h1>Tests in the IDE</h1>
-<p class="lede">In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.</p>
+<p class="lede">In a JetBrains IDE, test-case files run in the IDE's own test runner, and code tests run and debug from the diagram.</p>
 <p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
@@ -68,7 +68,7 @@
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
-<p>The Run tests panel and the test cases themselves are described once in <a href="../guide/run-tests.html">Run tests</a>, and process tests and coverage in <a href="../guide/process-tests.html">Process tests and coverage</a>. This page is about how they use the IDE.</p>
+<p>The Run tests panel and the test cases themselves are described once in <a href="../guide/run-tests.html">Run tests</a>, and code tests and coverage in <a href="../guide/code-tests.html">Code tests and coverage</a>. This page is about how they use the IDE.</p>
 
 <h2 id="run-test-case-files-in-the-test-runner"><a href="#run-test-case-files-in-the-test-runner">Run test-case files in the test runner</a></h2>
 
@@ -103,13 +103,13 @@
 
 <ul>
   <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run code tests</span> or <span class="ui">Debug code tests</span>. It runs the test methods that name the element or its process, with the project's own test runner. When you debug, the diagram shows where the process stops.</li>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the tool window's toolbar.</li>
+  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every code test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Code Tests</span> is on the tool window's toolbar.</li>
   <li>Code Vision above a test says how much of each process it covers.</li>
 </ul>
 
 <h2 id="coverage"><a href="#coverage">Coverage</a></h2>
 
-<p>After the process tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
+<p>After the code tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -124,7 +124,7 @@
   <dt>The Run window says the engine is not marked for tests.</dt>
   <dd>Set <code>deployment.forTests: true</code> on the profile, or confirm a local engine when asked.</dd>
   <dt>There is no Coverage button.</dt>
-  <dd>No test report was found yet. Run the process tests first.</dd>
+  <dd>No test report was found yet. Run the code tests first.</dd>
   <dt>There is no green triangle in the gutter.</dt>
   <dd>The file is not a Camunda Process Test JSON test-case file, or Pro is not active.</dd>
 </dl>
@@ -132,7 +132,7 @@
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
-<li><a href="../guide/process-tests.html">Process tests and coverage</a> - A JUnit test for every way through a process.</li>
+<li><a href="../guide/code-tests.html">Code tests and coverage</a> - A JUnit test for every way through a process.</li>
 <li><a href="../jetbrains/tool-window.html">The Penstock tool window</a> - Your project as a tree, and the Run Penstock menu.</li>
 <li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
 </ul>

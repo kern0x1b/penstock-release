@@ -49,7 +49,7 @@ Pages that already have at least one picture are not listed. Paths are `<section
 - `flow-analysis`: the *How it runs* section of the check card with a path outlined on the canvas.
 - `monitor`: the *Monitor* card with badges on the shapes.
 - `check-workers`: the workers node after a check.
-- `process-tests`: the *Coverage* panel with the diagram coloured.
+- `code-tests`: the *Coverage* panel with the diagram coloured.
 - `code-links`, `migration`: the *Convert* preview in the visual diagram diff; the hover card of an element.
 - `plans`, `sign-in`: the licence dialog, and the message that explains a paid feature.
 
