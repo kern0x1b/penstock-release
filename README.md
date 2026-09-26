@@ -26,14 +26,31 @@ repository exists so that the things users need are public and permanent:
 ## The site
 
 The pages under `docs/` are served by GitHub Pages at
-<https://kern0x1b.github.io/penstock-release/>. Plain HTML and one stylesheet, no build step.
+<https://kern0x1b.github.io/penstock-release/>. Plain HTML and one stylesheet. There is no build
+step on the server: no scripts, no fonts or code from other sites, nothing that tracks visitors.
+The font, JetBrains Mono, is in `docs/fonts` with its SIL Open Font License.
 
-`docs/license/` and `docs/notices/` are generated from `LICENSE` and `THIRD-PARTY-NOTICES.md`.
-Regenerate them after changing either source file, so the site cannot drift from the shipped text:
+The look follows the product: its own colours for light and dark, JetBrains Mono, a 4px grid and no
+frames. `docs/style.css` is the only stylesheet.
+
+The HTML is generated and committed, so the site can be served as it is. The guide pages are written
+as fragments in `tools/pages/`, one file per page. `tools/nav.json` is the one list of pages: it
+makes the sidebar, the previous and next links and the contents page. After changing a fragment, the
+list or the shell in `tools/site.mjs`, regenerate:
 
 ```bash
-node tools/build-legal-pages.mjs
+node tools/build-guide.mjs        # docs/guide/*.html from tools/pages
+node tools/build-home.mjs         # docs/index.html
+node tools/build-legal-pages.mjs  # docs/license and docs/notices, from LICENSE and THIRD-PARTY-NOTICES.md
+node tools/build-rules.mjs <path to the product's docs/rules>   # docs/rules
+node tools/check-site.mjs         # every internal link and image resolves, no external loads, no em dashes
 ```
+
+The rule pages are generated from the product's `docs/rules`, which the product generates from its
+rule catalogue. The product links to `https://kern0x1b.github.io/penstock-release/rules/<rule>`, so
+those addresses must keep working.
+
+`docs/guide/TODO-screenshots.md` lists the pages that still need a picture, and the pictures to retake.
 
 ## Reporting a problem
 

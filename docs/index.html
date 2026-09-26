@@ -3,220 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Penstock — BPMN editor for Camunda in JetBrains IDEs</title>
-<meta name="description" content="Penstock edits BPMN 2.0 diagrams for Camunda 7 and Camunda 8 inside JetBrains IDEs, next to the raw XML, with a properties panel, bpmnlint validation and deployment.">
+<meta name="color-scheme" content="light dark">
+<title>Penstock - BPMN editor for Camunda in JetBrains IDEs</title>
+<meta name="description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, with checks, deployment, tests, auto layout and a command line.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<meta property="og:title" content="Penstock — BPMN editor for Camunda in JetBrains IDEs">
-<meta property="og:description" content="Edit BPMN 2.0 diagrams for Camunda 7 and 8 inside your JetBrains IDE. Diagrams stay in the project and in version control.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/">
+<link rel="preload" href="fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <img src="icon.svg" alt="">
-    <span class="name">Penstock</span>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#start">Getting started</a>
-      <a href="#lint">Validation</a>
-      <a href="guide/">Documentation</a>
-      <a href="license/">License</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href=""><img src="icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="guide/">Guide</a>
+      <a href="guide/plans.html">Plans</a>
+      <a href="guide/cli.html">Command line</a>
+      <a href="license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+
     </nav>
   </div>
 </header>
 
-<main>
+<main id="content">
+<div class="wide">
 
-<div class="wrap hero">
+<section class="hero">
   <h1>BPMN diagrams, in the IDE you already use.</h1>
-  <p class="lede">
-    Penstock opens <code>.bpmn</code> and <code>.bpmn20.xml</code> files in a visual modeler inside
-    JetBrains IDEs, right next to the raw XML. Process models stay in the project and in version
-    control, so they are reviewed the same way as code.
-  </p>
+  <p class="lede">Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, next to the raw XML. Diagrams stay in your project and in version control, so they are reviewed like code. A <code>penstock</code> command does the same checks in a pipeline.</p>
   <div class="cta">
     <a class="btn" href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Install from JetBrains Marketplace</a>
-    <span class="note">Any JetBrains IDE from 2025.2 · Free, with 30 days of Pro</span>
+    <a class="btn quiet" href="guide/">Read the guide</a>
+    <span class="note">Any JetBrains IDE from 2025.2. Free, with 30 days of Pro on every new machine.</span>
   </div>
+</section>
+
+<figure class="shot" style="margin:0 0 32px">
+  <img src="img/migration/02-check-card-camunda-8-section.png" alt="A BPMN collaboration open in the diagram editor inside IntelliJ IDEA">
+  <figcaption>A diagram open in the editor, with the check card open and the XML one tab away.</figcaption>
+</figure>
+
+<section class="band" id="features">
+  <h2>What it does</h2>
+  <div class="cards">
+    <a class="card" href="guide/bpmn-editor.html"><strong>Edit BPMN, DMN and forms</strong><span>Visual editors with a properties panel. Every change is written to the file at once.</span></a>
+    <a class="card" href="guide/engine-profiles.html"><strong>Four engines</strong><span>Camunda 7, Camunda 8, Operaton and CIB seven, plus plain BPMN 2.0.</span></a>
+    <a class="card" href="guide/diagram-check.html"><strong>Check every diagram</strong><span>Drawing problems, bpmnlint rules and, with Pro, how the process runs. Every rule has a page.</span></a>
+    <a class="card" href="guide/deployment.html"><strong>Deploy in one click</strong><span>To the engine your <code>penstock.yaml</code> names. Secrets stay in the IDE password safe.</span></a>
+    <a class="card" href="guide/auto-layout.html"><strong>Auto layout</strong><span>Draw a messy diagram again, left to right, in one click. Undo takes it back.</span></a>
+    <a class="card" href="guide/test-cases.html"><strong>Run and test</strong><span>Run a process step by step on a local engine, and keep the run as a test case.</span></a>
+    <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to its worker and back. Find tasks nothing implements.</span></a>
+    <a class="card" href="guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report to hand on.</span></a>
+    <a class="card" href="guide/share-html.html"><strong>Share and import</strong><span>One offline HTML file to send. Bring in draw.io, Visio, Signavio and Bizagi files.</span></a>
+    <a class="card" href="guide/cli.html"><strong>A command line</strong><span>The same checks in a terminal, a pull request comment and an MCP server for AI assistants.</span></a>
+  </div>
+</section>
+
+<section class="band" id="start">
+  <h2>Start in five minutes</h2>
+  <ol class="steps prose">
+    <li><strong>Install the plugin.</strong> In <span class="ui">Settings | Plugins</span> search the Marketplace for Penstock. See <a href="guide/installing.html">Installing</a>.</li>
+    <li><strong>Open a <code>.bpmn</code> file.</strong> It opens in the diagram editor. The <span class="ui">Text</span> tab shows the XML.</li>
+    <li><strong>Or try the example.</strong> In an empty folder run <code>penstock init --example camunda-8</code>, or press an example in the Penstock tool window. See <a href="guide/example-project.html">The example project</a>.</li>
+    <li><strong>Press Check.</strong> It lists what is wrong and how to fix it.</li>
+    <li><strong>Press Deploy.</strong> Give it your engine address once.</li>
+  </ol>
+</section>
+
+<section class="band" id="plans">
+  <h2>Free, Pro and Team</h2>
+  <div class="prose">
+    <p>Everything a modeller needs is free: the editors, the properties panels, templates, token simulation, the check, lint, deploy, Live, export, share and import. <strong>Pro</strong> adds what only Penstock does: auto layout, flow analysis, code links, test-case runs, the visual diagram diff and more. One rule decides which plan a feature needs: Pro on your machine, Team in a pipeline. Every machine starts with 30 days of Pro.</p>
+    <p><a href="guide/plans.html">See exactly what each plan includes</a>. <a href="guide/security.html">See exactly what leaves your machine</a>: nothing but a deployment to your engine, and no telemetry.</p>
+  </div>
+</section>
+
+<section class="band" id="requirements">
+  <h2>Requirements and support</h2>
+  <div class="table-wrap"><table class="facts">
+    <tbody>
+    <tr><td>IDEs</td><td>Any JetBrains IDE from 2025.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
+    <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, and plain BPMN 2.0.</td></tr>
+    <tr><td>Command line</td><td>Node.js 20.19 or later.</td></tr>
+    <tr><td>Licence</td><td>Free on the JetBrains Marketplace. Read the <a href="license/">end user licence</a> and the <a href="notices/">third-party notices</a>.</td></tr>
+    <tr><td>Bugs and requests</td><td><a href="https://github.com/kern0x1b/penstock-release/issues">GitHub issues</a>. A <code>.bpmn</code> file that shows the problem saves the most time.</td></tr>
+    <tr><td>Vulnerabilities</td><td>Reported privately. See <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>. Please do not open a public issue.</td></tr>
+    <tr><td>Changelog</td><td><a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">CHANGELOG.md</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
 </div>
-
-<section id="features">
-  <div class="wrap">
-    <h2>What it does</h2>
-    <div class="grid">
-      <div>
-        <h3>Three modeling profiles</h3>
-        <p>Classic BPMN 2.0, Camunda 7 and Camunda 8, chosen per project. The palette and the
-          properties panel follow the profile.</p>
-      </div>
-      <div>
-        <h3>Properties panel</h3>
-        <p>Edit element properties, including the Camunda extension attributes, without leaving the
-          diagram.</p>
-      </div>
-      <div>
-        <h3>Inline scripts as real files</h3>
-        <p>Groovy and JavaScript inside a script task open as an IDE tab with syntax highlighting and
-          completion, and are written back into the diagram as you type. Camunda 7.</p>
-      </div>
-      <div>
-        <h3>Element templates</h3>
-        <p>Load Camunda 8 connector templates from the project - a
-          <code>.camunda/element-templates</code> folder is found without setup - or pick them from
-          the built-in template browser.</p>
-      </div>
-      <div>
-        <h3>Deployment</h3>
-        <p>Deploy the open diagram to Camunda 7 REST or Camunda 8 in one click, to the profile
-          <code>penstock.yaml</code> puts in force, with basic auth or OAuth 2.0. Credentials go to
-          the IDE password safe, never to a project file.</p>
-      </div>
-      <div>
-        <h3>Validation</h3>
-        <p>bpmnlint runs without any setup, with its recommended rules or the project’s own
-          <code>.bpmnlintrc</code>, and marks errors and warnings on the diagram itself.</p>
-      </div>
-      <div>
-        <h3>Auto layout</h3>
-        <p>Reformats a diagram you already have — separates overlapping elements, aligns sequence
-          flows and routes connections orthogonally — in one click, with Undo in the message that
-          follows. Pro.</p>
-      </div>
-      <div>
-        <h3>Token simulation</h3>
-        <p>Step a token through the process to check that the flow behaves the way the model says it
-          does.</p>
-      </div>
-      <div>
-        <h3>Export and navigation</h3>
-        <p>Export to SVG, PNG and PDF, in any theme, with or without a background. The Penstock
-          tool window lists every BPMN, DMN and form file in the project.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="start">
-  <div class="wrap">
-    <h2>Getting started</h2>
-    <ol class="steps">
-      <li>
-        <div>
-          <h3>Open a <code>.bpmn</code> file</h3>
-          <p>It opens in the diagram editor. The editor tabs at the bottom switch to the raw XML and
-            back, so nothing is hidden from you.</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>The engine is found for you</h3>
-          <p>It comes from <code>penstock.yaml</code>, or from the diagram itself. Only an empty new
-            diagram asks, in one line above the canvas, and the answer goes into
-            <code>penstock.yaml</code>.</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>Add connector templates, if you are on Camunda 8</h3>
-          <p>Keep them in <code>.camunda/element-templates</code>, next to the diagram or in any
-            folder above it, list other folders under <code>elementTemplates</code> in
-            <code>penstock.yaml</code>, or install them from the built-in browser.</p>
-        </div>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<section id="lint">
-  <div class="wrap">
-    <h2>Validation with bpmnlint</h2>
-    <p style="max-width:68ch;color:var(--ink-soft);margin-top:0">
-      bpmnlint needs no setup. The editor marks problems on the elements as you draw and lists them
-      under Rules in the diagram check, and <span class="mono">penstock check</span> runs the same
-      rules in a terminal. Without a configuration the rules are <code>bpmnlint:recommended</code>;
-      a <code>.bpmnlintrc</code> in the project root replaces them:
-    </p>
-<pre><code>{
-  "extends": ["bpmnlint:recommended"],
-  "rules": {
-    "label-required": "error",
-    "no-implicit-split": "warn"
-  }
-}</code></pre>
-    <p style="max-width:68ch;color:var(--ink-soft)">
-      Custom rules come from a <code>bpmnlint-plugin-{name}</code> package in the project’s
-      <code>node_modules</code>. The command line reads it from there; the editor needs those rules
-      compiled into a bundle, named by <code>lint.clientBundlePath</code> in
-      <code>penstock.yaml</code>. See <a href="guide/validation.html">Validation</a>.
-    </p>
-  </div>
-</section>
-
-<section id="requirements">
-  <div class="wrap">
-    <h2>Requirements and support</h2>
-    <table class="facts">
-      <tr>
-        <td>IDEs</td>
-        <td>Any JetBrains IDE from 2025.2 with JCEF, which the standard distributions bundle —
-          IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td>
-      </tr>
-      <tr>
-        <td>Engines</td>
-        <td>Classic BPMN 2.0, Camunda 7, Camunda 8.</td>
-      </tr>
-      <tr>
-        <td>Licensing</td>
-        <td>Free on the JetBrains Marketplace. Pro and Team add auto layout, flow analysis,
-          scenarios, documentation and the review bot - Pro on your machine, Team in a pipeline;
-          every new machine gets thirty days of Pro.
-          See <a href="guide/plans.html">plans</a> and the <a href="license/">license</a>.</td>
-      </tr>
-      <tr>
-        <td>Bugs and requests</td>
-        <td><a href="https://github.com/kern0x1b/penstock-release/issues">GitHub issues</a>. A
-          <code>.bpmn</code> file that reproduces the problem saves the most time.</td>
-      </tr>
-      <tr>
-        <td>Vulnerabilities</td>
-        <td>Reported privately — see
-          <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>.
-          Please do not open a public issue.</td>
-      </tr>
-    </table>
-  </div>
-</section>
-
 </main>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="guide/">Documentation</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="license/">License</a>
-      <a href="notices/">Third-party notices</a>
-    </div>
-    <p>
-      Penstock was published as <strong>Camunda BPMN Editor</strong> until 2026. Same plugin, same
-      vendor, new name — it updates in place and nothing needs to be reinstalled.
-    </p>
-    <p>
-      Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by
-      Camunda Services GmbH. “Camunda” and “BPMN” are used only to describe the process engines and
-      the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH; BPMN is a
-      trademark of the Object Management Group.
-    </p>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="">Home</a>
+    <a href="guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="license/">Licence</a>
+    <a href="notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>
