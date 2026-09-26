@@ -75,7 +75,7 @@
       <li><a href="../guide/deployment.html">Deployment</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
       <li><a href="../guide/run-tests.html">Run tests</a></li>
-      <li><a href="../guide/code-tests.html">Code tests and coverage</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -202,7 +202,7 @@ profiles:
   <tr><td><code>conventions.ids.fromName</code></td><td>Rewrite an element's id when its name changes. <span class="tag pro">Pro</span></td></tr>
   <tr><td><code>conventions.ids.pattern</code></td><td>The shape of the id. <code>{Type}</code> is the element type, <code>{Name}</code> the name in PascalCase. Default <code>{Type}_{Name}</code>.</td></tr>
   <tr><td><code>conventions.defaults</code></td><td>Attributes to set on a new element, keyed by its BPMN type such as <code>bpmn:ServiceTask</code>. <span class="tag pro">Pro</span></td></tr>
-  <tr><td><code>tests.language</code>, <code>tests.out</code>, <code>tests.package</code></td><td>Where <code>penstock tests</code> writes tests. See <a href="code-tests.html">Code tests and coverage</a>.</td></tr>
+  <tr><td><code>tests.language</code>, <code>tests.out</code>, <code>tests.package</code></td><td>Where <code>penstock tests</code> writes tests. See <a href="process-tests.html">Process tests and coverage</a>.</td></tr>
   <tr><td><code>hooks.preCheck</code>, <code>postCheck</code>, <code>preLayout</code>, <code>postLayout</code>, <code>preDeploy</code>, <code>postDeploy</code></td><td>A command to run before or after a stage. See below.</td></tr>
   <tr><td><code>deployment.url</code></td><td>Where to deploy. The engine decides what the address means. See <a href="deployment.html">Deployment</a>.</td></tr>
   <tr><td><code>deployment.name</code></td><td>The deployment's name in the engine. Default <code>Penstock deployment</code>.</td></tr>

@@ -3,7 +3,7 @@ title: Code links
 lede: Code links tie your diagrams to the code that runs them, so you can jump between a task and its worker, and find out when they disagree.
 tags: pro
 needs: Team in a pipeline. Going from a Camunda 7 delegate to its class is free.
-related: check-workers, project-model, code-tests, settings, jetbrains/code-links, cli/commands
+related: check-workers, project-model, process-tests, settings, jetbrains/code-links, cli/commands
 -->
 <h2>What it is</h2>
 
@@ -20,7 +20,7 @@ related: check-workers, project-model, code-tests, settings, jetbrains/code-link
   <li><strong>From diagram to code.</strong> Hover an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it. The element's menu goes to the implementation, and finds the code that names the element, its process, the job type, class or bean it runs, its message or its decision: the worker, the tests, and the code that starts it.</li>
   <li><strong>Variables.</strong> Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions use the names the diagrams use.</li>
   <li><strong>Error codes.</strong> The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> is linked to the error event that catches it. A code no error event catches is marked, and so is an error event nothing throws.</li>
-  <li><strong>Tests and coverage.</strong> The link goes both ways between a process and the tests that name it. See <a href="code-tests.html">Code tests and coverage</a>.</li>
+  <li><strong>Tests and coverage.</strong> The link goes both ways between a process and the tests that name it. See <a href="process-tests.html">Process tests and coverage</a>.</li>
 </ul>
 
 {{host:code-links-where|Where you use the links}}

@@ -3,11 +3,11 @@ title: Run tests
 lede: Run tests lets you run the diagram's test cases on a local engine and see every step: the path taken and the variables that came in, went out and changed.
 tags: pro
 needs: Team in a pipeline. A local Camunda 7, Camunda 8, Operaton or CIB seven engine.
-related: code-tests, monitor, security, example-project, jetbrains/test-runner, cli/commands
+related: process-tests, monitor, security, example-project, jetbrains/test-runner, cli/commands
 -->
 <h2>What it is</h2>
 
-<p>Run tests needs no build setup. The test cases are JSON files that Penstock runs against an engine for you.</p>
+<p>Do not confuse it with <a href="process-tests.html">Process tests</a>, which are JUnit tests that you run with your build. Run tests needs no build setup: the test cases are JSON files that Penstock runs against an engine for you.</p>
 
 <p>A <strong>run</strong> starts the process on a real engine, answers its tasks with mocks that you choose, and shows the path it took on the diagram. For each step you see what came in, what went out, and what changed. A <strong>test case</strong> is a saved run that can be repeated. Test cases are ordinary JSON files, so they live in Git and run in a pipeline.</p>
 
