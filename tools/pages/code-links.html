@@ -1,0 +1,100 @@
+<!--
+title: Code links
+lede: Code links tie your diagrams to the code that runs them, so you can jump between a task and its worker, and find out when they disagree.
+tags: pro
+needs: Team in a pipeline. Going from a Camunda 7 delegate to its class is free.
+related: check-workers, tool-window, process-tests, settings
+-->
+<h2>What it is</h2>
+
+<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, JavaScript, TypeScript, Python, Go and C# by reading the text, so a worker in another language or another repository still counts.</p>
+
+<h2>Free and Pro</h2>
+
+<p>Going from a Camunda 7 task to its Java class or Spring bean is free. See <a href="editing.html">Editing a diagram</a>. Everything below needs Pro. Without Pro, Penstock keeps only class and bean links, and an action that needs the rest says what it gives and offers to buy or sign in.</p>
+
+<h2>From code to diagram</h2>
+
+<p>A process id, element id, job type, topic, message name or decision id in a Java or Kotlin string is a link.</p>
+
+<ol class="steps">
+  <li>Hold <kbd>Cmd</kbd> (or <kbd>Ctrl</kbd>) and click the string, or use <span class="ui">Go to Declaration</span>.</li>
+  <li>The diagram opens and the element is selected.</li>
+</ol>
+
+<ul>
+  <li><strong>Completion</strong> offers the ids where Camunda expects them: starting a process, asserting in a test (<code>isWaitingAt</code>, <code>hasPassed</code>, <code>hasCompletedElements</code>, <code>byId</code> and others), <code>@JobWorker</code> and external task subscriptions, correlating a message, evaluating a decision.</li>
+  <li>An id that no diagram has is marked.</li>
+  <li>A gutter icon beside such a string, a <code>JavaDelegate</code> or bean that diagrams name, and a <code>@JobWorker</code> method whose name is the job type, jumps to the tasks that use it.</li>
+  <li>A <code>@JobWorker</code> without a <code>type</code> takes the method name as the job type. That is marked, because renaming the method stops the worker. A quick fix writes the type into the annotation.</li>
+</ul>
+
+<h2>From diagram to code</h2>
+
+<ul>
+  <li><strong>Hover</strong> an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it.</li>
+  <li><span class="ui">Go to Implementation</span> is in an element's menu. It opens that method, not just the file.</li>
+  <li><span class="ui">Find Usages in Code</span>, from an element's menu or the tool window, lists the code that names the element, its process, the job type, class or bean it runs, its message or its decision. That is the worker, the tests, and the code that starts it.</li>
+  <li><strong>Code Vision</strong> above a worker, delegate or bean says which tasks it runs and how many tests reach it. Above a test it says how much of each process it covers. A click opens the diagram at the element.</li>
+</ul>
+
+<h2>Variables</h2>
+
+<p>Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions complete the names the diagrams use and link back to the elements. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>.</p>
+
+<h2>Error codes</h2>
+
+<p>The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> opens the error event that catches it. A code no error event catches is marked. The tool window lists every error code with where it is caught and thrown, and marks a code thrown that nothing catches, and an error event nothing throws.</p>
+
+<h2>Check the diagram against the code</h2>
+
+<pre><code>$ penstock code .
+3 source file(s), 1 diagram(s), 4 reference(s) from diagrams to code
+
+Every task the diagrams hand to code has something in the code to run it.</code></pre>
+
+<p>In the IDE, the check card has a <strong>Code</strong> section, and the tool window has <span class="ui">Run Penstock | Code</span>. It reports:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Nothing in the code runs a step</td><td><a href="../rules/code-missing-implementation">code/missing-implementation</a></td></tr>
+  <tr><td>No worker handles a job type</td><td><a href="../rules/code-no-worker">code/no-worker</a></td></tr>
+  <tr><td>No external task worker subscribes to a topic</td><td><a href="../rules/code-no-topic-worker">code/no-topic-worker</a></td></tr>
+  <tr><td>A class named in the diagram is not in the project</td><td><a href="../rules/code-class-missing">code/class-missing</a></td></tr>
+  <tr><td>No Spring bean has the name a diagram uses</td><td><a href="../rules/code-bean-missing">code/bean-missing</a></td></tr>
+  <tr><td>A call activity calls a process no diagram defines</td><td><a href="../rules/code-unknown-process">code/unknown-process</a></td></tr>
+  <tr><td>A business rule task calls a decision no file defines</td><td><a href="../rules/code-unknown-decision">code/unknown-decision</a></td></tr>
+  <tr><td>A user task shows a form no file defines</td><td><a href="../rules/code-unknown-form">code/unknown-form</a></td></tr>
+  <tr><td>A worker for a job type no diagram uses</td><td><a href="../rules/code-unused-worker">code/unused-worker</a></td></tr>
+  <tr><td>A variable is read, but only a similar one is set</td><td><a href="../rules/code-variable-typo">code/variable-typo</a></td></tr>
+  <tr><td>Nothing throws the error a step catches</td><td><a href="../rules/code-never-thrown">code/never-thrown</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>Names are matched exactly. A name that differs only by case, such as <code>charge-Card</code> against <code>charge-card</code>, is pointed out, because Camunda matches names exactly. Connector job types such as <code>io.camunda:http-json:1</code> and job types set by an expression are understood and left alone. Job types of Camunda 8 execution and task listeners count as workers. The full list is in <a href="../rules/">Every rule</a>.</p>
+
+<h2>Other repositories</h2>
+
+<p>If your workers live in another repository, name it in <code>penstock.yaml</code>:</p>
+
+<pre><code>linked:
+  - ../order-workers
+  - ../shared-delegates</code></pre>
+
+<p>Paths are relative to the project root. Their diagrams, workers, delegates and beans are read with this project's. A path that is not checked out is skipped. <code>penstock code</code> reads them too.</p>
+
+<h2>The debugger</h2>
+
+<p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. On Camunda 7 it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>No links appear.</dt>
+  <dd>Code links need Pro. The tool window shows a <strong>Code</strong> line with <span class="ui">Buy or Sign In…</span>.</dd>
+  <dt>A worker in another repository is reported as missing.</dt>
+  <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
+  <dt>A worker I know exists is not found.</dt>
+  <dd>Penstock reads the text of Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C# files. It skips <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code>, <code>dist</code> and <code>.git</code>. Generated code in those folders is not read.</dd>
+</dl>

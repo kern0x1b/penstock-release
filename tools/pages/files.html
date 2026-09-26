@@ -1,0 +1,63 @@
+<!--
+title: Files Penstock reads and writes
+lede: A complete list of the files Penstock reads, writes and keeps, and where each one lives.
+tags: free
+related: settings, security, sign-in
+-->
+<h2>In your project</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>File</th><th>What it is</th><th>Commit it?</th></tr></thead>
+  <tbody>
+  <tr><td><code>penstock.yaml</code> (also <code>.yml</code>, <code>.json</code>)</td><td>The project's settings. Read from every folder from the root down to the diagram.</td><td>Yes</td></tr>
+  <tr><td><code>penstock.local.yaml</code></td><td>This machine's settings, and the engine address you type into the Connection dialog.</td><td>No. Penstock adds it to <code>.gitignore</code>.</td></tr>
+  <tr><td><code>.bpmnlintrc</code></td><td>Your bpmnlint rules.</td><td>Yes</td></tr>
+  <tr><td><code>.camunda/element-templates/</code></td><td>Element templates, read from next to a diagram and every folder above it.</td><td>Yes</td></tr>
+  <tr><td><code>penstockw</code>, <code>penstockw.cmd</code>, <code>penstock/wrapper/penstock-wrapper.properties</code></td><td>The command line wrapper and the version it pins.</td><td>Yes</td></tr>
+  <tr><td><code>penstock-baseline.json</code></td><td>The problems the project already has. Written by <code>penstock check --update-baseline</code>.</td><td>Yes</td></tr>
+  <tr><td><code>.penstock/runs/</code></td><td>Traces of test-case runs. It has its own <code>.gitignore</code>.</td><td>No</td></tr>
+  <tr><td><code>.penstock/images/</code></td><td>Pictures from <code>penstock diff --images</code> and <code>penstock report</code>.</td><td>No</td></tr>
+  <tr><td><code>penstock-report.md</code></td><td>The pull request report written by <code>penstock report</code>.</td><td>No</td></tr>
+  <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Your diagrams, decisions and forms. Penstock edits them in place.</td><td>Yes</td></tr>
+  <tr><td><code>.idea/bpmn-project.xml</code></td><td>Legacy settings of older versions. Penstock offers to move them to <code>penstock.yaml</code>.</td><td>No longer needed</td></tr>
+  </tbody>
+</table></div>
+
+<h2>In your home folder</h2>
+
+<p>Penstock keeps its personal files in <code>~/.penstock</code>. If the environment variable <code>PENSTOCK_HOME</code> is set, they are under that folder instead. The plugin and the command line share them.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>File</th><th>What it is</th></tr></thead>
+  <tbody>
+  <tr><td><code>preferences.json</code></td><td>Your toolbar choices, Sketchy Drawing, tree or flat view in the tool window, the last export format, and whether the tour was shown.</td></tr>
+  <tr><td><code>license.json</code></td><td>Your licence key and the time it was last checked. Readable only by you.</td></tr>
+  <tr><td><code>trial.json</code></td><td>When this machine's 30-day Pro trial started.</td></tr>
+  <tr><td><code>connectors/&lt;release&gt;/</code></td><td>The Camunda connector templates downloaded from GitHub.</td></tr>
+  <tr><td><code>wrapper/dists/&lt;version&gt;/</code></td><td>The command line versions the wrapper downloaded.</td></tr>
+  <tr><td><code>test-builds.json</code></td><td>A list of test builds a test-case run deployed, so the next run can remove what an interrupted one left.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Not in a file</h2>
+
+<p>The password or client secret for a deployment profile lives in the IDE password safe. It is never written to a file.</p>
+
+<h2>How to remove everything</h2>
+
+<ol class="steps">
+  <li>Uninstall the plugin. See <a href="installing.html">Installing</a>.</li>
+  <li>Delete <code>~/.penstock</code>.</li>
+  <li>In your projects, delete the files above that you do not want.</li>
+</ol>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My toolbar differs between two computers.</dt>
+  <dd><code>preferences.json</code> is per machine. It does not sync.</dd>
+  <dt>I want the settings somewhere else.</dt>
+  <dd>Set <code>PENSTOCK_HOME</code> to another folder, for example on a shared drive. Then the IDE and the command line use that folder.</dd>
+  <dt>Git shows <code>penstock.local.yaml</code> as new.</dt>
+  <dd>Add it to <code>.gitignore</code>. <code>penstock init</code> does this for you.</dd>
+</dl>

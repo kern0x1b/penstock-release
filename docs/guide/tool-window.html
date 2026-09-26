@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The Penstock tool window - Penstock</title>
+<meta name="description" content="The Penstock tool window shows your project as a model: processes, the workers they need, messages, decisions and forms, not just files.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/tool-window.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html" aria-current="page">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Project setup</p>
+<h1>The Penstock tool window</h1>
+<p class="lede">The Penstock tool window shows your project as a model: processes, the workers they need, messages, decisions and forms, not just files.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Some parts need Pro</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#open-it">Open it</a></li>
+<li><a href="#what-the-tree-shows">What the tree shows</a></li>
+<li><a href="#the-toolbar">The toolbar</a></li>
+<li><a href="#right-click-actions">Right-click actions</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="open-it"><a href="#open-it">Open it</a></h2>
+
+<ol class="steps">
+  <li>Click <strong>Penstock</strong> in the tool window bar on the left of the IDE.</li>
+  <li>The tree lists your project. Double-click a node to open it. On a diagram element, it selects the element on the canvas.</li>
+  <li>Right-click a node for its actions. The menu always starts with <span class="ui">Open</span>, and ends with the command-line actions.</li>
+  <li>Type to search the tree.</li>
+</ol>
+
+<p>When the project has no diagrams the tree says <em>No diagrams in this project</em> and offers <span class="ui">Start from an example</span>. See <a href="example-project.html">The example project</a>.</p>
+
+<figure class="shot">
+  <img src="../img/test-case-runs/06-test-case-gutter.png" alt="The Penstock tool window on the left listing Processes, Tests, Workers, Variables, Messages, Decisions, Forms, Deployment and Files">
+  <figcaption>The Penstock tool window, on the left, next to a test case file. Each node shows how many entries it holds.</figcaption>
+</figure>
+
+<h2 id="what-the-tree-shows"><a href="#what-the-tree-shows">What the tree shows</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Node</th><th>What is under it</th></tr></thead>
+  <tbody>
+  <tr><td>Processes</td><td>Every process, with the processes it calls and is called by. With Pro: its tests and how much of it they cover.</td></tr>
+  <tr><td>Tests <span class="tag pro">Pro</span></td><td>Every process test, by class, with what each covers. You can run or debug any of them, a class, or all.</td></tr>
+  <tr><td>Workers</td><td>What each task needs to run: a job type, topic, class or bean. Right-click a worker for <span class="ui">Go to Implementation</span> and <span class="ui">Find Usages in Code</span>. A worker nothing implements is marked. <span class="ui">Check Workers on…</span> asks the engine whether anything picks the work up. See <a href="check-workers.html">Check Workers</a>.</td></tr>
+  <tr><td>Variables</td><td>Every process variable, where it is set and read, and a warning for one that is read but never set, or one that is set a letter away: <em>set as 'approved'?</em></td></tr>
+  <tr><td>Messages</td><td>Every message, with who catches and who throws it.</td></tr>
+  <tr><td>Errors</td><td>Every error code, where it is caught and where it is thrown. Marks a code that is thrown but never caught, and an error event nothing throws.</td></tr>
+  <tr><td>Decisions</td><td>Every decision, and the tasks that call it. A decision the project does not have is marked <em>not in project</em>.</td></tr>
+  <tr><td>Forms</td><td>Every form, and the tasks that use it. A form the project does not have is marked <em>not in project</em>.</td></tr>
+  <tr><td>Deployment</td><td>Each profile with its address and the last deploy. Right-click a profile and press <span class="ui">Deploy</span> to send every diagram to it, after a confirmation.</td></tr>
+  <tr><td>Files</td><td>The files, in folders.</td></tr>
+  <tr><td>Debug</td><td>Only while the debugger is stopped in a worker. It shows the task the debugger is in.</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>Only in a Camunda 7 project. See <a href="migration.html">Camunda 7 to 8</a>.</td></tr>
+  <tr><td>Code</td><td>Without Pro, a single line that says what Pro adds, and <span class="ui">Buy or Sign In…</span>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The Workers, Variables, Messages, Errors and code links parts need Pro for the links to your source code. Without Pro, the model of your diagrams is still shown.</p>
+
+<h2 id="the-toolbar"><a href="#the-toolbar">The toolbar</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Run Penstock</td><td>A menu of command-line actions: Check, Paths, Tests, Code, Docs, Format, Diff Since…, Export… and Doctor. Each runs <code>penstock</code> on the selected file or folder and shows the output in the Run window. It uses the project's <code>penstockw</code> when there is one. It runs only in a trusted project. Paths, Tests, Code and Docs need Pro.</td></tr>
+  <tr><td>Reload from Disk</td><td>Re-reads the project from disk. The tree also refreshes by itself when a file changes.</td></tr>
+  <tr><td>Run All Process Tests</td><td>Runs every process test. Shown when process tests exist. Pro.</td></tr>
+  <tr><td>Group by Files</td><td>Turns the tree round: file by file, with each process's elements and what runs them.</td></tr>
+  <tr><td>Show Folders</td><td>Switches between a tree of folders and a flat list.</td></tr>
+  <tr><td>Open penstock.yaml</td><td>Opens the project's configuration, or creates it when there is none.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Whether the view is grouped by files, and whether it shows folders, are kept in <code>~/.penstock/preferences.json</code>.</p>
+
+<h2 id="right-click-actions"><a href="#right-click-actions">Right-click actions</a></h2>
+
+<ul>
+  <li><span class="ui">Open</span> opens the file, or selects the element.</li>
+  <li><span class="ui">Copy ID</span> copies the process id, decision id, job type or other name to the clipboard.</li>
+  <li><span class="ui">Find Usages in Code</span> lists the code that names it. Pro.</li>
+  <li><span class="ui">Go to Implementation</span> opens the method or class that runs a worker. Pro.</li>
+  <li><span class="ui">Run Tests</span> and <span class="ui">Debug Tests</span>. Pro.</li>
+  <li><span class="ui">Deploy</span> sends a file or a process to its profile.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The tree is empty.</dt>
+  <dd>The project has no <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> files that Penstock can see. Build folders such as <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code> and <code>dist</code> are skipped. Press <span class="ui">Reload from Disk</span>.</dd>
+  <dt>The Run Penstock actions do nothing, or an error says the project is not trusted.</dt>
+  <dd>Trust the project. The command line runs code from your project's <code>node_modules</code> and hooks, so it needs trust.</dd>
+  <dt>The first command is slow.</dt>
+  <dd>Without a <code>penstockw</code> in the project, Penstock runs <code>npx @penstock/cli</code> and downloads the command line the first time. <code>penstock init</code> adds the wrapper, which pins a version.</dd>
+  <dt>There is no Go to Implementation.</dt>
+  <dd>Code links are a Pro feature, and nothing in the project implements this worker.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it.</li>
+<li><a href="../guide/check-workers.html">Check Workers</a> - Ask the engine whether anything picks up your tasks.</li>
+<li><a href="../guide/migration.html">Camunda 7 to 8</a> - See what does not carry over, convert, and write a report.</li>
+<li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/profiles.html"><span>Previous</span>Profiles</a>
+<a class="next" href="../guide/files.html"><span>Next</span>Files Penstock reads and writes</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

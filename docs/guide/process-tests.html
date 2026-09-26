@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Process tests and coverage - Penstock</title>
+<meta name="description" content="Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/process-tests.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html" aria-current="page">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Running</p>
+<h1>Process tests and coverage</h1>
+<p class="lede">Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#three-tools-one-idea">Three tools, one idea</a></li>
+<li><a href="#list-the-ways-through">List the ways through</a></li>
+<li><a href="#write-the-tests">Write the tests</a></li>
+<li><a href="#run-and-debug-tests-from-the-diagram">Run and debug tests from the diagram</a></li>
+<li><a href="#coverage">Coverage</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="three-tools-one-idea"><a href="#three-tools-one-idea">Three tools, one idea</a></h2>
+
+<p>A process with two gateways has several ways through it. Each way is a <strong>scenario</strong>. Penstock finds them all, and then:</p>
+
+<ul>
+  <li><strong>Paths</strong> lists the scenarios, as a test plan you can read.</li>
+  <li><strong>Tests</strong> writes a JUnit test for each scenario.</li>
+  <li><strong>Coverage</strong> shows which elements your tests reached.</li>
+</ul>
+
+<h2 id="list-the-ways-through"><a href="#list-the-ways-through">List the ways through</a></h2>
+
+<pre><code>$ penstock paths .
+src/main/resources/order-process.bpmn  2 scenario(s)
+   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
+   2. Order received → Approve order → Charge card → Card declined → Payment declined
+        Card declined fires on Charge card</code></pre>
+
+<p>Each scenario shows the decision taken at each gateway and its condition. Use <code>--format md</code> for a checklist to paste into a test plan, or <code>--format json</code> for a tool. In the IDE, run <span class="ui">Run Penstock | Paths</span> from the tool window. The MCP tool is <code>list_scenarios</code>.</p>
+
+<pre><code>$ penstock paths . --format md
+### 1. Order received → Order completed
+
+- [ ] runs Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt</code></pre>
+
+<h2 id="write-the-tests"><a href="#write-the-tests">Write the tests</a></h2>
+
+<ol class="steps">
+  <li>Run <code>penstock tests .</code>. In the IDE: <span class="ui">Run Penstock | Tests</span>.</li>
+  <li>Penstock writes one JUnit class per process, with a test for every way through it.</li>
+  <li>The command names the test dependencies your build is missing. Add them.</li>
+  <li>Run the tests with your normal test runner.</li>
+</ol>
+
+<pre><code>$ penstock tests .
+wrote src/test/java/io/penstock/example/process/OrderProcessTest.java  2 scenario(s)
+
+The tests need these test dependencies in pom.xml:
+  io.camunda:camunda-process-test-java:8.9.21
+
+2 test(s) in 1 class(es), one per way through each process.</code></pre>
+
+<p>Each test starts the process with variables chosen to take that way: a value just past each condition, and at a default flow a value no other condition accepts. It completes the jobs, user tasks and external tasks, correlates messages, moves time past timers, throws errors from jobs where an error boundary is taken, and checks the elements the run passed.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Camunda 8</td><td>Camunda Process Test.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td>camunda-bpm-assert (or the engine's own equivalent) with an in-memory engine and mocked delegate beans.</td></tr>
+  <tr><td>Where the tests go</td><td>The diagram's own module, in Kotlin or Java as that module already is, and in its application's package followed by <code>.process</code>.</td></tr>
+  <tr><td>A way the data cannot choose</td><td>Marked in the test for you to finish.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. Or use <code>--out</code> and <code>--package</code> on the command. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<h2 id="run-and-debug-tests-from-the-diagram"><a href="#run-and-debug-tests-from-the-diagram">Run and debug tests from the diagram</a></h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ul>
+  <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. It runs the test methods that name the element or its process, with your project's own test runner.</li>
+  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. A <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the toolbar.</li>
+  <li>When you debug, the diagram shows where the process stops.</li>
+</ul>
+
+<h2 id="coverage"><a href="#coverage">Coverage</a></h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>Run your process tests. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
+  <li>A button <span class="ui">Coverage</span> appears on the toolbar. Press it.</li>
+  <li>The diagram colours what the tests reached and dims what they did not.</li>
+  <li>The panel lists the tests with how much of the diagram each covers. Pick one to see the way it takes. It also lists the elements no test reaches.</li>
+  <li>Run the tests again. Coverage follows.</li>
+</ol>
+
+<p>Penstock reads the reports under <code>target</code> or <code>build</code>. Code Vision above a test says how much of each process it covers.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>There is no Coverage button.</dt>
+  <dd>No test report was found yet. Run the process tests first. Reports must be under <code>target</code> or <code>build</code>.</dd>
+  <dt>The generated test does not compile.</dt>
+  <dd>Add the test dependencies the command printed to your build file.</dd>
+  <dt>The tests went to the wrong place.</dt>
+  <dd>Set <code>tests.out</code> and <code>tests.package</code> in <code>penstock.yaml</code>.</dd>
+  <dt>"To fill in".</dt>
+  <dd>A way that the data cannot choose is marked for you to finish. Fill in the variables that take it.</dd>
+  <dt>I want to run scenarios against a live engine without JUnit.</dt>
+  <dd>Use <a href="test-cases.html">Runs and test cases</a>. They need no build setup.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/test-cases.html">Runs and test cases</a> - Run a process step by step, with mocks, and keep the run as a test.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it.</li>
+<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/test-cases.html"><span>Previous</span>Runs and test cases</a>
+<a class="next" href="../guide/check-workers.html"><span>Next</span>Check Workers</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
