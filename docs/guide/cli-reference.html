@@ -138,6 +138,7 @@
 <li><a href="#mcp">mcp</a></li>
 <li><a href="#connectors">connectors</a></li>
 <li><a href="#update">update</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -447,6 +448,14 @@ penstock connectors --refresh                    # ask GitHub for a newer releas
 <p><strong>Move the project's wrapper to a version.</strong> <code>penstock update [version]</code></p>
 
 <p>The latest version by default. <code>--distribution &lt;spec&gt;</code> chooses where to get Penstock from: a tarball or a registry spec. See <a href="cli.html">Command line</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>same</code>, <code>would change</code> or <code>sent</code>.</li>
+  <li>Findings are indented under their file.</li>
+  <li>The exit code says the outcome. See <a href="cli.html#exit-codes">Command line</a>.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

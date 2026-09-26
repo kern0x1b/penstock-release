@@ -88,6 +88,14 @@ Every task the diagrams hand to code has something in the code to run it.</code>
 
 <p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. On Camunda 7 it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
 
+<h2>What you see</h2>
+
+<ul>
+  <li>A string that names a job type, topic, message or process is a link. A gutter icon sits beside it.</li>
+  <li>Hovering an element shows what runs it. Right-clicking it offers <span class="ui">Go to Implementation</span>.</li>
+  <li>In the tool window a worker that nothing implements says <em>no implementation</em> and carries a warning.</li>
+</ul>
+
 <h2>Common problems</h2>
 
 <dl class="problems">

@@ -66,7 +66,7 @@ export function pageHtml({ slug, meta, body }) {
   const base = '../';
   const { html, headings } = anchorHeadings(body.replaceAll('@img/', `${base}img/`));
   const toc =
-    headings.length >= 4
+    headings.length >= 5
       ? `<nav class="toc" aria-label="On this page">\n<h2>On this page</h2>\n<ul>\n${headings.map(({ id, text }) => `<li><a href="#${id}">${text}</a></li>`).join('\n')}\n</ul>\n</nav>\n`
       : '';
   const index = PAGES.findIndex((page) => page.slug === slug);

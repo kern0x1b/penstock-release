@@ -116,6 +116,7 @@
 <li><a href="#where-penstock-finds-templates">Where Penstock finds templates</a></li>
 <li><a href="#apply-a-template">Apply a template</a></li>
 <li><a href="#the-connector-browser">The connector browser</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -208,6 +209,14 @@ penstock connectors resolve io.camunda.connectors.HttpJson.v2
 penstock connectors --refresh       # ask GitHub now</code></pre>
 
 <p>See <a href="cli-reference.html#connectors">Every command</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>After you pick a template, the properties panel shows only the fields the template exposes.</li>
+  <li>After an install, a message <em>Template "…" installed</em>, and the card says <span class="ui">Installed</span>.</li>
+  <li>The element records the template it came from, in <code>camunda:modelerTemplate</code> or <code>zeebe:modelerTemplate</code>.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

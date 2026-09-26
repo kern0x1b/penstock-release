@@ -21,7 +21,7 @@ const ids = (file) => {
 };
 
 function resolveTarget(from, target) {
-  const clean = target.split('#')[0].split('?')[0];
+  const clean = target.split('#')[0].split('?')[0].replace(/^\/penstock-release\//, '/');
   if (clean === '') return from;
   const base = clean.startsWith('/') ? path.join(docs, clean) : path.resolve(path.dirname(from), clean);
   const candidates = [base, `${base}.html`, path.join(base, 'index.html')];

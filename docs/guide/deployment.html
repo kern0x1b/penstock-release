@@ -120,6 +120,7 @@
 <li><a href="#hooks">Hooks</a></li>
 <li><a href="#deploy-more-than-one-file">Deploy more than one file</a></li>
 <li><a href="#feedback-and-errors">Feedback and errors</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -247,6 +248,13 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
   <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the deployment request.</td></tr>
   </tbody>
 </table></div></div>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A message in the editor: <em>Deploying order-process.bpmn to default…</em>, then <em>Deployed order-process.bpmn as order-process v3 on http://localhost:8080</em>.</li>
+  <li>In the engine's own web application, the process shows a new version, or the same one when nothing changed and <code>changedOnly</code> is on.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

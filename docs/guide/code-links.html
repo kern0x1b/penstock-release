@@ -121,6 +121,7 @@
 <li><a href="#check-the-diagram-against-the-code">Check the diagram against the code</a></li>
 <li><a href="#other-repositories">Other repositories</a></li>
 <li><a href="#the-debugger">The debugger</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -206,6 +207,14 @@ Every task the diagrams hand to code has something in the code to run it.</code>
 <h2 id="the-debugger"><a href="#the-debugger">The debugger</a></h2>
 
 <p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. On Camunda 7 it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A string that names a job type, topic, message or process is a link. A gutter icon sits beside it.</li>
+  <li>Hovering an element shows what runs it. Right-clicking it offers <span class="ui">Go to Implementation</span>.</li>
+  <li>In the tool window a worker that nothing implements says <em>no implementation</em> and carries a warning.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

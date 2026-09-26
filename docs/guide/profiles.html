@@ -119,6 +119,7 @@
 <li><a href="#deploy-to-another-profile-from-the-ide">Deploy to another profile from the IDE</a></li>
 <li><a href="#see-the-profiles">See the profiles</a></li>
 <li><a href="#secrets-belong-to-the-profile">Secrets belong to the profile</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -200,6 +201,13 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
 <h2 id="secrets-belong-to-the-profile"><a href="#secrets-belong-to-the-profile">Secrets belong to the profile</a></h2>
 
 <p>In the IDE, the password or client secret is stored in the password safe once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li><code>penstock doctor</code> lists the profiles and puts a star before the one in force.</li>
+  <li>The arrow next to Deploy shows one <span class="ui">Deploy to &lt;profile&gt;</span> entry for each profile.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

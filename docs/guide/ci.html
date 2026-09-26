@@ -121,6 +121,7 @@
 <li><a href="#the-review-bot">The review bot</a></li>
 <li><a href="#deploy-from-ci">Deploy from CI</a></li>
 <li><a href="#test-cases-in-ci">Test cases in CI</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -267,6 +268,14 @@ PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 <h2 id="test-cases-in-ci"><a href="#test-cases-in-ci">Test cases in CI</a></h2>
 
 <p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock test-cases . --junit-xml build/test-cases.xml</code> runs them. See <a href="test-cases.html">Runs and test cases</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>In your CI system, a job called <em>Diagrams</em> (or <em>Penstock bot</em> with Team) runs on every push or pull request. It shows <code>ok</code> or <code>fail</code> for each file.</li>
+  <li>On a pull request that touches a diagram, the bot leaves one comment and edits that same comment on every push (Team).</li>
+  <li>With SARIF, GitHub shows the findings as notes on the changed lines.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

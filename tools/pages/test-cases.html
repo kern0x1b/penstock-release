@@ -143,6 +143,14 @@ penstock test-cases . --teamcity</code></pre>
 
 <p>In a pipeline the engine needs <code>deployment.forTests: true</code>. Without it you see: <em>is not marked deployment.forTests, and a pipeline cannot confirm it</em>.</p>
 
+<h2>What you see</h2>
+
+<ul>
+  <li>The path of the run on the diagram, and a table of every step with what came in, went out and changed.</li>
+  <li>A <span class="tag pro">Mocked</span> badge on each step that a mock answered.</li>
+  <li>In a terminal: <code>pass</code> or <code>fail</code> for each test case, and a total line such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
+</ul>
+
 <h2>Common problems</h2>
 
 <dl class="problems">

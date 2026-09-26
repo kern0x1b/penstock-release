@@ -85,3 +85,27 @@ const html = shell({
 
 fs.writeFileSync(path.join(root, 'docs', 'index.html'), html);
 console.log('wrote docs/index.html');
+
+const missing = shell({
+  depth: 0,
+  title: 'Page not found - Penstock',
+  description: 'This page does not exist.',
+  canonical: '404.html',
+  wrap: 'bare',
+  section: 'home',
+  body: `<main id="content">
+<div class="wide">
+<section class="hero">
+  <h1>This page does not exist.</h1>
+  <p class="lede">The address may be old or mistyped. Every page of the guide is listed on the contents page.</p>
+  <div class="cta">
+    <a class="btn" href="/penstock-release/guide/">Open the guide</a>
+    <a class="btn quiet" href="/penstock-release/">Go to the home page</a>
+  </div>
+</section>
+</div>
+</main>`,
+});
+
+fs.writeFileSync(path.join(root, 'docs', '404.html'), missing);
+console.log('wrote docs/404.html');

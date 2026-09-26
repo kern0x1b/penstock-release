@@ -118,6 +118,7 @@
 <li><a href="#what-it-will-never-do">What it will never do</a></li>
 <li><a href="#what-it-trades-away">What it trades away</a></li>
 <li><a href="#spacing-is-not-a-setting">Spacing is not a setting</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -187,6 +188,14 @@
 <h2 id="spacing-is-not-a-setting"><a href="#spacing-is-not-a-setting">Spacing is not a setting</a></h2>
 
 <p>The engine is tuned to its own spacing. A few pixels either way made its layouts worse. So <code>layout</code> in <code>penstock.yaml</code> and <code>.bpmnlayoutrc</code> are not read. Delete an old <code>.bpmnlayoutrc</code>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>The diagram is drawn again, left to right. No shapes overlap and every connection has only horizontal and vertical segments.</li>
+  <li>A message says the diagram was laid out, with an <span class="ui">Undo</span> button.</li>
+  <li>The file has changed already. There is nothing to save.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

@@ -122,6 +122,7 @@
 <li><a href="#the-test-case-file">The test case file</a></li>
 <li><a href="#run-test-cases-in-the-ide-test-runner">Run test cases in the IDE test runner</a></li>
 <li><a href="#run-test-cases-in-a-terminal-or-pipeline">Run test cases in a terminal or pipeline</a></li>
+<li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -262,6 +263,14 @@ penstock test-cases . --teamcity</code></pre>
 <p>Test cases run one after another. The command exits with 1 if any fails. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> once to stop: the running test case is cancelled and its build removed. Press it again to leave now. Where each run is kept: <code>.penstock/runs/&lt;run&gt;/&lt;test case&gt;.json</code>, with a <code>.gitignore</code> that ignores it all.</p>
 
 <p>In a pipeline the engine needs <code>deployment.forTests: true</code>. Without it you see: <em>is not marked deployment.forTests, and a pipeline cannot confirm it</em>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>The path of the run on the diagram, and a table of every step with what came in, went out and changed.</li>
+  <li>A <span class="tag pro">Mocked</span> badge on each step that a mock answered.</li>
+  <li>In a terminal: <code>pass</code> or <code>fail</code> for each test case, and a total line such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
