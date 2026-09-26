@@ -10,7 +10,7 @@ related: sign-in, files, deployment, test-cases
   <li>Penstock has <strong>no telemetry</strong>. It does not report what you do, what you open or what your diagrams contain.</li>
   <li>Your diagrams leave your machine only when <strong>you</strong> deploy them, to the engine <strong>you</strong> configured.</li>
   <li>Passwords and secrets go to the IDE password safe, never to a project file, and never to the web page inside the editor.</li>
-  <li>This website sets no cookies, runs no scripts and loads nothing from other sites.</li>
+  <li>This website sets no cookies and loads nothing from other sites. Opening the checkout is the one time a visitor's browser talks to a third party, and only after pressing a Buy button. See <a href="#checkout">Opening the checkout</a>.</li>
 </ul>
 
 <h2>Everything that talks to the network</h2>
@@ -61,6 +61,12 @@ related: sign-in, files, deployment, test-cases
     <td>The comment, using the pipeline's own token. See <a href="ci.html">Pipelines, reports and the bot</a>.</td>
   </tr>
   <tr>
+    <td>The checkout</td>
+    <td>Only when you press a <span class="ui">Buy</span> button on the <a href="plans.html">Plans page</a>, or buy from the IDE or with <code>penstock license buy</code>.</td>
+    <td>Polar, the merchant of record. The address is a Polar checkout link.</td>
+    <td>Your browser asks Polar for its checkout page, so Polar sees your address and what your browser sends to any web page. What you type there, such as your e-mail and card, goes to Polar and not to Penstock. See <a href="#checkout">Opening the checkout</a>.</td>
+  </tr>
+  <tr>
     <td>The education link</td>
     <td>When you press the link.</td>
     <td>Your browser.</td>
@@ -109,9 +115,21 @@ related: sign-in, files, deployment, test-cases
 
 <p>A file made with <a href="share-html.html">Share as HTML</a> loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of it.</p>
 
+<h2 id="checkout">Opening the checkout</h2>
+
+<p>The Buy buttons on the <a href="plans.html">Plans page</a> are links to a Polar checkout page. Pressing one opens Polar's page, either in a new page or, where the site has switched it on, in a frame over this one. Either way it is Polar's page that loads. Polar sees the visit, and whatever you type there goes to Polar. Penstock never sees your card.</p>
+
+<ul>
+  <li><strong>Nothing else on this site contacts a third party.</strong> No page loads a font, a script, an image, a counter or a stylesheet from another site. Reading the guide, the rules and the licence sends nothing to anyone but the server that hosts this site (GitHub Pages).</li>
+  <li><strong>The prices are read at build time</strong>, when the site is generated, and are part of the page. Your browser does not ask Polar for them.</li>
+  <li><strong>The access token stays with the owner.</strong> It is used only on the machine that builds the site. It is never in the site or in the repository.</li>
+  <li><strong>Without JavaScript the Buy button still works.</strong> It is an ordinary link.</li>
+  <li>The button that opens the checkout in a frame uses Polar's own script, <code>@polar-sh/checkout</code> (Apache-2.0). It is served from this site, not from a CDN, and it does nothing until you press a Buy button. Its licence is in <a href="../vendor/polar-checkout/LICENSE.txt">vendor/polar-checkout/LICENSE.txt</a>.</li>
+</ul>
+
 <h2>This website</h2>
 
-<p>The pages you are reading are plain HTML and one style sheet. They set no cookies, run no scripts, and load no fonts, images or code from other sites. The font, JetBrains Mono, is served from this site. Nothing tracks visitors. GitHub, which hosts the site, keeps its own server logs.</p>
+<p>The pages you are reading are plain HTML and one style sheet. They set no cookies and load no fonts, images or code from other sites. The font, JetBrains Mono, is served from this site. Nothing tracks visitors. GitHub, which hosts the site, keeps its own server logs. Apart from the checkout above, the only links that leave this site are ordinary links that you click.</p>
 
 <h2>Report a vulnerability</h2>
 
