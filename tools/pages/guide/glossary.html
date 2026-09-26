@@ -8,7 +8,7 @@ related: getting-started, engine-profiles, settings
 
 <dl class="problems">
   <dt id="baseline">Baseline</dt>
-  <dd>A file that lists the problems a project already has. With a baseline, <code>penstock check</code> fails only on new problems. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A file that lists the problems a project already has. With a baseline, <code>penstock check</code> fails only on new problems. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="bpmn">BPMN</dt>
   <dd>Business Process Model and Notation. A standard way to draw a process as boxes and arrows. A BPMN file is XML with the drawing coordinates inside. See <a href="elements.html">BPMN elements</a>.</dd>
@@ -26,7 +26,7 @@ related: getting-started, engine-profiles, settings
   <dd>The list of what is wrong with a diagram. In the editor it is a card. In a terminal it is <code>penstock check</code>. See <a href="diagram-check.html">Diagram check</a>.</dd>
 
   <dt id="ci">CI, pipeline</dt>
-  <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="delegate">Delegate</dt>
   <dd>A Java class that Camunda 7 calls to do the work of a service task. See <a href="code-links.html">Code links</a>.</dd>
@@ -58,8 +58,8 @@ related: getting-started, engine-profiles, settings
   <dt id="hit-policy">Hit policy</dt>
   <dd>A rule in a decision table that says what happens when several rows match. For example, <code>FIRST</code> takes the first matching row.</dd>
 
-  <dt id="ide">IDE</dt>
-  <dd>The program you write code in. Penstock runs inside JetBrains IDEs, such as IntelliJ IDEA and WebStorm.</dd>
+  <dt id="host">Tool, host</dt>
+  <dd>The program you use Penstock in. Today that is a JetBrains IDE, or the <code>penstock</code> command line. Features work the same in each. See <a href="@jetbrains/">JetBrains</a> and <a href="@cli/">Command line</a>.</dd>
 
   <dt id="job-type">Job type, job worker</dt>
   <dd>The Camunda 8 way to do the work of a service task outside the engine. The task names a job type. A job worker asks the engine for jobs of that type and completes them. See <a href="code-links.html">Code links</a>.</dd>
@@ -67,11 +67,11 @@ related: getting-started, engine-profiles, settings
   <dt id="juel">JUEL</dt>
   <dd>The expression language of Camunda 7. An example is <code>${amount &gt; 100}</code>.</dd>
 
-  <dt id="live">Live</dt>
-  <dd>A view that shows what the engine is doing with a diagram right now. See <a href="live.html">Live</a>.</dd>
+  <dt id="monitor">Monitor</dt>
+  <dd>A view that shows what the engine is doing with this diagram right now: how many instances wait at each step and where the incidents are. See <a href="monitor.html">Monitor</a>.</dd>
 
   <dt id="mcp">MCP</dt>
-  <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="mcp.html">The MCP server</a>.</dd>
+  <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="@cli/mcp.html">The MCP server</a>.</dd>
 
   <dt id="pool">Pool, lane</dt>
   <dd>A pool is a big box around one participant's process. A lane is a row inside a pool, usually one per role.</dd>
@@ -83,7 +83,7 @@ related: getting-started, engine-profiles, settings
   <dd>Two different things share this word. An <em>engine profile</em> is the kind of diagram Penstock builds: Classic, Camunda 7 or Camunda 8. A <em>deployment profile</em> is a named set of settings in <code>penstock.yaml</code>, such as <code>prod</code>. See <a href="engine-profiles.html">Engines</a> and <a href="profiles.html">Profiles</a>.</dd>
 
   <dt id="sarif">SARIF</dt>
-  <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="service-task">Service task</dt>
   <dd>A task done by a program instead of a person.</dd>

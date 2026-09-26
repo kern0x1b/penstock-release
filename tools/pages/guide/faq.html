@@ -7,16 +7,16 @@ related: troubleshooting, plans, security, glossary
 <h2>Basics</h2>
 
 <details class="faq"><summary>What is Penstock?</summary>
-<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven that runs inside JetBrains IDEs, plus a <code>penstock</code> command line. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
+<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven, with checks, deployment, tests and more. It comes as a plugin for JetBrains IDEs and as a <code>penstock</code> command line. A VS Code extension and a desktop app are planned. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
 
-<details class="faq"><summary>Which IDEs are supported?</summary>
-<p>Any JetBrains IDE from 2025.2 that has JCEF, which the standard downloads do. Two builds are published, one for 2025.2 to 2026.1 and one for 2026.2 and later. The Marketplace picks the right one. See <a href="installing.html">Installing</a>.</p></details>
+<details class="faq"><summary>Which tools can I use?</summary>
+<p>Any JetBrains IDE from 2025.2 that has JCEF, which the standard downloads do, and the <code>penstock</code> command line, which needs Node.js 20.19 or later. See <a href="@jetbrains/installing.html">Installing in a JetBrains IDE</a> and <a href="@cli/">Command line</a>.</p></details>
 
 <details class="faq"><summary>What happened to "Camunda BPMN Editor"?</summary>
 <p>It was renamed Penstock in 2026. It is the same plugin with the same id, so it updates in place. Nothing needs to be reinstalled.</p></details>
 
 <details class="faq"><summary>Is there a free version?</summary>
-<p>Yes. The editors, the properties panels, templates, token simulation, the check, lint, deploy, Live, export, share and import are free. Pro and Team add what only Penstock does. Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p></details>
+<p>Yes. The editors, the properties panels, templates, token simulation, the check, lint, deploy, Monitor, export, share and import are free. Pro and Team add what only Penstock does. Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p></details>
 
 <details class="faq"><summary>Which engines work?</summary>
 <p>Camunda 7, Camunda 8, Operaton and CIB seven, plus plain BPMN 2.0. See <a href="engine-profiles.html">Engines</a>.</p></details>
@@ -44,10 +44,10 @@ related: troubleshooting, plans, security, glossary
 <p>Only to the engine you configure, when you deploy. There is no telemetry. The full list of network use is in <a href="security.html">Security and privacy</a>.</p></details>
 
 <details class="faq"><summary>Where do my passwords go?</summary>
-<p>To the IDE password safe, once for each profile. Never to a project file, and never to the web page in the editor.</p></details>
+<p>To the secret store of your tool, once for each profile. Never to a project file, and never to the web page in the editor.</p></details>
 
 <details class="faq"><summary>Is it safe to run test cases against my engine?</summary>
-<p>Only on an engine you mark <code>deployment.forTests: true</code>, or a local one you confirm. It removes what it deployed. See <a href="test-cases.html">Runs and test cases</a>.</p></details>
+<p>Only on an engine you mark <code>deployment.forTests: true</code>, or a local one you confirm. It removes what it deployed. See <a href="run-tests.html">Run tests</a>.</p></details>
 
 <h2>Editing</h2>
 
@@ -61,7 +61,7 @@ related: troubleshooting, plans, security, glossary
 <p>Yes, and it is free. Right-click the task and choose <span class="ui">Go to</span>. See <a href="editing.html">Editing a diagram</a>.</p></details>
 
 <details class="faq"><summary>Where do the toolbar choices live?</summary>
-<p>In <code>~/.penstock/preferences.json</code>, for every IDE on your machine. Never in <code>penstock.yaml</code>. See <a href="toolbar.html">The toolbar and the More menu</a>.</p></details>
+<p>In <code>~/.penstock/preferences.json</code>, for every tool on your machine. Never in <code>penstock.yaml</code>. See <a href="toolbar.html">The toolbar and the More menu</a>.</p></details>
 
 <details class="faq"><summary>Why did auto layout move everything?</summary>
 <p>It draws the whole diagram again from the process model. Press Undo to take it back. See <a href="auto-layout.html">Auto layout</a>.</p></details>
@@ -69,7 +69,7 @@ related: troubleshooting, plans, security, glossary
 <h2>Command line</h2>
 
 <details class="faq"><summary>Do I need the command line?</summary>
-<p>No. The plugin works alone. The command line adds pipelines, scripts and the MCP server. See <a href="cli.html">Command line</a>.</p></details>
+<p>No. The editor in your IDE works alone. The command line adds pipelines, scripts and the MCP server. See <a href="@cli/">Command line</a>.</p></details>
 
 <details class="faq"><summary>Which Node.js version?</summary>
 <p>20.19 or later, with npm.</p></details>
@@ -82,7 +82,7 @@ related: troubleshooting, plans, security, glossary
 <details class="faq"><summary>Can Penstock move my running Camunda 7 instances?</summary>
 <p>No. Instances can finish on Camunda 7 or be moved with Camunda's Data Migrator. See <a href="migration.html">Camunda 7 to 8</a>.</p></details>
 
-<details class="faq"><summary>How do I send a diagram to someone without an IDE?</summary>
+<details class="faq"><summary>How do I send a diagram to someone who has no editor?</summary>
 <p>Use <a href="share-html.html">Share as HTML</a>. It makes one file that opens in any browser.</p></details>
 
 <details class="faq"><summary>Can I bring in a Visio or draw.io diagram?</summary>

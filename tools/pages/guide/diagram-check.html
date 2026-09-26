@@ -3,7 +3,7 @@ title: Diagram check
 lede: The check lists everything wrong with your diagram, points at each problem on the canvas, and tells you how to fix it.
 tags: free
 needs: Flow and code sections need Pro
-related: validation, flow-analysis, auto-layout
+related: validation, flow-analysis, auto-layout, cli/commands
 -->
 <h2>Run it</h2>
 
@@ -40,7 +40,7 @@ related: validation, flow-analysis, auto-layout
   <tr><td>Problems</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Engine</td><td>An engine mismatch with a <span class="ui">Fix</span> button. For example, in an Operaton project, a Camunda 7 diagram that still uses the <code>camunda:</code> namespace.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td>Rules</td><td>What bpmnlint reports. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports, and the engine compatibility checks: a task with no job type, an element or an expression the chosen engine version cannot run. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7 diagram. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="tag pro">Pro</span> to convert</td></tr>
   <tr><td>Readability</td><td>Collapsed by default. Crossings, lines on top of each other, detours, diagonal segments. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
   </tbody>
@@ -52,19 +52,11 @@ related: validation, flow-analysis, auto-layout
 
 <p>The drawing checks answer "can the diagram be read?". They know nothing about the process. bpmnlint answers "is the process modelled correctly?". They never report the same thing twice.</p>
 
-<h2>The same check in a terminal</h2>
+<h2>Check the whole project</h2>
 
-<pre><code>$ penstock check .
-ok    src/main/resources/approve-order.form
-fail  src/main/resources/order-process.bpmn
-        OVERLAP: approve_order &lt;-&gt; charge_card
-        DETACHED-EDGE: Flow_1 (order_received-&gt;approve_order)
-        note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
-ok    src/main/resources/shipping-method.dmn
+<p>The card checks the diagram you have open. The same checks also run over every diagram, decision and form of a project at once, and their findings carry the same rule ids. Only errors make a whole-project check fail. A warning is shown as a note.</p>
 
-Every rule has a page with why it matters and how to fix it: https://kern0x1b.github.io/penstock-release/rules</code></pre>
-
-<p>A line that starts with <code>note</code> is a warning. Only errors make the command fail with exit code 1. See <a href="cli-reference.html#check">Every command</a>.</p>
+{{host:check-run|Check from your tool}}
 
 <h2>Fix a whole diagram at once</h2>
 

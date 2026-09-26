@@ -2,7 +2,7 @@
 title: Import a diagram
 lede: Turn a draw.io, Visio, Signavio or Bizagi diagram into a BPMN 2.0 file, and get a list of everything that could not be carried over.
 tags: free
-related: share-html, auto-layout, editing
+related: share-html, auto-layout, editing, cli/commands
 -->
 <h2>What can be imported</h2>
 
@@ -20,10 +20,10 @@ related: share-html, auto-layout, editing
 
 <p>These cannot be read: a Bizagi <code>.bpm</code> package, the old binary Visio <code>.vsd</code>, and XPDL. The message says what to do instead: from Bizagi, export BPMN 2.0 (a <code>.bpmn</code> file). From Visio, use File &gt; Save As and choose Visio Drawing (<code>.vsdx</code>). From a tool that wrote XPDL, export BPMN 2.0.</p>
 
-<h2>Steps in the IDE</h2>
+<h2>Steps in the editor</h2>
 
 <ol class="steps">
-  <li>Open any diagram editor. Open <span class="ui">More</span> and choose <span class="ui">Import diagram…</span>.</li>
+  <li>Open any diagram in the editor. Open <span class="ui">More</span> and choose <span class="ui">Import diagram…</span>.</li>
   <li>A file chooser called <em>Import diagram</em> opens. Pick the file.</li>
   <li>A second dialog, <em>Save the imported diagram</em>, asks where to put the new BPMN file. It suggests a name: <code>order-process.bpmn</code> from <code>order-process.drawio</code>.</li>
   <li>The new diagram opens. A report dialog called <em>Diagram imported</em> lists what was and was not carried over.</li>
@@ -49,29 +49,9 @@ related: share-html, auto-layout, editing
 
 <p>If nothing was left out, the report says <em>Everything in the file was mapped.</em> Connectors keep the route they were drawn with. <a href="auto-layout.html">Auto layout</a> (Pro) can tidy the result.</p>
 
-<h2>From a terminal</h2>
+<h2>Without the editor</h2>
 
-<pre><code>$ penstock import order-process.drawio
-wrote order-process.bpmn
-
-Imported from draw.io: 9 elements, 7 flows, 2 pools, 2 lanes.
-
-Not imported (2):
-  - "Legacy system" (cloud) has no BPMN meaning, so it was not imported.
-  - "to be decided" is not attached to two shapes, so it was left out.
-
-Guessed (1):
-  - 2 elements outside every pool went into the nearest pool: "Call the customer if it takes longer", "Order".</code></pre>
-
-<div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td><code>-o &lt;file.bpmn&gt;</code></td><td>The file to write. Default: next to the source, with the extension <code>.bpmn</code>. For a source that is already a <code>.bpmn</code> the default is <code>name.penstock.bpmn</code>.</td></tr>
-  <tr><td><code>--force</code></td><td>Replace a file that is already there. Without it, an existing file stops the command: <em>already exists. Nothing was written</em>.</td></tr>
-  <tr><td><code>--format json</code></td><td>Print the result as JSON for a tool.</td></tr>
-  </tbody>
-</table></div>
-
-<p>See <a href="cli-reference.html#import">Every command</a>.</p>
+{{host:import-run|Import from your tool}}
 
 <h2>What you see</h2>
 

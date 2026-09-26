@@ -1,0 +1,67 @@
+<!--
+title: Tests in the IDE
+lede: In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.
+tags: pro
+needs: Team in a pipeline
+related: guide/run-tests, guide/process-tests, tool-window, code-links
+-->
+<p>The Run tests panel and the test cases themselves are described once in <a href="@guide/run-tests.html">Run tests</a>, and process tests and coverage in <a href="@guide/process-tests.html">Process tests and coverage</a>. This page is about how they use the IDE.</p>
+
+<h2>Run test-case files in the test runner</h2>
+
+<ol class="steps">
+  <li>Open a test case file, for example <code>orders.json</code>.</li>
+  <li>Click the green triangle in the gutter next to a test case. Or right-click the file or a folder and run it.</li>
+  <li>The IDE's Run window shows a test tree, pass or fail, and the log. Double-click a test to open it in the file.</li>
+</ol>
+
+<p>The run uses the profile in force, or the one the run configuration names. The trace of each run is kept under <code>.penstock/runs/</code>, and its path is in the log. The same safety rules apply as everywhere: the engine must be marked for tests, or you confirm a local one once.</p>
+
+<figure class="shot">
+  <img src="@img/test-case-runs/06-test-case-gutter.png" alt="A test case file open in the IDE with a run icon in the gutter next to each test case">
+  <figcaption>Each test case has a run icon in the gutter. The Penstock tool window is on the left.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/test-case-runs/07-test-runner-one-test-case.png" alt="The IDE test runner showing one passed test case and its log">
+  <figcaption>One test case, run from the gutter. The log names the trace file for the run.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/test-case-runs/08-test-runner-a-failure.png" alt="The IDE test runner showing one failed test and two passed">
+  <figcaption>A failure shows in the test tree with its time. Open it to read the reason.</figcaption>
+</figure>
+
+<h2>The run configuration</h2>
+
+<p>Running a test-case file creates a run configuration called <em>Penstock test cases</em>. It takes a file or a folder of test cases and a profile. You can run it again from the run widget at the top right of the IDE, like any other run configuration.</p>
+
+<h2>Run and debug process tests from the diagram</h2>
+
+<ul>
+  <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. It runs the test methods that name the element or its process, with the project's own test runner. When you debug, the diagram shows where the process stops.</li>
+  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the tool window's toolbar.</li>
+  <li>Code Vision above a test says how much of each process it covers.</li>
+</ul>
+
+<h2>Coverage</h2>
+
+<p>After the process tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A test tree with pass or fail, and the log, in the Run window.</li>
+  <li>A green triangle in the gutter of each test case.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The Run window says the engine is not marked for tests.</dt>
+  <dd>Set <code>deployment.forTests: true</code> on the profile, or confirm a local engine when asked.</dd>
+  <dt>There is no Coverage button.</dt>
+  <dd>No test report was found yet. Run the process tests first.</dd>
+  <dt>There is no green triangle in the gutter.</dt>
+  <dd>The file is not a Camunda Process Test JSON test-case file, or Pro is not active.</dd>
+</dl>

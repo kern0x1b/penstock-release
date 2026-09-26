@@ -2,14 +2,14 @@
 title: Export
 lede: Save the diagram as a picture: SVG, PNG or PDF.
 tags: free
-related: share-html, toolbar, cli-reference
+related: share-html, toolbar, cli/commands
 -->
 <h2>Steps</h2>
 
 <ol class="steps">
   <li>Open <span class="ui">More</span> and choose <span class="ui">Export…</span>. A dialog called <em>Export BPMN Diagram</em> opens. It shows a live preview.</li>
   <li>Choose the options on the right: <span class="ui">Theme</span>, <span class="ui">Schema</span>, <span class="ui">Format</span> and <span class="ui">Use Background</span>.</li>
-  <li>Press <span class="ui">Export</span>. The IDE's save dialog asks where to put the file.</li>
+  <li>Press <span class="ui">Export</span>. A save dialog asks where to put the file.</li>
 </ol>
 
 <figure class="shot">
@@ -38,17 +38,15 @@ related: share-html, toolbar, cli-reference
   <li><strong>PDF</strong> is that PNG on one A4 page. Portrait or landscape follows the shape of the diagram. It is scaled to fit under a heading.</li>
 </ul>
 
-<h2>From a terminal</h2>
+<h2>Without the editor</h2>
 
-<pre><code>penstock export . --out docs/img</code></pre>
-
-<p>This writes SVG, drawn by Penstock from the diagram's coordinates. It needs no browser. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="cli-reference.html#export">Every command</a>.</p>
+{{host:export-run|Export a picture in your tool}}
 
 <h2>What you see</h2>
 
 <ul>
   <li>A dialog with a live preview that follows your choices.</li>
-  <li>After <span class="ui">Export</span>, the IDE's save dialog, then the file in the folder you chose.</li>
+  <li>After <span class="ui">Export</span>, a save dialog, then the file in the folder you chose.</li>
 </ul>
 
 <h2>Common problems</h2>

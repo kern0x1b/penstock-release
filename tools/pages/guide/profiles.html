@@ -2,7 +2,7 @@
 title: Profiles
 lede: A profile is a named set of settings, such as test or prod, so one project can deploy to several places.
 tags: free
-related: settings, deployment, ci
+related: settings, deployment, cli/ci
 -->
 <h2>Two words, two meanings</h2>
 
@@ -57,7 +57,7 @@ profiles:
 
 <p>A profile is laid over the merged result of all <code>penstock.yaml</code> files, <em>including</em> <code>penstock.local.yaml</code>. So a profile beats a plain value in your local file. To override a profile on your own machine, put the key under <code>profiles.&lt;name&gt;</code> in <code>penstock.local.yaml</code>. This is exactly what the Connection dialog does when you enter an engine address for a profile. Environment variables come last. See <a href="settings.html">penstock.yaml</a>.</p>
 
-<h2>Deploy to another profile from the IDE</h2>
+<h2>Deploy to another profile from the editor</h2>
 
 <ol class="steps">
   <li>Click the arrow next to <span class="ui">Deploy</span>.</li>
@@ -81,7 +81,7 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
 
 <h2>Secrets belong to the profile</h2>
 
-<p>In the IDE, the password or client secret is stored in the password safe once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
+<p>In the editor, the password or client secret is stored in the secret store of your tool once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
 
 <h2>What you see</h2>
 
@@ -99,6 +99,6 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
   <dd><code>PENSTOCK_PROFILE</code> wins over the file. Check your environment.</dd>
   <dt>I set a value in <code>penstock.local.yaml</code> but the profile overrides it.</dt>
   <dd>Right. A profile beats plain values in every file. Put the value under <code>profiles.&lt;name&gt;</code> in the local file.</dd>
-  <dt>The IDE asks for the password again.</dt>
+  <dt>The editor asks for the password again.</dt>
   <dd>The password is stored per profile. A new profile has none yet.</dd>
 </dl>

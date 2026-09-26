@@ -1,0 +1,55 @@
+<!--
+title: Your project as a model
+lede: Penstock reads your diagrams, decisions, forms and code and shows the project as a model: processes, the workers they need, variables, messages, errors, decisions and forms, and how they connect.
+tags: free
+needs: The links to your code need Pro
+related: code-links, check-workers, migration, deployment
+-->
+<h2>What it is</h2>
+
+<p>A folder of files hides how a project fits together. Which task needs which worker? Which variable is set where? Who throws this message? Penstock answers by reading every diagram, decision and form and, with Pro, your code. The result is the <strong>project model</strong>: a tree, with a count beside each node.</p>
+
+{{host:project-model-where|Where to see it}}
+
+<h2>What the model shows</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Node</th><th>What is under it</th></tr></thead>
+  <tbody>
+  <tr><td>Processes</td><td>Every process, with the processes it calls and is called by. With Pro: its tests and how much of it they cover.</td></tr>
+  <tr><td>Tests <span class="tag pro">Pro</span></td><td>Every process test, by class, with what each covers.</td></tr>
+  <tr><td>Workers</td><td>What each task needs to run: a job type, topic, class or bean. A worker nothing implements is marked. See <a href="check-workers.html">Check Workers</a>.</td></tr>
+  <tr><td>Variables</td><td>Every process variable, where it is set and read, and a warning for one that is read but never set, or one that is set a letter away: <em>set as 'approved'?</em></td></tr>
+  <tr><td>Messages</td><td>Every message, with who catches and who throws it.</td></tr>
+  <tr><td>Errors</td><td>Every error code, where it is caught and thrown. Marks a code that is thrown but never caught, and an error event nothing throws.</td></tr>
+  <tr><td>Decisions</td><td>Every decision, and the tasks that call it. A decision the project does not have is marked <em>not in project</em>.</td></tr>
+  <tr><td>Forms</td><td>Every form, and the tasks that use it. A form the project does not have is marked <em>not in project</em>.</td></tr>
+  <tr><td>Deployment</td><td>Each profile with its address and the last deploy. You can deploy every diagram to a profile, after a confirmation.</td></tr>
+  <tr><td>Files</td><td>The files, in folders.</td></tr>
+  <tr><td>Debug</td><td>Only while a debugger is stopped in a worker: the task it is in.</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>Only in a Camunda 7 family project. See <a href="migration.html">Camunda 7 to 8</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Without Pro the model of your diagrams is still shown. The links from a task to the code that runs it need Pro. See <a href="code-links.html">Code links</a>.</p>
+
+<h2>Group by files</h2>
+
+<p>The model can be turned round: file by file, with each process's elements and what runs them. The choice, and the choice between folders and a flat list, are kept in <code>~/.penstock/preferences.json</code>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A tree with a count beside each node.</li>
+  <li>A warning on a worker that nothing implements, a variable that is read but never set, and a call to a process the project does not have.</li>
+  <li>Folders that hold build output, such as <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code> and <code>dist</code>, are skipped.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The model is empty.</dt>
+  <dd>The project has no <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> files that Penstock can see. Build folders are skipped.</dd>
+  <dt>There is no link to the code.</dt>
+  <dd>Code links are a Pro feature, and nothing in the project implements the worker.</dd>
+</dl>

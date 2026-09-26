@@ -3,7 +3,7 @@ title: Flow analysis
 lede: Flow analysis follows every way a token can take through your process and tells you what will go wrong before you run anything.
 tags: pro
 needs: Team in a pipeline
-related: diagram-check, test-cases, ci
+related: diagram-check, run-tests, cli/ci
 -->
 <h2>What it finds</h2>
 
@@ -35,13 +35,11 @@ related: diagram-check, test-cases, ci
   <li>Read the <strong>Why</strong> and <strong>Fix</strong> lines under it.</li>
 </ol>
 
-<h2>In a terminal</h2>
+<h2>Without the editor</h2>
 
-<pre><code>$ penstock check . --only flow
-fail  stuck.bpmn
-        DEADLOCK: "Join" waits for "Task B", which never arrives. "Which way" sent this run down another branch. Path: Start → Which way → Task A</code></pre>
+<p>The flow section also runs when you check a whole project. Its findings carry the same rule ids.</p>
 
-<p>Run <code>penstock check .</code> without <code>--only</code> to get all sections at once. The command has the same rule ids in its JSON, SARIF and GitHub output.</p>
+{{host:flow-run|Run only the flow check}}
 
 <h2>Decision tables and forms</h2>
 

@@ -2,7 +2,7 @@
 title: Every command
 lede: Every penstock command, one by one: what it does, its options, an example, and what it needs.
 tags: free
-related: cli, ci, mcp, settings
+related: index, ci, mcp, guide/settings
 -->
 <h2>All commands at a glance</h2>
 
@@ -40,7 +40,7 @@ related: cli, ci, mcp, settings
 
 <div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as <code>PENSTOCK_PROFILE</code> would. See <a href="profiles.html">Profiles</a>.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as <code>PENSTOCK_PROFILE</code> would. See <a href="@guide/profiles.html">Profiles</a>.</td></tr>
   <tr><td><code>--format text|json|sarif|github|md</code></td><td>How <code>check</code>, <code>paths</code>, <code>show</code>, <code>docs</code> and <code>migrate</code> report themselves.</td></tr>
   <tr><td><code>--out &lt;dir&gt;</code>, <code>-o</code></td><td>Where a command puts what it writes. For <code>share</code> and <code>import</code>, <code>-o</code> is the file.</td></tr>
   <tr><td><code>--help</code></td><td>Print the help and stop.</td></tr>
@@ -60,7 +60,7 @@ related: cli, ci, mcp, settings
 
 <div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td><code>--example camunda-8|camunda-7</code></td><td>Write a small runnable project into an <em>empty</em> folder. See <a href="example-project.html">The example project</a>.</td></tr>
+  <tr><td><code>--example camunda-8|camunda-7</code></td><td>Write a small runnable project into an <em>empty</em> folder. See <a href="@guide/example-project.html">The example project</a>.</td></tr>
   <tr><td><code>--ci github|gitea|forgejo|gitlab|bitbucket|azure</code></td><td>Also write a pipeline, for the licence on this machine. See <a href="ci.html">Pipelines, reports and the bot</a>.</td></tr>
   <tr><td><code>--hooks</code></td><td>Install a pre-commit hook. It formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours. Delete the file to stop it. It uses <code>check --baseline</code>, which needs Pro.</td></tr>
   </tbody>
@@ -102,31 +102,31 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   </tbody>
 </table></div>
 
-<p>See <a href="diagram-check.html">Diagram check</a>, <a href="validation.html">Validation</a> and <a href="flow-analysis.html">Flow analysis</a>. Hooks: <code>preCheck</code> and <code>postCheck</code>.</p>
+<p>See <a href="@guide/diagram-check.html">Diagram check</a>, <a href="@guide/validation.html">Validation</a> and <a href="@guide/flow-analysis.html">Flow analysis</a>. Hooks: <code>preCheck</code> and <code>postCheck</code>.</p>
 
 <h2 id="migrate">migrate</h2>
 
 <p><strong>Camunda 7 to Camunda 8.</strong> <code>penstock migrate [analyze|convert|report] [paths]</code></p>
 
-<p>Full description on <a href="migration.html">Camunda 7 to 8</a>. Options: <code>--target 8.5..8.9</code>, <code>--dry-run</code>, <code>--out &lt;dir&gt;</code>, <code>--fail-on error|warning</code>, <code>--verbose</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>. <code>convert</code> needs Pro, and Team in a pipeline. <code>convert</code> writes over your files unless you give <code>--out</code>.</p>
+<p>Full description on <a href="@guide/migration.html">Camunda 7 to 8</a>. Options: <code>--target 8.5..8.9</code>, <code>--dry-run</code>, <code>--out &lt;dir&gt;</code>, <code>--fail-on error|warning</code>, <code>--verbose</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>. <code>convert</code> needs Pro, and Team in a pipeline. <code>convert</code> writes over your files unless you give <code>--out</code>.</p>
 
 <h2 id="code">code</h2>
 
 <p><strong>Compare diagrams with code.</strong> <code>penstock code [paths]</code> <span class="tag pro">Pro</span></p>
 
-<p>Reports a job type, topic, class or bean that nothing runs, a called process no diagram defines, and a worker no diagram uses, each with file and line. Reads the repositories in <code>linked</code>. <code>--format json</code> for a tool. See <a href="code-links.html">Code links</a>.</p>
+<p>Reports a job type, topic, class or bean that nothing runs, a called process no diagram defines, and a worker no diagram uses, each with file and line. Reads the repositories in <code>linked</code>. <code>--format json</code> for a tool. See <a href="@guide/code-links.html">Code links</a>.</p>
 
 <h2 id="paths">paths</h2>
 
 <p><strong>List every way through each process.</strong> <code>penstock paths [paths]</code> <span class="tag pro">Pro</span></p>
 
-<p><code>--format md</code> writes a checklist for a test plan. <code>--format json</code> is for tools. See <a href="process-tests.html">Process tests and coverage</a>.</p>
+<p><code>--format md</code> writes a checklist for a test plan. <code>--format json</code> is for tools. See <a href="@guide/process-tests.html">Process tests and coverage</a>.</p>
 
 <h2 id="tests">tests</h2>
 
 <p><strong>Write a JUnit test for every way through each process.</strong> <code>penstock tests [paths]</code> <span class="tag pro">Pro</span></p>
 
-<p><code>--out &lt;dir&gt;</code> the source folder. <code>--package &lt;name&gt;</code> the package. The command names the test dependencies your build lacks. See <a href="process-tests.html">Process tests and coverage</a>.</p>
+<p><code>--out &lt;dir&gt;</code> the source folder. <code>--package &lt;name&gt;</code> the package. The command names the test dependencies your build lacks. See <a href="@guide/process-tests.html">Process tests and coverage</a>.</p>
 
 <h2 id="test-cases">test-cases</h2>
 
@@ -142,7 +142,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   </tbody>
 </table></div>
 
-<p>See <a href="test-cases.html">Runs and test cases</a>.</p>
+<p>See <a href="@guide/run-tests.html">Run tests</a>.</p>
 
 <h2 id="layout">layout</h2>
 
@@ -153,7 +153,7 @@ would change src/main/resources/order-process.bpmn
 
 Auto layout always reflows, so a difference here is expected; pass --write to take it.</code></pre>
 
-<p><code>--write</code> saves the result. Without it nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="auto-layout.html">Auto layout</a>.</p>
+<p><code>--write</code> saves the result. Without it nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="@guide/auto-layout.html">Auto layout</a>.</p>
 
 <h2 id="fmt">fmt</h2>
 
@@ -180,19 +180,19 @@ src/main/resources/order-process.bpmn
 
 <p><strong>Pictures of the diagrams.</strong> <code>penstock export [paths] --out &lt;dir&gt;</code></p>
 
-<p>SVG, drawn by Penstock from the coordinates. No browser needed. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="export.html">Export</a>.</p>
+<p>SVG, drawn by Penstock from the coordinates. No browser needed. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="@guide/export.html">Export</a>.</p>
 
 <h2 id="share">share</h2>
 
 <p><strong>One HTML file to send.</strong> <code>penstock share &lt;file&gt; [-o out.html]</code></p>
 
-<p>Takes one <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. Opens offline in any browser. See <a href="share-html.html">Share as HTML</a>.</p>
+<p>Takes one <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. Opens offline in any browser. See <a href="@guide/share-html.html">Share as HTML</a>.</p>
 
 <h2 id="import">import</h2>
 
 <p><strong>Turn a draw.io, Visio, Signavio or Bizagi diagram into BPMN 2.0.</strong> <code>penstock import &lt;file&gt; [-o out.bpmn] [--force]</code></p>
 
-<p>Prints what was not imported, what was guessed and what was not carried over. <code>--format json</code> for a tool. See <a href="import.html">Import a diagram</a>.</p>
+<p>Prints what was not imported, what was guessed and what was not carried over. <code>--format json</code> for a tool. See <a href="@guide/import.html">Import a diagram</a>.</p>
 
 <h2 id="docs">docs</h2>
 
@@ -251,7 +251,7 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
   </tbody>
 </table></div>
 
-<p>Files are grouped by the target each folder asks for. A file with no <code>deployment.url</code> is skipped. Secrets: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code>, <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="deployment.html">Deployment</a>.</p>
+<p>Files are grouped by the target each folder asks for. A file with no <code>deployment.url</code> is skipped. Secrets: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code>, <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="@guide/deployment.html">Deployment</a>.</p>
 
 <h2 id="show">show</h2>
 
@@ -289,7 +289,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <h2 id="license">license</h2>
 
-<p><strong>Buy, sign in, status.</strong> <code>penstock license [status|key|activate &lt;key&gt;]</code>, <code>license buy [pro|team]</code>, <code>license login [email]</code>, <code>license logout</code>. See <a href="sign-in.html">Buying and signing in</a>.</p>
+<p><strong>Buy, sign in, status.</strong> <code>penstock license [status|key|activate &lt;key&gt;]</code>, <code>license buy [pro|team]</code>, <code>license login [email]</code>, <code>license logout</code>. See <a href="@guide/sign-in.html">Buying and signing in</a>.</p>
 
 <h2 id="mcp">mcp</h2>
 
@@ -303,20 +303,20 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 penstock connectors resolve &lt;id&gt; [version]      # print one template as JSON
 penstock connectors --refresh                    # ask GitHub for a newer release now</code></pre>
 
-<p>The templates are downloaded from GitHub at most once a day and cached in <code>~/.penstock/connectors/</code>. See <a href="element-templates.html">Element templates</a>.</p>
+<p>The templates are downloaded from GitHub at most once a day and cached in <code>~/.penstock/connectors/</code>. See <a href="@guide/element-templates.html">Element templates</a>.</p>
 
 <h2 id="update">update</h2>
 
 <p><strong>Move the project's wrapper to a version.</strong> <code>penstock update [version]</code></p>
 
-<p>The latest version by default. <code>--distribution &lt;spec&gt;</code> chooses where to get Penstock from: a tarball or a registry spec. See <a href="cli.html">Command line</a>.</p>
+<p>The latest version by default. <code>--distribution &lt;spec&gt;</code> chooses where to get Penstock from: a tarball or a registry spec. See <a href="index.html">Command line</a>.</p>
 
 <h2>What you see</h2>
 
 <ul>
   <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>same</code>, <code>would change</code> or <code>sent</code>.</li>
   <li>Findings are indented under their file.</li>
-  <li>The exit code says the outcome. See <a href="cli.html#exit-codes">Command line</a>.</li>
+  <li>The exit code says the outcome. See <a href="index.html#exit-codes">Command line</a>.</li>
 </ul>
 
 <h2>Common problems</h2>

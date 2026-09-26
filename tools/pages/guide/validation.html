@@ -2,7 +2,7 @@
 title: Validation with bpmnlint
 lede: bpmnlint checks that a process is modelled correctly, and Penstock runs it for you with nothing to install.
 tags: free
-related: diagram-check, settings, cli-reference
+related: diagram-check, settings, cli/commands
 -->
 <h2>What it is</h2>
 
@@ -39,13 +39,25 @@ related: diagram-check, settings, cli-reference
 
 <p>Each rule can be set to <code>error</code>, <code>warn</code> or <code>off</code>. An error makes <code>penstock check</code> fail. A warning is shown as a note. Every rule that Penstock knows has a page: <a href="../rules/">Every rule</a>. Those pages say which level is the default.</p>
 
-<h2>On the command line</h2>
+<h2>Engine compatibility checks</h2>
+<p><span class="tag free">Free</span></p>
 
-<pre><code>penstock check --only rules .</code></pre>
+<p>Next to the modelling rules, Penstock checks the diagram against the engine and the version it is written for. It finds what that engine cannot run: a service task with no job type, an element or an expression the chosen version does not support, a process with no history time to live.</p>
 
-<p>This runs the same rules as one section of the check. <code>penstock lint</code> still works in this release and prints that it is now <code>penstock check --only rules</code>.</p>
+<ul>
+  <li>They run on Camunda 7 and Camunda 8 diagrams, in the editor and when you check the whole project. Operaton and CIB seven are checked as Camunda 7.</li>
+  <li>The version is the one in the file's <code>modeler:executionPlatformVersion</code>. Without one, the newest version is used.</li>
+  <li>Each finding is one plain sentence that names the element: <em>Charge card has no job type</em>, <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>, <em>History time to live is missing</em>. The sentence is the same in the check card, on the canvas and in every report.</li>
+  <li>Each finding has the id <code>compat/&lt;rule&gt;</code>, for example <code>compat/implementation</code>. Every rule has a page: see <a href="../rules/">Every rule</a>.</li>
+  <li>To turn one off, set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code>, which is the plugin's own name, or as <code>compat/&lt;rule&gt;</code>.</li>
+  <li>A problem that another check already reports on the same element, for example two blank start events, is shown once, by bpmnlint.</li>
+</ul>
 
-<p>In the IDE, <span class="ui">Check</span> in the context menu of the Penstock tool window runs <code>penstock check</code> on a file or folder and shows the report in the Run window. It runs only in a trusted project.</p>
+<h2>Whole-project checks</h2>
+
+<p>The same rules run over every diagram of a project when you check the whole project. Errors fail the check. Warnings are notes. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
+
+{{host:lint-run|Run only the rules}}
 
 <h2 id="custom-rules">Custom rules from a plugin</h2>
 
@@ -68,7 +80,7 @@ related: diagram-check, settings, cli-reference
 <ul>
   <li>Markers on the elements a rule reports, while you draw.</li>
   <li>The same findings under <strong>Rules</strong> in the check card, each with the rule name.</li>
-  <li>In a terminal, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
+  <li>In a whole-project report, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
 </ul>
 
 <h2>Common problems</h2>
@@ -80,6 +92,6 @@ related: diagram-check, settings, cli-reference
   <dd>Check that <code>.bpmnlintrc</code> is in the project root, or that <code>lint.configPath</code> names it. When <code>lint.configPath</code> is set, <code>penstock doctor</code> prints the path and says if it is missing.</dd>
   <dt>I have no markers on the canvas.</dt>
   <dd>The linting button on the canvas may be off. Press it once.</dd>
-  <dt>The Run window action does nothing.</dt>
-  <dd>It needs a trusted project. Trust the project when the IDE asks.</dd>
+  <dt>The whole-project check does nothing.</dt>
+  <dd>Your tool may need the project to be trusted before it runs commands. See the troubleshooting page of your tool.</dd>
 </dl>

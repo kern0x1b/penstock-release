@@ -1,28 +1,32 @@
 <!--
 title: Getting started
-lede: From an empty IDE to a checked, deployed process in about ten minutes.
+lede: From nothing installed to a checked, deployed process in about ten minutes.
 tags: free
-related: installing, example-project, bpmn-editor, toolbar, deployment
+related: example-project, bpmn-editor, toolbar, deployment
 -->
-<h2>Before you begin</h2>
+<h2>1. Get Penstock</h2>
 
-<p>You need Penstock installed. If you have not done that yet, follow <a href="installing.html">Installing</a>. It takes two minutes.</p>
+<p>Penstock comes in more than one form. The features are the same in each. Pick the one you use.</p>
 
-<h2>Start with the example project</h2>
+{{host:get-penstock|Get Penstock}}
 
-<p>The quickest way to see everything work is the example. It is a small order process with workers, a decision, a form and test cases. <a href="example-project.html">The example project</a> explains every file.</p>
+<p>Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p>
+
+<h2>2. Try the example</h2>
+
+<p>The quickest way to see everything work is the example: a small order process with workers, a decision, a form and test cases. <a href="example-project.html">The example project</a> explains every file. Write it into an empty folder.</p>
+
+{{host:write-example|Write the example}}
+
+<h2>3. Look at it, check it, deploy it</h2>
 
 <ol class="steps">
-  <li>Make a new empty folder and open it in your IDE. You can also use a folder you already have, as long as it has no diagrams yet.</li>
-  <li>Open the <span class="ui">Penstock</span> tool window on the left. When the project has no diagrams, it offers two examples: <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one. A dialog called <em>Start from an example</em> asks if it may write the files. Press <span class="ui">Create</span>. It never overwrites a file.</li>
-  <li>Open <code>src/main/resources/order-process.bpmn</code>. The diagram appears.</li>
-  <li>Press <span class="ui">Check</span> on the toolbar. The check card opens at the bottom right. A fresh example should have nothing wrong.</li>
-  <li>Press <span class="ui">Deploy</span> on the right of the toolbar. The first time, Penstock asks for the engine address. Enter it and press <span class="ui">Deploy</span> again. <a href="deployment.html">Deployment</a> has the details.</li>
+  <li>Open <code>src/main/resources/order-process.bpmn</code> in the editor. The diagram appears.</li>
+  <li>Press <span class="ui">Check</span>. A card lists what is wrong. A fresh example has nothing wrong. See <a href="diagram-check.html">Diagram check</a>.</li>
+  <li>Press <span class="ui">Deploy</span>. The first time, Penstock asks for the engine address. Enter it and deploy again. See <a href="deployment.html">Deployment</a>.</li>
 </ol>
 
-<p>From a terminal, the same example is one command in an empty folder:</p>
-
-<pre><code>penstock init --example camunda-8</code></pre>
+{{host:first-check-deploy|Do it in your tool}}
 
 <h2>Start with your own diagram</h2>
 
@@ -31,22 +35,23 @@ related: installing, example-project, bpmn-editor, toolbar, deployment
   <li>If the diagram says nothing about its engine, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span> or <span class="ui">Plain BPMN</span>. The answer is written to <code>penstock.yaml</code> in the project root. It is asked once.</li>
   <li>Draw. Drag elements from the palette on the left, or click an element and use the small pad next to it. <a href="editing.html">Editing a diagram</a> shows how.</li>
   <li>Select an element and fill in its properties on the right. <a href="properties-panel.html">The properties panel</a> explains the groups.</li>
-  <li>Press <span class="ui">Check</span>. Fix what it lists. <a href="diagram-check.html">Diagram check</a> explains each kind of finding.</li>
+  <li>Press <span class="ui">Check</span>. Fix what it lists.</li>
 </ol>
+
+{{host:open-a-diagram|Open a diagram}}
 
 <h2>What you see</h2>
 
 <figure class="shot">
   <img src="@img/migration/02-check-card-camunda-8-section.png" alt="A diagram open in the editor with the toolbar on top, the palette on the left, the properties panel on the right and the check card at the bottom right">
-  <figcaption>A diagram open in the editor: the toolbar on top, the palette at the left edge of the canvas, the properties panel on the right and the check card at the bottom right. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs are at the foot of the window.</figcaption>
+  <figcaption>A diagram open in the editor: the toolbar on top, the palette at the left edge of the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
 </figure>
 
 <ul>
   <li><strong>Toolbar</strong> along the top. Undo and Redo are on the left. Deploy is on the right. Everything else is in the <span class="ui">More</span> menu. See <a href="toolbar.html">The toolbar and the More menu</a>.</li>
   <li><strong>Palette</strong> at the left edge of the canvas, with the elements you can draw.</li>
-  <li><strong>Canvas</strong> in the middle. It always uses the theme of the IDE.</li>
+  <li><strong>Canvas</strong> in the middle. It takes the theme of your tool.</li>
   <li><strong>Properties panel</strong> on the right, for the selected element.</li>
-  <li><strong>Tabs</strong> at the bottom: <span class="ui">BPMN Editor</span> and <span class="ui">Text</span>.</li>
 </ul>
 
 <h2>Which files open in the editor</h2>
@@ -57,26 +62,25 @@ related: installing, example-project, bpmn-editor, toolbar, deployment
   <tr><td><code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code></td><td><a href="bpmn-editor.html">The BPMN editor</a></td></tr>
   <tr><td><code>.dmn</code></td><td><a href="dmn-editor.html">The DMN editor</a></td></tr>
   <tr><td><code>.form</code> that is a Camunda Form</td><td><a href="form-editor.html">The form editor</a></td></tr>
-  <tr><td><code>.form</code> from the IntelliJ GUI Designer</td><td>The GUI Designer. Penstock leaves it alone.</td></tr>
   </tbody>
 </table></div>
 
 <h2>Where to go next</h2>
 
 <div class="cards">
-  <a class="card" href="bpmn-editor.html"><strong>Learn the editor</strong><span>The window, the tabs and how saving works.</span></a>
+  <a class="card" href="bpmn-editor.html"><strong>Learn the editor</strong><span>The parts of the window, saving, and how the engine is chosen.</span></a>
   <a class="card" href="settings.html"><strong>Set up the project</strong><span>The one file that tells Penstock your engine and where to deploy.</span></a>
   <a class="card" href="../rules/"><strong>Know the rules</strong><span>Every check has a page that says why and how to fix it.</span></a>
-  <a class="card" href="cli.html"><strong>Use a terminal</strong><span>The same checks and deployment in a pipeline.</span></a>
+  <a class="card" href="@cli/"><strong>Use a terminal</strong><span>The same checks and deployment in a pipeline.</span></a>
 </div>
 
 <h2>Common problems</h2>
 
 <dl class="problems">
-  <dt>The Penstock tool window does not offer an example.</dt>
-  <dd>It offers examples only when the project has no diagrams. Use <code>penstock init --example</code> in an empty folder instead.</dd>
   <dt>Deploy is missing from the toolbar.</dt>
   <dd>Deploy is shown for Camunda 7, Camunda 8, Operaton and CIB seven projects. A Plain BPMN project has none. Change the engine in <code>penstock.yaml</code>.</dd>
   <dt>The question about the engine did not appear.</dt>
   <dd>It appears only for an empty diagram. A diagram that already says which engine it is for, or a project with <code>engine</code> in <code>penstock.yaml</code>, is not asked.</dd>
+  <dt>The example was not written.</dt>
+  <dd>An example is written only into an empty folder, so it never overwrites your files.</dd>
 </dl>

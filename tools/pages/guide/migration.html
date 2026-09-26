@@ -3,11 +3,11 @@ title: Camunda 7 to Camunda 8
 lede: The migration assistant shows what in your Camunda 7 project does not carry over to Camunda 8, converts what it can, and writes a report you can hand on.
 tags: free
 needs: Looking and the report are free. Converting and worker skeletons need Pro, and Team in a pipeline.
-related: engine-profiles, code-links, cli-reference, ci
+related: engine-profiles, code-links, cli/commands, cli/ci
 -->
 <h2>Why and for whom</h2>
 
-<p>Camunda 7 Community Edition has reached its end of life. A team on it has to decide whether to move to Camunda 8, and then to do it: the diagrams, the decisions, the forms and the Java code behind them. The assistant does the reading and most of the converting, inside the IDE, next to the code.</p>
+<p>Camunda 7 Community Edition has reached its end of life. A team on it has to decide whether to move to Camunda 8, and then to do it: the diagrams, the decisions, the forms and the Java code behind them. The assistant does the reading and most of the converting, in your tool, next to the code.</p>
 
 <p>It works on Camunda 7, Operaton and CIB seven projects. Both forks are read as a Camunda 7 source, because their diagrams use the same <code>camunda:</code> namespace.</p>
 
@@ -38,7 +38,9 @@ related: engine-profiles, code-links, cli-reference, ci
   <figcaption>The migration section in the check card. In this picture the section is headed "Camunda 8". It is now called "Migrate to Camunda 8". A <span class="ui">Convert…</span> button is at its right.</figcaption>
 </figure>
 
-<p>The whole project, all files at once, is in the <a href="tool-window.html">Penstock tool window</a> under <strong>Migrate to Camunda 8</strong>. It lists each file with its status (<em>ready</em>, <em>converts</em>, <em>needs work</em>, <em>blocked</em>), its findings, and the Java code with what each class becomes.</p>
+<p>The check card looks at one diagram. For the whole project, all files at once, Penstock lists each file with its status (<em>ready</em>, <em>converts</em>, <em>needs work</em>, <em>blocked</em>), its findings, and the Java code with what each class becomes.</p>
+
+{{host:migration-project|Migrate a whole project}}
 
 <h3>What the words mean</h3>
 
@@ -78,7 +80,7 @@ related: engine-profiles, code-links, cli-reference, ci
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>In the migration section of the check card, press <span class="ui">Convert…</span>. Or in the tool window, right-click a file and choose <span class="ui">Convert to Camunda 8…</span>, or the root's <span class="ui">Convert All…</span>.</li>
+  <li>In the migration section of the check card, press <span class="ui">Convert…</span>. Your tool can also convert a file or all files of a project.</li>
   <li>The diagram opens twice, side by side, in the <a href="diagram-diff.html">visual diagram diff</a>: before and after. Nothing is written yet.</li>
   <li>Read what changed. Then choose <span class="ui">Replace</span> to overwrite the file, or <span class="ui">Save as a Copy</span> to keep the original.</li>
 </ol>
@@ -88,48 +90,22 @@ related: engine-profiles, code-links, cli-reference, ci
 <h3>Job worker skeletons</h3>
 <p><span class="tag pro">Pro</span></p>
 
-<p>In the tool window, open <strong>Migrate to Camunda 8</strong>, then <strong>Code</strong>. Each Java delegate, external task handler or listener is shown with the file and line and what it becomes. Right-click one to write a skeleton next to the code: <span class="ui">Job Worker Skeleton…</span> (Spring), <span class="ui">Node Worker Skeleton…</span> or <span class="ui">Python Worker Skeleton…</span>. The skeleton is written from the variables the code reads and writes and the BPMN errors it throws. Penstock never writes over a file.</p>
+<p>Each Java delegate, external task handler or listener is followed to its source, with the file and line and what it becomes. Penstock can write a skeleton next to the code: a Spring job worker, a Node worker or a Python worker. The skeleton is written from the variables the code reads and writes and the BPMN errors it throws. Penstock never writes over a file.</p>
+
+{{host:migration-skeleton|Write a skeleton in your tool}}
 
 <h2>The report</h2>
 
-<p>Press <span class="ui">Migration Report</span> in the tool window root, or run:</p>
+<p>The report is Markdown and one self-contained HTML page.</p>
 
-<pre><code>$ penstock migrate report .
-wrote migration-report.md
-wrote migration-report.html</code></pre>
+{{host:migration-report|Write the report in your tool}}
 
-<p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code. Use <code>--out &lt;dir&gt;</code> to choose the folder.</p>
+<p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code.</p>
 
 <figure class="shot">
   <img src="@img/migration/03-migration-report.png" alt="The migration report page: scope, what the move costs, files and code, in dark theme">
   <figcaption>The migration report. It follows the reader's light or dark setting. The design of this website copies it.</figcaption>
 </figure>
-
-<h2>The command line</h2>
-
-<pre><code>$ penstock migrate .
-ready       src/main/resources/approve-order.form  1 convert
-needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
-        error   migration/message-catch: Shipment confirmed: The message shipment-confirmed needs a correlation key. ...
-        error   migration/delegate-expression: Send receipt: Delegate ${sendReceipt} becomes the job type sendReceipt. ...
-ready       src/main/resources/shipping-method.dmn  1 convert
-
-3 files to migrate for Camunda 8.8: 2 ready, 0 convert, 1 need work, 0 blocked.
-Job workers to write: 2</code></pre>
-
-<div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td><code>migrate</code>, <code>migrate analyze</code></td><td>List what does not carry over. Exit code 1 if there is an error (or a warning with <code>--fail-on warning</code>). Free.</td></tr>
-  <tr><td><code>migrate convert</code></td><td>Convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first to see the changes. Pro, and Team in a pipeline.</td></tr>
-  <tr><td><code>migrate report</code></td><td>Write the Markdown and HTML report. Free.</td></tr>
-  <tr><td><code>--target 8.5</code> to <code>8.9</code></td><td>The Camunda 8 version to convert for. Default 8.8.</td></tr>
-  <tr><td><code>--format text|json|sarif|github</code></td><td>Machine-readable output. SARIF and annotations need what they need for <code>check</code>.</td></tr>
-  <tr><td><code>--baseline</code>, <code>--update-baseline</code></td><td>Fail only on what is new. The file is <code>penstock-migration-baseline.json</code>.</td></tr>
-  <tr><td><code>--verbose</code></td><td>Also list what only carries over as it is.</td></tr>
-  </tbody>
-</table></div>
-
-<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>, so the files still open as Camunda 7. Set <code>engine: camunda-8</code> when you move. Penstock never changes your configuration.</p>
 
 <h2>What it does not do</h2>
 

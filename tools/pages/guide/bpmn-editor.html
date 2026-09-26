@@ -1,29 +1,26 @@
 <!--
 title: The BPMN editor
-lede: The BPMN editor draws a process inside your IDE and saves every change into the file itself.
+lede: The BPMN editor draws a process and saves every change into the file itself.
 tags: free
-related: toolbar, properties-panel, editing, engine-profiles
+related: toolbar, properties-panel, editing, engine-profiles, project-model
 -->
 <h2>What it is</h2>
 
 <p>A BPMN file is a text file (XML) that holds two things: the meaning of the process and where every box is drawn. The BPMN editor shows the picture and edits the file for you. You never have to touch the XML, but you always can.</p>
 
-<p>The editor is <a href="https://bpmn.io/toolkit/bpmn-js/">bpmn-js</a>, the same drawing library the Camunda Modeler uses, running inside a browser view in the IDE. So the drawing and the files are the ones you already know. Penstock adds the IDE around it: checks, deploy, links to your code, and a project view.</p>
+<p>The editor is <a href="https://bpmn.io/toolkit/bpmn-js/">bpmn-js</a>, the same drawing library the Camunda Modeler uses. So the drawing and the files are the ones you already know. Penstock adds the tool around it: checks, deploy, links to your code, and a project model.</p>
 
 <h2>Open a diagram</h2>
 
-<ol class="steps">
-  <li>Open a file with the extension <code>.bpmn</code>, <code>.bpmn.xml</code> or <code>.bpmn20.xml</code>. Double-click it in the Project view or in the <a href="tool-window.html">Penstock tool window</a>.</li>
-  <li>The diagram opens straight away. There is no setup screen.</li>
-  <li>Change something. Drag a box, rename a task, add an element.</li>
-  <li>Click the <span class="ui">Text</span> tab at the bottom of the editor. The XML already shows your change.</li>
-</ol>
+<p>Open a file with the extension <code>.bpmn</code>, <code>.bpmn.xml</code> or <code>.bpmn20.xml</code>. The diagram opens straight away. There is no setup screen. Change something: drag a box, rename a task, add an element. The change is already in the file.</p>
+
+{{host:editor-open|Open it in your tool}}
 
 <h2>What you see</h2>
 
 <figure class="shot">
   <img src="@img/migration/02-check-card-camunda-8-section.png" alt="A diagram open in the editor with the toolbar on top, the palette on the left, the properties panel on the right and the check card at the bottom right">
-  <figcaption>A diagram open in the editor: the toolbar on top, the palette at the left edge of the canvas, the properties panel on the right and the check card at the bottom right. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs are at the foot of the window.</figcaption>
+  <figcaption>A diagram open in the editor: the palette beside the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
 </figure>
 
 <div class="table-wrap"><table class="facts">
@@ -31,20 +28,19 @@ related: toolbar, properties-panel, editing, engine-profiles
   <tbody>
   <tr><td>Toolbar</td><td>Actions along the top. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
   <tr><td>Palette</td><td>The strip at the left edge of the canvas. Drag elements from it. See <a href="elements.html">BPMN elements</a>.</td></tr>
-  <tr><td>Canvas</td><td>The drawing. Zoom with the mouse wheel and <kbd>Cmd</kbd> or <kbd>Ctrl</kbd>.</td></tr>
+  <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool.</td></tr>
   <tr><td>Properties panel</td><td>The settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
   <tr><td>Check card</td><td>A small card at the bottom right that lists problems. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
-  <tr><td>Tabs</td><td><span class="ui">BPMN Editor</span> shows the picture. <span class="ui">Text</span> shows the XML.</td></tr>
   </tbody>
 </table></div>
 
 <h2>Saving</h2>
 
-<p>There is no save button. Every change you make is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. The IDE refreshes the file, so the <span class="ui">Text</span> tab and version control see it immediately.</p>
+<p>There is no save button. Every change is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. Other views of the same file, and version control, see the change immediately.</p>
 
 <h3>When the file changes outside the editor</h3>
 
-<p>Penstock watches the file. If something else changes it, for example a <code>git checkout</code>, a formatter or the <span class="ui">Text</span> tab, a dialog called <em>File Changed on Disk</em> asks what to do.</p>
+<p>Penstock watches the file. If something else changes it, for example a <code>git checkout</code>, a formatter or a text view of the same file, the editor asks what to do:</p>
 
 <ul>
   <li><strong>Reload</strong> takes the new content. Unsaved edits on the canvas are dropped.</li>
@@ -55,7 +51,7 @@ related: toolbar, properties-panel, editing, engine-profiles
 
 <h2>Themes</h2>
 
-<p>The diagram always takes the theme of the IDE: light, dark or Dracula. There is no separate theme dialog. If you change the IDE theme, the diagram redraws. If you want a hand-drawn look, use <span class="ui">Sketchy Drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
+<p>The diagram always takes the theme of your tool: light or dark. There is no separate theme dialog. If you change the theme, the diagram redraws. If you want a hand-drawn look, use <span class="ui">Sketchy Drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
 
 <p>The bpmn.io logo in the bottom corner has to stay visible. The licence of the drawing library requires it. Penstock recolours it so it stays readable, and never hides it.</p>
 
@@ -71,13 +67,13 @@ related: toolbar, properties-panel, editing, engine-profiles
 
 <dl class="problems">
   <dt>The editor is blank.</dt>
-  <dd>The browser view could not start. See <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dd>The view that draws it could not start. See the troubleshooting page of your tool: <a href="troubleshooting.html">Troubleshooting</a>.</dd>
   <dt>I only see XML, there is no picture.</dt>
-  <dd>Click the <span class="ui">BPMN Editor</span> tab at the bottom of the editor window.</dd>
-  <dt>The IDE asks to reload and I do not know why.</dt>
+  <dd>Switch to the editor view of the file. See "Open it in your tool" above.</dd>
+  <dt>A reload dialog appears and I do not know why.</dt>
   <dd>Something changed the file on disk: a Git operation, a formatter or another tool. Choose <strong>Reload</strong> to see it.</dd>
   <dt>My change disappeared.</dt>
-  <dd>You chose <strong>Reload</strong> after an outside change while you had edits on the canvas. Use your IDE's Local History to get the earlier file back.</dd>
+  <dd>You chose <strong>Reload</strong> after an outside change while you had edits on the canvas. Use the history of your tool or of Git to get the earlier file back.</dd>
   <dt>A file called <code>.form</code> opens in the wrong editor.</dt>
   <dd>Penstock opens a <code>.form</code> file only if it is a Camunda Form. See <a href="form-editor.html">The form editor</a>.</dd>
 </dl>

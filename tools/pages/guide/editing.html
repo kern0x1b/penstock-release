@@ -42,7 +42,9 @@ related: elements, properties-panel, toolbar, token-simulation
 
 <h2>Copy and paste</h2>
 
-<p>Copy and paste use the system clipboard, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another diagram that is open in another tab. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+<p>Copy and paste use the clipboard of your system or tool, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another open diagram. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+
+<p><span class="ui">Copy as image</span>, in the <span class="ui">More</span> menu and the context menu of the canvas, puts the selection, or the whole diagram when nothing is selected, on the clipboard as a PNG.</p>
 
 <h2>The minimap</h2>
 
@@ -50,16 +52,13 @@ related: elements, properties-panel, toolbar, token-simulation
 
 <h2>Right-click</h2>
 
-<p>The context menu of an element holds the editing actions and, when they apply, <span class="ui">Go to</span> the Java class a task names, and the Pro actions that link to your code. See <a href="code-links.html">Code links</a>.</p>
+<p>The context menu of an element holds the editing actions and, when they apply, an entry that goes to the code that runs the element, and the Pro actions that link to your code. See <a href="code-links.html">Code links</a>.</p>
 
-<h3>Go to a Java class</h3>
+<h3>Go to the class of a task</h3>
 
-<p>Right-click a task that names a Java class. That is a Camunda 7 <code>camunda:class</code>, a delegate expression that unwraps to a full class name, or a listener that names a class. The menu offers <span class="ui">Go to</span> with the class name. It opens the file. Penstock finds the class by name and package in your own sources.</p>
+<p>A task can name a Java class: a Camunda 7 <code>camunda:class</code>, a delegate expression that unwraps to a full class name, or a listener that names a class. Right-click it and the menu offers to go to that class. Penstock finds the class by name and package in your own sources. A delegate expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no class, so nothing is offered. Pro's <a href="code-links.html">code links</a> handle beans.</p>
 
-<figure class="shot">
-  <img src="@img/goto-class.png" alt="The context menu offering Go to CheckStockDelegate">
-  <figcaption>The entry appears only when the element names a class. A delegate expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no class, so nothing is offered. Pro's <a href="code-links.html">code links</a> handle beans.</figcaption>
-</figure>
+{{host:go-to-class|Go to the class in your tool}}
 
 <h2>Hover</h2>
 
@@ -69,7 +68,7 @@ related: elements, properties-panel, toolbar, token-simulation
 
 <ul>
   <li>The new element is on the canvas, connected where you dropped it.</li>
-  <li>Every change is already in the file. Open the <span class="ui">Text</span> tab to see it.</li>
+  <li>Every change is already in the file.</li>
 </ul>
 
 <h2>Common problems</h2>
@@ -79,8 +78,8 @@ related: elements, properties-panel, toolbar, token-simulation
   <dd>Token simulation is on. Press <span class="ui">Simulate</span> again to stop it.</dd>
   <dt>Paste does nothing.</dt>
   <dd>Copy something first. Select one or more elements, open <span class="ui">More</span> and choose <span class="ui">Copy</span>.</dd>
-  <dt>The Go to entry is missing.</dt>
-  <dd>The task names no class, or the class lives in a library instead of your own sources.</dd>
+  <dt>The entry that goes to the class is missing.</dt>
+  <dd>The task names no class, or the class lives in a library instead of your own sources, or your tool has no source view.</dd>
   <dt>I dropped an element in the wrong place.</dt>
   <dd>Press Undo. Or, if you already did other things, drag it back.</dd>
 </dl>

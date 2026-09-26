@@ -2,7 +2,7 @@
 title: Token simulation
 lede: Watch a token walk through your process, to check that the flow does what you think.
 tags: free
-related: flow-analysis, test-cases, live
+related: flow-analysis, run-tests, monitor
 -->
 <h2>What it is</h2>
 
@@ -44,5 +44,5 @@ related: flow-analysis, test-cases, live
   <dt>The token stops and never finishes.</dt>
   <dd>Your process may really be stuck there, for example a parallel gateway waiting for a branch that never arrives. <a href="flow-analysis.html">Flow analysis</a> finds this without playing the process.</dd>
   <dt>Simulation does not call my workers or forms.</dt>
-  <dd>Right. It only moves a token. To run a process against an engine, with mocks, see <a href="test-cases.html">Runs and test cases</a>.</dd>
+  <dd>Right. It only moves a token. To run a process against an engine, with mocks, see <a href="run-tests.html">Run tests</a>.</dd>
 </dl>

@@ -1,9 +1,9 @@
 <!--
 title: Command line
-lede: The penstock command does in a terminal what the plugin does in the IDE, with the same settings and the same answers, so it works in a script or a pipeline.
+lede: The penstock command does in a terminal what the editors do, with the same settings and the same answers, so it works in a script or a pipeline.
 tags: free
 needs: Node.js 20.19 or later. Some commands need Pro, and Team in a pipeline.
-related: cli-reference, ci, mcp, settings
+related: commands, ci, mcp, guide/settings
 -->
 <h2>Two ways to run it</h2>
 
@@ -20,7 +20,7 @@ npx @penstock/cli doctor</code></pre>
 
 <ol class="steps">
   <li>In your project run <code>npx @penstock/cli init</code>.</li>
-  <li>Penstock writes three files: <code>penstockw</code>, <code>penstockw.cmd</code> (for Windows) and <code>penstock/wrapper/penstock-wrapper.properties</code>. It also writes <code>penstock.yaml</code> if you have none. See <a href="settings.html">penstock.yaml</a>.</li>
+  <li>Penstock writes three files: <code>penstockw</code>, <code>penstockw.cmd</code> (for Windows) and <code>penstock/wrapper/penstock-wrapper.properties</code>. It also writes <code>penstock.yaml</code> if you have none. See <a href="@guide/settings.html">penstock.yaml</a>.</li>
   <li>Commit all three wrapper files.</li>
   <li>From now on run <code>./penstockw check .</code>. The first run downloads the pinned version into <code>~/.penstock/wrapper/dists</code>. Every later run starts from there, offline.</li>
 </ol>
@@ -57,11 +57,11 @@ npx @penstock/cli doctor</code></pre>
   </tbody>
 </table></div>
 
-<p>Every command, with every option and an example, is in <a href="cli-reference.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<p>Every command, with every option and an example, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
 
 <h2>Paid commands</h2>
 
-<p>A command marked Pro is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline. A pipeline is any run where <code>CI</code> is set. When you run a paid command without the licence, it prints what the feature gives and how to buy or sign in, and exits with 1. See <a href="plans.html">Plans and licence</a>.</p>
+<p>A command marked Pro is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline. A pipeline is any run where <code>CI</code> is set. When you run a paid command without the licence, it prints what the feature gives and how to buy or sign in, and exits with 1. See <a href="@guide/plans.html">Plans and licence</a>.</p>
 
 <h2>Exit codes</h2>
 
@@ -92,7 +92,7 @@ npx @penstock/cli doctor</code></pre>
   <dt>"penstockw could not find the latest @penstock/cli".</dt>
   <dd>The npm registry could not be reached. Pin a version in <code>penstock-wrapper.properties</code>.</dd>
   <dt>The command says a feature is part of Pro, in a pipeline.</dt>
-  <dd>A pipeline needs Team. Give the pipeline a Team key in <code>PENSTOCK_LICENSE</code>. See <a href="sign-in.html">Buying and signing in</a>.</dd>
+  <dd>A pipeline needs Team. Give the pipeline a Team key in <code>PENSTOCK_LICENSE</code>. See <a href="@guide/sign-in.html">Buying and signing in</a>.</dd>
   <dt>Unknown command.</dt>
   <dd>Run <code>penstock help</code> for the list.</dd>
 </dl>

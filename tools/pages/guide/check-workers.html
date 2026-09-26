@@ -3,7 +3,7 @@ title: Check Workers
 lede: Check Workers asks your engine whether anything picks up the tasks your diagrams hand out, before your users find out.
 tags: pro
 needs: Team in a pipeline
-related: code-links, live, tool-window
+related: code-links, monitor, project-model
 -->
 <h2>What is a worker</h2>
 
@@ -11,12 +11,9 @@ related: code-links, live, tool-window
 
 <h2>Steps</h2>
 
-<ol class="steps">
-  <li>Open the <span class="ui">Penstock</span> tool window and find <strong>Workers</strong>.</li>
-  <li>Right-click <strong>Workers</strong>, or select it and use its action: <span class="ui">Check Workers on &lt;engine&gt;</span>. If your project uses several engines it says <span class="ui">Check Workers on the Engines</span>.</li>
-  <li>Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both.</li>
-  <li>Each worker in the tree now says what the engine said. The Workers node shows <em>checked at 14:02</em>.</li>
-</ol>
+<p>Run Check Workers on the workers of your project. Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both. Each worker then says what the engine said, and the workers node shows when the check ran, for example <em>checked at 14:02</em>.</p>
+
+{{host:workers-run|Run Check Workers in your tool}}
 
 <h2>What it says</h2>
 
@@ -48,7 +45,7 @@ related: code-links, live, tool-window
   <dt>"The engine refused the question (403)".</dt>
   <dd>The profile's user may not read jobs. Use a user that may.</dd>
   <dt>There is no Check Workers action.</dt>
-  <dd>The project has no worker tasks yet, or Pro is not active. Without Pro the tool window shows a Code line that offers to buy or sign in.</dd>
+  <dd>The project has no worker tasks yet, or Pro is not active. Without Pro a Code line offers to buy or sign in.</dd>
   <dt>It says "no jobs" for a worker that runs.</dt>
   <dd>Only the last 24 hours count on Camunda 8, and only open tasks on Camunda 7. A quiet worker looks quiet.</dd>
 </dl>

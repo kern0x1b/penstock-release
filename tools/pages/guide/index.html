@@ -1,22 +1,22 @@
 <!--
 title: Penstock guide
-lede: Everything Penstock does, one page for each thing, written so it can be followed one step at a time.
-description: The Penstock guide: install, edit BPMN, DMN and forms, check, deploy, run tests, migrate Camunda 7 to 8, use the command line, licences and privacy.
+lede: Everything Penstock does, one page for each thing, written so it can be followed one step at a time. It works the same in every tool.
+description: The Penstock guide: edit BPMN, DMN and forms, check, deploy, run tests, migrate Camunda 7 to 8, licences and privacy. Then pick your tool: JetBrains or the command line.
 -->
 <h2>Start with what you want to do</h2>
 
 <div class="table-wrap"><table>
   <thead><tr><th>I want to</th><th>Read</th></tr></thead>
   <tbody>
-  <tr><td>Install Penstock</td><td><a href="installing.html">Installing</a></td></tr>
+  <tr><td>Get Penstock</td><td><a href="getting-started.html#1-get-penstock">Getting started</a>, then the page of your tool below</td></tr>
   <tr><td>Try it on a project that already works</td><td><a href="example-project.html">The example project</a></td></tr>
   <tr><td>Draw my first diagram</td><td><a href="getting-started.html">Getting started</a>, then <a href="editing.html">Editing a diagram</a></td></tr>
   <tr><td>Find out why my diagram has a warning</td><td><a href="diagram-check.html">Diagram check</a> and <a href="../rules/">Every rule</a></td></tr>
   <tr><td>Send my process to the engine</td><td><a href="deployment.html">Deployment</a></td></tr>
-  <tr><td>Test a process without writing code</td><td><a href="test-cases.html">Runs and test cases</a></td></tr>
+  <tr><td>Test a process without writing code</td><td><a href="run-tests.html">Run tests</a></td></tr>
   <tr><td>Move from Camunda 7 to Camunda 8</td><td><a href="migration.html">Camunda 7 to 8</a></td></tr>
-  <tr><td>Check diagrams on every push</td><td><a href="ci.html">Pipelines, reports and the bot</a></td></tr>
-  <tr><td>Send a diagram to someone who has no IDE</td><td><a href="share-html.html">Share as HTML</a></td></tr>
+  <tr><td>Check diagrams on every push</td><td><a href="@cli/ci.html">Pipelines, reports and the bot</a></td></tr>
+  <tr><td>Send a diagram to someone who has no editor</td><td><a href="share-html.html">Share as HTML</a></td></tr>
   <tr><td>Bring in a diagram from draw.io or Visio</td><td><a href="import.html">Import a diagram</a></td></tr>
   <tr><td>Know what is free and what costs money</td><td><a href="plans.html">Plans and licence</a></td></tr>
   <tr><td>Know what leaves my machine</td><td><a href="security.html">Security and privacy</a></td></tr>
@@ -25,14 +25,22 @@ description: The Penstock guide: install, edit BPMN, DMN and forms, check, deplo
   </tbody>
 </table></div>
 
-<h2>How every page is built</h2>
+<h2>How the documentation is organised</h2>
 
-<p>Each page starts with one sentence that says what the feature is for. Then come numbered steps, then what you should see, then the problems people meet most often and how to fix them. A tag shows if a feature is free, or needs Pro. See <a href="plans.html">Plans and licence</a>.</p>
+<p>The <strong>Guide</strong> on these pages describes what Penstock does. It is written once and is the same in every tool. Where a step depends on your tool, a small block on the page shows it for each tool.</p>
 
-<p>The guide covers the plugin and the <code>penstock</code> command line. Both read the same <code>penstock.yaml</code> and give the same answers.</p>
+<p>Each <strong>tool</strong> has its own section for what is special about it: how to install it, where things are, and the features that need it. Pick yours at the end of this page.</p>
+
+<p>Each page starts with one sentence that says what the feature is for. Then come numbered steps, what you should see, and the problems people meet most often. A tag shows if a feature is free or needs Pro. See <a href="plans.html">Plans and licence</a>.</p>
 
 {{contents}}
 
+<h2>Pick your tool</h2>
+
+<p>The tool sections are for installing, finding your way around, and the things only that tool can do.</p>
+
+{{tools}}
+
 <h2>If a page does not answer your question</h2>
 
-<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the IDE version, the plugin version, the engine, and a <code>.bpmn</code> file that shows the problem. A file saves the most time.</p>
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the tool and its version, the version of Penstock, the engine, and a <code>.bpmn</code> file that shows the problem. A file saves the most time.</p>

@@ -1,0 +1,38 @@
+<!--
+title: Where things are in the IDE
+lede: Every place Penstock shows up in a JetBrains IDE, in one table, so you can find any feature.
+tags: free
+related: tool-window, editor, shortcuts
+-->
+<h2>The map</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>What is there</th></tr></thead>
+  <tbody>
+  <tr><td>The editor of a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file</td><td>The toolbar (Auto Layout, Check, Simulate, Monitor, Run tests, the More menu, Deploy), the palette, the canvas, the properties panel and the check card. See <a href="@guide/bpmn-editor.html">The BPMN editor</a>.</td></tr>
+  <tr><td>Tabs at the foot of the editor</td><td><span class="ui">BPMN Editor</span> and <span class="ui">Text</span>. See <a href="editor.html">The editor in the IDE</a>.</td></tr>
+  <tr><td>The <strong>Penstock</strong> tool window, left side</td><td>Your project as a tree, the Run Penstock menu, deploy, Check Workers, the migration. See <a href="tool-window.html">The Penstock tool window</a>.</td></tr>
+  <tr><td>The Run window</td><td>The output of the Run Penstock actions and of test-case runs.</td></tr>
+  <tr><td>The gutter of a Java or Kotlin file, and of a test-case file</td><td>Icons that jump to the tasks that use a string, and green triangles that run a test case. See <a href="code-links.html">Code links in the IDE</a> and <a href="test-runner.html">Tests in the IDE</a>.</td></tr>
+  <tr><td>Above a worker, delegate, bean or test</td><td>Code Vision: which tasks it runs, how many tests reach it, how much of a process a test covers.</td></tr>
+  <tr><td>The context menu of a diagram element</td><td>Editing actions, <span class="ui">Go to</span> a class, <span class="ui">Go to Implementation</span>, <span class="ui">Find Usages in Code</span>, <span class="ui">Run Tests</span>, <span class="ui">Debug Tests</span>.</td></tr>
+  <tr><td>The <strong>Tools</strong> menu</td><td><span class="ui">Penstock Licence…</span>. See <a href="licence.html">Licence in the IDE</a>.</td></tr>
+  <tr><td>The status bar</td><td>The licence: <em>Penstock Free</em>, <em>Penstock Pro trial: 27d</em>, <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the licence dialog.</td></tr>
+  <tr><td>The IDE's diff window</td><td>Two diagrams instead of two blocks of XML, for a <code>.bpmn</code> file. Pro. See <a href="@guide/diagram-diff.html">Diagram diff</a>.</td></tr>
+  <tr><td>The IDE's Settings</td><td>Nothing of Penstock's own. There is no Penstock page in <span class="ui">Settings</span>. The project is set up in <code>penstock.yaml</code>. See <a href="@guide/settings.html">penstock.yaml</a>. The open-source notices are on the <a href="../notices/">third-party notices</a> page.</td></tr>
+  <tr><td>Notifications</td><td>What's new after an update, a legacy settings file that can move to <code>penstock.yaml</code>, a file Penstock cannot parse.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>What you see</h2>
+
+<p>A JetBrains IDE with Penstock has a Penstock icon on the left tool window bar and, after you open a diagram, a toolbar and a properties panel inside the editor.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I cannot find a feature.</dt>
+  <dd>Check the table above. Some actions are in the <span class="ui">More</span> menu of the editor. See <a href="@guide/toolbar.html">The toolbar and the More menu</a>.</dd>
+  <dt>There is no Penstock page in Settings.</dt>
+  <dd>Right. The project is set up in <code>penstock.yaml</code>, and the personal choices are in <code>~/.penstock/preferences.json</code>.</dd>
+</dl>

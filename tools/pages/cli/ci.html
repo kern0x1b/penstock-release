@@ -3,7 +3,7 @@ title: Pipelines, reports and the bot
 lede: Run the checks on every push, get a review comment on every pull request, and deploy from CI, all with the same commands you use on your machine.
 tags: free
 needs: The free check runs anywhere. The bot, reports, baselines and SARIF need Team in a pipeline.
-related: cli, cli-reference, sign-in, profiles
+related: index, commands, guide/sign-in, guide/profiles
 -->
 <h2>Set up a pipeline in one command</h2>
 
@@ -73,7 +73,7 @@ jobs:
   <li>Store the key as a secret named <code>PENSTOCK_LICENSE</code>.</li>
 </ol>
 
-<p>The key takes no machine's place. See <a href="sign-in.html">Buying and signing in</a>.</p>
+<p>The key takes no machine's place. See <a href="@guide/sign-in.html">Buying and signing in</a>.</p>
 
 <h2>Machine formats</h2>
 
@@ -143,11 +143,11 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 ./penstockw deploy . --wait</code></pre>
 
-<p>The profile chooses the environment. The secret arrives through the environment, not through the repository. With <code>auth.type: oauth</code> the client secret comes from <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the engine wants one. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run, for example <code>PENSTOCK_DEPLOYMENT_URL</code>. <code>--wait</code> matters: it asks the engine for the definitions it just accepted until the engine answers. Run <code>--dry-run</code> first in a new pipeline. See <a href="deployment.html">Deployment</a>.</p>
+<p>The profile chooses the environment. The secret arrives through the environment, not through the repository. With <code>auth.type: oauth</code> the client secret comes from <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the engine wants one. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run, for example <code>PENSTOCK_DEPLOYMENT_URL</code>. <code>--wait</code> matters: it asks the engine for the definitions it just accepted until the engine answers. Run <code>--dry-run</code> first in a new pipeline. See <a href="@guide/deployment.html">Deployment</a>.</p>
 
 <h2>Test cases in CI</h2>
 
-<p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock test-cases . --junit-xml build/test-cases.xml</code> runs them. See <a href="test-cases.html">Runs and test cases</a>.</p>
+<p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock test-cases . --junit-xml build/test-cases.xml</code> runs them. See <a href="@guide/run-tests.html">Run tests</a>.</p>
 
 <h2>What you see</h2>
 

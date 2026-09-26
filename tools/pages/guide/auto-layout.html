@@ -3,7 +3,7 @@ title: Auto layout
 lede: Auto layout draws your whole diagram again, left to right and tidy, from what the process means.
 tags: pro
 needs: Team in a pipeline
-related: diagram-check, diagram-diff, cli-reference
+related: diagram-check, diagram-diff, cli/commands
 -->
 <h2>What it is</h2>
 
@@ -30,7 +30,7 @@ related: diagram-check, diagram-diff, cli-reference
 
 <p>There is no separate preview and no save step. The change goes through the same undo stack as any other edit, and the new positions are written to the file as they land on the canvas. To compare with the saved version, use the <a href="diagram-diff.html">diagram diff</a>.</p>
 
-<p>From a terminal, <code>penstock layout .</code> says what would change. <code>penstock layout . --write</code> saves it. See <a href="cli-reference.html#layout">Every command</a>.</p>
+{{host:layout-run|Lay out many diagrams at once}}
 
 <h2>How it decides</h2>
 

@@ -1,10 +1,12 @@
 <!--
 title: The Penstock tool window
-lede: The Penstock tool window shows your project as a model: processes, the workers they need, messages, decisions and forms, not just files.
+lede: The Penstock tool window shows your project as a tree of processes, workers, messages, decisions and forms, and runs the command line for you.
 tags: free
 needs: Some parts need Pro
-related: code-links, check-workers, migration, deployment
+related: guide/project-model, code-links, guide/check-workers, guide/migration
 -->
+<p>What the tree contains is described once, for every tool, in <a href="@guide/project-model.html">Your project as a model</a>. This page is about the IDE: where it is and what its buttons do.</p>
+
 <h2>Open it</h2>
 
 <ol class="steps">
@@ -14,35 +16,12 @@ related: code-links, check-workers, migration, deployment
   <li>Type to search the tree.</li>
 </ol>
 
-<p>When the project has no diagrams the tree says <em>No diagrams in this project</em> and offers <span class="ui">Start from an example</span>. See <a href="example-project.html">The example project</a>.</p>
+<p>When the project has no diagrams the tree says <em>No diagrams in this project</em> and offers <span class="ui">Start from an example</span>. See <a href="@guide/example-project.html">The example project</a>.</p>
 
 <figure class="shot">
   <img src="@img/test-case-runs/06-test-case-gutter.png" alt="The Penstock tool window on the left listing Processes, Tests, Workers, Variables, Messages, Decisions, Forms, Deployment and Files">
   <figcaption>The Penstock tool window, on the left, next to a test case file. Each node shows how many entries it holds.</figcaption>
 </figure>
-
-<h2>What the tree shows</h2>
-
-<div class="table-wrap"><table>
-  <thead><tr><th>Node</th><th>What is under it</th></tr></thead>
-  <tbody>
-  <tr><td>Processes</td><td>Every process, with the processes it calls and is called by. With Pro: its tests and how much of it they cover.</td></tr>
-  <tr><td>Tests <span class="tag pro">Pro</span></td><td>Every process test, by class, with what each covers. You can run or debug any of them, a class, or all.</td></tr>
-  <tr><td>Workers</td><td>What each task needs to run: a job type, topic, class or bean. Right-click a worker for <span class="ui">Go to Implementation</span> and <span class="ui">Find Usages in Code</span>. A worker nothing implements is marked. <span class="ui">Check Workers on…</span> asks the engine whether anything picks the work up. See <a href="check-workers.html">Check Workers</a>.</td></tr>
-  <tr><td>Variables</td><td>Every process variable, where it is set and read, and a warning for one that is read but never set, or one that is set a letter away: <em>set as 'approved'?</em></td></tr>
-  <tr><td>Messages</td><td>Every message, with who catches and who throws it.</td></tr>
-  <tr><td>Errors</td><td>Every error code, where it is caught and where it is thrown. Marks a code that is thrown but never caught, and an error event nothing throws.</td></tr>
-  <tr><td>Decisions</td><td>Every decision, and the tasks that call it. A decision the project does not have is marked <em>not in project</em>.</td></tr>
-  <tr><td>Forms</td><td>Every form, and the tasks that use it. A form the project does not have is marked <em>not in project</em>.</td></tr>
-  <tr><td>Deployment</td><td>Each profile with its address and the last deploy. Right-click a profile and press <span class="ui">Deploy</span> to send every diagram to it, after a confirmation.</td></tr>
-  <tr><td>Files</td><td>The files, in folders.</td></tr>
-  <tr><td>Debug</td><td>Only while the debugger is stopped in a worker. It shows the task the debugger is in.</td></tr>
-  <tr><td>Migrate to Camunda 8</td><td>Only in a Camunda 7 project. See <a href="migration.html">Camunda 7 to 8</a>.</td></tr>
-  <tr><td>Code</td><td>Without Pro, a single line that says what Pro adds, and <span class="ui">Buy or Sign In…</span>.</td></tr>
-  </tbody>
-</table></div>
-
-<p>The Workers, Variables, Messages, Errors and code links parts need Pro for the links to your source code. Without Pro, the model of your diagrams is still shown.</p>
 
 <h2>The toolbar</h2>
 
@@ -67,23 +46,26 @@ related: code-links, check-workers, migration, deployment
   <li><span class="ui">Find Usages in Code</span> lists the code that names it. Pro.</li>
   <li><span class="ui">Go to Implementation</span> opens the method or class that runs a worker. Pro.</li>
   <li><span class="ui">Run Tests</span> and <span class="ui">Debug Tests</span>. Pro.</li>
-  <li><span class="ui">Deploy</span> sends a file or a process to its profile.</li>
+  <li><span class="ui">Deploy</span> sends a file or a process to its profile. On a profile under <em>Deployment</em> it sends every diagram, after a confirmation.</li>
+  <li><span class="ui">Check Workers on…</span> on the Workers node. See <a href="@guide/check-workers.html">Check Workers</a>.</li>
+  <li>On <em>Migrate to Camunda 8</em>: <span class="ui">Convert to Camunda 8…</span>, <span class="ui">Convert All…</span>, <span class="ui">Migration Report</span> and the worker skeleton actions. See <a href="@guide/migration.html">Camunda 7 to 8</a>.</li>
+  <li>Without Pro, a <strong>Code</strong> line offers <span class="ui">Buy or Sign In…</span>.</li>
 </ul>
 
 <h2>What you see</h2>
 
 <ul>
-  <li>A tree with a count beside each node.</li>
-  <li>A warning icon on a worker that nothing implements, a variable that is read but never set, and a call to a process the project does not have.</li>
+  <li>A tree with a count beside each node, and a warning icon where something is wrong.</li>
+  <li>The output of a Run Penstock action in the Run window, with file names you can click.</li>
 </ul>
 
 <h2>Common problems</h2>
 
 <dl class="problems">
   <dt>The tree is empty.</dt>
-  <dd>The project has no <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> files that Penstock can see. Build folders such as <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code> and <code>dist</code> are skipped. Press <span class="ui">Reload from Disk</span>.</dd>
+  <dd>The project has no <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> files that Penstock can see. Build folders are skipped. Press <span class="ui">Reload from Disk</span>.</dd>
   <dt>The Run Penstock actions do nothing, or an error says the project is not trusted.</dt>
-  <dd>Trust the project. The command line runs code from your project's <code>node_modules</code> and hooks, so it needs trust.</dd>
+  <dd>Trust the project. See <a href="troubleshooting.html">Troubleshooting in the IDE</a>.</dd>
   <dt>The first command is slow.</dt>
   <dd>Without a <code>penstockw</code> in the project, Penstock runs <code>npx @penstock/cli</code> and downloads the command line the first time. <code>penstock init</code> adds the wrapper, which pins a version.</dd>
   <dt>There is no Go to Implementation.</dt>

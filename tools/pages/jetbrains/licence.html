@@ -1,0 +1,43 @@
+<!--
+title: Licence in the IDE
+lede: Where to see and change your licence in a JetBrains IDE: the status bar, the Tools menu and the licence dialog.
+tags: free
+related: guide/sign-in, guide/plans, where-things-are
+-->
+<p>How the trial, buying, signing in and machines work is described once in <a href="@guide/sign-in.html">Buying and signing in</a>. This page is about the IDE.</p>
+
+<h2>The status bar</h2>
+
+<p>The right end of the IDE's status bar shows the licence: <em>Penstock Pro trial: 27d</em> while the trial runs, <em>Penstock Free</em> when it ends, and <em>Penstock Pro</em> or <em>Penstock Team</em> once you have a licence. Hover it for the detail. Click it to open the licence dialog.</p>
+
+<h2>The licence dialog</h2>
+
+<p>Open it by clicking the status bar, or with <span class="ui">Tools | Penstock Licence…</span>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Without a licence</td><td>One field, <em>E-mail or licence key</em>. Type the address you bought with, and a code is sent. A key works too. <span class="ui">Sign In</span> continues. <span class="ui">Buy Pro</span> opens the checkout. The link <em>Buy Team, for pipelines and the review bot</em> opens the Team checkout.</td></tr>
+  <tr><td>With a licence</td><td>The plan and the address it belongs to, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy Key for CI</span>, <span class="ui">Release This Machine</span> and <span class="ui">Close</span>.</td></tr>
+  <tr><td>When every machine is in use</td><td>A list of the machines and when each was activated. Pick one to free with <span class="ui">Free It for This Machine</span>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The message that explains a paid feature</h2>
+
+<p>When you use a paid feature without the licence, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and what the feature does. Its buttons are <span class="ui">Buy Pro</span> (or Team), <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so. When the education offer is set up, a button <span class="ui">Apply for Free Pro</span> is there too.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>After paying, the IDE notices the payment by itself and asks for the code that was sent to your e-mail.</li>
+  <li>After signing in, the status bar changes at once. The command line on the same machine uses the licence too.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The status bar shows nothing about Penstock.</dt>
+  <dd>The widget may be hidden. Right-click the status bar and turn on <em>Penstock Licence</em>.</dd>
+  <dt>I signed in on the command line but the IDE still shows the trial.</dt>
+  <dd>They share <code>~/.penstock/license.json</code>. Open the licence dialog to see what the IDE found.</dd>
+</dl>

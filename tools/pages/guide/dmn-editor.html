@@ -12,10 +12,11 @@ related: form-editor, deployment, share-html, flow-analysis
 <h2>Open a decision</h2>
 
 <ol class="steps">
-  <li>Double-click a <code>.dmn</code> file.</li>
+  <li>Open a <code>.dmn</code> file.</li>
   <li>The bar at the top shows one button for the <strong>Requirements</strong> diagram, and one for each decision in the file. Press a decision to open its table.</li>
   <li>Edit the table. Add rows, change the inputs and outputs, set the <em>hit policy</em>. The hit policy says what happens when several rows match, for example <code>FIRST</code> takes the first row.</li>
   <li>Use the extra column for annotations on each rule.</li>
+  <li>To edit the id, name and documentation of a decision, switch to the <strong>Requirements</strong> view, select the decision and open the properties panel.</li>
 </ol>
 
 <h2>What you can edit</h2>
@@ -27,18 +28,27 @@ related: form-editor, deployment, share-html, flow-analysis
   <li>The Camunda DMN extensions. They are read and kept.</li>
 </ul>
 
+<h2>The properties panel</h2>
+
+<p>In the requirements view, the properties panel edits a decision: its <strong>id</strong>, <strong>name</strong> and <strong>documentation</strong>. So the id that a business rule task calls can be changed without opening the XML. On Camunda 7 and CIB seven it also has the <strong>version tag</strong> and the <strong>history time to live</strong>. On Camunda 8 it has the version tag. On Operaton it shows id and name only. The panel has the same dense layout as the one for BPMN, and opens and closes with the same toggle on the toolbar.</p>
+
+<h2>Older DMN files</h2>
+
+<p>Files written as DMN 1.1 or 1.2 open in the editor. Penstock converts them to DMN 1.3 in memory, and keeps what the engine added to a decision. A notice above the editor says the file will be saved as DMN 1.3 when you change it: <em>It was converted to DMN 1.3 and will be saved as DMN 1.3 when you change it.</em> The file on disk is not touched until you change something.</p>
+
 <h2>The toolbar</h2>
 
 <div class="table-wrap"><table class="facts">
   <tbody>
   <tr><td>View buttons</td><td>Requirements, then one per decision.</td></tr>
+  <tr><td>Properties Panel</td><td>An icon that shows or hides the properties panel.</td></tr>
   <tr><td>Check</td><td>Runs the decision table check. Pro.</td></tr>
   <tr><td>Deploy</td><td>Sends the file to the engine with the settings a diagram uses. Shown when the engine is known. See <a href="deployment.html">Deployment</a>.</td></tr>
   <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
   </tbody>
 </table></div>
 
-<p>The DMN editor follows the theme of the IDE, and looks like the diagram editor. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
+<p>The DMN editor follows the theme of your tool, and looks like the diagram editor. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
 
 <h2>The decision table check</h2>
 <p><span class="tag pro">Pro</span></p>
@@ -60,11 +70,11 @@ related: form-editor, deployment, share-html, flow-analysis
 
 <p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
 
-<p>In a terminal: <code>penstock check .</code> checks every <code>.dmn</code> file in the project.</p>
+<p>The same check runs on every <code>.dmn</code> file when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 
 <h2>Documentation of a decision</h2>
 
-<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="cli-reference.html#docs">Every command</a>.</p>
+<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="@cli/commands.html#docs">Every command</a>.</p>
 
 <h2>What you see</h2>
 

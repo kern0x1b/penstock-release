@@ -12,7 +12,7 @@ related: dmn-editor, deployment, share-html
 <h2>Open and edit a form</h2>
 
 <ol class="steps">
-  <li>Double-click a <code>.form</code> file. A file from the IntelliJ GUI Designer is left to the GUI Designer. Penstock takes only files that are Camunda Forms.</li>
+  <li>Open a <code>.form</code> file. Penstock takes only files that are Camunda Forms. A form file of another tool is left alone.</li>
   <li>The palette of fields is on the left, the form in the middle and the properties on the right.</li>
   <li>Drag a field onto the form. Give it a <strong>label</strong>, and a <strong>key</strong>. The key is the name of the process variable the field writes.</li>
   <li>Press <span class="ui">Deploy</span> to send it to the engine, with the same settings a diagram uses.</li>
@@ -22,11 +22,24 @@ related: dmn-editor, deployment, share-html
 
 <div class="table-wrap"><table class="facts">
   <tbody>
+  <tr><td>Preview</td><td>Shows the form as a user sees it, beside the editor. See below.</td></tr>
   <tr><td>Check</td><td>Runs the form check. Pro.</td></tr>
   <tr><td>Deploy</td><td>Sends the form to the engine. See <a href="deployment.html">Deployment</a>.</td></tr>
   <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
   </tbody>
 </table></div>
+
+<h2>Preview</h2>
+
+<p>Press <span class="ui">Preview</span> on the toolbar to try the form with sample data. The preview opens beside the editor and shows three things:</p>
+
+<ul>
+  <li>The form as a user sees it.</li>
+  <li><strong>Input data</strong>: the JSON the form is given. It starts as sample data made from the fields: a text, a number, the first option of a choice, one row of a dynamic list, a group under its path. It follows the form as you edit it, until you write your own. If what you wrote is not valid JSON, the preview says what is wrong.</li>
+  <li><strong>Output data</strong>: the JSON the form would submit.</li>
+</ul>
+
+<p>The form-js logo stays visible in the preview.</p>
 
 <h2>The form check</h2>
 <p><span class="tag pro">Pro</span></p>
@@ -46,14 +59,14 @@ related: dmn-editor, deployment, share-html
   </tbody>
 </table></div>
 
-<p>When all is well the card says <em>Every field writes its own variable, and every option means something different.</em> In a terminal, <code>penstock check .</code> checks every form in the project.</p>
+<p>When all is well the card says <em>Every field writes its own variable, and every option means something different.</em> The same check runs on every form when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 
 <h2>Forms and the rest of the project</h2>
 
 <ul>
   <li>A user task links to a form by its id. If no <code>.form</code> file has that id, the check reports <a href="../rules/code-unknown-form">code/unknown-form</a>.</li>
   <li><code>penstock docs</code> writes a page for each form with the variable every field writes, whether it is required, its options and when it is hidden.</li>
-  <li>The <a href="tool-window.html">Penstock tool window</a> lists forms and the tasks that use them.</li>
+  <li>The <a href="project-model.html">project model</a> lists forms and the tasks that use them.</li>
 </ul>
 
 <h2>What you see</h2>
@@ -66,8 +79,8 @@ related: dmn-editor, deployment, share-html
 <h2>Common problems</h2>
 
 <dl class="problems">
-  <dt>My .form file opens in the GUI Designer.</dt>
-  <dd>It is a GUI Designer form, not a Camunda Form. Penstock leaves those alone.</dd>
+  <dt>My .form file does not open in the form editor.</dt>
+  <dd>It is not a Camunda Form (a JSON object with <code>components</code>). Penstock leaves other <code>.form</code> files to the tool that made them.</dd>
   <dt>"This file could not be read as a Camunda form".</dt>
   <dd>The JSON is not a valid form. The editor shows the reason.</dd>
   <dt>Tasklist will not open my form.</dt>

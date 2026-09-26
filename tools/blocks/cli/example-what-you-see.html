@@ -1,0 +1,10 @@
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+ok    src/main/resources/order-process.bpmn
+ok    src/main/resources/shipping-method.dmn
+
+$ penstock paths .
+src/main/resources/order-process.bpmn  2 scenario(s)
+   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
+   2. Order received → Approve order → Charge card → Card declined → Payment declined
+        Card declined fires on Charge card</code></pre>

@@ -1,0 +1,11 @@
+<pre><code>$ penstock paths .
+src/main/resources/order-process.bpmn  2 scenario(s)
+   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
+   2. Order received → Approve order → Charge card → Card declined → Payment declined
+        Card declined fires on Charge card
+
+$ penstock paths . --format md
+### 1. Order received → Order completed
+
+- [ ] runs Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt</code></pre>
+<p>Use <code>--format json</code> for a tool. See <a href="@cli/commands.html#paths">Every command</a>.</p>

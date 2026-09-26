@@ -3,7 +3,7 @@ title: Process tests and coverage
 lede: Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.
 tags: pro
 needs: Team in a pipeline
-related: test-cases, code-links, cli-reference
+related: run-tests, code-links, cli/commands, jetbrains/test-runner
 -->
 <h2>Three tools, one idea</h2>
 
@@ -17,37 +17,17 @@ related: test-cases, code-links, cli-reference
 
 <h2>List the ways through</h2>
 
-<pre><code>$ penstock paths .
-src/main/resources/order-process.bpmn  2 scenario(s)
-   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
-   2. Order received → Approve order → Charge card → Card declined → Payment declined
-        Card declined fires on Charge card</code></pre>
+<p>Each scenario shows the decision taken at each gateway and its condition. You can print the list as text, as a Markdown checklist to paste into a test plan, or as JSON for a tool. An AI assistant gets it from the MCP tool <code>list_scenarios</code>.</p>
 
-<p>Each scenario shows the decision taken at each gateway and its condition. Use <code>--format md</code> for a checklist to paste into a test plan, or <code>--format json</code> for a tool. In the IDE, run <span class="ui">Run Penstock | Paths</span> from the tool window. The MCP tool is <code>list_scenarios</code>.</p>
-
-<pre><code>$ penstock paths . --format md
-### 1. Order received → Order completed
-
-- [ ] runs Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt</code></pre>
+{{host:paths-run|List the scenarios in your tool}}
 
 <h2>Write the tests</h2>
 
-<ol class="steps">
-  <li>Run <code>penstock tests .</code>. In the IDE: <span class="ui">Run Penstock | Tests</span>.</li>
-  <li>Penstock writes one JUnit class per process, with a test for every way through it.</li>
-  <li>The command names the test dependencies your build is missing. Add them.</li>
-  <li>Run the tests with your normal test runner.</li>
-</ol>
-
-<pre><code>$ penstock tests .
-wrote src/test/java/io/penstock/example/process/OrderProcessTest.java  2 scenario(s)
-
-The tests need these test dependencies in pom.xml:
-  io.camunda:camunda-process-test-java:8.9.21
-
-2 test(s) in 1 class(es), one per way through each process.</code></pre>
+<p>Penstock writes one JUnit class per process, with a test for every way through it. It names the test dependencies your build is missing. Add them, then run the tests with your normal test runner.</p>
 
 <p>Each test starts the process with variables chosen to take that way: a value just past each condition, and at a default flow a value no other condition accepts. It completes the jobs, user tasks and external tasks, correlates messages, moves time past timers, throws errors from jobs where an error boundary is taken, and checks the elements the run passed.</p>
+
+{{host:tests-write|Write the tests in your tool}}
 
 <div class="table-wrap"><table class="facts">
   <tbody>
@@ -58,29 +38,27 @@ The tests need these test dependencies in pom.xml:
   </tbody>
 </table></div>
 
-<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. Or use <code>--out</code> and <code>--package</code> on the command. See <a href="settings.html">penstock.yaml</a>.</p>
+<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. See <a href="settings.html">penstock.yaml</a>.</p>
 
 <h2>Run and debug tests from the diagram</h2>
 <p><span class="tag pro">Pro</span></p>
 
-<ul>
-  <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. It runs the test methods that name the element or its process, with your project's own test runner.</li>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. A <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the toolbar.</li>
-  <li>When you debug, the diagram shows where the process stops.</li>
-</ul>
+<p>From an element on the canvas you can run or debug the test methods that name the element or its process, with your project's own test runner. When you debug, the diagram shows where the process stops.</p>
+
+{{host:tests-run-debug|Run and debug in your tool}}
 
 <h2>Coverage</h2>
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>Run your process tests. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
+  <li>Run your process tests with your build. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
   <li>A button <span class="ui">Coverage</span> appears on the toolbar. Press it.</li>
   <li>The diagram colours what the tests reached and dims what they did not.</li>
   <li>The panel lists the tests with how much of the diagram each covers. Pick one to see the way it takes. It also lists the elements no test reaches.</li>
   <li>Run the tests again. Coverage follows.</li>
 </ol>
 
-<p>Penstock reads the reports under <code>target</code> or <code>build</code>. Code Vision above a test says how much of each process it covers.</p>
+<p>Penstock reads the reports under <code>target</code> or <code>build</code>, and follows them as the tests run again.</p>
 
 <h2>What you see</h2>
 
@@ -101,5 +79,5 @@ The tests need these test dependencies in pom.xml:
   <dt>"To fill in".</dt>
   <dd>A way that the data cannot choose is marked for you to finish. Fill in the variables that take it.</dd>
   <dt>I want to run scenarios against a live engine without JUnit.</dt>
-  <dd>Use <a href="test-cases.html">Runs and test cases</a>. They need no build setup.</dd>
+  <dd>Use <a href="run-tests.html">Run tests</a>. They need no build setup.</dd>
 </dl>

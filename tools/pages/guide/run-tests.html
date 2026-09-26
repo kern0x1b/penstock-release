@@ -1,11 +1,13 @@
 <!--
-title: Runs and test cases
-lede: Run a process step by step on a local engine, see every step on the diagram, and keep a good run as a test case.
+title: Run tests
+lede: Run tests lets you run the diagram's test cases on a local engine and see every step: the path taken and the variables that came in, went out and changed.
 tags: pro
 needs: Team in a pipeline. A local Camunda 7, Camunda 8, Operaton or CIB seven engine.
-related: process-tests, live, security, example-project
+related: process-tests, monitor, security, example-project, jetbrains/test-runner, cli/commands
 -->
 <h2>What it is</h2>
+
+<p>Do not confuse it with <a href="process-tests.html">Process tests</a>, which are JUnit tests that you run with your build. Run tests needs no build setup: the test cases are JSON files that Penstock runs against an engine for you.</p>
 
 <p>A <strong>run</strong> starts the process on a real engine, answers its tasks with mocks that you choose, and shows the path it took on the diagram. For each step you see what came in, what went out, and what changed. A <strong>test case</strong> is a saved run that can be repeated. Test cases are ordinary JSON files, so they live in Git and run in a pipeline.</p>
 
@@ -27,15 +29,15 @@ related: process-tests, live, security, example-project
 <h2>Run a test case in the editor</h2>
 
 <ol class="steps">
-  <li>Open the diagram and press <span class="ui">Runs</span> on the toolbar. A panel opens under the canvas. It lists the diagram's test cases with their last result.</li>
+  <li>Open the diagram and press <span class="ui">Run tests</span> on the toolbar. A panel opens under the canvas. It lists the diagram's test cases with their last result.</li>
   <li>Press <span class="ui">Run all</span>, or click one test case.</li>
   <li>Watch the diagram. Completed steps turn green, the step that failed turns red, the step it is waiting at turns blue.</li>
   <li>Read the table: <em>Step</em>, <em>State</em>, <em>In</em>, <em>Out</em>, <em>Changed</em>. Click a row to select the element. Select an element to see its row.</li>
 </ol>
 
 <figure class="shot">
-  <img src="@img/test-case-runs/01-runs-panel-passed.png" alt="The Runs panel under the canvas after a passed test case, with Mocked badges on two steps">
-  <figcaption>A passed run. The path is green, two steps carry a Mocked badge, and the table shows every step. The log is below.</figcaption>
+  <img src="@img/test-case-runs/01-runs-panel-passed.png" alt="The Run tests panel under the canvas after a passed test case, with Mocked badges on two steps">
+  <figcaption>A passed run. The path is green, two steps carry a Mocked badge, and the table shows every step. The log is below. In this picture the toolbar button is still called Runs and the next one Live (now Monitor).</figcaption>
 </figure>
 
 <h3>Where the values come from</h3>
@@ -47,7 +49,7 @@ related: process-tests, live, security, example-project
 <p>Use it to try a process by hand.</p>
 
 <ol class="steps">
-  <li>In the Runs panel press <span class="ui">Run with input…</span>. A dialog called <em>Run with input</em> opens.</li>
+  <li>In the Run tests panel press <span class="ui">Run with input…</span>. A dialog called <em>Run with input</em> opens.</li>
   <li>Type the <strong>Start variables</strong> as JSON. They are filled in from the variables the diagram reads.</li>
   <li>Under <strong>Steps</strong> choose what happens at each service task: <span class="ui">Ask me</span>, <span class="ui">Complete</span> (with variables), <span class="ui">Throw error</span>, <span class="ui">Fail, then complete</span>, or <span class="ui">Real worker</span>. For a timer choose <span class="ui">Fire now</span> or <span class="ui">Wait for it</span>.</li>
   <li>Press <span class="ui">Run</span>.</li>
@@ -60,7 +62,7 @@ related: process-tests, live, security, example-project
 </figure>
 
 <figure class="shot">
-  <img src="@img/test-case-runs/03-waiting-for-an-answer.png" alt="The Runs panel waiting at a step for an answer">
+  <img src="@img/test-case-runs/03-waiting-for-an-answer.png" alt="The Run tests panel waiting at a step for an answer">
   <figcaption>The run is waiting at Charge card. Send variables, or an error code, to answer it.</figcaption>
 </figure>
 
@@ -74,7 +76,7 @@ related: process-tests, live, security, example-project
 
 <h2>Generate test cases</h2>
 
-<p>Press <span class="ui">Generate</span> in the Runs panel, or run <code>penstock test-cases --generate .</code>. Penstock writes one test case for every way through the process, with example variables and a completing mock for every task. Test cases already in the file are kept.</p>
+<p>Press <span class="ui">Generate</span> in the Run tests panel, or run <code>penstock test-cases --generate .</code>. Penstock writes one test case for every way through the process, with example variables and a completing mock for every task. Test cases already in the file are kept.</p>
 
 <pre><code>$ penstock test-cases --generate .
 wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code></pre>
@@ -85,7 +87,7 @@ wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code
 
 <h2>The test case file</h2>
 
-<p>Test cases are Camunda Process Test JSON test cases, the same format that Camunda's Web Modeler reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. The editor, the IDE test runner and the command line use the same place.</p>
+<p>Test cases are Camunda Process Test JSON test cases, the same format that Camunda's Web Modeler reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
 
 <p>Penstock's own additions go in an <code>x-penstock</code> block on the test case, which Camunda's tools ignore:</p>
 
@@ -99,56 +101,18 @@ wrote src/test/resources/test-cases/order-process.json  2 new test case(s)</code
 
 <p>A test case that needs a behaviour is tagged <span class="tag">Penstock only</span>, because Camunda Process Test would run it differently.</p>
 
-<h2>Run test cases in the IDE test runner</h2>
+<h2>Run many test cases at once</h2>
 
-<ol class="steps">
-  <li>Open a test case file, for example <code>orders.json</code>.</li>
-  <li>Click the green triangle in the gutter next to a test case. Or right-click the file or a folder and run it.</li>
-  <li>The IDE's Run window shows a test tree, pass or fail, and the log. Double-click a test to open it in the file.</li>
-</ol>
+<p>The panel runs the test cases of the diagram you have open. Your tool can also run the test-case files of a whole project, one after another, and report pass or fail for each.</p>
 
-<figure class="shot">
-  <img src="@img/test-case-runs/06-test-case-gutter.png" alt="A test case file open in the IDE with a run icon in the gutter next to each test case">
-  <figcaption>Each test case has a run icon in the gutter. The Penstock tool window is on the left.</figcaption>
-</figure>
-
-<figure class="shot">
-  <img src="@img/test-case-runs/07-test-runner-one-test-case.png" alt="The IDE test runner showing one passed test case and its log">
-  <figcaption>One test case, run from the gutter. The log names the trace file for the run.</figcaption>
-</figure>
-
-<figure class="shot">
-  <img src="@img/test-case-runs/08-test-runner-a-failure.png" alt="The IDE test runner showing one failed test and two passed">
-  <figcaption>A failure shows in the test tree with its time. Open it to read the reason.</figcaption>
-</figure>
-
-<h2>Run test cases in a terminal or pipeline</h2>
-
-<pre><code>penstock test-cases .
-penstock test-cases src/test/resources/test-cases/orders.json
-penstock test-cases . --junit-xml build/test-cases.xml --timeout 60
-penstock test-cases . --teamcity</code></pre>
-
-<div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td><code>--generate</code></td><td>Write test cases from the ways through each process.</td></tr>
-  <tr><td><code>--junit</code></td><td>Write a JUnit 5 class for Camunda Process Test that runs the same files. See <a href="process-tests.html">Process tests and coverage</a>.</td></tr>
-  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Write a JUnit XML report.</td></tr>
-  <tr><td><code>--teamcity</code></td><td>Print TeamCity service messages, as the IDE reads them.</td></tr>
-  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long to wait for one step. 30 by default.</td></tr>
-  </tbody>
-</table></div>
-
-<p>Test cases run one after another. The command exits with 1 if any fails. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> once to stop: the running test case is cancelled and its build removed. Press it again to leave now. Where each run is kept: <code>.penstock/runs/&lt;run&gt;/&lt;test case&gt;.json</code>, with a <code>.gitignore</code> that ignores it all.</p>
-
-<p>In a pipeline the engine needs <code>deployment.forTests: true</code>. Without it you see: <em>is not marked deployment.forTests, and a pipeline cannot confirm it</em>.</p>
+{{host:run-tests-batch|Run test-case files in your tool}}
 
 <h2>What you see</h2>
 
 <ul>
   <li>The path of the run on the diagram, and a table of every step with what came in, went out and changed.</li>
   <li>A <span class="tag pro">Mocked</span> badge on each step that a mock answered.</li>
-  <li>In a terminal: <code>pass</code> or <code>fail</code> for each test case, and a total line such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
+  <li>For a whole project: <code>pass</code> or <code>fail</code> for each test case, and a total such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
 </ul>
 
 <h2>Common problems</h2>
@@ -160,8 +124,8 @@ penstock test-cases . --teamcity</code></pre>
   <dd>A step without a mock runs the real code. If no worker takes it within the timeout, the run fails and says what it was waiting for. Start the worker, or mock the step.</dd>
   <dt>"No test-case files found."</dt>
   <dd>Run <code>penstock test-cases --generate .</code> first.</dd>
-  <dt>The Runs button is not there.</dt>
-  <dd>Runs is shown for Camunda 7, Camunda 8, Operaton and CIB seven. Pin it from the <span class="ui">More</span> menu if you unpinned it.</dd>
+  <dt>The Run tests button is not there.</dt>
+  <dd>Run tests is shown for Camunda 7, Camunda 8, Operaton and CIB seven. Pin it from the <span class="ui">More</span> menu if you unpinned it.</dd>
   <dt>The run left builds in my engine.</dt>
   <dd>An interrupted run is cleaned up by the next run, once it is 15 minutes old.</dd>
 </dl>

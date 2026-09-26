@@ -3,9 +3,9 @@ title: Deployment
 lede: Deploy sends the diagram you are editing to your engine in one click, so the engine can run it.
 tags: free
 needs: Camunda 7, Camunda 8, Operaton or CIB seven
-related: profiles, settings, security, cli-reference, live
+related: profiles, settings, security, cli/commands, monitor
 -->
-<h2>Deploy from the IDE</h2>
+<h2>Deploy from the editor</h2>
 
 <ol class="steps">
   <li>Open a diagram, a decision or a form.</li>
@@ -43,7 +43,7 @@ related: profiles, settings, security, cli-reference, live
 
 <ul>
   <li>The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force. It stays on your machine.</li>
-  <li>The password or client secret goes to the <strong>IDE password safe</strong>, once for each profile.</li>
+  <li>The password or client secret goes to the <strong>secret store of your tool</strong>, once for each profile.</li>
   <li>When you open the dialog again, the field says <em>Saved - type to replace</em>. Leave it empty to keep the secret. Type to replace it. Set <em>Sign in</em> to <em>Not needed</em> and save to remove it.</li>
 </ul>
 
@@ -91,7 +91,7 @@ hooks:
   </tbody>
 </table></div>
 
-<p><code>penstock deploy</code> uses the same addresses and settings, so the IDE and a pipeline mean the same thing by <code>deployment.url</code>. See <a href="cli-reference.html#deploy">Every command</a>.</p>
+<p>Every tool uses the same addresses and settings, so an editor and a pipeline mean the same thing by <code>deployment.url</code>.</p>
 
 <h2>OAuth</h2>
 
@@ -101,20 +101,13 @@ hooks:
 
 <h2>Hooks</h2>
 
-<p><code>preDeploy</code> and <code>postDeploy</code> run around a deployment from the IDE, as they do on the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. In the IDE, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
+<p><code>preDeploy</code> and <code>postDeploy</code> run around every deployment, from the editor and from the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. Where a tool has a notion of a trusted project, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
 
 <h2>Deploy more than one file</h2>
 
-<ul>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>: right-click a file or a process and press <span class="ui">Deploy</span>. It goes to that file's profile. Files from folders whose <code>penstock.yaml</code> names another engine go to that engine. Right-click a profile under <em>Deployment</em> to send every diagram to it, after a confirmation.</li>
-  <li>From a terminal: <code>penstock deploy .</code> sends every diagram, decision and form, grouped by the target each folder asks for. Add <code>--dry-run</code> to see where without sending. Add <code>--wait</code> to confirm that the engine shows the definitions.</li>
-</ul>
+<p>Deploying sends the files of a project grouped by the target each folder asks for: files from folders whose <code>penstock.yaml</code> names another engine go to that engine. You can also send every diagram to one profile at once, after a confirmation.</p>
 
-<pre><code>$ penstock deploy . --dry-run
-would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
-      src/main/resources/approve-order.form
-      src/main/resources/order-process.bpmn
-      src/main/resources/shipping-method.dmn</code></pre>
+{{host:deploy-many|Deploy many files in your tool}}
 
 <h2>Feedback and errors</h2>
 
@@ -144,10 +137,10 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
   <dd>The engine is Classic, or not set. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
   <dt>Every deploy is a new version.</dt>
   <dd>The engine's duplicate check matches by name. Keep <code>deployment.name</code> the same, and leave <code>changedOnly</code> on.</dd>
-  <dt>The IDE says 404 or the wrong path on Camunda 8.</dt>
+  <dt>The editor says 404 or the wrong path on Camunda 8.</dt>
   <dd>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. If your address already ends in <code>/v2</code>, that is fine too.</dd>
   <dt>The engine has a private certificate.</dt>
-  <dd>Penstock does not skip certificate checks. Trust the certificate in the Java runtime of your IDE.</dd>
+  <dd>Penstock does not skip certificate checks. Trust the certificate in the runtime of your tool. See the troubleshooting page of your tool.</dd>
   <dt>A wrong password is saved.</dt>
   <dd>Open <span class="ui">Connection…</span>, type the right one and press <span class="ui">Save and Deploy</span>.</dd>
 </dl>
