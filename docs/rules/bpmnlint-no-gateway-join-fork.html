@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Gateway that joins and forks - Penstock</title>
+<meta name="description" content="Gateway that joins and forks. A gateway that joins flows and forks again in one shape is read as one of the two, and the other is missed. Split it into one gateway that joins and one that forks.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/rules/bpmnlint-no-gateway-join-fork">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/" class="parent">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Every rule</p>
+<h1>Gateway that joins and forks</h1>
+<p class="lede">The check <code>bpmnlint/no-gateway-join-fork</code>, in the group Modelling rules.</p>
+<p class="meta"><span class="tag error">Error</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#why-it-matters">Why it matters</a></li>
+<li><a href="#how-to-fix-it">How to fix it</a></li>
+<li><a href="#where-you-see-it">Where you see it</a></li>
+<li><a href="#rule-details">Rule details</a></li>
+</ul>
+</nav>
+<h2 id="why-it-matters"><a href="#why-it-matters">Why it matters</a></h2>
+<p>A gateway that joins flows and forks again in one shape is read as one of the two, and the other is missed.</p>
+
+<h2 id="how-to-fix-it"><a href="#how-to-fix-it">How to fix it</a></h2>
+<p>Split it into one gateway that joins and one that forks.</p>
+
+<h2 id="where-you-see-it"><a href="#where-you-see-it">Where you see it</a></h2>
+<p>The editor puts a marker on the element while you draw. The check card lists it under <strong>Rules</strong>, with the rule name <code>bpmnlint/no-gateway-join-fork</code>. In a terminal, <code>penstock check --only rules</code> reports it.</p>
+<p>To change how strict this rule is, set <code>no-gateway-join-fork</code> to <code>error</code>, <code>warn</code> or <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>
+
+<h2 id="rule-details"><a href="#rule-details">Rule details</a></h2>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Id</td><td><code>bpmnlint/no-gateway-join-fork</code></td></tr>
+  <tr><td>Group</td><td>Modelling rules</td></tr>
+  <tr><td>Level</td><td>Error: the diagram or the process is wrong</td></tr>
+  <tr><td>Name in <code>penstock check</code></td><td><code>bpmnlint/no-gateway-join-fork</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Read more: <a href="../guide/validation.html">Validation with bpmnlint</a>. All rules: <a href="./">Every rule</a>.</p></main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

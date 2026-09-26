@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Every rule - Penstock</title>
+<meta name="description" content="Every Penstock check with its reason and its fix: modelling rules, drawing, process flow, decision tables, forms, diagrams and code.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/rules/">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/" aria-current="page">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Checking</p>
+<h1>Every rule</h1>
+<p class="lede">One page for each check Penstock makes: why it matters and how to fix it.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#how-to-read-a-rule-page">How to read a rule page</a></li>
+<li><a href="#modelling-rules">Modelling rules</a></li>
+<li><a href="#drawing">Drawing</a></li>
+<li><a href="#process-flow">Process flow</a></li>
+<li><a href="#decision-tables">Decision tables</a></li>
+<li><a href="#forms">Forms</a></li>
+<li><a href="#diagrams-and-code">Diagrams and code</a></li>
+<li><a href="#modelling-conventions">Modelling conventions</a></li>
+</ul>
+</nav>
+<h2 id="how-to-read-a-rule-page"><a href="#how-to-read-a-rule-page">How to read a rule page</a></h2>
+
+<p>Every check Penstock makes has a page. It says <strong>why it matters</strong>, <strong>how to fix it</strong>, and where you see it. In the diagram check, select a finding and its link opens the page. In <code>penstock check --format json</code>, SARIF and GitHub annotations, every finding carries the rule id and the address of its page.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Level</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><span class="tag error">Error</span></td><td>The diagram or the process is wrong. <code>penstock check</code> fails on it.</td></tr>
+  <tr><td><span class="tag warning">Advice</span></td><td>It works, and reads or runs better without it. It is shown as a note and does not fail the check.</td></tr>
+  <tr><td><span class="tag off">Off by default</span></td><td>The rule exists but does nothing until you turn it on.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>78 rules in 7 groups. The groups: <a href="#modelling-rules">modelling rules</a> (bpmnlint), <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a> and <a href="#modelling-conventions">modelling conventions</a>. Process flow, decision tables, forms and diagrams and code are part of Pro.</p>
+
+<h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
+<p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="bpmnlint-ad-hoc-sub-process"><code>bpmnlint/ad-hoc-sub-process</code></a></td><td>Ad-hoc sub-process with a start or end event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-conditional-event"><code>bpmnlint/conditional-event</code></a></td><td>Conditional event without a condition</td><td><span class="tag off">Off by default</span></td></tr>
+  <tr><td><a href="bpmnlint-conditional-flows"><code>bpmnlint/conditional-flows</code></a></td><td>Conditional flow without a condition</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-end-event-required"><code>bpmnlint/end-event-required</code></a></td><td>Process or sub-process without an end event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-event-based-gateway"><code>bpmnlint/event-based-gateway</code></a></td><td>Event-based gateway used wrongly</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-event-sub-process-typed-start-event"><code>bpmnlint/event-sub-process-typed-start-event</code></a></td><td>Event sub-process start without an event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-fake-join"><code>bpmnlint/fake-join</code></a></td><td>Several flows enter a task that does not join them</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-global"><code>bpmnlint/global</code></a></td><td>Global element without a name, unused or not unique</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-label-required"><code>bpmnlint/label-required</code></a></td><td>Element without a label</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-link-event"><code>bpmnlint/link-event</code></a></td><td>Link event without a name or without its counterpart</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-bpmndi"><code>bpmnlint/no-bpmndi</code></a></td><td>Element without a place in the diagram</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-complex-gateway"><code>bpmnlint/no-complex-gateway</code></a></td><td>Complex gateway</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-disconnected"><code>bpmnlint/no-disconnected</code></a></td><td>Element with no incoming or outgoing flow</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-duplicate-sequence-flows"><code>bpmnlint/no-duplicate-sequence-flows</code></a></td><td>Two identical flows between the same elements</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-gateway-join-fork"><code>bpmnlint/no-gateway-join-fork</code></a></td><td>Gateway that joins and forks</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-implicit-end"><code>bpmnlint/no-implicit-end</code></a></td><td>Path that ends without an end event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-implicit-split"><code>bpmnlint/no-implicit-split</code></a></td><td>Task that forks the flow without a gateway</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-implicit-start"><code>bpmnlint/no-implicit-start</code></a></td><td>Path that starts without a start event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-no-inclusive-gateway"><code>bpmnlint/no-inclusive-gateway</code></a></td><td>Inclusive gateway</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-no-overlapping-elements"><code>bpmnlint/no-overlapping-elements</code></a></td><td>Element overlaps another or leaves its parent</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-single-blank-start-event"><code>bpmnlint/single-blank-start-event</code></a></td><td>More than one blank start event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-single-event-definition"><code>bpmnlint/single-event-definition</code></a></td><td>Event with several event definitions</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-standard-size"><code>bpmnlint/standard-size</code></a></td><td>Element not in its standard size</td><td><span class="tag off">Off by default</span></td></tr>
+  <tr><td><a href="bpmnlint-start-event-required"><code>bpmnlint/start-event-required</code></a></td><td>Process or sub-process without a start event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-sub-process-blank-start-event"><code>bpmnlint/sub-process-blank-start-event</code></a></td><td>Sub-process start event with a type</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="bpmnlint-superfluous-gateway"><code>bpmnlint/superfluous-gateway</code></a></td><td>Gateway with one way in and one way out</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-superfluous-label"><code>bpmnlint/superfluous-label</code></a></td><td>Label on a flow that needs none</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="bpmnlint-superfluous-termination"><code>bpmnlint/superfluous-termination</code></a></td><td>Terminate end event that terminates nothing</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="drawing"><a href="#drawing">Drawing</a></h2>
+<p>What is wrong with how a diagram is drawn, found by the check card in the editor and by the first section of <code>penstock check</code>. The errors break the picture; the others make it harder to read.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="drawing-dangling-connection"><code>drawing/dangling-connection</code></a></td><td>Connection without both ends</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-lost-connection"><code>drawing/lost-connection</code></a></td><td>Connection in the file but not on the canvas</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-containment"><code>drawing/containment</code></a></td><td>Element outside the container it belongs to</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-overlap"><code>drawing/overlap</code></a></td><td>Shapes sit on top of each other</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-edge-through-node"><code>drawing/edge-through-node</code></a></td><td>Connection runs through a shape</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-crossing"><code>drawing/crossing</code></a></td><td>Connections cross</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-detached-edge"><code>drawing/detached-edge</code></a></td><td>Connection does not reach the shape it connects</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-boundary-off-host"><code>drawing/boundary-off-host</code></a></td><td>Boundary event is off its host</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-label-adrift"><code>drawing/label-adrift</code></a></td><td>Label sits far from what it names</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-diagonal-edge"><code>drawing/diagonal-edge</code></a></td><td>Connection is not drawn at right angles</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-label-overlap"><code>drawing/label-overlap</code></a></td><td>Labels cover each other</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-merged-edge"><code>drawing/merged-edge</code></a></td><td>Connections run along the same line</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-note-adrift"><code>drawing/note-adrift</code></a></td><td>Annotation sits far from what it describes</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-semantic-drift"><code>drawing/semantic-drift</code></a></td><td>The diagram means something different</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-backtrack"><code>drawing/backtrack</code></a></td><td>Connection doubles back along itself</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="drawing-edge-through-label"><code>drawing/edge-through-label</code></a></td><td>Connection crosses a label</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-edge-along-shape"><code>drawing/edge-along-shape</code></a></td><td>Connection runs along the border of a shape</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-detour"><code>drawing/detour</code></a></td><td>Connection takes a long way round</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="drawing-jog"><code>drawing/jog</code></a></td><td>Connection sidesteps for no reason</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="process-flow"><a href="#process-flow">Process flow</a></h2>
+<p>What the way a process is wired can do when it runs. Part of Penstock Pro, and Team in a pipeline.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="flow-deadlock"><code>flow/deadlock</code></a></td><td>The process can get stuck</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-no-synchronization"><code>flow/no-synchronization</code></a></td><td>A part of the process can run twice</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-dead-element"><code>flow/dead-element</code></a></td><td>An element can never run</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-never-finishes"><code>flow/never-finishes</code></a></td><td>The process may never finish</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-too-complex"><code>flow/too-complex</code></a></td><td>Only part of the process was analysed</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="flow-no-way-out"><code>flow/no-way-out</code></a></td><td>A decision has no way out for some values</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-overlap"><code>flow/overlap</code></a></td><td>Two ways out of a decision can both hold</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="flow-no-default"><code>flow/no-default</code></a></td><td>A decision may have no way out</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="flow-lookalike"><code>flow/lookalike</code></a></td><td>Two variables look like one</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="decision-tables"><a href="#decision-tables">Decision tables</a></h2>
+<p>What a DMN decision table does with the inputs it can be given. Part of Penstock Pro, and Team in a pipeline.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="table-rule-overlap"><code>table/rule-overlap</code></a></td><td>Two rules match the same input</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="table-rule-gap"><code>table/rule-gap</code></a></td><td>No rule matches some input</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="table-table-unread"><code>table/table-unread</code></a></td><td>A decision table could not be checked</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="forms"><a href="#forms">Forms</a></h2>
+<p>What a Camunda Form does with what the user enters. Part of Penstock Pro, and Team in a pipeline.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="form-key-clash"><code>form/key-clash</code></a></td><td>Two fields write the same variable</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="form-no-key"><code>form/no-key</code></a></td><td>A field writes no variable</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="form-repeated-option"><code>form/repeated-option</code></a></td><td>An option list repeats a value</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="form-no-label"><code>form/no-label</code></a></td><td>A field has no label</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="diagrams-and-code"><a href="#diagrams-and-code">Diagrams and code</a></h2>
+<p>Where a diagram and the code that runs it disagree: a step nothing implements, a worker no diagram uses, a variable read under another name than it is set.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="code-missing-implementation"><code>code/missing-implementation</code></a></td><td>Nothing in the code runs a step</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-never-thrown"><code>code/never-thrown</code></a></td><td>Nothing in the code throws the error a step catches</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-variable-typo"><code>code/variable-typo</code></a></td><td>A variable is read, but only a similar one is set</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-no-worker"><code>code/no-worker</code></a></td><td>No worker handles a job type</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-no-topic-worker"><code>code/no-topic-worker</code></a></td><td>No external task worker subscribes to a topic</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-class-missing"><code>code/class-missing</code></a></td><td>A class named in the diagram is not in the project</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-bean-missing"><code>code/bean-missing</code></a></td><td>No Spring bean has the name a diagram uses</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-unknown-process"><code>code/unknown-process</code></a></td><td>A call activity calls a process no diagram defines</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-unknown-decision"><code>code/unknown-decision</code></a></td><td>A business rule task calls a decision no file defines</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-unknown-form"><code>code/unknown-form</code></a></td><td>A user task shows a form no file defines</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-unknown-embedded-form"><code>code/unknown-embedded-form</code></a></td><td>A user task shows an embedded form the diagram does not contain</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="code-unused-worker"><code>code/unused-worker</code></a></td><td>A worker for a job type no diagram uses</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-unused-subscription"><code>code/unused-subscription</code></a></td><td>A subscription to a topic no diagram uses</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="modelling-conventions"><a href="#modelling-conventions">Modelling conventions</a></h2>
+<p>Conventions the editor applies while modelling, so a team does not have to remember them. They are set under <code>conventions</code> in <code>penstock.yaml</code>.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="convention-id-from-name"><code>convention/id-from-name</code></a></td><td>Ids follow names</td><td><span class="tag off">Off by default</span></td></tr>
+  <tr><td><a href="convention-defaults"><code>convention/defaults</code></a></td><td>Defaults for new elements</td><td><span class="tag off">Off by default</span></td></tr>
+  </tbody>
+</table></div></div><div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../guide/validation.html">Validation with bpmnlint</a> - The modelling rules, and how to change them.</li>
+<li><a href="../guide/flow-analysis.html">Flow analysis</a> - Deadlocks, dead steps and loops, found before you run anything.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/diagram-check.html"><span>Previous</span>Diagram check</a>
+<a class="next" href="../guide/validation.html"><span>Next</span>Validation with bpmnlint</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
