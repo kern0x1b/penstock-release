@@ -3,194 +3,233 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto layout — Penstock</title>
-<meta name="description" content="What Penstock's Auto Layout does to a BPMN diagram: a full reflow into a left-to-right flow, the properties it will not violate, and how to run it and take it back.">
+<meta name="color-scheme" content="light dark">
+<title>Auto layout - Penstock</title>
+<meta name="description" content="Auto layout draws your whole diagram again, left to right and tidy, from what the process means.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/auto-layout.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html">Diagram check</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="auto-layout.html" aria-current="page">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html" aria-current="page">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Checking</p>
+<h1>Auto layout</h1>
+<p class="lede">Auto layout draws your whole diagram again, left to right and tidy, from what the process means.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#run-it">Run it</a></li>
+<li><a href="#how-it-decides">How it decides</a></li>
+<li><a href="#what-it-will-never-do">What it will never do</a></li>
+<li><a href="#what-it-trades-away">What it trades away</a></li>
+<li><a href="#spacing-is-not-a-setting">Spacing is not a setting</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-  <div class="docbody">
-    <h1>Auto layout</h1>
+<p>Auto layout is not a tidier. It throws away the positions in the file and places every element again from the process model. A messy diagram comes back readable. A diagram you drew with care comes back arranged by the engine's rules, not yours.</p>
 
-    <p class="lede">Auto layout is not a tidier. It throws away the positions in the file and
-    draws the diagram again from the process model, so a badly drawn diagram comes back readable
-    and a well drawn one comes back arranged by the engine's rules rather than yours.</p>
+<figure class="shot">
+  <img src="../img/auto-layout-before.png" alt="A diagram whose shapes overlap and whose connections no longer meet them">
+  <figcaption>Before: shapes have been moved on top of each other and the connections no longer reach them.</figcaption>
+</figure>
 
-    <h2>What it does to a diagram</h2>
+<figure class="shot">
+  <img src="../img/auto-layout-after.png" alt="The same diagram after auto layout">
+  <figcaption>After: the same elements, laid out left to right, with every connection routed around the shapes.</figcaption>
+</figure>
 
-    <figure class="shot">
-      <img src="../img/auto-layout-before.png" alt="A diagram whose shapes overlap and whose connections no longer meet them">
-      <figcaption>Before: shapes have been moved on top of each other and the connections no longer reach them.</figcaption>
-    </figure>
+<h2 id="run-it"><a href="#run-it">Run it</a></h2>
 
-    <figure class="shot">
-      <img src="../img/auto-layout-after.png" alt="The same diagram after auto layout">
-      <figcaption>After: the same elements, reflowed left to right, with every connection routed around the shapes.</figcaption>
-    </figure>
+<ol class="steps">
+  <li>Open the diagram.</li>
+  <li>Press <span class="ui">Auto Layout</span> on the toolbar.</li>
+  <li>The diagram is laid out at once. A message says so and has an <span class="ui">Undo</span> button.</li>
+  <li>Look at the result. If it reads worse, press <span class="ui">Undo</span> in the message or on the toolbar.</li>
+</ol>
 
-    <p>Every shape is placed from scratch. The engine reads the sequence flows and works out, for
-    each element, the longest chain of flows that reaches it, counting from the elements that have
-    nothing flowing into them. Each chain length gets its own column. Columns run left to
-    right, so the flow reads left to right no matter which direction it was drawn in. Elements that
-    share a column are spread into rows, and the row order is chosen to keep the connections
-    between columns from crossing each other. A sub-process or a pool is laid out before the
-    element that holds it, so a container is sized by what is inside it rather than the other way
-    round.</p>
+<p>There is no separate preview and no save step. The change goes through the same undo stack as any other edit, and the new positions are written to the file as they land on the canvas. To compare with the saved version, use the <a href="diagram-diff.html">diagram diff</a>.</p>
 
-    <p>That first arrangement is then made legal. Shapes are pushed apart until none of them
-    overlaps, each one moving as little as possible from where it was put, and every container is
-    resized to fit the contents it ended up with — including shrinking, when the contents now need
-    less room than the box they were drawn in.</p>
+<p>From a terminal, <code>penstock layout .</code> says what would change. <code>penstock layout . --write</code> saves it. See <a href="cli-reference.html#layout">Every command</a>.</p>
 
-    <p>Pools that exchange messages are stacked one above another, in an order taken from the
-    message flows between them, so that pools that talk end up near each other. A set of pools with
-    no messages to the rest forms a block of its own, and the blocks are packed into columns across
-    the page rather than into one tall stack. The gap between two pools in a stack is sized by how
-    many of the message flows between those two pools have to run side by side in it.</p>
+<h2 id="how-it-decides"><a href="#how-it-decides">How it decides</a></h2>
 
-    <p>Connections are routed last, around the shapes rather than through them, with every
-    segment horizontal or vertical. Labels and text annotations are placed after that, against the
-    routes that were actually drawn: a label is moved to a spot that no connection crosses whenever
-    one can be found, and settles for a crossed spot only when none can, and a note is anchored to
-    the final position of the thing it comments on.</p>
+<ul>
+  <li>Elements are put in columns, left to right, by the longest chain of flows that reaches them. The flow reads left to right whichever way it was drawn.</li>
+  <li>Elements in one column are spread into rows, in an order that keeps connections from crossing.</li>
+  <li>A sub-process or a pool is sized by what is inside it.</li>
+  <li>Pools that exchange messages are stacked near each other.</li>
+  <li>Connections are routed around shapes, with only horizontal and vertical segments.</li>
+  <li>Labels and annotations are placed last, against the routes that were drawn.</li>
+  <li>Penstock builds several arrangements, measures each one and keeps the best.</li>
+</ul>
 
-    <p>The engine builds several arrangements for the same diagram — different pool orders,
-    different rules for turning a message flow, different routing preferences — measures each one,
-    and keeps the one that measures best. Crossings, lines lying on top of one another, bends and
-    drawing area all count against a candidate.</p>
+<h2 id="what-it-will-never-do"><a href="#what-it-will-never-do">What it will never do</a></h2>
 
-    <h2>What it will not do</h2>
+<p>These are checked on every diagram in a test set of 88 real diagrams, and a layout that breaks one fails the tests:</p>
 
-    <p>These are the properties the engine holds to. Each one is checked on every diagram in the
-    test corpus, and a layout that breaks one of them fails the test suite:</p>
+<ul>
+  <li>No two shapes overlap.</li>
+  <li>No connection goes through a shape that it does not connect.</li>
+  <li>Both ends of every connection stay on their element.</li>
+  <li>Nothing leaves the pool, lane or sub-process it belongs to.</li>
+  <li>A boundary event stays on the border of its task.</li>
+  <li>Every segment is horizontal or vertical.</li>
+  <li>No connection doubles back.</li>
+  <li>Labels do not land on each other.</li>
+  <li>Nothing changes what the diagram means: no element changes parent, no connection changes source or target.</li>
+</ul>
 
-    <table class="facts">
-      <tr><td>Overlapping shapes</td><td>No two shapes overlap, leaving aside a container and what
-        it holds, and a boundary event on its host.</td></tr>
-      <tr><td>A connection through a shape</td><td>No route may cross a shape that is not one of
-        its own endpoints or a container holding one.</td></tr>
-      <tr><td>A detached connection</td><td>Both ends of every connection stay on the element they
-        belong to.</td></tr>
-      <tr><td>An element outside its pool or lane</td><td>Nothing leaves the participant, lane or
-        sub-process it belongs to, and nothing wanders into one it does not.</td></tr>
-      <tr><td>A boundary event off its host</td><td>An attached event stays on the border of the
-        task it is attached to.</td></tr>
-      <tr><td>A diagonal connection</td><td>Every segment of every route is horizontal or
-        vertical.</td></tr>
-      <tr><td>A connection doubling back</td><td>No route overshoots and comes back along
-        itself.</td></tr>
-      <tr><td>A label over another label</td><td>Labels do not land on each other or on a shape
-        they do not belong to.</td></tr>
-      <tr><td>A change to what the diagram means</td><td>No element changes parent and no
-        connection changes source or target. Nothing is added, and nothing is dropped apart from the
-        duplicate connection described below.</td></tr>
-    </table>
+<p>One thing is removed: if the file has two connections of the same type from the same source to the same target, the second is deleted first.</p>
 
-    <p>The corpus is 88 real diagrams, hand-drawn ones included. Every property above is required to
-    hold on all of them, and the remaining measures — crossings, bends, route length, drawing area
-    and the rest — may not exceed a figure recorded per diagram, with a two per cent margin on route
-    length and drawing area, so a change that improves one diagram cannot quietly make another
-    worse.</p>
+<h2 id="what-it-trades-away"><a href="#what-it-trades-away">What it trades away</a></h2>
 
-    <p>One thing is removed rather than moved. If the file contains two connections of the same
-    type with the same source and the same target, the second one is deleted before the layout
-    runs.</p>
+<p>Keeping every route out of every shape costs crossings and length. A message flow between two pools that are not neighbours has to go around the pools in between. People drawing by hand put the two communicating tasks above each other and draw a short line. The engine does not, because that costs more room and more crossings overall.</p>
 
-    <h2>Running it</h2>
+<p>So a diagram you tuned by hand may read better in places than the result. Use auto layout on a diagram you did not draw, on one edited until it is unreadable, and on generated output. On a diagram you have tuned, look at the result before you go on.</p>
 
-    <p>Auto layout is part of Penstock Pro. The diagram editor's toolbar has an <strong>Auto
-    Layout</strong> button, which lays out the open diagram at once. A message follows, with
-    <strong>Undo</strong> in it: the change goes through the editor's command stack like any other
-    edit, so that button, or Undo in the toolbar, takes it back. There is no save step: the new
-    positions are written to the file as soon as they land on the canvas, the same as any other
-    edit. To compare the result with what was saved before, use the diagram diff described under
-    <a href="editing.html">Editing a diagram</a>.</p>
+<h2 id="spacing-is-not-a-setting"><a href="#spacing-is-not-a-setting">Spacing is not a setting</a></h2>
 
-    <p>In a terminal, <span class="mono">penstock layout</span> lays the diagrams out and says what
-    would change; <span class="mono">--write</span> saves the result. See
-    <a href="cli.html">Command line</a>.</p>
+<p>The engine is tuned to its own spacing. A few pixels either way made its layouts worse. So <code>layout</code> in <code>penstock.yaml</code> and <code>.bpmnlayoutrc</code> are not read. Delete an old <code>.bpmnlayoutrc</code>.</p>
 
-    <h2>Spacing</h2>
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
-    <p>Spacing is not a setting. The engine is tuned to its own spacing, and a few pixels either way
-    made its layouts measurably worse, so <code>layout</code> in <code>penstock.yaml</code> and
-    <code>.bpmnlayoutrc</code> are no longer read.</p>
-
-    <h2>What it trades away</h2>
-
-    <p>The guarantees above are absolute, and the things a reader notices next are not. Keeping
-    every route out of every shape costs crossings, and it costs length: a message flow between two
-    pools that are not neighbours in the stack has to travel around the pools in between, and that
-    route can be much longer than the distance between its two ends. People drawing by hand solve
-    this by putting the two communicating tasks directly above one another and dropping a short
-    line between them. The engine does not, because holding a column in one pool to suit a partner
-    in another costs more room and more crossings than the shorter line saves.</p>
-
-    <p>So a diagram you have arranged by hand may still read better in places than the one auto
-    layout gives back, particularly a collaboration with several pools talking to each other. Auto
-    layout is worth reaching for on a diagram you did not draw, on one that has been edited until
-    it is unreadable, and on generated output. On a drawing you have already tuned, look at the
-    result before you go on, and take it back with Undo if it reads worse.</p>
-
-  </div>
-
+<dl class="problems">
+  <dt>The button asks me to buy Pro.</dt>
+  <dd>Auto layout is a Pro feature. The message explains it and offers to buy or sign in. See <a href="sign-in.html">Buying and signing in</a>.</dd>
+  <dt>It says "Stop Token Simulation before editing the diagram".</dt>
+  <dd>Auto layout is blocked while a simulation runs. Press <span class="ui">Simulate</span> to stop it.</dd>
+  <dt>I do not like the result.</dt>
+  <dd>Press Undo. One press takes the whole layout back.</dd>
+  <dt>The diagram changed a lot in Git.</dt>
+  <dd>Every element may have moved. Use the <a href="diagram-diff.html">diagram diff</a>: it marks elements that only moved apart from real changes.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../guide/diagram-diff.html">Diagram diff</a> - Compare two versions of a diagram, side by side.</li>
+<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/flow-analysis.html"><span>Previous</span>Flow analysis</a>
+<a class="next" href="../guide/deployment.html"><span>Next</span>Deployment</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

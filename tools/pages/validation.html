@@ -1,0 +1,77 @@
+<!--
+title: Validation with bpmnlint
+lede: bpmnlint checks that a process is modelled correctly, and Penstock runs it for you with nothing to install.
+tags: free
+related: diagram-check, settings, cli-reference
+-->
+<h2>What it is</h2>
+
+<p>bpmnlint is a well-known tool that finds modelling mistakes in a BPMN file: an event with no outgoing flow, a task with no name, a gateway that splits without saying how. Penstock has it built in. Nothing to install and no paths to set.</p>
+
+<h2>See it working</h2>
+
+<ol class="steps">
+  <li>Open a diagram and draw a task with no name.</li>
+  <li>A marker appears on that task. This is the editor marking problems as you draw.</li>
+  <li>Press <span class="ui">Check</span>. The same finding is listed under <strong>Rules</strong>, with the rule name <code>bpmnlint/label-required</code>.</li>
+  <li>Click the line. The task is selected. Give it a name and the marker goes away.</li>
+</ol>
+
+<p>The linting button on the canvas turns the markers off and on. It starts on. It is hidden while a token simulation runs.</p>
+
+<h2>Which rules apply</h2>
+
+<ol>
+  <li>Without any configuration: <code>bpmnlint:recommended</code>, bpmnlint's own set.</li>
+  <li>With a <code>.bpmnlintrc</code> in the project root: that file replaces the set. The editor and the command line both read it.</li>
+  <li>With <code>lint.configPath</code> in <code>penstock.yaml</code>: that file, relative to the project root. Use it when your rules live elsewhere.</li>
+</ol>
+
+<p>A small <code>.bpmnlintrc</code>:</p>
+
+<pre><code>{
+  "extends": ["bpmnlint:recommended"],
+  "rules": {
+    "label-required": "error",
+    "no-implicit-split": "warn"
+  }
+}</code></pre>
+
+<p>Each rule can be set to <code>error</code>, <code>warn</code> or <code>off</code>. An error makes <code>penstock check</code> fail. A warning is shown as a note. Every rule that Penstock knows has a page: <a href="../rules/">Every rule</a>. Those pages say which level is the default.</p>
+
+<h2>On the command line</h2>
+
+<pre><code>penstock check --only rules .</code></pre>
+
+<p>This runs the same rules as one section of the check. <code>penstock lint</code> still works in this release and prints that it is now <code>penstock check --only rules</code>.</p>
+
+<p>In the IDE, <span class="ui">Check</span> in the context menu of the Penstock tool window runs <code>penstock check</code> on a file or folder and shows the report in the Run window. It runs only in a trusted project.</p>
+
+<h2 id="custom-rules">Custom rules from a plugin</h2>
+
+<p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package.</p>
+
+<ol class="steps">
+  <li>Add the package to your <code>package.json</code> and run <code>npm install</code>. The command line now finds it in <code>node_modules</code>. It needs no installed bpmnlint.</li>
+  <li>For the editor, build a bundle of your rules with <code>bpmnlint-pack-config</code>.</li>
+  <li>Point to the bundle in <code>penstock.yaml</code>. Rebuild it whenever the rules change.</li>
+</ol>
+
+<pre><code>lint:
+  configPath: .bpmnlintrc
+  clientBundlePath: .bpmnlint/client.bundle.js</code></pre>
+
+<p>The editor cannot read <code>node_modules</code>. It loads the bundle, not the <code>.bpmnlintrc</code>. Without the bundle the check says <em>The bpmnlint rules could not run</em>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My plugin rule works in the terminal but not in the editor.</dt>
+  <dd>Build the bundle and set <code>lint.clientBundlePath</code>. See above.</dd>
+  <dt>A rule I switched off still reports.</dt>
+  <dd>Check that <code>.bpmnlintrc</code> is in the project root, or that <code>lint.configPath</code> names it. When <code>lint.configPath</code> is set, <code>penstock doctor</code> prints the path and says if it is missing.</dd>
+  <dt>I have no markers on the canvas.</dt>
+  <dd>The linting button on the canvas may be off. Press it once.</dd>
+  <dt>The Run window action does nothing.</dt>
+  <dd>It needs a trusted project. Trust the project when the IDE asks.</dd>
+</dl>

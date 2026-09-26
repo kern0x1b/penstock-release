@@ -1,0 +1,88 @@
+<!--
+title: Diagram check
+lede: The check lists everything wrong with your diagram, points at each problem on the canvas, and tells you how to fix it.
+tags: free
+needs: Flow and code sections need Pro
+related: validation, flow-analysis, auto-layout
+-->
+<h2>Run it</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Check</span> on the toolbar. A card called <em>Diagram check</em> opens at the bottom right of the canvas. It never pushes the canvas down.</li>
+  <li>Read the header. It says how many problems there are, for example <em>3 problems</em>, and how many readability notes.</li>
+  <li>Click a line. The canvas scrolls to that element and selects it. Its outline turns red.</li>
+  <li>Under the selected line, two short lines appear: <strong>Why</strong> and <strong>Fix</strong>, and a link to the page for that rule. All the pages are in <a href="../rules/">Every rule</a>.</li>
+  <li>Fix the problem. The card updates by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span> puts the card and the outlines away.</li>
+</ol>
+
+<figure class="shot">
+  <img src="@img/diagram-check-problems.png" alt="The diagram check panel listing problems beside the diagram">
+  <figcaption>Press Check on the toolbar. Each line names what is wrong and what it is about.</figcaption>
+</figure>
+
+<h2>What you see</h2>
+
+<p>While the card is open, every element that a problem is about carries a dashed outline on the canvas. Move the pointer down the list and the element under the pointer is outlined. When there is nothing wrong the card says <em>Nothing to report across N elements and connections.</em></p>
+
+<figure class="shot">
+  <img src="@img/diagram-check-selected.png" alt="A defect selected in the list and outlined in red on the diagram">
+  <figcaption>The selected problem is outlined in red and scrolled into view. Everything else the check found keeps a dashed outline.</figcaption>
+</figure>
+
+<h2>The sections of the card</h2>
+
+<p>The card groups findings by what they are about. A section only appears when it has something to say.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Section</th><th>What it lists</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td>How it runs</td><td>Problems in how the process runs: it can get stuck, a part runs twice, a step can never run, it may never finish, a decision has no way out. Selecting one outlines the path that leads there. See <a href="flow-analysis.html">Flow analysis</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Problems</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Engine</td><td>An engine mismatch with a <span class="ui">Fix</span> button. For example, in an Operaton project, a Camunda 7 diagram that still uses the <code>camunda:</code> namespace.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7 diagram. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="tag pro">Pro</span> to convert</td></tr>
+  <tr><td>Readability</td><td>Collapsed by default. Crossings, lines on top of each other, detours, diagonal segments. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
+  </tbody>
+</table></div>
+
+<p>Without Pro, the card shows one line: <em>Flow analysis found N problems in how this process runs</em>, with a note that it is part of Pro. Press it to see how to buy or sign in.</p>
+
+<h2>Drawing and rules are different</h2>
+
+<p>The drawing checks answer "can the diagram be read?". They know nothing about the process. bpmnlint answers "is the process modelled correctly?". They never report the same thing twice.</p>
+
+<h2>The same check in a terminal</h2>
+
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+fail  src/main/resources/order-process.bpmn
+        OVERLAP: approve_order &lt;-&gt; charge_card
+        DETACHED-EDGE: Flow_1 (order_received-&gt;approve_order)
+        note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
+ok    src/main/resources/shipping-method.dmn
+
+Every rule has a page with why it matters and how to fix it: https://kern0x1b.github.io/penstock-release/rules</code></pre>
+
+<p>A line that starts with <code>note</code> is a warning. Only errors make the command fail with exit code 1. See <a href="cli-reference.html#check">Every command</a>.</p>
+
+<h2>Fix a whole diagram at once</h2>
+
+<p>If the list is long because the diagram drifted, <a href="auto-layout.html">Auto layout</a> is usually faster than fixing line by line. The check measures. Auto layout draws a diagram that passes.</p>
+
+<h2>What it cannot see</h2>
+
+<p>Three measures need the file rather than the canvas: a connection declared in the XML that was never drawn, a connection with an end missing, and a comparison of what the diagram meant before an operation against after. The card leaves those out instead of reporting them as passing.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The card says "The bpmnlint rules could not run".</dt>
+  <dd>Your <code>.bpmnlintrc</code> uses rules from a plugin. The editor needs those rules in a bundle. See <a href="validation.html#custom-rules">Validation</a>.</dd>
+  <dt>I fixed a problem and it is still listed.</dt>
+  <dd>Press <span class="ui">Recheck</span>. The list refreshes a moment after you stop editing.</dd>
+  <dt>The count in the header is lower than the list.</dt>
+  <dd>Warnings and readability notes are not counted as problems. Only errors are.</dd>
+  <dt>There is no Check button.</dt>
+  <dd>It may have been moved off the bar. Open <span class="ui">More</span> and pin <span class="ui">Check</span>. See <a href="toolbar.html">The toolbar and the More menu</a>.</dd>
+</dl>

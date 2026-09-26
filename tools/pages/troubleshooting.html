@@ -1,0 +1,102 @@
+<!--
+title: Troubleshooting
+lede: Fixes for the problems people meet most, by symptom. Most come down to an untrusted project, a setting that is not where Penstock looks, or an engine that answered with an error.
+tags: free
+related: faq, files, settings, security
+-->
+<h2>First, run the doctor</h2>
+
+<p>In a terminal run <code>penstock doctor</code>. In the IDE, right-click in the <a href="tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Doctor</span>. It prints the settings files that apply, the engine, the profiles, and whether the engine answers. Most problems show up right there.</p>
+
+<h2>The editor area is blank</h2>
+
+<ol class="steps">
+  <li>Check that your IDE is version 2025.2 or newer.</li>
+  <li>The diagram editor is a browser view (JCEF) inside the IDE. An IDE that cannot supply JCEF cannot show a diagram. JetBrains' own downloads run on the JetBrains Runtime, which has it. If you pointed the IDE at another Java runtime, point it back.</li>
+  <li>Right-click inside the blank area. If there is an <span class="ui">Open DevTools</span> entry, use it to see the error.</li>
+  <li>Use the <span class="ui">Text</span> tab. The XML is never locked away.</li>
+</ol>
+
+<p>The editor needs no licence. A paid feature explains itself when you reach for it. The rest keeps working.</p>
+
+<h2>A file does not open in its editor</h2>
+
+<ul>
+  <li>The BPMN file type covers <code>bpmn</code>, <code>bpmn.xml</code> and <code>bpmn20.xml</code>. The DMN type covers <code>dmn</code>. If such a file opens as plain XML, the pattern may have been given to another file type in <span class="ui">Settings | Editor | File Types</span>. Move it back.</li>
+  <li>A <code>.form</code> file opens in the form editor only if it is a Camunda Form: a JSON object with <code>components</code>. Other <code>.form</code> files stay with the IntelliJ GUI Designer.</li>
+  <li>The tool window lists only files inside a project content root. A diagram kept outside is not listed.</li>
+</ul>
+
+<h2>Check and lint findings do not appear</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>No markers on the canvas</td><td>The linting button on the canvas turns them off and on. It is hidden while token simulation runs. The findings are also under <strong>Rules</strong> in the check card.</td></tr>
+  <tr><td>"The bpmnlint rules could not run"</td><td>Your <code>.bpmnlintrc</code> uses a bpmnlint plugin. The editor loads plugin rules only from a bundle named by <code>lint.clientBundlePath</code>. See <a href="validation.html#custom-rules">Validation</a>.</td></tr>
+  <tr><td>My own rules are ignored</td><td><code>lint.configPath</code> is relative to the project root. <code>penstock doctor</code> prints the path and says if it is missing.</td></tr>
+  <tr><td>"Running Penstock requires trusting this project first"</td><td>The command-line actions start an external process, which the IDE allows only in a trusted project. Trust the project and run it again.</td></tr>
+  <tr><td>"Penstock could not start"</td><td>The actions run <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited. Start the IDE from a terminal to test.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Deployment fails</h2>
+
+<p>When the engine answers with anything outside 2xx, the message repeats the status and the engine's own answer. Read that first. It is the engine talking. A request that never arrived says <em>Could not reach the engine at &lt;url&gt;</em>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>No engine address</td><td>Neither <code>deployment.url</code> nor the Connection dialog gives one for the profile in force. Use <span class="ui">Connection…</span> in the menu next to Deploy.</td></tr>
+  <tr><td>404 on Camunda 8</td><td>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. An address that ends in <code>/v2</code> works too.</td></tr>
+  <tr><td>401 or 403</td><td>The user or the client may not deploy. Check the sign-in type, user, and secret in <span class="ui">Connection…</span>.</td></tr>
+  <tr><td>OAuth</td><td>A failed token request is reported apart: the endpoint could not be reached, answered with an error, or sent no <code>access_token</code>.</td></tr>
+  <tr><td>"The preDeploy hook failed, nothing was sent"</td><td>Read the hook's output that follows. In an untrusted project a configured <code>preDeploy</code> is not run, and the deployment stops.</td></tr>
+  <tr><td>Certificate errors</td><td>Penstock has no option to skip certificate checks. Trust the certificate in the Java runtime of the IDE.</td></tr>
+  <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the request, 15 for the token.</td></tr>
+  <tr><td>Wrong password saved</td><td>Open <span class="ui">Connection…</span>, type the right one, <span class="ui">Save and Deploy</span>. Set <em>Sign in</em> to <em>Not needed</em> and save to forget it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>See <a href="deployment.html">Deployment</a>.</p>
+
+<h2>Element templates do not appear</h2>
+
+<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the IDE log. See <a href="element-templates.html">Element templates</a>.</p>
+
+<h2>The connector browser is empty or cannot download</h2>
+
+<ul>
+  <li>Press <span class="ui">Retry</span>, or <span class="ui">Check for updates</span>.</li>
+  <li>It needs to reach <code>api.github.com</code> and <code>codeload.github.com</code>, through the IDE's proxy settings. See <a href="security.html">Security and privacy</a>.</li>
+  <li>If it worked before, Penstock uses what it downloaded and says <em>Could not check for a newer release</em>.</li>
+  <li>From a terminal: <code>penstock connectors --refresh</code>.</li>
+</ul>
+
+<h2>The diagram was changed on disk</h2>
+
+<p>A dialog <em>File Changed on Disk</em> asks <span class="ui">Reload</span> or <span class="ui">Keep Editing</span>. See <a href="bpmn-editor.html">The BPMN editor</a>.</p>
+
+<h2>A paid feature asks me to buy Pro</h2>
+
+<p>Your trial may have ended. Run <code>penstock license</code> to see what this machine has. See <a href="sign-in.html">Buying and signing in</a>.</p>
+
+<h2>Test cases will not run</h2>
+
+<ul>
+  <li><em>is not marked deployment.forTests</em>: mark the profile, or confirm once in a terminal or the editor.</li>
+  <li>A step waits and fails: no worker took it in time. Start the worker or mock the step.</li>
+</ul>
+
+<p>See <a href="test-cases.html">Runs and test cases</a>.</p>
+
+<h2>Where else to look</h2>
+
+<ul>
+  <li>The <strong>IDE log</strong>: <span class="ui">Help | Show Log in Finder</span> (or Explorer). Penstock logs under <code>jetbrains.bpmn.editor</code>. Swallowed failures, such as a template that would not parse, are there with a stack trace.</li>
+  <li><strong>DevTools</strong> in the editor: right-click the diagram and choose <span class="ui">Open DevTools</span> to see a frontend error.</li>
+  <li>The <a href="files.html">list of files</a> Penstock reads and writes.</li>
+  <li>The <a href="faq.html">questions and answers</a>.</li>
+</ul>
+
+<h2>Still stuck</h2>
+
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the IDE version, the plugin version, the engine, the output of <code>penstock doctor</code>, and a <code>.bpmn</code> file that shows the problem. Security problems go to <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>, not to a public issue.</p>

@@ -1,0 +1,181 @@
+<!--
+title: penstock.yaml
+lede: One file in your project says what the project is: which engine, which templates, where to deploy. Every key is explained here.
+tags: free
+related: profiles, deployment, files, engine-profiles
+-->
+<h2>What it is for</h2>
+
+<p><code>penstock.yaml</code> is a small text file that you write by hand and commit with your diagrams. The plugin and the command line both read it. So everyone on the team, and your pipeline, gets the same engine, the same rules and the same deployment target. A change to it is reviewed like any other change.</p>
+
+<p>Every key is optional. What you leave out keeps its default.</p>
+
+<h2>Create it</h2>
+
+<ol class="steps">
+  <li>Run <code>penstock init</code> in your project. It writes <code>penstock.yaml</code> with the engine guessed from your diagrams, adds <code>penstock.local.yaml</code> to <code>.gitignore</code>, and installs the <code>penstockw</code> wrapper.</li>
+  <li>Or: open an empty diagram and answer the engine question above the canvas. The file is created for you.</li>
+  <li>Or: in the Penstock tool window, press <span class="ui">Open penstock.yaml</span>. It opens the file, or creates it when there is none.</li>
+</ol>
+
+<h2>An example</h2>
+
+<pre><code># yaml-language-server: $schema=https://kern0x1b.github.io/penstock-release/schema/penstock.schema.json
+
+engine: camunda-7        # classic | camunda-7 | camunda-8 | operaton | cib-seven
+scriptType: groovy       # none | groovy | javascript
+
+elementTemplates:
+  - templates/connectors
+
+linked:
+  - ../order-workers
+
+lint:
+  configPath: rules/.bpmnlintrc
+
+tests:
+  language: kotlin       # java | kotlin
+  out: src/test/kotlin
+  package: com.example.orders.process
+
+deployment:
+  url: http://localhost:8080/engine-rest
+  name: Order handling
+  source: penstock
+
+profiles:
+  test:
+    deployment:
+      url: https://bpm-test.example.com/engine-rest
+      auth:
+        type: basic
+        username: ${BPM_USER:ci}
+  prod:
+    deployment:
+      url: https://bpm.example.com/engine-rest
+      auth:
+        type: oauth
+        clientId: penstock
+        tokenUrl: https://auth.example.com/oauth/token</code></pre>
+
+<h2>Every key</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>engine</code></td><td>Which engine the diagrams are for: <code>classic</code>, <code>camunda-7</code>, <code>camunda-8</code>, <code>operaton</code> or <code>cib-seven</code>. It decides the palette, the properties panel and what deploy does. See <a href="engine-profiles.html">Engines</a>.</td></tr>
+  <tr><td><code>scriptType</code></td><td>Default language of scripts: <code>none</code>, <code>groovy</code> or <code>javascript</code>. For Camunda 7, Operaton and CIB seven only. See <a href="scripts.html">Scripts in their own tab</a>.</td></tr>
+  <tr><td><code>elementTemplates</code></td><td>A list of files and folders with element templates, relative to the project root. A <code>.camunda/element-templates</code> folder next to a diagram or above it is read without being listed. See <a href="element-templates.html">Element templates</a>.</td></tr>
+  <tr><td><code>linked</code></td><td>A list of other repositories, relative to the project root. Their diagrams, workers, delegates and beans count as part of this project. A path that is not checked out is skipped. See <a href="code-links.html">Code links</a>.</td></tr>
+  <tr><td><code>lint.configPath</code></td><td>The <code>.bpmnlintrc</code> to use, relative to the project root. Without it: <code>.bpmnlintrc</code> in the root, or <code>bpmnlint:recommended</code>. See <a href="validation.html">Validation</a>.</td></tr>
+  <tr><td><code>lint.clientBundlePath</code></td><td>A bundle of rules from bpmnlint plugins, for the editor. Needed only when <code>.bpmnlintrc</code> uses a plugin.</td></tr>
+  <tr><td><code>conventions.ids.fromName</code></td><td>Rewrite an element's id when its name changes. <span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>conventions.ids.pattern</code></td><td>The shape of the id. <code>{Type}</code> is the element type, <code>{Name}</code> the name in PascalCase. Default <code>{Type}_{Name}</code>.</td></tr>
+  <tr><td><code>conventions.defaults</code></td><td>Attributes to set on a new element, keyed by its BPMN type such as <code>bpmn:ServiceTask</code>. <span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>tests.language</code>, <code>tests.out</code>, <code>tests.package</code></td><td>Where <code>penstock tests</code> writes tests. See <a href="process-tests.html">Process tests and coverage</a>.</td></tr>
+  <tr><td><code>hooks.preCheck</code>, <code>postCheck</code>, <code>preLayout</code>, <code>postLayout</code>, <code>preDeploy</code>, <code>postDeploy</code></td><td>A command to run before or after a stage. See below.</td></tr>
+  <tr><td><code>deployment.url</code></td><td>Where to deploy. The engine decides what the address means. See <a href="deployment.html">Deployment</a>.</td></tr>
+  <tr><td><code>deployment.name</code></td><td>The deployment's name in the engine. Default <code>Penstock deployment</code>.</td></tr>
+  <tr><td><code>deployment.tenantId</code></td><td>The tenant to deploy to. Empty means the default tenant.</td></tr>
+  <tr><td><code>deployment.source</code></td><td>The source the engine records. Default <code>penstock</code>.</td></tr>
+  <tr><td><code>deployment.changedOnly</code></td><td>Leave out what the engine already has unchanged. On unless you set <code>false</code>.</td></tr>
+  <tr><td><code>deployment.activationTime</code></td><td>An ISO 8601 timestamp when the deployment becomes active. Camunda 7 family.</td></tr>
+  <tr><td><code>deployment.forTests</code></td><td>Marks an engine that test-case runs may deploy test builds to and answer jobs on. See <a href="test-cases.html">Runs and test cases</a>.</td></tr>
+  <tr><td><code>deployment.auth.type</code></td><td><code>none</code>, <code>basic</code> or <code>oauth</code>.</td></tr>
+  <tr><td><code>deployment.auth.username</code></td><td>The user for <code>basic</code>.</td></tr>
+  <tr><td><code>deployment.auth.clientId</code>, <code>tokenUrl</code>, <code>audience</code></td><td>For <code>oauth</code>.</td></tr>
+  <tr><td><code>profile</code></td><td>The profile in force. <code>PENSTOCK_PROFILE</code> wins. See <a href="profiles.html">Profiles</a>.</td></tr>
+  <tr><td><code>profiles</code></td><td>Named sets of overrides. See <a href="profiles.html">Profiles</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>A file that has a key Penstock does not know is marked by the schema in the IDE. The schema is at <a href="../schema/penstock.schema.json">schema/penstock.schema.json</a>. The plugin carries its own copy, which is always the one that matches your version.</p>
+
+<p>There are no layout settings. Auto layout uses its own spacing and <code>.bpmnlayoutrc</code> is not read.</p>
+
+<h2>Who wins when several files say different things</h2>
+
+<p>Four layers, in order. Each later one overrides the earlier ones.</p>
+
+<ol class="steps">
+  <li><strong><code>penstock.yaml</code></strong>: the project's answer, committed. Penstock reads every folder from the project root down to the diagram and merges them, so the file nearest the diagram wins.</li>
+  <li><strong><code>penstock.local.yaml</code></strong>: this machine's answer, in the same folders, read right after the file beside it. Keep it out of version control. Penstock adds it to <code>.gitignore</code> when it writes one.</li>
+  <li><strong><code>profiles.&lt;name&gt;</code></strong>: the profile in force, laid over the merged result.</li>
+  <li><strong><code>PENSTOCK_*</code> environment variables</strong>: the last word. The name is the key path in capitals joined by underscores: <code>PENSTOCK_DEPLOYMENT_URL</code>, <code>PENSTOCK_ENGINE</code>, <code>PENSTOCK_LINT_CONFIGPATH</code>. <code>true</code> and <code>false</code> and whole numbers are read as such.</li>
+</ol>
+
+<p>Also accepted: <code>penstock.yml</code> and <code>penstock.json</code>, and their <code>.local</code> versions.</p>
+
+<h3>Use an environment variable inside the file</h3>
+
+<p>Any text value may reference the environment: <code>${VAR}</code>, or <code>${VAR:fallback}</code> when it may be missing. That is how a value gets in without being written down.</p>
+
+<pre><code>auth:
+  username: ${BPM_USER:ci}</code></pre>
+
+<h2>Rules the editor applies for you</h2>
+
+<p>Camunda advises readable technical ids. Put your convention in the file and the editor applies it. <span class="tag pro">Pro</span></p>
+
+<pre><code>conventions:
+  ids:
+    fromName: true
+    pattern: "{Type}_{Name}"      # "Check stock" on a service task -> ServiceTask_CheckStock
+  defaults:
+    bpmn:ServiceTask:
+      camunda:asyncBefore: true</code></pre>
+
+<p><code>ids</code> rewrites the id when the name changes, and adds a number rather than colliding. <code>defaults</code> sets attributes on an element as it is created. Changing a task into a service task counts as creating one. Both happen inside the same editing step, so one Undo takes them back together with the change that caused them.</p>
+
+<h2>Commands around a stage</h2>
+
+<pre><code>hooks:
+  preDeploy: npm run verify-workers
+  postDeploy: ./notify-release.sh
+  postLayout: git add -A</code></pre>
+
+<p>A hook runs in the project root when the command line reaches that stage. It sees <code>PENSTOCK_FILES</code> (one file per line), <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. <code>preDeploy</code> and <code>postDeploy</code> also run around a deployment from the IDE, and there only in a trusted project. A <code>pre</code> hook that exits with a non-zero code stops the stage. That is how a project says "not without this check".</p>
+
+<h2>Secrets</h2>
+
+<p>Passwords, tokens and client secrets are never read from these files and never written to them. In the IDE they go to the password safe, separately for each profile, when you type them into the Connection dialog. On the command line they come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. A user name or a client id is not a secret and may be in the file.</p>
+
+<h2>What is not in the file</h2>
+
+<p>Anything about how your editor looks: which toolbar actions are pinned, Sketchy Drawing, tree or flat view in the tool window, the last export format. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+
+<h2>Completion in the IDE</h2>
+
+<p>The plugin ships the schema and registers it for <code>penstock.yaml</code>, <code>penstock.yml</code>, <code>penstock.json</code> and the <code>.local</code> versions. Completion, validation and hover help work with no setup and no network. The first line of the generated file, <code>yaml-language-server</code>, is for other editors such as VS Code.</p>
+
+<p>A file that cannot be read is reported in a notification that names the file and the error. The previous answer stays in force until the file parses again.</p>
+
+<h2>Coming from the old IDE settings</h2>
+
+<p>Older projects kept this in <code>.idea/bpmn-project.xml</code>. That file is legacy. If a project has settings there and no <code>penstock.yaml</code>, a notification offers to write one. Penstock has no page in <span class="ui">Settings</span>.</p>
+
+<h2>What to commit</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>penstock.yaml</code></td><td>Commit it.</td></tr>
+  <tr><td><code>penstock.local.yaml</code></td><td>Do not commit it. It is where your machine differs from the project.</td></tr>
+  <tr><td><code>.bpmnlintrc</code>, <code>.camunda/element-templates</code></td><td>Commit them.</td></tr>
+  <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Commit them. Reviewing them next to code is the point.</td></tr>
+  <tr><td>Credentials</td><td>Nothing to commit. They live in the IDE password safe.</td></tr>
+  <tr><td><code>.bpmnlayoutrc</code></td><td>Not read any more. Delete it.</td></tr>
+  <tr><td><code>penstockw</code>, <code>penstockw.cmd</code>, <code>penstock/wrapper/penstock-wrapper.properties</code></td><td>Commit them, so everyone runs the same version of the command line.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My setting is ignored.</dt>
+  <dd>A nearer file, the local file, the profile or an environment variable may override it. Run <code>penstock doctor --format json</code>. It prints the settings that apply after all four layers.</dd>
+  <dt>The editor says it cannot read my file.</dt>
+  <dd>The YAML is not valid. The notification names the line. Fix it. The old answer stays until then.</dd>
+  <dt>An editor marks a valid key as unknown.</dt>
+  <dd>That editor is reading the schema from the URL in the first line of the file, and the copy on this site can be older than your plugin. The IDE with Penstock uses the plugin's own copy. The warning does not change how Penstock reads the file.</dd>
+</dl>

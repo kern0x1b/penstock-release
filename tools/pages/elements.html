@@ -1,0 +1,119 @@
+<!--
+title: BPMN elements
+lede: Every element you can draw, what it is for, and how to find it.
+tags: free
+related: editing, properties-panel, engine-profiles
+-->
+<h2>Add an element</h2>
+
+<ol class="steps">
+  <li>Look at the palette, the strip at the left edge of the canvas. It has the elements most diagrams need.</li>
+  <li>Drag one onto the canvas. Or click it, then click on the canvas.</li>
+  <li>For any other element, press <span class="ui">Create element</span> at the foot of the palette. Type to search, or open a group.</li>
+</ol>
+
+<p>The same catalogue opens from the pad of an element you have selected. There it appends the element you choose to the selected one, already connected.</p>
+
+<figure class="shot">
+  <img src="@img/create-element.png" alt="The Create element catalogue open over the diagram">
+  <figcaption><strong>Create element</strong> groups every element by what it is for, and searches by name.</figcaption>
+</figure>
+
+<h2>The palette</h2>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Item</th><th>What it is for</th></tr></thead>
+  <tbody>
+  <tr><td>Hand tool</td><td>Moves the canvas without selecting anything.</td></tr>
+  <tr><td>Lasso tool</td><td>Selects everything inside a rectangle.</td></tr>
+  <tr><td>Space tool</td><td>Adds or removes empty space. Everything past the line you drag moves.</td></tr>
+  <tr><td>Global connect tool</td><td>Draws a connection that starts from any element.</td></tr>
+  <tr><td>Start event</td><td>Where a process or a path begins.</td></tr>
+  <tr><td>Intermediate / boundary event</td><td>Something the process waits for or sends partway. Dropped on the border of a task, it becomes a boundary event.</td></tr>
+  <tr><td>End event</td><td>Where a path ends.</td></tr>
+  <tr><td>Gateway</td><td>A split or a join of the path.</td></tr>
+  <tr><td>Task</td><td>A step of work.</td></tr>
+  <tr><td>Expanded sub-process</td><td>A process drawn inside another.</td></tr>
+  <tr><td>Data object reference</td><td>Data that lives as long as the process instance.</td></tr>
+  <tr><td>Data store reference</td><td>Data that outlives the instance.</td></tr>
+  <tr><td>Pool / participant</td><td>An organisation or system taking part.</td></tr>
+  <tr><td>Group</td><td>A visual box around elements. It has no meaning when the process runs.</td></tr>
+  <tr><td>Create element</td><td>Opens the catalogue.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The catalogue</h2>
+
+<h3>Tasks</h3>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Task</td><td>An unspecified step. Often a placeholder.</td></tr>
+  <tr><td>User task</td><td>Work a person has to do.</td></tr>
+  <tr><td>Service task</td><td>Automated work done by a job worker or a connector.</td></tr>
+  <tr><td>Business rule task</td><td>Evaluates a business rule, usually a DMN decision.</td></tr>
+  <tr><td>Script task</td><td>Runs a script. On Camunda 7 the script can open as an editor tab. See <a href="scripts.html">Scripts in their own tab</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Gateways</h3>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Exclusive gateway</td><td>Sends the token down one path, chosen by data.</td></tr>
+  <tr><td>Parallel gateway</td><td>Splits into parallel paths, or joins them.</td></tr>
+  <tr><td>Event-based gateway</td><td>Follows the path of whichever event happens first.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Sub-processes</h3>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Call activity</td><td>Calls another process, like a function call.</td></tr>
+  <tr><td>Transaction</td><td>A sub-process that completes as a whole, or is compensated.</td></tr>
+  <tr><td>Event sub-process</td><td>A sub-process started by an event in its scope.</td></tr>
+  <tr><td>Sub-process, collapsed</td><td>Shown as one box. Double-click to open it in its own view.</td></tr>
+  <tr><td>Sub-process, expanded</td><td>Drawn inline, with its contents.</td></tr>
+  <tr><td>Ad-hoc sub-process</td><td>Activities run in any order, any number of times. Collapsed or expanded.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Events</h3>
+
+<p>Events are grouped by where they sit in the flow, because the same trigger means different things in each place.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Start events</td><td>Where a process or path begins.</td></tr>
+  <tr><td>Intermediate catch events</td><td>Wait for something to happen, then continue.</td></tr>
+  <tr><td>Intermediate throw events</td><td>Send something, then continue.</td></tr>
+  <tr><td>Boundary events</td><td>React to something while a task runs. An interrupting one cancels the task. A non-interrupting one leaves it running.</td></tr>
+  <tr><td>End events</td><td>Where a path ends.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Inside each group are the triggers BPMN defines: message, timer, error, escalation, signal, compensation, conditional, link and terminate. Only the ones that are allowed in that place are offered.</p>
+
+<h3>Data and participants</h3>
+
+<p>Data object reference and data store reference are drawn as in the palette. A pool stands for an organisation or a system. Two pools in one diagram make a <em>collaboration</em>. Only a message flow may cross between pools. Lanes divide a pool by role or department. They carry no meaning when the process runs.</p>
+
+<h2>Change an element into another</h2>
+
+<p>Select it and press the wrench on its pad. The menu offers what the element can legally become. The name, connections and properties that still apply are kept.</p>
+
+<h2>What changes with the engine</h2>
+
+<p>The palette and the catalogue are the same for every engine. What changes is what the properties panel offers and which namespace is written into the file. See <a href="engine-profiles.html">Engines</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I cannot find an element in the palette.</dt>
+  <dd>Use <span class="ui">Create element</span>. It has every element.</dd>
+  <dt>My boundary event will not attach.</dt>
+  <dd>Drop it on the border of a task or sub-process, not inside.</dd>
+  <dt>I need a Camunda-specific task, for example a connector.</dt>
+  <dd>Use an <a href="element-templates.html">element template</a> on a service task.</dd>
+</dl>

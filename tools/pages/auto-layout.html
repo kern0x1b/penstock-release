@@ -1,0 +1,86 @@
+<!--
+title: Auto layout
+lede: Auto layout draws your whole diagram again, left to right and tidy, from what the process means.
+tags: pro
+needs: Team in a pipeline
+related: diagram-check, diagram-diff, cli-reference
+-->
+<h2>What it is</h2>
+
+<p>Auto layout is not a tidier. It throws away the positions in the file and places every element again from the process model. A messy diagram comes back readable. A diagram you drew with care comes back arranged by the engine's rules, not yours.</p>
+
+<figure class="shot">
+  <img src="@img/auto-layout-before.png" alt="A diagram whose shapes overlap and whose connections no longer meet them">
+  <figcaption>Before: shapes have been moved on top of each other and the connections no longer reach them.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/auto-layout-after.png" alt="The same diagram after auto layout">
+  <figcaption>After: the same elements, laid out left to right, with every connection routed around the shapes.</figcaption>
+</figure>
+
+<h2>Run it</h2>
+
+<ol class="steps">
+  <li>Open the diagram.</li>
+  <li>Press <span class="ui">Auto Layout</span> on the toolbar.</li>
+  <li>The diagram is laid out at once. A message says so and has an <span class="ui">Undo</span> button.</li>
+  <li>Look at the result. If it reads worse, press <span class="ui">Undo</span> in the message or on the toolbar.</li>
+</ol>
+
+<p>There is no separate preview and no save step. The change goes through the same undo stack as any other edit, and the new positions are written to the file as they land on the canvas. To compare with the saved version, use the <a href="diagram-diff.html">diagram diff</a>.</p>
+
+<p>From a terminal, <code>penstock layout .</code> says what would change. <code>penstock layout . --write</code> saves it. See <a href="cli-reference.html#layout">Every command</a>.</p>
+
+<h2>How it decides</h2>
+
+<ul>
+  <li>Elements are put in columns, left to right, by the longest chain of flows that reaches them. The flow reads left to right whichever way it was drawn.</li>
+  <li>Elements in one column are spread into rows, in an order that keeps connections from crossing.</li>
+  <li>A sub-process or a pool is sized by what is inside it.</li>
+  <li>Pools that exchange messages are stacked near each other.</li>
+  <li>Connections are routed around shapes, with only horizontal and vertical segments.</li>
+  <li>Labels and annotations are placed last, against the routes that were drawn.</li>
+  <li>Penstock builds several arrangements, measures each one and keeps the best.</li>
+</ul>
+
+<h2>What it will never do</h2>
+
+<p>These are checked on every diagram in a test set of 88 real diagrams, and a layout that breaks one fails the tests:</p>
+
+<ul>
+  <li>No two shapes overlap.</li>
+  <li>No connection goes through a shape that it does not connect.</li>
+  <li>Both ends of every connection stay on their element.</li>
+  <li>Nothing leaves the pool, lane or sub-process it belongs to.</li>
+  <li>A boundary event stays on the border of its task.</li>
+  <li>Every segment is horizontal or vertical.</li>
+  <li>No connection doubles back.</li>
+  <li>Labels do not land on each other.</li>
+  <li>Nothing changes what the diagram means: no element changes parent, no connection changes source or target.</li>
+</ul>
+
+<p>One thing is removed: if the file has two connections of the same type from the same source to the same target, the second is deleted first.</p>
+
+<h2>What it trades away</h2>
+
+<p>Keeping every route out of every shape costs crossings and length. A message flow between two pools that are not neighbours has to go around the pools in between. People drawing by hand put the two communicating tasks above each other and draw a short line. The engine does not, because that costs more room and more crossings overall.</p>
+
+<p>So a diagram you tuned by hand may read better in places than the result. Use auto layout on a diagram you did not draw, on one edited until it is unreadable, and on generated output. On a diagram you have tuned, look at the result before you go on.</p>
+
+<h2>Spacing is not a setting</h2>
+
+<p>The engine is tuned to its own spacing. A few pixels either way made its layouts worse. So <code>layout</code> in <code>penstock.yaml</code> and <code>.bpmnlayoutrc</code> are not read. Delete an old <code>.bpmnlayoutrc</code>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The button asks me to buy Pro.</dt>
+  <dd>Auto layout is a Pro feature. The message explains it and offers to buy or sign in. See <a href="sign-in.html">Buying and signing in</a>.</dd>
+  <dt>It says "Stop Token Simulation before editing the diagram".</dt>
+  <dd>Auto layout is blocked while a simulation runs. Press <span class="ui">Simulate</span> to stop it.</dd>
+  <dt>I do not like the result.</dt>
+  <dd>Press Undo. One press takes the whole layout back.</dd>
+  <dt>The diagram changed a lot in Git.</dt>
+  <dd>Every element may have moved. Use the <a href="diagram-diff.html">diagram diff</a>: it marks elements that only moved apart from real changes.</dd>
+</dl>
