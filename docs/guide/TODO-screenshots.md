@@ -13,6 +13,7 @@ shows a colour that matters. Keep the file names in `docs/img/`.
 |---|---|---|
 | `img/test-case-runs/05-ide-test-runner.png` | An "IDE error occurred" notification is in the corner. Not used on the site. | none |
 | `img/migration/01-camunda-8-in-the-more-menu.png` | Shows the action as "Camunda 8". It is now "Migrate to Camunda 8" and pinned to the toolbar. Not used on the site. | none |
+| `img/test-case-runs/06-test-case-gutter.png` | The tool window node "Tests", now "Code tests" | jetbrains/tool-window, jetbrains/test-runner |
 | `img/migration/02-check-card-camunda-8-section.png` | The section is headed "Camunda 8". It is now "Migrate to Camunda 8". Used, with a caption that says so. | migration |
 | `img/settings-penstock.png` | The old Settings | Tools | Penstock page, which no longer exists. Not used. Kept so an old link keeps working. | none |
 | `img/editor-overview.png`, `properties-panel.png`, `classic-io.png`, `goto-class.png`, `create-element.png`, `token-simulation.png`, `export-dialog.png`, `diagram-check-problems.png`, `diagram-check-selected.png`, `diagram-check-clean.png`, `auto-layout-before.png`, `auto-layout-after.png` | Taken before the toolbar was redrawn: they show the earlier icon-only bar (no words, no Deploy button on the right). The card, dialog and canvas content is still right. Retake in the current IDE. The site still uses them, except `editor-overview.png` and `diagram-check-clean.png`. | properties-panel, editing, elements, token-simulation, export, diagram-check, auto-layout |
@@ -26,6 +27,7 @@ the old names and should be retaken. The captions on the site say so where it ma
 |---|---|---|
 | `img/test-case-runs/01-runs-panel-passed.png`, `02-run-with-input-dialog.png`, `03-waiting-for-an-answer.png` | "Live" and "Runs" on the toolbar, and a panel titled "Runs" | run-tests |
 | `img/share-and-import/more-menu.png` | "Live" and "Runs" in the More menu | toolbar, share-html |
+| `img/test-case-runs/06-test-case-gutter.png` | The tool window node "Tests", now "Code tests" | jetbrains/tool-window, jetbrains/test-runner |
 | `img/migration/02-check-card-camunda-8-section.png` | "Live" and "Runs" on the toolbar | bpmn-editor, getting-started, migration, home page |
 
 ## Pages with no picture
