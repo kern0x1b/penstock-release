@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html" aria-current="page">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -121,8 +114,7 @@
 <li><a href="#commands-around-a-stage">Commands around a stage</a></li>
 <li><a href="#secrets">Secrets</a></li>
 <li><a href="#what-is-not-in-the-file">What is not in the file</a></li>
-<li><a href="#completion-in-the-ide">Completion in the IDE</a></li>
-<li><a href="#coming-from-the-old-ide-settings">Coming from the old IDE settings</a></li>
+<li><a href="#completion-and-validation">Completion and validation</a></li>
 <li><a href="#what-to-commit">What to commit</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -137,10 +129,23 @@
 <h2 id="create-it"><a href="#create-it">Create it</a></h2>
 
 <ol class="steps">
-  <li>Run <code>penstock init</code> in your project. It writes <code>penstock.yaml</code> with the engine guessed from your diagrams, adds <code>penstock.local.yaml</code> to <code>.gitignore</code>, and installs the <code>penstockw</code> wrapper.</li>
-  <li>Or: open an empty diagram and answer the engine question above the canvas. The file is created for you.</li>
-  <li>Or: in the Penstock tool window, press <span class="ui">Open penstock.yaml</span>. It opens the file, or creates it when there is none.</li>
+  <li>Open an empty diagram and answer the engine question above the canvas. The file is created for you.</li>
+  <li>Or create it with <code>penstock init</code>, which writes it with the engine guessed from your diagrams, adds <code>penstock.local.yaml</code> to <code>.gitignore</code>, and installs the <code>penstockw</code> wrapper.</li>
 </ol>
+
+<div class="hosts">
+<p class="hosts-title">Open or create it in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> press <span class="ui">Open penstock.yaml</span>. It opens the file, or creates it when there is none. When a project still has settings in <code>.idea/bpmn-project.xml</code> and no <code>penstock.yaml</code>, a notification offers to write one from them. Penstock has no page in <span class="ui">Settings</span>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>Run <code>penstock init</code>. To see which files and settings apply, run <code>penstock doctor</code>, or <code>penstock doctor --format json</code> for the result after all layers.</p>
+</section>
+</div>
+</div>
 
 <h2 id="an-example"><a href="#an-example">An example</a></h2>
 
@@ -205,7 +210,7 @@ profiles:
   <tr><td><code>deployment.source</code></td><td>The source the engine records. Default <code>penstock</code>.</td></tr>
   <tr><td><code>deployment.changedOnly</code></td><td>Leave out what the engine already has unchanged. On unless you set <code>false</code>.</td></tr>
   <tr><td><code>deployment.activationTime</code></td><td>An ISO 8601 timestamp when the deployment becomes active. Camunda 7 family.</td></tr>
-  <tr><td><code>deployment.forTests</code></td><td>Marks an engine that test-case runs may deploy test builds to and answer jobs on. See <a href="test-cases.html">Runs and test cases</a>.</td></tr>
+  <tr><td><code>deployment.forTests</code></td><td>Marks an engine that test-case runs may deploy test builds to and answer jobs on. See <a href="run-tests.html">Run tests</a>.</td></tr>
   <tr><td><code>deployment.auth.type</code></td><td><code>none</code>, <code>basic</code> or <code>oauth</code>.</td></tr>
   <tr><td><code>deployment.auth.username</code></td><td>The user for <code>basic</code>.</td></tr>
   <tr><td><code>deployment.auth.clientId</code>, <code>tokenUrl</code>, <code>audience</code></td><td>For <code>oauth</code>.</td></tr>
@@ -214,7 +219,7 @@ profiles:
   </tbody>
 </table></div></div>
 
-<p>A file that has a key Penstock does not know is marked by the schema in the IDE. The schema is at <a href="../schema/penstock.schema.json">schema/penstock.schema.json</a>. The plugin carries its own copy, which is always the one that matches your version.</p>
+<p>A file that has a key Penstock does not know is marked by the schema. The schema is at <a href="../schema/penstock.schema.json">schema/penstock.schema.json</a>. Each tool carries its own copy, which is always the one that matches its version.</p>
 
 <p>There are no layout settings. Auto layout uses its own spacing and <code>.bpmnlayoutrc</code> is not read.</p>
 
@@ -259,25 +264,35 @@ profiles:
   postDeploy: ./notify-release.sh
   postLayout: git add -A</code></pre>
 
-<p>A hook runs in the project root when the command line reaches that stage. It sees <code>PENSTOCK_FILES</code> (one file per line), <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. <code>preDeploy</code> and <code>postDeploy</code> also run around a deployment from the IDE, and there only in a trusted project. A <code>pre</code> hook that exits with a non-zero code stops the stage. That is how a project says "not without this check".</p>
+<p>A hook runs in the project root when Penstock reaches that stage. It sees <code>PENSTOCK_FILES</code> (one file per line), <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. <code>preDeploy</code> and <code>postDeploy</code> also run around a deployment from an editor, and there only in a trusted project. A <code>pre</code> hook that exits with a non-zero code stops the stage. That is how a project says "not without this check".</p>
 
 <h2 id="secrets"><a href="#secrets">Secrets</a></h2>
 
-<p>Passwords, tokens and client secrets are never read from these files and never written to them. In the IDE they go to the password safe, separately for each profile, when you type them into the Connection dialog. On the command line they come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. A user name or a client id is not a secret and may be in the file.</p>
+<p>Passwords, tokens and client secrets are never read from these files and never written to them. In the editor they go to the secret store of your tool, separately for each profile, when you type them into the Connection dialog. On the command line they come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. A user name or a client id is not a secret and may be in the file.</p>
 
 <h2 id="what-is-not-in-the-file"><a href="#what-is-not-in-the-file">What is not in the file</a></h2>
 
-<p>Anything about how your editor looks: which toolbar actions are pinned, Sketchy Drawing, tree or flat view in the tool window, the last export format. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+<p>Anything about how your editor looks: which toolbar actions are pinned, Sketchy Drawing, tree or flat view of the project model, the last export format. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
 
-<h2 id="completion-in-the-ide"><a href="#completion-in-the-ide">Completion in the IDE</a></h2>
+<h2 id="completion-and-validation"><a href="#completion-and-validation">Completion and validation</a></h2>
 
-<p>The plugin ships the schema and registers it for <code>penstock.yaml</code>, <code>penstock.yml</code>, <code>penstock.json</code> and the <code>.local</code> versions. Completion, validation and hover help work with no setup and no network. The first line of the generated file, <code>yaml-language-server</code>, is for other editors such as VS Code.</p>
+<p>The file starts with a <code>yaml-language-server</code> line that names the JSON schema. Editors that understand it, such as VS Code, give completion, validation and hover help. Tools that ship Penstock carry their own copy of the schema, so it also works with no network. See below for your tool.</p>
 
-<p>A file that cannot be read is reported in a notification that names the file and the error. The previous answer stays in force until the file parses again.</p>
+<div class="hosts">
+<p class="hosts-title">In your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The plugin registers the schema for <code>penstock.yaml</code>, <code>penstock.yml</code>, <code>penstock.json</code> and the <code>.local</code> versions. Completion, validation and hover help work with no setup and no network.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line does not edit files. penstock doctor reports a file it cannot read.</p>
+</section>
+</div>
+</div>
 
-<h2 id="coming-from-the-old-ide-settings"><a href="#coming-from-the-old-ide-settings">Coming from the old IDE settings</a></h2>
-
-<p>Older projects kept this in <code>.idea/bpmn-project.xml</code>. That file is legacy. If a project has settings there and no <code>penstock.yaml</code>, a notification offers to write one. Penstock has no page in <span class="ui">Settings</span>.</p>
+<p>A file that cannot be read is reported in a message that names the file and the error. The previous answer stays in force until the file parses again.</p>
 
 <h2 id="what-to-commit"><a href="#what-to-commit">What to commit</a></h2>
 
@@ -287,7 +302,7 @@ profiles:
   <tr><td><code>penstock.local.yaml</code></td><td>Do not commit it. It is where your machine differs from the project.</td></tr>
   <tr><td><code>.bpmnlintrc</code>, <code>.camunda/element-templates</code></td><td>Commit them.</td></tr>
   <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Commit them. Reviewing them next to code is the point.</td></tr>
-  <tr><td>Credentials</td><td>Nothing to commit. They live in the IDE password safe.</td></tr>
+  <tr><td>Credentials</td><td>Nothing to commit. They live in the secret store of your tool.</td></tr>
   <tr><td><code>.bpmnlayoutrc</code></td><td>Not read any more. Delete it.</td></tr>
   <tr><td><code>penstockw</code>, <code>penstockw.cmd</code>, <code>penstock/wrapper/penstock-wrapper.properties</code></td><td>Commit them, so everyone runs the same version of the command line.</td></tr>
   </tbody>
@@ -296,7 +311,7 @@ profiles:
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>In the IDE, completion and hover help while you type in <code>penstock.yaml</code>.</li>
+  <li>Completion and hover help while you type in <code>penstock.yaml</code>, in tools that read the schema.</li>
   <li><code>penstock doctor</code> lists which files apply, the engine and the profiles.</li>
 </ul>
 
@@ -308,7 +323,7 @@ profiles:
   <dt>The editor says it cannot read my file.</dt>
   <dd>The YAML is not valid. The notification names the line. Fix it. The old answer stays until then.</dd>
   <dt>An editor marks a valid key as unknown.</dt>
-  <dd>That editor is reading the schema from the URL in the first line of the file, and the copy on this site can be older than your plugin. The IDE with Penstock uses the plugin's own copy. The warning does not change how Penstock reads the file.</dd>
+  <dd>That editor is reading the schema from the URL in the first line of the file, and the copy on this site can be older than your version of Penstock. A tool with Penstock uses its own copy. The warning does not change how Penstock reads the file.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
@@ -330,6 +345,8 @@ profiles:
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

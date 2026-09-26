@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Penstock guide - Penstock</title>
-<meta name="description" content="The Penstock guide: install, edit BPMN, DMN and forms, check, deploy, run tests, migrate Camunda 7 to 8, use the command line, licences and privacy.">
+<meta name="description" content="The Penstock guide: edit BPMN, DMN and forms, check, deploy, run tests, migrate Camunda 7 to 8, licences and privacy. Then pick your tool: JetBrains or the command line.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/" aria-current="page">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -106,21 +99,21 @@
   </nav>
 <main class="doc" id="content">
 <h1>Penstock guide</h1>
-<p class="lede">Everything Penstock does, one page for each thing, written so it can be followed one step at a time.</p>
+<p class="lede">Everything Penstock does, one page for each thing, written so it can be followed one step at a time. It works the same in every tool.</p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
 <li><a href="#start-with-what-you-want-to-do">Start with what you want to do</a></li>
-<li><a href="#how-every-page-is-built">How every page is built</a></li>
+<li><a href="#how-the-documentation-is-organised">How the documentation is organised</a></li>
 <li><a href="#start-here">Start here</a></li>
 <li><a href="#editors">Editors</a></li>
 <li><a href="#project-setup">Project setup</a></li>
 <li><a href="#checking">Checking</a></li>
 <li><a href="#running">Running</a></li>
 <li><a href="#moving-and-sharing">Moving and sharing</a></li>
-<li><a href="#command-line">Command line</a></li>
 <li><a href="#licence-and-privacy">Licence and privacy</a></li>
 <li><a href="#help">Help</a></li>
+<li><a href="#pick-your-tool">Pick your tool</a></li>
 <li><a href="#if-a-page-does-not-answer-your-question">If a page does not answer your question</a></li>
 </ul>
 </nav>
@@ -129,15 +122,15 @@
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>I want to</th><th>Read</th></tr></thead>
   <tbody>
-  <tr><td>Install Penstock</td><td><a href="installing.html">Installing</a></td></tr>
+  <tr><td>Get Penstock</td><td><a href="getting-started.html#1-get-penstock">Getting started</a>, then the page of your tool below</td></tr>
   <tr><td>Try it on a project that already works</td><td><a href="example-project.html">The example project</a></td></tr>
   <tr><td>Draw my first diagram</td><td><a href="getting-started.html">Getting started</a>, then <a href="editing.html">Editing a diagram</a></td></tr>
   <tr><td>Find out why my diagram has a warning</td><td><a href="diagram-check.html">Diagram check</a> and <a href="../rules/">Every rule</a></td></tr>
   <tr><td>Send my process to the engine</td><td><a href="deployment.html">Deployment</a></td></tr>
-  <tr><td>Test a process without writing code</td><td><a href="test-cases.html">Runs and test cases</a></td></tr>
+  <tr><td>Test a process without writing code</td><td><a href="run-tests.html">Run tests</a></td></tr>
   <tr><td>Move from Camunda 7 to Camunda 8</td><td><a href="migration.html">Camunda 7 to 8</a></td></tr>
-  <tr><td>Check diagrams on every push</td><td><a href="ci.html">Pipelines, reports and the bot</a></td></tr>
-  <tr><td>Send a diagram to someone who has no IDE</td><td><a href="share-html.html">Share as HTML</a></td></tr>
+  <tr><td>Check diagrams on every push</td><td><a href="../cli/ci.html">Pipelines, reports and the bot</a></td></tr>
+  <tr><td>Send a diagram to someone who has no editor</td><td><a href="share-html.html">Share as HTML</a></td></tr>
   <tr><td>Bring in a diagram from draw.io or Visio</td><td><a href="import.html">Import a diagram</a></td></tr>
   <tr><td>Know what is free and what costs money</td><td><a href="plans.html">Plans and licence</a></td></tr>
   <tr><td>Know what leaves my machine</td><td><a href="security.html">Security and privacy</a></td></tr>
@@ -146,16 +139,17 @@
   </tbody>
 </table></div></div>
 
-<h2 id="how-every-page-is-built"><a href="#how-every-page-is-built">How every page is built</a></h2>
+<h2 id="how-the-documentation-is-organised"><a href="#how-the-documentation-is-organised">How the documentation is organised</a></h2>
 
-<p>Each page starts with one sentence that says what the feature is for. Then come numbered steps, then what you should see, then the problems people meet most often and how to fix them. A tag shows if a feature is free, or needs Pro. See <a href="plans.html">Plans and licence</a>.</p>
+<p>The <strong>Guide</strong> on these pages describes what Penstock does. It is written once and is the same in every tool. Where a step depends on your tool, a small block on the page shows it for each tool.</p>
 
-<p>The guide covers the plugin and the <code>penstock</code> command line. Both read the same <code>penstock.yaml</code> and give the same answers.</p>
+<p>Each <strong>tool</strong> has its own section for what is special about it: how to install it, where things are, and the features that need it. Pick yours at the end of this page.</p>
+
+<p>Each page starts with one sentence that says what the feature is for. Then come numbered steps, what you should see, and the problems people meet most often. A tag shows if a feature is free or needs Pro. See <a href="plans.html">Plans and licence</a>.</p>
 
 <h2 id="start-here"><a href="#start-here">Start here</a></h2>
 <div class="cards">
-<a class="card" href="../guide/installing.html"><strong>Installing</strong><span>Put Penstock into your IDE and check that it works.</span></a>
-<a class="card" href="../guide/getting-started.html"><strong>Getting started</strong><span>From an empty IDE to a checked, deployed process.</span></a>
+<a class="card" href="../guide/getting-started.html"><strong>Getting started</strong><span>Get Penstock, open a diagram, deploy it.</span></a>
 <a class="card" href="../guide/example-project.html"><strong>The example project</strong><span>A small order process that runs from the first minute.</span></a>
 <a class="card" href="../guide/glossary.html"><strong>Words used in this guide</strong><span>Every technical word, explained once.</span></a>
 </div>
@@ -166,7 +160,7 @@
 <a class="card" href="../guide/properties-panel.html"><strong>Properties panel</strong><span>Edit the selected element, group by group.</span></a>
 <a class="card" href="../guide/elements.html"><strong>BPMN elements</strong><span>Every element you can draw, and what it is for.</span></a>
 <a class="card" href="../guide/editing.html"><strong>Editing a diagram</strong><span>The canvas, the palette, copy and paste, undo, the minimap.</span></a>
-<a class="card" href="../guide/scripts.html"><strong>Scripts in their own tab</strong><span>Edit an inline script as a real file in the IDE.</span></a>
+<a class="card" href="../guide/scripts.html"><strong>Scripts in their own tab</strong><span>Edit an inline script as a real file in your code editor.</span></a>
 <a class="card" href="../guide/element-templates.html"><strong>Element templates</strong><span>Ready-made tasks and connectors.</span></a>
 <a class="card" href="../guide/token-simulation.html"><strong>Token simulation</strong><span>Watch a token walk through the process.</span></a>
 <a class="card" href="../guide/export.html"><strong>Export</strong><span>Save the diagram as SVG, PNG or PDF.</span></a>
@@ -179,7 +173,7 @@
 <a class="card" href="../guide/engine-profiles.html"><strong>Engines</strong><span>Camunda 7, Camunda 8, Operaton and CIB seven.</span></a>
 <a class="card" href="../guide/settings.html"><strong>penstock.yaml</strong><span>The one file that describes your project, and every key in it.</span></a>
 <a class="card" href="../guide/profiles.html"><strong>Profiles</strong><span>Named settings for dev, test and prod.</span></a>
-<a class="card" href="../guide/tool-window.html"><strong>The Penstock tool window</strong><span>Your project as a model: processes, workers, messages, decisions.</span></a>
+<a class="card" href="../guide/project-model.html"><strong>Your project as a model</strong><span>Processes, workers, variables, messages, decisions and forms, and how they connect.</span></a>
 <a class="card" href="../guide/files.html"><strong>Files Penstock reads and writes</strong><span>Every file, and where it lives.</span></a>
 </div>
 <h2 id="checking"><a href="#checking">Checking</a></h2>
@@ -193,24 +187,17 @@
 <h2 id="running"><a href="#running">Running</a></h2>
 <div class="cards">
 <a class="card" href="../guide/deployment.html"><strong>Deployment</strong><span>Send diagrams to your engine.</span></a>
-<a class="card" href="../guide/live.html"><strong>Live</strong><span>See what waits on each element right now.</span></a>
-<a class="card" href="../guide/test-cases.html"><strong>Runs and test cases</strong><span>Run a process step by step, with mocks, and keep the run as a test.</span></a>
+<a class="card" href="../guide/monitor.html"><strong>Monitor</strong><span>See what waits at each step, and where the incidents are, right now.</span></a>
+<a class="card" href="../guide/run-tests.html"><strong>Run tests</strong><span>Run the diagram's test cases on a local engine and see every step.</span></a>
 <a class="card" href="../guide/process-tests.html"><strong>Process tests and coverage</strong><span>A JUnit test for every way through a process.</span></a>
 <a class="card" href="../guide/check-workers.html"><strong>Check Workers</strong><span>Ask the engine whether anything picks up your tasks.</span></a>
-<a class="card" href="../guide/code-links.html"><strong>Code links</strong><span>Jump between a task and the code that runs it.</span></a>
+<a class="card" href="../guide/code-links.html"><strong>Code links</strong><span>Jump between a task and the code that runs it, and find where they disagree.</span></a>
 </div>
 <h2 id="moving-and-sharing"><a href="#moving-and-sharing">Moving and sharing</a></h2>
 <div class="cards">
 <a class="card" href="../guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report.</span></a>
 <a class="card" href="../guide/share-html.html"><strong>Share as HTML</strong><span>One offline file anyone can open.</span></a>
 <a class="card" href="../guide/import.html"><strong>Import a diagram</strong><span>Bring in draw.io, Visio, Signavio and Bizagi files.</span></a>
-</div>
-<h2 id="command-line"><a href="#command-line">Command line</a></h2>
-<div class="cards">
-<a class="card" href="../guide/cli.html"><strong>Command line</strong><span>Install, run, and use it in a script.</span></a>
-<a class="card" href="../guide/cli-reference.html"><strong>Every command</strong><span>Each command with every option and an example.</span></a>
-<a class="card" href="../guide/ci.html"><strong>Pipelines, reports and the bot</strong><span>Checks on every push, and a review comment on pull requests.</span></a>
-<a class="card" href="../guide/mcp.html"><strong>The MCP server</strong><span>Let an AI assistant read, check and edit your diagrams.</span></a>
 </div>
 <h2 id="licence-and-privacy"><a href="#licence-and-privacy">Licence and privacy</a></h2>
 <div class="cards">
@@ -224,12 +211,23 @@
 <a class="card" href="../guide/faq.html"><strong>Questions and answers</strong><span>Short answers to common questions.</span></a>
 </div>
 
+<h2 id="pick-your-tool"><a href="#pick-your-tool">Pick your tool</a></h2>
+
+<p>The tool sections are for installing, finding your way around, and the things only that tool can do.</p>
+
+<div class="cards tools">
+<a class="card" href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+<a class="card" href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+<div class="card soon"><strong>VS Code <span class="tag off">Coming</span></strong><span>An extension for VS Code is planned.</span></div>
+<div class="card soon"><strong>Desktop <span class="tag off">Coming</span></strong><span>A desktop app is planned.</span></div>
+</div>
+
 <h2 id="if-a-page-does-not-answer-your-question"><a href="#if-a-page-does-not-answer-your-question">If a page does not answer your question</a></h2>
 
-<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the IDE version, the plugin version, the engine, and a <code>.bpmn</code> file that shows the problem. A file saves the most time.</p>
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the tool and its version, the version of Penstock, the engine, and a <code>.bpmn</code> file that shows the problem. A file saves the most time.</p>
 <nav class="pager" aria-label="Previous and next">
 <span></span>
-<a class="next" href="../guide/installing.html"><span>Next</span>Installing</a>
+<a class="next" href="../guide/getting-started.html"><span>Next</span>Getting started</a>
 </nav>
 </main>
 </div>
@@ -238,6 +236,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

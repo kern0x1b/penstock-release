@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html" aria-current="page">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -133,28 +126,47 @@
 
 <h2 id="list-the-ways-through"><a href="#list-the-ways-through">List the ways through</a></h2>
 
+<p>Each scenario shows the decision taken at each gateway and its condition. You can print the list as text, as a Markdown checklist to paste into a test plan, or as JSON for a tool. An AI assistant gets it from the MCP tool <code>list_scenarios</code>.</p>
+
+<div class="hosts">
+<p class="hosts-title">List the scenarios in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Right-click a file or folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Paths</span>. Each process in the tool window also lists its tests.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock paths .
 src/main/resources/order-process.bpmn  2 scenario(s)
    1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
    2. Order received → Approve order → Charge card → Card declined → Payment declined
-        Card declined fires on Charge card</code></pre>
+        Card declined fires on Charge card
 
-<p>Each scenario shows the decision taken at each gateway and its condition. Use <code>--format md</code> for a checklist to paste into a test plan, or <code>--format json</code> for a tool. In the IDE, run <span class="ui">Run Penstock | Paths</span> from the tool window. The MCP tool is <code>list_scenarios</code>.</p>
-
-<pre><code>$ penstock paths . --format md
+$ penstock paths . --format md
 ### 1. Order received → Order completed
 
 - [ ] runs Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt</code></pre>
+<p>Use <code>--format json</code> for a tool. See <a href="../cli/commands.html#paths">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="write-the-tests"><a href="#write-the-tests">Write the tests</a></h2>
 
-<ol class="steps">
-  <li>Run <code>penstock tests .</code>. In the IDE: <span class="ui">Run Penstock | Tests</span>.</li>
-  <li>Penstock writes one JUnit class per process, with a test for every way through it.</li>
-  <li>The command names the test dependencies your build is missing. Add them.</li>
-  <li>Run the tests with your normal test runner.</li>
-</ol>
+<p>Penstock writes one JUnit class per process, with a test for every way through it. It names the test dependencies your build is missing. Add them, then run the tests with your normal test runner.</p>
 
+<p>Each test starts the process with variables chosen to take that way: a value just past each condition, and at a default flow a value no other condition accepts. It completes the jobs, user tasks and external tasks, correlates messages, moves time past timers, throws errors from jobs where an error boundary is taken, and checks the elements the run passed.</p>
+
+<div class="hosts">
+<p class="hosts-title">Write the tests in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Choose <span class="ui">Run Penstock | Tests</span> in the <a href="../jetbrains/tool-window.html">Penstock tool window</a>. The output names the test dependencies your build is missing.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock tests .
 wrote src/test/java/io/penstock/example/process/OrderProcessTest.java  2 scenario(s)
 
@@ -162,8 +174,10 @@ The tests need these test dependencies in pom.xml:
   io.camunda:camunda-process-test-java:8.9.21
 
 2 test(s) in 1 class(es), one per way through each process.</code></pre>
-
-<p>Each test starts the process with variables chosen to take that way: a value just past each condition, and at a default flow a value no other condition accepts. It completes the jobs, user tasks and external tasks, correlates messages, moves time past timers, throws errors from jobs where an error boundary is taken, and checks the elements the run passed.</p>
+<p>Use <code>--out</code> and <code>--package</code> to choose the folder and the package. See <a href="../cli/commands.html#tests">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
@@ -174,29 +188,39 @@ The tests need these test dependencies in pom.xml:
   </tbody>
 </table></div></div>
 
-<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. Or use <code>--out</code> and <code>--package</code> on the command. See <a href="settings.html">penstock.yaml</a>.</p>
+<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. See <a href="settings.html">penstock.yaml</a>.</p>
 
 <h2 id="run-and-debug-tests-from-the-diagram"><a href="#run-and-debug-tests-from-the-diagram">Run and debug tests from the diagram</a></h2>
 <p><span class="tag pro">Pro</span></p>
 
-<ul>
-  <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. It runs the test methods that name the element or its process, with your project's own test runner.</li>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. A <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the toolbar.</li>
-  <li>When you debug, the diagram shows where the process stops.</li>
-</ul>
+<p>From an element on the canvas you can run or debug the test methods that name the element or its process, with your project's own test runner. When you debug, the diagram shows where the process stops.</p>
+
+<div class="hosts">
+<p class="hosts-title">Run and debug in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> a <strong>Tests</strong> node lists every process test by class, and <span class="ui">Run All Process Tests</span> is on its toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. Run the generated tests with your build tool, for example mvn test or gradle test.</p>
+</section>
+</div>
+</div>
 
 <h2 id="coverage"><a href="#coverage">Coverage</a></h2>
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>Run your process tests. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
+  <li>Run your process tests with your build. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
   <li>A button <span class="ui">Coverage</span> appears on the toolbar. Press it.</li>
   <li>The diagram colours what the tests reached and dims what they did not.</li>
   <li>The panel lists the tests with how much of the diagram each covers. Pick one to see the way it takes. It also lists the elements no test reaches.</li>
   <li>Run the tests again. Coverage follows.</li>
 </ol>
 
-<p>Penstock reads the reports under <code>target</code> or <code>build</code>. Code Vision above a test says how much of each process it covers.</p>
+<p>Penstock reads the reports under <code>target</code> or <code>build</code>, and follows them as the tests run again.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -217,18 +241,19 @@ The tests need these test dependencies in pom.xml:
   <dt>"To fill in".</dt>
   <dd>A way that the data cannot choose is marked for you to finish. Fill in the variables that take it.</dd>
   <dt>I want to run scenarios against a live engine without JUnit.</dt>
-  <dd>Use <a href="test-cases.html">Runs and test cases</a>. They need no build setup.</dd>
+  <dd>Use <a href="run-tests.html">Run tests</a>. They need no build setup.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/test-cases.html">Runs and test cases</a> - Run a process step by step, with mocks, and keep the run as a test.</li>
-<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../jetbrains/test-runner.html">Tests in the IDE</a> - Test-case files in the test runner, gutter icons, process tests, coverage.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/test-cases.html"><span>Previous</span>Runs and test cases</a>
+<a class="prev" href="../guide/run-tests.html"><span>Previous</span>Run tests</a>
 <a class="next" href="../guide/check-workers.html"><span>Next</span>Check Workers</a>
 </nav>
 </main>
@@ -238,6 +263,8 @@ The tests need these test dependencies in pom.xml:
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

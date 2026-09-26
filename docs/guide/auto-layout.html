@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -147,7 +140,21 @@
 
 <p>There is no separate preview and no save step. The change goes through the same undo stack as any other edit, and the new positions are written to the file as they land on the canvas. To compare with the saved version, use the <a href="diagram-diff.html">diagram diff</a>.</p>
 
-<p>From a terminal, <code>penstock layout .</code> says what would change. <code>penstock layout . --write</code> saves it. See <a href="cli-reference.html#layout">Every command</a>.</p>
+<div class="hosts">
+<p class="hosts-title">Lay out many diagrams at once</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The <span class="ui">Auto Layout</span> button lays out the diagram you have open. There is no action in the tool window for a whole folder. Use the command line for that.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>penstock layout .            # says what would change
+penstock layout . --write    # saves it</code></pre>
+<p>See <a href="../cli/commands.html#layout">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="how-it-decides"><a href="#how-it-decides">How it decides</a></h2>
 
@@ -214,7 +221,7 @@
 <ul>
 <li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
 <li><a href="../guide/diagram-diff.html">Diagram diff</a> - Compare two versions of a diagram, side by side.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -228,6 +235,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

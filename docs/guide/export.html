@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -115,7 +108,7 @@
 <li><a href="#steps">Steps</a></li>
 <li><a href="#the-options">The options</a></li>
 <li><a href="#about-the-formats">About the formats</a></li>
-<li><a href="#from-a-terminal">From a terminal</a></li>
+<li><a href="#without-the-editor">Without the editor</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -125,7 +118,7 @@
 <ol class="steps">
   <li>Open <span class="ui">More</span> and choose <span class="ui">Export…</span>. A dialog called <em>Export BPMN Diagram</em> opens. It shows a live preview.</li>
   <li>Choose the options on the right: <span class="ui">Theme</span>, <span class="ui">Schema</span>, <span class="ui">Format</span> and <span class="ui">Use Background</span>.</li>
-  <li>Press <span class="ui">Export</span>. The IDE's save dialog asks where to put the file.</li>
+  <li>Press <span class="ui">Export</span>. A save dialog asks where to put the file.</li>
 </ol>
 
 <figure class="shot">
@@ -154,17 +147,28 @@
   <li><strong>PDF</strong> is that PNG on one A4 page. Portrait or landscape follows the shape of the diagram. It is scaled to fit under a heading.</li>
 </ul>
 
-<h2 id="from-a-terminal"><a href="#from-a-terminal">From a terminal</a></h2>
+<h2 id="without-the-editor"><a href="#without-the-editor">Without the editor</a></h2>
 
+<div class="hosts">
+<p class="hosts-title">Export a picture in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The <span class="ui">Export…</span> action described above uses the IDE's save dialog. To export every diagram of a project at once, use <span class="ui">Run Penstock | Export…</span> in the <a href="../jetbrains/tool-window.html">tool window</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>penstock export . --out docs/img</code></pre>
-
-<p>This writes SVG, drawn by Penstock from the diagram's coordinates. It needs no browser. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="cli-reference.html#export">Every command</a>.</p>
+<p>This writes SVG, drawn by Penstock from the diagram's coordinates. It needs no browser. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="../cli/commands.html#export">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
   <li>A dialog with a live preview that follows your choices.</li>
-  <li>After <span class="ui">Export</span>, the IDE's save dialog, then the file in the folder you chose.</li>
+  <li>After <span class="ui">Export</span>, a save dialog, then the file in the folder you chose.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
@@ -182,7 +186,7 @@
 <ul>
 <li><a href="../guide/share-html.html">Share as HTML</a> - One offline file anyone can open.</li>
 <li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -196,6 +200,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

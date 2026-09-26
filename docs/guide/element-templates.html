@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -145,11 +138,11 @@
 
 <ul>
   <li>A path that no longer exists.</li>
-  <li>A file larger than 10 MB. A warning goes to the IDE log.</li>
-  <li>A file that is not valid JSON. The error goes to the IDE log with the path.</li>
+  <li>A file larger than 10 MB. A warning goes to the log of your tool.</li>
+  <li>A file that is not valid JSON. The error goes to the log of your tool, with the path.</li>
 </ul>
 
-<p>Penstock re-reads a file when its modification time changes, so an edited template is picked up without restarting the IDE.</p>
+<p>Penstock re-reads a file when its modification time changes, so an edited template is picked up without restarting your tool.</p>
 
 <h2 id="apply-a-template"><a href="#apply-a-template">Apply a template</a></h2>
 
@@ -173,7 +166,7 @@
   <li>The first time, it says <em>Downloading the connector templates from GitHub…</em>. Wait a moment.</li>
 </ol>
 
-<p>The templates are not bundled with the plugin. They are downloaded from Camunda's public <code>camunda/connectors</code> repository on GitHub, and kept in <code>~/.penstock/connectors/</code>. The IDE and the command line share that folder. Penstock asks GitHub at most once a day. It sends no credentials, no cookies and no project data. Opening a diagram never downloads anything. See <a href="security.html">Security and privacy</a>.</p>
+<p>The templates are not bundled with Penstock. They are downloaded from Camunda's public <code>camunda/connectors</code> repository on GitHub, and kept in <code>~/.penstock/connectors/</code>. Every tool on your machine shares that folder. Penstock asks GitHub at most once a day. It sends no credentials, no cookies and no project data. Opening a diagram never downloads anything. See <a href="security.html">Security and privacy</a>.</p>
 
 <h3 id="find-a-template"><a href="#find-a-template">Find a template</a></h3>
 
@@ -208,7 +201,7 @@
 penstock connectors resolve io.camunda.connectors.HttpJson.v2
 penstock connectors --refresh       # ask GitHub now</code></pre>
 
-<p>See <a href="cli-reference.html#connectors">Every command</a>.</p>
+<p>See <a href="../cli/commands.html#connectors">Every command</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -222,11 +215,11 @@ penstock connectors --refresh       # ask GitHub now</code></pre>
 
 <dl class="problems">
   <dt>A template does not appear.</dt>
-  <dd>Check three things in this order. The diagram's engine must be Camunda 7 or Camunda 8, not Classic. The file must be in a <code>.camunda/element-templates</code> folder at or above the diagram, or under a path in <code>elementTemplates</code>. The file must still exist. <code>penstock doctor</code> reports a listed path that is missing. Then read the IDE log: a file that is too large or not valid JSON is skipped with a message.</dd>
+  <dd>Check three things in this order. The diagram's engine must be Camunda 7 or Camunda 8, not Classic. The file must be in a <code>.camunda/element-templates</code> folder at or above the diagram, or under a path in <code>elementTemplates</code>. The file must still exist. <code>penstock doctor</code> reports a listed path that is missing. Then read the log of your tool: a file that is too large or not valid JSON is skipped with a message.</dd>
   <dt>There is no Templates… item.</dt>
   <dd>The connector browser is only for Camunda 8 diagrams.</dd>
   <dt>The browser says the connector templates could not be downloaded.</dt>
-  <dd>Penstock could not reach GitHub. Check the network and the IDE proxy settings, then press <span class="ui">Retry</span>. If it worked before, Penstock uses the templates it already downloaded. It tries again automatically after a while.</dd>
+  <dd>Penstock could not reach GitHub. Check the network and the proxy settings of your tool, then press <span class="ui">Retry</span>. If it worked before, Penstock uses the templates it already downloaded. It tries again automatically after a while.</dd>
   <dt>Install says nothing was written.</dt>
   <dd>You cancelled the save dialog. Nothing is written when you cancel.</dd>
 </dl>
@@ -249,6 +242,8 @@ penstock connectors --refresh       # ask GitHub now</code></pre>
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

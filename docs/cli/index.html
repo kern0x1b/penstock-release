@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Command line - Penstock</title>
+<meta name="description" content="The penstock command does in a terminal what the editors do, with the same settings and the same answers, so it works in a script or a pipeline.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/cli/">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/" aria-current="true">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Command line">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../cli/" aria-current="page">Command line</a></li>
+    </ul>
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="../cli/commands.html">Every command</a></li>
+    </ul>
+    <h2>Automation</h2>
+    <ul>
+      <li><a href="../cli/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../cli/mcp.html">The MCP server</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<h1>Command line</h1>
+<p class="lede">The penstock command does in a terminal what the editors do, with the same settings and the same answers, so it works in a script or a pipeline.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Node.js 20.19 or later. Some commands need Pro, and Team in a pipeline.</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#two-ways-to-run-it">Two ways to run it</a></li>
+<li><a href="#paths-and-configuration">Paths and configuration</a></li>
+<li><a href="#what-you-get">What you get</a></li>
+<li><a href="#paid-commands">Paid commands</a></li>
+<li><a href="#exit-codes">Exit codes</a></li>
+<li><a href="#machine-output">Machine output</a></li>
+<li><a href="#old-names">Old names</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="two-ways-to-run-it"><a href="#two-ways-to-run-it">Two ways to run it</a></h2>
+
+<h3 id="1-once-with-npx"><a href="#1-once-with-npx">1. Once, with npx</a></h3>
+
+<pre><code>npx @penstock/cli check .
+npx @penstock/cli doctor</code></pre>
+
+<p>It downloads the command the first time and asks the npm registry each time you do not pin a version.</p>
+
+<h3 id="2-pinned-by-your-project-with-the-wrapper"><a href="#2-pinned-by-your-project-with-the-wrapper">2. Pinned by your project, with the wrapper</a></h3>
+
+<p>The wrapper is a small script, like <code>gradlew</code>, that runs the version your project chooses. Everyone, and your pipeline, runs the same version.</p>
+
+<ol class="steps">
+  <li>In your project run <code>npx @penstock/cli init</code>.</li>
+  <li>Penstock writes three files: <code>penstockw</code>, <code>penstockw.cmd</code> (for Windows) and <code>penstock/wrapper/penstock-wrapper.properties</code>. It also writes <code>penstock.yaml</code> if you have none. See <a href="../guide/settings.html">penstock.yaml</a>.</li>
+  <li>Commit all three wrapper files.</li>
+  <li>From now on run <code>./penstockw check .</code>. The first run downloads the pinned version into <code>~/.penstock/wrapper/dists</code>. Every later run starts from there, offline.</li>
+</ol>
+
+<pre><code>./penstockw check .
+./penstockw update          # pin the latest version
+./penstockw update 26.9.0   # pin a version you choose</code></pre>
+
+<p><code>update</code> pins the version, downloads it, and replaces the wrapper scripts with the ones that version ships. You can also edit <code>version=</code> in the properties file by hand. A company registry or a tarball goes in <code>distribution=</code> in the same file.</p>
+
+<p>The wrapper needs Node.js 20.19 or later, with npm, on the PATH. Without them it says <em>penstockw needs Node.js 20.19 or later, with npm, on the PATH</em>.</p>
+
+<h2 id="paths-and-configuration"><a href="#paths-and-configuration">Paths and configuration</a></h2>
+
+<p>A path defaults to the current folder. Penstock reads <code>penstock.yaml</code> from there upward, so it does not matter which folder you run it in. Like Maven with a <code>pom.xml</code>.</p>
+
+<h2 id="what-you-get"><a href="#what-you-get">What you get</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>You want to</th><th>Run</th></tr></thead>
+  <tbody>
+  <tr><td>Set up a project</td><td><code>penstock init</code></td></tr>
+  <tr><td>Try an example</td><td><code>penstock init --example camunda-8</code></td></tr>
+  <tr><td>Find out why something does not work</td><td><code>penstock doctor</code></td></tr>
+  <tr><td>Check the diagrams</td><td><code>penstock check .</code></td></tr>
+  <tr><td>Deploy</td><td><code>penstock deploy . --wait</code></td></tr>
+  <tr><td>See what changed</td><td><code>penstock diff main</code></td></tr>
+  <tr><td>Get pictures</td><td><code>penstock export . --out docs/img</code></td></tr>
+  <tr><td>Share a diagram as one file</td><td><code>penstock share process.bpmn</code></td></tr>
+  <tr><td>Import from draw.io or Visio</td><td><code>penstock import diagram.drawio</code></td></tr>
+  <tr><td>Plan the move to Camunda 8</td><td><code>penstock migrate .</code></td></tr>
+  <tr><td>Run test cases</td><td><code>penstock test-cases .</code></td></tr>
+  <tr><td>Let an AI assistant use the diagrams</td><td><code>penstock mcp</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Every command, with every option and an example, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2 id="paid-commands"><a href="#paid-commands">Paid commands</a></h2>
+
+<p>A command marked Pro is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline. A pipeline is any run where <code>CI</code> is set. When you run a paid command without the licence, it prints what the feature gives and how to buy or sign in, and exits with 1. See <a href="../guide/plans.html">Plans and licence</a>.</p>
+
+<h2 id="exit-codes"><a href="#exit-codes">Exit codes</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>0</code></td><td>All is well.</td></tr>
+  <tr><td><code>1</code></td><td>The command found errors, was refused for want of a licence, or failed at what it was asked to do.</td></tr>
+  <tr><td><code>2</code></td><td>The command itself crashed. The message goes to the error output.</td></tr>
+  <tr><td><code>130</code></td><td>You pressed <kbd>Ctrl</kbd>+<kbd>C</kbd> twice while <code>test-cases</code> was running.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="machine-output"><a href="#machine-output">Machine output</a></h2>
+
+<p><code>--format json</code> gives JSON. <code>--format sarif</code> gives SARIF 2.1.0, which GitHub code scanning reads. <code>--format github</code> gives annotation lines for a workflow. Colour is used only in a terminal.</p>
+
+<h2 id="old-names"><a href="#old-names">Old names</a></h2>
+
+<p>Older names still work in this release and say what replaces them: <code>lint</code> and <code>analyze</code> are <code>check --only rules</code> and <code>check --only flow</code>. <code>against</code> is <code>diff &lt;ref&gt;</code>. <code>config</code> and <code>profiles</code> are <code>doctor</code>. <code>upgrade</code>, <code>login</code> and <code>logout</code> are <code>license buy</code>, <code>license login</code> and <code>license logout</code>. <code>wrapper</code> is <code>update</code>. The flags <code>--json</code> and <code>--image</code> are <code>--format json</code> and <code>--images</code>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"No .bpmn files found."</dt>
+  <dd>The path has no diagram. Check the path, or run from your project folder.</dd>
+  <dt>"penstockw needs Node.js 20.19 or later".</dt>
+  <dd>Install Node.js 20.19 or later, and make sure <code>node</code> and <code>npm</code> are on the PATH of the shell or the CI job.</dd>
+  <dt>"penstockw could not find the latest @penstock/cli".</dt>
+  <dd>The npm registry could not be reached. Pin a version in <code>penstock-wrapper.properties</code>.</dd>
+  <dt>The command says a feature is part of Pro, in a pipeline.</dt>
+  <dd>A pipeline needs Team. Give the pipeline a Team key in <code>PENSTOCK_LICENSE</code>. See <a href="../guide/sign-in.html">Buying and signing in</a>.</dd>
+  <dt>Unknown command.</dt>
+  <dd>Run <code>penstock help</code> for the list.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
+<li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<span></span>
+<a class="next" href="../cli/commands.html"><span>Next</span>Every command</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

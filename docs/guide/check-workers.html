@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html" aria-current="page">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -126,12 +119,24 @@
 
 <h2 id="steps"><a href="#steps">Steps</a></h2>
 
+<p>Run Check Workers on the workers of your project. Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both. Each worker then says what the engine said, and the workers node shows when the check ran, for example <em>checked at 14:02</em>.</p>
+
+<div class="hosts">
+<p class="hosts-title">Run Check Workers in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
 <ol class="steps">
   <li>Open the <span class="ui">Penstock</span> tool window and find <strong>Workers</strong>.</li>
   <li>Right-click <strong>Workers</strong>, or select it and use its action: <span class="ui">Check Workers on &lt;engine&gt;</span>. If your project uses several engines it says <span class="ui">Check Workers on the Engines</span>.</li>
-  <li>Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both.</li>
-  <li>Each worker in the tree now says what the engine said. The Workers node shows <em>checked at 14:02</em>.</li>
 </ol>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. There is no command for it yet. penstock code compares diagrams with code, without asking an engine.</p>
+</section>
+</div>
+</div>
 
 <h2 id="what-it-says"><a href="#what-it-says">What it says</a></h2>
 
@@ -163,16 +168,16 @@
   <dt>"The engine refused the question (403)".</dt>
   <dd>The profile's user may not read jobs. Use a user that may.</dd>
   <dt>There is no Check Workers action.</dt>
-  <dd>The project has no worker tasks yet, or Pro is not active. Without Pro the tool window shows a Code line that offers to buy or sign in.</dd>
+  <dd>The project has no worker tasks yet, or Pro is not active. Without Pro a Code line offers to buy or sign in.</dd>
   <dt>It says "no jobs" for a worker that runs.</dt>
   <dd>Only the last 24 hours count on Camunda 8, and only open tasks on Camunda 7. A quiet worker looks quiet.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it.</li>
-<li><a href="../guide/live.html">Live</a> - See what waits on each element right now.</li>
-<li><a href="../guide/tool-window.html">The Penstock tool window</a> - Your project as a model: processes, workers, messages, decisions.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/project-model.html">Your project as a model</a> - Processes, workers, variables, messages, decisions and forms, and how they connect.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -186,6 +191,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

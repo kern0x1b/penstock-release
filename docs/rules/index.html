@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Every rule - Penstock</title>
-<meta name="description" content="Every Penstock check with its reason and its fix: modelling rules, drawing, process flow, decision tables, forms, diagrams and code.">
+<meta name="description" content="Every Penstock check with its reason and its fix: modelling rules, engine compatibility, drawing, process flow, decision tables, forms, diagrams and code.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/rules/">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -114,6 +107,7 @@
 <ul>
 <li><a href="#how-to-read-a-rule-page">How to read a rule page</a></li>
 <li><a href="#modelling-rules">Modelling rules</a></li>
+<li><a href="#engine-compatibility">Engine compatibility</a></li>
 <li><a href="#drawing">Drawing</a></li>
 <li><a href="#process-flow">Process flow</a></li>
 <li><a href="#decision-tables">Decision tables</a></li>
@@ -135,7 +129,7 @@
   </tbody>
 </table></div></div>
 
-<p>78 rules in 7 groups. The groups: <a href="#modelling-rules">modelling rules</a> (bpmnlint), <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a> and <a href="#modelling-conventions">modelling conventions</a>. Process flow, decision tables, forms and diagrams and code are part of Pro.</p>
+<p>144 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. process flow, decision tables, forms, diagrams and code, modelling conventions are part of Pro. The rest is free.</p>
 
 <h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
 <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
@@ -170,6 +164,80 @@
   <tr><td><a href="bpmnlint-superfluous-gateway"><code>bpmnlint/superfluous-gateway</code></a></td><td>Gateway with one way in and one way out</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="bpmnlint-superfluous-label"><code>bpmnlint/superfluous-label</code></a></td><td>Label on a flow that needs none</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="bpmnlint-superfluous-termination"><code>bpmnlint/superfluous-termination</code></a></td><td>Terminate end event that terminates nothing</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="engine-compatibility"><a href="#engine-compatibility">Engine compatibility</a></h2>
+<p>What the engine the diagram is written for cannot run: a missing job type, an element or an expression the chosen version does not support. They run on Camunda 7 and Camunda 8 diagrams, in the editor and in <code>penstock check</code>, against the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one without it. Operaton and CIB seven are checked as Camunda 7. A finding is called <code>compat/&lt;rule&gt;</code> here and in <code>penstock check</code>; a rule is turned off in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code> or, the same, <code>compat/&lt;rule&gt;</code>.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="compat-ad-hoc-sub-process"><code>compat/ad-hoc-sub-process</code></a></td><td>Ad-hoc sub-process without an activity</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-agent-fromai-contract"><code>compat/agent-fromai-contract</code></a></td><td>fromAi() key that is not a plain name under toolCall</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-agent-tool-documentation"><code>compat/agent-tool-documentation</code></a></td><td>Tool of an AI agent without documentation</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-agent-tool-output-key"><code>compat/agent-tool-output-key</code></a></td><td>Tool of an AI agent that returns nothing to it</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-before-all-execution-listener"><code>compat/before-all-execution-listener</code></a></td><td>beforeAll listener outside a multi-instance element</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-element-type"><code>compat/element-type</code></a></td><td>Element the engine version cannot run</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-cancel-execution-listener"><code>compat/cancel-execution-listener</code></a></td><td>cancel listener on an element that cannot be cancelled</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-called-element"><code>compat/called-element</code></a></td><td>Call activity without a process to call</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-collapsed-subprocess"><code>compat/collapsed-subprocess</code></a></td><td>Collapsed sub-process</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-connector-properties"><code>compat/connector-properties</code></a></td><td>Connector with a property this version does not have</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-duplicate-execution-listener-headers"><code>compat/duplicate-execution-listener-headers</code></a></td><td>Two headers of a listener with the same key</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-duplicate-execution-listeners"><code>compat/duplicate-execution-listeners</code></a></td><td>Two execution listeners that are the same</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-duplicate-task-headers"><code>compat/duplicate-task-headers</code></a></td><td>Two task headers with the same key</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-error-reference"><code>compat/error-reference</code></a></td><td>Error event without an error or an error code</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-escalation-boundary-event-attached-to-ref"><code>compat/escalation-boundary-event-attached-to-ref</code></a></td><td>Escalation boundary event on the wrong element</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-escalation-reference"><code>compat/escalation-reference</code></a></td><td>Escalation event without an escalation or a code</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-event-based-gateway-target"><code>compat/event-based-gateway-target</code></a></td><td>Receive task after an event-based gateway</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-executable-process"><code>compat/executable-process</code></a></td><td>No executable process</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-execution-listener"><code>compat/execution-listener</code></a></td><td>Execution listener without an event type or a job type</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-feel-compatibility"><code>compat/feel-compatibility</code></a></td><td>FEEL function the engine version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-feel"><code>compat/feel</code></a></td><td>FEEL expression that is not valid</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-history-time-to-live"><code>compat/history-time-to-live</code></a></td><td>Process without a history time to live</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-implementation"><code>compat/implementation</code></a></td><td>Task or event that has nothing to run</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-inclusive-gateway"><code>compat/inclusive-gateway</code></a></td><td>Inclusive gateway with more than one way in</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-link-event"><code>compat/link-event</code></a></td><td>Link events that do not match</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-loop-characteristics"><code>compat/loop-characteristics</code></a></td><td>Multi-instance without what it needs</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-io-mapping"><code>compat/io-mapping</code></a></td><td>Input or output mapping that is incomplete</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-message-reference"><code>compat/message-reference</code></a></td><td>Message event without a message or its name</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-binding-type"><code>compat/no-binding-type</code></a></td><td>Binding type that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-business-id"><code>compat/no-business-id</code></a></td><td>Business id that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-before-all-execution-listener"><code>compat/no-before-all-execution-listener</code></a></td><td>beforeAll listener that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-candidate-users"><code>compat/no-candidate-users</code></a></td><td>Candidate users that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-cancel-execution-listener"><code>compat/no-cancel-execution-listener</code></a></td><td>cancel listener that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-execution-listener-headers"><code>compat/no-execution-listener-headers</code></a></td><td>Listener headers that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-execution-listeners"><code>compat/no-execution-listeners</code></a></td><td>Execution listeners that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-expression"><code>compat/no-expression</code></a></td><td>Expression this version does not support</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-interrupting-event-subprocess"><code>compat/no-interrupting-event-subprocess</code></a></td><td>Interrupting event sub-process in an ad-hoc sub-process</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-job-priority-definition"><code>compat/no-job-priority-definition</code></a></td><td>Job priority that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-loop"><code>compat/no-loop</code></a></td><td>Loop that never waits</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-multiple-none-start-events"><code>compat/no-multiple-none-start-events</code></a></td><td>More than one blank start event</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-priority-definition"><code>compat/no-priority-definition</code></a></td><td>Priority that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-propagate-all-parent-variables"><code>compat/no-propagate-all-parent-variables</code></a></td><td>Propagate all parent variables that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-signal-event-sub-process"><code>compat/no-signal-event-sub-process</code></a></td><td>Signal event sub-process that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-task-schedule"><code>compat/no-task-schedule</code></a></td><td>Task schedule that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-task-listeners"><code>compat/no-task-listeners</code></a></td><td>Task listeners that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-template"><code>compat/no-template</code></a></td><td>Element template that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-version-tag"><code>compat/no-version-tag</code></a></td><td>Version tag that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-zeebe-properties"><code>compat/no-zeebe-properties</code></a></td><td>Zeebe properties that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-no-zeebe-user-task"><code>compat/no-zeebe-user-task</code></a></td><td>Camunda user task that this version does not have</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-priority-definition"><code>compat/priority-definition</code></a></td><td>User task priority that is not valid</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-zeebe-user-task"><code>compat/zeebe-user-task</code></a></td><td>Job worker user task</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-secrets"><code>compat/secrets</code></a></td><td>Secret written in a form the engine no longer reads</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-sequence-flow-condition"><code>compat/sequence-flow-condition</code></a></td><td>Condition on a flow that cannot have one</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-signal-reference"><code>compat/signal-reference</code></a></td><td>Signal event without a signal or its name</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-start-event-form"><code>compat/start-event-form</code></a></td><td>Start event form that this version cannot show</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-start-event-form-embedded"><code>compat/start-event-form-embedded</code></a></td><td>Embedded form on a start event</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-subscription"><code>compat/subscription</code></a></td><td>Message without a correlation key</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-task-listener"><code>compat/task-listener</code></a></td><td>Task listener without an event type or a job type</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-task-schedule"><code>compat/task-schedule</code></a></td><td>Task schedule that is not a date</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-timer"><code>compat/timer</code></a></td><td>Timer that is not valid</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-unresolvable-secret-reference"><code>compat/unresolvable-secret-reference</code></a></td><td>Secret used in a way the engine cannot resolve</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-user-task-definition"><code>compat/user-task-definition</code></a></td><td>User task without a form</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="compat-user-task-form"><code>compat/user-task-form</code></a></td><td>User task form that is not filled in</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-variable-name"><code>compat/variable-name</code></a></td><td>Variable name that is not valid</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-version-tag"><code>compat/version-tag</code></a></td><td>Version tag that is empty</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-wait-for-completion"><code>compat/wait-for-completion</code></a></td><td>Compensation that does not wait</td><td><span class="tag error">Error</span></td></tr>
   </tbody>
 </table></div></div>
 
@@ -288,6 +356,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

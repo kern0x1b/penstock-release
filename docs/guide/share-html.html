@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Share as HTML - Penstock</title>
-<meta name="description" content="Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no IDE and no internet.">
+<meta name="description" content="Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no editor installed and no internet.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/share-html.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html" aria-current="page">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -107,7 +100,7 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Moving and sharing</p>
 <h1>Share as HTML</h1>
-<p class="lede">Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no IDE and no internet.</p>
+<p class="lede">Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no editor installed and no internet.</p>
 <p class="meta"><span class="tag free">Free</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
@@ -115,7 +108,7 @@
 <li><a href="#steps">Steps</a></li>
 <li><a href="#what-the-reader-sees">What the reader sees</a></li>
 <li><a href="#privacy">Privacy</a></li>
-<li><a href="#from-a-terminal">From a terminal</a></li>
+<li><a href="#without-the-editor">Without the editor</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -158,13 +151,24 @@
 
 <p>The file loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of them. Only what is in the diagram goes into the file. Read it before you send it, as you would any document.</p>
 
-<h2 id="from-a-terminal"><a href="#from-a-terminal">From a terminal</a></h2>
+<h2 id="without-the-editor"><a href="#without-the-editor">Without the editor</a></h2>
 
+<div class="hosts">
+<p class="hosts-title">Share from your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Only from the editor, with <span class="ui">More | Share as HTML…</span> as described above. To share many diagrams at once, use the command line.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock share process.bpmn -o process.html
 wrote process.html
 One file, opens offline in any browser; nothing in it reaches the network.</code></pre>
-
-<p>Without <code>-o</code> the file goes next to the source with the extension <code>.html</code>. The command takes one <code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file. See <a href="cli-reference.html#share">Every command</a>.</p>
+<p>Without <code>-o</code> the file goes next to the source with the extension <code>.html</code>. The command takes one <code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file. See <a href="../cli/commands.html#share">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
@@ -184,6 +188,7 @@ One file, opens offline in any browser; nothing in it reaches the network.</code
 <li><a href="../guide/export.html">Export</a> - Save the diagram as SVG, PNG or PDF.</li>
 <li><a href="../guide/import.html">Import a diagram</a> - Bring in draw.io, Visio, Signavio and Bizagi files.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -197,6 +202,8 @@ One file, opens offline in any browser; nothing in it reaches the network.</code
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

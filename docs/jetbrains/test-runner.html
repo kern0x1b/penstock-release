@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tests in the IDE - Penstock</title>
+<meta name="description" content="In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/test-runner.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/" aria-current="true">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="JetBrains">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../jetbrains/">JetBrains IDEs</a></li>
+      <li><a href="../jetbrains/installing.html">Installing</a></li>
+      <li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../jetbrains/editor.html">The editor in the IDE</a></li>
+      <li><a href="../jetbrains/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../jetbrains/code-links.html">Code links in the IDE</a></li>
+      <li><a href="../jetbrains/test-runner.html" aria-current="page">Tests in the IDE</a></li>
+      <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../jetbrains/licence.html">Licence in the IDE</a></li>
+      <li><a href="../jetbrains/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Using it</p>
+<h1>Tests in the IDE</h1>
+<p class="lede">In a JetBrains IDE, test-case files run in the IDE's own test runner, and process tests run and debug from the diagram.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#run-test-case-files-in-the-test-runner">Run test-case files in the test runner</a></li>
+<li><a href="#the-run-configuration">The run configuration</a></li>
+<li><a href="#run-and-debug-process-tests-from-the-diagram">Run and debug process tests from the diagram</a></li>
+<li><a href="#coverage">Coverage</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<p>The Run tests panel and the test cases themselves are described once in <a href="../guide/run-tests.html">Run tests</a>, and process tests and coverage in <a href="../guide/process-tests.html">Process tests and coverage</a>. This page is about how they use the IDE.</p>
+
+<h2 id="run-test-case-files-in-the-test-runner"><a href="#run-test-case-files-in-the-test-runner">Run test-case files in the test runner</a></h2>
+
+<ol class="steps">
+  <li>Open a test case file, for example <code>orders.json</code>.</li>
+  <li>Click the green triangle in the gutter next to a test case. Or right-click the file or a folder and run it.</li>
+  <li>The IDE's Run window shows a test tree, pass or fail, and the log. Double-click a test to open it in the file.</li>
+</ol>
+
+<p>The run uses the profile in force, or the one the run configuration names. The trace of each run is kept under <code>.penstock/runs/</code>, and its path is in the log. The same safety rules apply as everywhere: the engine must be marked for tests, or you confirm a local one once.</p>
+
+<figure class="shot">
+  <img src="../img/test-case-runs/06-test-case-gutter.png" alt="A test case file open in the IDE with a run icon in the gutter next to each test case">
+  <figcaption>Each test case has a run icon in the gutter. The Penstock tool window is on the left.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/test-case-runs/07-test-runner-one-test-case.png" alt="The IDE test runner showing one passed test case and its log">
+  <figcaption>One test case, run from the gutter. The log names the trace file for the run.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/test-case-runs/08-test-runner-a-failure.png" alt="The IDE test runner showing one failed test and two passed">
+  <figcaption>A failure shows in the test tree with its time. Open it to read the reason.</figcaption>
+</figure>
+
+<h2 id="the-run-configuration"><a href="#the-run-configuration">The run configuration</a></h2>
+
+<p>Running a test-case file creates a run configuration called <em>Penstock test cases</em>. It takes a file or a folder of test cases and a profile. You can run it again from the run widget at the top right of the IDE, like any other run configuration.</p>
+
+<h2 id="run-and-debug-process-tests-from-the-diagram"><a href="#run-and-debug-process-tests-from-the-diagram">Run and debug process tests from the diagram</a></h2>
+
+<ul>
+  <li>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. It runs the test methods that name the element or its process, with the project's own test runner. When you debug, the diagram shows where the process stops.</li>
+  <li>In the <a href="tool-window.html">Penstock tool window</a>, each process lists its tests with how much of it they cover. The <strong>Tests</strong> node lists every process test by class. Run or debug any of them, a class, or all. <span class="ui">Run All Process Tests</span> is on the tool window's toolbar.</li>
+  <li>Code Vision above a test says how much of each process it covers.</li>
+</ul>
+
+<h2 id="coverage"><a href="#coverage">Coverage</a></h2>
+
+<p>After the process tests have run with Camunda Process Test, or on Camunda 7 with the process test coverage extension, <span class="ui">Coverage</span> appears on the editor's toolbar. It reads the reports under <code>target</code> or <code>build</code> and follows them as the tests run again.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A test tree with pass or fail, and the log, in the Run window.</li>
+  <li>A green triangle in the gutter of each test case.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The Run window says the engine is not marked for tests.</dt>
+  <dd>Set <code>deployment.forTests: true</code> on the profile, or confirm a local engine when asked.</dd>
+  <dt>There is no Coverage button.</dt>
+  <dd>No test report was found yet. Run the process tests first.</dd>
+  <dt>There is no green triangle in the gutter.</dt>
+  <dd>The file is not a Camunda Process Test JSON test-case file, or Pro is not active.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
+<li><a href="../guide/process-tests.html">Process tests and coverage</a> - A JUnit test for every way through a process.</li>
+<li><a href="../jetbrains/tool-window.html">The Penstock tool window</a> - Your project as a tree, and the Run Penstock menu.</li>
+<li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../jetbrains/code-links.html"><span>Previous</span>Code links in the IDE</a>
+<a class="next" href="../jetbrains/shortcuts.html"><span>Next</span>Shortcuts</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

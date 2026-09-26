@@ -7,7 +7,7 @@
 <title>Pipelines, reports and the bot - Penstock</title>
 <meta name="description" content="Run the checks on every push, get a review comment on every pull request, and deploy from CI, all with the same commands you use on your machine.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/ci.html">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/cli/ci.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -18,9 +18,10 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/" aria-current="true">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -30,82 +31,23 @@
 </header>
 
 <div class="layout">
-  <nav class="side" id="menu" aria-label="Guide">
+  <nav class="side" id="menu" aria-label="Command line">
     <h2>Start here</h2>
     <ul>
-      <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
-      <li><a href="../guide/getting-started.html">Getting started</a></li>
-      <li><a href="../guide/example-project.html">The example project</a></li>
-      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+      <li><a href="../cli/">Command line</a></li>
     </ul>
-    <h2>Editors</h2>
+    <h2>Reference</h2>
     <ul>
-      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
-      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
-      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
-      <li><a href="../guide/elements.html">BPMN elements</a></li>
-      <li><a href="../guide/editing.html">Editing a diagram</a></li>
-      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
-      <li><a href="../guide/element-templates.html">Element templates</a></li>
-      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
-      <li><a href="../guide/export.html">Export</a></li>
-      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
-      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
-      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../cli/commands.html">Every command</a></li>
     </ul>
-    <h2>Project setup</h2>
+    <h2>Automation</h2>
     <ul>
-      <li><a href="../guide/engine-profiles.html">Engines</a></li>
-      <li><a href="../guide/settings.html">penstock.yaml</a></li>
-      <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
-      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
-    </ul>
-    <h2>Checking</h2>
-    <ul>
-      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
-      <li><a href="../rules/">Every rule</a></li>
-      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
-      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
-      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
-    </ul>
-    <h2>Running</h2>
-    <ul>
-      <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
-      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
-      <li><a href="../guide/check-workers.html">Check Workers</a></li>
-      <li><a href="../guide/code-links.html">Code links</a></li>
-    </ul>
-    <h2>Moving and sharing</h2>
-    <ul>
-      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
-      <li><a href="../guide/share-html.html">Share as HTML</a></li>
-      <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html" aria-current="page">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
-    </ul>
-    <h2>Licence and privacy</h2>
-    <ul>
-      <li><a href="../guide/plans.html">Plans and licence</a></li>
-      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
-      <li><a href="../guide/security.html">Security and privacy</a></li>
-    </ul>
-    <h2>Help</h2>
-    <ul>
-      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
-      <li><a href="../guide/faq.html">Questions and answers</a></li>
+      <li><a href="../cli/ci.html" aria-current="page">Pipelines, reports and the bot</a></li>
+      <li><a href="../cli/mcp.html">The MCP server</a></li>
     </ul>
   </nav>
 <main class="doc" id="content">
-<p class="crumbs"><a href="../guide/">Guide</a> / Command line</p>
+<p class="crumbs"><a href="../cli/">Command line</a> / Automation</p>
 <h1>Pipelines, reports and the bot</h1>
 <p class="lede">Run the checks on every push, get a review comment on every pull request, and deploy from CI, all with the same commands you use on your machine.</p>
 <p class="meta"><span class="tag free">Free</span> <span>The free check runs anywhere. The bot, reports, baselines and SARIF need Team in a pipeline.</span></p>
@@ -193,7 +135,7 @@ jobs:
   <li>Store the key as a secret named <code>PENSTOCK_LICENSE</code>.</li>
 </ol>
 
-<p>The key takes no machine's place. See <a href="sign-in.html">Buying and signing in</a>.</p>
+<p>The key takes no machine's place. See <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
 
 <h2 id="machine-formats"><a href="#machine-formats">Machine formats</a></h2>
 
@@ -263,11 +205,11 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 ./penstockw deploy . --wait</code></pre>
 
-<p>The profile chooses the environment. The secret arrives through the environment, not through the repository. With <code>auth.type: oauth</code> the client secret comes from <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the engine wants one. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run, for example <code>PENSTOCK_DEPLOYMENT_URL</code>. <code>--wait</code> matters: it asks the engine for the definitions it just accepted until the engine answers. Run <code>--dry-run</code> first in a new pipeline. See <a href="deployment.html">Deployment</a>.</p>
+<p>The profile chooses the environment. The secret arrives through the environment, not through the repository. With <code>auth.type: oauth</code> the client secret comes from <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the engine wants one. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run, for example <code>PENSTOCK_DEPLOYMENT_URL</code>. <code>--wait</code> matters: it asks the engine for the definitions it just accepted until the engine answers. Run <code>--dry-run</code> first in a new pipeline. See <a href="../guide/deployment.html">Deployment</a>.</p>
 
 <h2 id="test-cases-in-ci"><a href="#test-cases-in-ci">Test cases in CI</a></h2>
 
-<p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock test-cases . --junit-xml build/test-cases.xml</code> runs them. See <a href="test-cases.html">Runs and test cases</a>.</p>
+<p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock test-cases . --junit-xml build/test-cases.xml</code> runs them. See <a href="../guide/run-tests.html">Run tests</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -292,15 +234,15 @@ PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/cli.html">Command line</a> - Install, run, and use it in a script.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/">Command line</a> - Install, run, and use it in a script.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 <li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
 <li><a href="../guide/profiles.html">Profiles</a> - Named settings for dev, test and prod.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/cli-reference.html"><span>Previous</span>Every command</a>
-<a class="next" href="../guide/mcp.html"><span>Next</span>The MCP server</a>
+<a class="prev" href="../cli/commands.html"><span>Previous</span>Every command</a>
+<a class="next" href="../cli/mcp.html"><span>Next</span>The MCP server</a>
 </nav>
 </main>
 </div>
@@ -309,6 +251,8 @@ PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

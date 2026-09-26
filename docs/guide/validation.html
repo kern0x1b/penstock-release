@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -115,7 +108,8 @@
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#see-it-working">See it working</a></li>
 <li><a href="#which-rules-apply">Which rules apply</a></li>
-<li><a href="#on-the-command-line">On the command line</a></li>
+<li><a href="#engine-compatibility-checks">Engine compatibility checks</a></li>
+<li><a href="#whole-project-checks">Whole-project checks</a></li>
 <li><a href="#custom-rules">Custom rules from a plugin</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -156,13 +150,38 @@
 
 <p>Each rule can be set to <code>error</code>, <code>warn</code> or <code>off</code>. An error makes <code>penstock check</code> fail. A warning is shown as a note. Every rule that Penstock knows has a page: <a href="../rules/">Every rule</a>. Those pages say which level is the default.</p>
 
-<h2 id="on-the-command-line"><a href="#on-the-command-line">On the command line</a></h2>
+<h2 id="engine-compatibility-checks"><a href="#engine-compatibility-checks">Engine compatibility checks</a></h2>
+<p><span class="tag free">Free</span></p>
 
+<p>Next to the modelling rules, Penstock checks the diagram against the engine and the version it is written for. It finds what that engine cannot run: a service task with no job type, an element or an expression the chosen version does not support, a process with no history time to live.</p>
+
+<ul>
+  <li>They run on Camunda 7 and Camunda 8 diagrams, in the editor and when you check the whole project. Operaton and CIB seven are checked as Camunda 7.</li>
+  <li>The version is the one in the file's <code>modeler:executionPlatformVersion</code>. Without one, the newest version is used.</li>
+  <li>Each finding is one plain sentence that names the element: <em>Charge card has no job type</em>, <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>, <em>History time to live is missing</em>. The sentence is the same in the check card, on the canvas and in every report.</li>
+  <li>Each finding has the id <code>compat/&lt;rule&gt;</code>, for example <code>compat/implementation</code>. Every rule has a page: see <a href="../rules/">Every rule</a>.</li>
+  <li>To turn one off, set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code>, which is the plugin's own name, or as <code>compat/&lt;rule&gt;</code>.</li>
+  <li>A problem that another check already reports on the same element, for example two blank start events, is shown once, by bpmnlint.</li>
+</ul>
+
+<h2 id="whole-project-checks"><a href="#whole-project-checks">Whole-project checks</a></h2>
+
+<p>The same rules run over every diagram of a project when you check the whole project. Errors fail the check. Warnings are notes. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
+
+<div class="hosts">
+<p class="hosts-title">Run only the rules</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Right-click a file or folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Check</span>. It runs the whole check, and the rules are one section of it.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>penstock check --only rules .</code></pre>
-
 <p>This runs the same rules as one section of the check. <code>penstock lint</code> still works in this release and prints that it is now <code>penstock check --only rules</code>.</p>
-
-<p>In the IDE, <span class="ui">Check</span> in the context menu of the Penstock tool window runs <code>penstock check</code> on a file or folder and shows the report in the Run window. It runs only in a trusted project.</p>
+</section>
+</div>
+</div>
 
 <h2 id="custom-rules"><a href="#custom-rules">Custom rules from a plugin</a></h2>
 
@@ -185,7 +204,7 @@
 <ul>
   <li>Markers on the elements a rule reports, while you draw.</li>
   <li>The same findings under <strong>Rules</strong> in the check card, each with the rule name.</li>
-  <li>In a terminal, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
+  <li>In a whole-project report, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
@@ -197,15 +216,15 @@
   <dd>Check that <code>.bpmnlintrc</code> is in the project root, or that <code>lint.configPath</code> names it. When <code>lint.configPath</code> is set, <code>penstock doctor</code> prints the path and says if it is missing.</dd>
   <dt>I have no markers on the canvas.</dt>
   <dd>The linting button on the canvas may be off. Press it once.</dd>
-  <dt>The Run window action does nothing.</dt>
-  <dd>It needs a trusted project. Trust the project when the IDE asks.</dd>
+  <dt>The whole-project check does nothing.</dt>
+  <dd>Your tool may need the project to be trusted before it runs commands. See the troubleshooting page of your tool.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -219,6 +238,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

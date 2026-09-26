@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html" aria-current="page">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -116,7 +109,7 @@
 <li><a href="#define-a-profile">Define a profile</a></li>
 <li><a href="#choose-the-profile-in-force">Choose the profile in force</a></li>
 <li><a href="#order-of-the-layers">Order of the layers</a></li>
-<li><a href="#deploy-to-another-profile-from-the-ide">Deploy to another profile from the IDE</a></li>
+<li><a href="#deploy-to-another-profile-from-the-editor">Deploy to another profile from the editor</a></li>
 <li><a href="#see-the-profiles">See the profiles</a></li>
 <li><a href="#secrets-belong-to-the-profile">Secrets belong to the profile</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -176,7 +169,7 @@ profiles:
 
 <p>A profile is laid over the merged result of all <code>penstock.yaml</code> files, <em>including</em> <code>penstock.local.yaml</code>. So a profile beats a plain value in your local file. To override a profile on your own machine, put the key under <code>profiles.&lt;name&gt;</code> in <code>penstock.local.yaml</code>. This is exactly what the Connection dialog does when you enter an engine address for a profile. Environment variables come last. See <a href="settings.html">penstock.yaml</a>.</p>
 
-<h2 id="deploy-to-another-profile-from-the-ide"><a href="#deploy-to-another-profile-from-the-ide">Deploy to another profile from the IDE</a></h2>
+<h2 id="deploy-to-another-profile-from-the-editor"><a href="#deploy-to-another-profile-from-the-editor">Deploy to another profile from the editor</a></h2>
 
 <ol class="steps">
   <li>Click the arrow next to <span class="ui">Deploy</span>.</li>
@@ -200,7 +193,7 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
 
 <h2 id="secrets-belong-to-the-profile"><a href="#secrets-belong-to-the-profile">Secrets belong to the profile</a></h2>
 
-<p>In the IDE, the password or client secret is stored in the password safe once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
+<p>In the editor, the password or client secret is stored in the secret store of your tool once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -218,7 +211,7 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
   <dd><code>PENSTOCK_PROFILE</code> wins over the file. Check your environment.</dd>
   <dt>I set a value in <code>penstock.local.yaml</code> but the profile overrides it.</dt>
   <dd>Right. A profile beats plain values in every file. Put the value under <code>profiles.&lt;name&gt;</code> in the local file.</dd>
-  <dt>The IDE asks for the password again.</dt>
+  <dt>The editor asks for the password again.</dt>
   <dd>The password is stored per profile. A new profile has none yet.</dd>
 </dl>
 <div class="related">
@@ -226,12 +219,12 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
 <ul>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
-<li><a href="../guide/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/settings.html"><span>Previous</span>penstock.yaml</a>
-<a class="next" href="../guide/tool-window.html"><span>Next</span>The Penstock tool window</a>
+<a class="next" href="../guide/project-model.html"><span>Next</span>Your project as a model</a>
 </nav>
 </main>
 </div>
@@ -240,6 +233,8 @@ deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

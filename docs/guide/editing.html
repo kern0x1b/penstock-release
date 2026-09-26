@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -162,7 +155,9 @@
 
 <h2 id="copy-and-paste"><a href="#copy-and-paste">Copy and paste</a></h2>
 
-<p>Copy and paste use the system clipboard, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another diagram that is open in another tab. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+<p>Copy and paste use the clipboard of your system or tool, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another open diagram. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+
+<p><span class="ui">Copy as image</span>, in the <span class="ui">More</span> menu and the context menu of the canvas, puts the selection, or the whole diagram when nothing is selected, on the clipboard as a PNG.</p>
 
 <h2 id="the-minimap"><a href="#the-minimap">The minimap</a></h2>
 
@@ -170,16 +165,28 @@
 
 <h2 id="right-click"><a href="#right-click">Right-click</a></h2>
 
-<p>The context menu of an element holds the editing actions and, when they apply, <span class="ui">Go to</span> the Java class a task names, and the Pro actions that link to your code. See <a href="code-links.html">Code links</a>.</p>
+<p>The context menu of an element holds the editing actions and, when they apply, an entry that goes to the code that runs the element, and the Pro actions that link to your code. See <a href="code-links.html">Code links</a>.</p>
 
-<h3 id="go-to-a-java-class"><a href="#go-to-a-java-class">Go to a Java class</a></h3>
+<h3 id="go-to-the-class-of-a-task"><a href="#go-to-the-class-of-a-task">Go to the class of a task</a></h3>
 
-<p>Right-click a task that names a Java class. That is a Camunda 7 <code>camunda:class</code>, a delegate expression that unwraps to a full class name, or a listener that names a class. The menu offers <span class="ui">Go to</span> with the class name. It opens the file. Penstock finds the class by name and package in your own sources.</p>
+<p>A task can name a Java class: a Camunda 7 <code>camunda:class</code>, a delegate expression that unwraps to a full class name, or a listener that names a class. Right-click it and the menu offers to go to that class. Penstock finds the class by name and package in your own sources. A delegate expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no class, so nothing is offered. Pro's <a href="code-links.html">code links</a> handle beans.</p>
 
+<div class="hosts">
+<p class="hosts-title">Go to the class in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The menu entry is <span class="ui">Go to</span> with the class name. It opens the file in the IDE.</p>
 <figure class="shot">
   <img src="../img/goto-class.png" alt="The context menu offering Go to CheckStockDelegate">
-  <figcaption>The entry appears only when the element names a class. A delegate expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no class, so nothing is offered. Pro's <a href="code-links.html">code links</a> handle beans.</figcaption>
 </figure>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no editor. Use penstock code to find tasks whose class or bean is missing.</p>
+</section>
+</div>
+</div>
 
 <h2 id="hover"><a href="#hover">Hover</a></h2>
 
@@ -189,7 +196,7 @@
 
 <ul>
   <li>The new element is on the canvas, connected where you dropped it.</li>
-  <li>Every change is already in the file. Open the <span class="ui">Text</span> tab to see it.</li>
+  <li>Every change is already in the file.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
@@ -199,8 +206,8 @@
   <dd>Token simulation is on. Press <span class="ui">Simulate</span> again to stop it.</dd>
   <dt>Paste does nothing.</dt>
   <dd>Copy something first. Select one or more elements, open <span class="ui">More</span> and choose <span class="ui">Copy</span>.</dd>
-  <dt>The Go to entry is missing.</dt>
-  <dd>The task names no class, or the class lives in a library instead of your own sources.</dd>
+  <dt>The entry that goes to the class is missing.</dt>
+  <dd>The task names no class, or the class lives in a library instead of your own sources, or your tool has no source view.</dd>
   <dt>I dropped an element in the wrong place.</dt>
   <dd>Press Undo. Or, if you already did other things, drag it back.</dd>
 </dl>
@@ -224,6 +231,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

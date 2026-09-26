@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -126,66 +119,84 @@
 </nav>
 <h2 id="the-trial"><a href="#the-trial">The trial</a></h2>
 
-<p>The first time you use Penstock on a machine, that machine gets 30 days of Pro. You do nothing. The status bar at the bottom of the IDE shows <em>Penstock Pro trial: 27d</em>. When the trial ends it shows <em>Penstock Free</em>. The trial is stored on the machine, in <code>~/.penstock/trial.json</code>. It needs no network. A pipeline gets no trial.</p>
+<p>The first time you use Penstock on a machine, that machine gets 30 days of Pro. You do nothing. When the trial ends, the machine is on the Free plan. The trial is stored on the machine, in <code>~/.penstock/trial.json</code>. It needs no network. A pipeline gets no trial.</p>
 
 <h2 id="buy-pro-or-team"><a href="#buy-pro-or-team">Buy Pro or Team</a></h2>
 
-<h3 id="in-the-ide"><a href="#in-the-ide">In the IDE</a></h3>
-
 <ol class="steps">
-  <li>Click <span class="ui">Penstock</span> in the status bar, or choose <span class="ui">Tools | Penstock Licence…</span>.</li>
-  <li>Press <span class="ui">Buy Pro</span>. For Team, press the link <em>Buy Team, for pipelines and the review bot</em>.</li>
+  <li>Choose to buy in your tool, or press a Buy button on the <a href="plans.html#choose-a-plan">Plans page</a>.</li>
   <li>The checkout opens in your browser, on Polar's page. Choose the billing period there.</li>
   <li>Pay. Penstock notices the payment by itself and sends a sign-in code to the address that paid.</li>
   <li>Type the code in. The licence is active. There is no key to copy.</li>
 </ol>
 
-<p>You can also reach the same step from a paid feature: the message that explains it has a <span class="ui">Buy Pro</span> button.</p>
+<p>You can also reach the same step from a paid feature: the message that explains it has a Buy button.</p>
 
-<h3 id="in-a-terminal"><a href="#in-a-terminal">In a terminal</a></h3>
-
+<div class="hosts">
+<p class="hosts-title">Buy from your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Click <span class="ui">Penstock</span> in the status bar, or choose <span class="ui">Tools | Penstock Licence…</span>. Press <span class="ui">Buy Pro</span>. For Team, press the link <em>Buy Team, for pipelines and the review bot</em>. See <a href="../jetbrains/licence.html">Licence in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>penstock license buy          # Pro
 penstock license buy team     # Team</code></pre>
-
-<p>The command opens the checkout, prints its address, and waits up to an hour for the payment. When the payment goes through it asks for the code that was sent to your e-mail. It needs a terminal to answer in.</p>
-
-<h3 id="on-this-website"><a href="#on-this-website">On this website</a></h3>
-
-<p>The <a href="plans.html#choose-a-plan">Plans page</a> has a Buy button for each plan. It opens the same Polar checkout. After paying, sign in from the IDE or with <code>penstock license login</code>, using the address you paid with.</p>
+<p>The command opens the checkout, prints its address, and waits up to an hour for the payment. Then it asks for the code that was sent to your e-mail. It needs a terminal to answer in.</p>
+</section>
+</div>
+</div>
 
 <h2 id="sign-in-on-another-machine"><a href="#sign-in-on-another-machine">Sign in on another machine</a></h2>
 
 <ol class="steps">
-  <li>Open the licence dialog, or run <code>penstock license login</code>.</li>
+  <li>Start signing in in your tool.</li>
   <li>Type the address you bought Penstock with. A key works in the same field too.</li>
   <li>An e-mail brings a code. Type it in.</li>
   <li>Penstock finds your best licence and activates it on this machine.</li>
 </ol>
 
-<p>The IDE and the command line share the licence. Sign in once on a machine and both are licensed. Both read <code>~/.penstock/license.json</code>.</p>
+<div class="hosts">
+<p class="hosts-title">Sign in from your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open the licence dialog from the status bar or <span class="ui">Tools | Penstock Licence…</span> and type your address, or a key, in <em>E-mail or licence key</em>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>penstock license login [email]
+penstock license activate &lt;key&gt;   # a key you type in by hand</code></pre>
+</section>
+</div>
+</div>
+
+<p>Every tool on a machine shares the licence. Sign in once and all are licensed. They read <code>~/.penstock/license.json</code>.</p>
 
 <h2 id="how-many-machines"><a href="#how-many-machines">How many machines</a></h2>
 
-<p>A licence covers a number of machines at once. Signing in again on the same machine, for example after reinstalling the IDE, reuses its place. It does not take a new one. When every place is taken, signing in lists the machines and when each was activated. Pick the one to free, and this machine takes its place.</p>
-
-<p>To free a machine by hand, choose <span class="ui">Release This Machine</span> in the licence dialog, or run <code>penstock license logout</code>.</p>
+<p>A licence covers a number of machines at once. Signing in again on the same machine, for example after reinstalling your tool, reuses its place. It does not take a new one. When every place is taken, signing in lists the machines and when each was activated. Pick the one to free, and this machine takes its place. You can also release a machine by hand.</p>
 
 <h2 id="check-your-licence"><a href="#check-your-licence">Check your licence</a></h2>
 
+<div class="hosts">
+<p class="hosts-title">See which plan this machine has</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The status bar at the bottom of the IDE shows <em>Penstock Pro trial: 27d</em>, then <em>Penstock Free</em> when the trial ends, or <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the licence dialog. <span class="ui">Release This Machine</span> frees the machine.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock license
 Pro   Pro trial, 27 days left
 
 penstock license buy   buy Pro        penstock license login   already bought</code></pre>
-
-<p>The line says which plan this machine has and why. Other forms:</p>
-
-<div class="table-wrap"><div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td><code>penstock license key</code></td><td>Prints the key, for a pipeline. Keep it secret.</td></tr>
-  <tr><td><code>penstock license activate &lt;key&gt;</code></td><td>Activates a key you type in by hand.</td></tr>
-  <tr><td><code>penstock license logout</code></td><td>Releases this machine.</td></tr>
-  </tbody>
-</table></div></div>
+<p>The line says which plan this machine has and why. <code>penstock license logout</code> releases this machine.</p>
+</section>
+</div>
+</div>
 
 <h2 id="when-the-licence-is-checked"><a href="#when-the-licence-is-checked">When the licence is checked</a></h2>
 
@@ -198,13 +209,22 @@ penstock license buy   buy Pro        penstock license login   already bought</c
 
 <h2 id="in-a-pipeline"><a href="#in-a-pipeline">In a pipeline</a></h2>
 
-<ol class="steps">
-  <li>On a machine that has Team, run <code>penstock license key</code>. Or press <span class="ui">Copy Key for CI</span> in the licence dialog.</li>
-  <li>Store the key in a secret named <code>PENSTOCK_LICENSE</code> in your CI system.</li>
-  <li>Pass it to the job as an environment variable. The pipelines that <code>penstock init --ci</code> writes already do it, when the machine that ran the command has Team.</li>
-</ol>
+<p>A pipeline does not sign in. Give it the licence key as a secret named <code>PENSTOCK_LICENSE</code>. The key is checked, and it takes no machine's place. The pipelines that <code>penstock init --ci</code> writes already pass it, when the machine that ran the command has Team. Without Team on the machine, <code>init --ci</code> writes a pipeline that runs only the free checks. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</p>
 
-<p>The key is checked, and it takes no machine's place. Without Team on the machine, <code>init --ci</code> writes a pipeline that runs only the free checks. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<div class="hosts">
+<p class="hosts-title">Get the key for a pipeline</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open the licence dialog and press <span class="ui">Copy Key for CI</span>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>penstock license key</code></pre>
+<p>It prints the key. Keep it secret.</p>
+</section>
+</div>
+</div>
 
 <h2 id="education"><a href="#education">Free Pro for students, teachers and open-source maintainers</a></h2>
 
@@ -215,24 +235,23 @@ penstock license buy   buy Pro        penstock license login   already bought</c
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>After signing in: <em>Penstock Pro is active on this machine. The editor in your IDE uses it too.</em></li>
-  <li>The status bar says <em>Penstock Pro</em> or <em>Penstock Team</em> instead of <em>Penstock Pro trial</em>.</li>
-  <li><code>penstock license</code> prints the plan and where it comes from.</li>
+  <li>After signing in: <em>Penstock Pro is active on this machine.</em></li>
+  <li>The status of the machine says Pro or Team instead of <em>Pro trial</em>.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
   <dt>"There is no Penstock licence bought with that address."</dt>
-  <dd>Sign in with the exact address you paid with. Or buy with <code>penstock license buy</code>.</dd>
+  <dd>Sign in with the exact address you paid with. Or buy again.</dd>
   <dt>"That code is wrong or has expired."</dt>
   <dd>Ask for a new code. You have three tries per code.</dd>
   <dt>"Signing in needs a terminal to answer in."</dt>
-  <dd>You ran <code>license login</code> or <code>license buy</code> in a place without a terminal, for example a CI job. In a pipeline set <code>PENSTOCK_LICENSE</code> instead.</dd>
+  <dd>You ran the command line sign-in in a place without a terminal, for example a CI job. In a pipeline set <code>PENSTOCK_LICENSE</code> instead.</dd>
   <dt>"PENSTOCK_LICENSE is not a valid Penstock key."</dt>
-  <dd>Copy the key again with <code>penstock license key</code>. Check there is no space or line break around it.</dd>
+  <dd>Copy the key again. Check there is no space or line break around it.</dd>
   <dt>Every machine is in use.</dt>
-  <dd>Pick one to free when signing in, or press <span class="ui">Release This Machine</span> on a machine you no longer use.</dd>
+  <dd>Pick one to free when signing in, or release a machine you no longer use.</dd>
   <dt>The licence service could not be reached.</dt>
   <dd>Check your network and proxy. An active licence keeps working for 30 days offline.</dd>
 </dl>
@@ -241,7 +260,8 @@ penstock license buy   buy Pro        penstock license login   already bought</c
 <ul>
 <li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
-<li><a href="../guide/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../jetbrains/licence.html">Licence in the IDE</a> - The status bar, the Tools menu and the licence dialog.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -255,6 +275,8 @@ penstock license buy   buy Pro        penstock license login   already bought</c
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

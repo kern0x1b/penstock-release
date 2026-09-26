@@ -18,9 +18,10 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/">Guide</a>
-      <a href="../guide/plans.html" aria-current="true">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -127,8 +120,8 @@
   <div class="plan" id="buy-free">
       <p class="name"><span class="tag free">Free</span></p>
       <p class="price">No charge</p>
-      <p class="about">The editors, checks, deploy, Live, export, share and import. Every new machine also starts with 30 days of Pro.</p>
-      <a class="btn quiet" href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Install from the Marketplace</a>
+      <p class="about">The editors, checks, deploy, Monitor, export, share and import. Every new machine also starts with 30 days of Pro.</p>
+      <a class="btn quiet" href="getting-started.html">Get Penstock</a>
     </div>
   <div class="plan" id="buy-pro">
       <p class="name"><span class="tag pro">Pro</span></p>
@@ -169,7 +162,7 @@
   <tr>
     <td><span class="tag free">Free</span></td>
     <td>
-      <p>In the IDE: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in an IDE tab, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Live, export, the hand-drawn look, opening a run that already exists, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
+      <p>In the editors: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in a code editor of your tool, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Monitor, export, the hand-drawn look, opening a run that already exists, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
       <p>The Camunda 7 to Camunda 8 analysis and its report are free too.</p>
       <p>On the command line: <code>init</code>, <code>doctor</code>, <code>check</code> (the drawing and rules sections), <code>migrate analyze</code> and <code>migrate report</code>, <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>show</code>, <code>deploy</code>, <code>share</code>, <code>import</code>, <code>connectors</code>, <code>license</code>, <code>update</code>, and <code>edit --schema</code>.</p>
       <p>The MCP tools <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code>, which only read and explain.</p>
@@ -184,8 +177,8 @@
         <li>The visual <a href="diagram-diff.html">diagram diff</a>, and pictures of what changed.</li>
         <li>Modelling conventions from <code>penstock.yaml</code>.</li>
         <li><a href="migration.html">Converting Camunda 7 to Camunda 8</a>: the preview, <code>penstock migrate convert</code> and the job worker skeletons.</li>
-        <li><a href="test-cases.html">Test-case runs</a>.</li>
-        <li>The link between diagrams and code in the IDE: <a href="code-links.html">code links</a>. From a step to its worker and back, usages, Code Vision, variables and error codes across both, tests run from the diagram, <a href="process-tests.html">coverage</a> on it, the debugger's position on the diagram, linked repositories, and <a href="check-workers.html">Check Workers</a>.</li>
+        <li><a href="run-tests.html">Run tests</a>: test cases on a local engine, step by step.</li>
+        <li>The link between diagrams and code: <a href="code-links.html">code links</a>. From a step to its worker and back, usages, hints above the code, variables and error codes across both, tests run from the diagram, <a href="process-tests.html">coverage</a> on it, the debugger's position on the diagram, linked repositories, and <a href="check-workers.html">Check Workers</a>.</li>
         <li>In the command line: <code>layout</code>, <code>check --only flow</code>, <code>paths</code>, <code>tests</code>, <code>test-cases</code>, <code>code</code>, <code>docs</code>, <code>diff --images</code>, <code>edit</code>, <code>report</code>, check baselines, and findings as SARIF or GitHub annotations.</li>
         <li>The review bot, when you run it on your machine.</li>
         <li>The MCP tools <code>analyze_flow</code>, <code>list_scenarios</code>, <code>check_code_links</code> and <code>edit_diagram</code>. Each needs the same plan as its command line twin.</li>
@@ -208,7 +201,7 @@
 <p>Nothing else in the editor changes. When you reach for a paid feature you do not have, Penstock explains what it does and offers to buy it or to sign in, at that moment.</p>
 
 <ul>
-  <li>In the IDE, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and offers <span class="ui">Buy Pro</span>, <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so.</li>
+  <li>In an editor, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and offers <span class="ui">Buy Pro</span>, <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so.</li>
   <li>In a terminal, the command prints what the feature gives and the commands <code>penstock license buy</code> and <code>penstock license login</code>. In a pipeline it says the feature needs Team and to give the pipeline a key in <code>PENSTOCK_LICENSE</code>.</li>
   <li>An MCP tool called without the licence says the same in its error result. It also shows in the tool list with a note on what it needs.</li>
 </ul>
@@ -240,7 +233,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/mcp.html"><span>Previous</span>The MCP server</a>
+<a class="prev" href="../guide/import.html"><span>Previous</span>Import a diagram</a>
 <a class="next" href="../guide/sign-in.html"><span>Next</span>Buying and signing in</a>
 </nav>
 </main>
@@ -250,6 +243,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

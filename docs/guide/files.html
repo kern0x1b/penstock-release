@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html" aria-current="page">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -135,18 +128,18 @@
   <tr><td><code>.penstock/images/</code></td><td>Pictures from <code>penstock diff --images</code> and <code>penstock report</code>.</td><td>No</td></tr>
   <tr><td><code>penstock-report.md</code></td><td>The pull request report written by <code>penstock report</code>.</td><td>No</td></tr>
   <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Your diagrams, decisions and forms. Penstock edits them in place.</td><td>Yes</td></tr>
-  <tr><td><code>.idea/bpmn-project.xml</code></td><td>Legacy settings of older versions. Penstock offers to move them to <code>penstock.yaml</code>.</td><td>No longer needed</td></tr>
+
   </tbody>
 </table></div></div>
 
 <h2 id="in-your-home-folder"><a href="#in-your-home-folder">In your home folder</a></h2>
 
-<p>Penstock keeps its personal files in <code>~/.penstock</code>. If the environment variable <code>PENSTOCK_HOME</code> is set, they are under that folder instead. The plugin and the command line share them.</p>
+<p>Penstock keeps its personal files in <code>~/.penstock</code>. If the environment variable <code>PENSTOCK_HOME</code> is set, they are under that folder instead. Every tool on the machine shares them.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>File</th><th>What it is</th></tr></thead>
   <tbody>
-  <tr><td><code>preferences.json</code></td><td>Your toolbar choices, Sketchy Drawing, tree or flat view in the tool window, the last export format, and whether the tour was shown.</td></tr>
+  <tr><td><code>preferences.json</code></td><td>Your toolbar choices, Sketchy Drawing, tree or flat view of the project model, the last export format, and whether the tour was shown.</td></tr>
   <tr><td><code>license.json</code></td><td>Your licence key and the time it was last checked. Readable only by you.</td></tr>
   <tr><td><code>trial.json</code></td><td>When this machine's 30-day Pro trial started.</td></tr>
   <tr><td><code>connectors/&lt;release&gt;/</code></td><td>The Camunda connector templates downloaded from GitHub.</td></tr>
@@ -157,15 +150,43 @@
 
 <h2 id="not-in-a-file"><a href="#not-in-a-file">Not in a file</a></h2>
 
-<p>The password or client secret for a deployment profile lives in the IDE password safe. It is never written to a file.</p>
+<p>The password or client secret for a deployment profile lives in the secret store of your tool. It is never written to a file.</p>
+
+<div class="hosts">
+<p class="hosts-title">Where the secret lives</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The IDE password safe, once for each profile. Older versions also kept settings in <code>.idea/bpmn-project.xml</code>. That file is legacy. Penstock offers to move its settings into <code>penstock.yaml</code>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>There is none. Give the secret to a command through the environment: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="how-to-remove-everything"><a href="#how-to-remove-everything">How to remove everything</a></h2>
 
 <ol class="steps">
-  <li>Uninstall the plugin. See <a href="installing.html">Installing</a>.</li>
+  <li>Remove Penstock from your tool. See below.</li>
   <li>Delete <code>~/.penstock</code>.</li>
   <li>In your projects, delete the files above that you do not want.</li>
 </ol>
+
+<div class="hosts">
+<p class="hosts-title">Remove Penstock from your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open <span class="ui">Settings | Plugins</span> and the <span class="ui">Installed</span> tab, choose <strong>Penstock</strong>, press <span class="ui">Uninstall</span> and restart the IDE. Your diagrams stay as they are.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>Delete <code>penstockw</code>, <code>penstockw.cmd</code> and <code>penstock/wrapper</code> from your project. Nothing else was installed.</p>
+</section>
+</div>
+</div>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -180,7 +201,7 @@
   <dt>My toolbar differs between two computers.</dt>
   <dd><code>preferences.json</code> is per machine. It does not sync.</dd>
   <dt>I want the settings somewhere else.</dt>
-  <dd>Set <code>PENSTOCK_HOME</code> to another folder, for example on a shared drive. Then the IDE and the command line use that folder.</dd>
+  <dd>Set <code>PENSTOCK_HOME</code> to another folder, for example on a shared drive. Then every tool uses that folder.</dd>
   <dt>Git shows <code>penstock.local.yaml</code> as new.</dt>
   <dd>Add it to <code>.gitignore</code>. <code>penstock init</code> does this for you.</dd>
 </dl>
@@ -193,7 +214,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/tool-window.html"><span>Previous</span>The Penstock tool window</a>
+<a class="prev" href="../guide/project-model.html"><span>Previous</span>Your project as a model</a>
 <a class="next" href="../guide/diagram-check.html"><span>Next</span>Diagram check</a>
 </nav>
 </main>
@@ -203,6 +224,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

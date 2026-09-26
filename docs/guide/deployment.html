@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html" aria-current="page">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -112,7 +105,7 @@
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
-<li><a href="#deploy-from-the-ide">Deploy from the IDE</a></li>
+<li><a href="#deploy-from-the-editor">Deploy from the editor</a></li>
 <li><a href="#the-connection-dialog">The Connection dialog</a></li>
 <li><a href="#what-is-set-in-penstock-yaml">What is set in penstock.yaml</a></li>
 <li><a href="#what-is-sent">What is sent</a></li>
@@ -124,7 +117,7 @@
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
-<h2 id="deploy-from-the-ide"><a href="#deploy-from-the-ide">Deploy from the IDE</a></h2>
+<h2 id="deploy-from-the-editor"><a href="#deploy-from-the-editor">Deploy from the editor</a></h2>
 
 <ol class="steps">
   <li>Open a diagram, a decision or a form.</li>
@@ -162,7 +155,7 @@
 
 <ul>
   <li>The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force. It stays on your machine.</li>
-  <li>The password or client secret goes to the <strong>IDE password safe</strong>, once for each profile.</li>
+  <li>The password or client secret goes to the <strong>secret store of your tool</strong>, once for each profile.</li>
   <li>When you open the dialog again, the field says <em>Saved - type to replace</em>. Leave it empty to keep the secret. Type to replace it. Set <em>Sign in</em> to <em>Not needed</em> and save to remove it.</li>
 </ul>
 
@@ -210,7 +203,7 @@ hooks:
   </tbody>
 </table></div></div>
 
-<p><code>penstock deploy</code> uses the same addresses and settings, so the IDE and a pipeline mean the same thing by <code>deployment.url</code>. See <a href="cli-reference.html#deploy">Every command</a>.</p>
+<p>Every tool uses the same addresses and settings, so an editor and a pipeline mean the same thing by <code>deployment.url</code>.</p>
 
 <h2 id="oauth"><a href="#oauth">OAuth</a></h2>
 
@@ -220,20 +213,35 @@ hooks:
 
 <h2 id="hooks"><a href="#hooks">Hooks</a></h2>
 
-<p><code>preDeploy</code> and <code>postDeploy</code> run around a deployment from the IDE, as they do on the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. In the IDE, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
+<p><code>preDeploy</code> and <code>postDeploy</code> run around every deployment, from the editor and from the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. Where a tool has a notion of a trusted project, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
 
 <h2 id="deploy-more-than-one-file"><a href="#deploy-more-than-one-file">Deploy more than one file</a></h2>
 
-<ul>
-  <li>In the <a href="tool-window.html">Penstock tool window</a>: right-click a file or a process and press <span class="ui">Deploy</span>. It goes to that file's profile. Files from folders whose <code>penstock.yaml</code> names another engine go to that engine. Right-click a profile under <em>Deployment</em> to send every diagram to it, after a confirmation.</li>
-  <li>From a terminal: <code>penstock deploy .</code> sends every diagram, decision and form, grouped by the target each folder asks for. Add <code>--dry-run</code> to see where without sending. Add <code>--wait</code> to confirm that the engine shows the definitions.</li>
-</ul>
+<p>Deploying sends the files of a project grouped by the target each folder asks for: files from folders whose <code>penstock.yaml</code> names another engine go to that engine. You can also send every diagram to one profile at once, after a confirmation.</p>
 
+<div class="hosts">
+<p class="hosts-title">Deploy many files in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>In the <a href="../jetbrains/tool-window.html">Penstock tool window</a>: right-click a file or a process and press <span class="ui">Deploy</span>. It goes to that file's profile. Right-click a profile under <em>Deployment</em> to send every diagram to it. Hooks run only in a trusted project, and the password comes from the IDE password safe.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock deploy . --dry-run
 would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
       src/main/resources/approve-order.form
       src/main/resources/order-process.bpmn
       src/main/resources/shipping-method.dmn</code></pre>
+<ul>
+  <li><code>--dry-run</code> says where, and sends nothing. Try it first in a new pipeline.</li>
+  <li><code>--wait</code> asks the engine until it shows the definitions.</li>
+  <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run.</li>
+</ul>
+<p>See <a href="../cli/commands.html#deploy">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="feedback-and-errors"><a href="#feedback-and-errors">Feedback and errors</a></h2>
 
@@ -263,10 +271,10 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
   <dd>The engine is Classic, or not set. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
   <dt>Every deploy is a new version.</dt>
   <dd>The engine's duplicate check matches by name. Keep <code>deployment.name</code> the same, and leave <code>changedOnly</code> on.</dd>
-  <dt>The IDE says 404 or the wrong path on Camunda 8.</dt>
+  <dt>The editor says 404 or the wrong path on Camunda 8.</dt>
   <dd>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. If your address already ends in <code>/v2</code>, that is fine too.</dd>
   <dt>The engine has a private certificate.</dt>
-  <dd>Penstock does not skip certificate checks. Trust the certificate in the Java runtime of your IDE.</dd>
+  <dd>Penstock does not skip certificate checks. Trust the certificate in the runtime of your tool. See the troubleshooting page of your tool.</dd>
   <dt>A wrong password is saved.</dt>
   <dd>Open <span class="ui">Connection…</span>, type the right one and press <span class="ui">Save and Deploy</span>.</dd>
 </dl>
@@ -276,13 +284,13 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
 <li><a href="../guide/profiles.html">Profiles</a> - Named settings for dev, test and prod.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
-<li><a href="../guide/live.html">Live</a> - See what waits on each element right now.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/auto-layout.html"><span>Previous</span>Auto layout</a>
-<a class="next" href="../guide/live.html"><span>Next</span>Live</a>
+<a class="next" href="../guide/monitor.html"><span>Next</span>Monitor</a>
 </nav>
 </main>
 </div>
@@ -291,6 +299,8 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

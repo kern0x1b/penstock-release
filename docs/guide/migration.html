@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html" aria-current="page">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -118,14 +111,13 @@
 <li><a href="#what-it-looks-at">What it looks at</a></li>
 <li><a href="#convert">Convert</a></li>
 <li><a href="#the-report">The report</a></li>
-<li><a href="#the-command-line">The command line</a></li>
 <li><a href="#what-it-does-not-do">What it does not do</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
 <h2 id="why-and-for-whom"><a href="#why-and-for-whom">Why and for whom</a></h2>
 
-<p>Camunda 7 Community Edition has reached its end of life. A team on it has to decide whether to move to Camunda 8, and then to do it: the diagrams, the decisions, the forms and the Java code behind them. The assistant does the reading and most of the converting, inside the IDE, next to the code.</p>
+<p>Camunda 7 Community Edition has reached its end of life. A team on it has to decide whether to move to Camunda 8, and then to do it: the diagrams, the decisions, the forms and the Java code behind them. The assistant does the reading and most of the converting, in your tool, next to the code.</p>
 
 <p>It works on Camunda 7, Operaton and CIB seven projects. Both forks are read as a Camunda 7 source, because their diagrams use the same <code>camunda:</code> namespace.</p>
 
@@ -156,7 +148,36 @@
   <figcaption>The migration section in the check card. In this picture the section is headed "Camunda 8". It is now called "Migrate to Camunda 8". A <span class="ui">Convert…</span> button is at its right.</figcaption>
 </figure>
 
-<p>The whole project, all files at once, is in the <a href="tool-window.html">Penstock tool window</a> under <strong>Migrate to Camunda 8</strong>. It lists each file with its status (<em>ready</em>, <em>converts</em>, <em>needs work</em>, <em>blocked</em>), its findings, and the Java code with what each class becomes.</p>
+<p>The check card looks at one diagram. For the whole project, all files at once, Penstock lists each file with its status (<em>ready</em>, <em>converts</em>, <em>needs work</em>, <em>blocked</em>), its findings, and the Java code with what each class becomes.</p>
+
+<div class="hosts">
+<p class="hosts-title">Migrate a whole project</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and find <strong>Migrate to Camunda 8</strong>. It lists every file with its status and findings, and the Java code with what each class becomes. Right-click a file and choose <span class="ui">Convert to Camunda 8…</span>, or use <span class="ui">Convert All…</span> on the root.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>$ penstock migrate .
+ready       src/main/resources/approve-order.form  1 convert
+needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
+        error   migration/message-catch: Shipment confirmed: The message shipment-confirmed needs a correlation key. ...
+        error   migration/delegate-expression: Send receipt: Delegate ${sendReceipt} becomes the job type sendReceipt. ...
+ready       src/main/resources/shipping-method.dmn  1 convert
+
+3 files to migrate for Camunda 8.8: 2 ready, 0 convert, 1 need work, 0 blocked.
+Job workers to write: 2</code></pre>
+<ul>
+  <li><code>migrate</code>, <code>migrate analyze</code>: list what does not carry over. Exit code 1 if there is an error, or a warning with <code>--fail-on warning</code>. Free.</li>
+  <li><code>migrate convert</code>: convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first. Pro, and Team in a pipeline.</li>
+  <li><code>migrate report</code>: write the report. Free.</li>
+  <li><code>--target 8.5</code> to <code>8.9</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>, <code>--verbose</code>.</li>
+</ul>
+<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>. Set <code>engine: camunda-8</code> when you move. See <a href="../cli/commands.html#migrate">Every command</a>.</p>
+</section>
+</div>
+</div>
 
 <h3 id="what-the-words-mean"><a href="#what-the-words-mean">What the words mean</a></h3>
 
@@ -196,7 +217,7 @@
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>In the migration section of the check card, press <span class="ui">Convert…</span>. Or in the tool window, right-click a file and choose <span class="ui">Convert to Camunda 8…</span>, or the root's <span class="ui">Convert All…</span>.</li>
+  <li>In the migration section of the check card, press <span class="ui">Convert…</span>. Your tool can also convert a file or all files of a project.</li>
   <li>The diagram opens twice, side by side, in the <a href="diagram-diff.html">visual diagram diff</a>: before and after. Nothing is written yet.</li>
   <li>Read what changed. Then choose <span class="ui">Replace</span> to overwrite the file, or <span class="ui">Save as a Copy</span> to keep the original.</li>
 </ol>
@@ -206,48 +227,49 @@
 <h3 id="job-worker-skeletons"><a href="#job-worker-skeletons">Job worker skeletons</a></h3>
 <p><span class="tag pro">Pro</span></p>
 
-<p>In the tool window, open <strong>Migrate to Camunda 8</strong>, then <strong>Code</strong>. Each Java delegate, external task handler or listener is shown with the file and line and what it becomes. Right-click one to write a skeleton next to the code: <span class="ui">Job Worker Skeleton…</span> (Spring), <span class="ui">Node Worker Skeleton…</span> or <span class="ui">Python Worker Skeleton…</span>. The skeleton is written from the variables the code reads and writes and the BPMN errors it throws. Penstock never writes over a file.</p>
+<p>Each Java delegate, external task handler or listener is followed to its source, with the file and line and what it becomes. Penstock can write a skeleton next to the code: a Spring job worker, a Node worker or a Python worker. The skeleton is written from the variables the code reads and writes and the BPMN errors it throws. Penstock never writes over a file.</p>
+
+<div class="hosts">
+<p class="hosts-title">Write a skeleton in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>In the tool window, open <strong>Migrate to Camunda 8</strong>, then <strong>Code</strong>. Right-click an item and choose <span class="ui">Job Worker Skeleton…</span> (Spring), <span class="ui">Node Worker Skeleton…</span> or <span class="ui">Python Worker Skeleton…</span>. Pro.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. Skeletons are written from the IDE. penstock migrate prints how many job workers there are to write.</p>
+</section>
+</div>
+</div>
 
 <h2 id="the-report"><a href="#the-report">The report</a></h2>
 
-<p>Press <span class="ui">Migration Report</span> in the tool window root, or run:</p>
+<p>The report is Markdown and one self-contained HTML page.</p>
 
+<div class="hosts">
+<p class="hosts-title">Write the report in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Press <span class="ui">Migration Report</span> on the root of <strong>Migrate to Camunda 8</strong> in the tool window.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock migrate report .
 wrote migration-report.md
 wrote migration-report.html</code></pre>
+<p>Use <code>--out &lt;dir&gt;</code> to choose the folder.</p>
+</section>
+</div>
+</div>
 
-<p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code. Use <code>--out &lt;dir&gt;</code> to choose the folder.</p>
+<p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code.</p>
 
 <figure class="shot">
   <img src="../img/migration/03-migration-report.png" alt="The migration report page: scope, what the move costs, files and code, in dark theme">
   <figcaption>The migration report. It follows the reader's light or dark setting. The design of this website copies it.</figcaption>
 </figure>
-
-<h2 id="the-command-line"><a href="#the-command-line">The command line</a></h2>
-
-<pre><code>$ penstock migrate .
-ready       src/main/resources/approve-order.form  1 convert
-needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
-        error   migration/message-catch: Shipment confirmed: The message shipment-confirmed needs a correlation key. ...
-        error   migration/delegate-expression: Send receipt: Delegate ${sendReceipt} becomes the job type sendReceipt. ...
-ready       src/main/resources/shipping-method.dmn  1 convert
-
-3 files to migrate for Camunda 8.8: 2 ready, 0 convert, 1 need work, 0 blocked.
-Job workers to write: 2</code></pre>
-
-<div class="table-wrap"><div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td><code>migrate</code>, <code>migrate analyze</code></td><td>List what does not carry over. Exit code 1 if there is an error (or a warning with <code>--fail-on warning</code>). Free.</td></tr>
-  <tr><td><code>migrate convert</code></td><td>Convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first to see the changes. Pro, and Team in a pipeline.</td></tr>
-  <tr><td><code>migrate report</code></td><td>Write the Markdown and HTML report. Free.</td></tr>
-  <tr><td><code>--target 8.5</code> to <code>8.9</code></td><td>The Camunda 8 version to convert for. Default 8.8.</td></tr>
-  <tr><td><code>--format text|json|sarif|github</code></td><td>Machine-readable output. SARIF and annotations need what they need for <code>check</code>.</td></tr>
-  <tr><td><code>--baseline</code>, <code>--update-baseline</code></td><td>Fail only on what is new. The file is <code>penstock-migration-baseline.json</code>.</td></tr>
-  <tr><td><code>--verbose</code></td><td>Also list what only carries over as it is.</td></tr>
-  </tbody>
-</table></div></div>
-
-<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>, so the files still open as Camunda 7. Set <code>engine: camunda-8</code> when you move. Penstock never changes your configuration.</p>
 
 <h2 id="what-it-does-not-do"><a href="#what-it-does-not-do">What it does not do</a></h2>
 
@@ -275,9 +297,9 @@ Job workers to write: 2</code></pre>
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
-<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
-<li><a href="../guide/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -291,6 +313,8 @@ Job workers to write: 2</code></pre>
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

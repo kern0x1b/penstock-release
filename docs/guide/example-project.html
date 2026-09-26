@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html" aria-current="page">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -139,24 +132,22 @@
 
 <h2 id="write-it-into-a-folder"><a href="#write-it-into-a-folder">Write it into a folder</a></h2>
 
-<h3 id="from-the-command-line"><a href="#from-the-command-line">From the command line</a></h3>
+<p>Write the example into an <em>empty</em> folder. If the folder is not empty, Penstock stops and writes nothing. It never overwrites your files. A <code>.git</code> folder does not count as content. Penstock also adds the <code>penstockw</code> wrapper scripts and adds <code>penstock.local.yaml</code> to <code>.gitignore</code>.</p>
 
-<ol class="steps">
-  <li>Make an empty folder and go into it.</li>
-  <li>Run <code>penstock init --example camunda-8</code>. For Camunda 7, run <code>penstock init --example camunda-7</code>.</li>
-  <li>Read the list of files it wrote. Penstock also writes the <code>penstockw</code> wrapper scripts, and adds <code>penstock.local.yaml</code> to <code>.gitignore</code>. See <a href="cli.html">Command line</a>.</li>
-</ol>
-
-<p>The folder must be empty. If it is not, Penstock stops and writes nothing. It never overwrites your files. A <code>.git</code> folder does not count as content.</p>
-
-<h3 id="from-the-ide"><a href="#from-the-ide">From the IDE</a></h3>
-
-<ol class="steps">
-  <li>Open an empty project.</li>
-  <li>Open the <span class="ui">Penstock</span> tool window. It offers <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span> when the project has no diagrams yet.</li>
-  <li>Press one and confirm with <span class="ui">Create</span>.</li>
-  <li>A notification says where the example is and that its README says how to run it.</li>
-</ol>
+<div class="hosts">
+<p class="hosts-title">Write the example</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open an empty project and open the <span class="ui">Penstock</span> tool window. It offers <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one and confirm the dialog <em>Start from an example</em> with <span class="ui">Create</span>. A notification says where the example is.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
+<pre><code>penstock init --example camunda-8</code></pre>
+</section>
+</div>
+</div>
 
 <h2 id="the-files"><a href="#the-files">The files</a></h2>
 
@@ -167,7 +158,7 @@
   <tr><td><code>src/main/resources/shipping-method.dmn</code></td><td>The decision. It picks <code>express</code>, <code>standard</code> or <code>international</code> from the country and the amount.</td></tr>
   <tr><td><code>src/main/resources/approve-order.form</code></td><td>The Camunda Form of the user task</td></tr>
   <tr><td><code>src/test/resources/test-cases/order-process.json</code></td><td>Three test cases in the Camunda test-case format</td></tr>
-  <tr><td><code>penstock.yaml</code></td><td>The engine and where to deploy</td></tr>
+  <tr><td><code>penstock.yaml</code></td><td>The engine and where to deploy. See <a href="settings.html">penstock.yaml</a></td></tr>
   <tr><td><code>README.md</code></td><td>The commands to run it against a local engine</td></tr>
   <tr><td><code>pom.xml</code>, <code>application.yaml</code></td><td>The Maven build and Spring Boot settings</td></tr>
   </tbody>
@@ -179,8 +170,8 @@
 
 <ol class="steps">
   <li><strong>Start the engine.</strong> On Camunda 8, start Camunda 8 Run. On Camunda 7, run <code>mvn spring-boot:run</code>. The web apps open at <code>http://localhost:8080</code>. The login is <code>demo</code> and <code>demo</code>.</li>
-  <li><strong>Look at the diagrams</strong> in the editor, or check them: <code>penstock check .</code></li>
-  <li><strong>Deploy</strong> the process, the decision and the form: <code>penstock deploy .</code> On Camunda 7 they are also deployed when the app starts.</li>
+  <li><strong>Look at the diagrams</strong> and check them. See <a href="getting-started.html">Getting started</a>.</li>
+  <li><strong>Deploy</strong> the process, the decision and the form. See <a href="deployment.html">Deployment</a>. On Camunda 7 they are also deployed when the app starts.</li>
   <li><strong>Start the workers</strong>, each in its own terminal.</li>
   <li><strong>Start an order.</strong> A home order under 1000 is paid and ships standard. Use <code>"amount": 5000</code> to see the card declined.</li>
   <li><strong>Approve it</strong> in Tasklist, then send the message <code>shipment-confirmed</code> to tell the process the parcel has shipped.</li>
@@ -188,9 +179,7 @@
 
 <h2 id="run-the-test-cases"><a href="#run-the-test-cases">Run the test cases</a></h2>
 
-<p>Run <code>penstock test-cases .</code>. It deploys a test build, mocks the workers and runs the three cases against your local engine. The first run on a local engine asks once whether it may. See <a href="test-cases.html">Runs and test cases</a>.</p>
-
-<p>The three cases are:</p>
+<p>The example has three test cases. Running them deploys a test build, mocks the workers and runs the cases against your local engine. The first run on a local engine asks once whether it may. See <a href="run-tests.html">Run tests</a>.</p>
 
 <ul>
   <li>A home order is approved, paid, shipped standard and completed.</li>
@@ -198,27 +187,51 @@
   <li>A declined card ends the order without a shipment.</li>
 </ul>
 
+<div class="hosts">
+<p class="hosts-title">Run the three test cases</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open <code>order-process.json</code> and press the green triangle in the gutter next to a test case. The IDE test runner shows the result. Or press <span class="ui">Run tests</span> on the diagram's toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>penstock test-cases .</code></pre>
+<p>See <a href="../cli/commands.html#test-cases">Every command</a>.</p>
+</section>
+</div>
+</div>
+
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
-
-<p>This is what the check prints in the Camunda 8 example:</p>
-
-<pre><code>$ penstock check .
-ok    src/main/resources/approve-order.form
-ok    src/main/resources/order-process.bpmn
-ok    src/main/resources/shipping-method.dmn</code></pre>
-
-<p>And this is what <code>penstock paths .</code> prints. It lists the two ways through the process:</p>
-
-<pre><code>src/main/resources/order-process.bpmn  2 scenario(s)
-   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
-   2. Order received → Approve order → Charge card → Card declined → Payment declined
-        Card declined fires on Charge card</code></pre>
 
 <ul>
   <li>The check finds nothing wrong. Every task has a worker, the decision and the form exist, and the drawing is clean.</li>
-  <li>In the <span class="ui">Penstock</span> tool window the process shows its workers, its message, its decision, its form and its error code.</li>
-  <li>The test cases run in the terminal, or in the IDE from the gutter next to each case.</li>
+  <li>The project model shows the process with its workers, its message, its decision, its form and its error code. See <a href="project-model.html">Your project as a model</a>.</li>
+  <li>The process has two ways through it: the order completes, or the card is declined.</li>
 </ul>
+
+<div class="hosts">
+<p class="hosts-title">What it looks like</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open the <span class="ui">Penstock</span> tool window. Under <strong>Processes</strong> the order process lists its tests. Under <strong>Workers</strong> you see <code>charge-card</code> and the others. See <a href="../jetbrains/tool-window.html">The Penstock tool window</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+ok    src/main/resources/order-process.bpmn
+ok    src/main/resources/shipping-method.dmn
+
+$ penstock paths .
+src/main/resources/order-process.bpmn  2 scenario(s)
+   1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
+   2. Order received → Approve order → Charge card → Card declined → Payment declined
+        Card declined fires on Charge card</code></pre>
+</section>
+</div>
+</div>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
@@ -230,15 +243,15 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   <dt>Deploy says the engine is not reachable.</dt>
   <dd>Start the engine first, and check <code>deployment.url</code> in <code>penstock.yaml</code>. See <a href="deployment.html">Deployment</a>.</dd>
   <dt>The test cases ask a question the first time.</dt>
-  <dd>Test cases deploy a test build. On a local engine Penstock asks once before it does. See <a href="test-cases.html">Runs and test cases</a>.</dd>
+  <dd>Test cases deploy a test build. On a local engine Penstock asks once before it does. See <a href="run-tests.html">Run tests</a>.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/getting-started.html">Getting started</a> - From an empty IDE to a checked, deployed process.</li>
-<li><a href="../guide/test-cases.html">Runs and test cases</a> - Run a process step by step, with mocks, and keep the run as a test.</li>
+<li><a href="../guide/getting-started.html">Getting started</a> - Get Penstock, open a diagram, deploy it.</li>
+<li><a href="../guide/run-tests.html">Run tests</a> - Run the diagram's test cases on a local engine and see every step.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -252,6 +265,8 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

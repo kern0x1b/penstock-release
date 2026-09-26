@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Getting started - Penstock</title>
-<meta name="description" content="From an empty IDE to a checked, deployed process in about ten minutes.">
+<meta name="description" content="From nothing installed to a checked, deployed process in about ten minutes.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/getting-started.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html" aria-current="page">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -107,13 +100,14 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Start here</p>
 <h1>Getting started</h1>
-<p class="lede">From an empty IDE to a checked, deployed process in about ten minutes.</p>
+<p class="lede">From nothing installed to a checked, deployed process in about ten minutes.</p>
 <p class="meta"><span class="tag free">Free</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
-<li><a href="#before-you-begin">Before you begin</a></li>
-<li><a href="#start-with-the-example-project">Start with the example project</a></li>
+<li><a href="#1-get-penstock">1. Get Penstock</a></li>
+<li><a href="#2-try-the-example">2. Try the example</a></li>
+<li><a href="#3-look-at-it-check-it-deploy-it">3. Look at it, check it, deploy it</a></li>
 <li><a href="#start-with-your-own-diagram">Start with your own diagram</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#which-files-open-in-the-editor">Which files open in the editor</a></li>
@@ -121,25 +115,69 @@
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
-<h2 id="before-you-begin"><a href="#before-you-begin">Before you begin</a></h2>
+<h2 id="1-get-penstock"><a href="#1-get-penstock">1. Get Penstock</a></h2>
 
-<p>You need Penstock installed. If you have not done that yet, follow <a href="installing.html">Installing</a>. It takes two minutes.</p>
+<p>Penstock comes in more than one form. The features are the same in each. Pick the one you use.</p>
 
-<h2 id="start-with-the-example-project"><a href="#start-with-the-example-project">Start with the example project</a></h2>
+<div class="hosts">
+<p class="hosts-title">Get Penstock</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Install the plugin from the JetBrains Marketplace, in any JetBrains IDE from 2025.2. It takes two minutes. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>There is nothing to install. Run <code>npx @penstock/cli</code>, or let a project pin a version with a wrapper script. It needs Node.js 20.19 or later. See <a href="../cli/">Command line</a>.</p>
+</section>
+</div>
+</div>
 
-<p>The quickest way to see everything work is the example. It is a small order process with workers, a decision, a form and test cases. <a href="example-project.html">The example project</a> explains every file.</p>
+<p>Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p>
+
+<h2 id="2-try-the-example"><a href="#2-try-the-example">2. Try the example</a></h2>
+
+<p>The quickest way to see everything work is the example: a small order process with workers, a decision, a form and test cases. <a href="example-project.html">The example project</a> explains every file. Write it into an empty folder.</p>
+
+<div class="hosts">
+<p class="hosts-title">Write the example</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open an empty project and open the <span class="ui">Penstock</span> tool window. It offers <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one and confirm the dialog <em>Start from an example</em> with <span class="ui">Create</span>. A notification says where the example is.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
+<pre><code>penstock init --example camunda-8</code></pre>
+</section>
+</div>
+</div>
+
+<h2 id="3-look-at-it-check-it-deploy-it"><a href="#3-look-at-it-check-it-deploy-it">3. Look at it, check it, deploy it</a></h2>
 
 <ol class="steps">
-  <li>Make a new empty folder and open it in your IDE. You can also use a folder you already have, as long as it has no diagrams yet.</li>
-  <li>Open the <span class="ui">Penstock</span> tool window on the left. When the project has no diagrams, it offers two examples: <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one. A dialog called <em>Start from an example</em> asks if it may write the files. Press <span class="ui">Create</span>. It never overwrites a file.</li>
-  <li>Open <code>src/main/resources/order-process.bpmn</code>. The diagram appears.</li>
-  <li>Press <span class="ui">Check</span> on the toolbar. The check card opens at the bottom right. A fresh example should have nothing wrong.</li>
-  <li>Press <span class="ui">Deploy</span> on the right of the toolbar. The first time, Penstock asks for the engine address. Enter it and press <span class="ui">Deploy</span> again. <a href="deployment.html">Deployment</a> has the details.</li>
+  <li>Open <code>src/main/resources/order-process.bpmn</code> in the editor. The diagram appears.</li>
+  <li>Press <span class="ui">Check</span>. A card lists what is wrong. A fresh example has nothing wrong. See <a href="diagram-check.html">Diagram check</a>.</li>
+  <li>Press <span class="ui">Deploy</span>. The first time, Penstock asks for the engine address. Enter it and deploy again. See <a href="deployment.html">Deployment</a>.</li>
 </ol>
 
-<p>From a terminal, the same example is one command in an empty folder:</p>
-
-<pre><code>penstock init --example camunda-8</code></pre>
+<div class="hosts">
+<p class="hosts-title">Do it in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Open the file from the Project view or the Penstock tool window. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the editor's toolbar.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>There is no editor, so use the commands:</p>
+<pre><code>penstock check .
+penstock deploy . --dry-run
+penstock deploy .</code></pre>
+</section>
+</div>
+</div>
 
 <h2 id="start-with-your-own-diagram"><a href="#start-with-your-own-diagram">Start with your own diagram</a></h2>
 
@@ -148,22 +186,35 @@
   <li>If the diagram says nothing about its engine, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span> or <span class="ui">Plain BPMN</span>. The answer is written to <code>penstock.yaml</code> in the project root. It is asked once.</li>
   <li>Draw. Drag elements from the palette on the left, or click an element and use the small pad next to it. <a href="editing.html">Editing a diagram</a> shows how.</li>
   <li>Select an element and fill in its properties on the right. <a href="properties-panel.html">The properties panel</a> explains the groups.</li>
-  <li>Press <span class="ui">Check</span>. Fix what it lists. <a href="diagram-check.html">Diagram check</a> explains each kind of finding.</li>
+  <li>Press <span class="ui">Check</span>. Fix what it lists.</li>
 </ol>
+
+<div class="hosts">
+<p class="hosts-title">Open a diagram</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Double-click a <code>.bpmn</code> file in the Project view or in the Penstock tool window. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs at the foot of the editor switch between the picture and the XML. See <a href="../jetbrains/editor.html">The editor in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram and penstock edit to change it.</p>
+</section>
+</div>
+</div>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <figure class="shot">
   <img src="../img/migration/02-check-card-camunda-8-section.png" alt="A diagram open in the editor with the toolbar on top, the palette on the left, the properties panel on the right and the check card at the bottom right">
-  <figcaption>A diagram open in the editor: the toolbar on top, the palette at the left edge of the canvas, the properties panel on the right and the check card at the bottom right. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs are at the foot of the window.</figcaption>
+  <figcaption>A diagram open in the editor: the toolbar on top, the palette at the left edge of the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
 </figure>
 
 <ul>
   <li><strong>Toolbar</strong> along the top. Undo and Redo are on the left. Deploy is on the right. Everything else is in the <span class="ui">More</span> menu. See <a href="toolbar.html">The toolbar and the More menu</a>.</li>
   <li><strong>Palette</strong> at the left edge of the canvas, with the elements you can draw.</li>
-  <li><strong>Canvas</strong> in the middle. It always uses the theme of the IDE.</li>
+  <li><strong>Canvas</strong> in the middle. It takes the theme of your tool.</li>
   <li><strong>Properties panel</strong> on the right, for the selected element.</li>
-  <li><strong>Tabs</strong> at the bottom: <span class="ui">BPMN Editor</span> and <span class="ui">Text</span>.</li>
 </ul>
 
 <h2 id="which-files-open-in-the-editor"><a href="#which-files-open-in-the-editor">Which files open in the editor</a></h2>
@@ -174,33 +225,31 @@
   <tr><td><code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code></td><td><a href="bpmn-editor.html">The BPMN editor</a></td></tr>
   <tr><td><code>.dmn</code></td><td><a href="dmn-editor.html">The DMN editor</a></td></tr>
   <tr><td><code>.form</code> that is a Camunda Form</td><td><a href="form-editor.html">The form editor</a></td></tr>
-  <tr><td><code>.form</code> from the IntelliJ GUI Designer</td><td>The GUI Designer. Penstock leaves it alone.</td></tr>
   </tbody>
 </table></div></div>
 
 <h2 id="where-to-go-next"><a href="#where-to-go-next">Where to go next</a></h2>
 
 <div class="cards">
-  <a class="card" href="bpmn-editor.html"><strong>Learn the editor</strong><span>The window, the tabs and how saving works.</span></a>
+  <a class="card" href="bpmn-editor.html"><strong>Learn the editor</strong><span>The parts of the window, saving, and how the engine is chosen.</span></a>
   <a class="card" href="settings.html"><strong>Set up the project</strong><span>The one file that tells Penstock your engine and where to deploy.</span></a>
   <a class="card" href="../rules/"><strong>Know the rules</strong><span>Every check has a page that says why and how to fix it.</span></a>
-  <a class="card" href="cli.html"><strong>Use a terminal</strong><span>The same checks and deployment in a pipeline.</span></a>
+  <a class="card" href="../cli/"><strong>Use a terminal</strong><span>The same checks and deployment in a pipeline.</span></a>
 </div>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
-  <dt>The Penstock tool window does not offer an example.</dt>
-  <dd>It offers examples only when the project has no diagrams. Use <code>penstock init --example</code> in an empty folder instead.</dd>
   <dt>Deploy is missing from the toolbar.</dt>
   <dd>Deploy is shown for Camunda 7, Camunda 8, Operaton and CIB seven projects. A Plain BPMN project has none. Change the engine in <code>penstock.yaml</code>.</dd>
   <dt>The question about the engine did not appear.</dt>
   <dd>It appears only for an empty diagram. A diagram that already says which engine it is for, or a project with <code>engine</code> in <code>penstock.yaml</code>, is not asked.</dd>
+  <dt>The example was not written.</dt>
+  <dd>An example is written only into an empty folder, so it never overwrites your files.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/installing.html">Installing</a> - Put Penstock into your IDE and check that it works.</li>
 <li><a href="../guide/example-project.html">The example project</a> - A small order process that runs from the first minute.</li>
 <li><a href="../guide/bpmn-editor.html">The BPMN editor</a> - The window, the tabs and how saving works.</li>
 <li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
@@ -208,7 +257,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/installing.html"><span>Previous</span>Installing</a>
+<a class="prev" href="../guide/"><span>Previous</span>Contents</a>
 <a class="next" href="../guide/example-project.html"><span>Next</span>The example project</a>
 </nav>
 </main>
@@ -218,6 +267,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

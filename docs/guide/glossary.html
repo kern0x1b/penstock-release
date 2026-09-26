@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html" aria-current="page">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -113,7 +106,7 @@
 
 <dl class="problems">
   <dt id="baseline">Baseline</dt>
-  <dd>A file that lists the problems a project already has. With a baseline, <code>penstock check</code> fails only on new problems. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A file that lists the problems a project already has. With a baseline, <code>penstock check</code> fails only on new problems. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="bpmn">BPMN</dt>
   <dd>Business Process Model and Notation. A standard way to draw a process as boxes and arrows. A BPMN file is XML with the drawing coordinates inside. See <a href="elements.html">BPMN elements</a>.</dd>
@@ -131,7 +124,7 @@
   <dd>The list of what is wrong with a diagram. In the editor it is a card. In a terminal it is <code>penstock check</code>. See <a href="diagram-check.html">Diagram check</a>.</dd>
 
   <dt id="ci">CI, pipeline</dt>
-  <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="delegate">Delegate</dt>
   <dd>A Java class that Camunda 7 calls to do the work of a service task. See <a href="code-links.html">Code links</a>.</dd>
@@ -163,8 +156,8 @@
   <dt id="hit-policy">Hit policy</dt>
   <dd>A rule in a decision table that says what happens when several rows match. For example, <code>FIRST</code> takes the first matching row.</dd>
 
-  <dt id="ide">IDE</dt>
-  <dd>The program you write code in. Penstock runs inside JetBrains IDEs, such as IntelliJ IDEA and WebStorm.</dd>
+  <dt id="host">Tool, host</dt>
+  <dd>The program you use Penstock in. Today that is a JetBrains IDE, or the <code>penstock</code> command line. Features work the same in each. See <a href="../jetbrains/">JetBrains</a> and <a href="../cli/">Command line</a>.</dd>
 
   <dt id="job-type">Job type, job worker</dt>
   <dd>The Camunda 8 way to do the work of a service task outside the engine. The task names a job type. A job worker asks the engine for jobs of that type and completes them. See <a href="code-links.html">Code links</a>.</dd>
@@ -172,11 +165,11 @@
   <dt id="juel">JUEL</dt>
   <dd>The expression language of Camunda 7. An example is <code>${amount &gt; 100}</code>.</dd>
 
-  <dt id="live">Live</dt>
-  <dd>A view that shows what the engine is doing with a diagram right now. See <a href="live.html">Live</a>.</dd>
+  <dt id="monitor">Monitor</dt>
+  <dd>A view that shows what the engine is doing with this diagram right now: how many instances wait at each step and where the incidents are. See <a href="monitor.html">Monitor</a>.</dd>
 
   <dt id="mcp">MCP</dt>
-  <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="mcp.html">The MCP server</a>.</dd>
+  <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="../cli/mcp.html">The MCP server</a>.</dd>
 
   <dt id="pool">Pool, lane</dt>
   <dd>A pool is a big box around one participant's process. A lane is a row inside a pool, usually one per role.</dd>
@@ -188,7 +181,7 @@
   <dd>Two different things share this word. An <em>engine profile</em> is the kind of diagram Penstock builds: Classic, Camunda 7 or Camunda 8. A <em>deployment profile</em> is a named set of settings in <code>penstock.yaml</code>, such as <code>prod</code>. See <a href="engine-profiles.html">Engines</a> and <a href="profiles.html">Profiles</a>.</dd>
 
   <dt id="sarif">SARIF</dt>
-  <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="ci.html">Pipelines, reports and the bot</a>.</dd>
+  <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
   <dt id="service-task">Service task</dt>
   <dd>A task done by a program instead of a person.</dd>
@@ -208,7 +201,7 @@
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/getting-started.html">Getting started</a> - From an empty IDE to a checked, deployed process.</li>
+<li><a href="../guide/getting-started.html">Getting started</a> - Get Penstock, open a diagram, deploy it.</li>
 <li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
 </ul>
@@ -224,6 +217,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

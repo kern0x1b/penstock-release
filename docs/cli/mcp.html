@@ -7,7 +7,7 @@
 <title>The MCP server - Penstock</title>
 <meta name="description" content="Let an AI assistant read, check and, if you allow it, edit the diagrams in your project, with the same checks a person gets.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/mcp.html">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/cli/mcp.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -18,9 +18,10 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/" aria-current="true">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -30,82 +31,23 @@
 </header>
 
 <div class="layout">
-  <nav class="side" id="menu" aria-label="Guide">
+  <nav class="side" id="menu" aria-label="Command line">
     <h2>Start here</h2>
     <ul>
-      <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
-      <li><a href="../guide/getting-started.html">Getting started</a></li>
-      <li><a href="../guide/example-project.html">The example project</a></li>
-      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+      <li><a href="../cli/">Command line</a></li>
     </ul>
-    <h2>Editors</h2>
+    <h2>Reference</h2>
     <ul>
-      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
-      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
-      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
-      <li><a href="../guide/elements.html">BPMN elements</a></li>
-      <li><a href="../guide/editing.html">Editing a diagram</a></li>
-      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
-      <li><a href="../guide/element-templates.html">Element templates</a></li>
-      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
-      <li><a href="../guide/export.html">Export</a></li>
-      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
-      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
-      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../cli/commands.html">Every command</a></li>
     </ul>
-    <h2>Project setup</h2>
+    <h2>Automation</h2>
     <ul>
-      <li><a href="../guide/engine-profiles.html">Engines</a></li>
-      <li><a href="../guide/settings.html">penstock.yaml</a></li>
-      <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
-      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
-    </ul>
-    <h2>Checking</h2>
-    <ul>
-      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
-      <li><a href="../rules/">Every rule</a></li>
-      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
-      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
-      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
-    </ul>
-    <h2>Running</h2>
-    <ul>
-      <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
-      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
-      <li><a href="../guide/check-workers.html">Check Workers</a></li>
-      <li><a href="../guide/code-links.html">Code links</a></li>
-    </ul>
-    <h2>Moving and sharing</h2>
-    <ul>
-      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
-      <li><a href="../guide/share-html.html">Share as HTML</a></li>
-      <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html" aria-current="page">The MCP server</a></li>
-    </ul>
-    <h2>Licence and privacy</h2>
-    <ul>
-      <li><a href="../guide/plans.html">Plans and licence</a></li>
-      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
-      <li><a href="../guide/security.html">Security and privacy</a></li>
-    </ul>
-    <h2>Help</h2>
-    <ul>
-      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
-      <li><a href="../guide/faq.html">Questions and answers</a></li>
+      <li><a href="../cli/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../cli/mcp.html" aria-current="page">The MCP server</a></li>
     </ul>
   </nav>
 <main class="doc" id="content">
-<p class="crumbs"><a href="../guide/">Guide</a> / Command line</p>
+<p class="crumbs"><a href="../cli/">Command line</a> / Automation</p>
 <h1>The MCP server</h1>
 <p class="lede">Let an AI assistant read, check and, if you allow it, edit the diagrams in your project, with the same checks a person gets.</p>
 <p class="meta"><span class="tag free">Free</span> <span>Reading and checking are free. Flow analysis, scenarios, code links and editing need Pro, and Team in a pipeline.</span></p>
@@ -114,6 +56,7 @@
 <ul>
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#connect-an-assistant">Connect an assistant</a></li>
+<li><a href="#how-the-server-finds-your-project">How the server finds your project</a></li>
 <li><a href="#the-tools">The tools</a></li>
 <li><a href="#safety">Safety</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -127,8 +70,8 @@
 <h2 id="connect-an-assistant"><a href="#connect-an-assistant">Connect an assistant</a></h2>
 
 <ol class="steps">
-  <li>In your project run <code>penstock mcp --config</code>. It prints an entry for your assistant's configuration.</li>
-  <li>Paste the entry into the assistant's MCP settings.</li>
+  <li>Run <code>penstock mcp --config</code>. It prints the entry for your assistant's configuration. It prints the command only.</li>
+  <li>Paste the entry into the assistant's MCP settings, for example Claude Desktop or Cursor.</li>
   <li>Start the assistant. It lists the tools.</li>
 </ol>
 
@@ -136,21 +79,44 @@
 {
   "mcpServers": {
     "penstock": {
-      "command": "/work/orders/penstockw",
-      "args": ["mcp"],
-      "cwd": "/work/orders"
+      "command": "npx",
+      "args": ["--yes", "@penstock/cli", "mcp"]
     }
   }
 }</code></pre>
 
-<p>The server uses your project's <code>penstockw</code> when there is one, so it runs the version you pinned.</p>
+<p>There is no folder in the entry. You set it up once, and it works for every project. The server finds the project itself, as described next.</p>
+
+<h2 id="how-the-server-finds-your-project"><a href="#how-the-server-finds-your-project">How the server finds your project</a></h2>
+
+<p>The server serves diagrams across projects. For each request it starts from the file or folder the assistant names, walks up to the nearest <code>penstock.yaml</code> (or the repository root), and uses that project's engine, settings and conventions.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Kind of tool</th><th>How you point it at a project</th></tr></thead>
+  <tbody>
+  <tr><td>Diagram tools: <code>show_diagram</code>, <code>check_diagram</code>, <code>analyze_flow</code>, <code>list_scenarios</code>, <code>edit_diagram</code></td><td>The assistant passes the <strong>absolute path</strong> of a <code>.bpmn</code> or <code>.bpmn20.xml</code> file, in <code>file</code>.</td></tr>
+  <tr><td>Whole-project tools: <code>list_diagrams</code>, <code>check_code_links</code></td><td>The assistant passes an absolute folder in the optional <code>project</code>. Without it, the tool uses the folders the AI client has open.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="the-folders-the-client-has-open-mcp-roots"><a href="#the-folders-the-client-has-open-mcp-roots">The folders the client has open (MCP roots)</a></h3>
+
+<p>Many AI clients tell the server which folders are open in their workspace. MCP calls these <em>roots</em>. When the client does, the server:</p>
+
+<ul>
+  <li>uses those folders as the default projects for <code>list_diagrams</code> and <code>check_code_links</code>,</li>
+  <li>updates the list when the client says the folders changed,</li>
+  <li>refuses any file or folder outside them, so the assistant cannot read outside the workspace it was given.</li>
+</ul>
+
+<p>When the client sends no roots, the whole-project tools need an explicit absolute <code>project</code>. The diagram tools then accept any valid BPMN diagram whose path resolves to a project.</p>
 
 <h2 id="the-tools"><a href="#the-tools">The tools</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Tool</th><th>What it does</th><th>Needs</th></tr></thead>
   <tbody>
-  <tr><td><code>list_diagrams</code></td><td>Lists the BPMN diagrams in the project.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>list_diagrams</code></td><td>Lists the BPMN diagrams of a project, as absolute paths.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><code>show_diagram</code></td><td>Describes a diagram: every element and flow with id, type, name, connections and engine properties. Read this before editing. Edits refer to these ids.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><code>check_diagram</code></td><td>Reports what is wrong, as the editor's check does: the drawing, your bpmnlint rules and, with a licence, how the process runs.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span></td></tr>
@@ -160,13 +126,13 @@
   </tbody>
 </table></div></div>
 
-<p>Every tool works only on files inside the project. A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="plans.html">Plans and licence</a>.</p>
+<p>A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="../guide/plans.html">Plans and licence</a>.</p>
 
 <h2 id="safety"><a href="#safety">Safety</a></h2>
 
 <ul>
-  <li>The server runs on your machine. Nothing is sent anywhere by it. See <a href="security.html">Security and privacy</a>.</li>
-  <li>Paths outside the project are refused. So are files that are not <code>.bpmn</code> diagrams.</li>
+  <li>The server runs on your machine. Nothing is sent anywhere by it. See <a href="../guide/security.html">Security and privacy</a>.</li>
+  <li>When the client gives roots, paths outside them are refused. Files that are not <code>.bpmn</code> or <code>.bpmn20.xml</code> diagrams are refused too.</li>
   <li>An assistant can change your files only with <code>edit_diagram</code>. Ask the assistant to use <code>dryRun</code> first, and keep your diagrams in Git so you can review the diff.</li>
 </ul>
 
@@ -181,23 +147,27 @@
 
 <dl class="problems">
   <dt>The assistant does not see the tools.</dt>
-  <dd>Check the <code>command</code> and <code>cwd</code> in the entry. Run the command by hand: it should wait silently for input.</dd>
-  <dt>"is outside this project".</dt>
-  <dd>Give a path relative to the project root, as <code>list_diagrams</code> prints it.</dd>
+  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 20.19 or later must be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
+  <dt>"must be an absolute path to a diagram" or "\"project\" must be an absolute path".</dt>
+  <dd>The tools take absolute paths. Ask the assistant to pass the full path, as <code>list_diagrams</code> prints it.</dd>
+  <dt>"is outside the workspace roots".</dt>
+  <dd>The path is not inside a folder the client has open. Open the project in the client, or give a path inside an open folder.</dd>
+  <dt>"is not a Penstock project".</dt>
+  <dd>The folder has no <code>penstock.yaml</code> and no repository root above it. Run <code>penstock init</code> there.</dd>
   <dt>A paid tool says it needs a licence.</dt>
   <dd>Sign in on the machine that runs the server: <code>penstock license login</code>.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/cli-reference.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 <li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/ci.html"><span>Previous</span>Pipelines, reports and the bot</a>
-<a class="next" href="../guide/plans.html"><span>Next</span>Plans and licence</a>
+<a class="prev" href="../cli/ci.html"><span>Previous</span>Pipelines, reports and the bot</a>
+
 </nav>
 </main>
 </div>
@@ -206,6 +176,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

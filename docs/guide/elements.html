@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -115,6 +108,7 @@
 <li><a href="#add-an-element">Add an element</a></li>
 <li><a href="#the-palette">The palette</a></li>
 <li><a href="#the-catalogue">The catalogue</a></li>
+<li><a href="#collapse-and-expand-an-event-sub-process">Collapse and expand an event sub-process</a></li>
 <li><a href="#change-an-element-into-another">Change an element into another</a></li>
 <li><a href="#what-changes-with-the-engine">What changes with the engine</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -216,6 +210,10 @@
 
 <p>Data object reference and data store reference are drawn as in the palette. A pool stands for an organisation or a system. Two pools in one diagram make a <em>collaboration</em>. Only a message flow may cross between pools. Lanes divide a pool by role or department. They carry no meaning when the process runs.</p>
 
+<h2 id="collapse-and-expand-an-event-sub-process"><a href="#collapse-and-expand-an-event-sub-process">Collapse and expand an event sub-process</a></h2>
+
+<p>Select an event sub-process and open the change-element menu (the wrench). It offers to collapse the sub-process into one box, and to expand it again. bpmn-js offers this only for ordinary sub-processes. Penstock adds it for event sub-processes, in every diagram type.</p>
+
 <h2 id="change-an-element-into-another"><a href="#change-an-element-into-another">Change an element into another</a></h2>
 
 <p>Select it and press the wrench on its pad. The menu offers what the element can legally become. The name, connections and properties that still apply are kept.</p>
@@ -260,6 +258,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

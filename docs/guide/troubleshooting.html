@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -113,8 +106,7 @@
 <h2>On this page</h2>
 <ul>
 <li><a href="#first-run-the-doctor">First, run the doctor</a></li>
-<li><a href="#the-editor-area-is-blank">The editor area is blank</a></li>
-<li><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></li>
+<li><a href="#problems-that-depend-on-your-tool">Problems that depend on your tool</a></li>
 <li><a href="#check-and-lint-findings-do-not-appear">Check and lint findings do not appear</a></li>
 <li><a href="#deployment-fails">Deployment fails</a></li>
 <li><a href="#element-templates-do-not-appear">Element templates do not appear</a></li>
@@ -128,26 +120,40 @@
 </nav>
 <h2 id="first-run-the-doctor"><a href="#first-run-the-doctor">First, run the doctor</a></h2>
 
-<p>In a terminal run <code>penstock doctor</code>. In the IDE, right-click in the <a href="tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Doctor</span>. It prints the settings files that apply, the engine, the profiles, and whether the engine answers. Most problems show up right there.</p>
+<p>The doctor prints the settings files that apply, the engine, the profiles, and whether the engine answers. Most problems show up right there.</p>
 
-<h2 id="the-editor-area-is-blank"><a href="#the-editor-area-is-blank">The editor area is blank</a></h2>
+<div class="hosts">
+<p class="hosts-title">Run the doctor</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Right-click in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Doctor</span>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>penstock doctor</code></pre>
+<p><code>penstock doctor --format json</code> prints the settings that apply after every layer.</p>
+</section>
+</div>
+</div>
 
-<ol class="steps">
-  <li>Check that your IDE is version 2025.2 or newer.</li>
-  <li>The diagram editor is a browser view (JCEF) inside the IDE. An IDE that cannot supply JCEF cannot show a diagram. JetBrains' own downloads run on the JetBrains Runtime, which has it. If you pointed the IDE at another Java runtime, point it back.</li>
-  <li>Right-click inside the blank area. If there is an <span class="ui">Open DevTools</span> entry, use it to see the error.</li>
-  <li>Use the <span class="ui">Text</span> tab. The XML is never locked away.</li>
-</ol>
+<h2 id="problems-that-depend-on-your-tool"><a href="#problems-that-depend-on-your-tool">Problems that depend on your tool</a></h2>
 
-<p>The editor needs no licence. A paid feature explains itself when you reach for it. The rest keeps working.</p>
+<p>A blank editor, a file that opens as plain text, a command that will not start: these depend on the tool you use.</p>
 
-<h2 id="a-file-does-not-open-in-its-editor"><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></h2>
-
-<ul>
-  <li>The BPMN file type covers <code>bpmn</code>, <code>bpmn.xml</code> and <code>bpmn20.xml</code>. The DMN type covers <code>dmn</code>. If such a file opens as plain XML, the pattern may have been given to another file type in <span class="ui">Settings | Editor | File Types</span>. Move it back.</li>
-  <li>A <code>.form</code> file opens in the form editor only if it is a Camunda Form: a JSON object with <code>components</code>. Other <code>.form</code> files stay with the IntelliJ GUI Designer.</li>
-  <li>The tool window lists only files inside a project content root. A diagram kept outside is not listed.</li>
-</ul>
+<div class="hosts">
+<p class="hosts-title">Problems in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>See <a href="../jetbrains/troubleshooting.html">Troubleshooting in a JetBrains IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>See the common problems at the end of <a href="../cli/">Command line</a>.</p>
+</section>
+</div>
+</div>
 
 <h2 id="check-and-lint-findings-do-not-appear"><a href="#check-and-lint-findings-do-not-appear">Check and lint findings do not appear</a></h2>
 
@@ -156,8 +162,6 @@
   <tr><td>No markers on the canvas</td><td>The linting button on the canvas turns them off and on. It is hidden while token simulation runs. The findings are also under <strong>Rules</strong> in the check card.</td></tr>
   <tr><td>"The bpmnlint rules could not run"</td><td>Your <code>.bpmnlintrc</code> uses a bpmnlint plugin. The editor loads plugin rules only from a bundle named by <code>lint.clientBundlePath</code>. See <a href="validation.html#custom-rules">Validation</a>.</td></tr>
   <tr><td>My own rules are ignored</td><td><code>lint.configPath</code> is relative to the project root. <code>penstock doctor</code> prints the path and says if it is missing.</td></tr>
-  <tr><td>"Running Penstock requires trusting this project first"</td><td>The command-line actions start an external process, which the IDE allows only in a trusted project. Trust the project and run it again.</td></tr>
-  <tr><td>"Penstock could not start"</td><td>The actions run <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited. Start the IDE from a terminal to test.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -172,7 +176,7 @@
   <tr><td>401 or 403</td><td>The user or the client may not deploy. Check the sign-in type, user, and secret in <span class="ui">Connection…</span>.</td></tr>
   <tr><td>OAuth</td><td>A failed token request is reported apart: the endpoint could not be reached, answered with an error, or sent no <code>access_token</code>.</td></tr>
   <tr><td>"The preDeploy hook failed, nothing was sent"</td><td>Read the hook's output that follows. In an untrusted project a configured <code>preDeploy</code> is not run, and the deployment stops.</td></tr>
-  <tr><td>Certificate errors</td><td>Penstock has no option to skip certificate checks. Trust the certificate in the Java runtime of the IDE.</td></tr>
+  <tr><td>Certificate errors</td><td>Penstock has no option to skip certificate checks. Trust the certificate in the runtime of your tool.</td></tr>
   <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the request, 15 for the token.</td></tr>
   <tr><td>Wrong password saved</td><td>Open <span class="ui">Connection…</span>, type the right one, <span class="ui">Save and Deploy</span>. Set <em>Sign in</em> to <em>Not needed</em> and save to forget it.</td></tr>
   </tbody>
@@ -182,20 +186,20 @@
 
 <h2 id="element-templates-do-not-appear"><a href="#element-templates-do-not-appear">Element templates do not appear</a></h2>
 
-<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the IDE log. See <a href="element-templates.html">Element templates</a>.</p>
+<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the log of your tool. See <a href="element-templates.html">Element templates</a>.</p>
 
 <h2 id="the-connector-browser-is-empty-or-cannot-download"><a href="#the-connector-browser-is-empty-or-cannot-download">The connector browser is empty or cannot download</a></h2>
 
 <ul>
   <li>Press <span class="ui">Retry</span>, or <span class="ui">Check for updates</span>.</li>
-  <li>It needs to reach <code>api.github.com</code> and <code>codeload.github.com</code>, through the IDE's proxy settings. See <a href="security.html">Security and privacy</a>.</li>
+  <li>It needs to reach <code>api.github.com</code> and <code>codeload.github.com</code>, through the proxy settings of your tool. See <a href="security.html">Security and privacy</a>.</li>
   <li>If it worked before, Penstock uses what it downloaded and says <em>Could not check for a newer release</em>.</li>
   <li>From a terminal: <code>penstock connectors --refresh</code>.</li>
 </ul>
 
 <h2 id="the-diagram-was-changed-on-disk"><a href="#the-diagram-was-changed-on-disk">The diagram was changed on disk</a></h2>
 
-<p>A dialog <em>File Changed on Disk</em> asks <span class="ui">Reload</span> or <span class="ui">Keep Editing</span>. See <a href="bpmn-editor.html">The BPMN editor</a>.</p>
+<p>The editor asks whether to reload or to keep editing. See <a href="bpmn-editor.html">The BPMN editor</a>.</p>
 
 <h2 id="a-paid-feature-asks-me-to-buy-pro"><a href="#a-paid-feature-asks-me-to-buy-pro">A paid feature asks me to buy Pro</a></h2>
 
@@ -204,24 +208,23 @@
 <h2 id="test-cases-will-not-run"><a href="#test-cases-will-not-run">Test cases will not run</a></h2>
 
 <ul>
-  <li><em>is not marked deployment.forTests</em>: mark the profile, or confirm once in a terminal or the editor.</li>
+  <li><em>is not marked deployment.forTests</em>: mark the profile, or confirm once when your tool asks.</li>
   <li>A step waits and fails: no worker took it in time. Start the worker or mock the step.</li>
 </ul>
 
-<p>See <a href="test-cases.html">Runs and test cases</a>.</p>
+<p>See <a href="run-tests.html">Run tests</a>.</p>
 
 <h2 id="where-else-to-look"><a href="#where-else-to-look">Where else to look</a></h2>
 
 <ul>
-  <li>The <strong>IDE log</strong>: <span class="ui">Help | Show Log in Finder</span> (or Explorer). Penstock logs under <code>jetbrains.bpmn.editor</code>. Swallowed failures, such as a template that would not parse, are there with a stack trace.</li>
-  <li><strong>DevTools</strong> in the editor: right-click the diagram and choose <span class="ui">Open DevTools</span> to see a frontend error.</li>
+  <li>The log and the developer tools of your tool. See the troubleshooting page of your tool.</li>
   <li>The <a href="files.html">list of files</a> Penstock reads and writes.</li>
   <li>The <a href="faq.html">questions and answers</a>.</li>
 </ul>
 
 <h2 id="still-stuck"><a href="#still-stuck">Still stuck</a></h2>
 
-<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the IDE version, the plugin version, the engine, the output of <code>penstock doctor</code>, and a <code>.bpmn</code> file that shows the problem. Security problems go to <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>, not to a public issue.</p>
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the tool and its version, the version of Penstock, the engine, the output of the doctor, and a <code>.bpmn</code> file that shows the problem. Security problems go to <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>, not to a public issue.</p>
 <div class="related">
 <h2>See also</h2>
 <ul>
@@ -242,6 +245,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

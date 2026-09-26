@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -115,6 +108,8 @@
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#open-a-decision">Open a decision</a></li>
 <li><a href="#what-you-can-edit">What you can edit</a></li>
+<li><a href="#the-properties-panel">The properties panel</a></li>
+<li><a href="#older-dmn-files">Older DMN files</a></li>
 <li><a href="#the-toolbar">The toolbar</a></li>
 <li><a href="#the-decision-table-check">The decision table check</a></li>
 <li><a href="#documentation-of-a-decision">Documentation of a decision</a></li>
@@ -129,10 +124,11 @@
 <h2 id="open-a-decision"><a href="#open-a-decision">Open a decision</a></h2>
 
 <ol class="steps">
-  <li>Double-click a <code>.dmn</code> file.</li>
+  <li>Open a <code>.dmn</code> file.</li>
   <li>The bar at the top shows one button for the <strong>Requirements</strong> diagram, and one for each decision in the file. Press a decision to open its table.</li>
   <li>Edit the table. Add rows, change the inputs and outputs, set the <em>hit policy</em>. The hit policy says what happens when several rows match, for example <code>FIRST</code> takes the first row.</li>
   <li>Use the extra column for annotations on each rule.</li>
+  <li>To edit the id, name and documentation of a decision, switch to the <strong>Requirements</strong> view, select the decision and open the properties panel.</li>
 </ol>
 
 <h2 id="what-you-can-edit"><a href="#what-you-can-edit">What you can edit</a></h2>
@@ -144,18 +140,27 @@
   <li>The Camunda DMN extensions. They are read and kept.</li>
 </ul>
 
+<h2 id="the-properties-panel"><a href="#the-properties-panel">The properties panel</a></h2>
+
+<p>In the requirements view, the properties panel edits a decision: its <strong>id</strong>, <strong>name</strong> and <strong>documentation</strong>. So the id that a business rule task calls can be changed without opening the XML. On Camunda 7 and CIB seven it also has the <strong>version tag</strong> and the <strong>history time to live</strong>. On Camunda 8 it has the version tag. On Operaton it shows id and name only. The panel has the same dense layout as the one for BPMN, and opens and closes with the same toggle on the toolbar.</p>
+
+<h2 id="older-dmn-files"><a href="#older-dmn-files">Older DMN files</a></h2>
+
+<p>Files written as DMN 1.1 or 1.2 open in the editor. Penstock converts them to DMN 1.3 in memory, and keeps what the engine added to a decision. A notice above the editor says the file will be saved as DMN 1.3 when you change it: <em>It was converted to DMN 1.3 and will be saved as DMN 1.3 when you change it.</em> The file on disk is not touched until you change something.</p>
+
 <h2 id="the-toolbar"><a href="#the-toolbar">The toolbar</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
   <tr><td>View buttons</td><td>Requirements, then one per decision.</td></tr>
+  <tr><td>Properties Panel</td><td>An icon that shows or hides the properties panel.</td></tr>
   <tr><td>Check</td><td>Runs the decision table check. Pro.</td></tr>
   <tr><td>Deploy</td><td>Sends the file to the engine with the settings a diagram uses. Shown when the engine is known. See <a href="deployment.html">Deployment</a>.</td></tr>
   <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>The DMN editor follows the theme of the IDE, and looks like the diagram editor. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
+<p>The DMN editor follows the theme of your tool, and looks like the diagram editor. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
 
 <h2 id="the-decision-table-check"><a href="#the-decision-table-check">The decision table check</a></h2>
 <p><span class="tag pro">Pro</span></p>
@@ -177,11 +182,11 @@
 
 <p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
 
-<p>In a terminal: <code>penstock check .</code> checks every <code>.dmn</code> file in the project.</p>
+<p>The same check runs on every <code>.dmn</code> file when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 
 <h2 id="documentation-of-a-decision"><a href="#documentation-of-a-decision">Documentation of a decision</a></h2>
 
-<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="cli-reference.html#docs">Every command</a>.</p>
+<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="../cli/commands.html#docs">Every command</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -220,6 +225,8 @@
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

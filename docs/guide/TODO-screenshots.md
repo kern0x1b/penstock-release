@@ -17,45 +17,48 @@ shows a colour that matters. Keep the file names in `docs/img/`.
 | `img/settings-penstock.png` | The old Settings | Tools | Penstock page, which no longer exists. Not used. Kept so an old link keeps working. | none |
 | `img/editor-overview.png`, `properties-panel.png`, `classic-io.png`, `goto-class.png`, `create-element.png`, `token-simulation.png`, `export-dialog.png`, `diagram-check-problems.png`, `diagram-check-selected.png`, `diagram-check-clean.png`, `auto-layout-before.png`, `auto-layout-after.png` | Taken before the toolbar was redrawn: they show the earlier icon-only bar (no words, no Deploy button on the right). The card, dialog and canvas content is still right. Retake in the current IDE. The site still uses them, except `editor-overview.png` and `diagram-check-clean.png`. | properties-panel, editing, elements, token-simulation, export, diagram-check, auto-layout |
 
+## Pictures that show the old names
+
+The toolbar buttons were renamed: Live is now Monitor, and Runs is now Run tests. These pictures still show
+the old names and should be retaken. The captions on the site say so where it matters.
+
+| File | Shows | Used on |
+|---|---|---|
+| `img/test-case-runs/01-runs-panel-passed.png`, `02-run-with-input-dialog.png`, `03-waiting-for-an-answer.png` | "Live" and "Runs" on the toolbar, and a panel titled "Runs" | run-tests |
+| `img/share-and-import/more-menu.png` | "Live" and "Runs" in the More menu | toolbar, share-html |
+| `img/migration/02-check-card-camunda-8-section.png` | "Live" and "Runs" on the toolbar | bpmn-editor, getting-started, migration, home page |
+
 ## Pages with no picture
 
-Pages that already have at least one picture are not listed.
+Pages that already have at least one picture are not listed. Paths are `<section>/<page>`: `guide` is the core guide,
+`jetbrains` and `cli` are the tool sections.
 
-### Start here
-- `installing`: the Marketplace page of the plugin, and the first-run tour.
-- `example-project`: the tool window with "Start from an example", and the *Start from an example* dialog.
-- `glossary`: none needed.
-
-### Editors
-- `scripts`: the script field with the *Edit in new tab* button, and the IDE tab that opens.
+### Guide
+- `getting-started`, `example-project`: the tool window with "Start from an example" (JetBrains), a terminal after `penstock init --example` (CLI).
+- `scripts`: the script field with the *Edit in new tab* button, and the code editor that opens.
 - `element-templates`: the *Connector Templates* dialog, a card, its details, and the *Template not downloaded* badge.
-- `diagram-diff`: the two-diagram comparison of a `.bpmn` file in the IDE's diff window.
-- `dmn-editor`: a decision table, the requirements diagram, and the *Decision check* card.
-- `form-editor`: the form editor with its palette, and the *Form check* card.
-
-### Project setup
+- `diagram-diff`: the two-diagram comparison of a `.bpmn` file in a diff window.
+- `dmn-editor`: a decision table, the requirements diagram with its properties panel, the DMN 1.1 notice, and the *Decision check* card.
+- `form-editor`: the form editor and the *Preview* beside it, and the *Form check* card.
 - `engine-profiles`: the engine question above an empty canvas, and the *Wrong engine namespace* finding with its Fix button.
-- `settings`: `penstock.yaml` open in the IDE with completion from the schema.
-- `profiles`: the arrow next to Deploy with a menu of profiles.
-- `files`: none needed.
-
-### Checking
+- `settings`: `penstock.yaml` open in an editor with completion from the schema.
+- `profiles`, `deployment`: the arrow next to Deploy with a menu of profiles, and the *Connection* dialog.
+- `project-model`: the model in each tool (JetBrains: the tool window is on `jetbrains/tool-window`).
+- `validation`, `diagram-check`: the engine compatibility findings ("Charge card has no job type") in the check card and on the canvas.
+- `toolbar`: the *Transaction boundaries* bars and *Copy as image*.
 - `flow-analysis`: the *How it runs* section of the check card with a path outlined on the canvas.
-- `validation`: a marker on an element, and the *Rules* section of the check card.
-- `rules` pages: none needed.
-
-### Running
-- `deployment`: the *Connection* dialog and the menu next to Deploy.
-- `live`: the *Live* card with badges on the shapes.
-- `check-workers`: the tool window Workers node after a check.
+- `monitor`: the *Monitor* card with badges on the shapes.
+- `check-workers`: the workers node after a check.
 - `process-tests`: the *Coverage* panel with the diagram coloured.
-- `code-links`: the hover card of an element, Code Vision above a worker, and the gutter icon.
+- `code-links`, `migration`: the *Convert* preview in the visual diagram diff; the hover card of an element.
+- `plans`, `sign-in`: the licence dialog, and the message that explains a paid feature.
 
-### Moving and sharing
-- `migration`: the *Convert* preview in the visual diagram diff, and the tool window *Migrate to Camunda 8* root.
-- `share-html`, `import`: have pictures.
+### JetBrains
+- `installing`: the Marketplace page of the plugin, and the first-run tour.
+- `editor`: the two tabs at the foot of the editor, and the *File Changed on Disk* dialog.
+- `where-things-are`: one annotated screenshot of the IDE with the places numbered.
+- `code-links`: the gutter icons, Code Vision and *Find Usages in Code*.
+- `shortcuts`, `licence`: the status bar widget and the licence dialog.
 
-### Command line and licence
-- `cli`, `cli-reference`, `ci`, `mcp`: a terminal is described in text. A picture of the bot's pull request comment for `ci` would help.
-- `plans`, `sign-in`: the *Penstock Licence* dialog, the status bar widget, and the message that explains a paid feature.
-- `security`, `troubleshooting`, `faq`: none needed.
+### Command line
+- `cli/index`, `cli/commands`, `cli/ci`, `cli/mcp`: a terminal is described in text. A picture of the bot's pull request comment for `cli/ci` would help.

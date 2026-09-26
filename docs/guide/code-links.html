@@ -19,8 +19,9 @@
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
       <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../guide/cli.html">Command line</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
       <a class="menu-link" href="#menu">Menu</a>
@@ -34,7 +35,6 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../guide/">Contents</a></li>
-      <li><a href="../guide/installing.html">Installing</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
@@ -59,7 +59,7 @@
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
-      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
     <h2>Checking</h2>
@@ -73,8 +73,8 @@
     <h2>Running</h2>
     <ul>
       <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/live.html">Live</a></li>
-      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/run-tests.html">Run tests</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html" aria-current="page">Code links</a></li>
@@ -84,13 +84,6 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
-    </ul>
-    <h2>Command line</h2>
-    <ul>
-      <li><a href="../guide/cli.html">Command line</a></li>
-      <li><a href="../guide/cli-reference.html">Every command</a></li>
-      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
-      <li><a href="../guide/mcp.html">The MCP server</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -114,13 +107,9 @@
 <ul>
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#free-and-pro">Free and Pro</a></li>
-<li><a href="#from-code-to-diagram">From code to diagram</a></li>
-<li><a href="#from-diagram-to-code">From diagram to code</a></li>
-<li><a href="#variables">Variables</a></li>
-<li><a href="#error-codes">Error codes</a></li>
+<li><a href="#what-is-linked">What is linked</a></li>
 <li><a href="#check-the-diagram-against-the-code">Check the diagram against the code</a></li>
 <li><a href="#other-repositories">Other repositories</a></li>
-<li><a href="#the-debugger">The debugger</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -133,47 +122,53 @@
 
 <p>Going from a Camunda 7 task to its Java class or Spring bean is free. See <a href="editing.html">Editing a diagram</a>. Everything below needs Pro. Without Pro, Penstock keeps only class and bean links, and an action that needs the rest says what it gives and offers to buy or sign in.</p>
 
-<h2 id="from-code-to-diagram"><a href="#from-code-to-diagram">From code to diagram</a></h2>
-
-<p>A process id, element id, job type, topic, message name or decision id in a Java or Kotlin string is a link.</p>
-
-<ol class="steps">
-  <li>Hold <kbd>Cmd</kbd> (or <kbd>Ctrl</kbd>) and click the string, or use <span class="ui">Go to Declaration</span>.</li>
-  <li>The diagram opens and the element is selected.</li>
-</ol>
+<h2 id="what-is-linked"><a href="#what-is-linked">What is linked</a></h2>
 
 <ul>
-  <li><strong>Completion</strong> offers the ids where Camunda expects them: starting a process, asserting in a test (<code>isWaitingAt</code>, <code>hasPassed</code>, <code>hasCompletedElements</code>, <code>byId</code> and others), <code>@JobWorker</code> and external task subscriptions, correlating a message, evaluating a decision.</li>
-  <li>An id that no diagram has is marked.</li>
-  <li>A gutter icon beside such a string, a <code>JavaDelegate</code> or bean that diagrams name, and a <code>@JobWorker</code> method whose name is the job type, jumps to the tasks that use it.</li>
-  <li>A <code>@JobWorker</code> without a <code>type</code> takes the method name as the job type. That is marked, because renaming the method stops the worker. A quick fix writes the type into the annotation.</li>
+  <li><strong>From code to diagram.</strong> A process id, element id, job type, topic, message name or decision id in a Java or Kotlin string is a link to the diagram element. An id that no diagram has is marked. A <code>@JobWorker</code> without a <code>type</code> takes the method name as the job type. That is marked, because renaming the method stops the worker.</li>
+  <li><strong>From diagram to code.</strong> Hover an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it. The element's menu goes to the implementation, and finds the code that names the element, its process, the job type, class or bean it runs, its message or its decision: the worker, the tests, and the code that starts it.</li>
+  <li><strong>Variables.</strong> Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions use the names the diagrams use.</li>
+  <li><strong>Error codes.</strong> The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> is linked to the error event that catches it. A code no error event catches is marked, and so is an error event nothing throws.</li>
+  <li><strong>Tests and coverage.</strong> The link goes both ways between a process and the tests that name it. See <a href="process-tests.html">Process tests and coverage</a>.</li>
 </ul>
 
-<h2 id="from-diagram-to-code"><a href="#from-diagram-to-code">From diagram to code</a></h2>
-
-<ul>
-  <li><strong>Hover</strong> an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it.</li>
-  <li><span class="ui">Go to Implementation</span> is in an element's menu. It opens that method, not just the file.</li>
-  <li><span class="ui">Find Usages in Code</span>, from an element's menu or the tool window, lists the code that names the element, its process, the job type, class or bean it runs, its message or its decision. That is the worker, the tests, and the code that starts it.</li>
-  <li><strong>Code Vision</strong> above a worker, delegate or bean says which tasks it runs and how many tests reach it. Above a test it says how much of each process it covers. A click opens the diagram at the element.</li>
-</ul>
-
-<h2 id="variables"><a href="#variables">Variables</a></h2>
-
-<p>Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions complete the names the diagrams use and link back to the elements. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>.</p>
-
-<h2 id="error-codes"><a href="#error-codes">Error codes</a></h2>
-
-<p>The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> opens the error event that catches it. A code no error event catches is marked. The tool window lists every error code with where it is caught and thrown, and marks a code thrown that nothing catches, and an error event nothing throws.</p>
+<div class="hosts">
+<p class="hosts-title">Where you use the links</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>All of it works in the IDE, in Java and Kotlin sources: click through, completion, gutter icons, Code Vision, Find Usages and the debugger's position on the diagram. See <a href="../jetbrains/code-links.html">Code links in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p>Only the check against the code: <code>penstock code</code>. The MCP tool <code>check_code_links</code> does the same for an AI assistant.</p>
+</section>
+</div>
+</div>
 
 <h2 id="check-the-diagram-against-the-code"><a href="#check-the-diagram-against-the-code">Check the diagram against the code</a></h2>
 
+<p>Penstock compares every diagram with the code and reports what does not fit. In the editor, the check card has a <strong>Code</strong> section.</p>
+
+<div class="hosts">
+<p class="hosts-title">Check diagrams against code in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The check card has a <strong>Code</strong> section. For the whole project, right-click in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Code</span>. Each finding has a file and line, which the IDE opens at the line.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>$ penstock code .
 3 source file(s), 1 diagram(s), 4 reference(s) from diagrams to code
 
 Every task the diagrams hand to code has something in the code to run it.</code></pre>
+<p>Each finding has a file and a line. <code>--format json</code> is for a tool. See <a href="../cli/commands.html#code">Every command</a>.</p>
+</section>
+</div>
+</div>
 
-<p>In the IDE, the check card has a <strong>Code</strong> section, and the tool window has <span class="ui">Run Penstock | Code</span>. It reports:</p>
+It reports:
 
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
@@ -202,25 +197,21 @@ Every task the diagrams hand to code has something in the code to run it.</code>
   - ../order-workers
   - ../shared-delegates</code></pre>
 
-<p>Paths are relative to the project root. Their diagrams, workers, delegates and beans are read with this project's. A path that is not checked out is skipped. <code>penstock code</code> reads them too.</p>
-
-<h2 id="the-debugger"><a href="#the-debugger">The debugger</a></h2>
-
-<p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. On Camunda 7 it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
+<p>Paths are relative to the project root. Their diagrams, workers, delegates and beans are read with this project's. A path that is not checked out is skipped. The code check reads them too.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>A string that names a job type, topic, message or process is a link. A gutter icon sits beside it.</li>
-  <li>Hovering an element shows what runs it. Right-clicking it offers <span class="ui">Go to Implementation</span>.</li>
-  <li>In the tool window a worker that nothing implements says <em>no implementation</em> and carries a warning.</li>
+  <li>A string that names a job type, topic, message or process is a link to the diagram.</li>
+  <li>Hovering an element shows what runs it.</li>
+  <li>In the project model, a worker that nothing implements says <em>no implementation</em> and carries a warning. See <a href="project-model.html">Your project as a model</a>.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
   <dt>No links appear.</dt>
-  <dd>Code links need Pro. The tool window shows a <strong>Code</strong> line with <span class="ui">Buy or Sign In…</span>.</dd>
+  <dd>Code links need Pro. Without it, the project model shows a <strong>Code</strong> line that offers to buy or sign in.</dd>
   <dt>A worker in another repository is reported as missing.</dt>
   <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
   <dt>A worker I know exists is not found.</dt>
@@ -230,9 +221,11 @@ Every task the diagrams hand to code has something in the code to run it.</code>
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/check-workers.html">Check Workers</a> - Ask the engine whether anything picks up your tasks.</li>
-<li><a href="../guide/tool-window.html">The Penstock tool window</a> - Your project as a model: processes, workers, messages, decisions.</li>
+<li><a href="../guide/project-model.html">Your project as a model</a> - Processes, workers, variables, messages, decisions and forms, and how they connect.</li>
 <li><a href="../guide/process-tests.html">Process tests and coverage</a> - A JUnit test for every way through a process.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+<li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
@@ -246,6 +239,8 @@ Every task the diagrams hand to code has something in the code to run it.</code>
   <div class="links">
     <a href="../">Home</a>
     <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
