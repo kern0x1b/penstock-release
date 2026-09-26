@@ -28,6 +28,9 @@ related: getting-started, engine-profiles, settings
   <dt id="ci">CI, pipeline</dt>
   <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
+  <dt id="code-test">Code test</dt>
+  <dd>A test written in code, such as a JUnit class, that starts a process and checks what happened. Penstock can write them, and <span class="ui">Run code tests</span> and <span class="ui">Debug code tests</span> run the ones that name an element. See <a href="process-tests.html">Process tests and coverage</a>.</dd>
+
   <dt id="delegate">Delegate</dt>
   <dd>A Java class that Camunda 7 calls to do the work of a service task. See <a href="code-links.html">Code links</a>.</dd>
 
@@ -87,6 +90,9 @@ related: getting-started, engine-profiles, settings
 
   <dt id="service-task">Service task</dt>
   <dd>A task done by a program instead of a person.</dd>
+
+  <dt id="test-case">Test case</dt>
+  <dd>A saved run of a process, kept in a JSON file. <span class="ui">Run tests</span> runs the test cases of a diagram on a local engine and shows every step. See <a href="run-tests.html">Run tests</a>.</dd>
 
   <dt id="token">Token</dt>
   <dd>The marker that shows where a process instance is. Token simulation moves a token through the diagram so you can watch. See <a href="token-simulation.html">Token simulation</a>.</dd>

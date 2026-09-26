@@ -40,12 +40,12 @@ related: run-tests, code-links, cli/commands, jetbrains/test-runner
 
 <p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. See <a href="settings.html">penstock.yaml</a>.</p>
 
-<h2>Run and debug tests from the diagram</h2>
+<h2>Run and debug code tests from the diagram</h2>
 <p><span class="tag pro">Pro</span></p>
 
-<p>From an element on the canvas you can run or debug the test methods that name the element or its process, with your project's own test runner. When you debug, the diagram shows where the process stops.</p>
+<p>A <strong>code test</strong> is a test you or Penstock wrote in code, such as the JUnit classes above. From an element on the canvas you can <strong>run code tests</strong> or <strong>debug code tests</strong>: Penstock runs the test methods that name the element or its process, with your project's own test runner. When you debug, the diagram shows where the process stops.</p>
 
-{{host:tests-run-debug|Run and debug in your tool}}
+{{host:tests-run-debug|Run and debug code tests in your tool}}
 
 <h2>Coverage</h2>
 <p><span class="tag pro">Pro</span></p>
@@ -79,5 +79,5 @@ related: run-tests, code-links, cli/commands, jetbrains/test-runner
   <dt>"To fill in".</dt>
   <dd>A way that the data cannot choose is marked for you to finish. Fill in the variables that take it.</dd>
   <dt>I want to run scenarios against a live engine without JUnit.</dt>
-  <dd>Use <a href="run-tests.html">Run tests</a>. They need no build setup.</dd>
+  <dd>Use <a href="run-tests.html">Run tests</a>. It runs the diagram's test cases on an engine and needs no build setup.</dd>
 </dl>
