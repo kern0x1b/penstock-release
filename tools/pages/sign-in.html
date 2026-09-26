@@ -1,0 +1,106 @@
+<!--
+title: Buying and signing in
+lede: How to try Pro, buy it, sign in on another machine, and use a licence in a pipeline.
+tags: free
+related: plans, security, ci
+-->
+<h2>The trial</h2>
+
+<p>The first time you use Penstock on a machine, that machine gets 30 days of Pro. You do nothing. The status bar at the bottom of the IDE shows <em>Penstock Pro trial: 27d</em>. When the trial ends it shows <em>Penstock Free</em>. The trial is stored on the machine, in <code>~/.penstock/trial.json</code>. It needs no network. A pipeline gets no trial.</p>
+
+<h2>Buy Pro or Team</h2>
+
+<h3>In the IDE</h3>
+
+<ol class="steps">
+  <li>Click <span class="ui">Penstock</span> in the status bar, or choose <span class="ui">Tools | Penstock Licence…</span>.</li>
+  <li>Press <span class="ui">Buy Pro</span>. For Team, press the link <em>Buy Team, for pipelines and the review bot</em>.</li>
+  <li>The checkout opens in your browser. Yearly billing is selected. Monthly is one click away.</li>
+  <li>Pay. Penstock notices the payment by itself and sends a sign-in code to the address that paid.</li>
+  <li>Type the code in. The licence is active. There is no key to copy.</li>
+</ol>
+
+<p>You can also reach the same step from a paid feature: the message that explains it has a <span class="ui">Buy Pro</span> button.</p>
+
+<h3>In a terminal</h3>
+
+<pre><code>penstock license buy          # Pro
+penstock license buy team     # Team</code></pre>
+
+<p>The command opens the checkout, prints its address, and waits up to an hour for the payment. When the payment goes through it asks for the code that was sent to your e-mail. It needs a terminal to answer in.</p>
+
+<h2>Sign in on another machine</h2>
+
+<ol class="steps">
+  <li>Open the licence dialog, or run <code>penstock license login</code>.</li>
+  <li>Type the address you bought Penstock with. A key works in the same field too.</li>
+  <li>An e-mail brings a code. Type it in.</li>
+  <li>Penstock finds your best licence and activates it on this machine.</li>
+</ol>
+
+<p>The IDE and the command line share the licence. Sign in once on a machine and both are licensed. Both read <code>~/.penstock/license.json</code>.</p>
+
+<h2>How many machines</h2>
+
+<p>A licence covers a number of machines at once. Signing in again on the same machine, for example after reinstalling the IDE, reuses its place. It does not take a new one. When every place is taken, signing in lists the machines and when each was activated. Pick the one to free, and this machine takes its place.</p>
+
+<p>To free a machine by hand, choose <span class="ui">Release This Machine</span> in the licence dialog, or run <code>penstock license logout</code>.</p>
+
+<h2>Check your licence</h2>
+
+<pre><code>$ penstock license
+Pro   Pro trial, 27 days left
+
+penstock license buy   buy Pro        penstock license login   already bought</code></pre>
+
+<p>The line says which plan this machine has and why. Other forms:</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>penstock license key</code></td><td>Prints the key, for a pipeline. Keep it secret.</td></tr>
+  <tr><td><code>penstock license activate &lt;key&gt;</code></td><td>Activates a key you type in by hand.</td></tr>
+  <tr><td><code>penstock license logout</code></td><td>Releases this machine.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>When the licence is checked</h2>
+
+<ul>
+  <li>Once a day, in the background.</li>
+  <li>It keeps working for 30 days without a connection. The status shows how many days are left.</li>
+  <li>After 30 days without a check, the machine falls back to Free until it connects once.</li>
+  <li>If the subscription ended, or the licence was released from another place, the machine falls back to the trial, or to Free when the trial is over.</li>
+</ul>
+
+<h2>In a pipeline</h2>
+
+<ol class="steps">
+  <li>On a machine that has Team, run <code>penstock license key</code>. Or press <span class="ui">Copy Key for CI</span> in the licence dialog.</li>
+  <li>Store the key in a secret named <code>PENSTOCK_LICENSE</code> in your CI system.</li>
+  <li>Pass it to the job as an environment variable. The pipelines that <code>penstock init --ci</code> writes already do it, when the machine that ran the command has Team.</li>
+</ol>
+
+<p>The key is checked, and it takes no machine's place. Without Team on the machine, <code>init --ci</code> writes a pipeline that runs only the free checks. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2 id="education">Free Pro for students, teachers and open-source maintainers</h2>
+
+<p>Penstock offers Free Pro to students, teachers and open-source maintainers. When the application address is set, it appears in three places: the licence dialog (a link <em>Free Pro for students, teachers and open-source maintainers: apply</em>), the message that explains a paid feature (a button <span class="ui">Apply for Free Pro</span>), and the output of <code>penstock license</code>. While no address is set, nothing about it is shown.</p>
+
+<p>The application address is not yet published on this page. If you qualify and see no link, open an issue on the <a href="https://github.com/kern0x1b/penstock-release/issues">support tracker</a> and say which group you are in.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"There is no Penstock licence bought with that address."</dt>
+  <dd>Sign in with the exact address you paid with. Or buy with <code>penstock license buy</code>.</dd>
+  <dt>"That code is wrong or has expired."</dt>
+  <dd>Ask for a new code. You have three tries per code.</dd>
+  <dt>"Signing in needs a terminal to answer in."</dt>
+  <dd>You ran <code>license login</code> or <code>license buy</code> in a place without a terminal, for example a CI job. In a pipeline set <code>PENSTOCK_LICENSE</code> instead.</dd>
+  <dt>"PENSTOCK_LICENSE is not a valid Penstock key."</dt>
+  <dd>Copy the key again with <code>penstock license key</code>. Check there is no space or line break around it.</dd>
+  <dt>Every machine is in use.</dt>
+  <dd>Pick one to free when signing in, or press <span class="ui">Release This Machine</span> on a machine you no longer use.</dd>
+  <dt>The licence service could not be reached.</dt>
+  <dd>Check your network and proxy. An active licence keeps working for 30 days offline.</dd>
+</dl>

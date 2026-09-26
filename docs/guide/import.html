@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Import a diagram - Penstock</title>
+<meta name="description" content="Turn a draw.io, Visio, Signavio or Bizagi diagram into a BPMN 2.0 file, and get a list of everything that could not be carried over.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/import.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html" aria-current="page">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Moving and sharing</p>
+<h1>Import a diagram</h1>
+<p class="lede">Turn a draw.io, Visio, Signavio or Bizagi diagram into a BPMN 2.0 file, and get a list of everything that could not be carried over.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-can-be-imported">What can be imported</a></li>
+<li><a href="#steps-in-the-ide">Steps in the IDE</a></li>
+<li><a href="#read-the-report">Read the report</a></li>
+<li><a href="#from-a-terminal">From a terminal</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-can-be-imported"><a href="#what-can-be-imported">What can be imported</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>From</th><th>Files</th></tr></thead>
+  <tbody>
+  <tr><td>draw.io (diagrams.net)</td><td><code>.drawio</code>, <code>.xml</code>, compressed or not</td></tr>
+  <tr><td>Visio</td><td><code>.vsdx</code></td></tr>
+  <tr><td>Signavio</td><td><code>.bpmn</code> exported by Signavio</td></tr>
+  <tr><td>Bizagi</td><td><code>.bpmn</code> exported by Bizagi, and a package that holds a BPMN file</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>These are mapped: tasks and their kinds, events and their triggers, boundary events, gateways, sub-processes, pools, lanes, sequence flows, message flows and default flows, text annotations and data objects. The positions and the bends of connectors are kept.</p>
+
+<p>These cannot be read: a Bizagi <code>.bpm</code> package, the old binary Visio <code>.vsd</code>, and XPDL. The message says what to do instead: from Bizagi, export BPMN 2.0 (a <code>.bpmn</code> file). From Visio, use File &gt; Save As and choose Visio Drawing (<code>.vsdx</code>). From a tool that wrote XPDL, export BPMN 2.0.</p>
+
+<h2 id="steps-in-the-ide"><a href="#steps-in-the-ide">Steps in the IDE</a></h2>
+
+<ol class="steps">
+  <li>Open any diagram editor. Open <span class="ui">More</span> and choose <span class="ui">Import diagram…</span>.</li>
+  <li>A file chooser called <em>Import diagram</em> opens. Pick the file.</li>
+  <li>A second dialog, <em>Save the imported diagram</em>, asks where to put the new BPMN file. It suggests a name: <code>order-process.bpmn</code> from <code>order-process.drawio</code>.</li>
+  <li>The new diagram opens. A report dialog called <em>Diagram imported</em> lists what was and was not carried over.</li>
+</ol>
+
+<figure class="shot">
+  <img src="../img/share-and-import/import-report.png" alt="The Diagram imported dialog listing what was not imported and what was guessed">
+  <figcaption>The report after an import from draw.io. It says how much was imported, then what was left out and what was guessed.</figcaption>
+</figure>
+
+<h2 id="read-the-report"><a href="#read-the-report">Read the report</a></h2>
+
+<p>Nothing is dropped silently. The report has three groups.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Group</th><th>What it says</th></tr></thead>
+  <tbody>
+  <tr><td><strong>Not imported</strong></td><td>These have no BPMN meaning and are not in the new diagram. For example a cloud shape, or a line not attached to two shapes.</td></tr>
+  <tr><td><strong>Guessed</strong></td><td>These were read by what they look like. Check that they are what you meant. For example, elements outside every pool went into the nearest pool.</td></tr>
+  <tr><td><strong>Not carried over</strong></td><td>BPMN 2.0 has no place for these, so they are not in the new diagram.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>If nothing was left out, the report says <em>Everything in the file was mapped.</em> Connectors keep the route they were drawn with. <a href="auto-layout.html">Auto layout</a> (Pro) can tidy the result.</p>
+
+<h2 id="from-a-terminal"><a href="#from-a-terminal">From a terminal</a></h2>
+
+<pre><code>$ penstock import order-process.drawio
+wrote order-process.bpmn
+
+Imported from draw.io: 9 elements, 7 flows, 2 pools, 2 lanes.
+
+Not imported (2):
+  - "Legacy system" (cloud) has no BPMN meaning, so it was not imported.
+  - "to be decided" is not attached to two shapes, so it was left out.
+
+Guessed (1):
+  - 2 elements outside every pool went into the nearest pool: "Call the customer if it takes longer", "Order".</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>-o &lt;file.bpmn&gt;</code></td><td>The file to write. Default: next to the source, with the extension <code>.bpmn</code>. For a source that is already a <code>.bpmn</code> the default is <code>name.penstock.bpmn</code>.</td></tr>
+  <tr><td><code>--force</code></td><td>Replace a file that is already there. Without it, an existing file stops the command: <em>already exists. Nothing was written</em>.</td></tr>
+  <tr><td><code>--format json</code></td><td>Print the result as JSON for a tool.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>See <a href="cli-reference.html#import">Every command</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"This file could not be imported".</dt>
+  <dd>The dialog says why. Common reasons: an unsupported format (<code>.vsd</code>, a Bizagi <code>.bpm</code> package), a draw.io page larger than 32 MB when unpacked, or a file that is not a diagram.</dd>
+  <dt>A shape I drew is missing.</dt>
+  <dd>Read the <strong>Not imported</strong> group. It names each one and says why.</dd>
+  <dt>The imported diagram looks untidy.</dt>
+  <dd>Connectors keep the route they were drawn with. Press <span class="ui">Auto Layout</span> (Pro).</dd>
+  <dt>Elements ended up in the wrong pool.</dt>
+  <dd>See <strong>Guessed</strong>. Elements outside every pool go into the nearest one. Drag them where they belong.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/share-html.html">Share as HTML</a> - One offline file anyone can open.</li>
+<li><a href="../guide/auto-layout.html">Auto layout</a> - Tidy a diagram in one click.</li>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/share-html.html"><span>Previous</span>Share as HTML</a>
+<a class="next" href="../guide/cli.html"><span>Next</span>Command line</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

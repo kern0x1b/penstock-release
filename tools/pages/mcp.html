@@ -1,0 +1,67 @@
+<!--
+title: The MCP server
+lede: Let an AI assistant read, check and, if you allow it, edit the diagrams in your project, with the same checks a person gets.
+tags: free
+needs: Reading and checking are free. Flow analysis, scenarios, code links and editing need Pro, and Team in a pipeline.
+related: cli-reference, plans, security
+-->
+<h2>What it is</h2>
+
+<p><strong>MCP</strong> (Model Context Protocol) is a way for an AI assistant to use a program's tools. <code>penstock mcp</code> starts a small server on your machine that talks to the assistant over standard input and output. It offers a few tools. An assistant that edits a diagram can check straight away that it still runs to its end.</p>
+
+<h2>Connect an assistant</h2>
+
+<ol class="steps">
+  <li>In your project run <code>penstock mcp --config</code>. It prints an entry for your assistant's configuration.</li>
+  <li>Paste the entry into the assistant's MCP settings.</li>
+  <li>Start the assistant. It lists the tools.</li>
+</ol>
+
+<pre><code>$ penstock mcp --config
+{
+  "mcpServers": {
+    "penstock": {
+      "command": "/work/orders/penstockw",
+      "args": ["mcp"],
+      "cwd": "/work/orders"
+    }
+  }
+}</code></pre>
+
+<p>The server uses your project's <code>penstockw</code> when there is one, so it runs the version you pinned.</p>
+
+<h2>The tools</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Tool</th><th>What it does</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td><code>list_diagrams</code></td><td>Lists the BPMN diagrams in the project.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>show_diagram</code></td><td>Describes a diagram: every element and flow with id, type, name, connections and engine properties. Read this before editing. Edits refer to these ids.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>check_diagram</code></td><td>Reports what is wrong, as the editor's check does: the drawing, your bpmnlint rules and, with a licence, how the process runs.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>list_scenarios</code></td><td>Lists every distinct way through a diagram: the decisions taken, their conditions, the steps and where it ends.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>check_code_links</code></td><td>Checks every diagram against the code, with file and line.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span></td></tr>
+  </tbody>
+</table></div>
+
+<p>Every tool works only on files inside the project. A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="plans.html">Plans and licence</a>.</p>
+
+<h2>Safety</h2>
+
+<ul>
+  <li>The server runs on your machine. Nothing is sent anywhere by it. See <a href="security.html">Security and privacy</a>.</li>
+  <li>Paths outside the project are refused. So are files that are not <code>.bpmn</code> diagrams.</li>
+  <li>An assistant can change your files only with <code>edit_diagram</code>. Ask the assistant to use <code>dryRun</code> first, and keep your diagrams in Git so you can review the diff.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The assistant does not see the tools.</dt>
+  <dd>Check the <code>command</code> and <code>cwd</code> in the entry. Run the command by hand: it should wait silently for input.</dd>
+  <dt>"is outside this project".</dt>
+  <dd>Give a path relative to the project root, as <code>list_diagrams</code> prints it.</dd>
+  <dt>A paid tool says it needs a licence.</dt>
+  <dd>Sign in on the machine that runs the server: <code>penstock license login</code>.</dd>
+</dl>

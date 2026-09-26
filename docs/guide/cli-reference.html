@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Every command - Penstock</title>
+<meta name="description" content="Every penstock command, one by one: what it does, its options, an example, and what it needs.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/cli-reference.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html" aria-current="page">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Command line</p>
+<h1>Every command</h1>
+<p class="lede">Every penstock command, one by one: what it does, its options, an example, and what it needs.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#all-commands-at-a-glance">All commands at a glance</a></li>
+<li><a href="#options-that-many-commands-share">Options that many commands share</a></li>
+<li><a href="#init">init</a></li>
+<li><a href="#doctor">doctor</a></li>
+<li><a href="#check">check</a></li>
+<li><a href="#migrate">migrate</a></li>
+<li><a href="#code">code</a></li>
+<li><a href="#paths">paths</a></li>
+<li><a href="#tests">tests</a></li>
+<li><a href="#test-cases">test-cases</a></li>
+<li><a href="#layout">layout</a></li>
+<li><a href="#fmt">fmt</a></li>
+<li><a href="#diff">diff</a></li>
+<li><a href="#export">export</a></li>
+<li><a href="#share">share</a></li>
+<li><a href="#import">import</a></li>
+<li><a href="#docs">docs</a></li>
+<li><a href="#report">report</a></li>
+<li><a href="#bot">bot</a></li>
+<li><a href="#deploy">deploy</a></li>
+<li><a href="#show">show</a></li>
+<li><a href="#edit">edit</a></li>
+<li><a href="#license">license</a></li>
+<li><a href="#mcp">mcp</a></li>
+<li><a href="#connectors">connectors</a></li>
+<li><a href="#update">update</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="all-commands-at-a-glance"><a href="#all-commands-at-a-glance">All commands at a glance</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Command</th><th>What it does</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td><a href="#init"><code>init</code></a></td><td>Set up a project.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#doctor"><code>doctor</code></a></td><td>Check the setup.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#check"><code>check</code></a></td><td>Everything wrong with the diagrams.</td><td>Free. Flow, SARIF, baselines: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#migrate"><code>migrate</code></a></td><td>Camunda 7 to Camunda 8.</td><td>Free. <code>convert</code>: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#code"><code>code</code></a></td><td>Diagrams against code.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#paths"><code>paths</code></a></td><td>Every way through each process.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#tests"><code>tests</code></a></td><td>Write JUnit tests.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#test-cases"><code>test-cases</code></a></td><td>Run test cases on an engine.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#layout"><code>layout</code></a></td><td>Auto layout.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#fmt"><code>fmt</code></a></td><td>Format the XML.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#diff"><code>diff</code></a></td><td>What changed.</td><td>Free. <code>--images</code>: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#export"><code>export</code></a></td><td>Pictures of diagrams.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#share"><code>share</code></a></td><td>One HTML file.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#import"><code>import</code></a></td><td>From draw.io, Visio, Signavio, Bizagi.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#docs"><code>docs</code></a></td><td>Documentation pages.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#report"><code>report</code></a></td><td>A pull request comment.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#bot"><code>bot</code></a></td><td>The review bot.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#deploy"><code>deploy</code></a></td><td>Send to the engine.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#show"><code>show</code></a></td><td>List a diagram's elements.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#edit"><code>edit</code></a></td><td>Change a diagram.</td><td><span class="tag pro">Pro</span> (<code>--schema</code> is free)</td></tr>
+  <tr><td><a href="#license"><code>license</code></a></td><td>Buy, sign in, status.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#mcp"><code>mcp</code></a></td><td>Serve diagrams to an AI agent.</td><td>Free to read. Other tools: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#connectors"><code>connectors</code></a></td><td>Camunda connector templates.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#update"><code>update</code></a></td><td>Move the wrapper to a version.</td><td><span class="tag free">Free</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="options-that-many-commands-share"><a href="#options-that-many-commands-share">Options that many commands share</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as <code>PENSTOCK_PROFILE</code> would. See <a href="profiles.html">Profiles</a>.</td></tr>
+  <tr><td><code>--format text|json|sarif|github|md</code></td><td>How <code>check</code>, <code>paths</code>, <code>show</code>, <code>docs</code> and <code>migrate</code> report themselves.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code>, <code>-o</code></td><td>Where a command puts what it writes. For <code>share</code> and <code>import</code>, <code>-o</code> is the file.</td></tr>
+  <tr><td><code>--help</code></td><td>Print the help and stop.</td></tr>
+  <tr><td><code>--version</code></td><td>Print the version.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="init"><a href="#init">init</a></h2>
+
+<p><strong>Set up a project.</strong> <code>penstock init [path]</code></p>
+
+<ol class="steps">
+  <li>Writes <code>penstock.yaml</code> with the engine guessed from your diagrams. If a file exists, it is kept.</li>
+  <li>Adds <code>penstock.local.yaml</code> to <code>.gitignore</code>.</li>
+  <li>Installs the wrapper: <code>penstockw</code>, <code>penstockw.cmd</code>, and the properties file.</li>
+</ol>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--example camunda-8|camunda-7</code></td><td>Write a small runnable project into an <em>empty</em> folder. See <a href="example-project.html">The example project</a>.</td></tr>
+  <tr><td><code>--ci github|gitea|forgejo|gitlab|bitbucket|azure</code></td><td>Also write a pipeline, for the licence on this machine. See <a href="ci.html">Pipelines, reports and the bot</a>.</td></tr>
+  <tr><td><code>--hooks</code></td><td>Install a pre-commit hook. It formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours. Delete the file to stop it. It uses <code>check --baseline</code>, which needs Pro.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="doctor"><a href="#doctor">doctor</a></h2>
+
+<p><strong>Find out why something does not work.</strong> <code>penstock doctor [path]</code></p>
+
+<pre><code>$ penstock doctor
+node        v26.10.0
+root        /private/tmp/pex
+config      penstock.yaml
+engine      camunda-8
+profiles    (none)
+deployment  http://localhost:8080/v2 - answered 404</code></pre>
+
+<p>It prints the Node version, the project root, which configuration files apply, the engine, the profiles (a star marks the one in force), the rules file and element template paths (marked <em>missing</em> when they are not there), and whether the deployment address answers (with a 4 second timeout). Exit code 1 when something is missing. <code>--format json</code> prints all the settings that apply after every layer.</p>
+
+<h2 id="check"><a href="#check">check</a></h2>
+
+<p><strong>Everything wrong with the diagrams.</strong> <code>penstock check [paths]</code></p>
+
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+fail  src/main/resources/order-process.bpmn
+        OVERLAP: approve_order &lt;-&gt; charge_card
+        note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
+ok    src/main/resources/shipping-method.dmn</code></pre>
+
+<p>Checks <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> files in three sections: <em>drawing</em>, <em>rules</em> (bpmnlint) and <em>flow</em> (Pro). Only errors fail the command.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--only drawing,rules,flow</code></td><td>Run part of it. <code>--only flow</code> needs Pro.</td></tr>
+  <tr><td><code>--format json|sarif|github</code></td><td>Machine output with rule ids and their page. SARIF and GitHub annotations need Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not accept. Needs Pro.</td></tr>
+  <tr><td><code>--update-baseline</code></td><td>Write the current findings to <code>penstock-baseline.json</code>. Commit it. After an upgrade, refresh it.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>See <a href="diagram-check.html">Diagram check</a>, <a href="validation.html">Validation</a> and <a href="flow-analysis.html">Flow analysis</a>. Hooks: <code>preCheck</code> and <code>postCheck</code>.</p>
+
+<h2 id="migrate"><a href="#migrate">migrate</a></h2>
+
+<p><strong>Camunda 7 to Camunda 8.</strong> <code>penstock migrate [analyze|convert|report] [paths]</code></p>
+
+<p>Full description on <a href="migration.html">Camunda 7 to 8</a>. Options: <code>--target 8.5..8.9</code>, <code>--dry-run</code>, <code>--out &lt;dir&gt;</code>, <code>--fail-on error|warning</code>, <code>--verbose</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>. <code>convert</code> needs Pro, and Team in a pipeline. <code>convert</code> writes over your files unless you give <code>--out</code>.</p>
+
+<h2 id="code"><a href="#code">code</a></h2>
+
+<p><strong>Compare diagrams with code.</strong> <code>penstock code [paths]</code> <span class="tag pro">Pro</span></p>
+
+<p>Reports a job type, topic, class or bean that nothing runs, a called process no diagram defines, and a worker no diagram uses, each with file and line. Reads the repositories in <code>linked</code>. <code>--format json</code> for a tool. See <a href="code-links.html">Code links</a>.</p>
+
+<h2 id="paths"><a href="#paths">paths</a></h2>
+
+<p><strong>List every way through each process.</strong> <code>penstock paths [paths]</code> <span class="tag pro">Pro</span></p>
+
+<p><code>--format md</code> writes a checklist for a test plan. <code>--format json</code> is for tools. See <a href="process-tests.html">Process tests and coverage</a>.</p>
+
+<h2 id="tests"><a href="#tests">tests</a></h2>
+
+<p><strong>Write a JUnit test for every way through each process.</strong> <code>penstock tests [paths]</code> <span class="tag pro">Pro</span></p>
+
+<p><code>--out &lt;dir&gt;</code> the source folder. <code>--package &lt;name&gt;</code> the package. The command names the test dependencies your build lacks. See <a href="process-tests.html">Process tests and coverage</a>.</p>
+
+<h2 id="test-cases"><a href="#test-cases">test-cases</a></h2>
+
+<p><strong>Run test cases on an engine, step by step, with mocks.</strong> <code>penstock test-cases [paths]</code> <span class="tag pro">Pro</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--generate</code></td><td>Write test cases from the ways through each process.</td></tr>
+  <tr><td><code>--junit</code></td><td>Write a Camunda Process Test class that runs the same files under JUnit.</td></tr>
+  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Write a JUnit XML report.</td></tr>
+  <tr><td><code>--teamcity</code></td><td>Print TeamCity service messages.</td></tr>
+  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take. Default 30.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>See <a href="test-cases.html">Runs and test cases</a>.</p>
+
+<h2 id="layout"><a href="#layout">layout</a></h2>
+
+<p><strong>Lay the diagrams out.</strong> <code>penstock layout [paths]</code> <span class="tag pro">Pro</span></p>
+
+<pre><code>$ penstock layout .
+would change src/main/resources/order-process.bpmn
+
+Auto layout always reflows, so a difference here is expected; pass --write to take it.</code></pre>
+
+<p><code>--write</code> saves the result. Without it nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="auto-layout.html">Auto layout</a>.</p>
+
+<h2 id="fmt"><a href="#fmt">fmt</a></h2>
+
+<p><strong>Format the XML the way the editor saves it</strong>, so a renamed task is a one-line diff. <code>penstock fmt [paths]</code></p>
+
+<p><code>--write</code> saves. Without it, it lists each file as <em>same</em> or <em>would rewrite</em>, and exits with 1 if any file would change. So it also works as a check in a pipeline.</p>
+
+<h2 id="diff"><a href="#diff">diff</a></h2>
+
+<p><strong>What changed.</strong></p>
+
+<pre><code>penstock diff before.bpmn after.bpmn     # two files
+penstock diff main                       # working tree against a branch, tag or commit
+penstock diff HEAD~3 src/orders          # limit to some paths
+penstock diff main --images              # pictures with changes coloured (Pro)</code></pre>
+
+<pre><code>$ penstock diff HEAD
+src/main/resources/order-process.bpmn
+  changed  ServiceTask "Charge the card" charge_card (name)</code></pre>
+
+<p>It lists added, removed and changed elements by name, and says <em>only the drawing moved</em> when that is all. Without a reference it compares against <code>HEAD~1</code>. <code>--images-dir</code> and <code>--out</code> choose where the pictures go (default <code>.penstock/images</code>).</p>
+
+<h2 id="export"><a href="#export">export</a></h2>
+
+<p><strong>Pictures of the diagrams.</strong> <code>penstock export [paths] --out &lt;dir&gt;</code></p>
+
+<p>SVG, drawn by Penstock from the coordinates. No browser needed. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="export.html">Export</a>.</p>
+
+<h2 id="share"><a href="#share">share</a></h2>
+
+<p><strong>One HTML file to send.</strong> <code>penstock share &lt;file&gt; [-o out.html]</code></p>
+
+<p>Takes one <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. Opens offline in any browser. See <a href="share-html.html">Share as HTML</a>.</p>
+
+<h2 id="import"><a href="#import">import</a></h2>
+
+<p><strong>Turn a draw.io, Visio, Signavio or Bizagi diagram into BPMN 2.0.</strong> <code>penstock import &lt;file&gt; [-o out.bpmn] [--force]</code></p>
+
+<p>Prints what was not imported, what was guessed and what was not carried over. <code>--format json</code> for a tool. See <a href="import.html">Import a diagram</a>.</p>
+
+<h2 id="docs"><a href="#docs">docs</a></h2>
+
+<p><strong>Write documentation for every process, decision file and form.</strong> <code>penstock docs [paths] --out &lt;dir&gt;</code> <span class="tag pro">Pro</span></p>
+
+<pre><code>$ penstock docs . --out docs-out
+wrote docs-out/approve-order.html
+wrote docs-out/order-process.html
+wrote docs-out/shipping-method.html
+wrote docs-out/index.html
+
+3 diagram(s) documented.</code></pre>
+
+<p>A page for each process: its picture, steps with what runs them and who, decisions and conditions, events, the data each step sets and reads, and whether it runs to its end. A page for each <code>.dmn</code> file with every decision's rules as a table, its hit policy in words and the table check. A page for each form with the variable every field writes. HTML by default, <code>--format md</code> for a wiki.</p>
+
+<h2 id="report"><a href="#report">report</a></h2>
+
+<p><strong>One Markdown comment for a pull request.</strong> <code>penstock report [path] --base origin/main</code> <span class="tag pro">Pro</span></p>
+
+<pre><code>$ penstock report . --base HEAD
+wrote penstock-report.md</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--base &lt;ref&gt;</code></td><td>What to compare against. Default <code>origin/main</code>.</td></tr>
+  <tr><td><code>--out &lt;file&gt;</code></td><td>The Markdown file. Default <code>penstock-report.md</code>.</td></tr>
+  <tr><td><code>--images-dir &lt;dir&gt;</code></td><td>Where the pictures go. Default <code>.penstock/images</code>.</td></tr>
+  <tr><td><code>--image-base &lt;url&gt;</code></td><td>Where the pictures will be served from, so the comment shows them.</td></tr>
+  <tr><td><code>--images-link &lt;url&gt;</code></td><td>Where to find them instead, when they cannot be shown inline.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The report holds the check, what changed and pictures with the changes outlined. It needs a Git repository. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2 id="bot"><a href="#bot">bot</a></h2>
+
+<p><strong>Answer in a pull or merge request</strong>, from the CI run it is in. <code>penstock bot [path]</code> <span class="tag team">Team in a pipeline</span></p>
+
+<p><code>--stage draw|post</code> draws the pictures now and posts later, when the pictures are uploaded between. <code>init --ci</code> writes the pipeline. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2 id="deploy"><a href="#deploy">deploy</a></h2>
+
+<p><strong>Send processes, decisions and forms to the engine.</strong> <code>penstock deploy [paths]</code></p>
+
+<pre><code>$ penstock deploy . --dry-run
+would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
+      src/main/resources/approve-order.form
+      src/main/resources/order-process.bpmn
+      src/main/resources/shipping-method.dmn</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--dry-run</code></td><td>Say where, and send nothing. Try it first in a new pipeline.</td></tr>
+  <tr><td><code>--wait</code></td><td>Ask the engine until it shows the definitions. "Deployed" and "running" are not the same claim. Prints <code>live order-process v3</code>.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Choose the environment.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Files are grouped by the target each folder asks for. A file with no <code>deployment.url</code> is skipped. Secrets: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code>, <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="deployment.html">Deployment</a>.</p>
+
+<h2 id="show"><a href="#show">show</a></h2>
+
+<p><strong>List a diagram's elements, flows and properties.</strong> <code>penstock show &lt;file&gt;</code></p>
+
+<pre><code>$ penstock show order-process.bpmn
+order-process.bpmn  (camunda-8)
+
+StartEvent             order_received "Order received"
+ServiceTask            charge_card "Charge card"
+                         jobType = charge-card
+SequenceFlow           Flow_2  approve_order -&gt; charge_card</code></pre>
+
+<p><code>--format json</code> is for tools. The ids it prints are the ones <code>edit</code> refers to.</p>
+
+<h2 id="edit"><a href="#edit">edit</a></h2>
+
+<p><strong>Change a diagram the way the editor would.</strong> <code>penstock edit &lt;file&gt; &lt;change&gt;</code> <span class="tag pro">Pro</span></p>
+
+<pre><code>penstock edit orders.bpmn add service-task --after Task_check --name "Reserve stock" --set jobType=reserve-stock
+penstock edit orders.bpmn connect Gateway_stock Task_notify --condition "=not(inStock)"
+penstock edit orders.bpmn set Task_notify --set assignee=support --input customer==order.customer
+penstock edit orders.bpmn remove Task_legacy</code></pre>
+
+<p>A new element is placed and connected by the editor's own modelling, gets an id from your conventions, and carries only properties your engine knows. After an edit the diagram is read back and checked. An edit that would break the drawing (shapes on top of each other, a flow through a shape, a flow torn from its element) is not written. A crossing is reported but allowed.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--dry-run</code></td><td>Show the result without writing.</td></tr>
+  <tr><td><code>--ops '&lt;json&gt;'</code>, <code>--ops-file &lt;file&gt;</code></td><td>The same changes as JSON. This is the contract. Several operations apply together or not at all.</td></tr>
+  <tr><td><code>--schema</code></td><td>Print the JSON contract for the file's engine. Free. An unknown operation, field or property is refused.</td></tr>
+  <tr><td><code>--force</code></td><td>Write even when the edit would break the drawing.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="license"><a href="#license">license</a></h2>
+
+<p><strong>Buy, sign in, status.</strong> <code>penstock license [status|key|activate &lt;key&gt;]</code>, <code>license buy [pro|team]</code>, <code>license login [email]</code>, <code>license logout</code>. See <a href="sign-in.html">Buying and signing in</a>.</p>
+
+<h2 id="mcp"><a href="#mcp">mcp</a></h2>
+
+<p><strong>Serve the project's diagrams to an AI agent</strong> over MCP. <code>penstock mcp</code>, <code>penstock mcp --config</code>. See <a href="mcp.html">The MCP server</a>.</p>
+
+<h2 id="connectors"><a href="#connectors">connectors</a></h2>
+
+<p><strong>List Camunda's connector templates, or print one.</strong></p>
+
+<pre><code>penstock connectors                              # list the current templates
+penstock connectors resolve &lt;id&gt; [version]      # print one template as JSON
+penstock connectors --refresh                    # ask GitHub for a newer release now</code></pre>
+
+<p>The templates are downloaded from GitHub at most once a day and cached in <code>~/.penstock/connectors/</code>. See <a href="element-templates.html">Element templates</a>.</p>
+
+<h2 id="update"><a href="#update">update</a></h2>
+
+<p><strong>Move the project's wrapper to a version.</strong> <code>penstock update [version]</code></p>
+
+<p>The latest version by default. <code>--distribution &lt;spec&gt;</code> chooses where to get Penstock from: a tarball or a registry spec. See <a href="cli.html">Command line</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>An option is ignored.</dt>
+  <dd>Check that it belongs to that command. For example <code>--write</code> is for <code>layout</code> and <code>fmt</code>, and <code>--wait</code> for <code>deploy</code>.</dd>
+  <dt>"Unknown command".</dt>
+  <dd>Run <code>penstock help</code>. Some old names are still accepted and say what replaces them.</dd>
+  <dt>The command says the project is not a Git repository.</dt>
+  <dd><code>diff &lt;ref&gt;</code> and <code>report</code> compare against Git history. Run them inside a checkout.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/cli.html">Command line</a> - Install, run, and use it in a script.</li>
+<li><a href="../guide/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../guide/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
+<li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/cli.html"><span>Previous</span>Command line</a>
+<a class="next" href="../guide/ci.html"><span>Next</span>Pipelines, reports and the bot</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

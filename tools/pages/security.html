@@ -1,0 +1,129 @@
+<!--
+title: Security and privacy
+lede: A complete list of what leaves your machine, when, and to whom. Nothing is sent by surprise, and nothing is sent to track you.
+tags: free
+related: sign-in, files, deployment, test-cases
+-->
+<h2>The short version</h2>
+
+<ul>
+  <li>Penstock has <strong>no telemetry</strong>. It does not report what you do, what you open or what your diagrams contain.</li>
+  <li>Your diagrams leave your machine only when <strong>you</strong> deploy them, to the engine <strong>you</strong> configured.</li>
+  <li>Passwords and secrets go to the IDE password safe, never to a project file, and never to the web page inside the editor.</li>
+  <li>This website sets no cookies, runs no scripts and loads nothing from other sites.</li>
+</ul>
+
+<h2>Everything that talks to the network</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>What</th><th>When</th><th>Where to</th><th>What is sent</th></tr></thead>
+  <tbody>
+  <tr>
+    <td>Deploy</td>
+    <td>When you press Deploy, or run <code>penstock deploy</code>.</td>
+    <td>The address in <code>deployment.url</code>.</td>
+    <td>The file you deploy, and the credentials of the profile. Nothing else from the project. See <a href="deployment.html">Deployment</a>.</td>
+  </tr>
+  <tr>
+    <td>OAuth token request</td>
+    <td>With <code>auth.type: oauth</code>, just before a deploy or an engine call.</td>
+    <td>The <code>tokenUrl</code> you configured.</td>
+    <td>The client id and secret, and the audience if you set one.</td>
+  </tr>
+  <tr>
+    <td>Engine questions</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="live.html">Live</a>, a <a href="test-cases.html">test-case run</a>, or Open run.</td>
+    <td>The engine of the profile in force.</td>
+    <td>Requests to the engine's REST API, with the profile's credentials. The IDE adds the credentials. The web page in the editor never sees them.</td>
+  </tr>
+  <tr>
+    <td>Connector templates</td>
+    <td>When you open <span class="ui">Templates…</span>, or press <span class="ui">Download</span> on a missing template. Never at IDE start. Never when you open a diagram. At most once a day.</td>
+    <td><code>api.github.com</code> (the release list of <code>camunda/connectors</code>) and <code>codeload.github.com</code> (the release archive).</td>
+    <td>A plain HTTPS request. No credentials, no cookies, no project data. It uses the IDE proxy settings. See <a href="element-templates.html">Element templates</a>.</td>
+  </tr>
+  <tr>
+    <td>Licence</td>
+    <td>Once a day, in the background. When you buy or sign in.</td>
+    <td>The licence service, Polar.</td>
+    <td>Your licence key. When you activate: the machine's host name and a one-way hash of its machine id. When you sign in: your e-mail address and the code. Never a diagram. See <a href="sign-in.html">Buying and signing in</a>.</td>
+  </tr>
+  <tr>
+    <td>The command line download</td>
+    <td>The first time a project needs a version of the <code>penstock</code> command that is not on the machine. That includes the Run Penstock actions in the IDE when the project has no <code>penstockw</code>.</td>
+    <td>The npm registry, package <code>@penstock/cli</code>.</td>
+    <td>A normal npm install request.</td>
+  </tr>
+  <tr>
+    <td>Pull request comments</td>
+    <td>When <code>penstock bot</code> or <code>penstock report</code> runs in your pipeline.</td>
+    <td>Your own Git host.</td>
+    <td>The comment, using the pipeline's own token. See <a href="ci.html">Pipelines, reports and the bot</a>.</td>
+  </tr>
+  <tr>
+    <td>The education link</td>
+    <td>When you press the link.</td>
+    <td>Your browser.</td>
+    <td>Nothing from Penstock.</td>
+  </tr>
+  </tbody>
+</table></div>
+
+<p>That is the whole list. There is no update polling, no crash reporting and no usage statistics. <a href="share-html.html">Share as HTML</a> and <a href="import.html">Import</a> work entirely on your machine.</p>
+
+<h2>What a deployment sends</h2>
+
+<p>One request per deployment. It carries the file you deploy, as multipart form data, and the deployment settings from <code>penstock.yaml</code> (name, source, tenant). It does not carry other diagrams, element templates or the settings file. The request is made by the IDE process, not by the web page in the editor, so no CORS setup is needed on the engine. Timeouts are 10 seconds to connect and 30 seconds for the request.</p>
+
+<h2>Credentials</h2>
+
+<ul>
+  <li>In the IDE the password or client secret goes into the <strong>IDE password safe</strong>, once for each profile.</li>
+  <li>The web page in the editor never reads a secret. It is told only whether a secret is saved. Leave the field empty to keep it. Type to replace it.</li>
+  <li>On the command line the secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>.</li>
+  <li>Nothing secret is ever written to <code>penstock.yaml</code> or <code>penstock.local.yaml</code>.</li>
+  <li>Penstock has no option to skip TLS certificate checks. An engine with a private certificate must be trusted by the Java runtime of the IDE.</li>
+</ul>
+
+<h2>Test-case runs are safe by design</h2>
+
+<p>A <a href="test-cases.html">test-case run</a> deploys a test build. The build has mocked job types and topics prefixed with the run id. Every resource is marked with the run, so the engine never takes it for a version it already has.</p>
+
+<ul>
+  <li>It goes only to an engine marked <code>deployment.forTests: true</code>, or to a local engine on this machine after one confirmation. In the editor it asks once per profile. In a terminal it asks once per run. A pipeline is never asked: without the <code>forTests</code> mark, the run is refused.</li>
+  <li>Afterwards it removes the build and its instances.</li>
+  <li>The host enforces the same rule itself. Every call of a run, and anything that deletes, cancels, answers jobs or writes variables, is refused on any other engine.</li>
+  <li>A list of deployed builds is kept (<code>~/.penstock/test-builds.json</code> for the command line), so the next run can remove what an interrupted one left.</li>
+  <li>Traces are written only under the project's <code>.penstock/runs/</code>, which has its own <code>.gitignore</code>.</li>
+</ul>
+
+<h2>Trust</h2>
+
+<ul>
+  <li>Commands from the tool window, and <code>preDeploy</code> and <code>postDeploy</code> hooks run from the IDE, run only in a project you have marked as trusted in the IDE.</li>
+  <li>The review bot reads diagrams and <code>penstock.yaml</code>. It never runs the hooks that a pull request's configuration might declare.</li>
+  <li>The MCP server answers only for files inside the project it was started in.</li>
+</ul>
+
+<h2>The shared HTML file</h2>
+
+<p>A file made with <a href="share-html.html">Share as HTML</a> loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of it.</p>
+
+<h2>This website</h2>
+
+<p>The pages you are reading are plain HTML and one style sheet. They set no cookies, run no scripts, and load no fonts, images or code from other sites. The font, JetBrains Mono, is served from this site. Nothing tracks visitors. GitHub, which hosts the site, keeps its own server logs.</p>
+
+<h2>Report a vulnerability</h2>
+
+<p>Do not open a public issue. Read <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a> and report it privately.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My firewall shows a request to GitHub from the IDE.</dt>
+  <dd>You opened the connector browser, or pressed <span class="ui">Download</span> on a missing template. That is the only GitHub request. It is at most once a day.</dd>
+  <dt>My firewall shows a request to npm.</dt>
+  <dd>A command line action needed a version of <code>@penstock/cli</code> that was not on the machine. <code>penstock init</code> adds a wrapper that pins the version and keeps the download in <code>~/.penstock/wrapper</code>.</dd>
+  <dt>I work offline.</dt>
+  <dd>Everything works offline except deploy, engine questions, the connector download and the licence check. An active licence works 30 days without a connection.</dd>
+</dl>

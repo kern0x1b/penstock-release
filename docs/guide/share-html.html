@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Share as HTML - Penstock</title>
+<meta name="description" content="Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no IDE and no internet.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/share-html.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../guide/cli.html">Command line</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/installing.html">Installing</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/live.html">Live</a></li>
+      <li><a href="../guide/test-cases.html">Runs and test cases</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html" aria-current="page">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Command line</h2>
+    <ul>
+      <li><a href="../guide/cli.html">Command line</a></li>
+      <li><a href="../guide/cli-reference.html">Every command</a></li>
+      <li><a href="../guide/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../guide/mcp.html">The MCP server</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Moving and sharing</p>
+<h1>Share as HTML</h1>
+<p class="lede">Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no IDE and no internet.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#steps">Steps</a></li>
+<li><a href="#what-the-reader-sees">What the reader sees</a></li>
+<li><a href="#privacy">Privacy</a></li>
+<li><a href="#from-a-terminal">From a terminal</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="steps"><a href="#steps">Steps</a></h2>
+
+<ol class="steps">
+  <li>Open the diagram, decision or form.</li>
+  <li>Open <span class="ui">More</span> and choose <span class="ui">Share as HTML…</span>.</li>
+  <li>A save dialog called <em>Share as HTML</em> asks where to put the file. It suggests a name from the diagram.</li>
+  <li>A message says <em>Saved … It opens offline in any browser.</em></li>
+  <li>Send the file. Attach it to an e-mail, put it on a wiki, drop it on a share.</li>
+</ol>
+
+<figure class="shot">
+  <img src="../img/share-and-import/more-menu.png" alt="The More menu of the editor with Import diagram and Share as HTML">
+  <figcaption>Share as HTML is in the More menu, next to Import diagram.</figcaption>
+</figure>
+
+<h2 id="what-the-reader-sees"><a href="#what-the-reader-sees">What the reader sees</a></h2>
+
+<figure class="shot">
+  <img src="../img/share-and-import/share-light.png" alt="A shared diagram in a browser with zoom buttons and the documentation of a selected element">
+  <figcaption>A shared diagram, in light. The reader has clicked an element and its documentation appears.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/share-and-import/share-dark.png" alt="The same shared diagram in the reader's dark setting">
+  <figcaption>The same file in the reader's dark setting.</figcaption>
+</figure>
+
+<ul>
+  <li><strong>A diagram</strong> is a read-only viewer. Scroll to zoom, drag to pan, use the plus, minus and fit buttons. Click an element to see its documentation. The diagram's name is at the top.</li>
+  <li><strong>A decision file</strong> is shown as its tables.</li>
+  <li><strong>A form</strong> is shown as its fields.</li>
+  <li>The page is light or dark, following the reader's own setting.</li>
+  <li>A small <em>Made with Penstock</em> line is at the foot. The bpmn.io logo stays visible in the corner.</li>
+</ul>
+
+<h2 id="privacy"><a href="#privacy">Privacy</a></h2>
+
+<p>The file loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of them. Only what is in the diagram goes into the file. Read it before you send it, as you would any document.</p>
+
+<h2 id="from-a-terminal"><a href="#from-a-terminal">From a terminal</a></h2>
+
+<pre><code>$ penstock share process.bpmn -o process.html
+wrote process.html
+One file, opens offline in any browser; nothing in it reaches the network.</code></pre>
+
+<p>Without <code>-o</code> the file goes next to the source with the extension <code>.html</code>. The command takes one <code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file. See <a href="cli-reference.html#share">Every command</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"could not be shared" and "Nothing was written".</dt>
+  <dd>The file could not be read as a diagram. Open it in the editor to see why.</dd>
+  <dt>"is not a .bpmn, .dmn or .form file".</dt>
+  <dd>Share takes one of those file types only.</dd>
+  <dt>The reader cannot edit the diagram.</dt>
+  <dd>Right. It is a viewer. To let someone edit, send the <code>.bpmn</code> file.</dd>
+  <dt>I need a picture, not a page.</dt>
+  <dd>Use <a href="export.html">Export</a>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/export.html">Export</a> - Save the diagram as SVG, PNG or PDF.</li>
+<li><a href="../guide/import.html">Import a diagram</a> - Bring in draw.io, Visio, Signavio and Bizagi files.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/migration.html"><span>Previous</span>Camunda 7 to 8</a>
+<a class="next" href="../guide/import.html"><span>Next</span>Import a diagram</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies, runs no scripts and loads nothing from other sites. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

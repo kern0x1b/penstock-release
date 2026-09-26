@@ -1,0 +1,65 @@
+<!--
+title: Share as HTML
+lede: Turn a diagram, a decision file or a form into one HTML file that anyone can open in a browser, with no IDE and no internet.
+tags: free
+related: export, import, security
+-->
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Open the diagram, decision or form.</li>
+  <li>Open <span class="ui">More</span> and choose <span class="ui">Share as HTML…</span>.</li>
+  <li>A save dialog called <em>Share as HTML</em> asks where to put the file. It suggests a name from the diagram.</li>
+  <li>A message says <em>Saved … It opens offline in any browser.</em></li>
+  <li>Send the file. Attach it to an e-mail, put it on a wiki, drop it on a share.</li>
+</ol>
+
+<figure class="shot">
+  <img src="@img/share-and-import/more-menu.png" alt="The More menu of the editor with Import diagram and Share as HTML">
+  <figcaption>Share as HTML is in the More menu, next to Import diagram.</figcaption>
+</figure>
+
+<h2>What the reader sees</h2>
+
+<figure class="shot">
+  <img src="@img/share-and-import/share-light.png" alt="A shared diagram in a browser with zoom buttons and the documentation of a selected element">
+  <figcaption>A shared diagram, in light. The reader has clicked an element and its documentation appears.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/share-and-import/share-dark.png" alt="The same shared diagram in the reader's dark setting">
+  <figcaption>The same file in the reader's dark setting.</figcaption>
+</figure>
+
+<ul>
+  <li><strong>A diagram</strong> is a read-only viewer. Scroll to zoom, drag to pan, use the plus, minus and fit buttons. Click an element to see its documentation. The diagram's name is at the top.</li>
+  <li><strong>A decision file</strong> is shown as its tables.</li>
+  <li><strong>A form</strong> is shown as its fields.</li>
+  <li>The page is light or dark, following the reader's own setting.</li>
+  <li>A small <em>Made with Penstock</em> line is at the foot. The bpmn.io logo stays visible in the corner.</li>
+</ul>
+
+<h2>Privacy</h2>
+
+<p>The file loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of them. Only what is in the diagram goes into the file. Read it before you send it, as you would any document.</p>
+
+<h2>From a terminal</h2>
+
+<pre><code>$ penstock share process.bpmn -o process.html
+wrote process.html
+One file, opens offline in any browser; nothing in it reaches the network.</code></pre>
+
+<p>Without <code>-o</code> the file goes next to the source with the extension <code>.html</code>. The command takes one <code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file. See <a href="cli-reference.html#share">Every command</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"could not be shared" and "Nothing was written".</dt>
+  <dd>The file could not be read as a diagram. Open it in the editor to see why.</dd>
+  <dt>"is not a .bpmn, .dmn or .form file".</dt>
+  <dd>Share takes one of those file types only.</dd>
+  <dt>The reader cannot edit the diagram.</dt>
+  <dd>Right. It is a viewer. To let someone edit, send the <code>.bpmn</code> file.</dd>
+  <dt>I need a picture, not a page.</dt>
+  <dd>Use <a href="export.html">Export</a>.</dd>
+</dl>

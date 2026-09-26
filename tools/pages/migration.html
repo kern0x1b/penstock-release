@@ -1,0 +1,155 @@
+<!--
+title: Camunda 7 to Camunda 8
+lede: The migration assistant shows what in your Camunda 7 project does not carry over to Camunda 8, converts what it can, and writes a report you can hand on.
+tags: free
+needs: Looking and the report are free. Converting and worker skeletons need Pro, and Team in a pipeline.
+related: engine-profiles, code-links, cli-reference, ci
+-->
+<h2>Why and for whom</h2>
+
+<p>Camunda 7 Community Edition has reached its end of life. A team on it has to decide whether to move to Camunda 8, and then to do it: the diagrams, the decisions, the forms and the Java code behind them. The assistant does the reading and most of the converting, inside the IDE, next to the code.</p>
+
+<p>It works on Camunda 7, Operaton and CIB seven projects. Both forks are read as a Camunda 7 source, because their diagrams use the same <code>camunda:</code> namespace.</p>
+
+<h2>What is free and what is Pro</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Part</th><th>Plan</th></tr></thead>
+  <tbody>
+  <tr><td>Analysis: what does not carry over, why, what to do, who does it</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>The migration report, as Markdown and one HTML page</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Converting a diagram, decision or form, with the preview</td><td><span class="tag pro">Pro</span>, Team in a pipeline</td></tr>
+  <tr><td>Job worker skeletons written from your delegates</td><td><span class="tag pro">Pro</span></td></tr>
+  </tbody>
+</table></div>
+
+<h2>See what does not carry over</h2>
+
+<ol class="steps">
+  <li>Open a Camunda 7 diagram.</li>
+  <li>Press <span class="ui">Migrate to Camunda 8</span> on the toolbar. It is pinned for Camunda 7, Operaton and CIB seven diagrams. It can be unpinned into the <span class="ui">More</span> menu.</li>
+  <li>The check card opens with a section <strong>Migrate to Camunda 8</strong>. It says, for example, <em>7 to do, 3 to check, 19 convert as they are</em>.</li>
+  <li>Read the groups: <strong>Needs work</strong> (a person has to do it), <strong>Review after converting</strong> (Penstock converts it, you check it), and a collapsed group of what converts as it is.</li>
+  <li>Click a line. The element is selected on the canvas. Each line says what is wrong, why, and what to do.</li>
+</ol>
+
+<figure class="shot">
+  <img src="@img/migration/02-check-card-camunda-8-section.png" alt="The diagram check card with a Camunda 8 section listing what needs work">
+  <figcaption>The migration section in the check card. In this picture the section is headed "Camunda 8". It is now called "Migrate to Camunda 8". A <span class="ui">Convert…</span> button is at its right.</figcaption>
+</figure>
+
+<p>The whole project, all files at once, is in the <a href="tool-window.html">Penstock tool window</a> under <strong>Migrate to Camunda 8</strong>. It lists each file with its status (<em>ready</em>, <em>converts</em>, <em>needs work</em>, <em>blocked</em>), its findings, and the Java code with what each class becomes.</p>
+
+<h3>What the words mean</h3>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Status of a file</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><strong>Ready</strong></td><td>Nothing to do.</td></tr>
+  <tr><td><strong>Converts</strong></td><td>Penstock converts it. The leftovers are a check.</td></tr>
+  <tr><td><strong>Needs work</strong></td><td>A person has to do part of it.</td></tr>
+  <tr><td><strong>Blocked</strong></td><td>It uses something Camunda 8 has no form for.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>A finding is marked</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td>Converts</td><td>Penstock converts it exactly.</td></tr>
+  <tr><td>To check</td><td>Penstock converts it. A person checks the result. The finding stays after converting.</td></tr>
+  <tr><td>To do</td><td>Penstock leaves it and marks it on its element. A person does it.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>What it looks at</h2>
+
+<ul>
+  <li><strong>Implementations.</strong> A Java class, delegate expression, expression or external task topic becomes a <em>job type</em>. Nothing runs that job until a worker exists, so this is an error until you write the worker.</li>
+  <li><strong>Listeners.</strong> Execution and task listeners become job types, on Camunda 8.6 and later (execution) and 8.8 and later (task). Earlier targets get a marker.</li>
+  <li><strong>Expressions.</strong> JUEL becomes FEEL, only where the result is exact. A refusal quotes its reason.</li>
+  <li><strong>Scripts.</strong> Groovy and JavaScript scripts cannot run in Camunda 8. Rewrite as FEEL, or move to a job worker.</li>
+  <li><strong>Forms.</strong> Generated forms become Camunda Forms, written beside the diagram, never over a form that is there. An embedded form has no Camunda 8 counterpart.</li>
+  <li><strong>Messages.</strong> A message needs a correlation key.</li>
+  <li><strong>Called processes, decisions, multi-instance loops, timers, errors, retries and priorities</strong>: each has its own rule, with a link to Camunda's documentation.</li>
+  <li><strong>The Java code.</strong> Each delegate, external task handler and listener is followed to its source and to what it becomes.</li>
+</ul>
+
+<h2>Convert</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>In the migration section of the check card, press <span class="ui">Convert…</span>. Or in the tool window, right-click a file and choose <span class="ui">Convert to Camunda 8…</span>, or the root's <span class="ui">Convert All…</span>.</li>
+  <li>The diagram opens twice, side by side, in the <a href="diagram-diff.html">visual diagram diff</a>: before and after. Nothing is written yet.</li>
+  <li>Read what changed. Then choose <span class="ui">Replace</span> to overwrite the file, or <span class="ui">Save as a Copy</span> to keep the original.</li>
+</ol>
+
+<p>What Penstock cannot convert exactly stays in the file, marked on its element with a <code>conversion:message</code> that the Camunda Modeler reads too. It also stays a finding. Converting twice changes nothing more.</p>
+
+<h3>Job worker skeletons</h3>
+<p><span class="tag pro">Pro</span></p>
+
+<p>In the tool window, open <strong>Migrate to Camunda 8</strong>, then <strong>Code</strong>. Each Java delegate, external task handler or listener is shown with the file and line and what it becomes. Right-click one to write a skeleton next to the code: <span class="ui">Job Worker Skeleton…</span> (Spring), <span class="ui">Node Worker Skeleton…</span> or <span class="ui">Python Worker Skeleton…</span>. The skeleton is written from the variables the code reads and writes and the BPMN errors it throws. Penstock never writes over a file.</p>
+
+<h2>The report</h2>
+
+<p>Press <span class="ui">Migration Report</span> in the tool window root, or run:</p>
+
+<pre><code>$ penstock migrate report .
+wrote migration-report.md
+wrote migration-report.html</code></pre>
+
+<p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code. Use <code>--out &lt;dir&gt;</code> to choose the folder.</p>
+
+<figure class="shot">
+  <img src="@img/migration/03-migration-report.png" alt="The migration report page: scope, what the move costs, files and code, in dark theme">
+  <figcaption>The migration report. It follows the reader's light or dark setting. The design of this website copies it.</figcaption>
+</figure>
+
+<h2>The command line</h2>
+
+<pre><code>$ penstock migrate .
+ready       src/main/resources/approve-order.form  1 convert
+needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
+        error   migration/message-catch: Shipment confirmed: The message shipment-confirmed needs a correlation key. ...
+        error   migration/delegate-expression: Send receipt: Delegate ${sendReceipt} becomes the job type sendReceipt. ...
+ready       src/main/resources/shipping-method.dmn  1 convert
+
+3 files to migrate for Camunda 8.8: 2 ready, 0 convert, 1 need work, 0 blocked.
+Job workers to write: 2</code></pre>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>migrate</code>, <code>migrate analyze</code></td><td>List what does not carry over. Exit code 1 if there is an error (or a warning with <code>--fail-on warning</code>). Free.</td></tr>
+  <tr><td><code>migrate convert</code></td><td>Convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first to see the changes. Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>migrate report</code></td><td>Write the Markdown and HTML report. Free.</td></tr>
+  <tr><td><code>--target 8.5</code> to <code>8.9</code></td><td>The Camunda 8 version to convert for. Default 8.8.</td></tr>
+  <tr><td><code>--format text|json|sarif|github</code></td><td>Machine-readable output. SARIF and annotations need what they need for <code>check</code>.</td></tr>
+  <tr><td><code>--baseline</code>, <code>--update-baseline</code></td><td>Fail only on what is new. The file is <code>penstock-migration-baseline.json</code>.</td></tr>
+  <tr><td><code>--verbose</code></td><td>Also list what only carries over as it is.</td></tr>
+  </tbody>
+</table></div>
+
+<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>, so the files still open as Camunda 7. Set <code>engine: camunda-8</code> when you move. Penstock never changes your configuration.</p>
+
+<h2>What it does not do</h2>
+
+<ul>
+  <li>It does not move running instances or history. Instances can finish on Camunda 7, or be moved with <a href="https://docs.camunda.io/docs/guides/migrating-from-camunda-7/migration-tooling/data-migrator/">Camunda's Data Migrator</a>. The Data Migrator needs the element ids to stay as they are. The converter keeps them.</li>
+  <li>It does not rewrite your Java code. Use the OpenRewrite recipes from Camunda's migration guide in your build, where a reviewer sees the diff. The assistant writes new files beside the old code.</li>
+  <li>It never guesses. What it cannot convert exactly, it marks.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>There is no Migrate to Camunda 8 button.</dt>
+  <dd>It shows for Camunda 7, Operaton and CIB seven diagrams. A Camunda 8 or Classic diagram has none. The check card says <em>Nothing to convert: this is not a Camunda 7 diagram.</em></dd>
+  <dt>Convert asks me to buy Pro.</dt>
+  <dd>Converting is a Pro feature. The analysis and the report are free. See <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>After converting, the check still lists findings.</dt>
+  <dd>Those are the ones a person has to do or check. They stay on their element until you fix them.</dd>
+  <dt>"Unknown target".</dt>
+  <dd>Use 8.5, 8.6, 8.7, 8.8 or 8.9.</dd>
+  <dt>"There is nothing to migrate".</dt>
+  <dd>No Camunda 7 diagram, decision or form was found in the path you gave.</dd>
+</dl>
