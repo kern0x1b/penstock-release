@@ -44,6 +44,7 @@ node tools/build-home.mjs         # docs/index.html
 node tools/build-legal-pages.mjs  # docs/license and docs/notices, from LICENSE and THIRD-PARTY-NOTICES.md
 node tools/build-rules.mjs <path to the product's docs/rules>   # docs/rules
 node tools/check-site.mjs         # every internal link and image resolves, no external loads, no em dashes
+node tools/check-site.mjs --release   # the same, and it fails while prices or checkout are not ready to publish
 ```
 
 The rule pages are generated from the product's `docs/rules`, which the product generates from its
@@ -51,6 +52,45 @@ rule catalogue. The product links to `https://kern0x1b.github.io/penstock-releas
 those addresses must keep working.
 
 `docs/guide/TODO-screenshots.md` lists the pages that still need a picture, and the pictures to retake.
+
+### Prices and the Buy buttons
+
+The Plans page shows the real prices and a Buy button for each plan. Nothing on the site talks to
+Polar's API, and the browser never sees the access token: the prices are read when the site is
+generated and written to `tools/prices.json`, which holds no secret and is committed.
+
+```bash
+# read the prices from Polar, write tools/prices.json, and generate the pages
+POLAR_ACCESS_TOKEN=polar_oat_... node tools/build-guide.mjs
+# or only read the prices
+POLAR_ACCESS_TOKEN=polar_oat_... node tools/fetch-prices.mjs
+```
+
+- `POLAR_ACCESS_TOKEN`: an organisation access token that may read products and checkout links.
+  Keep it in your shell or your secret store. It is never written to a file.
+- `POLAR_API_URL`: optional. By default the `api` of the product's `licensing.json`.
+- `PENSTOCK_LICENSING`: optional path to that file. By default
+  `../jetbrains-bpmn-editor/webview/cli/licensing.json`, next to this repository. It gives the
+  organisation id and the two checkout links (`pro`, `team`).
+- Without the token the pages are generated from the `tools/prices.json` that is committed. The page
+  shows currency, billing interval, plan and the date the prices were read.
+- For each plan the prices are the fixed prices of the products behind its checkout link. If a link
+  cannot be read, the organisation's products are matched by name (Pro, Team).
+- `node --test tools/test-prices.mjs` tests this against a local stand-in for the API.
+
+A Buy button is a plain link to the plan's Polar checkout link, so it works without JavaScript.
+`tools/checkout.json` can switch on Polar's embedded checkout, which opens the checkout in a frame
+over the page. The script (`@polar-sh/checkout`, Apache-2.0) is vendored in `docs/vendor/polar-checkout`
+and is served from this site. Update it with `node tools/vendor-polar-embed.mjs [version]`. The embed
+follows `prefers-color-scheme` with two buttons, one per theme, and no extra script.
+
+> **Before publishing.** The product's licensing settings still point at Polar's sandbox, so
+> `tools/prices.json` and the Buy links do too, and the page says so ("Test mode"). Publishing needs
+> the production API URL, organisation id and checkout links in the product's `licensing.json`, and a
+> production access token to read the prices. Polar also refuses to embed a checkout on an origin
+> that is not on the organisation's allowed list (`EmbedHostNotAllowed`), so the embed stays off
+> (`"embed": false`) until `https://kern0x1b.github.io` is allowed in Polar. `node tools/check-site.mjs`
+> prints a warning for each of these, and `node tools/check-site.mjs --release` fails while any remain.
 
 ## Reporting a problem
 
