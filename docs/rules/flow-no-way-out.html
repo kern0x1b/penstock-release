@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A decision has no way out for some values - Penstock</title>
+<meta name="description" content="When no condition of a gateway holds and there is no default flow, the instance stops there with an incident.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/rules/flow-no-way-out.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="../guide/">Documentation</a>
+      <a href="index.html">Rules</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc rules">
+  <h1>A decision has no way out for some values</h1>
+  <p class="lede"><code>flow/no-way-out</code> · Process flow · Error: the diagram or the process is wrong</p>
+
+  <h2>Why it matters</h2>
+
+  <p>When no condition of a gateway holds and there is no default flow, the instance stops there with an incident.</p>
+
+  <h2>How to fix it</h2>
+
+  <p>Add a default flow, or a condition for the values named in the finding.</p>
+
+  <p class="rule-note">In <code>penstock check</code> and in the editor the rule is called <code>NO-WAY-OUT</code>.</p>
+
+  <p><a href="index.html">All rules</a> · <a href="../guide/diagram-check.html">Check and problems</a></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="../guide/">Documentation</a>
+      <a href="index.html">Rules</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

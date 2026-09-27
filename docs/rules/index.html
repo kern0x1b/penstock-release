@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rules - Penstock</title>
+<meta name="description" content="Every check Penstock makes, with a line on why it matters and a line on how to fix it: the drawing, the modelling rules, engine compatibility, process flow, decision tables, forms, diagrams and code.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/rules/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="../guide/">Documentation</a>
+      <a href="index.html" aria-current="page">Rules</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc rules">
+  <h1>Rules</h1>
+  <p class="lede">Every check Penstock makes has a page with why it matters and how to fix it. The pages, and this index,
+are generated from the rule definitions in <code>webview/src/core/rules/catalog.ts</code>: change a rule there and run
+<code>npm run docs:rules</code> in <code>webview</code>.</p>
+
+  <ul class="rule-jumps">
+    <li><a href="#modelling-rules">Modelling rules</a> <span class="rule-count">28</span></li>
+    <li><a href="#engine-compatibility">Engine compatibility</a> <span class="rule-count">66</span></li>
+    <li><a href="#drawing">Drawing</a> <span class="rule-count">20</span></li>
+    <li><a href="#process-flow">Process flow</a> <span class="rule-count">9</span></li>
+    <li><a href="#decision-tables">Decision tables</a> <span class="rule-count">3</span></li>
+    <li><a href="#forms">Forms</a> <span class="rule-count">4</span></li>
+    <li><a href="#diagrams-and-code">Diagrams and code</a> <span class="rule-count">13</span></li>
+    <li><a href="#modelling-conventions">Modelling conventions</a> <span class="rule-count">2</span></li>
+  </ul>
+
+    <h2 id="modelling-rules">Modelling rules</h2>
+
+    <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="bpmnlint-ad-hoc-sub-process.html"><code>bpmnlint/ad-hoc-sub-process</code></a></td><td>Ad-hoc sub-process with a start or end event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-conditional-event.html"><code>bpmnlint/conditional-event</code></a></td><td>Conditional event without a condition</td><td>off</td></tr>
+        <tr><td><a href="bpmnlint-conditional-flows.html"><code>bpmnlint/conditional-flows</code></a></td><td>Conditional flow without a condition</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-end-event-required.html"><code>bpmnlint/end-event-required</code></a></td><td>Process or sub-process without an end event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-event-based-gateway.html"><code>bpmnlint/event-based-gateway</code></a></td><td>Event-based gateway used wrongly</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-event-sub-process-typed-start-event.html"><code>bpmnlint/event-sub-process-typed-start-event</code></a></td><td>Event sub-process start without an event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-fake-join.html"><code>bpmnlint/fake-join</code></a></td><td>Several flows enter a task that does not join them</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-global.html"><code>bpmnlint/global</code></a></td><td>Global element without a name, unused or not unique</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-label-required.html"><code>bpmnlint/label-required</code></a></td><td>Element without a label</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-link-event.html"><code>bpmnlint/link-event</code></a></td><td>Link event without a name or without its counterpart</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-bpmndi.html"><code>bpmnlint/no-bpmndi</code></a></td><td>Element without a place in the diagram</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-complex-gateway.html"><code>bpmnlint/no-complex-gateway</code></a></td><td>Complex gateway</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-disconnected.html"><code>bpmnlint/no-disconnected</code></a></td><td>Element with no incoming or outgoing flow</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-duplicate-sequence-flows.html"><code>bpmnlint/no-duplicate-sequence-flows</code></a></td><td>Two identical flows between the same elements</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-gateway-join-fork.html"><code>bpmnlint/no-gateway-join-fork</code></a></td><td>Gateway that joins and forks</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-implicit-end.html"><code>bpmnlint/no-implicit-end</code></a></td><td>Path that ends without an end event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-implicit-split.html"><code>bpmnlint/no-implicit-split</code></a></td><td>Task that forks the flow without a gateway</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-implicit-start.html"><code>bpmnlint/no-implicit-start</code></a></td><td>Path that starts without a start event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-no-inclusive-gateway.html"><code>bpmnlint/no-inclusive-gateway</code></a></td><td>Inclusive gateway</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-no-overlapping-elements.html"><code>bpmnlint/no-overlapping-elements</code></a></td><td>Element overlaps another or leaves its parent</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-single-blank-start-event.html"><code>bpmnlint/single-blank-start-event</code></a></td><td>More than one blank start event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-single-event-definition.html"><code>bpmnlint/single-event-definition</code></a></td><td>Event with several event definitions</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-standard-size.html"><code>bpmnlint/standard-size</code></a></td><td>Element not in its standard size</td><td>off</td></tr>
+        <tr><td><a href="bpmnlint-start-event-required.html"><code>bpmnlint/start-event-required</code></a></td><td>Process or sub-process without a start event</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-sub-process-blank-start-event.html"><code>bpmnlint/sub-process-blank-start-event</code></a></td><td>Sub-process start event with a type</td><td>error</td></tr>
+        <tr><td><a href="bpmnlint-superfluous-gateway.html"><code>bpmnlint/superfluous-gateway</code></a></td><td>Gateway with one way in and one way out</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-superfluous-label.html"><code>bpmnlint/superfluous-label</code></a></td><td>Label on a flow that needs none</td><td>warning</td></tr>
+        <tr><td><a href="bpmnlint-superfluous-termination.html"><code>bpmnlint/superfluous-termination</code></a></td><td>Terminate end event that terminates nothing</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="engine-compatibility">Engine compatibility</h2>
+
+    <p>What the engine the diagram is written for cannot run: a missing job type, an element or an expression the chosen version does not support. They run on Camunda 7 and Camunda 8 diagrams, in the editor and in <code>penstock check</code>, against the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one without it. Operaton and CIB seven are checked as Camunda 7. A finding is called <code>compat/&lt;rule&gt;</code> here and in <code>penstock check</code>; a rule is turned off in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code> or, the same, <code>compat/&lt;rule&gt;</code>.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="compat-ad-hoc-sub-process.html"><code>compat/ad-hoc-sub-process</code></a></td><td>Ad-hoc sub-process without an activity</td><td>error</td></tr>
+        <tr><td><a href="compat-agent-fromai-contract.html"><code>compat/agent-fromai-contract</code></a></td><td>fromAi() key that is not a plain name under toolCall</td><td>error</td></tr>
+        <tr><td><a href="compat-agent-tool-documentation.html"><code>compat/agent-tool-documentation</code></a></td><td>Tool of an AI agent without documentation</td><td>warning</td></tr>
+        <tr><td><a href="compat-agent-tool-output-key.html"><code>compat/agent-tool-output-key</code></a></td><td>Tool of an AI agent that returns nothing to it</td><td>warning</td></tr>
+        <tr><td><a href="compat-before-all-execution-listener.html"><code>compat/before-all-execution-listener</code></a></td><td>beforeAll listener outside a multi-instance element</td><td>error</td></tr>
+        <tr><td><a href="compat-element-type.html"><code>compat/element-type</code></a></td><td>Element the engine version cannot run</td><td>error</td></tr>
+        <tr><td><a href="compat-cancel-execution-listener.html"><code>compat/cancel-execution-listener</code></a></td><td>cancel listener on an element that cannot be cancelled</td><td>error</td></tr>
+        <tr><td><a href="compat-called-element.html"><code>compat/called-element</code></a></td><td>Call activity without a process to call</td><td>error</td></tr>
+        <tr><td><a href="compat-collapsed-subprocess.html"><code>compat/collapsed-subprocess</code></a></td><td>Collapsed sub-process</td><td>error</td></tr>
+        <tr><td><a href="compat-connector-properties.html"><code>compat/connector-properties</code></a></td><td>Connector with a property this version does not have</td><td>warning</td></tr>
+        <tr><td><a href="compat-duplicate-execution-listener-headers.html"><code>compat/duplicate-execution-listener-headers</code></a></td><td>Two headers of a listener with the same key</td><td>error</td></tr>
+        <tr><td><a href="compat-duplicate-execution-listeners.html"><code>compat/duplicate-execution-listeners</code></a></td><td>Two execution listeners that are the same</td><td>error</td></tr>
+        <tr><td><a href="compat-duplicate-task-headers.html"><code>compat/duplicate-task-headers</code></a></td><td>Two task headers with the same key</td><td>error</td></tr>
+        <tr><td><a href="compat-error-reference.html"><code>compat/error-reference</code></a></td><td>Error event without an error or an error code</td><td>error</td></tr>
+        <tr><td><a href="compat-escalation-boundary-event-attached-to-ref.html"><code>compat/escalation-boundary-event-attached-to-ref</code></a></td><td>Escalation boundary event on the wrong element</td><td>error</td></tr>
+        <tr><td><a href="compat-escalation-reference.html"><code>compat/escalation-reference</code></a></td><td>Escalation event without an escalation or a code</td><td>error</td></tr>
+        <tr><td><a href="compat-event-based-gateway-target.html"><code>compat/event-based-gateway-target</code></a></td><td>Receive task after an event-based gateway</td><td>error</td></tr>
+        <tr><td><a href="compat-executable-process.html"><code>compat/executable-process</code></a></td><td>No executable process</td><td>error</td></tr>
+        <tr><td><a href="compat-execution-listener.html"><code>compat/execution-listener</code></a></td><td>Execution listener without an event type or a job type</td><td>error</td></tr>
+        <tr><td><a href="compat-feel-compatibility.html"><code>compat/feel-compatibility</code></a></td><td>FEEL function the engine version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-feel.html"><code>compat/feel</code></a></td><td>FEEL expression that is not valid</td><td>error</td></tr>
+        <tr><td><a href="compat-history-time-to-live.html"><code>compat/history-time-to-live</code></a></td><td>Process without a history time to live</td><td>warning</td></tr>
+        <tr><td><a href="compat-implementation.html"><code>compat/implementation</code></a></td><td>Task or event that has nothing to run</td><td>error</td></tr>
+        <tr><td><a href="compat-inclusive-gateway.html"><code>compat/inclusive-gateway</code></a></td><td>Inclusive gateway with more than one way in</td><td>error</td></tr>
+        <tr><td><a href="compat-link-event.html"><code>compat/link-event</code></a></td><td>Link events that do not match</td><td>error</td></tr>
+        <tr><td><a href="compat-loop-characteristics.html"><code>compat/loop-characteristics</code></a></td><td>Multi-instance without what it needs</td><td>error</td></tr>
+        <tr><td><a href="compat-io-mapping.html"><code>compat/io-mapping</code></a></td><td>Input or output mapping that is incomplete</td><td>error</td></tr>
+        <tr><td><a href="compat-message-reference.html"><code>compat/message-reference</code></a></td><td>Message event without a message or its name</td><td>error</td></tr>
+        <tr><td><a href="compat-no-binding-type.html"><code>compat/no-binding-type</code></a></td><td>Binding type that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-business-id.html"><code>compat/no-business-id</code></a></td><td>Business id that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-before-all-execution-listener.html"><code>compat/no-before-all-execution-listener</code></a></td><td>beforeAll listener that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-candidate-users.html"><code>compat/no-candidate-users</code></a></td><td>Candidate users that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-cancel-execution-listener.html"><code>compat/no-cancel-execution-listener</code></a></td><td>cancel listener that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-execution-listener-headers.html"><code>compat/no-execution-listener-headers</code></a></td><td>Listener headers that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-execution-listeners.html"><code>compat/no-execution-listeners</code></a></td><td>Execution listeners that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-expression.html"><code>compat/no-expression</code></a></td><td>Expression this version does not support</td><td>error</td></tr>
+        <tr><td><a href="compat-no-interrupting-event-subprocess.html"><code>compat/no-interrupting-event-subprocess</code></a></td><td>Interrupting event sub-process in an ad-hoc sub-process</td><td>error</td></tr>
+        <tr><td><a href="compat-no-job-priority-definition.html"><code>compat/no-job-priority-definition</code></a></td><td>Job priority that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-loop.html"><code>compat/no-loop</code></a></td><td>Loop that never waits</td><td>error</td></tr>
+        <tr><td><a href="compat-no-multiple-none-start-events.html"><code>compat/no-multiple-none-start-events</code></a></td><td>More than one blank start event</td><td>error</td></tr>
+        <tr><td><a href="compat-no-priority-definition.html"><code>compat/no-priority-definition</code></a></td><td>Priority that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-propagate-all-parent-variables.html"><code>compat/no-propagate-all-parent-variables</code></a></td><td>Propagate all parent variables that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-signal-event-sub-process.html"><code>compat/no-signal-event-sub-process</code></a></td><td>Signal event sub-process that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-task-schedule.html"><code>compat/no-task-schedule</code></a></td><td>Task schedule that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-task-listeners.html"><code>compat/no-task-listeners</code></a></td><td>Task listeners that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-template.html"><code>compat/no-template</code></a></td><td>Element template that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-version-tag.html"><code>compat/no-version-tag</code></a></td><td>Version tag that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-zeebe-properties.html"><code>compat/no-zeebe-properties</code></a></td><td>Zeebe properties that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-no-zeebe-user-task.html"><code>compat/no-zeebe-user-task</code></a></td><td>Camunda user task that this version does not have</td><td>error</td></tr>
+        <tr><td><a href="compat-priority-definition.html"><code>compat/priority-definition</code></a></td><td>User task priority that is not valid</td><td>error</td></tr>
+        <tr><td><a href="compat-zeebe-user-task.html"><code>compat/zeebe-user-task</code></a></td><td>Job worker user task</td><td>warning</td></tr>
+        <tr><td><a href="compat-secrets.html"><code>compat/secrets</code></a></td><td>Secret written in a form the engine no longer reads</td><td>warning</td></tr>
+        <tr><td><a href="compat-sequence-flow-condition.html"><code>compat/sequence-flow-condition</code></a></td><td>Condition on a flow that cannot have one</td><td>error</td></tr>
+        <tr><td><a href="compat-signal-reference.html"><code>compat/signal-reference</code></a></td><td>Signal event without a signal or its name</td><td>error</td></tr>
+        <tr><td><a href="compat-start-event-form.html"><code>compat/start-event-form</code></a></td><td>Start event form that this version cannot show</td><td>error</td></tr>
+        <tr><td><a href="compat-start-event-form-embedded.html"><code>compat/start-event-form-embedded</code></a></td><td>Embedded form on a start event</td><td>warning</td></tr>
+        <tr><td><a href="compat-subscription.html"><code>compat/subscription</code></a></td><td>Message without a correlation key</td><td>error</td></tr>
+        <tr><td><a href="compat-task-listener.html"><code>compat/task-listener</code></a></td><td>Task listener without an event type or a job type</td><td>error</td></tr>
+        <tr><td><a href="compat-task-schedule.html"><code>compat/task-schedule</code></a></td><td>Task schedule that is not a date</td><td>error</td></tr>
+        <tr><td><a href="compat-timer.html"><code>compat/timer</code></a></td><td>Timer that is not valid</td><td>error</td></tr>
+        <tr><td><a href="compat-unresolvable-secret-reference.html"><code>compat/unresolvable-secret-reference</code></a></td><td>Secret used in a way the engine cannot resolve</td><td>error</td></tr>
+        <tr><td><a href="compat-user-task-definition.html"><code>compat/user-task-definition</code></a></td><td>User task without a form</td><td>warning</td></tr>
+        <tr><td><a href="compat-user-task-form.html"><code>compat/user-task-form</code></a></td><td>User task form that is not filled in</td><td>error</td></tr>
+        <tr><td><a href="compat-variable-name.html"><code>compat/variable-name</code></a></td><td>Variable name that is not valid</td><td>error</td></tr>
+        <tr><td><a href="compat-version-tag.html"><code>compat/version-tag</code></a></td><td>Version tag that is empty</td><td>error</td></tr>
+        <tr><td><a href="compat-wait-for-completion.html"><code>compat/wait-for-completion</code></a></td><td>Compensation that does not wait</td><td>error</td></tr>
+    </table>
+
+    <h2 id="drawing">Drawing</h2>
+
+    <p>What is wrong with how a diagram is drawn, found by the check card in the editor and by the first section of <code>penstock check</code>. The errors break the picture; the others make it harder to read.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="drawing-dangling-connection.html"><code>drawing/dangling-connection</code></a></td><td>Connection without both ends</td><td>error</td></tr>
+        <tr><td><a href="drawing-lost-connection.html"><code>drawing/lost-connection</code></a></td><td>Connection in the file but not on the canvas</td><td>error</td></tr>
+        <tr><td><a href="drawing-containment.html"><code>drawing/containment</code></a></td><td>Element outside the container it belongs to</td><td>error</td></tr>
+        <tr><td><a href="drawing-overlap.html"><code>drawing/overlap</code></a></td><td>Shapes sit on top of each other</td><td>error</td></tr>
+        <tr><td><a href="drawing-edge-through-node.html"><code>drawing/edge-through-node</code></a></td><td>Connection runs through a shape</td><td>error</td></tr>
+        <tr><td><a href="drawing-edge-through-boundary.html"><code>drawing/edge-through-boundary</code></a></td><td>Connection runs through a boundary event</td><td>error</td></tr>
+        <tr><td><a href="drawing-crossing.html"><code>drawing/crossing</code></a></td><td>Connections cross</td><td>warning</td></tr>
+        <tr><td><a href="drawing-detached-edge.html"><code>drawing/detached-edge</code></a></td><td>Connection does not reach the shape it connects</td><td>error</td></tr>
+        <tr><td><a href="drawing-boundary-off-host.html"><code>drawing/boundary-off-host</code></a></td><td>Boundary event is off its host</td><td>error</td></tr>
+        <tr><td><a href="drawing-label-adrift.html"><code>drawing/label-adrift</code></a></td><td>Label sits far from what it names</td><td>warning</td></tr>
+        <tr><td><a href="drawing-diagonal-edge.html"><code>drawing/diagonal-edge</code></a></td><td>Connection is not drawn at right angles</td><td>warning</td></tr>
+        <tr><td><a href="drawing-label-overlap.html"><code>drawing/label-overlap</code></a></td><td>Labels cover each other</td><td>error</td></tr>
+        <tr><td><a href="drawing-merged-edge.html"><code>drawing/merged-edge</code></a></td><td>Connections run along the same line</td><td>warning</td></tr>
+        <tr><td><a href="drawing-note-adrift.html"><code>drawing/note-adrift</code></a></td><td>Annotation sits far from what it describes</td><td>warning</td></tr>
+        <tr><td><a href="drawing-semantic-drift.html"><code>drawing/semantic-drift</code></a></td><td>The diagram means something different</td><td>error</td></tr>
+        <tr><td><a href="drawing-backtrack.html"><code>drawing/backtrack</code></a></td><td>Connection doubles back along itself</td><td>error</td></tr>
+        <tr><td><a href="drawing-edge-through-label.html"><code>drawing/edge-through-label</code></a></td><td>Connection crosses a label</td><td>warning</td></tr>
+        <tr><td><a href="drawing-edge-along-shape.html"><code>drawing/edge-along-shape</code></a></td><td>Connection runs along the border of a shape</td><td>warning</td></tr>
+        <tr><td><a href="drawing-detour.html"><code>drawing/detour</code></a></td><td>Connection takes a long way round</td><td>warning</td></tr>
+        <tr><td><a href="drawing-jog.html"><code>drawing/jog</code></a></td><td>Connection sidesteps for no reason</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="process-flow">Process flow</h2>
+
+    <p>What the way a process is wired can do when it runs. Part of Penstock Pro, and Team in a pipeline.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="flow-deadlock.html"><code>flow/deadlock</code></a></td><td>The process can get stuck</td><td>error</td></tr>
+        <tr><td><a href="flow-no-synchronization.html"><code>flow/no-synchronization</code></a></td><td>A part of the process can run twice</td><td>error</td></tr>
+        <tr><td><a href="flow-dead-element.html"><code>flow/dead-element</code></a></td><td>An element can never run</td><td>error</td></tr>
+        <tr><td><a href="flow-never-finishes.html"><code>flow/never-finishes</code></a></td><td>The process may never finish</td><td>error</td></tr>
+        <tr><td><a href="flow-too-complex.html"><code>flow/too-complex</code></a></td><td>Only part of the process was analysed</td><td>warning</td></tr>
+        <tr><td><a href="flow-no-way-out.html"><code>flow/no-way-out</code></a></td><td>A decision has no way out for some values</td><td>error</td></tr>
+        <tr><td><a href="flow-overlap.html"><code>flow/overlap</code></a></td><td>Two ways out of a decision can both hold</td><td>error</td></tr>
+        <tr><td><a href="flow-no-default.html"><code>flow/no-default</code></a></td><td>A decision may have no way out</td><td>warning</td></tr>
+        <tr><td><a href="flow-lookalike.html"><code>flow/lookalike</code></a></td><td>Two variables look like one</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="decision-tables">Decision tables</h2>
+
+    <p>What a DMN decision table does with the inputs it can be given. Part of Penstock Pro, and Team in a pipeline.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="table-rule-overlap.html"><code>table/rule-overlap</code></a></td><td>Two rules match the same input</td><td>error</td></tr>
+        <tr><td><a href="table-rule-gap.html"><code>table/rule-gap</code></a></td><td>No rule matches some input</td><td>warning</td></tr>
+        <tr><td><a href="table-table-unread.html"><code>table/table-unread</code></a></td><td>A decision table could not be checked</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="forms">Forms</h2>
+
+    <p>What a Camunda Form does with what the user enters. Part of Penstock Pro, and Team in a pipeline.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="form-key-clash.html"><code>form/key-clash</code></a></td><td>Two fields write the same variable</td><td>error</td></tr>
+        <tr><td><a href="form-no-key.html"><code>form/no-key</code></a></td><td>A field writes no variable</td><td>error</td></tr>
+        <tr><td><a href="form-repeated-option.html"><code>form/repeated-option</code></a></td><td>An option list repeats a value</td><td>error</td></tr>
+        <tr><td><a href="form-no-label.html"><code>form/no-label</code></a></td><td>A field has no label</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="diagrams-and-code">Diagrams and code</h2>
+
+    <p>Where a diagram and the code that runs it disagree: a step nothing implements, a worker no diagram uses, a variable read under another name than it is set.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="code-missing-implementation.html"><code>code/missing-implementation</code></a></td><td>Nothing in the code runs a step</td><td>warning</td></tr>
+        <tr><td><a href="code-never-thrown.html"><code>code/never-thrown</code></a></td><td>Nothing in the code throws the error a step catches</td><td>warning</td></tr>
+        <tr><td><a href="code-variable-typo.html"><code>code/variable-typo</code></a></td><td>A variable is read, but only a similar one is set</td><td>warning</td></tr>
+        <tr><td><a href="code-no-worker.html"><code>code/no-worker</code></a></td><td>No worker handles a job type</td><td>error</td></tr>
+        <tr><td><a href="code-no-topic-worker.html"><code>code/no-topic-worker</code></a></td><td>No external task worker subscribes to a topic</td><td>error</td></tr>
+        <tr><td><a href="code-class-missing.html"><code>code/class-missing</code></a></td><td>A class named in the diagram is not in the project</td><td>error</td></tr>
+        <tr><td><a href="code-bean-missing.html"><code>code/bean-missing</code></a></td><td>No Spring bean has the name a diagram uses</td><td>error</td></tr>
+        <tr><td><a href="code-unknown-process.html"><code>code/unknown-process</code></a></td><td>A call activity calls a process no diagram defines</td><td>error</td></tr>
+        <tr><td><a href="code-unknown-decision.html"><code>code/unknown-decision</code></a></td><td>A business rule task calls a decision no file defines</td><td>error</td></tr>
+        <tr><td><a href="code-unknown-form.html"><code>code/unknown-form</code></a></td><td>A user task shows a form no file defines</td><td>error</td></tr>
+        <tr><td><a href="code-unknown-embedded-form.html"><code>code/unknown-embedded-form</code></a></td><td>A user task shows an embedded form the diagram does not contain</td><td>error</td></tr>
+        <tr><td><a href="code-unused-worker.html"><code>code/unused-worker</code></a></td><td>A worker for a job type no diagram uses</td><td>warning</td></tr>
+        <tr><td><a href="code-unused-subscription.html"><code>code/unused-subscription</code></a></td><td>A subscription to a topic no diagram uses</td><td>warning</td></tr>
+    </table>
+
+    <h2 id="modelling-conventions">Modelling conventions</h2>
+
+    <p>Conventions the editor applies while modelling, so a team does not have to remember them. They are set under <code>conventions</code> in <code>penstock.yaml</code>.</p>
+
+    <table class="facts rules">
+      <tr><td>Rule</td><td>What it is</td><td>Level</td></tr>
+        <tr><td><a href="convention-id-from-name.html"><code>convention/id-from-name</code></a></td><td>Ids follow names</td><td>off</td></tr>
+        <tr><td><a href="convention-defaults.html"><code>convention/defaults</code></a></td><td>Defaults for new elements</td><td>off</td></tr>
+    </table>
+
+  <p>These pages are generated from the rule definitions in the plugin, so an id never changes
+  meaning. A finding in the editor or in <span class="mono">penstock check</span> links to its own
+  page. See <a href="../guide/diagram-check.html">Check and problems</a>.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="../guide/">Documentation</a>
+      <a href="index.html">Rules</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

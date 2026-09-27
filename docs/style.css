@@ -306,3 +306,22 @@ figure.shot figcaption {
 }
 
 main.doc h2, main.doc h3, main.doc section { scroll-margin-top: 84px; }
+
+main.doc.rules p { max-width: 72ch; }
+main.doc.rules .lede code { word-break: break-all; }
+main.doc.rules table.rules td:first-child { width: 42%; overflow-wrap: anywhere; }
+main.doc.rules .rule-note { color: var(--ink-soft); font-size: 15.5px; }
+main.doc.rules table.rules { table-layout: fixed; }
+
+main.doc.rules .rule-jumps {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  max-width: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 15.5px;
+}
+
+main.doc.rules .rule-count { color: var(--ink-soft); font-size: 14px; }
