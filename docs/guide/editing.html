@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Editing a diagram — Penstock</title>
-<meta name="description" content="The Penstock diagram editor: canvas and palette, the properties panel, inline script editing in a real IDE tab, the XML tab, copy and paste, the minimap, token simulation, export and the BPMN diff viewer.">
+<title>Editing a diagram - Penstock</title>
+<meta name="description" content="The Penstock diagram editor: the toolbar and the command palette, pinning actions, the palette and canvas, the XML tab, editing a script in a real IDE tab, copy and paste, token simulation, transaction boundaries, export and the diagram diff.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -58,198 +58,293 @@
     <h1>Editing a diagram</h1>
 
     <p class="lede">The editor is bpmn-js running in a JCEF browser inside the IDE window. The
-    modelling surface is the familiar one; what Penstock adds is the IDE around it — the system
-    clipboard, script files that open as real editor tabs, and a diagram-level diff in the IDE's own
-    diff window.</p>
+    modelling surface is the familiar one. What Penstock adds is the IDE around it: a toolbar you
+    arrange, a command palette over every action, a sidebar, and the raw XML never more than one
+    click away.</p>
+
+    <h2>The toolbar</h2>
+
+    <p>One row across the top of the canvas, in one order in all three editors: undo, redo, the
+    editor's own view switcher if it has one, its actions, the <strong>More</strong> button,
+    <strong>Deploy</strong> as the one primary action, and the sidebar toggle at the right edge.
+    Undo and redo are always on the bar. The sidebar toggle is an icon that stays pressed while
+    the sidebar is open; Deploy is a button that opens a popover rather than deploying at once,
+    which is described under <a href="deployment.html">Deployment</a>.</p>
+
+    <h2>The command palette</h2>
+
+    <!-- image: command-palette.png -->
+
+    <p>The <strong>More</strong> button, marked with three dots, opens a searchable list of every
+    action, in sections, with the ones you used last first. The same list is
+    <span class="mono">Ctrl+Alt+,</span>, or <span class="mono">⌥⌘,</span> on a Mac, and the
+    first-run tour names it. Type to filter: the letters you matched are marked in each row, and
+    an action answers to keywords as well as to its name, so <code>png</code> finds Export,
+    <code>c8</code> finds what is Camunda 8, and <code>bpmnlint</code> finds Check. Each row has
+    a pin.</p>
+
+    <p>The sections are the ones the menu is grouped under, in this order: Check and run, Layout
+    and convert, Deploy and share, View, File, Edit, Help. See the
+    <a href="#actions">table below</a> for what is in each.</p>
+
+    <p>The same actions are in the IDE's own <strong>Find Action</strong> and
+    <strong>Keymap</strong> under <span class="mono">Tools | Penstock</span>, so a shortcut can be
+    bound to any of them the way the IDE binds its own. The palette's shortcut is Find Action in
+    a diagram in the keymap, and Export keeps <span class="mono">Cmd/Ctrl+Shift+C</span>.</p>
+
+    <h2>Pinning an action to the toolbar</h2>
+
+    <p>The pin in each row of the palette, and of the More menu, puts that action on the toolbar
+    or takes it off. The ones used often are pinned to start with; the rest are only in the menu.
+    The choice is kept as the difference from those defaults in
+    <span class="mono">~/.penstock/preferences.json</span>, so it holds across IDEs and restarts,
+    and an action added in a later release still shows up for someone who has arranged their
+    toolbar. It is never written to <code>penstock.yaml</code>, because it is yours rather than
+    the project's.</p>
+
+    <p>On the bar, an action that only a well known icon can name is an icon with a tooltip:
+    undo, redo and the sidebar toggle. Everything else is a word. A toggle stays pressed while
+    what it shows is open, and its label never changes with the state.</p>
+
+    <h2 id="actions">Actions</h2>
+
+    <table class="facts">
+      <tr><td>Undo, Redo</td><td>Undo or redo the last operation. Always on the bar.</td></tr>
+      <tr><td>Auto layout</td><td>Lays the diagram out in place, and offers Undo in the bar that
+        follows. Pinned to start with. Pro. See <a href="auto-layout.html">Auto layout</a>.</td></tr>
+      <tr><td>Check</td><td>Opens the Problems tab. Pinned to start with. See
+        <a href="diagram-check.html">Check and problems</a>.</td></tr>
+      <tr><td>Simulate</td><td>Token simulation. Pinned to start with.</td></tr>
+      <tr><td>Monitor</td><td>What the engine is doing with this diagram. Pinned to start with.
+        See <a href="sidebar.html">The sidebar</a>.</td></tr>
+      <tr><td>Scenarios</td><td>The test cases of this process, and running them. Pinned to start
+        with. Pro.</td></tr>
+      <tr><td>Coverage</td><td>Colours what the process tests reach. Pinned to start with. Pro.</td></tr>
+      <tr><td>Migrate to Camunda 8</td><td>What does not carry over, and the conversion. Pinned to
+        start with on a Camunda 7, Operaton or CIB seven diagram. See
+        <a href="migration.html">Camunda 7 to Camunda 8</a>.</td></tr>
+      <tr><td>Deploy</td><td>Opens the Deploy popover. Pinned to start with, on the right.
+        See <a href="deployment.html">Deployment</a>.</td></tr>
+      <tr><td>Sidebar</td><td>Shows or hides the sidebar. Always on the bar, at the right edge.
+        <span class="mono">Ctrl+Alt+'</span>, or <span class="mono">⌥⌘'</span> on a Mac.</td></tr>
+      <tr><td>Fit diagram, Zoom in, Zoom out</td><td>View. Fit diagram is
+        <span class="mono">Cmd/Ctrl+0</span>.</td></tr>
+      <tr><td>Transaction boundaries</td><td>Draws where the engine commits. Camunda 7, Operaton
+        and CIB seven. See below.</td></tr>
+      <tr><td>Minimap</td><td>Toggles the overview.</td></tr>
+      <tr><td>Sketchy drawing</td><td>Draws the diagram as if by hand. A personal choice; the
+        file is not changed.</td></tr>
+      <tr><td>Export…</td><td>Opens the export dialog. <span class="mono">Cmd/Ctrl+Shift+C</span>,
+        and on the context menu of the canvas.</td></tr>
+      <tr><td>Templates…</td><td>The connector template browser. Camunda 8 only. See
+        <a href="element-templates.html">Element templates</a>.</td></tr>
+      <tr><td>Import diagram…</td><td>draw.io, Visio, Signavio or Bizagi into BPMN. See
+        <a href="exchange.html">Sharing and importing</a>.</td></tr>
+      <tr><td>Share as HTML…</td><td>One HTML file to send. See
+        <a href="exchange.html">Sharing and importing</a>.</td></tr>
+      <tr><td>Copy, Paste</td><td>To and from the system clipboard.</td></tr>
+      <tr><td>Show the tour again</td><td>The six-step tour of the editor.</td></tr>
+    </table>
+
+    <p>Check, Simulate, Monitor, Coverage, Minimap, Transaction boundaries and Sketchy drawing
+    stay pressed while they are on. Which actions are pinned is kept in
+    <span class="mono">~/.penstock/preferences.json</span>, so they are the same in every IDE on
+    the machine. The diagram always takes the IDE's theme, and switching theme keeps your zoom,
+    your pan and your selection.</p>
 
     <h2>Canvas and palette</h2>
 
-    <p>Which modeller is built depends on the engine profile. Camunda 7 and Camunda 8 get the
-    matching <code>camunda-bpmn-js</code> modeller, which carries that platform's moddle extensions,
+    <p>Which modeller is built depends on the engine profile. Camunda 7, Camunda 8, Operaton and
+    CIB seven get the matching Camunda modeler, which carries that platform's moddle extensions,
     its properties provider and its element template support; Penstock adds the element template
-    create and append module to both, and create and append anything to Camunda 8. Classic BPMN gets
-    plain <code>bpmn-js</code> with the standard properties panel and provider. All three load task
-    resizing, token simulation and the minimap. The palette is bpmn-js's own — Penstock replaces
-    nothing — extended by whichever create and append modules the profile loads.</p>
+    create and append module, and create and append anything to Camunda 8. Classic BPMN gets
+    plain <code>bpmn-js</code> with the standard properties panel and provider, and now also the
+    colour picker in the context pad and the grid with snapping, which the Camunda profiles
+    already had. All of them load task resizing, token simulation and the minimap.</p>
 
-    <p>Hovering an element for half a second shows a tooltip with its id, type, name and connected
-    flows — plus the implementation, class or delegate expression on a service task, and the assignee
-    and candidate users and groups on a user task. The right-click menu holds Reload, Undo, Redo,
-    Copy, Paste, Delete and Export.</p>
+    <p>The palette is a floating island beside the canvas, not a strip of the window: sixteen
+    pixels from the left edge, vertically centred, rounded, with a border and a shadow, and never
+    more than three quarters of the height of the canvas, so a palette with more entries scrolls
+    inside it. A canvas with a palette beside it is inset, so nothing sits under it, and a
+    diagram is fitted into that inset when it opens. See
+    <a href="elements.html">BPMN elements</a> for what is on it.</p>
+
+    <p>A diagram opens fitted into the canvas at 100% at most, rather than cut off at the edge.
+    Opening a panel over a fitted diagram fits it again, unless you have moved or zoomed it
+    yourself. Hovering an element for half a second shows a tooltip with its id, type, name and
+    connected flows, plus the implementation, class or delegate expression on a service task, and
+    the assignee and candidate users and groups on a user task. The right-click menu holds
+    Reload, Undo, Redo, Copy, Paste, Delete and <strong>Export…</strong>.</p>
 
     <h2>The properties panel</h2>
 
-
-    <p>The canvas and the panel are two halves of a resizable split; the panel opens about 300
-    pixels wide. The properties panel toggle, an icon at the right edge of the toolbar that stays
-    pressed while the panel is open, collapses it to zero width and restores it. While collapsed
-    it is detached from the modeller entirely, so it does not keep re-rendering in the background,
-    and is re-attached when reopened. Collapsing is remembered: selecting an element does not force
-    the panel open again.</p>
+    <p>The properties of the selected element are the Properties tab of the sidebar, with the
+    groups the engine profile defines. See <a href="sidebar.html">The sidebar</a> for how wide it
+    is and what it remembers.</p>
 
     <h2>Editing scripts in an IDE tab</h2>
 
-    <p>Under Camunda 7, script fields get a CodeMirror editor instead of a plain text area — Groovy
-    highlighted as Groovy, everything else as JavaScript. It is installed into the Script and
-    Condition groups and into the input mapping, output mapping, execution listener and task listener
-    entries, so a script nested in a listener is edited like the task's own. Typing reaches the model
-    400&nbsp;ms after you stop.</p>
+    <p>Under Camunda 7, script fields get a CodeMirror editor instead of a plain text area:
+    Groovy highlighted as Groovy, everything else as JavaScript. It is installed into the Script
+    and Condition groups and into the input mapping, output mapping, execution listener and task
+    listener entries, so a script nested in a listener is edited like the task's own. Typing
+    reaches the model 400&nbsp;ms after you stop.</p>
 
-    <p>Below each editor is an <strong>Edit in new tab</strong> button. It hands the current text to
-    the IDE, which opens it as an editor tab carrying the script format's extension —
-    <code>.groovy</code>, or <code>.js</code> for JavaScript — so the IDE's own highlighting,
-    completion and inspections apply. The file is in-memory only; nothing is written to disk. While
-    that tab is open the in-panel editor is read-only, so there is one place to type. Every keystroke
-    in that tab is pushed back to the in-panel editor, debounced by 100&nbsp;ms, and reaches the
-    model on the same 400&nbsp;ms rule as typing in the panel. Close the tab and the in-panel editor
-    becomes editable again; press the button again and the existing tab is focused.</p>
-
+    <p>Below each editor is an <strong>Edit in new tab</strong> button. It hands the current text
+    to the IDE, which opens it as an editor tab carrying the script format's extension -
+    <code>.groovy</code>, or <code>.js</code> for JavaScript - so the IDE's own highlighting,
+    completion and inspections apply. The file is in memory only; nothing is written to disk.
+    While that tab is open the in-panel editor is read-only, so there is one place to type. Every
+    keystroke in that tab is pushed back to the in-panel editor, debounced by 100&nbsp;ms, and
+    reaches the model on the same 400&nbsp;ms rule as typing in the panel. Close the tab and the
+    in-panel editor becomes editable again; press the button again and the existing tab is
+    focused.</p>
 
     <h2>From a delegate class to the class</h2>
 
-    <p>Right-click a task that names a Java class — a Camunda 7 <code>camunda:class</code>, a
-    delegate expression that unwraps to a fully qualified name, a listener that names one — and
-    the menu offers <strong>Go to</strong> that class. It opens the file in the IDE, found by name
-    and package in the project's own sources.</p>
-
-
-    <p>A class that lives in a dependency rather than in the project's sources is not found.</p>
+    <p>Right-click a task that names a Java class - a Camunda 7 <code>camunda:class</code>, a
+    delegate expression that unwraps to a fully qualified name, a listener that names one - and
+    the menu offers <strong>Go to</strong> that class. It opens the file in the IDE, found by
+    name and package in the project's own sources. The entry appears only when the element
+    actually names a class: a delegate expression that holds a bean name, such as
+    <code>${checkStockDelegate}</code>, names no class and is left alone. A class in a dependency
+    rather than in the project's sources is not found. This is free.</p>
 
     <h2>The XML tab</h2>
 
     <p>The diagram editor is registered ahead of the IDE's own editor, not in place of it, so the
-    plain XML editor stays available as a second tab on the same file.</p>
+    plain XML editor stays available as a second tab on the same file, called Text. A diagram
+    that cannot be read opens a screen of its own instead of an empty canvas: what the parser
+    objected to and on which line, that the file was not changed, and buttons to open the XML in
+    the Text tab at that line and to Reload.</p>
 
-    <p>Edits round-trip in both directions. Every change on the canvas re-serialises the diagram and
-    writes the whole file: the content goes to a temporary file beside the target, which is moved
-    over it atomically and refreshed in the VFS. There is no save step; the XML tab shows the new
-    content at once.</p>
+    <p>Edits round-trip in both directions. Every change on the canvas re-serialises the diagram
+    and writes the whole file: the content goes to a temporary file beside the target, which is
+    moved over it atomically and refreshed in the VFS. There is no save step; the XML tab shows
+    the new content at once, and a folder that does not exist yet is created.</p>
 
     <p>The other direction is watched rather than merged. Penstock tracks the file's modification
-    stamp and ignores its own writes. When something else changes the file — the XML tab, a Git
-    checkout, a formatter — the editor asks whether to reload. Reloading takes the external content
-    and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites
-    the external one. Renames are handled silently.</p>
+    stamp and ignores its own writes. When something else changes the file - the XML tab, a Git
+    checkout, a formatter - the editor asks whether to reload. Reloading takes the external
+    content and discards unsaved canvas edits; declining keeps you editing, and your next change
+    overwrites the external one. Renames are handled silently.</p>
 
     <h2>Copy, paste, undo and redo</h2>
 
-    <p>Undo and redo drive the modeller's command stack, covering every modelling operation in the
-    order it happened. Copy and paste go through the IDE's own <code>CopyPasteManager</code> — the
-    system clipboard — rather than a clipboard private to one diagram, which is what makes copying a
-    pool out of one diagram and pasting it into another open diagram work. Paste from the toolbar or
-    the context menu, having no mouse position to attach to, drops the elements at the centre of the
-    view.</p>
-
-    <h2>Minimap</h2>
-
-    <p><strong>Minimap</strong>, in the More menu, toggles the <code>diagram-js-minimap</code>
-    overview.</p>
+    <p>Undo and redo drive the modeller's command stack, covering every modelling operation in
+    the order it happened. Copy and paste go through the IDE's own
+    <code>CopyPasteManager</code> - the system clipboard - rather than a clipboard private to one
+    diagram, which is what makes copying a pool out of one diagram and pasting it into another
+    open diagram work. Paste from the toolbar or the context menu, having no mouse position to
+    attach to, drops the elements at the centre of the view.</p>
 
     <h2>Token simulation</h2>
 
+    <p><strong>Simulate</strong> switches the canvas into
+    <code>bpmn-js-token-simulation</code>'s simulation mode: the canvas is framed in green, every
+    start event gains a play button, and the speed controls sit at the bottom. The button stays
+    pressed until you switch it off. The module blocks dragging, the context pad, popup menus
+    and direct editing, but not programmatic changes, so Penstock blocks the rest itself: Undo,
+    Redo, Copy, Paste, Delete and Auto layout refuse to run and say <em>Stop Token Simulation
+    before editing the diagram</em>. Otherwise an edit made during what looks like a read-only
+    preview would be written to the file like any other. Free.</p>
 
-    <p><strong>Simulate</strong> switches the canvas into <code>bpmn-js-token-simulation</code>'s simulation
-    mode; the button stays highlighted until you switch it off. The module blocks dragging, the
-    context pad, popup menus and direct editing, but not programmatic changes, so Penstock blocks the
-    rest itself: Undo, Redo, Copy, Paste, Delete and Auto Layout refuse to run and say <em>Stop Token
-    Simulation before editing the diagram</em>. Otherwise an edit made during what looks like a
-    read-only preview would be written to the file like any other.</p>
+    <h2>Transaction boundaries</h2>
+
+    <!-- image: transaction-boundaries.png -->
+
+    <p><strong>Transaction boundaries</strong>, in the View section of the More menu, draws a bar
+    where the engine commits a transaction. It draws one before a user task, a receive task, an
+    event-based gateway, an external task, and a message, timer, signal or conditional catch
+    event, and before or after any activity with an asynchronous continuation, multi-instance
+    ones included. The bars follow the diagram as you edit it, take the accent colour of the
+    theme, and each says <em>Transaction boundary: the engine commits here</em> when you rest the
+    pointer on it.</p>
+
+    <p>Camunda 7, Operaton and CIB seven diagrams. Free. The behaviour is ported from
+    camunda-transaction-boundaries, whose licence is in the
+    <a href="../notices/">third-party notices</a>.</p>
 
     <h2>Export</h2>
 
     <!-- image: export-dialog.png -->
 
-    <p>Export opens a dialog with a live preview beside four choices: theme (Light, Dark, Dracula),
-    schema (Default, or Sketchy, which draws the diagram hand-drawn in the Virgil font), format (SVG,
-    PNG or PDF), and whether to paint the theme background behind the diagram or leave it
-    transparent. Collapsed subprocesses get a fifth control, to export one of those instead.</p>
+    <p><strong>Export…</strong> opens a large dialog with the whole diagram centred in the preview
+    pane on the left and the settings on the right: Theme (Light, Dark, Dracula), Schema (Default,
+    or Sketchy, which draws the diagram hand-drawn in the Virgil font), Format (SVG, PNG or PDF),
+    a Use background checkbox, and, for a diagram with collapsed sub-processes, a choice of which
+    one to export. The dialog opens light on white.</p>
+
+    <p>Along the bottom, in one row at the right, are <strong>Cancel</strong>,
+    <strong>Copy</strong> and <strong>Save</strong>. Copy puts the diagram on the IDE clipboard as
+    a PNG, drawn with the theme and background chosen there, ready to paste into Confluence, Slack
+    or an e-mail. It is free, and there is no separate menu item for it any more. The picture is
+    written by the IDE, since the browser clipboard is not available in the editor.</p>
 
     <p>SVG is written as rendered. PNG is rasterised at twice the diagram's size, capped at 8192
     pixels on the longer side so large diagrams stay inside the browser's canvas limit. PDF is that
     PNG on a single A4 page, portrait or landscape by aspect ratio, scaled to fit under a heading.
-    The IDE's save dialog then asks where to put it.</p>
+    Save then asks the IDE where to put the file.</p>
 
     <h2>Comparing two versions of a diagram</h2>
 
-    <p>Penstock registers a diff tool with the IDE, so any two-sided comparison where one side is a
-    BPMN file — <span class="mono">Compare with Revision</span>, a commit in the Git log, a shelved
-    change — is shown as two diagrams rather than two blocks of XML: Before on the left, After on the
-    right, each read-only, with the palette and context pad hidden. The visual diff is part of
-    Penstock Pro.</p>
+    <p>Penstock registers a diff tool with the IDE, so any two-sided comparison where one side is
+    a BPMN file - <span class="mono">Compare with Revision</span>, a commit in the Git log, a
+    shelved change - is shown as two diagrams rather than two blocks of XML: Before on the left,
+    After on the right, each read-only, each centred in its own pane under a single title, with
+    the palette and context pad hidden. The visual diff is part of Penstock Pro.</p>
 
     <p>The comparison is semantic, not textual. Both revisions are parsed with
-    <code>bpmn-moddle</code> and compared with <code>bpmn-js-differ</code>, which sorts elements into
-    added, removed, changed, and changed in layout only. Each is outlined in its bucket's colour:
-    removed on the Before side, added on the After side, changed on both.</p>
+    <code>bpmn-moddle</code> and compared with <code>bpmn-js-differ</code>, which sorts elements
+    into added, removed, changed, and changed in layout only. Each is outlined in its bucket's
+    colour: removed on the Before side, added on the After side, changed on both.</p>
 
     <p>The fourth bucket is the useful one. An element that only moved or was resized is marked in
-    its own colour on the After side, apart from real changes, so a commit that ran auto layout reads
-    as what it is rather than as every element having been edited.</p>
+    its own colour on the After side, apart from real changes, so a commit that ran auto layout
+    reads as what it is rather than as every element having been edited.</p>
 
-    <h2>Toolbar reference</h2>
+    <h2>The decision editor</h2>
 
-    <p>Undo and Redo always sit on the toolbar, as icons. Every other action is in the
-    <strong>More</strong> menu, the button marked with three dots, with its icon and its name, and
-    the pin in each row puts it on the toolbar or takes it off.</p>
+    <p>A <code>.dmn</code> file opens in a decision editor in the same place, through the same
+    shell: the requirements diagram, decision tables with their hit policy, typed inputs and
+    outputs and a column for annotations, and literal and boxed expressions. The view switcher at
+    the left of the toolbar switches between every decision in the file and between the
+    requirements diagram and a table. Camunda's DMN extensions are read and kept, and the file is
+    saved as you edit, the same as a diagram. The sidebar has Properties and Problems; see
+    <a href="sidebar.html">The sidebar</a>.</p>
 
-    <table class="facts">
-      <tr><td>Undo, Redo</td><td>Undo or redo the last operation. Always on the toolbar.</td></tr>
-      <tr><td>Auto Layout</td><td>Lays the diagram out in place. Pinned to start with. See
-        <a href="auto-layout.html">Auto layout</a>.</td></tr>
-      <tr><td>Check</td><td>Opens the diagram check. Pinned to start with. See
-        <a href="diagram-check.html">Diagram check</a>.</td></tr>
-      <tr><td>Simulate</td><td>Token simulation. Pinned to start with.</td></tr>
-      <tr><td>Properties Panel</td><td>Collapses or restores the properties panel. Pinned to start
-        with, as an icon at the right edge.</td></tr>
-      <tr><td>Deploy</td><td>Deploys the diagram; the arrow beside it deploys to another profile or
-        edits the connection. Pinned to start with, on the right. Camunda 7 and Camunda 8 only. See
-        <a href="deployment.html">Deployment</a>.</td></tr>
-      <tr><td>Minimap</td><td>Toggles the overview.</td></tr>
-      <tr><td>Copy, Paste</td><td>To and from the system clipboard.</td></tr>
-      <tr><td>Export…</td><td>Opens the export dialog: theme, drawing style, format and background, with a preview.</td></tr>
-      <tr><td>Templates…</td><td>The connector template browser. Camunda 8 only. See
-        <a href="element-templates.html">Element templates</a>.</td></tr>
-      <tr><td>Sketchy Drawing</td><td>Draws the diagram as if by hand. A personal choice; the file
-        is not changed.</td></tr>
-    </table>
+    <p>DMN 1.1 and 1.2 files are converted to DMN 1.3 when they open, with
+    <code>@bpmn-io/dmn-migrate</code>, and what the engine added to a decision is kept. A notice
+    above the editor says the file will be saved as DMN 1.3 when you change it, and the file on
+    disk is not touched until then. The command line does the same for
+    <span class="mono">penstock check</span>, <span class="mono">docs</span>,
+    <span class="mono">share</span> and <span class="mono">migrate analyze</span>, and a file that
+    cannot be read is one finding with its file and line rather than a failed run.</p>
 
-    <p>Check, Simulate, Minimap and Sketchy Drawing stay highlighted while active; Undo, Redo, Copy,
-    Paste and Auto Layout are blocked while a simulation runs.</p>
+    <p><strong>Check</strong> in the decision editor compares the rules of every decision table:
+    two rules of a Unique table that match the same input, which is an error at run time, rules of
+    an Any table that do so with different results, and inputs no rule matches, naming the rules
+    and a value both match. That is Pro.
+    <span class="mono">penstock check</span> does the same for the <code>.dmn</code> files in a
+    project. <strong>Deploy</strong> sends the file to the engine with the same settings a
+    diagram uses, and the Penstock tool window lists decision files beside the processes.</p>
 
-    <p>Deploy and Templates… are the only two that depend on the engine profile; under BPMN
-    Classic neither appears. Which actions are pinned, and Sketchy Drawing, are kept in
-    <code>~/.penstock/preferences.json</code>, so they are the same in every IDE on the machine. The
-    diagram always takes the IDE's theme.</p>
+    <h2>The form editor</h2>
 
+    <p>A Camunda Form, a <code>.form</code> file, opens in a form editor: the palette of fields
+    beside the form, and the properties of the selected field in the Properties tab. It is saved
+    as you edit and deployed with <strong>Deploy</strong>. A <code>.form</code> file of the
+    IntelliJ GUI Designer is left to the GUI Designer. The sidebar has Properties, Preview and
+    Problems; see <a href="sidebar.html">The sidebar</a>.</p>
 
-    <h2>Decisions (DMN)</h2>
+    <p><strong>Check</strong> finds two fields writing one variable, or a field writing the path
+    of a group - Tasklist refuses to open such a form - fields that write no variable, option
+    lists that offer one value twice, and inputs with no label. The form check is free, in the
+    editor and in <span class="mono">penstock check</span> alike, because it is lint.
+    <span class="mono">penstock docs</span> writes a page per form with the variable every field
+    writes, whether it is required, its options and when it is hidden. The decision editor's
+    overlap and gap analysis stays Pro.</p>
 
-    <p>A <span class="mono">.dmn</span> file opens in a decision editor in the same place: the
-      requirements diagram, decision tables with their hit policy, typed inputs and outputs and a
-      column for annotations, and literal and boxed expressions. The bar at the top switches
-      between every decision in the file. Camunda's DMN extensions are read and kept, and the file
-      is saved as you edit, the same as a diagram.</p>
-
-    <p>With Pro, <strong>Check</strong> in the bar compares the rules of every decision table: two
-      rules of a Unique table that match the same input, which is an error at run time, and inputs
-      no rule matches, each with the values. <span class="mono">penstock check</span> does the same
-      for the <span class="mono">.dmn</span> files in a project.</p>
-
-    <p><strong>Deploy</strong> in the bar sends the file to the engine with the same settings a
-      diagram uses, and the <strong>Penstock</strong> tool window lists decision files beside the
-      processes.</p>
-
-    <h2>Forms</h2>
-
-    <p>A Camunda Form (<span class="mono">.form</span>) opens in a form editor: the palette of fields
-      on the left, the form in the middle and its properties on the right. It is saved as you edit
-      and deployed with <strong>Deploy</strong> in the bar. A <span class="mono">.form</span> file of
-      the IntelliJ GUI Designer is left to the GUI Designer.</p>
-
-    <p>With Pro, <strong>Check</strong> finds two fields writing one variable, or a field writing
-      the path of a group — Tasklist refuses to open such a form — fields that write no variable,
-      option lists that offer one value twice and inputs with no label.
-      <span class="mono">penstock check</span> does the same for the forms in a project.</p>
   </div>
 
 </main>
