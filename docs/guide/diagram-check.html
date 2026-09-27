@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diagram check — Penstock</title>
-<meta name="description" content="The diagram check lists what is wrong with a BPMN drawing — overlapping shapes, detached connections, elements outside their pool — and points at each one on the canvas.">
+<title>Check and problems - Penstock</title>
+<meta name="description" content="The Penstock check: the card over the canvas, the Problems tab, and what each group of findings means - the drawing, how the process runs, the modelling rules, what the engine can run, the code, and the Camunda 7 to Camunda 8 result.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -55,57 +55,62 @@
   </nav>
 
   <div class="docbody">
-    <h1>Diagram check</h1>
+    <h1>Check and problems</h1>
 
-    <p class="lede">The check reads the diagram the way a person does and lists what is wrong with
-    the drawing: shapes on top of each other, a connection that does not reach the shape it
-    connects, an element that has drifted out of its pool. It is the same set of measures the
-    auto layout engine is held to, run against the diagram you have open.</p>
+    <p class="lede">Check asks three things about a diagram: can it be read, is it modelled
+    correctly, and can the engine run it. The answers appear in two places - a short card over the
+    canvas and the Problems tab of the sidebar, where the full list lives.</p>
 
     <!-- image: problems-tab.png -->
 
-    <h2>Drawing and rules</h2>
+    <h2>The check card</h2>
 
-    <p>The drawing measures are not <a href="validation.html">bpmnlint</a>. bpmnlint answers whether
-    the process is modelled correctly — an event with no outgoing flow, a gateway with no
-    condition. The drawing measures answer whether the diagram can be read: they know nothing about
-    process semantics and never look at an attribute. The card shows both, in separate groups, and
-    they never report the same thing.</p>
+    <p>Press <strong>Check</strong> in the toolbar, or pick the Problems tab, and a card appears
+    at the bottom right of the canvas. It is a summary: the counts in words, the first few
+    findings, <strong>Recheck</strong>, <strong>Close</strong>, and <strong>Show all</strong>,
+    which opens the Problems tab.</p>
 
-    <h2>How it runs</h2>
+    <p>Each finding in the card is clickable, and the element it is about is outlined on the
+    canvas. Everything the check found keeps an outline while the card is open, so the trouble is
+    visible without reading a single line.</p>
 
-    <p>With Pro, the check also runs the process: it follows every way a token can take from each
-      start event, and reports what goes wrong on the way. Each finding names the cause, and
-      clicking it outlines the path that leads there on the diagram.</p>
+    <p>A small pill on the canvas carries the count, and the badge on the Problems tab carries it
+    too. The pill is hidden while the card is open, since the card says the same thing, and both
+    count the same findings. A compatibility rule the linter reports as information counts as a
+    warning, and a problem two checks both report is counted once.</p>
 
-    <table class="facts">
-      <tr><td>The process can get stuck</td><td>A gateway waits for something that never comes —
-        usually a parallel gateway joining branches an exclusive gateway chose between, or a
-        boundary event that took the run somewhere else.</td></tr>
-      <tr><td>A part of the process can run twice</td><td>Branches that run at the same time meet
-        at an exclusive gateway or a task, so everything after it runs once per branch.</td></tr>
-      <tr><td>An element can never run</td><td>Nothing leads to it, or every way to it is closed
-        off.</td></tr>
-      <tr><td>The process may never finish</td><td>Once it gets to a certain point, no path leads
-        to an end: it can only go round.</td></tr>
-      <tr><td>A decision has no way out for some values</td><td>A gateway without a default flow whose
-        conditions leave a value uncovered — <code>amount &gt; 100</code> and <code>amount &lt; 100</code>
-        stop at exactly 100 — so the process stops there with an incident.</td></tr>
-      <tr><td>Two ways out of a decision can both hold</td><td>Two conditions of an exclusive gateway
-        overlap, and the engine takes whichever it checks first.</td></tr>
-      <tr><td>Two variables look like one</td><td>Names that differ only by letter case or one
-        character, such as <code>orderId</code> and <code>orderID</code>: one of them is probably a typo.</td></tr>
-    </table>
+    <h2>The Problems tab</h2>
 
-    <p>Without Pro, the panel says how many such problems it found. The same analysis runs in a
-      terminal as the flow section of <span class="mono">penstock check</span>, or alone as
-      <span class="mono">penstock check --only flow</span>.</p>
+    <p>The tab holds every finding, in groups, each with an error or a warning icon. It keeps its
+    place while you look at another tab, so you can go to Properties to fix something and come
+    back to the list. A tab with nothing to show says so and hints at what to do.</p>
 
-    <h2>Problems</h2>
+    <p>Clicking a finding selects its element on the canvas and opens the property that fixes it.
+    That covers job type, form key or id, correlation key, history time to live, called element,
+    error, escalation, message and signal references and timer definitions, and a missing job
+    type, topic, class or delegate expression in the code. A finding with no single field still
+    switches the sidebar to Properties and selects the element, so the next edit is one click
+    away.</p>
 
-    <p>The first group is defects that make a diagram wrong rather than untidy. A reader cannot
-    tell what a diagram means when two shapes sit on top of each other, so these are listed
-    expanded and counted in the header.</p>
+    <h2>Every check has an id, and says why and how</h2>
+
+    <p>Each check has a stable id - <code>drawing/overlap</code>,
+    <code>bpmnlint/label-required</code>, <code>form/key-clash</code> - a line on why it matters
+    and a line on how to fix it. Select a finding and the two lines appear under it, with a link
+    to that check's own page. The same id travels with the finding everywhere else it is
+    reported: <span class="mono">penstock check --format json</span>, SARIF and GitHub
+    annotations all carry the id and its link, so a finding in a pull request leads back to the
+    same page the editor showed.</p>
+
+    <p>The catalogue is generated from the rule definitions, so an id never changes meaning.</p>
+
+    <h2>The groups</h2>
+
+    <h3>Drawing</h3>
+
+    <p>What is wrong with how the diagram is drawn. These break the picture: a reader cannot tell
+    what a diagram means when two shapes sit on top of each other, so they are listed first, with
+    an error icon.</p>
 
     <table class="facts">
       <tr><td>Shapes sit on top of each other</td><td>Two shapes overlap. Neither can be read, and
@@ -125,19 +130,87 @@
         comes back along the same line. It reads as a single line drawn twice.</td></tr>
     </table>
 
-    <h2>Rules</h2>
+    <h3>How it runs</h3>
 
-    <p>The next group is what bpmnlint reports, with the project's <code>.bpmnlintrc</code> or,
-    when there is none, <code>bpmnlint:recommended</code>. Each line gives the message, the element
-    it is about and the rule's name; a rule set to warn is marked as a warning and is not counted
-    as a problem in the header. If the rules cannot run, the group says why instead. See
+    <p>Pro, and Team in a pipeline. Flow analysis follows every way a token can take from each
+    start event and reports what goes wrong on the way. Each finding names the cause, and clicking
+    it outlines the path that leads there on the diagram.</p>
+
+    <table class="facts">
+      <tr><td>The process can get stuck</td><td>A gateway waits for something that never comes -
+        usually a parallel gateway joining branches an exclusive gateway chose between, or a
+        boundary event that took the run somewhere else.</td></tr>
+      <tr><td>A part of the process can run twice</td><td>Branches that run at the same time meet
+        at an exclusive gateway or a task, so everything after it runs once per branch.</td></tr>
+      <tr><td>An element can never run</td><td>Nothing leads to it, or every way to it is closed
+        off.</td></tr>
+      <tr><td>The process may never finish</td><td>Once it gets to a certain point, no path leads
+        to an end: it can only go round.</td></tr>
+      <tr><td>A decision has no way out for some values</td><td>A gateway without a default flow
+        whose conditions leave a value uncovered - <code>amount &gt; 100</code> and
+        <code>amount &lt; 100</code> stop at exactly 100 - so the process stops there with an
+        incident.</td></tr>
+      <tr><td>Two ways out of a decision can both hold</td><td>Two conditions of an exclusive
+        gateway overlap, and the engine takes whichever it checks first.</td></tr>
+      <tr><td>Two variables look like one</td><td>Names that differ only by letter case or one
+        character, such as <code>orderId</code> and <code>orderID</code>: one of them is probably a
+        typo.</td></tr>
+    </table>
+
+    <p>Without Pro the group says how many such problems it found and offers to buy it. The same
+    analysis is the flow section of <span class="mono">penstock check</span>, or
+    <span class="mono">penstock check --only flow</span> on its own.</p>
+
+    <h3>Engine</h3>
+
+    <p>Free. This is what the engine the diagram is written for cannot run, taken from
+    <code>bpmnlint-plugin-camunda-compat</code>: a service task with no job type, an element or an
+    expression the chosen version cannot run, a process with no history time to live. Sixty rules,
+    each with an id such as <code>compat/implementation</code>.</p>
+
+    <p>They run against the version in the file's <code>modeler:executionPlatformVersion</code>,
+    or the newest one when the file has none, and against the engine
+    <code>penstock.yaml</code> names. Operaton and CIB seven are checked as Camunda 7.</p>
+
+    <p>Each finding is a plain sentence naming the element: <em>Charge card has no job type</em>,
+    <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>,
+    <em>History time to live is missing</em>. The same sentence is used in the card, on the
+    canvas, in <span class="mono">penstock check</span>, in SARIF and in GitHub annotations, so it
+    reads the same wherever you meet it.</p>
+
+    <p>In a <code>.bpmnlintrc</code> a compatibility rule is turned off as
+    <code>camunda-compat/&lt;rule&gt;</code>, the plugin's own name, or as
+    <code>compat/&lt;rule&gt;</code>. A problem another check already reports on the same element -
+    two blank start events, a link event name used twice - is shown once, by bpmnlint. See
     <a href="validation.html">Validation</a>.</p>
 
-    <h2>Readability</h2>
+    <h3>Rules</h3>
 
-    <p>The last group is collapsed, and deliberately so: a diagram drawn by hand always has some
-    of these, and a count of zero is not the goal. They are worth reading when a diagram is hard
-    to follow and you want to know why.</p>
+    <p>What bpmnlint reports, with the project's <code>.bpmnlintrc</code> or, when there is none,
+    <code>bpmnlint:recommended</code>. A rule set to warn is marked as a warning and is not counted
+    as an error in the header. If the rules cannot run, the group says why instead of staying
+    empty. See <a href="validation.html">Validation</a>.</p>
+
+    <h3>Code</h3>
+
+    <p>Where a diagram and the code that runs it disagree: a service task, listener or external
+    task whose job type, topic, class or Spring bean has nothing in the project to run it, a call
+    activity that calls a process no diagram defines, a business rule task whose decision no
+    <code>.dmn</code> file defines, a user task whose form no <code>.form</code> file provides, and
+    a worker no diagram uses. Each finding has the file and the line, and the IDE opens it there.
+    This is part of the link between diagrams and code, so it is Pro.</p>
+
+    <h3>Migrate to Camunda 8</h3>
+
+    <p>For a Camunda 7, Operaton or CIB seven diagram only, a group of its own with the result of
+    the migration analysis, grouped by diagram, decision and form, and a <strong>Convert</strong>
+    action. See <a href="migration.html">Camunda 7 to Camunda 8</a>.</p>
+
+    <h3>Readability</h3>
+
+    <p>The last group is collapsed, and deliberately so: a diagram drawn by hand always has some of
+    these, and a count of zero is not the goal. They are worth reading when a diagram is hard to
+    follow and you want to know why.</p>
 
     <table class="facts">
       <tr><td>Connections cross</td><td>Two lines cross each other.</td></tr>
@@ -159,31 +232,42 @@
         horizontally or vertically.</td></tr>
     </table>
 
-    <h2>Working through the list</h2>
+    <h2>Decisions and forms</h2>
 
-    <p>While the panel is open, every element a problem is about carries a dashed outline on the
-    canvas, so the trouble is visible without reading a single line of the list. Moving the
-    pointer down the list outlines the one under the pointer. Clicking a line scrolls the canvas
-    to it, selects it and outlines it in red — the selection is a normal one, so the properties
-    panel and the context pad are right there and the next edit is one click away.</p>
+    <p>The decision and form editors have a Problems tab of their own, and it is the same list
+    for one file. For a <code>.dmn</code> file it is the decision check: rules of a Unique table
+    that match the same input, which is an error at run time, rules of an Any table that do so
+    with different results, and inputs no rule matches, each naming the rules and a value both
+    match. That is Pro.</p>
 
-    <p>The list refreshes as you edit, a few hundred milliseconds after the diagram settles, and
-    <strong>Recheck</strong> forces a fresh pass. <strong>Close</strong> puts the outlines away.</p>
+    <p>For a <code>.form</code> file it is the form check: two fields writing one variable, or a
+    field writing the path of a group, which Tasklist refuses to open, fields that write no
+    variable, option lists offering one value twice, and inputs with no label. The form check is
+    free, in the editor and in <span class="mono">penstock check</span> alike, because it is lint.</p>
 
+    <h2>On the command line</h2>
+
+    <p><span class="mono">penstock check</span> reports everything in one run, in sections: the
+    drawing, the rules, the engine compatibility rules, and on Pro how the processes, decisions and
+    forms run. <span class="mono">--only drawing,rules,flow</span> narrows it. The exit code is
+    what makes a build fail, and a baseline makes it fail only on what is new. See
+    <a href="cli.html">Command line</a>.</p>
 
     <h2>Fixing a whole diagram at once</h2>
 
     <p><a href="auto-layout.html">Auto layout</a> is the other half of this. The check measures a
     diagram against a set of rules; auto layout draws a diagram that satisfies them. On a diagram
-    that has drifted far enough to collect a long list, laying it out again is usually faster than
-    working down the list by hand.</p>
+    that has drifted far enough to collect a long list of drawing problems, laying it out again is
+    usually faster than working down the list by hand.</p>
 
     <h2>What it cannot see</h2>
 
-    <p>Three of the engine's measures need the file rather than the canvas — a connection declared
-    in the XML that was never drawn, one drawn with an end missing, and a comparison of what the
-    diagram meant before an operation against what it means after. The panel leaves those out
-    rather than reporting them as passing.</p>
+    <p>Three measures need the file rather than the canvas - a connection declared in the XML that
+    was never drawn, one drawn with an end missing, and a comparison of what the diagram meant
+    before an operation against what it means after. The check leaves those out rather than
+    reporting them as passing. A diagram that cannot be read shows its own screen instead of a
+    card: the parser's line, that the file was not changed, and a button that opens the XML in the
+    Text tab at that line, with Reload beside it.</p>
 
   </div>
 
