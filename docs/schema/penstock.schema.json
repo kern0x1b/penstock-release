@@ -77,7 +77,7 @@
           }
         },
         "defaults": {
-          "description": "Attributes to set on a newly created element, keyed by its BPMN type — \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
+          "description": "Attributes to set on a newly created element, keyed by its BPMN type, such as \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
           "type": "object",
           "additionalProperties": {
             "type": "object",
@@ -141,7 +141,7 @@
           "type": "string"
         },
         "postDeploy": {
-          "description": "After a successful deployment — a notification, a tag, a release note.",
+          "description": "After a successful deployment, a notification, a tag or a release note.",
           "type": "string"
         }
       }
@@ -300,7 +300,7 @@
               }
             },
             "defaults": {
-              "description": "Attributes to set on a newly created element, keyed by its BPMN type — \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
+              "description": "Attributes to set on a newly created element, keyed by its BPMN type, such as \"bpmn:ServiceTask\", \"bpmn:DataInput\".",
               "type": "object",
               "additionalProperties": {
                 "type": "object",
@@ -364,7 +364,7 @@
               "type": "string"
             },
             "postDeploy": {
-              "description": "After a successful deployment — a notification, a tag, a release note.",
+              "description": "After a successful deployment, a notification, a tag or a release note.",
               "type": "string"
             }
           }
