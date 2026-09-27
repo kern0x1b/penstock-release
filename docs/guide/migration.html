@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camunda 7 to Camunda 8 - Penstock</title>
+<meta name="description" content="Migrating a Camunda 7, Operaton or CIB seven process to Camunda 8: what does not carry over and why, the visual diff before anything is written, job worker skeletons from the code of your delegates, the report, and penstock migrate.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="sidebar.html">The sidebar</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Check and problems</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="migration.html" aria-current="page">Camunda 7 to Camunda 8</a></li>
+      <li><a href="exchange.html">Sharing and importing</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Configuration</a></li>
+      <li><a href="cli.html">Command line</a></li>
+      <li><a href="plans.html">Plans and licence</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Camunda 7 to Camunda 8</h1>
+
+    <p class="lede">Penstock reads a Camunda 7 diagram, an Operaton one or a CIB seven one, and
+    says what Camunda 8 will not take. It can then convert it, showing you the diagram before and
+    the diagram after before anything is written, and write the job workers the converted
+    process needs beside the code they came from.</p>
+
+    <h2>What is free and what is not</h2>
+
+    <p>Finding out what does not carry over, and the report you hand to somebody else, are free.
+    Converting is Penstock Pro, and Team in a pipeline, because it writes files and reads the
+    project's code. See <a href="plans.html">Plans and licence</a>.</p>
+
+    <h2>Finding out what does not carry over</h2>
+
+    <p>There are three places to look, and they answer the same question.</p>
+
+    <table class="facts">
+      <tr><td>Migrate to Camunda 8 on the toolbar</td><td>On a Camunda 7, Operaton or CIB seven
+        diagram. It can be unpinned into the More menu. The section of the same name in the
+        check card does the same thing.</td></tr>
+      <tr><td>Migrate to Camunda 8 in the tool window</td><td>A root of its own, listing every
+        diagram in the project with its own result. It sits after Deployment and Files, and only
+        when at least one diagram in the project is Camunda 7, Operaton or CIB seven.</td></tr>
+      <tr><td><span class="mono">penstock migrate</span></td><td>Every diagram in a folder, in a
+        terminal or a pipeline. See <a href="cli.html">Command line</a>.</td></tr>
+    </table>
+
+    <p>Each diagram, each decision and each form is reported on its own: what does not carry
+    over, why, what to do about it, and who does it. A thing Penstock can convert exactly is
+    offered two ways - convert it, or convert it and ask you to review the result - and a thing
+    it cannot is left marked on its own element, for you to do.</p>
+
+    <h2>The report</h2>
+
+    <p>The result is a report you can hand over: Markdown, or one self-contained HTML page that
+    opens offline. It is free, and it is the same report <span class="mono">penstock migrate
+    report</span> writes. It lists every diagram, decision and form with what does not carry over,
+    why, and what to do, so it can go into a ticket or a review.</p>
+
+    <h2>Converting</h2>
+
+    <!-- image: migration-preview.png -->
+
+    <p><strong>Convert</strong> shows the diagram as it is on the left and the converted diagram
+    on the right, in the visual diagram diff, with each diagram centred in its own pane under a
+    single title. Nothing is written until you press Convert.</p>
+
+    <p>The Camunda 8 files go into a folder of their own, <code>camunda-8</code> next to the
+    folder the Camunda 7 files are in. The preview shows where, and you can change it there or
+    pass <code>--out</code>. The converted folder gets a <code>penstock.yaml</code> of its own
+    that says <code>engine: camunda-8</code>, so the Camunda 7 files are left exactly as they
+    are and both engines keep working side by side. Converting into a folder that already holds
+    converted files is not a dead end: the preview offers <em>Replace the files in
+    &lt;folder&gt;</em>, with a warning when that folder is not under version control, and
+    overwrites only when the box is ticked.</p>
+
+    <h3>What cannot be converted exactly</h3>
+
+    <p>It stays in the file, marked with a <code>conversion:message</code> attribute that the
+    Camunda Modeler reads too, and it stays a finding in the check, so it does not get lost. A
+    JUEL expression becomes FEEL only where the result is the same; where it is not, the refusal
+    says why. Generated forms are written beside the diagram and never over a form that is
+    already there.</p>
+
+    <h3>Job workers from your delegates</h3>
+
+    <p>Pro, and Team in a pipeline. Every Java delegate, external task handler and listener is
+    followed to its source and to what it becomes. Beside it, Penstock writes a job worker
+    skeleton in Spring, Node or Python, built from the variables that code reads and writes and
+    the BPMN errors it throws. An existing file is never overwritten; the skeleton goes beside it
+    under a name that is free.</p>
+
+    <h2>In a terminal</h2>
+
+    <pre><code>penstock migrate analyze  .        what does not carry over
+penstock migrate convert  .        write the Camunda 8 files (Pro)
+penstock migrate report   . -o migration.html</code></pre>
+
+    <table class="facts">
+      <tr><td><span class="mono">--format text|json|sarif|github</span></td><td>How the result is
+        reported. SARIF and GitHub annotations need what they need for
+        <span class="mono">check</span>, and they cover the migration findings too.</td></tr>
+      <tr><td><span class="mono">--fail-on warning</span></td><td>What makes the exit code 1. An
+        error does by default.</td></tr>
+      <tr><td><span class="mono">--baseline</span></td><td>Fails only on what is new since the
+        baseline. Refresh it with <span class="mono">--update-baseline</span>.</td></tr>
+      <tr><td><span class="mono">--target 8.5</span> to <span class="mono">8.9</span></td><td>The
+        Camunda 8 version to convert for. 8.8 by default.</td></tr>
+      <tr><td><span class="mono">--dry-run</span></td><td>Says what would be written and writes
+        nothing.</td></tr>
+      <tr><td><span class="mono">--out &lt;dir&gt;</span></td><td>Where the Camunda 8 files go,
+        for convert.</td></tr>
+      <tr><td><span class="mono">--verbose</span></td><td>Lists and annotates what only carries
+        over as it is.</td></tr>
+    </table>
+
+    <p>The exit code follows the same rule as <span class="mono">check</span>. See
+    <a href="cli.html">Command line</a>.</p>
+
+    <h2>What to read next</h2>
+
+    <ul>
+      <li><a href="engine-profiles.html">Engine profiles</a> - what the five engines write, and
+        why a project can hold both a Camunda 7 and a Camunda 8 folder.</li>
+      <li><a href="diagram-check.html">Check and problems</a> - the migration result is a group of
+        its own in the check card and the Problems tab.</li>
+      <li><a href="validation.html">Validation</a> - the engine compatibility rules, which say
+        what a Camunda 8 version can and cannot run.</li>
+    </ul>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

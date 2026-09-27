@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sharing and importing - Penstock</title>
+<meta name="description" content="Share a Penstock diagram as one HTML file that opens offline in any browser, and import a draw.io, Visio, Signavio or Bizagi diagram as BPMN 2.0.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="sidebar.html">The sidebar</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Check and problems</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
+      <li><a href="exchange.html" aria-current="page">Sharing and importing</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Configuration</a></li>
+      <li><a href="cli.html">Command line</a></li>
+      <li><a href="plans.html">Plans and licence</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>Sharing and importing</h1>
+
+    <p class="lede">Two ways a diagram gets in or out of Penstock without the project: send
+    somebody one HTML file they can open in a browser, and bring in a diagram drawn in another
+    tool. Both are free.</p>
+
+    <h2>Share as HTML</h2>
+
+    <p><strong>Share as HTML…</strong> is in the More menu of the diagram, decision and form
+    editors, and is <span class="mono">penstock share &lt;file&gt;</span> in a terminal. It writes
+    one HTML file that opens offline in any browser.</p>
+
+    <!-- image: share-html.png -->
+
+    <p>A diagram is a read-only viewer: zoom and pan, the documentation of an element when you
+    click it, and the diagram's name at the top. The page follows the reader's own light or dark
+    setting, and carries a small <em>Made with Penstock</em> footer. The bpmn.io watermark stays
+    visible in the corner, as its licence asks.</p>
+
+    <p>A <code>.dmn</code> file is shared as its tables, and a <code>.form</code> as its fields,
+    so a decision or a form can be sent on its own.</p>
+
+    <p>The file loads nothing and sends nothing. There is no network request in it, no content
+    delivery network, no analytics, and a content security policy that forbids all three. It
+    works from a file system, an email attachment or a file share.</p>
+
+    <pre><code>penstock share orders.bpmn -o orders.html</code></pre>
+
+    <p>Without <code>-o</code> the file is written next to the diagram, named after it. This is
+    different from <a href="editing.html">Export</a>, which draws the diagram for a document or a
+    wiki, and from <span class="mono">penstock docs</span>, which writes a page of prose about
+    every process.</p>
+
+    <h2>Import diagram</h2>
+
+    <p><strong>Import diagram…</strong> is in the More menu, and is
+    <span class="mono">penstock import &lt;file&gt;</span> in a terminal. It turns a diagram
+    drawn in another tool into BPMN 2.0, which you then open and edit as a Penstock diagram.</p>
+
+    <table class="facts">
+      <tr><td>draw.io</td><td><code>.drawio</code>, <code>.xml</code>, compressed or not</td></tr>
+      <tr><td>Visio</td><td><code>.vsdx</code></td></tr>
+      <tr><td>Signavio</td><td><code>.bpmn</code></td></tr>
+      <tr><td>Bizagi</td><td><code>.bpmn</code></td></tr>
+    </table>
+
+    <h3>What is mapped</h3>
+
+    <p>Tasks and the kinds of task, events and their triggers, boundary events, gateways,
+    sub-processes, pools, lanes, sequence flows, message flows and default flows, text annotations
+    and data objects. The positions of the shapes are kept, and so are the bends of the
+    connectors, so the imported diagram looks like the one you drew.</p>
+
+    <h3>What is not</h3>
+
+    <!-- image: import-report.png -->
+
+    <p>Anything that has no meaning in BPMN, anything that had to be read by how it looks, and
+    anything BPMN has nowhere to put, is listed in the import report rather than dropped quietly.
+    The report is a dialog in the editor and lines in the terminal, and its heading leads with
+    the count: <em>3 not imported</em>. What could not be mapped is in the warning colour; the
+    red is kept for a file that could not be read at all. A connector route that was drawn rather
+    than routed is reported as drawn - <a href="auto-layout.html">Auto layout</a> can lay it out
+    afterwards, which is Pro.</p>
+
+    <h3>What cannot be read</h3>
+
+    <p>A Bizagi <code>.bpm</code> package and the old binary Visio <code>.vsd</code> cannot be
+    read. The message says what to export from the tool instead, rather than only saying no.</p>
+
+    <pre><code>penstock import diagram.drawio -o process.bpmn</code></pre>
+
+    <p>Nothing is written if the file already exists, unless you pass
+    <code>--force</code> or name another output with <code>-o</code>. A file that could not be
+    read writes nothing at all.</p>
+
+    <h2>Both in a pipeline</h2>
+
+    <p><span class="mono">penstock share</span> and <span class="mono">penstock import</span> are
+    free and need no licence, so either can run in CI: share a diagram as an HTML page in a
+    release, or convert a draw.io file kept in the repository into a BPMN file before the check
+    runs. See <a href="cli.html">Command line</a>.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

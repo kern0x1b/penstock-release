@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The sidebar — Penstock</title>
+<meta name="description" content="The Penstock sidebar: the Properties, Scenarios, Problems, Monitor and Code tabs in the diagram editor, the Properties, Preview and Problems tabs in the form editor, and the Scenarios review drawn over the diagram.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
+      <img src="../icon.svg" alt="">
+      <span class="name">Penstock</span>
+    </a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc guide">
+
+  <nav class="docnav" aria-label="Documentation">
+    <h2>Documentation</h2>
+    <ul>
+      <li><a href="index.html">Contents</a></li>
+      <li><a href="getting-started.html">Getting started</a></li>
+      <li><a href="engine-profiles.html">Engine profiles</a></li>
+      <li><a href="elements.html">BPMN elements</a></li>
+      <li><a href="editing.html">Editing a diagram</a></li>
+      <li><a href="sidebar.html" aria-current="page">The sidebar</a></li>
+      <li><a href="element-templates.html">Element templates</a></li>
+      <li><a href="validation.html">Validation</a></li>
+      <li><a href="diagram-check.html">Check and problems</a></li>
+      <li><a href="deployment.html">Deployment</a></li>
+      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
+      <li><a href="exchange.html">Sharing and importing</a></li>
+      <li><a href="auto-layout.html">Auto layout</a></li>
+      <li><a href="settings.html">Configuration</a></li>
+      <li><a href="cli.html">Command line</a></li>
+      <li><a href="plans.html">Plans and licence</a></li>
+      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="docbody">
+    <h1>The sidebar</h1>
+
+    <p class="lede">The sidebar runs the full height of the editor, on the right of the canvas,
+    with a row of tabs along its top. It is the same surface in all three editors, and it is where
+    most of what Penstock adds to a diagram is read: the properties of what is selected, the
+    scenarios of a process, what the check found, what the engine is doing, and the code behind
+    a step.</p>
+
+    <h2>The tabs</h2>
+
+    <p>Each editor registers its own tabs, in a fixed order. The row shows them as icons when the
+    sidebar is narrow, with a tooltip that names the tab, and a count badge on Problems. A tab
+    with nothing to show keeps its place and says what it is for and what to do next.</p>
+
+    <table class="facts">
+      <tr><td>Diagram</td><td>Properties, Scenarios, Problems, Monitor, Code</td></tr>
+      <tr><td>Decision</td><td>Properties, Problems</td></tr>
+      <tr><td>Form</td><td>Properties, Preview, Problems</td></tr>
+    </table>
+
+    <p>The sidebar is a third of the width of the editor, between 320 and 480 pixels, and the
+    dividing line can be dragged between 280 pixels and half the editor. The width and the tab
+    you left selected are kept in <span class="mono">~/.penstock/preferences.json</span>, so they
+    are the same in every IDE on the machine. Below about 840 pixels wide the sidebar becomes a
+    drawer over the canvas rather than a column beside it.</p>
+
+    <p>Problems, Monitor and Code each keep their own state while you look at another tab, so
+    Monitor keeps the instances it fetched and Code keeps what you had open. The tabs choose the
+    view; going deeper inside one is a separate thing, and a small <strong>‹</strong> in the tab's
+    own header takes you back a step.</p>
+
+    <h2>Properties</h2>
+
+    <p>The properties panel of the selected element, the same one bpmn.io's properties panel
+    draws, with the groups the engine profile defines. With nothing selected the tab is empty. See
+    <a href="editing.html">Editing a diagram</a>.</p>
+
+    <p>In the decision editor it is the requirements diagram's properties: the id, name and
+    documentation of a decision, and its version tag and history time to live on Camunda 7 and
+    CIB seven, or its version tag alone on Camunda 8. Over a decision table the tab is empty on
+    purpose, because a decision table belongs to its requirements diagram, and it offers an
+    action that opens it. On Operaton it shows the id and the name and nothing else.</p>
+
+    <h2>Scenarios</h2>
+
+    <p><strong>Scenarios</strong> is a process and the ways through it. A scenario is one way
+    through: a start, a path of steps, the gateway conditions that decide the path, and the
+    values the path needs. They are Camunda Process Test test cases, so they run under Camunda's
+    own tooling as well as under Penstock. The tab reads the diagram's test-case file, and a
+    diagram whose file has been renamed still finds it by the process id inside.</p>
+
+    <p>Pro, and Team in a pipeline. Without it the editor says what scenarios are and offers to
+    buy them.</p>
+
+    <h3>Generating scenarios from the diagram</h3>
+
+    <!-- image: scenarios-review.png -->
+
+    <p><strong>Generate</strong> in the Scenarios panel does not write files. It opens a review
+    over the diagram: the scenario you are looking at is drawn on the canvas with its steps
+    numbered and the flows between them, and the steps are listed beside it in plain words, with
+    the value each step passes on. A value can be edited, and a gateway condition that cannot be
+    right is fixed from the step that holds it. Every change plans the scenarios again, so the
+    drawing and the list always agree. Nothing reaches the file until you press <strong>Create
+    scenarios</strong>.</p>
+
+    <p>A scenario already in the file is kept as it is, and its box is ticked and cannot be
+    unticked, so generating never loses work. A way the process takes that the data cannot
+    choose - a gateway whose conditions need something no variable can decide - is listed with a
+    note saying so, and is not offered for writing.</p>
+
+    <p>The same view opens a saved scenario, so what a scenario does can be read before it is
+    run. After a run the same view shows the plan against what actually happened, step by step.</p>
+
+    <p><strong>Add scenario</strong> plans one scenario by hand, and for a process that starts on
+    a message, a timer or a signal it asks which start event to begin from. The process
+    instance is then started at that event directly, so the first steps of a process that waits
+    for something are still covered. A start kind Penstock cannot express as a scenario is said
+    in the review rather than left out quietly; <span class="mono">penstock scenarios generate</span>
+    behaves the same.</p>
+
+    <h3>Running scenarios</h3>
+
+    <p><strong>Run all</strong> runs the test cases against the engine the profile in force names,
+    step by step, and stops at every step left to ask. A step can be answered by the real worker,
+    or by a mock: complete it, throw a BPMN error, fail a number of times and then complete, or
+    ask. A timer can be made to fire at once. Each step a mock answered carries a Mocked badge
+    on the canvas, and the table under the run says what each step received, sent and changed,
+    and where each value came from.</p>
+
+    <p>Every test case is checked against the Camunda test-case schema before the run starts. A
+    case that lacks what the schema requires, such as an assertion with no
+    <code>processInstanceSelector</code> or an instruction with a property the schema does not
+    allow, is not run and says what it lacks.</p>
+
+    <p>A run never touches the definitions you deployed. It builds a copy whose ids are prefixed
+    with <code>penstock.&lt;run&gt;.</code>, every process, decision, form and the calls between
+    them, deploys that, and removes it afterwards, so what is left on the engine is what you
+    deployed and the process id you start is the one you deployed.</p>
+
+    <p>Test cases run against an engine marked <code>deployment.forTests: true</code>. A local
+    engine is used once you have confirmed it, in the editor once per profile and in a terminal
+    once per run; any other engine is refused, by the IDE as well as by the editor, and a
+    pipeline never uses one without the mark. See <a href="settings.html">Configuration</a>.</p>
+
+    <p><strong>Run with input…</strong> starts an ad-hoc run with start variables and a
+    behaviour per step. <strong>Open a run…</strong> shows the path and the steps of an instance
+    that already exists. <strong>Save as scenario…</strong> writes what was answered as a
+    scenario that checks the path and the variables. The test-case file also runs in the IDE's own
+    test runner, from the gutter of each case or of a folder.</p>
+
+    <h2>Problems</h2>
+
+    <p>The Problems tab is the full list of what the check found, in groups, with an error or
+    warning icon on each finding. The check card over the canvas is a short summary of the same
+    findings; the tab is where all of them are. See
+    <a href="diagram-check.html">Check and problems</a>.</p>
+
+    <p>Clicking a finding selects its element on the canvas and opens the property that fixes it,
+    for job type, form key or id, correlation key, history time to live, called element, error,
+    escalation, message and signal references and timer definitions, and a missing job type,
+    topic, class or delegate expression in code. A finding with no single field still switches
+    the sidebar to Properties and selects the element.</p>
+
+    <h2>Monitor</h2>
+
+    <!-- image: monitor-tab.png -->
+
+    <p>Monitor asks the engine what it is doing with this diagram: the incidents it has, and the
+    instances waiting at each step. The badges stay on the canvas as well, so a busy step is
+    visible without opening the tab. The engine is asked when you open the tab or press
+    <strong>Refresh</strong>, never in the background.</p>
+
+    <p>The header names the engine and the version of each process it found, which is how you
+    know whether you are looking at what you think you are. A process that is not on the engine
+    yet says so. An incident lists the message the engine gave, and <strong>Go to code</strong>
+    opens the worker that runs the task, when the project has one. Clicking an incident selects
+    the element.</p>
+
+    <p>Free. With no engine connected the tab says how to set one up and offers to open the
+    connection, rather than showing an empty list. Camunda 7 and Camunda 8.8 and later are asked
+    over REST; the other engines are not.</p>
+
+    <h2>Code</h2>
+
+    <!-- image: code-tab.png -->
+
+    <p>The Code tab shows the code behind the selected step: the workers, classes, beans, tests
+    and usages that name it, with <strong>Go to code</strong>, <strong>Find usages</strong>,
+    <strong>Run tests</strong> and <strong>Debug tests</strong> on the head of the tab. A group
+    with more than a handful of entries is opened in a view of its own, with a <strong>‹</strong>
+    back.</p>
+
+    <p>Pro, and Team in a pipeline, as part of the link between diagrams and code. Without it the
+    tab says so and offers to buy it. See <a href="plans.html">Plans and licence</a>.</p>
+
+    <p>With nothing selected the tab says <em>Select a task to see its code</em>. A step nothing
+    in the project runs, tests or uses is said plainly, rather than left as an empty tab.</p>
+
+    <h2>Preview, in the form editor</h2>
+
+    <p><strong>Preview</strong> opens the form as a user sees it, beside the JSON it is given and
+    the JSON it would submit. The input starts as sample data made from the fields themselves - a
+    text, a number, the first option of a choice, one row of a dynamic list, a group under its
+    path - and follows the form as you edit it until you write your own. When the JSON is not
+    valid, the tab says what is wrong with it.</p>
+
+    <p>It is why the canvas never grows a fourth column for the preview. The toolbar's Preview
+    button opens the same tab, and its tooltip says the palette is hidden while it is open. The
+    form-js watermark stays visible.</p>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="../">Overview</a>
+      <a href="index.html">Documentation</a>
+      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../license/">License</a>
+      <a href="../notices/">Third-party notices</a>
+    </div>
+    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
