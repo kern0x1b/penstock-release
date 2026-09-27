@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Getting started — Penstock</title>
-<meta name="description" content="Install Penstock, open a BPMN file, see how the engine is chosen, and find the toolbar and the Penstock tool window.">
+<title>Getting started - Penstock</title>
+<meta name="description" content="Install Penstock, open a BPMN file, see how the engine is chosen, walk the first-run tour, and find the toolbar, the command palette and the Penstock tool window.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -57,146 +57,200 @@
   <div class="docbody">
     <h1>Getting started</h1>
 
-<p class="lede">Penstock installs from the JetBrains Marketplace and opens BPMN, DMN and form
-files in editors inside the IDE. The engine you are modelling for comes from the project's
-<code>penstock.yaml</code> or from the diagram itself. This page covers the first few minutes after
-installing.</p>
+    <p class="lede">Penstock installs from the JetBrains Marketplace and opens BPMN, DMN and form
+    files in editors inside the IDE. The engine you are modelling for comes from the project's
+    <code>penstock.yaml</code> or from the diagram itself. This page covers the first few minutes
+    after installing.</p>
 
     <!-- image: editor-overview.png -->
 
-<h2>Requirements</h2>
+    <h2>Requirements</h2>
 
-<table class="facts">
-  <tr><td>IDE</td><td>Any JetBrains IDE from 2025.2</td></tr>
-  <tr><td>Marketplace listing</td><td>Penstock, id 25710. Published as Camunda BPMN Editor until 2026</td></tr>
-  <tr><td>Licence</td><td>Free on the Marketplace. Pro and Team are paid, and every machine starts with 30 days of Pro</td></tr>
-  <tr><td>Engine profiles</td><td>Classic BPMN, Camunda 7, Camunda 8</td></tr>
-</table>
+    <table class="facts">
+      <tr><td>IDE</td><td>Any JetBrains IDE from 2025.2 with JCEF, which the standard
+        distributions bundle</td></tr>
+      <tr><td>Marketplace listing</td><td>Penstock, id 25710. Published as Camunda BPMN Editor
+        until 2026</td></tr>
+      <tr><td>Licence</td><td>Free on the Marketplace. Pro and Team are paid, and every machine
+        starts with 30 days of Pro</td></tr>
+      <tr><td>Engines</td><td>Classic BPMN, Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+    </table>
 
-<p>Everything a modeller needs is free: the editors, the properties panels, element templates,
-token simulation, the check, lint, deployment and export. A paid feature, such as auto layout or
-flow analysis, says what it does and offers to buy it or to sign in at the moment you reach for
-it. See <a href="plans.html">Plans and licence</a>.</p>
+    <p>Everything a modeller needs is free: the editors, the properties panels, element templates,
+    token simulation, the check, lint, deployment, Monitor and export. A paid feature, such as
+    auto layout or flow analysis, says what it does and offers to buy it or to sign in at the
+    moment you reach for it. See <a href="plans.html">Plans and licence</a>.</p>
 
-<h2>Install</h2>
+    <h2>Install</h2>
 
-<ol class="steps">
-  <li>
-    <div>
-      <h3>Open the plugin manager</h3>
-      <p>In the IDE, open <span class="mono">Settings | Plugins</span> and search the Marketplace
-        for Penstock.</p>
-    </div>
-  </li>
-  <li>
-    <div>
-      <h3>Install and restart</h3>
-      <p>Install the plugin and restart the IDE when prompted.</p>
-    </div>
-  </li>
-  <li>
-    <div>
-      <h3>Open a BPMN file</h3>
-      <p>Open any <code>.bpmn</code> file from the Project view or the Penstock tool window, or
-        create one and paste a BPMN 2.0 definition into it.</p>
-    </div>
-  </li>
-</ol>
+    <ol class="steps">
+      <li>
+        <div>
+          <h3>Open the plugin manager</h3>
+          <p>In the IDE, open <span class="mono">Settings | Plugins</span> and search the
+            Marketplace for Penstock.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Install and restart</h3>
+          <p>Install the plugin and restart the IDE when prompted.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Open a BPMN file</h3>
+          <p>Open any <code>.bpmn</code> file from the Project view or the Penstock tool window, or
+            create one and paste a BPMN 2.0 definition into it.</p>
+        </div>
+      </li>
+    </ol>
 
-<p>After an update, Penstock posts a notification saying which version it updated to, with a
-<span class="mono">What's new</span> action that opens the bundled changelog in an editor tab.</p>
+    <p>After an update, Penstock posts a notification saying which version it updated to, with a
+    <span class="mono">What's new</span> action that opens the bundled changelog in an editor tab.
+    Nothing is shown on a fresh install.</p>
 
-<h2>Which files open in the editor</h2>
+    <h2>Start from an example</h2>
 
-<p>Penstock registers a file type called BPMN, described as a BPMN process definition file, for
-the extensions <code>bpmn</code>, <code>bpmn.xml</code> and <code>bpmn20.xml</code>, with XML as the
-underlying language. Files of that type open in the diagram editor. A <code>.dmn</code> file opens
-in the decision editor, and a <code>.form</code> file in the form editor when it is a Camunda Form;
-a <code>.form</code> file of the IntelliJ GUI Designer is left to the GUI Designer.</p>
+    <p>If the project has no diagrams yet, the Penstock tool window offers to create one of two
+    small projects, each of which runs into a local engine:</p>
 
-<p>The editors are registered ahead of the IDE's own editor rather than in place of it, so the
-plain text editor stays available for the same file. The editor tabs at the bottom of the editor
-window switch between them; the diagram tab is called BPMN Editor, and the others DMN Editor and
-Form Editor.</p>
+    <table class="facts">
+      <tr><td>Camunda 8 order process</td><td>An order process with a service task, a user task
+        with a Camunda Form, a decision, a message and an error boundary, with a Spring Boot
+        worker and a Node worker</td></tr>
+      <tr><td>Camunda 7 order process</td><td>The same process with a Java delegate and an
+        external task worker</td></tr>
+    </table>
 
-<p>Changes made in the diagram are written back to the file itself as you make them. There is no
-separate save step for the diagram: the file is replaced atomically on each change, then
-refreshed in the IDE, so the XML tab and version control see the new content immediately.</p>
+    <p>Either way you get test cases in the Camunda format, a <code>penstock.yaml</code> and a
+    README with the commands to run it. <span class="mono">penstock init --example camunda-8</span>
+    or <span class="mono">--example camunda-7</span> writes the same thing into an empty folder
+    from a terminal. See <a href="cli.html">Command line</a>.</p>
 
-<h2>How the engine is chosen</h2>
+    <h2>Which files open in the editor</h2>
 
-<p>A diagram opens straight away. The engine profile it is edited under comes from
-<code>engine</code> in the nearest <code>penstock.yaml</code>, and when that is not set, from the
-diagram itself: the execution platform the Camunda Modeler records, or the <code>zeebe:</code> or
-<code>camunda:</code> attributes it already carries. See <a href="engine-profiles.html">Engine
-profiles</a>.</p>
+    <p>Penstock registers a file type called BPMN, described as a BPMN process definition file, for
+    the extensions <code>bpmn</code>, <code>bpmn.xml</code> and <code>bpmn20.xml</code>, with XML
+    as the underlying language. Files of that type open in the diagram editor. A
+    <code>.dmn</code> file opens in the decision editor, and a <code>.form</code> file in the form
+    editor when it is a Camunda Form; a <code>.form</code> file of the IntelliJ GUI Designer is
+    left to the GUI Designer.</p>
 
-<p>Only an empty new diagram, which says nothing about its engine, asks. A single line appears
-above the canvas, <em>Which engine runs this diagram?</em>, with a button for Camunda 8, Camunda 7
-and Plain BPMN. The answer is written into <code>penstock.yaml</code>, which is created in the
-project root if there is none, and the line does not come back.</p>
+    <p>The editors are registered ahead of the IDE's own editor rather than in place of it, so the
+    plain text editor stays available for the same file. The editor tabs at the bottom of the
+    editor window switch between them; the diagram tab is called BPMN Editor, and the others DMN
+    Editor and Form Editor.</p>
 
-<h2>The editor window</h2>
+    <p>Changes made in the diagram are written back to the file itself as you make them. There is
+    no separate save step for the diagram: the file is replaced atomically on each change, then
+    refreshed in the IDE, so the XML tab and version control see the new content immediately.</p>
 
-<p>The editor is a toolbar across the top, the diagram canvas on the left, and the properties
-panel on the right. The diagram always takes the IDE's theme.</p>
+    <h2>How the engine is chosen</h2>
 
-<p>Undo and Redo sit on the left of the toolbar. Every other action is in the
-<strong>More</strong> menu, the button marked with three dots, with its icon and its name. The ones
-used most are also pinned to the toolbar to start with:</p>
+    <p>A diagram opens straight away, fitted into the canvas. The engine profile it is edited
+    under comes from <code>engine</code> in the nearest <code>penstock.yaml</code>, and when that
+    is not set, from the diagram itself: the execution platform the Camunda Modeler records, or
+    the <code>zeebe:</code>, <code>camunda:</code> or <code>operaton:</code> attributes it
+    already carries. See <a href="engine-profiles.html">Engine profiles</a>.</p>
 
-<table class="facts">
-  <tr><td>Auto Layout</td><td>Lays the diagram out again, at once. Pro</td></tr>
-  <tr><td>Check</td><td>Opens the diagram check, which lists what is wrong with the diagram</td></tr>
-  <tr><td>Simulate</td><td>Toggles token simulation</td></tr>
-  <tr><td>Properties panel</td><td>An icon at the right edge, pressed while the panel is open</td></tr>
-  <tr><td>Deploy</td><td>Deploys the diagram, on the right. Camunda 7 and Camunda 8 only</td></tr>
-</table>
+    <p>Only an empty new diagram, which says nothing about its engine, asks. A single line appears
+    above the canvas, <em>Which engine runs this diagram?</em>, with a button for Camunda 8,
+    Operaton, CIB seven, Camunda 7 and Classic BPMN. The answer is written into
+    <code>penstock.yaml</code>, which is created in the project root if there is none, and the line
+    does not come back.</p>
 
-<p>The rest are in the menu only: Minimap, Copy, Paste, <strong>Export…</strong>,
-<strong>Templates…</strong> (Camunda 8 only) and <strong>Sketchy Drawing</strong>, which draws the
-diagram as if by hand. The pin in each row of the menu puts that action on the toolbar or takes it
-off. The choice, and Sketchy Drawing, are kept in <code>~/.penstock/preferences.json</code>, so they
-are the same in every IDE on the machine and survive a restart.</p>
+    <h2>The first minute</h2>
 
-<h2>The Penstock tool window</h2>
+    <!-- image: tour.png -->
 
-<p>Penstock adds a tool window called Penstock, anchored to the left. It lists every BPMN, DMN and
-form file in the project under a root node named after the project. Double-clicking a file, or
-pressing Enter on it, opens it.</p>
+    <p>The first time the editor opens it walks you through six things in a few words each: the
+    palette, the properties panel, Check, the Penstock tool window - which it points out is on the
+    stripe at the side of the IDE - Deploy, and the More menu. It is shown once, and the fact that
+    it has been seen is kept in <span class="mono">~/.penstock/preferences.json</span> beside the
+    toolbar choices. <strong>Show the tour again</strong> is in the More menu, under Help.</p>
 
-<p>Its toolbar has four actions: <span class="mono">Run Penstock</span>, a menu of command-line
-actions; <span class="mono">Reload from Disk</span>, which re-reads the project from disk and
-rebuilds the list; <span class="mono">View as Tree</span>, a toggle between the directory structure
-and a flat list; and <span class="mono">Open penstock.yaml</span>, which opens the project's
-configuration, or creates it when there is none. The list also refreshes by itself when a file in
-the project is added, changed or removed.</p>
+    <p>The editor is a toolbar across the top of the canvas, the diagram in the middle, and the
+    sidebar on the right. The diagram always takes the IDE's theme.</p>
 
-<p>Right-clicking a file gives its context menu:</p>
+    <p>Undo and Redo sit on the left of the toolbar. <strong>Deploy</strong> is the one primary
+    action, on the right, and the sidebar toggle is the last thing on the bar. Everything else is
+    in the <strong>More</strong> menu, the button marked with three dots, and the same list opens
+    with <span class="mono">Ctrl+Alt+,</span> or <span class="mono">⌥⌘,</span>. The actions used
+    most are pinned to the toolbar to start with:</p>
 
-<ul>
-  <li><span class="mono">Open</span> opens it in its editor.</li>
-  <li><span class="mono">Copy Process ID</span> copies the id of the first process in the file to
-    the clipboard, for a file that has one.</li>
-  <li>The command-line actions: Check, Paths, Tests, Code, Docs, Format, Diff Since…, Export… and
-    Doctor. Each runs <a href="cli.html">penstock</a> on the file or folder, through the project's
-    <code>penstockw</code> when there is one, and shows the output in the Run window. They need the
-    project to be trusted, and Paths, Tests, Code and Docs are Pro.</li>
-</ul>
+    <table class="facts">
+      <tr><td>Auto layout</td><td>Lays the diagram out again, at once. Pro</td></tr>
+      <tr><td>Check</td><td>Opens the Problems tab, which lists what is wrong with the
+        diagram</td></tr>
+      <tr><td>Simulate</td><td>Toggles token simulation</td></tr>
+      <tr><td>Monitor</td><td>What the engine is doing with this diagram</td></tr>
+      <tr><td>Scenarios</td><td>The test cases of this process, and running them. Pro</td></tr>
+      <tr><td>Coverage</td><td>What the process tests reach. Pro</td></tr>
+      <tr><td>Migrate to Camunda 8</td><td>On a Camunda 7, Operaton or CIB seven diagram</td></tr>
+      <tr><td>Sidebar</td><td>An icon at the right edge, pressed while the sidebar is open</td></tr>
+      <tr><td>Deploy</td><td>Opens the Deploy popover. Camunda 7 family and Camunda 8 only</td></tr>
+    </table>
 
-<h2>Where to go next</h2>
+    <p>The pin in each row of the menu and of the command palette puts that action on the toolbar
+    or takes it off, and the choice is kept in
+    <span class="mono">~/.penstock/preferences.json</span>, so it is the same in every IDE on the
+    machine and survives a restart. See <a href="editing.html">Editing a diagram</a>.</p>
 
-<ul>
-  <li><a href="engine-profiles.html">Engine profiles</a> — what each of the three profiles changes.</li>
-  <li><a href="plans.html">Plans and licence</a> - what is free, and what Pro and Team add.</li>
-  <li><a href="editing.html">Editing a diagram</a> — the canvas, the properties panel and the XML.</li>
-  <li><a href="element-templates.html">Element templates</a> — loading connector templates for Camunda 8.</li>
-  <li><a href="validation.html">Validation</a> - bpmnlint, and the project's own rules.</li>
-  <li><a href="deployment.html">Deployment</a> — deploying to Camunda 7 or Camunda 8.</li>
-  <li><a href="auto-layout.html">Auto layout</a> - the layout engine, and taking it back.</li>
-  <li><a href="settings.html">Configuration</a> — what is stored, and where.</li>
-  <li><a href="troubleshooting.html">Troubleshooting</a> — when the editor does not load.</li>
-</ul>
+    <h2>The Penstock tool window</h2>
+
+    <p>Penstock adds a tool window called Penstock, anchored to the left. It shows the project as a
+    model rather than a list of files: the processes with the processes they call and are called
+    by, the workers every task needs, the messages with who catches and throws them, the decisions
+    and forms with the tasks that use them, the deployment profiles with their addresses and the
+    last deploy, the tests and what they cover, and the files themselves. <strong>Group by
+    Files</strong> turns it round, file by file. Double-clicking anything opens it and selects the
+    element on the diagram.</p>
+
+    <p>Its toolbar has a <span class="mono">Run Penstock</span> menu of command-line actions,
+    <span class="mono">Reload from Disk</span>, which re-reads the project from disk,
+    <span class="mono">View as Tree</span>, a toggle between the directory structure and a flat
+    list, and <span class="mono">Open penstock.yaml</span>, which opens the project's
+    configuration or creates it when there is none. The list also refreshes by itself when a file
+    in the project is added, changed or removed.</p>
+
+    <p>Right-clicking a file gives its context menu:</p>
+
+    <ul>
+      <li><span class="mono">Open</span> opens it in its editor.</li>
+      <li><span class="mono">Copy Process ID</span> copies the id of the first process in the file
+        to the clipboard, for a file that has one.</li>
+      <li>The command-line actions: Check, Paths, Tests, Code, Docs, Format, Diff Since…,
+        Export… and Doctor. Each runs <a href="cli.html">penstock</a> on the file or folder,
+        through the project's <code>penstockw</code> when there is one, and shows the output in
+        the Run window. They need the project to be trusted, and Paths, Tests, Code and Docs are
+        Pro.</li>
+    </ul>
+
+    <h2>Where to go next</h2>
+
+    <ul>
+      <li><a href="engine-profiles.html">Engine profiles</a> - what each of the five profiles
+        changes.</li>
+      <li><a href="editing.html">Editing a diagram</a> - the toolbar, the command palette and the
+        canvas.</li>
+      <li><a href="sidebar.html">The sidebar</a> - the tabs of all three editors.</li>
+      <li><a href="elements.html">BPMN elements</a> - the palette and the element
+        catalogue.</li>
+      <li><a href="validation.html">Validation</a> - bpmnlint, the engine compatibility rules and
+        the project's own.</li>
+      <li><a href="diagram-check.html">Check and problems</a> - what the check finds.</li>
+      <li><a href="deployment.html">Deployment</a> - deploying to Camunda 7, Camunda 8, Operaton
+        or CIB seven.</li>
+      <li><a href="migration.html">Camunda 7 to Camunda 8</a> - what does not carry over, and
+        the conversion.</li>
+      <li><a href="auto-layout.html">Auto layout</a> - the layout engine, and taking it back.</li>
+      <li><a href="settings.html">Configuration</a> - what is stored, and where.</li>
+      <li><a href="plans.html">Plans and licence</a> - what is free, and what Pro and Team
+        add.</li>
+      <li><a href="troubleshooting.html">Troubleshooting</a> - when the editor does not load.</li>
+    </ul>
+
   </div>
 
 </main>
