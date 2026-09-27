@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto layout — Penstock</title>
+<title>Auto layout - Penstock</title>
 <meta name="description" content="What Penstock's Auto Layout does to a BPMN diagram: a full reflow into a left-to-right flow, the properties it will not violate, and how to run it and take it back.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,7 +76,7 @@
 
     <p>That first arrangement is then made legal. Shapes are pushed apart until none of them
     overlaps, each one moving as little as possible from where it was put, and every container is
-    resized to fit the contents it ended up with — including shrinking, when the contents now need
+    resized to fit the contents it ended up with, including shrinking, when the contents now need
     less room than the box they were drawn in.</p>
 
     <p>Pools that exchange messages are stacked one above another, in an order taken from the
@@ -91,8 +91,8 @@
     one can be found, and settles for a crossed spot only when none can, and a note is anchored to
     the final position of the thing it comments on.</p>
 
-    <p>The engine builds several arrangements for the same diagram — different pool orders,
-    different rules for turning a message flow, different routing preferences — measures each one,
+    <p>The engine builds several arrangements for the same diagram - different pool orders,
+    different rules for turning a message flow, different routing preferences - measures each one,
     and keeps the one that measures best. Crossings, lines lying on top of one another, bends and
     drawing area all count against a candidate.</p>
 
@@ -124,8 +124,8 @@
     </table>
 
     <p>The corpus is 88 real diagrams, hand-drawn ones included. Every property above is required to
-    hold on all of them, and the remaining measures — crossings, bends, route length, drawing area
-    and the rest — may not exceed a figure recorded per diagram, with a two per cent margin on route
+    hold on all of them, and the remaining measures - crossings, bends, route length, drawing area
+    and the rest - may not exceed a figure recorded per diagram, with a two per cent margin on route
     length and drawing area, so a change that improves one diagram cannot quietly make another
     worse.</p>
 
@@ -136,11 +136,18 @@
     <h2>Running it</h2>
 
     <p>Auto layout is part of Penstock Pro. The diagram editor's toolbar has an <strong>Auto
-    Layout</strong> button, which lays out the open diagram at once. A message follows, with
-    <strong>Undo</strong> in it: the change goes through the editor's command stack like any other
-    edit, so that button, or Undo in the toolbar, takes it back. There is no save step: the new
-    positions are written to the file as soon as they land on the canvas, the same as any other
-    edit. To compare the result with what was saved before, use the diagram diff described under
+    layout</strong> button, which lays out the open diagram at once, and the diagram is fitted
+    into the canvas afterwards rather than left off the edge.</p>
+
+    <p>A short bar appears at the bottom centre of the canvas saying <em>Laid out 24
+    elements</em>, with <strong>Undo</strong> and a close button. It is not a toast that
+    disappears: it stays until you close it, edit the diagram or undo, so a layout you want to
+    look at is still there when you come back to it.</p>
+
+    <p>The change goes through the editor's command stack like any other edit, so
+    <strong>Undo</strong> in the bar, or Undo in the toolbar, takes it back. There is no save step:
+    the new positions are written to the file as soon as they land on the canvas. To compare the
+    result with what was saved before, use the diagram diff described under
     <a href="editing.html">Editing a diagram</a>.</p>
 
     <p>In a terminal, <span class="mono">penstock layout</span> lays the diagrams out and says what
