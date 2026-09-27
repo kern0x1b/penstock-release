@@ -283,6 +283,7 @@ main.doc.guide {
   .docnav { position: static; }
   .docbody table { display: block; overflow-x: auto; }
   .docbody table.facts td:first-child { width: auto; }
+  .docbody p code, .docbody li code, .docbody td code { overflow-wrap: anywhere; }
 }
 
 figure.shot {
