@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deployment — Penstock</title>
-<meta name="description" content="How Penstock sends the open diagram to a Camunda 7 or Camunda 8 engine in one click, how profiles and the Connection dialog work, which authentication methods it supports, and where the address and credentials are stored.">
+<title>Deployment - Penstock</title>
+<meta name="description" content="Deploying a diagram, a decision or a form from Penstock: the Deploy popover, the Connection dialog, profiles and penstock.yaml, the credentials, hooks, and what an engine says when it refuses.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -54,54 +54,56 @@
     </ul>
   </nav>
 
-    <div class="docbody">
+  <div class="docbody">
     <h1>Deployment</h1>
 
-    <p class="lede">
-      Deploy is one click. It sends the diagram you are editing to the engine
-      <code>penstock.yaml</code> points at - the profile in force, with its deployment name, tenant
-      and hooks - and asks only for the engine address and the sign-in, the first time. The request
-      to the engine is made by the IDE process, not by the embedded browser, so no CORS
-      configuration is needed on the engine. Secrets go to the IDE password safe, never to a
-      project file.
-    </p>
+    <p class="lede">Deploy is one click and then one more. It sends the diagram you are editing,
+    the decision or the form, to the engine <code>penstock.yaml</code> points at, and asks for the
+    engine address and the sign-in the first time. The request is made by the IDE process, not by
+    the embedded browser, so no CORS configuration is needed on the engine. Secrets go to the IDE
+    password safe, never to a project file.</p>
 
-    <h2>Deploying</h2>
+    <h2>The Deploy popover</h2>
 
-    <p>
-      The <strong>Deploy</strong> button sits at the right of the editor toolbar when the diagram's
-      engine profile is Camunda 7 or Camunda 8. Under the Classic BPMN 2.0 profile there is no
-      deployment target, so the button is not shown. See
-      <a href="engine-profiles.html">Engine profiles</a> for how the profile is chosen. The DMN and
-      form editors have the same button.
-    </p>
+    <!-- image: deploy-popover.png -->
 
-    <p>
-      Pressing Deploy sends the current state of the canvas, including edits that have not reached
-      the disk yet, to the profile in force. Its tooltip names the address it will use. A message
-      says where the diagram went, or what the engine answered.
-    </p>
+    <p><strong>Deploy</strong> sits at the right of the editor toolbar, as the one primary
+    action, when the file's engine profile has an engine behind it: Camunda 7, Camunda 8, Operaton
+    or CIB seven. Under the Classic BPMN 2.0 profile there is no deployment target and the button
+    is not shown. See <a href="engine-profiles.html">Engine profiles</a>.</p>
 
-    <p>
-      The arrow next to Deploy opens a short menu. When <code>penstock.yaml</code> defines profiles,
-      it has a <strong>Deploy to &lt;profile&gt;</strong> entry for each of them, and
-      <strong>Deploy to default</strong> for the plain settings, so a diagram can go to staging
-      without changing which profile is in force. <strong>Connection…</strong> edits the engine
-      address and the sign-in of the profile in force.
-    </p>
+    <p>Pressing it opens a popover under the button rather than deploying at once. The popover
+    tells you three things and offers two actions:</p>
+
+    <table class="facts">
+      <tr><td>Profile</td><td>Which one is in force, and every other profile in the file, so a
+        diagram can go to staging without changing what is in force</td></tr>
+      <tr><td>Engine address</td><td>Where it will go, or <em>Not set yet</em></td></tr>
+      <tr><td>What will be sent</td><td>The files, by name, with a count for the rest. For a
+        diagram that is the diagram and nothing else</td></tr>
+      <tr><td>Edit connection…</td><td>Opens the Connection dialog for the profile you picked</td></tr>
+      <tr><td>Deploy</td><td>Sends, to the profile you picked</td></tr>
+    </table>
+
+    <p>It sends the current state of the canvas, including edits that have not reached the disk
+    yet. The result is a notification: where the diagram went, or what the engine answered. The
+    DMN and form editors have the same button, and the tool window's Deploy sends every diagram in
+    a folder to its profile after asking.</p>
 
     <h2>The Connection dialog</h2>
 
-    <p>
-      The first time you deploy to a profile that has no engine address, or whose sign-in has no
-      password or client secret stored yet, the Connection dialog opens instead. Its title names the
-      engine and the profile, such as <em>Camunda 8 · prod</em>.
-    </p>
+    <!-- image: connection-dialog.png -->
+
+    <p>The dialog opens from <strong>Edit connection…</strong> in the popover, and it opens by
+    itself the first time you deploy to a profile that has no engine address, or whose sign-in
+    has no password or client secret stored yet. Its title names the engine and the profile, such
+    as <em>Camunda 8 · prod</em>.</p>
 
     <table class="facts">
       <tr><td>Engine address</td><td>The Camunda 7 REST API, such as
-        <code>http://localhost:8080/engine-rest</code>, or the Camunda 8 REST address, such as
-        <code>http://localhost:8088</code>. Required, <code>http</code> or <code>https</code></td></tr>
+        <code>http://localhost:8080/engine-rest</code>, which is what Operaton and CIB seven answer
+        on as well, or the Camunda 8 REST address, such as <code>http://localhost:8088</code>.
+        Required, <code>http</code> or <code>https</code></td></tr>
       <tr><td>Sign in</td><td><em>Not needed</em>, <em>User and password</em>, or <em>OAuth
         client</em></td></tr>
       <tr><td>User, Password</td><td>For <em>User and password</em>, sent as
@@ -110,21 +112,23 @@
         the client credentials grant. The audience is optional</td></tr>
     </table>
 
-    <p>
-      <strong>Save and Deploy</strong> keeps what you entered and deploys. The address and the
-      sign-in type, user name, client id, token address and audience go to
-      <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which
-      stays on this machine; see <a href="settings.html">Configuration</a>. The password or client
-      secret goes to the IDE password safe, separately for each profile.
-    </p>
+    <p>Opened from <strong>Edit connection…</strong>, the dialog offers <strong>Save</strong>,
+    which only saves, and <strong>Save and deploy</strong>. Opened by a deploy, because nothing is
+    set up yet, it offers <strong>Save and deploy</strong> alone.</p>
+
+    <p>The address and the sign-in type, user name, client id, token address and audience go to
+    <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which
+    stays on this machine; see <a href="settings.html">Configuration</a>. The password or client
+    secret goes to the IDE password safe, separately for each profile, and the dialog only says
+    that one is stored rather than reading the value back out. Leaving the field empty keeps the
+    stored one, and typing replaces it. Saving with <em>Sign in</em> set to <em>Not needed</em>
+    removes it.</p>
 
     <h2>What is set in penstock.yaml</h2>
 
-    <p>
-      Everything else about a deployment is part of the project, not the dialog: the deployment
-      name, the tenant, the source, the activation time and whether to leave out what the engine
-      already has. A profile overrides any of it for another environment.
-    </p>
+    <p>Everything else about a deployment is part of the project, not the dialog: the deployment
+    name, the tenant, the source, the activation time and whether to leave out what the engine
+    already has. A profile overrides any of it for another environment.</p>
 
 <pre><code>deployment:
   url: http://localhost:8080/engine-rest
@@ -152,97 +156,106 @@ hooks:
       <tr><td><code>tenantId</code></td><td>Empty means the default tenant</td></tr>
       <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has unchanged.
         On unless set to <code>false</code></td></tr>
+      <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and
+        answer jobs on. See <a href="sidebar.html">The sidebar</a></td></tr>
       <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means activate
-        immediately. Camunda 7</td></tr>
+        immediately. Camunda 7 family</td></tr>
     </table>
 
     <h2>What is sent</h2>
 
-    <p>
-      The diagram goes to the engine as one <code>multipart/form-data</code> POST carrying a single
-      file part named after the file, with content type <code>application/xml</code>
-      (<code>application/json</code> for a form). Nothing else from the project is included - no
-      other diagrams, no element templates, no settings file. OAuth is the one case that makes a
-      second request: the token request that precedes the deployment.
-    </p>
+    <p>The diagram goes to the engine as one <code>multipart/form-data</code> POST carrying a
+    single file part named after the file, with content type <code>application/xml</code>
+    (<code>application/json</code> for a form). Nothing else from the project is included - no
+    other diagrams, no element templates, no settings file. OAuth is the one case that makes a
+    second request: the token request that precedes the deployment.</p>
 
     <table class="facts">
-      <tr><td>Camunda 7</td><td><code>/deployment/create</code> is appended to the address. The
-        deployment name, source, tenant and activation time go as form fields beside the file, and
-        <code>changedOnly</code> sets both <code>enable-duplicate-filtering</code> and
-        <code>deploy-changed-only</code></td></tr>
+      <tr><td>Camunda 7, Operaton, CIB seven</td><td><code>/deployment/create</code> is appended
+        to the address. The deployment name, source, tenant and activation time go as form fields
+        beside the file, and <code>changedOnly</code> sets both
+        <code>enable-duplicate-filtering</code> and <code>deploy-changed-only</code></td></tr>
       <tr><td>Camunda 8</td><td><code>/v2/deployments</code> is appended to the address; an
         address that already ends in <code>/v2</code> works as well. The file goes as
         <code>resources</code>, with <code>tenantId</code> beside it when one is set</td></tr>
     </table>
 
-    <p>
-      <code>penstock deploy</code> on the command line uses the same addresses and the same
-      settings, so the IDE and a pipeline mean the same thing by <code>deployment.url</code>. See
-      <a href="cli.html">Command line</a>.
-    </p>
+    <p><span class="mono">penstock deploy</span> on the command line uses the same addresses and
+    the same settings, and sends the diagrams, decisions and forms together grouped by the target
+    each folder asks for, so the IDE and a pipeline mean the same thing by
+    <code>deployment.url</code>. See <a href="cli.html">Command line</a>.</p>
 
     <h2>OAuth</h2>
 
-    <p>
-      With <em>OAuth client</em>, Penstock first POSTs <code>grant_type=client_credentials</code>
-      with the client id and secret to the token address as a form-encoded body, reads
-      <code>access_token</code> out of the JSON response, and uses it as a bearer token on the
-      deployment request. If the token endpoint cannot be reached, answers with a non-2xx status,
-      or returns a body without an access token, the deployment stops there and the error says which
-      of the three happened. The audience is sent only when you fill it in. The token request has
-      its own 15-second timeout.
-    </p>
+    <p>With <em>OAuth client</em>, Penstock first POSTs
+    <code>grant_type=client_credentials</code> with the client id and secret to the token address
+    as a form-encoded body, reads <code>access_token</code> out of the JSON response, and uses it
+    as a bearer token on the deployment request. If the token endpoint cannot be reached, answers
+    with a non-2xx status, or returns a body without an access token, the deployment stops there
+    and the error says which of the three happened. The audience is sent only when you fill it in.
+    The token request has its own 15-second timeout.</p>
 
     <h2>Hooks</h2>
 
-    <p>
-      <code>preDeploy</code> and <code>postDeploy</code> in <code>penstock.yaml</code> run around a
-      deployment from the IDE, as they do on the command line. They run in the project root with
-      <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and
-      <code>PENSTOCK_PROFILE</code> set. A <code>preDeploy</code> that fails stops the deployment,
-      and nothing is sent; <code>postDeploy</code> runs after a successful one.
-    </p>
+    <p><code>preDeploy</code> and <code>postDeploy</code> in <code>penstock.yaml</code> run around
+    a deployment from the IDE, as they do on the command line. They run in the project root with
+    <code>PENSTOCK_FILES</code> - one file per line - <code>PENSTOCK_ROOT</code>,
+    <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code> set. A <code>preDeploy</code>
+    that fails stops the deployment and nothing is sent; <code>postDeploy</code> runs after a
+    successful one.</p>
 
-    <p>
-      Hooks run only in a trusted project. In a project the IDE does not trust, a configured
-      <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.
-    </p>
+    <p>Hooks run only in a trusted project. In a project the IDE does not trust, a configured
+    <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
 
-    <h2>Feedback</h2>
+    <h2>What the engine says</h2>
 
-    <p>
-      A message appears in the editor while the request is in flight, and again when it finishes. A
-      successful deployment names the file and the address it went to.
-    </p>
+    <p>A successful deployment names the file and the address it went to.</p>
 
-    <p>
-      If the engine rejects the deployment, the message carries the address, the HTTP status code
-      and the engine's own message from its response, which is where the useful detail usually is.
-      A request that never reached the engine says <em>Could not reach the engine at
-      &lt;url&gt;</em>. A deployment with no address anywhere says so and points at
-      <code>deployment.url</code> or the Connection dialog. The request times out on its own after 30
-      seconds, and the connection after 10.
-    </p>
+    <p>A deployment the engine refuses says which files it refused and why, one line for each,
+    in the editor and in <span class="mono">penstock deploy</span>, rather than repeating the
+    engine's raw list of element errors. An answer of 401 or 403 offers <strong>Edit
+    connection</strong> in the editor's message; <span class="mono">penstock deploy</span> says
+    what to set, which is <code>deployment.auth</code> in
+    <code>penstock.local.yaml</code>, or <code>PENSTOCK_PASSWORD</code>,
+    <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. A request that never
+    reached the engine says <em>Could not reach the engine at &lt;url&gt;</em>, and a deployment
+    with no address anywhere says so and points at <code>deployment.url</code> or the Connection
+    dialog. The request times out on its own after 30 seconds, and the connection after 10.</p>
+
+    <p>Before anything is sent, <span class="mono">penstock deploy</span> and
+    <span class="mono">penstock doctor</span> say so when <code>deployment.auth.type</code> is
+    <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the
+    engine refuse it.</p>
+
+    <h2>How a dialog is put together</h2>
+
+    <p>Every dialog, popover and form in the editor follows one standard, and the Connection
+    dialog is one of them: the same sizes, the same footer, the same focus and Esc behaviour,
+    labels without a colon, help as permanent text under the field rather than a tooltip, and an
+    error as text under the field with a red outline once you have left it. Export, the import
+    report, Run with input, Save as scenario, Open run and the connector template browser use the
+    same one. The buttons of a dialog follow the IDE: the primary button is on the right on macOS
+    and first on Windows and Linux.</p>
 
     <h2>Security</h2>
 
-    <p>
-      Deployment is the only thing that sends a diagram off the machine. The plugin makes no other
-      outbound calls of its own apart from the licence check, which talks to the licence service
-      about the licence and nothing else - no telemetry, no update polling. A command-line action
-      run from the Penstock tool window downloads the penstock CLI the first time it needs a
-      version it does not have yet. The element template
-      catalogue the editor shows is read from files bundled with the plugin. A diagram leaves the
-      machine only when you press Deploy, and only to the address configured for the profile.
-    </p>
+    <p>Deployment is the only thing that sends a diagram off the machine. The plugin makes no
+    other outbound call of its own apart from the licence check, which talks to the licence
+    service about the licence and nothing else, and the connector template download described
+    under <a href="element-templates.html">Element templates</a>. No telemetry, no update polling.
+    A command-line action run from the Penstock tool window downloads the penstock CLI the first
+    time it needs a version it does not have yet. A diagram leaves the machine only when you
+    press Deploy, and only to the address configured for the profile.</p>
 
-    <p>
-      Because secrets are held by the IDE password safe, nothing a deployment needs to sign in is
-      committed with the project. The address typed into the Connection dialog stays in
-      <code>penstock.local.yaml</code>, which Penstock adds to <code>.gitignore</code> when the
-      project has one.
-    </p>
+    <p>Because secrets are held by the IDE password safe, nothing a deployment needs to sign in
+    is committed with the project. The address typed into the Connection dialog stays in
+    <code>penstock.local.yaml</code>, which Penstock adds to <code>.gitignore</code> when the
+    project has one. A <code>password:</code> key in <code>penstock.local.yaml</code> is not
+    read; a password comes from <code>PENSTOCK_PASSWORD</code> or from the IDE password safe.</p>
+
+    <p>There is no option to skip certificate validation, and none is planned. An engine behind a
+    self-signed or private certificate has to be trusted by the Java runtime the IDE is using.</p>
+
   </div>
 
 </main>
