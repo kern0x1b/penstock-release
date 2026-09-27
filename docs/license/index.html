@@ -3,47 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>License - Penstock</title>
 <meta name="description" content="The end-user license agreement for the Penstock plugin.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/license/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/" aria-current="true">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc">
+<main class="legal-wrap" id="content">
   <h1>End User License Agreement</h1>
-  <p class="lede">These are the terms under which Penstock is licensed. One licence covers the
-  plugin and the <code>penstock</code> command line, and is sold through Polar. The features
-  Penstock offers without a subscription are free to use, and every machine gets a trial of the
-  paid ones. Bundled open-source components keep their own licenses, listed under
-  <a href="../notices/">third-party notices</a>.</p>
-  <p class="lede" style="font-size:15px">The text below is <code>LICENSE</code> from the
-  repository, unchanged.</p>
+  <p class="lede">These are the terms under which the Penstock plugin is licensed. Bundled open-source components keep their own licenses, listed under <a href="../notices/">third-party notices</a>.</p>
   <pre class="legal"><code>Penstock — End User License Agreement
 
 Copyright (c) 2024-2026 kern0x1b. All rights reserved.
 
 This is a commercial software product. It is licensed, not sold. By installing
-or using the Penstock plugin ("the Software") you agree to the terms
+or using the Penstock plugin (&quot;the Software&quot;) you agree to the terms
 below. If you do not agree, do not install or use the Software.
 
 1. Grant of license
@@ -104,7 +98,7 @@ license of a bundled open-source component.
 
 This agreement grants no rights in any trademark. The Software is an independent product and is
 not affiliated with, endorsed by, or sponsored by Camunda Services GmbH or the Object Management
-Group. "Camunda" is a trademark of Camunda Services GmbH and "BPMN" is a trademark of the Object
+Group. &quot;Camunda&quot; is a trademark of Camunda Services GmbH and &quot;BPMN&quot; is a trademark of the Object
 Management Group; both are used solely to describe the systems and notation the Software works
 with.
 
@@ -117,7 +111,7 @@ never written to project configuration files.
 
 8. Warranty disclaimer
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
 
@@ -146,15 +140,22 @@ kern0x1b — 157722763+kern0x1b@users.noreply.github.com</code></pre>
 </main>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

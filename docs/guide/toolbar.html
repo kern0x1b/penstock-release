@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The toolbar and the More menu - Penstock</title>
+<meta name="description" content="The toolbar holds the actions you use most, the More menu holds all of them in sections, and you choose which ones sit on the bar.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/toolbar.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html" aria-current="page">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>The toolbar and the More menu</h1>
+<p class="lede">The toolbar holds the actions you use most, the More menu holds all of them in sections, and you choose which ones sit on the bar.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#the-command-palette">The command palette</a></li>
+<li><a href="#pin-or-unpin-an-action">Pin or unpin an action</a></li>
+<li><a href="#every-action-in-the-diagram-editor">Every action in the diagram editor</a></li>
+<li><a href="#the-decision-and-form-editors">The decision and form editors</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="how-it-works"><a href="#how-it-works">How it works</a></h2>
+
+<p>One row across the top of the canvas, in the same order in all three editors. <strong>Undo</strong> and <strong>Redo</strong> are always on it, the editor's own view switcher and actions follow, and the sidebar toggle is the last thing on the right. <strong>Deploy</strong> is the one primary action, in the middle of the right-hand end. Everything else is in the <span class="ui">More</span> menu, the button with three dots.</p>
+
+<p>Some actions are pinned to the bar to start with. You can change that.</p>
+
+<h2 id="the-command-palette"><a href="#the-command-palette">The command palette</a></h2>
+
+<p><span class="ui">More</span> opens a searchable list of every action, in sections, with the ones you used last first. It is also the <strong>command palette</strong>, and the first-run tour names it. Type to filter: the letters you matched are marked in each row, and an action answers to keywords as well as to its name, so <code>png</code> finds Export, <code>c8</code> finds what is Camunda 8 and <code>bpmnlint</code> finds Check. Each row has a pin.</p>
+
+<div class="hosts">
+<p class="hosts-title">The command palette in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The palette's shortcut is <kbd>Ctrl+Alt+,</kbd>, or <kbd>&#8997;&#8997;,</kbd> on a Mac. The same actions are in the IDE's own <strong>Find Action</strong> and <strong>Keymap</strong> under <span class="mono">Tools | Penstock</span>, so a shortcut can be bound to any of them the way the IDE binds its own. The palette's shortcut is Find Action in Diagram in the keymap, and Export keeps <kbd>Cmd/Ctrl+Shift+C</kbd>. See <a href="../jetbrains/shortcuts.html">Shortcuts</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no editor and so no palette. The help of each command lists what it does, and the actions that need a licence say so when you run them.</p>
+</section>
+</div>
+</div>
+
+<h2 id="pin-or-unpin-an-action"><a href="#pin-or-unpin-an-action">Pin or unpin an action</a></h2>
+
+<ol class="steps">
+  <li>Open <span class="ui">More</span> (three dots).</li>
+  <li>Find the action. Next to its name there is a small pin.</li>
+  <li>Click the pin. The action moves onto the bar. Click it again and it goes back into the menu only.</li>
+</ol>
+
+<p>Penstock remembers your choice in <code>~/.penstock/preferences.json</code>, the same file that keeps the width of the sidebar and whether you have seen the tour. It is the same in every tool on your machine and survives a restart. It is never stored in <code>penstock.yaml</code>, so your toolbar never lands in a teammate's checkout. If a later version adds a new action, you still get it, even if you rearranged the bar.</p>
+
+<p>On the bar, an action only a well known icon can name is an icon with a tooltip: undo, redo and the sidebar toggle. Everything else is a word. A toggle stays pressed while what it shows is open, and its label never changes with the state.</p>
+
+<h2 id="every-action-in-the-diagram-editor"><a href="#every-action-in-the-diagram-editor">Every action in the diagram editor</a></h2>
+
+<p>The menu groups its rows under headings, and the command palette uses the same sections in the same order: <em>Check &amp; run</em>, <em>Layout &amp; convert</em>, <em>Deploy &amp; share</em>, <em>View</em>, <em>File</em>, <em>Edit</em> and <em>Help</em>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Action</th><th>What it does</th><th>Pinned at first</th><th>Shown for</th></tr></thead>
+  <tbody>
+  <tr><td>Undo, Redo</td><td>Take back or repeat the last change.</td><td>Always on the bar</td><td>All</td></tr>
+  <tr><td>Auto layout <span class="tag pro">Pro</span></td><td>Lays the whole diagram out again, then offers Undo. <a href="auto-layout.html">Auto layout</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Check</td><td>Opens the Problems tab. <a href="diagram-check.html">Diagram check</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Simulate</td><td>Moves a token through the process. <a href="token-simulation.html">Token simulation</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Monitor</td><td>What the engine is doing with this diagram: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Scenarios <span class="tag pro">Pro</span></td><td>The ways through this process, and running them. <a href="scenarios.html">Scenarios</a></td><td>Yes</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+  <tr><td>Coverage <span class="tag pro">Pro</span></td><td>Colours what your process tests reached. <a href="process-tests.html">Process tests and coverage</a></td><td>Yes</td><td>Once test reports exist</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, and converting it. <a href="migration.html">Camunda 7 to 8</a></td><td>Yes</td><td>Camunda 7, Operaton, CIB seven</td></tr>
+  <tr><td>Deploy</td><td>Opens the Deploy popover, which sends the diagram. <a href="deployment.html">Deployment</a></td><td>Yes, on the right</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+  <tr><td>Sidebar</td><td>Shows or hides the sidebar. An icon at the right edge, pressed while it is open. <a href="sidebar.html">The sidebar</a></td><td>Always on the bar</td><td>All</td></tr>
+  <tr><td>Fit diagram, Zoom in, Zoom out</td><td>The view. Each has a shortcut in the tools that have one.</td><td>No</td><td>All</td></tr>
+  <tr><td>Transaction boundaries</td><td>Draws a bar where the engine commits a transaction: before a user task, a receive task, an event-based gateway, an external task and a message, timer, signal or conditional catch event, and before or after an activity with an asynchronous continuation. The bars follow the diagram as you edit.</td><td>No</td><td>Camunda 7, Operaton, CIB seven</td></tr>
+  <tr><td>Minimap</td><td>Shows a small overview of a large diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Sketchy drawing</td><td>Draws the diagram as if by hand, on your screen only.</td><td>No</td><td>All</td></tr>
+  <tr><td>Export&hellip;</td><td>Opens the export dialog, where you can also copy the diagram as a picture. <a href="export.html">Export</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Templates&hellip;</td><td>Opens the connector template browser. <a href="element-templates.html">Element templates</a></td><td>No</td><td>Camunda 8</td></tr>
+  <tr><td>Import diagram&hellip;</td><td>Turns a draw.io, Visio, Signavio or Bizagi file into BPMN. <a href="import.html">Import a diagram</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Share as HTML&hellip;</td><td>Writes one offline HTML file. <a href="share-html.html">Share as HTML</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Copy, Paste</td><td>Use the system clipboard. You can paste into another diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Show the tour again</td><td>Replays the six-step tour of the editor.</td><td>No</td><td>All</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Check, Simulate, Monitor, Scenarios, Coverage, Transaction boundaries, Minimap and Sketchy drawing stay pressed while they are on. Undo, Redo, Copy, Paste and Auto layout refuse to run while a token simulation is on, so a read-only preview cannot be written to the file. See <a href="token-simulation.html">Token simulation</a>.</p>
+
+<figure class="shot">
+  <img src="../img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette at the left of the canvas, the context pad on a service task and the Properties tab of the sidebar on the right">
+  <figcaption>The bar: undo and redo on the left, the actions you use most, the More menu, Deploy as the primary action and the sidebar toggle at the right edge. The badge on a sidebar tab is the count of findings.</figcaption>
+</figure>
+
+<h2 id="the-decision-and-form-editors"><a href="#the-decision-and-form-editors">The decision and form editors</a></h2>
+
+<p>They have the same kind of bar. The decision editor has a button for each view of the file, and the form editor has <span class="ui">Preview</span>. Both have the More menu, the sidebar toggle and Deploy on the right, and their own tabs in the sidebar. See <a href="dmn-editor.html">The DMN editor</a>, <a href="form-editor.html">The form editor</a> and <a href="sidebar.html">The sidebar</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>Words for the actions you use, and icons only where an icon is well known: undo, redo and the sidebar toggle.</li>
+  <li>One main button: Deploy.</li>
+  <li>A pinned action that needs a feature you do not have shows what it would do and offers to buy Pro or sign in when you press it.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>Deploy is not on the toolbar.</dt>
+  <dd>It is shown when the engine is Camunda 7, Camunda 8, Operaton or CIB seven. A Classic BPMN project has none. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>Coverage is not there.</dt>
+  <dd>It appears only after your process tests have run and left reports under <code>target</code> or <code>build</code>. See <a href="process-tests.html">Process tests and coverage</a>.</dd>
+  <dt>Migrate to Camunda 8 is not there.</dt>
+  <dd>It is for Camunda 7, Operaton and CIB seven diagrams only.</dd>
+  <dt>I pinned something and it is gone in another tool.</dt>
+  <dd>Your choice is kept in <code>~/.penstock/preferences.json</code>. If <code>PENSTOCK_HOME</code> is set, the file is under that folder instead. Check both tools see the same one.</dd>
+  <dt>The menu has no Copy as image.</dt>
+  <dd>It is not a menu entry any more. It is <strong>Copy</strong> in the export dialog, beside Save. See <a href="export.html">Export</a>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/bpmn-editor.html">The BPMN editor</a> - The window, the tabs and how saving works.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/bpmn-editor.html"><span>Previous</span>The BPMN editor</a>
+<a class="next" href="../guide/sidebar.html"><span>Next</span>The sidebar</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

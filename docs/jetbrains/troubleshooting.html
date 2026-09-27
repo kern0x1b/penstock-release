@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Troubleshooting in a JetBrains IDE - Penstock</title>
+<meta name="description" content="Fixes for the problems that only happen in the IDE: a blank editor, a file that opens as text, a command that does not start.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/troubleshooting.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/" aria-current="true">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="JetBrains">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../jetbrains/">JetBrains IDEs</a></li>
+      <li><a href="../jetbrains/installing.html">Installing</a></li>
+      <li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../jetbrains/editor.html">The editor in the IDE</a></li>
+      <li><a href="../jetbrains/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../jetbrains/code-links.html">Code links in the IDE</a></li>
+      <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
+      <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../jetbrains/licence.html">Licence in the IDE</a></li>
+      <li><a href="../jetbrains/troubleshooting.html" aria-current="page">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Licence and help</p>
+<h1>Troubleshooting in a JetBrains IDE</h1>
+<p class="lede">Fixes for the problems that only happen in the IDE: a blank editor, a file that opens as text, a command that does not start.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#the-editor-area-is-blank">The editor area is blank</a></li>
+<li><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></li>
+<li><a href="#a-command-from-the-tool-window-does-nothing">A command from the tool window does nothing</a></li>
+<li><a href="#deployment-to-a-private-certificate-fails">Deployment to a private certificate fails</a></li>
+<li><a href="#where-else-to-look">Where else to look</a></li>
+<li><a href="#still-stuck">Still stuck</a></li>
+</ul>
+</nav>
+<p>Problems that are not about the IDE, such as a failed deployment or a missing template, are in the <a href="../guide/troubleshooting.html">general troubleshooting page</a>.</p>
+
+<h2 id="the-editor-area-is-blank"><a href="#the-editor-area-is-blank">The editor area is blank</a></h2>
+
+<ol class="steps">
+  <li>Check that your IDE is version 2025.2 or newer.</li>
+  <li>The diagram editor is a browser view (JCEF) inside the IDE. An IDE that cannot supply JCEF cannot show a diagram. JetBrains' own downloads run on the JetBrains Runtime, which has it. If you pointed the IDE at another Java runtime, point it back.</li>
+  <li>Right-click inside the blank area. If there is an <span class="ui">Open DevTools</span> entry, use it to see the error.</li>
+  <li>Use the <span class="ui">Text</span> tab. The XML is never locked away.</li>
+</ol>
+
+<p>The editor needs no licence. A paid feature explains itself when you reach for it. The rest keeps working.</p>
+
+<h2 id="a-file-does-not-open-in-its-editor"><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></h2>
+
+<ul>
+  <li>The BPMN file type covers <code>bpmn</code>, <code>bpmn.xml</code> and <code>bpmn20.xml</code>. The DMN type covers <code>dmn</code>. If such a file opens as plain XML, the pattern may have been given to another file type in <span class="ui">Settings | Editor | File Types</span>. Move it back.</li>
+  <li>A <code>.form</code> file opens in the form editor only if it is a Camunda Form: a JSON object with <code>components</code>. Other <code>.form</code> files stay with the IntelliJ GUI Designer.</li>
+  <li>The tool window lists only files inside a project content root. A diagram kept outside is not listed.</li>
+</ul>
+
+<h2 id="a-command-from-the-tool-window-does-nothing"><a href="#a-command-from-the-tool-window-does-nothing">A command from the tool window does nothing</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>"Running Penstock requires trusting this project first"</td><td>The Run Penstock actions start an external process, which the IDE allows only in a trusted project. Trust the project and run it again. Deployment hooks need trust too.</td></tr>
+  <tr><td>"Penstock could not start"</td><td>The actions run the project's <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited. Start the IDE from a terminal to test.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="deployment-to-a-private-certificate-fails"><a href="#deployment-to-a-private-certificate-fails">Deployment to a private certificate fails</a></h2>
+
+<p>Penstock has no option to skip certificate checks. Trust the certificate in the Java runtime the IDE uses. Deployment is described in <a href="../guide/deployment.html">Deployment</a>.</p>
+
+<h2 id="where-else-to-look"><a href="#where-else-to-look">Where else to look</a></h2>
+
+<ul>
+  <li>The <strong>IDE log</strong>: <span class="ui">Help | Show Log in Finder</span> (or Explorer). Penstock logs under <code>jetbrains.bpmn.editor</code>. Swallowed failures, such as a template that would not parse, are there with a stack trace.</li>
+  <li><strong>DevTools</strong> in the editor: right-click the diagram and choose <span class="ui">Open DevTools</span> to see a frontend error. The diagram diff viewer forwards its browser console to the IDE log with a <code>[bpmn-preview]</code> prefix.</li>
+</ul>
+
+<h2 id="still-stuck"><a href="#still-stuck">Still stuck</a></h2>
+
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the IDE and its version, the plugin version, the engine, and a <code>.bpmn</code> file that shows the problem.</p>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/troubleshooting.html">Troubleshooting</a> - Fixes for the problems people meet most.</li>
+<li><a href="../jetbrains/editor.html">The editor in the IDE</a> - File types, the two tabs, saving, themes, and files changed outside.</li>
+<li><a href="../jetbrains/tool-window.html">The Penstock tool window</a> - Your project as a tree, and the Run Penstock menu.</li>
+<li><a href="../jetbrains/installing.html">Installing</a> - Put Penstock into your IDE and check that it works.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../jetbrains/licence.html"><span>Previous</span>Licence in the IDE</a>
+
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

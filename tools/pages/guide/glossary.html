@@ -1,0 +1,105 @@
+<!--
+title: Words used in this guide
+lede: Every technical word the guide uses, explained once in plain language.
+tags: free
+related: getting-started, engine-profiles, settings
+-->
+<p>The words are in alphabetical order. Each entry says what the word means and where to read more.</p>
+
+<dl class="problems">
+  <dt id="baseline">Baseline</dt>
+  <dd>A file that lists the problems a project already has. With a baseline, <code>penstock check</code> fails only on new problems. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
+
+  <dt id="bpmn">BPMN</dt>
+  <dd>Business Process Model and Notation. A standard way to draw a process as boxes and arrows. A BPMN file is XML with the drawing coordinates inside. See <a href="elements.html">BPMN elements</a>.</dd>
+
+  <dt id="bpmnlint">bpmnlint</dt>
+  <dd>A tool that reads a BPMN file and lists modelling mistakes, such as a task with no name. Penstock has it built in. See <a href="validation.html">Validation</a>.</dd>
+
+  <dt id="business-rule-task">Business rule task</dt>
+  <dd>A task that calls a decision (a DMN table) and stores the answer in a variable.</dd>
+
+  <dt id="camunda">Camunda</dt>
+  <dd>A company and a family of process engines. Camunda 7 and Camunda 8 are two different engines with two different ways to write a diagram. See <a href="engine-profiles.html">Engines</a>.</dd>
+
+  <dt id="check">Check</dt>
+  <dd>The list of what is wrong with a diagram. In the editor it is a card. In a terminal it is <code>penstock check</code>. See <a href="diagram-check.html">Diagram check</a>.</dd>
+
+  <dt id="ci">CI, pipeline</dt>
+  <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
+
+  <dt id="delegate">Delegate</dt>
+  <dd>A Java class that Camunda 7 calls to do the work of a service task. See <a href="code-links.html">Code links</a>.</dd>
+
+  <dt id="deploy">Deploy</dt>
+  <dd>Send a diagram to an engine so the engine can run it. See <a href="deployment.html">Deployment</a>.</dd>
+
+  <dt id="dmn">DMN</dt>
+  <dd>Decision Model and Notation. A standard way to write business rules as tables. A DMN file has the extension <code>.dmn</code>. See <a href="dmn-editor.html">The DMN editor</a>.</dd>
+
+  <dt id="element-template">Element template</dt>
+  <dd>A JSON file that describes a ready-made task, for example "send an e-mail". You pick it, fill in a few fields and the task is configured. See <a href="element-templates.html">Element templates</a>.</dd>
+
+  <dt id="engine">Engine</dt>
+  <dd>The server that runs your processes. Penstock supports Camunda 7, Camunda 8, Operaton and CIB seven. See <a href="engine-profiles.html">Engines</a>.</dd>
+
+  <dt id="external-task">External task, topic</dt>
+  <dd>A Camunda 7 way to do the work of a service task outside the engine. The task names a topic. A worker asks the engine for tasks on that topic.</dd>
+
+  <dt id="feel">FEEL</dt>
+  <dd>The expression language of Camunda 8 and of DMN. An example is <code>= amount &gt; 100</code>.</dd>
+
+  <dt id="form">Camunda Form</dt>
+  <dd>A user form described in a <code>.form</code> file. A user task shows it. See <a href="form-editor.html">The form editor</a>.</dd>
+
+  <dt id="gateway">Gateway</dt>
+  <dd>A diamond in a diagram where the path splits or joins.</dd>
+
+  <dt id="hit-policy">Hit policy</dt>
+  <dd>A rule in a decision table that says what happens when several rows match. For example, <code>FIRST</code> takes the first matching row.</dd>
+
+  <dt id="host">Tool, host</dt>
+  <dd>The program you use Penstock in. Today that is a JetBrains IDE, or the <code>penstock</code> command line. Features work the same in each. See <a href="@jetbrains/">JetBrains</a> and <a href="@cli/">Command line</a>.</dd>
+
+  <dt id="job-type">Job type, job worker</dt>
+  <dd>The Camunda 8 way to do the work of a service task outside the engine. The task names a job type. A job worker asks the engine for jobs of that type and completes them. See <a href="code-links.html">Code links</a>.</dd>
+
+  <dt id="juel">JUEL</dt>
+  <dd>The expression language of Camunda 7. An example is <code>${amount &gt; 100}</code>.</dd>
+
+  <dt id="monitor">Monitor</dt>
+  <dd>A view that shows what the engine is doing with this diagram right now: how many instances wait at each step and where the incidents are. See <a href="monitor.html">Monitor</a>.</dd>
+
+  <dt id="mcp">MCP</dt>
+  <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="@cli/mcp.html">The MCP server</a>.</dd>
+
+  <dt id="pool">Pool, lane</dt>
+  <dd>A pool is a big box around one participant's process. A lane is a row inside a pool, usually one per role.</dd>
+
+  <dt id="process-instance">Process instance</dt>
+  <dd>One run of a process. If a process is a recipe, an instance is one meal cooked from it.</dd>
+
+  <dt id="profile">Profile</dt>
+  <dd>Two different things share this word. An <em>engine profile</em> is the kind of diagram Penstock builds: Classic, Camunda 7 or Camunda 8. A <em>deployment profile</em> is a named set of settings in <code>penstock.yaml</code>, such as <code>prod</code>. See <a href="engine-profiles.html">Engines</a> and <a href="profiles.html">Profiles</a>.</dd>
+
+  <dt id="sarif">SARIF</dt>
+  <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</dd>
+
+  <dt id="scenario">Scenario</dt>
+  <dd>One way through a process, with the variables it starts with and an answer for each task. Flow analysis finds the scenarios of a diagram, and <span class="ui">Generate</span> turns them into runnable ones. See <a href="scenarios.html">Scenarios</a>.</dd>
+
+  <dt id="service-task">Service task</dt>
+  <dd>A task done by a program instead of a person.</dd>
+
+  <dt id="token">Token</dt>
+  <dd>The marker that shows where a process instance is. Token simulation moves a token through the diagram so you can watch. See <a href="token-simulation.html">Token simulation</a>.</dd>
+
+  <dt id="user-task">User task</dt>
+  <dd>A task done by a person, usually with a form.</dd>
+
+  <dt id="worker">Worker</dt>
+  <dd>A program that does the work of a service task. It is a job worker on Camunda 8 and an external task worker on Camunda 7. See <a href="code-links.html">Code links</a>.</dd>
+
+  <dt id="xml">XML</dt>
+  <dd>The text format a BPMN file is stored in. The <span class="ui">Text</span> tab shows it.</dd>
+</dl>

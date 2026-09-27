@@ -3,246 +3,232 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>The sidebar - Penstock</title>
-<meta name="description" content="The Penstock sidebar: the Properties, Scenarios, Problems, Monitor and Code tabs in the diagram editor, the Properties, Preview and Problems tabs in the form editor, and the Scenarios review drawn over the diagram.">
+<meta name="description" content="The sidebar runs the full height of the editor beside the canvas, with a row of tabs along its top: the properties of what is selected, the scenarios of a process, what the check found, what the engine is doing and the code behind a step.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/sidebar.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-<nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html" aria-current="page">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html">Check and problems</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html" aria-current="page">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>The sidebar</h1>
+<p class="lede">The sidebar runs the full height of the editor beside the canvas, with a row of tabs along its top: the properties of what is selected, the scenarios of a process, what the check found, what the engine is doing and the code behind a step.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#the-tabs">The tabs</a></li>
+<li><a href="#open-and-close-it">Open and close it</a></li>
+<li><a href="#how-wide-and-what-it-remembers">How wide, and what it remembers</a></li>
+<li><a href="#what-each-tab-is-for">What each tab is for</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-  <div class="docbody">
-    <h1>The sidebar</h1>
+<p>The sidebar is one surface in all three editors, and it is where most of what Penstock adds to a diagram is read. It sits to the right of the canvas and carries a row of tabs along its top. Each editor registers its own tabs, in a fixed order, so the tabs you know from a diagram are in the same place in a decision or a form.</p>
 
-    <p class="lede">The sidebar runs the full height of the editor, on the right of the canvas,
-    with a row of tabs along its top. It is the same surface in all three editors, and it is where
-    most of what Penstock adds to a diagram is read: the properties of what is selected, the
-    scenarios of a process, what the check found, what the engine is doing, and the code behind
-    a step.</p>
+<p>With the sidebar open and an element selected, you can go from what the diagram says to the engine, to the files and back without leaving the editor. <a href="editing.html">Editing a diagram</a> covers the canvas beside it.</p>
 
-    <h2>The tabs</h2>
+<h2 id="the-tabs"><a href="#the-tabs">The tabs</a></h2>
 
-    <p>Each editor registers its own tabs, in a fixed order. The row shows them as icons when the
-    sidebar is narrow, with a tooltip that names the tab, and a count badge on Problems. A tab
-    with nothing to show keeps its place and says what it is for and what to do next.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Editor</th><th>Tabs, in order</th></tr></thead>
+  <tbody>
+  <tr><td>A diagram</td><td>Properties, Scenarios, Problems, Monitor, Code</td></tr>
+  <tr><td>A decision</td><td>Properties, Problems</td></tr>
+  <tr><td>A form</td><td>Properties, Preview, Problems</td></tr>
+  </tbody>
+</table></div></div>
 
-    <table class="facts">
-      <tr><td>Diagram</td><td>Properties, Scenarios, Problems, Monitor, Code</td></tr>
-      <tr><td>Decision</td><td>Properties, Problems</td></tr>
-      <tr><td>Form</td><td>Properties, Preview, Problems</td></tr>
-    </table>
+<p>The row shows the tabs as icons when the sidebar is narrow, with a tooltip that names each one, and a count badge on Problems. A tab with nothing to show says what it is for and what to do next, rather than staying blank.</p>
 
-    <p>The sidebar is a third of the width of the editor, between 320 and 480 pixels, and the
-    dividing line can be dragged between 280 pixels and half the editor. The width and the tab
-    you left selected are kept in <span class="mono">~/.penstock/preferences.json</span>, so they
-    are the same in every IDE on the machine. Below about 840 pixels wide the sidebar becomes a
-    drawer over the canvas rather than a column beside it.</p>
+<h2 id="open-and-close-it"><a href="#open-and-close-it">Open and close it</a></h2>
 
-    <p>Problems, Monitor and Code each keep their own state while you look at another tab, so
-    Monitor keeps the instances it fetched and Code keeps what you had open. The tabs choose the
-    view; going deeper inside one is a separate thing, and a small <strong>‹</strong> in the tab's
-    own header takes you back a step.</p>
+<p>The sidebar toggle is the last thing on the toolbar, at the right edge, and it stays pressed while the sidebar is open. It is the <strong>Sidebar</strong> action, so it is also in the <span class="ui">More</span> menu and the command palette.</p>
 
-    <h2>Properties</h2>
+<div class="hosts">
+<p class="hosts-title">Open the sidebar</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The shortcut is <code>Ctrl+Alt+'</code>, or <code>&#8984;&#8997;'</code> on a Mac, and the action is called Find Action in Diagram in the keymap. The tool window has a Projects, Tests, Workers, Variables, Messages, Decisions, Forms, Deployment and Files tree of its own, which is a different surface: that one is on the stripe at the side of the IDE. See <a href="../jetbrains/tool-window.html">The Penstock tool window</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no editor and so no sidebar. penstock show lists a diagram's elements, and penstock check and penstock code report what the tabs would show.</p>
+</section>
+</div>
+</div>
 
-    <p>The properties panel of the selected element, the same one bpmn.io's properties panel
-    draws, with the groups the engine profile defines. With nothing selected the tab is empty. See
-    <a href="editing.html">Editing a diagram</a>.</p>
+<h2 id="how-wide-and-what-it-remembers"><a href="#how-wide-and-what-it-remembers">How wide, and what it remembers</a></h2>
 
-    <p>In the decision editor it is the requirements diagram's properties: the id, name and
-    documentation of a decision, and its version tag and history time to live on Camunda 7 and
-    CIB seven, or its version tag alone on Camunda 8. Over a decision table the tab is empty on
-    purpose, because a decision table belongs to its requirements diagram, and it offers an
-    action that opens it. On Operaton it shows the id and the name and nothing else.</p>
+<p>The sidebar takes about a third of the width of the editor, between 320 and 480 pixels, and the dividing line can be dragged from 280 pixels to half the editor. Below about 840 pixels wide it becomes a drawer over the canvas rather than a column beside it, so nothing on the page is pushed sideways on a phone.</p>
 
-    <h2>Scenarios</h2>
+<p>The width, and the tab you left selected, are kept in <code>~/.penstock/preferences.json</code>, so they are the same in every tool on the machine. Problems, Monitor and Code each keep their own state while you look at another tab, so Monitor holds the instances it fetched and Code holds what you had open. The tabs choose what you look at; going deeper inside one is a separate step, and a small <strong>&#8249;</strong> in the tab's own header takes you back.</p>
 
-    <p><strong>Scenarios</strong> is a process and the ways through it. A scenario is one way
-    through: a start, a path of steps, the gateway conditions that decide the path, and the
-    values the path needs. They are Camunda Process Test test cases, so they run under Camunda's
-    own tooling as well as under Penstock. The tab reads the diagram's test-case file, and a
-    diagram whose file has been renamed still finds it by the process id inside.</p>
+<h2 id="what-each-tab-is-for"><a href="#what-each-tab-is-for">What each tab is for</a></h2>
 
-    <p>Pro, and Team in a pipeline. Without it the editor says what scenarios are and offers to
-    buy them.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Properties</td><td>The settings of the selected element, in the groups the engine defines. <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Scenarios</td><td>The ways through this process, generated from the diagram or written by hand, and run against an engine. <a href="scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td>Problems</td><td>Everything the check found, in groups. <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Monitor</td><td>What the engine is doing with this diagram now: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a>.</td></tr>
+  <tr><td>Code</td><td>The workers, classes, beans, tests and usages behind the selected step. <a href="code-links.html">Code links</a>.</td></tr>
+  <tr><td>Preview</td><td>A form as a user sees it, beside the JSON it is given. <a href="form-editor.html">The form editor</a>.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <h3>Generating scenarios from the diagram</h3>
+<p>Only the tabs of the editor you have open are there. A diagram has no Preview tab, because a form is the only thing that previews.</p>
 
-    <!-- image: scenarios-review.png -->
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
-    <p><strong>Generate</strong> in the Scenarios panel does not write files. It opens a review
-    over the diagram: the scenario you are looking at is drawn on the canvas with its steps
-    numbered and the flows between them, and the steps are listed beside it in plain words, with
-    the value each step passes on. A value can be edited, and a gateway condition that cannot be
-    right is fixed from the step that holds it. Every change plans the scenarios again, so the
-    drawing and the list always agree. Nothing reaches the file until you press <strong>Create
-    scenarios</strong>.</p>
+<ul>
+  <li>A column beside the canvas with a row of tabs along its top.</li>
+  <li>A count badge on Problems while the check has findings.</li>
+  <li>Icons instead of names when the sidebar is narrow.</li>
+</ul>
 
-    <p>A scenario already in the file is kept as it is, and its box is ticked and cannot be
-    unticked, so generating never loses work. A way the process takes that the data cannot
-    choose - a gateway whose conditions need something no variable can decide - is listed with a
-    note saying so, and is not offered for writing.</p>
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
-    <p>The same view opens a saved scenario, so what a scenario does can be read before it is
-    run. After a run the same view shows the plan against what actually happened, step by step.</p>
-
-    <p><strong>Add scenario</strong> plans one scenario by hand, and for a process that starts on
-    a message, a timer or a signal it asks which start event to begin from. The process
-    instance is then started at that event directly, so the first steps of a process that waits
-    for something are still covered. A start kind Penstock cannot express as a scenario is said
-    in the review rather than left out quietly; <span class="mono">penstock scenarios generate</span>
-    behaves the same.</p>
-
-    <h3>Running scenarios</h3>
-
-    <p><strong>Run all</strong> runs the test cases against the engine the profile in force names,
-    step by step, and stops at every step left to ask. A step can be answered by the real worker,
-    or by a mock: complete it, throw a BPMN error, fail a number of times and then complete, or
-    ask. A timer can be made to fire at once. Each step a mock answered carries a Mocked badge
-    on the canvas, and the table under the run says what each step received, sent and changed,
-    and where each value came from.</p>
-
-    <p>Every test case is checked against the Camunda test-case schema before the run starts. A
-    case that lacks what the schema requires, such as an assertion with no
-    <code>processInstanceSelector</code> or an instruction with a property the schema does not
-    allow, is not run and says what it lacks.</p>
-
-    <p>A run never touches the definitions you deployed. It builds a copy whose ids are prefixed
-    with <code>penstock.&lt;run&gt;.</code>, every process, decision, form and the calls between
-    them, deploys that, and removes it afterwards, so what is left on the engine is what you
-    deployed and the process id you start is the one you deployed.</p>
-
-    <p>Test cases run against an engine marked <code>deployment.forTests: true</code>. A local
-    engine is used once you have confirmed it, in the editor once per profile and in a terminal
-    once per run; any other engine is refused, by the IDE as well as by the editor, and a
-    pipeline never uses one without the mark. See <a href="settings.html">Configuration</a>.</p>
-
-    <p><strong>Run with input…</strong> starts an ad-hoc run with start variables and a
-    behaviour per step. <strong>Open a run…</strong> shows the path and the steps of an instance
-    that already exists. <strong>Save as scenario…</strong> writes what was answered as a
-    scenario that checks the path and the variables. The test-case file also runs in the IDE's own
-    test runner, from the gutter of each case or of a folder.</p>
-
-    <h2>Problems</h2>
-
-    <p>The Problems tab is the full list of what the check found, in groups, with an error or
-    warning icon on each finding. The check card over the canvas is a short summary of the same
-    findings; the tab is where all of them are. See
-    <a href="diagram-check.html">Check and problems</a>.</p>
-
-    <p>Clicking a finding selects its element on the canvas and opens the property that fixes it,
-    for job type, form key or id, correlation key, history time to live, called element, error,
-    escalation, message and signal references and timer definitions, and a missing job type,
-    topic, class or delegate expression in code. A finding with no single field still switches
-    the sidebar to Properties and selects the element.</p>
-
-    <h2>Monitor</h2>
-
-    <!-- image: monitor-tab.png -->
-
-    <p>Monitor asks the engine what it is doing with this diagram: the incidents it has, and the
-    instances waiting at each step. The badges stay on the canvas as well, so a busy step is
-    visible without opening the tab. The engine is asked when you open the tab or press
-    <strong>Refresh</strong>, never in the background.</p>
-
-    <p>The header names the engine and the version of each process it found, which is how you
-    know whether you are looking at what you think you are. A process that is not on the engine
-    yet says so. An incident lists the message the engine gave, and <strong>Go to code</strong>
-    opens the worker that runs the task, when the project has one. Clicking an incident selects
-    the element.</p>
-
-    <p>Free. With no engine connected the tab says how to set one up and offers to open the
-    connection, rather than showing an empty list. Camunda 7, Operaton and CIB seven are asked on
-    their <code>engine-rest</code> address, and Camunda 8 from 8.8 and later.</p>
-
-    <h2>Code</h2>
-
-    <!-- image: code-tab.png -->
-
-    <p>The Code tab shows the code behind the selected step: the workers, classes, beans, tests
-    and usages that name it, with <strong>Go to code</strong>, <strong>Find usages</strong>,
-    <strong>Run tests</strong> and <strong>Debug tests</strong> on the head of the tab. A group
-    with more than a handful of entries is opened in a view of its own, with a <strong>‹</strong>
-    back.</p>
-
-    <p>Pro, and Team in a pipeline, as part of the link between diagrams and code. Without it the
-    tab says so and offers to buy it. See <a href="plans.html">Plans and licence</a>.</p>
-
-    <p>With nothing selected the tab says <em>Select a task to see its code</em>. A step nothing
-    in the project runs, tests or uses is said plainly, rather than left as an empty tab.</p>
-
-    <h2>Preview, in the form editor</h2>
-
-    <p><strong>Preview</strong> opens the form as a user sees it, beside the JSON it is given and
-    the JSON it would submit. The input starts as sample data made from the fields themselves - a
-    text, a number, the first option of a choice, one row of a dynamic list, a group under its
-    path - and follows the form as you edit it until you write your own. When the JSON is not
-    valid, the tab says what is wrong with it.</p>
-
-    <p>It is why the canvas never grows a fourth column for the preview. The toolbar's Preview
-    button opens the same tab, and its tooltip says the palette is hidden while it is open. The
-    form-js watermark stays visible.</p>
-
-  </div>
-
+<dl class="problems">
+  <dt>The sidebar is gone.</dt>
+  <dd>Press the sidebar toggle at the right of the toolbar, or the <strong>Sidebar</strong> action in the <span class="ui">More</span> menu.</dd>
+  <dt>Monitor says there is no engine.</dt>
+  <dd>It asks for the address of the profile in force. <a href="monitor.html">Monitor</a> has what to set.</dd>
+  <dt>Scenarios says it needs Pro.</dt>
+  <dd>Scenarios is Pro on your machine and Team in a pipeline. <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>A tab is missing.</dt>
+  <dd>Each editor has its own tabs: Scenarios, Monitor and Code are for diagrams, Preview for forms. The table above says which.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn and edited.</li>
+<li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/toolbar.html"><span>Previous</span>Toolbar and More menu</a>
+<a class="next" href="../guide/properties-panel.html"><span>Next</span>Properties panel</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

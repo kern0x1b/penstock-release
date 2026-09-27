@@ -1,0 +1,92 @@
+<!--
+title: Code links
+lede: Code links tie your diagrams to the code that runs them, so you can jump between a task and its worker, and find out when they disagree.
+tags: pro
+needs: Team in a pipeline. Going from a Camunda 7 delegate to its class is free.
+related: sidebar, check-workers, project-model, process-tests, settings, jetbrains/code-links, cli/commands
+-->
+<h2>What it is</h2>
+
+<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, JavaScript, TypeScript, Python, Go and C# by reading the text, so a worker in another language or another repository still counts.</p>
+
+<h2>Free and Pro</h2>
+
+<p>Going from a Camunda 7 task to its Java class or Spring bean is free. See <a href="editing.html">Editing a diagram</a>. Everything below needs Pro, and Team in a pipeline. Without Pro, Penstock keeps only class and bean links, and an action that needs the rest says what it gives and offers to buy or sign in.</p>
+
+<h2>The Code tab</h2>
+
+<p>The <strong>Code</strong> tab of the <a href="sidebar.html">sidebar</a> shows the code behind the selected step: the workers, classes, beans, tests and usages that name it, with <span class="ui">Go to code</span>, <span class="ui">Find usages</span>, <span class="ui">Run tests</span> and <span class="ui">Debug tests</span> on the head of the tab. A group with more than a handful of entries opens in a view of its own, with a <strong>&#8249;</strong> back. With nothing selected the tab says <em>Select a task to see its code</em>, and a step nothing in the project runs, tests or uses is said plainly rather than left as an empty tab.</p>
+
+<figure class="shot">
+  <img src="@img/code-tab.png" alt="The Code tab of the sidebar showing the worker that runs a selected task, with Go to code and Find usages, and the tests that use it">
+  <figcaption>A service task is selected. The tab names the worker that runs it and the test cases that use it, and both are one click away.</figcaption>
+</figure>
+
+{{host:code-links-where|Where you use the links}}
+
+<h2>What is linked</h2>
+
+<ul>
+  <li><strong>From code to diagram.</strong> A process id, element id, job type, topic, message name or decision id in a Java or Kotlin string is a link to the diagram element. An id that no diagram has is marked. A <code>@JobWorker</code> without a <code>type</code> takes the method name as the job type. That is marked, because renaming the method stops the worker.</li>
+  <li><strong>An element named in any file.</strong> <code>order.bpmn#ServiceTask_charge</code>, a path to the file, or a process id and the element's id after <code>#</code>, is a link from any language. Completion after <code>#</code> offers the ids of the diagram that is named, and an id no diagram in the project has is marked with a quick fix offering the near ones.</li>
+  <li><strong>From diagram to code.</strong> Hover an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it. The element's menu goes to the implementation, and finds the code that names the element, its process, the job type, class or bean it runs, its message or its decision: the worker, the tests, and the code that starts it.</li>
+  <li><strong>Variables.</strong> Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions use the names the diagrams use.</li>
+  <li><strong>Error codes.</strong> The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> is linked to the error event that catches it. A code no error event catches is marked, and so is an error event nothing throws.</li>
+  <li><strong>Tests and coverage.</strong> The link goes both ways between a process and the tests that name it. See <a href="process-tests.html">Process tests and coverage</a>.</li>
+</ul>
+
+<h2>Check the diagram against the code</h2>
+
+<p>Penstock compares every diagram with the code and reports what does not fit. In the editor, the check card has a <strong>Code</strong> section.</p>
+
+{{host:code-check-run|Check diagrams against code in your tool}}
+
+It reports:
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Nothing in the code runs a step</td><td><a href="../rules/code-missing-implementation">code/missing-implementation</a></td></tr>
+  <tr><td>No worker handles a job type</td><td><a href="../rules/code-no-worker">code/no-worker</a></td></tr>
+  <tr><td>No external task worker subscribes to a topic</td><td><a href="../rules/code-no-topic-worker">code/no-topic-worker</a></td></tr>
+  <tr><td>A class named in the diagram is not in the project</td><td><a href="../rules/code-class-missing">code/class-missing</a></td></tr>
+  <tr><td>No Spring bean has the name a diagram uses</td><td><a href="../rules/code-bean-missing">code/bean-missing</a></td></tr>
+  <tr><td>A call activity calls a process no diagram defines</td><td><a href="../rules/code-unknown-process">code/unknown-process</a></td></tr>
+  <tr><td>A business rule task calls a decision no file defines</td><td><a href="../rules/code-unknown-decision">code/unknown-decision</a></td></tr>
+  <tr><td>A user task shows a form no file defines</td><td><a href="../rules/code-unknown-form">code/unknown-form</a></td></tr>
+  <tr><td>A worker for a job type no diagram uses</td><td><a href="../rules/code-unused-worker">code/unused-worker</a></td></tr>
+  <tr><td>A variable is read, but only a similar one is set</td><td><a href="../rules/code-variable-typo">code/variable-typo</a></td></tr>
+  <tr><td>Nothing throws the error a step catches</td><td><a href="../rules/code-never-thrown">code/never-thrown</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>Names are matched exactly. A name that differs only by case, such as <code>charge-Card</code> against <code>charge-card</code>, is pointed out, because Camunda matches names exactly. Connector job types such as <code>io.camunda:http-json:1</code> and job types set by an expression are understood and left alone. Job types of Camunda 8 execution and task listeners count as workers. The full list is in <a href="../rules/">Every rule</a>.</p>
+
+<h2>Other repositories</h2>
+
+<p>If your workers live in another repository, name it in <code>penstock.yaml</code>:</p>
+
+<pre><code>linked:
+  - ../order-workers
+  - ../shared-delegates</code></pre>
+
+<p>Paths are relative to the project root. Their diagrams, workers, delegates and beans are read with this project's. A path that is not checked out is skipped. The code check reads them too.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A string that names a job type, topic, message or process is a link to the diagram.</li>
+  <li>Hovering an element shows what runs it.</li>
+  <li>In the project model, a worker that nothing implements says <em>no implementation</em> and carries a warning. See <a href="project-model.html">Your project as a model</a>.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>No links appear.</dt>
+  <dd>Code links need Pro. Without it, the project model shows a <strong>Code</strong> line that offers to buy or sign in.</dd>
+  <dt>A worker in another repository is reported as missing.</dt>
+  <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
+  <dt>A worker I know exists is not found.</dt>
+  <dd>Penstock reads the text of Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C# files. It skips <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code>, <code>dist</code> and <code>.git</code>. Generated code in those folders is not read.</dd>
+</dl>

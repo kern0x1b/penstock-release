@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The BPMN editor - Penstock</title>
+<meta name="description" content="The BPMN editor draws a process and saves every change into the file itself.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/bpmn-editor.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html" aria-current="page">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>The BPMN editor</h1>
+<p class="lede">The BPMN editor draws a process and saves every change into the file itself.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#open-a-diagram">Open a diagram</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#saving">Saving</a></li>
+<li><a href="#themes">Themes</a></li>
+<li><a href="#which-engine-is-this-diagram-for">Which engine is this diagram for?</a></li>
+<li><a href="#hover-for-a-summary">Hover for a summary</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>A BPMN file is a text file (XML) that holds two things: the meaning of the process and where every box is drawn. The BPMN editor shows the picture and edits the file for you. You never have to touch the XML, but you always can.</p>
+
+<p>The editor is <a href="https://bpmn.io/toolkit/bpmn-js/">bpmn-js</a>, the same drawing library the Camunda Modeler uses. So the drawing and the files are the ones you already know. Penstock adds the tool around it: checks, deploy, links to your code, and a project model.</p>
+
+<h2 id="open-a-diagram"><a href="#open-a-diagram">Open a diagram</a></h2>
+
+<p>Open a file with the extension <code>.bpmn</code>, <code>.bpmn.xml</code> or <code>.bpmn20.xml</code>. The diagram opens straight away. There is no setup screen. Change something: drag a box, rename a task, add an element. The change is already in the file.</p>
+
+<div class="hosts">
+<p class="hosts-title">Open it in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Double-click the file in the Project view or in the <a href="../jetbrains/tool-window.html">Penstock tool window</a>. Two tabs at the foot of the editor, <span class="ui">BPMN Editor</span> and <span class="ui">Text</span>, switch between the picture and the raw XML. See <a href="../jetbrains/editor.html">The editor in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram, penstock edit to change it and penstock export to draw it.</p>
+</section>
+</div>
+</div>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<figure class="shot">
+  <img src="../img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette beside the canvas, the Properties tab of the sidebar on the right and the editor tabs below">
+  <figcaption>A diagram open in the editor: the palette beside the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
+</figure>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Part</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td>Toolbar</td><td>Actions along the top. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
+  <tr><td>Palette</td><td>The floating island beside the canvas. Drag elements from it. See <a href="elements.html">BPMN elements</a>.</td></tr>
+  <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool.</td></tr>
+  <tr><td>Properties panel</td><td>The settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Check card</td><td>A small card at the bottom right that lists problems. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="saving"><a href="#saving">Saving</a></h2>
+
+<p>There is no save button. Every change is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. Other views of the same file, and version control, see the change immediately.</p>
+
+<h3 id="when-the-file-changes-outside-the-editor"><a href="#when-the-file-changes-outside-the-editor">When the file changes outside the editor</a></h3>
+
+<p>Penstock watches the file. If something else changes it, for example a <code>git checkout</code>, a formatter or a text view of the same file, the editor asks what to do:</p>
+
+<ul>
+  <li><strong>Reload</strong> takes the new content. Unsaved edits on the canvas are dropped.</li>
+  <li><strong>Keep Editing</strong> keeps your version. Your next change then overwrites the outside change.</li>
+</ul>
+
+<p>Renaming or moving the file needs no answer.</p>
+
+<h2 id="themes"><a href="#themes">Themes</a></h2>
+
+<p>The diagram always takes the theme of your tool: light or dark. There is no separate theme dialog. If you change the theme, the diagram redraws. If you want a hand-drawn look, use <span class="ui">Sketchy drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
+
+<p>The bpmn.io logo in the bottom corner has to stay visible. The licence of the drawing library requires it. Penstock recolours it so it stays readable, and never hides it.</p>
+
+<h2 id="which-engine-is-this-diagram-for"><a href="#which-engine-is-this-diagram-for">Which engine is this diagram for?</a></h2>
+
+<p>Penstock finds out for you. It reads <code>engine</code> in the nearest <code>penstock.yaml</code>. If there is none, it reads the diagram: the execution platform the Camunda Modeler wrote into it, or the <code>zeebe:</code> and <code>camunda:</code> attributes it already has. Only an empty new diagram asks, once, in a line above the canvas. See <a href="engine-profiles.html">Engines</a>.</p>
+
+<h2 id="hover-for-a-summary"><a href="#hover-for-a-summary">Hover for a summary</a></h2>
+
+<p>Rest the pointer on an element for half a second. A card shows its id, type, name and connections. It also shows what runs it (a class, a delegate or a job type), or on a user task the assignee and candidates. With Pro it adds the tests that name the element and the variables it sets and reads. See <a href="code-links.html">Code links</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The editor is blank.</dt>
+  <dd>The view that draws it could not start. See the troubleshooting page of your tool: <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dt>I only see XML, there is no picture.</dt>
+  <dd>Switch to the editor view of the file. See "Open it in your tool" above.</dd>
+  <dt>A reload dialog appears and I do not know why.</dt>
+  <dd>Something changed the file on disk: a Git operation, a formatter or another tool. Choose <strong>Reload</strong> to see it.</dd>
+  <dt>My change disappeared.</dt>
+  <dd>You chose <strong>Reload</strong> after an outside change while you had edits on the canvas. Use the history of your tool or of Git to get the earlier file back.</dd>
+  <dt>A file called <code>.form</code> opens in the wrong editor.</dt>
+  <dd>Penstock opens a <code>.form</code> file only if it is a Camunda Form. See <a href="form-editor.html">The form editor</a>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
+<li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+<li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
+<li><a href="../guide/project-model.html">Your project as a model</a> - Processes, workers, variables, messages, decisions and forms, and how they connect.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/glossary.html"><span>Previous</span>Words used in this guide</a>
+<a class="next" href="../guide/toolbar.html"><span>Next</span>Toolbar and More menu</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

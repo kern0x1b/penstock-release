@@ -1,0 +1,51 @@
+<!--
+title: Check Workers
+lede: Check Workers asks your engine whether anything picks up the tasks your diagrams hand out, before your users find out.
+tags: pro
+needs: Team in a pipeline
+related: code-links, monitor, project-model
+-->
+<h2>What is a worker</h2>
+
+<p>A service task does not do the work itself. A <strong>worker</strong>, a program of yours, does. On Camunda 8 the task names a <em>job type</em>. On Camunda 7 it names a <em>topic</em>. If no worker is running for that name, the task waits forever. Check Workers finds that out.</p>
+
+<h2>Steps</h2>
+
+<p>Run Check Workers on the workers of your project. Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both. Each worker then says what the engine said, and the workers node shows when the check ran, for example <em>checked at 14:02</em>.</p>
+
+{{host:workers-run|Run Check Workers in your tool}}
+
+<h2>What it says</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Engine</th><th>Answer</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td>Camunda 8.9 and later</td><td><em>3 workers took its jobs in the last 24 hours</em></td><td>All is well.</td></tr>
+  <tr><td>Camunda 8.9 and later</td><td><em>5 jobs in the last 24 hours and no worker took one</em></td><td>Nobody picks up this job type. The worker is marked with a warning.</td></tr>
+  <tr><td>Camunda 8.9 and later</td><td><em>no jobs in the last 24 hours</em></td><td>Nothing to judge.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><em>a worker is working on its tasks</em></td><td>All is well.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><em>tasks wait and no worker has locked one</em></td><td>Nobody subscribes to this topic. The worker is marked with a warning.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><em>no open tasks</em></td><td>Nothing to judge.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>When the engine is asked</h2>
+
+<p>Only when you run it, with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
+
+<h2>Free and paid parts</h2>
+
+<p>Check Workers is part of Pro's code links. The <a href="code-links.html">code check</a>, which compares diagrams with your code and does not ask an engine, is described on its own page.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"The engine does not report job statistics, which it does from Camunda 8.9".</dt>
+  <dd>Your Camunda 8 is older than 8.9. Use the code check instead. It compares diagrams with your code.</dd>
+  <dt>"The engine refused the question (403)".</dt>
+  <dd>The profile's user may not read jobs. Use a user that may.</dd>
+  <dt>There is no Check Workers action.</dt>
+  <dd>The project has no worker tasks yet, or Pro is not active. Without Pro a Code line offers to buy or sign in.</dd>
+  <dt>It says "no jobs" for a worker that runs.</dt>
+  <dd>Only the last 24 hours count on Camunda 8, and only open tasks on Camunda 7. A quiet worker looks quiet.</dd>
+</dl>

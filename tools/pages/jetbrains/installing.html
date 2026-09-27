@@ -1,0 +1,75 @@
+<!--
+title: Installing
+lede: How to put Penstock into your JetBrains IDE, and how to check that it works.
+tags: free
+needs: Any JetBrains IDE from 2025.2
+related: editor, where-things-are, guide/getting-started, guide/sign-in, cli/index
+-->
+<h2>What you need</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tr><td>An IDE</td><td>Any JetBrains IDE from version 2025.2. IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the others all work.</td></tr>
+  <tr><td>JCEF</td><td>The web view the editor is drawn in. The normal IDE downloads have it. If you use a custom runtime without it, see <a href="troubleshooting.html">Troubleshooting</a>.</td></tr>
+  <tr><td>The Marketplace name</td><td>Penstock, plugin id 25710. Until 2026 it was called Camunda BPMN Editor. It is the same plugin, so an old install updates in place.</td></tr>
+  <tr><td>The price</td><td>Free. Every new machine also gets 30 days of Pro. See <a href="@guide/plans.html">Plans and licence</a>.</td></tr>
+</table></div>
+
+<h2>Install the plugin</h2>
+
+<ol class="steps">
+  <li>Open <span class="ui">Settings | Plugins</span>. On macOS that is <span class="ui">Settings</span> in the IDE menu, or press <kbd>Cmd</kbd>+<kbd>,</kbd>.</li>
+  <li>Open the <span class="ui">Marketplace</span> tab and search for <strong>Penstock</strong>.</li>
+  <li>Press <span class="ui">Install</span>.</li>
+  <li>Press <span class="ui">Restart IDE</span> when the IDE asks.</li>
+  <li>Open any <code>.bpmn</code> file. It opens in the diagram editor.</li>
+</ol>
+
+<p>You can also install it from <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">the Marketplace page</a> in a browser. Press <span class="ui">Install to IDE</span> there.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The file opens as a picture of the process, with a toolbar on top and a properties panel on the right.</li>
+  <li>Two tabs sit at the bottom of the editor: <span class="ui">BPMN Editor</span> and <span class="ui">Text</span>. The second one is the raw XML. Both edit the same file.</li>
+  <li>A new tool window called <span class="ui">Penstock</span> appears on the left. It lists every diagram, decision and form in the project.</li>
+  <li>The first time you open the editor, a short tour of six steps points out the palette, the properties panel, Check, the tool window, Deploy and the More menu. It is shown once. To see it again, open <span class="ui">More</span> and choose <span class="ui">Show the tour again</span>.</li>
+</ul>
+
+<h2>Two builds, one plugin</h2>
+
+<p>Every release ships two builds from the same source. One is for IDEs 2025.2 to 2026.1. The other is for 2026.2 and later. The Marketplace serves the right one for your IDE. You do nothing.</p>
+
+<p>Versions are numbered by the calendar: <code>26.9.0</code> means year 26, month 9, release 0. The build for the older IDEs has <code>-252</code> after the number and the other has <code>-262</code>. The command line has the bare number.</p>
+
+<h2>Update</h2>
+
+<p>The IDE updates the plugin like any other. After an update, Penstock shows one notification that names the new version. It has a <span class="ui">What's new</span> button that opens the changelog in an editor tab. Nothing is shown after a fresh install.</p>
+
+<p>The full history is in <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">CHANGELOG.md</a>.</p>
+
+<h2>Uninstall</h2>
+
+<ol class="steps">
+  <li>Open <span class="ui">Settings | Plugins</span> and the <span class="ui">Installed</span> tab.</li>
+  <li>Choose <strong>Penstock</strong> and press <span class="ui">Uninstall</span>.</li>
+  <li>Restart the IDE.</li>
+</ol>
+
+<p>Your diagrams are ordinary files, so they stay exactly as they are. Penstock keeps a few small files of its own on your machine. To remove them all, delete the folder <code>~/.penstock</code>. <a href="@guide/files.html">Files Penstock reads and writes</a> lists each one.</p>
+
+<h2>The command line is separate</h2>
+
+<p>The plugin does not install the <code>penstock</code> command. The command line needs Node.js 20.19 or later. It is installed per project, through a small script that pins the version. See <a href="@cli/">Command line</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The editor is blank or shows only the XML.</dt>
+  <dd>Check that the IDE is 2025.2 or newer and that it has JCEF. Then read <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dt>I cannot find Penstock in the Marketplace.</dt>
+  <dd>Search for "Penstock". If you still have "Camunda BPMN Editor" installed, it is the same plugin. Update it and it becomes Penstock.</dd>
+  <dt>The IDE says the plugin is not compatible.</dt>
+  <dd>Your IDE is older than 2025.2. Update the IDE first.</dd>
+  <dt>A <code>.bpmn</code> file opens as plain XML only.</dt>
+  <dd>Use the tabs at the bottom of the editor to switch to <span class="ui">BPMN Editor</span>. If there is no such tab, the plugin is disabled. Turn it on in <span class="ui">Settings | Plugins</span>.</dd>
+</dl>

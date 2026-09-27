@@ -1,0 +1,62 @@
+<!--
+title: The editor in the IDE
+lede: How the BPMN, DMN and form editors sit inside a JetBrains IDE: which files open, the two tabs, saving and files changed outside.
+tags: free
+related: guide/bpmn-editor, tool-window, shortcuts, troubleshooting
+-->
+<p>This page is only about the IDE. What the editor does is described once, for every tool, in <a href="@guide/bpmn-editor.html">The BPMN editor</a>, <a href="@guide/dmn-editor.html">The DMN editor</a> and <a href="@guide/form-editor.html">The form editor</a>.</p>
+
+<h2>Which files open in the editor</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>File type in the IDE</th><th>Extensions</th><th>Opens in</th></tr></thead>
+  <tbody>
+  <tr><td>BPMN</td><td><code>bpmn</code>, <code>bpmn.xml</code>, <code>bpmn20.xml</code></td><td>The BPMN editor</td></tr>
+  <tr><td>DMN</td><td><code>dmn</code></td><td>The DMN editor</td></tr>
+  <tr><td>Camunda Form</td><td><code>form</code>, when the file is a Camunda Form (a JSON object with <code>components</code>)</td><td>The form editor</td></tr>
+  </tbody>
+</table></div>
+
+<p>A <code>.form</code> file from the IntelliJ GUI Designer is left to the GUI Designer. Penstock takes only Camunda Forms.</p>
+
+<h2>The two tabs</h2>
+
+<p>The editor is registered ahead of the IDE's own editor, not in place of it. So a file has two tabs at the foot of the editor window:</p>
+
+<ul>
+  <li><span class="ui">BPMN Editor</span> (or <span class="ui">DMN Editor</span>, <span class="ui">Form Editor</span>) shows the picture.</li>
+  <li><span class="ui">Text</span> shows the raw XML or JSON in the IDE's own text editor.</li>
+</ul>
+
+<p>Both edit the same file. A change on the canvas shows in the <span class="ui">Text</span> tab at once.</p>
+
+<h2>Saving</h2>
+
+<p>The editor writes the file on every change. The content goes to a temporary file that replaces the real one, and the IDE refreshes the file, so the <span class="ui">Text</span> tab and version control see it immediately.</p>
+
+<h2>When the file changes outside the editor</h2>
+
+<p>The IDE tells Penstock when a file changes on disk. A dialog called <em>File Changed on Disk</em> asks <span class="ui">Reload</span> or <span class="ui">Keep Editing</span>. Renaming or moving the open file is followed without asking. The editor's own saves are never mistaken for outside changes.</p>
+
+<h2>Themes</h2>
+
+<p>The diagram takes the IDE's theme: light, dark or Dracula. A change of IDE theme redraws the diagram. Sketchy drawing is a personal choice in the <span class="ui">More</span> menu.</p>
+
+<h2>Clipboard</h2>
+
+<p>Copy and paste use the IDE's clipboard, so you can copy a pool from one diagram and paste it into a diagram open in another tab. <span class="ui">Copy as image</span> puts a PNG on the IDE clipboard, ready to paste into Confluence, Slack or an e-mail.</p>
+
+<h2>The context menu</h2>
+
+<p>Right-click an element for the editing actions, and, when they apply, <span class="ui">Go to</span> the Java class a task names, and the Pro actions that link to your code. See <a href="code-links.html">Code links in the IDE</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A <code>.bpmn</code> file opens as plain XML only.</dt>
+  <dd>Click the <span class="ui">BPMN Editor</span> tab at the bottom of the editor. If there is no such tab, the plugin is disabled. Turn it on in <span class="ui">Settings | Plugins</span>. If the file still opens as text, the pattern may have been given to another file type in <span class="ui">Settings | Editor | File Types</span>. Move it back to BPMN.</dd>
+  <dt>A <code>.form</code> file opens in the GUI Designer.</dt>
+  <dd>It is a GUI Designer form, not a Camunda Form.</dd>
+  <dt>The editor is blank.</dt>
+  <dd>See <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+</dl>

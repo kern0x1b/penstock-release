@@ -1,0 +1,16 @@
+<pre><code>$ penstock migrate .
+ready       src/main/resources/approve-order.form  1 convert
+needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
+        error   migration/message-catch: Shipment confirmed: The message shipment-confirmed needs a correlation key. ...
+        error   migration/delegate-expression: Send receipt: Delegate ${sendReceipt} becomes the job type sendReceipt. ...
+ready       src/main/resources/shipping-method.dmn  1 convert
+
+3 files to migrate for Camunda 8.8: 2 ready, 0 convert, 1 need work, 0 blocked.
+Job workers to write: 2</code></pre>
+<ul>
+  <li><code>migrate</code>, <code>migrate analyze</code>: list what does not carry over. Exit code 1 if there is an error, or a warning with <code>--fail-on warning</code>. Free.</li>
+  <li><code>migrate convert</code>: convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first. Pro, and Team in a pipeline.</li>
+  <li><code>migrate report</code>: write the report. Free.</li>
+  <li><code>--target 8.5</code> to <code>8.9</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>, <code>--verbose</code>.</li>
+</ul>
+<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>. Set <code>engine: camunda-8</code> when you move. See <a href="@cli/commands.html#migrate">Every command</a>.</p>

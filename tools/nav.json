@@ -1,0 +1,405 @@
+{
+  "redirects": [
+    {
+      "from": "guide/cli.html",
+      "to": "cli/"
+    }
+  ],
+  "sections": [
+    {
+      "id": "guide",
+      "title": "Guide",
+      "kind": "core",
+      "enabled": true,
+      "summary": "Every feature, written once. It works the same in every tool.",
+      "groups": [
+        {
+          "title": "Start here",
+          "pages": [
+            {
+              "slug": "index",
+              "title": "Contents",
+              "about": "Every page of this guide, by what you want to do."
+            },
+            {
+              "slug": "getting-started",
+              "title": "Getting started",
+              "about": "Get Penstock, open a diagram, deploy it."
+            },
+            {
+              "slug": "example-project",
+              "title": "The example project",
+              "about": "A small order process that runs from the first minute."
+            },
+            {
+              "slug": "glossary",
+              "title": "Words used in this guide",
+              "about": "Every technical word, explained once."
+            }
+          ]
+        },
+        {
+          "title": "Editors",
+          "pages": [
+            {
+              "slug": "bpmn-editor",
+              "title": "The BPMN editor",
+              "about": "The window, the tabs and how saving works."
+            },
+            {
+              "slug": "toolbar",
+              "title": "Toolbar and More menu",
+              "about": "Every action, and how to pin it to the toolbar."
+            },
+            {
+              "slug": "sidebar",
+              "title": "The sidebar",
+              "about": "The column beside the canvas: properties, scenarios, problems, Monitor and code."
+            },
+            {
+              "slug": "properties-panel",
+              "title": "Properties panel",
+              "about": "Edit the selected element, group by group."
+            },
+            {
+              "slug": "elements",
+              "title": "BPMN elements",
+              "about": "Every element you can draw, and what it is for."
+            },
+            {
+              "slug": "editing",
+              "title": "Editing a diagram",
+              "about": "The canvas, the palette, copy and paste, undo, the minimap."
+            },
+            {
+              "slug": "scripts",
+              "title": "Scripts in their own tab",
+              "about": "Edit an inline script as a real file in your code editor."
+            },
+            {
+              "slug": "element-templates",
+              "title": "Element templates",
+              "about": "Ready-made tasks and connectors."
+            },
+            {
+              "slug": "token-simulation",
+              "title": "Token simulation",
+              "about": "Watch a token walk through the process."
+            },
+            {
+              "slug": "export",
+              "title": "Export",
+              "about": "Save the diagram as SVG, PNG or PDF."
+            },
+            {
+              "slug": "diagram-diff",
+              "title": "Diagram diff",
+              "about": "Compare two versions of a diagram, side by side."
+            },
+            {
+              "slug": "dmn-editor",
+              "title": "The DMN editor",
+              "about": "Decision tables and decision requirement diagrams."
+            },
+            {
+              "slug": "form-editor",
+              "title": "The form editor",
+              "about": "Camunda Forms, drawn and edited."
+            }
+          ]
+        },
+        {
+          "title": "Project setup",
+          "pages": [
+            {
+              "slug": "engine-profiles",
+              "title": "Engines",
+              "about": "Camunda 7, Camunda 8, Operaton and CIB seven."
+            },
+            {
+              "slug": "settings",
+              "title": "penstock.yaml",
+              "about": "The one file that describes your project, and every key in it."
+            },
+            {
+              "slug": "profiles",
+              "title": "Profiles",
+              "about": "Named settings for dev, test and prod."
+            },
+            {
+              "slug": "project-model",
+              "title": "Your project as a model",
+              "about": "Processes, workers, variables, messages, decisions and forms, and how they connect."
+            },
+            {
+              "slug": "files",
+              "title": "Files Penstock reads and writes",
+              "about": "Every file, and where it lives."
+            }
+          ]
+        },
+        {
+          "title": "Checking",
+          "pages": [
+            {
+              "slug": "diagram-check",
+              "title": "Diagram check",
+              "about": "The card that lists what is wrong."
+            },
+            {
+              "slug": "rules/index",
+              "title": "Every rule",
+              "about": "One page for each check: why it matters and how to fix it.",
+              "href": "rules/"
+            },
+            {
+              "slug": "validation",
+              "title": "Validation with bpmnlint",
+              "about": "The modelling rules, and how to change them."
+            },
+            {
+              "slug": "flow-analysis",
+              "title": "Flow analysis",
+              "about": "Deadlocks, dead steps and loops, found before you run anything."
+            },
+            {
+              "slug": "auto-layout",
+              "title": "Auto layout",
+              "about": "Tidy a diagram in one click."
+            }
+          ]
+        },
+        {
+          "title": "Running",
+          "pages": [
+            {
+              "slug": "deployment",
+              "title": "Deployment",
+              "about": "Send diagrams to your engine."
+            },
+            {
+              "slug": "monitor",
+              "title": "Monitor",
+              "about": "See what waits at each step, and where the incidents are, right now."
+            },
+            {
+              "slug": "scenarios",
+              "title": "Scenarios",
+              "about": "Run the diagram's scenarios on a local engine and see every step."
+            },
+            {
+              "slug": "process-tests",
+              "title": "Process tests and coverage",
+              "about": "A JUnit test for every way through a process."
+            },
+            {
+              "slug": "check-workers",
+              "title": "Check Workers",
+              "about": "Ask the engine whether anything picks up your tasks."
+            },
+            {
+              "slug": "code-links",
+              "title": "Code links",
+              "about": "Jump between a task and the code that runs it, and find where they disagree."
+            }
+          ]
+        },
+        {
+          "title": "Moving and sharing",
+          "pages": [
+            {
+              "slug": "migration",
+              "title": "Camunda 7 to 8",
+              "about": "See what does not carry over, convert, and write a report."
+            },
+            {
+              "slug": "share-html",
+              "title": "Share as HTML",
+              "about": "One offline file anyone can open."
+            },
+            {
+              "slug": "import",
+              "title": "Import a diagram",
+              "about": "Bring in draw.io, Visio, Signavio and Bizagi files."
+            }
+          ]
+        },
+        {
+          "title": "Licence and privacy",
+          "pages": [
+            {
+              "slug": "plans",
+              "title": "Plans and licence",
+              "about": "What is free, what is Pro, what is Team."
+            },
+            {
+              "slug": "sign-in",
+              "title": "Buying and signing in",
+              "about": "Trial, checkout, sign in, education, pipelines."
+            },
+            {
+              "slug": "security",
+              "title": "Security and privacy",
+              "about": "What leaves your machine, and when."
+            }
+          ]
+        },
+        {
+          "title": "Help",
+          "pages": [
+            {
+              "slug": "troubleshooting",
+              "title": "Troubleshooting",
+              "about": "Fixes for the problems people meet most."
+            },
+            {
+              "slug": "faq",
+              "title": "Questions and answers",
+              "about": "Short answers to common questions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jetbrains",
+      "title": "JetBrains",
+      "kind": "host",
+      "enabled": true,
+      "summary": "Install from the Marketplace and find your way around the IDE.",
+      "groups": [
+        {
+          "title": "Start here",
+          "pages": [
+            {
+              "slug": "index",
+              "title": "JetBrains IDEs",
+              "about": "What Penstock is inside a JetBrains IDE."
+            },
+            {
+              "slug": "installing",
+              "title": "Installing",
+              "about": "Put Penstock into your IDE and check that it works."
+            },
+            {
+              "slug": "where-things-are",
+              "title": "Where things are in the IDE",
+              "about": "Every place Penstock shows up: toolbar, tool window, menus, gutter."
+            }
+          ]
+        },
+        {
+          "title": "Using it",
+          "pages": [
+            {
+              "slug": "editor",
+              "title": "The editor in the IDE",
+              "about": "File types, the two tabs, saving, themes, and files changed outside."
+            },
+            {
+              "slug": "tool-window",
+              "title": "The Penstock tool window",
+              "about": "Your project as a tree, and the Run Penstock menu."
+            },
+            {
+              "slug": "code-links",
+              "title": "Code links in the IDE",
+              "about": "Click through, completion, gutter icons, Code Vision, Find Usages, the debugger."
+            },
+            {
+              "slug": "test-runner",
+              "title": "Tests in the IDE",
+              "about": "Test-case files in the test runner, gutter icons, process tests, coverage."
+            },
+            {
+              "slug": "shortcuts",
+              "title": "Shortcuts",
+              "about": "Keys that work in the editor and in the code."
+            }
+          ]
+        },
+        {
+          "title": "Licence and help",
+          "pages": [
+            {
+              "slug": "licence",
+              "title": "Licence in the IDE",
+              "about": "The status bar, the Tools menu and the licence dialog."
+            },
+            {
+              "slug": "troubleshooting",
+              "title": "Troubleshooting",
+              "about": "A blank editor, files that open as text, the tool window."
+            }
+          ]
+        }
+      ],
+      "where": "in a JetBrains IDE"
+    },
+    {
+      "id": "cli",
+      "title": "Command line",
+      "kind": "host",
+      "enabled": true,
+      "summary": "The penstock command: every command, pipelines and the MCP server.",
+      "groups": [
+        {
+          "title": "Start here",
+          "pages": [
+            {
+              "slug": "index",
+              "title": "Command line",
+              "about": "Install, run, and use it in a script."
+            }
+          ]
+        },
+        {
+          "title": "Reference",
+          "pages": [
+            {
+              "slug": "commands",
+              "title": "Every command",
+              "about": "Each command with every option and an example."
+            }
+          ]
+        },
+        {
+          "title": "Automation",
+          "pages": [
+            {
+              "slug": "ci",
+              "title": "Pipelines, reports and the bot",
+              "about": "Checks on every push, and a review comment on pull requests."
+            },
+            {
+              "slug": "mcp",
+              "title": "The MCP server",
+              "about": "Let an AI assistant read, check and edit your diagrams."
+            }
+          ]
+        }
+      ],
+      "where": "on the command line"
+    },
+    {
+      "id": "vscode",
+      "title": "VS Code",
+      "kind": "host",
+      "enabled": false,
+      "announce": true,
+      "summary": "An extension for VS Code is planned.",
+      "groups": [],
+      "where": "in VS Code"
+    },
+    {
+      "id": "desktop",
+      "title": "Desktop",
+      "kind": "host",
+      "enabled": false,
+      "announce": true,
+      "summary": "A desktop app is planned.",
+      "groups": [],
+      "where": "in the desktop app"
+    }
+  ]
+}

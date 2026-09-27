@@ -3,226 +3,268 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Plans and licence - Penstock</title>
-<meta name="description" content="What Penstock Free covers, what Pro and Team add, the one rule that decides which a feature needs, buying and signing in, and how the licence is checked offline.">
+<meta name="description" content="Penstock is free, and what only Penstock does is Pro or Team. One rule decides which one a feature needs.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/plans.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html">Check and problems</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html" aria-current="page">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html" aria-current="page">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Licence and privacy</p>
+<h1>Plans and licence</h1>
+<p class="lede">Penstock is free, and what only Penstock does is Pro or Team. One rule decides which one a feature needs.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#choose-a-plan">Choose a plan</a></li>
+<li><a href="#the-one-rule">The one rule</a></li>
+<li><a href="#what-each-plan-gives">What each plan gives</a></li>
+<li><a href="#what-you-see-when-you-reach-a-paid-feature">What you see when you reach a paid feature</a></li>
+<li><a href="#paying">Paying</a></li>
+<li><a href="#how-the-licence-is-checked">How the licence is checked</a></li>
+<li><a href="#free-pro-for-students-teachers-and-open-source-maintainers">Free Pro for students, teachers and open-source maintainers</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="choose-a-plan"><a href="#choose-a-plan">Choose a plan</a></h2>
 
-  <div class="docbody">
-    <h1>Plans and licence</h1>
+<div class="plans">
+  <div class="plan" id="buy-free">
+      <p class="name"><span class="tag free">Free</span></p>
+      <p class="price">No charge</p>
+      <p class="about">The editors, checks, deploy, Monitor, export, share and import. Every new machine also starts with 30 days of Pro.</p>
+      <a class="btn quiet" href="getting-started.html">Get Penstock</a>
+    </div>
+  <div class="plan" id="buy-pro">
+      <p class="name"><span class="tag pro">Pro</span></p>
+      <p class="price">EUR 3.00 <span>per month</span></p>
+      <p class="price alt">EUR 30.00 <span>per year</span></p>
+      <p class="about">For your own machine. Adds what only Penstock does: auto layout, flow analysis, code links, test-case runs, the visual diagram diff and more.</p>
+      <a class="btn" href="https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_enzGoxymRLFxHfHrpf6GHQHx7muDPJDdUEoUq0Vtn3d/redirect" rel="noopener">Buy Pro</a>
+    </div>
+  <div class="plan" id="buy-team">
+      <p class="name"><span class="tag team">Team</span></p>
+      <p class="price">EUR 12.00 <span>per month</span></p>
+      <p class="price alt">EUR 120.00 <span>per year</span></p>
+      <p class="about">Everything in Pro, inside a pipeline as well: the review bot, pull request reports, baselines and SARIF.</p>
+      <a class="btn" href="https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_pmR7pqf7293ZBbpBvKDQo7F6NgNcvBrfOuxRb2XigJQ/redirect" rel="noopener">Buy Team</a>
+    </div>
+</div>
 
-    <p class="lede">Penstock is free on the JetBrains Marketplace, and everything a modeller
-    needs stays free. Pro and Team add the parts that save a team real time: laying a diagram out,
-    proving it runs, linking it to the code, and reviewing it in a pull request. Every machine
-    starts with thirty days of Pro.</p>
+<div class="callout warn">
+  <span class="label">Test mode</span>
+  <p>This checkout runs in Polar's sandbox. No real payment is taken and the licence it makes is a test licence.</p>
+</div>
 
-    <h2>One rule</h2>
+<p class="note">The price you pay is the one shown at checkout. You choose monthly or yearly at checkout. A Buy button opens the checkout on Polar's own page. See <a href="security.html#checkout">Security and privacy</a>.</p>
 
-    <p>A paid feature needs Pro on a developer's machine and Team inside a pipeline, which is any
-    run with <code>CI</code> set. There are no exceptions per feature or flag: the review bot,
-    SARIF and annotations, baselines and <code>report</code> run locally on Pro, and every paid
-    command in a pipeline needs Team. <code>penstock init --ci</code> writes a pipeline for the
-    licence the machine has, so nobody's first run fails on a feature nobody has bought.</p>
+<h2 id="the-one-rule"><a href="#the-one-rule">The one rule</a></h2>
 
-    <h2>What each plan includes</h2>
+<p>Everything that earlier releases had, and everything other tools give away, is <strong>free</strong>. What only Penstock does is <strong>Pro</strong> or <strong>Team</strong>.</p>
 
-    <table class="facts">
-      <tr><td>Free</td><td>The diagram, decision and form editors with the Classic BPMN, Camunda
-        7, Camunda 8, Operaton and CIB seven profiles; the properties panels; the command palette
-        and every action in it; the sidebar, the check card and the Problems tab; element
-        templates and the connector browser; scripts in an IDE tab; going from a Camunda 7 delegate
-        to its class or bean; token simulation; transaction boundaries; the drawing check and
-        bpmnlint with the engine compatibility rules; the Camunda 7 to Camunda 8 analysis and its
-        report; deployment; Monitor; sharing a diagram as one HTML file; importing draw.io, Visio,
-        Signavio and Bizagi; export; and the hand-drawn look. In the terminal:
-        <code>check</code> with its drawing and rules sections, <code>migrate analyze</code>,
-        <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>share</code>,
-        <code>import</code>, <code>show</code>, <code>deploy</code>, <code>doctor</code>,
-        <code>mcp</code> for reading and checking.</td></tr>
-      <tr><td>Pro</td><td>Auto layout; flow analysis, which finds deadlocks, branches that run
-        twice, steps that can never run and loops with no way out, and shows the path that leads
-        there; the link between diagrams and code, which is the way from a step to its worker and
-        back, usages, Code Vision, variables and error codes across both, tests run from the
-        diagram, coverage on it, linked repositories and Check Workers; scenarios, every distinct
-        way through a process with the conditions it takes, and a test-case run against a local
-        engine with mocks; a JUnit test for each way; documentation for every process, decision and
-        form; converting a Camunda 7 diagram to Camunda 8, with the visual diagram diff before
-        anything is written; modelling conventions from <span class="mono">penstock.yaml</span>;
-        pictures of what changed; editing from the command line; and, on your machine, the pull
-        request report, check baselines and findings as SARIF or GitHub annotations.</td></tr>
-      <tr><td>Team</td><td>Everything in Pro, in a pipeline as well: the review bot in pull and
-        merge requests, the pull request report, check baselines, findings as SARIF or GitHub
-        annotations, converting a Camunda 7 project, and every other paid command inside CI.</td></tr>
-    </table>
+<p>A paid feature needs <strong>Pro on your own machine</strong> and <strong>Team inside a pipeline</strong>. A pipeline is any run where the environment variable <code>CI</code> is set. There are no exceptions for a single feature or a single flag.</p>
 
-    <p>A paid feature you have not bought says what it does and offers to buy it or to sign in,
-    at the moment you reach for it. Nothing else in the editor changes, and the diagram opens as
-    usual.</p>
+<p>Every machine starts with <strong>30 days of Pro</strong>. A pipeline gets no trial.</p>
 
-    <h2>Buying</h2>
+<h2 id="what-each-plan-gives"><a href="#what-each-plan-gives">What each plan gives</a></h2>
 
-    <p>Pro and Team are monthly or yearly. The price is shown at the checkout, which is where the
-    plan is chosen, so nothing here goes out of date.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Plan</th><th>What it includes</th></tr></thead>
+  <tbody>
+  <tr>
+    <td><span class="tag free">Free</span></td>
+    <td>
+      <p>In the editors: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in a code editor of your tool, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Monitor, export, the hand-drawn look, opening a run that already exists, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
+      <p>The Camunda 7 to Camunda 8 analysis and its report are free too.</p>
+      <p>The command palette and every action in it, the sidebar, the check card and the Problems tab, transaction boundaries, the first-run tour, and the findings in your tool's own Problems window.</p>
+      <p>On the command line: <code>init</code>, <code>doctor</code>, <code>check</code> (the drawing, rules and form sections), <code>migrate analyze</code> and <code>migrate report</code>, <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>show</code>, <code>deploy</code>, <code>share</code>, <code>import</code>, <code>connectors</code>, <code>license</code>, <code>update</code>, and <code>edit --schema</code>.</p>
+      <p>The MCP tools <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code>, which only read and explain.</p>
+    </td>
+  </tr>
+  <tr>
+    <td><span class="tag pro">Pro</span><br>on your machine</td>
+    <td>
+      <ul>
+        <li><a href="auto-layout.html">Auto layout</a>.</li>
+        <li><a href="flow-analysis.html">Flow analysis</a>, and the decision table check. The form check is lint, so it is free.</li>
+        <li>The visual <a href="diagram-diff.html">diagram diff</a>, and pictures of what changed.</li>
+        <li>Modelling conventions from <code>penstock.yaml</code>.</li>
+        <li><a href="migration.html">Converting Camunda 7 to Camunda 8</a>: the preview, <code>penstock migrate convert</code> and the job worker skeletons.</li>
+        <li><a href="scenarios.html">Scenarios</a>: test cases on a local engine, step by step.</li>
+        <li>The link between diagrams and code: <a href="code-links.html">code links</a>. From a step to its worker and back, usages, hints above the code, variables and error codes across both, tests run from the diagram, <a href="process-tests.html">coverage</a> on it, the debugger's position on the diagram, linked repositories, and <a href="check-workers.html">Check Workers</a>.</li>
+        <li>In the command line: <code>layout</code>, <code>check --only flow</code>, <code>scenarios list</code>, <code>junit</code>, <code>scenarios run</code>, <code>scenarios generate</code>, <code>code</code>, <code>docs</code>, <code>diff --images</code>, <code>edit</code>, <code>report</code>, check baselines, and findings as SARIF or GitHub annotations.</li>
+        <li>The review bot, when you run it on your machine.</li>
+        <li>The MCP tools <code>analyze_flow</code>, <code>list_scenarios</code>, <code>check_code_links</code> and <code>edit_diagram</code>. Each needs the same plan as its command line twin.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><span class="tag team">Team</span><br>in a pipeline</td>
+    <td>
+      <p>Everything in Pro, inside a pipeline. That includes the review bot in pull and merge requests, the pull request report, check baselines, and findings as SARIF or GitHub annotations in the code review. Every paid command in a pipeline needs Team.</p>
+    </td>
+  </tr>
+  </tbody>
+</table></div></div>
 
-    <p>In the IDE, click <strong>Penstock</strong> in the status bar or choose
-    <strong>Tools | Penstock Licence…</strong>. Signing in is one field, <em>E-mail or licence
-    key</em>, with <strong>Buy Pro</strong> beside it and a link to buy Team. In a terminal, run
-    <span class="mono">penstock license buy</span> or
-    <span class="mono">penstock license buy team</span>. The checkout opens in your browser; yearly
-    billing is selected, and monthly is one click away. Once the payment goes through, Penstock
-    notices by itself and sends a sign-in code to the address that paid; type it in and the
-    licence is active. There is no key to copy.</p>
+<p>Not sure what a page needs? The tag under its title says. <span class="tag free">Free</span> means free. <span class="tag pro">Pro</span> means a paid feature.</p>
 
-    <p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of
-    record, which also takes care of VAT and invoices. Cancel at any time from the link in the
-    receipt. The full terms are in the <a href="../license/">licence</a>.</p>
+<h2 id="what-you-see-when-you-reach-a-paid-feature"><a href="#what-you-see-when-you-reach-a-paid-feature">What you see when you reach a paid feature</a></h2>
 
-    <h2>One licence for the IDE and the terminal</h2>
+<p>Nothing else in the editor changes. When you reach for a paid feature you do not have, Penstock explains what it does and offers to buy it or to sign in, at that moment.</p>
 
-    <p>The licence lives in <span class="mono">~/.penstock</span>, and the editor and
-    <span class="mono">penstock</span> both read it: sign in once on a machine and both are
-    licensed. On another machine, type the address you bought it with into the sign-in field - it
-    gets a code - or run <span class="mono">penstock license login</span>. A key works in the
-    same field too.</p>
+<ul>
+  <li>In an editor, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and offers <span class="ui">Buy Pro</span>, <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so.</li>
+  <li>In a terminal, the command prints what the feature gives and the commands <code>penstock license buy</code> and <code>penstock license login</code>. In a pipeline it says the feature needs Team and to give the pipeline a key in <code>PENSTOCK_LICENSE</code>.</li>
+  <li>An MCP tool called without the licence says the same in its error result. It also shows in the tool list with a note on what it needs.</li>
+</ul>
 
-    <p>A licence covers a number of machines at once. Signing in again on the same machine, after
-    reinstalling the IDE for example, reuses its place rather than taking a new one. When every
-    place is taken, signing in lists the machines and frees the one you pick.
-    <strong>Release This Machine</strong> or
-    <span class="mono">penstock license logout</span> does the same by hand.</p>
+<h2 id="paying"><a href="#paying">Paying</a></h2>
 
-    <h2>How the licence is checked</h2>
+<p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of record. Polar also takes care of VAT and invoices. You can cancel at any time from the link in the receipt. After you pay, Penstock notices by itself and sends a sign-in code to the address that paid. There is no key to copy. See <a href="sign-in.html">Buying and signing in</a>.</p>
 
-    <p>The licence is a signed token, not a flag. A small service turns the answer from Polar into
-    a token signed with a key only it holds, and the plugin, the command line and the editor carry
-    the public half and check the signature themselves, offline. A file edited by hand, a
-    redirected address or a server pretending to be the licence service cannot make a machine
-    Pro.</p>
+<h2 id="how-the-licence-is-checked"><a href="#how-the-licence-is-checked">How the licence is checked</a></h2>
 
-    <p>The token belongs to one machine, lasts thirty days, and is renewed once a day when the
-    machine is online. Offline it keeps working until it runs out, and the editor says how many
-    days are left rather than stopping. A machine whose clock has been set back is refused, with
-    the reason given.</p>
+<p>The licence is a signed token, not a flag. A small licence service turns Polar's answer into a token signed with a key only it holds, and the plugin, the command line and the editor carry the public half and check the signature themselves, offline. A file edited by hand, a redirected address or a server pretending to be the licence service cannot make a machine Pro.</p>
 
-    <p>What is on the machine is the token and nothing else: no key, no tier, no date you could
-    edit. <span class="mono">penstock license</span> says which licence this machine has and where
-    it comes from, and during the trial it says the trial is on and until when, instead of saying
-    there is no licence.</p>
+<p>What is on the machine is the token and nothing else: no key, no tier, no date you could edit. <code>penstock license</code> says which licence this machine has and where it comes from, and during the trial it says the trial is on and until when, instead of saying there is no licence. See <a href="sign-in.html#how-the-licence-is-checked">Buying and signing in</a>.</p>
 
-    <h2>The thirty-day trial</h2>
+<h2 id="free-pro-for-students-teachers-and-open-source-maintainers"><a href="#free-pro-for-students-teachers-and-open-source-maintainers">Free Pro for students, teachers and open-source maintainers</a></h2>
 
-    <p>Every machine gets thirty days of Pro from its first use. The start date is kept by the
-    licence service rather than on the machine, so deleting files no longer starts a new one, and
-    a machine clock cannot move it.</p>
+<p>Students, teachers and open-source maintainers can get Pro for free. Penstock shows it in three places, and only when the application address is set: the licence dialog, the message that explains a paid feature, and the output of <code>penstock license</code>. While no address is set, nothing about it is shown anywhere. See <a href="sign-in.html#education">Buying and signing in</a>.</p>
 
-    <p>This release moves the licensing to Polar, so <strong>every machine starts a fresh
-    thirty-day Pro trial</strong> with it. An earlier trial does not carry over: the old trial
-    file is ignored and removed, and nothing about it is read again.</p>
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
-    <p>A pipeline gets no trial. A trial is for a person at a machine.</p>
-
-    <h2>In a pipeline</h2>
-
-    <p>A pipeline does not sign in. A <strong>Team</strong> key is stored as a secret named
-    <span class="mono">PENSTOCK_LICENSE</span>, and <strong>Copy Key for CI</strong> or
-    <span class="mono">penstock license key</span> finds it again by the same e-mail code, since
-    the machine no longer keeps it. The key is only honoured when <code>CI</code> is set, and it
-    is exchanged for a short-lived token rather than used as a flag. The pipelines
-    <span class="mono">penstock init --ci</span> writes already pass it through, when the machine
-    that ran it has Team; without Team it writes a pipeline that runs the free check, so its
-    first run does not fail on a feature nobody has bought.</p>
-
-    <h2>Commands</h2>
-
-    <table class="facts">
-      <tr><td>license buy [pro|team]</td><td>Open the checkout, wait for the payment and activate
-        the licence.</td></tr>
-      <tr><td>license login [email]</td><td>Sign in with the address you bought Penstock
-        with.</td></tr>
-      <tr><td>license logout</td><td>Release this machine so the licence can be used on
-        another.</td></tr>
-      <tr><td>license</td><td>Which licence this machine has and where it comes from.
-        <code>license key</code> prints the key for a pipeline;
-        <code>license activate &lt;key&gt;</code> activates a key typed in by hand.</td></tr>
-    </table>
-
-    <h2>For an AI agent</h2>
-
-    <p>The MCP server is priced tool by tool rather than as a whole.
-    <span class="mono">list_diagrams</span>, <span class="mono">show_diagram</span> and
-    <span class="mono">check_diagram</span> only read and explain a diagram, so they are free.
-    <span class="mono">analyze_flow</span> needs flow analysis,
-    <span class="mono">list_scenarios</span> needs <span class="mono">scenarios list</span>,
-    <span class="mono">check_code_links</span> needs <span class="mono">code</span>, and
-    <span class="mono">edit_diagram</span> needs <span class="mono">edit</span>: the same tier
-    those commands need on the command line. A tool called without the licence says in its result
-    what it gives and how to buy or sign in, and still appears in
-    <span class="mono">tools/list</span> with a note on what it needs. See
-    <a href="cli.html">Command line</a>.</p>
-
-  </div>
-
+<dl class="problems">
+  <dt>A feature that worked yesterday now asks me to buy Pro.</dt>
+  <dd>Your 30-day trial has ended, or your licence was released or ended. Run <code>penstock license</code> to see which licence this machine has.</dd>
+  <dt>It works on my laptop but the pipeline says it needs Team.</dt>
+  <dd>That is the rule: a pipeline needs Team for every paid feature. <code>penstock init --ci</code> writes a pipeline for the licence on the machine that ran it, so its first run does not fail on something nobody bought.</dd>
+  <dt>Which plan do I need for the review bot?</dt>
+  <dd>Team in a pipeline. Pro is enough to run it on your own machine.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+<li><a href="../guide/faq.html">Questions and answers</a> - Short answers to common questions.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/import.html"><span>Previous</span>Import a diagram</a>
+<a class="next" href="../guide/sign-in.html"><span>Next</span>Buying and signing in</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

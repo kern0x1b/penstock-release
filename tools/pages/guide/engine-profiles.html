@@ -1,0 +1,102 @@
+<!--
+title: Engines
+lede: An engine is the server that runs your process. Penstock builds a different editor for each one, and this page says what changes.
+tags: free
+related: settings, deployment, migration, glossary
+-->
+<h2>The engines Penstock knows</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Engine</th><th><code>engine:</code> value</th><th>Namespace in the XML</th><th>Address of the REST API</th></tr></thead>
+  <tbody>
+  <tr><td>Classic BPMN 2.0</td><td><code>classic</code></td><td>None. Plain BPMN only.</td><td>No deployment</td></tr>
+  <tr><td>Camunda 7</td><td><code>camunda-7</code></td><td><code>camunda</code>, bound to <code>http://camunda.org/schema/1.0/bpmn</code></td><td>Ends in <code>/engine-rest</code></td></tr>
+  <tr><td>Camunda 8</td><td><code>camunda-8</code></td><td><code>zeebe</code>, bound to <code>http://camunda.org/schema/zeebe/1.0</code></td><td>The REST API of the cluster, for example <code>http://localhost:8080/v2</code></td></tr>
+  <tr><td>Operaton</td><td><code>operaton</code></td><td><code>operaton</code>, bound to <code>http://operaton.org/schema/1.0/bpmn</code></td><td>Ends in <code>/engine-rest</code></td></tr>
+  <tr><td>CIB seven</td><td><code>cib-seven</code></td><td><code>camunda</code>, the same as Camunda 7</td><td>Ends in <code>/engine-rest</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>Operaton and CIB seven are open-source continuations of Camunda 7. Camunda ended community support for Camunda 7 in October 2025. Penstock calls Camunda 7, Operaton and CIB seven the <em>Camunda 7 family</em>. They share the same editor, the same REST API shape and the same features. The differences are the ones in the table above and in Java packages, listed below.</p>
+
+<h2>Choose the engine</h2>
+
+<p>You usually do not have to. Penstock finds out in this order:</p>
+
+<ol class="steps">
+  <li><code>engine</code> in the nearest <code>penstock.yaml</code>. The file nearest the diagram wins, so a folder can have its own engine.</li>
+  <li>The diagram itself: the execution platform the Camunda Modeler recorded, or the <code>zeebe:</code>, <code>operaton:</code> or <code>camunda:</code> attributes it already has.</li>
+  <li>If the diagram is empty and says nothing, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span> or <span class="ui">Classic BPMN</span>. The answer goes into <code>penstock.yaml</code>, created in the project root if there is none, and the line does not come back.</li>
+</ol>
+
+<p>Changing the engine takes effect when the diagram editor is reloaded, because the editor is built for it. <code>penstock init --engine camunda-8|camunda-7|operaton|cib-seven|classic</code> says it outright, and plain <code>penstock init</code> guesses the engine from your diagrams. If it finds several, it prefers Camunda 8, then Operaton, CIB seven, Camunda 7 and Classic. If the command line finds no <code>engine</code> at all, it treats a deployment as Camunda 7.</p>
+
+<p>The engine is set per folder, not per file: a <code>penstock.yaml</code> that sets <code>engine</code> applies to every diagram under its folder. A project with Camunda 7 and Camunda 8 diagrams needs nothing special, give each folder its own file. Code links keep the two apart: a Camunda 8 job type finds its job worker and never an external task subscription of the same name.</p>
+
+<p>It is called Classic BPMN everywhere in the interface. The <code>penstock.yaml</code> value stays <code>engine: classic</code>.</p>
+
+<h2>What each engine builds</h2>
+
+<h3>Classic BPMN 2.0</h3>
+
+<p>The plain bpmn-js editor with the standard properties panel. No Camunda extension is registered, so this profile cannot write <code>camunda:</code> or <code>zeebe:</code> attributes. It has Inputs and Outputs written the BPMN way, and the colour picker and the grid with snapping that the other profiles have. See <a href="properties-panel.html">The properties panel</a>. There is no Deploy button, no Scenarios, no templates.</p>
+
+<h3>Camunda 7</h3>
+
+<p>The Camunda Platform editor. The panel gains the execution groups: Script, Condition, Execution listeners, Task listeners, Inputs and Outputs, and more. Penstock adds element template support and a code editor for scripts, which can open in the code editor of your tool. See <a href="scripts.html">Scripts in their own tab</a>. <code>scriptType</code> in <code>penstock.yaml</code> sets the default script language.</p>
+
+<h3>Camunda 8</h3>
+
+<p>The Camunda Cloud editor, with the Zeebe properties, FEEL help and element templates. It can create an element from a template or from the full element list. The connector template browser, <span class="ui">Templates…</span> in the More menu, is only here.</p>
+
+<h3>Operaton</h3>
+
+<p>The Camunda 7 editor, with a mapping so that the panel reads and writes <code>operaton:</code> attributes where Camunda 7 would use <code>camunda:</code>. If a diagram in an Operaton project still uses the Camunda 7 namespace, the diagram check shows a finding <em>Wrong engine namespace</em> with a <span class="ui">Fix</span> button. It opens a dialog called <em>Convert Namespace</em>. Press <span class="ui">Convert</span> to rewrite all <code>camunda:</code> attributes to <code>operaton:</code>. Operaton also reads <code>camunda:</code> in its 1.x line, so this is a tidy-up, not always a must.</p>
+
+<h3>CIB seven</h3>
+
+<p>The Camunda 7 editor, unchanged. CIB seven uses the same <code>camunda:</code> namespace as Camunda 7. The difference is in what Penstock writes for you: the Java packages of a generated JUnit test and the engine's own test configuration file. The decision editor's properties panel gives a decision its version tag and its history time to live, as Camunda 7 does.</p>
+
+<h2>What else depends on the engine</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Classic</th><th>Camunda 7</th><th>Camunda 8</th><th>Operaton</th><th>CIB seven</th></tr></thead>
+  <tbody>
+  <tr><td>Deploy, Scenarios</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Connector browser</td><td>No</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Transaction boundaries</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Element templates</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Script editor tab</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+  <tr><td>Java package for code links and tests</td><td>-</td><td><code>org.camunda</code></td><td><code>io.camunda</code></td><td><code>org.operaton</code></td><td><code>org.cibseven</code></td></tr>
+  <tr><td>Test config file in generated tests</td><td>-</td><td><code>camunda.cfg.xml</code></td><td>none</td><td><code>operaton.cfg.xml</code></td><td><code>cibseven.cfg.xml</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>The check, bpmnlint, auto layout, token simulation, task resizing and export work for every engine. Camunda 7, Operaton and CIB seven all answer on the same <code>engine-rest</code> path, so one <code>deployment.url</code> covers the family; Camunda 8 has its own REST address. See <a href="deployment.html">Deployment</a>.</p>
+
+<h2>What reaches the XML</h2>
+
+<p>A service task configured for Camunda 7 carries attributes like <code>camunda:asyncBefore</code>. The same task for Camunda 8 carries <code>zeebe:taskDefinition</code> or <code>zeebe:ioMapping</code>. An element made from a template records where it came from: <code>camunda:modelerTemplate</code> or <code>zeebe:modelerTemplate</code>.</p>
+
+<p>Nothing rewrites a diagram when it opens. If you switch a project from Camunda 7 to Classic, the <code>camunda:</code> content stays in the file. The editor has no panel for it any more.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The toolbar and the properties panel match the engine. Deploy is there for Camunda 7, Camunda 8, Operaton and CIB seven, and not for Classic.</li>
+  <li><code>penstock doctor</code> prints <code>engine  camunda-8</code> (or the one you use).</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I chose the wrong engine in the question.</dt>
+  <dd>Edit <code>engine</code> in <code>penstock.yaml</code> and reload the diagram editor.</dd>
+  <dt>The panel shows Camunda 7 groups but my engine is Camunda 8.</dt>
+  <dd>The engine comes from the nearest <code>penstock.yaml</code>. A file in a subfolder may say something else. <code>penstock doctor</code> prints the engine that applies.</dd>
+  <dt>Deploy says to choose an engine.</dt>
+  <dd>The message reads <em>Choose Camunda 7, Camunda 8, Operaton or CIB seven as the engine in penstock.yaml to deploy</em>. Set <code>engine</code>.</dd>
+  <dt>I use Operaton but my tool treats my diagram as Camunda 7.</dt>
+  <dd>Set <code>engine: operaton</code>. Without it, Penstock reads the diagram: a diagram with <code>operaton:</code> attributes is Operaton, but one with only <code>camunda:</code> attributes is Camunda 7.</dd>
+</dl>

@@ -1,0 +1,84 @@
+<!--
+title: The properties panel
+lede: The Properties tab of the sidebar shows the settings of the selected element, and every change you make there goes into the diagram.
+tags: free
+related: sidebar, engine-profiles, scripts, element-templates
+-->
+<h2>Use it</h2>
+
+<ol class="steps">
+  <li>Click an element on the canvas. The <strong>Properties</strong> tab of the sidebar shows its settings. Click the empty canvas to see the settings of the process itself.</li>
+  <li>Open a group by clicking its title. A group holds settings that belong together.</li>
+  <li>Change a value. It is written to the diagram as you type.</li>
+  <li>To put the panel away, press the sidebar toggle at the right end of the toolbar. Press it again to bring the whole sidebar back.</li>
+</ol>
+
+<figure class="shot">
+  <img src="@img/editor-overview.png" alt="A service task selected on the canvas, with the Properties tab of the sidebar showing its Task definition group and the job type">
+  <figcaption>A Camunda 8 service task is selected. The Task definition group carries the job type the task runs, written into the file as you type.</figcaption>
+</figure>
+
+<p>The panel is the same one bpmn.io's properties panel draws, with the groups the engine profile defines. The other tabs beside it are <a href="scenarios.html">Scenarios</a>, <a href="diagram-check.html">Problems</a>, <a href="monitor.html">Monitor</a> and <a href="code-links.html">Code</a>. <a href="sidebar.html">The sidebar</a> covers the surface they all sit in.</p>
+
+<h2>Which groups you see</h2>
+
+<p>The groups depend on two things: what the element is, and which engine the diagram is for. A service task has different groups from a gateway. A Camunda 8 service task has different groups from a Camunda 7 one.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Engine</th><th>What the panel offers</th></tr></thead>
+  <tbody>
+  <tr><td>Classic BPMN</td><td>The groups BPMN itself defines: General, Documentation, and the ones for the element, such as Message, Signal, Error, Escalation, Link, Timer, Compensation, Multi-instance and Ad-hoc completion. Also Inputs and Outputs, written the BPMN way. See <a href="engine-profiles.html">Engines</a>.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td>The BPMN groups plus the execution groups of Camunda 7: Script, Condition, Execution listeners, Task listeners, Inputs and Outputs, and more.</td></tr>
+  <tr><td>Camunda 8</td><td>The BPMN groups plus the Zeebe groups: for example the task definition, input and output mappings, and the form. A field can be a FEEL expression.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Show or hide it</h2>
+
+<p>The panel is the first tab of the sidebar, so it is shown and hidden with the sidebar rather than on its own. The sidebar is about a third of the width of the editor, between 320 and 480 pixels, and the dividing line can be dragged from 280 pixels to half the editor. Below about 840 pixels wide it becomes a drawer over the canvas. The width and the tab you left are kept in <code>~/.penstock/preferences.json</code>. See <a href="sidebar.html">The sidebar</a>.</p>
+
+<h2>Scripts and conditions</h2>
+
+<p>On Camunda 7, Operaton and CIB seven, a field that holds a script is a small code editor with colours. Groovy is coloured as Groovy, all else as JavaScript. Under the field there is a button <span class="ui">Edit in new tab</span> that opens the script in a code editor of your tool. See <a href="scripts.html">Scripts in their own tab</a>.</p>
+
+<h2>Templates</h2>
+
+<p>If the project has element templates, a selected task can be set from a template. The panel then shows only the fields that the template exposes. See <a href="element-templates.html">Element templates</a>.</p>
+
+<h2>Inputs and outputs in the Classic profile</h2>
+
+<p>Select a task, a sub-process or the process itself. The panel shows an <strong>Inputs</strong> and an <strong>Outputs</strong> group. Add an entry and Penstock writes a <code>bpmn:ioSpecification</code> with a <code>bpmn:dataInput</code> or <code>bpmn:dataOutput</code>, and the sets that refer to them:</p>
+
+<pre><code>&lt;bpmn:serviceTask id="Task_check" name="Check stock"&gt;
+  &lt;bpmn:ioSpecification&gt;
+    &lt;bpmn:dataInput id="DataInput_1" name="quantity" /&gt;
+    &lt;bpmn:inputSet id="InputSet_1" name="Inputs"&gt;
+      &lt;bpmn:dataInputRefs&gt;DataInput_1&lt;/bpmn:dataInputRefs&gt;
+    &lt;/bpmn:inputSet&gt;
+    &lt;bpmn:outputSet id="OutputSet_1" name="Outputs" /&gt;
+  &lt;/bpmn:ioSpecification&gt;
+&lt;/bpmn:serviceTask&gt;</code></pre>
+
+<!-- image: classic-io.png, a Classic BPMN task selected with the Inputs and Outputs groups open in the sidebar -->
+
+<p>Remove the last input and the last output and the whole specification goes with them, so a file never has an empty one. Camunda 7 and Camunda 8 keep their own input and output editors, because those write <code>camunda:inputOutput</code> and <code>zeebe:ioMapping</code>, which is what those engines read.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>Groups for the selected element, in the first tab of the sidebar. A group with entries shows a dot or a count.</li>
+  <li>Every value you change is written to the diagram as you type.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The panel does not show the group I expect.</dt>
+  <dd>Check the engine. A Camunda 7 group does not exist in a Camunda 8 or Classic diagram. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>The panel is missing.</dt>
+  <dd>Press the sidebar toggle at the right of the toolbar, or the <strong>Sidebar</strong> action. See <a href="sidebar.html">The sidebar</a>.</dd>
+  <dt>A script field is read-only.</dt>
+  <dd>The script is open in a code editor of your tool. Type there, or close it. See <a href="scripts.html">Scripts in their own tab</a>.</dd>
+  <dt>I switched engine and the old groups are gone, but the attributes are still in the file.</dt>
+  <dd>Penstock never rewrites a diagram when it opens. Content the new engine does not know stays in the file, and the panel has no place to show it.</dd>
+</dl>

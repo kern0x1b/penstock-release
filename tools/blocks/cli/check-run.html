@@ -1,0 +1,10 @@
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+fail  src/main/resources/order-process.bpmn
+        OVERLAP: approve_order &lt;-&gt; charge_card
+        DETACHED-EDGE: Flow_1 (order_received-&gt;approve_order)
+        note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
+ok    src/main/resources/shipping-method.dmn
+
+Every rule has a page with why it matters and how to fix it: https://kern0x1b.github.io/penstock-release/rules</code></pre>
+<p>A line that starts with <code>note</code> is a warning. Only errors make the command exit with 1. See <a href="@cli/commands.html#check">Every command</a>.</p>

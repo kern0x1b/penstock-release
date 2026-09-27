@@ -3,292 +3,280 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Check and problems - Penstock</title>
-<meta name="description" content="The Penstock check: the card over the canvas, the Problems tab, and what each group of findings means - the drawing, how the process runs, the modelling rules, what the engine can run, the code, and the Camunda 7 to Camunda 8 result.">
+<meta name="color-scheme" content="light dark">
+<title>Diagram check - Penstock</title>
+<meta name="description" content="The check lists everything wrong with your diagram, points at each problem on the canvas, and says why it matters and how to fix it.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/diagram-check.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html" aria-current="page">Check and problems</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html" aria-current="page">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Checking</p>
+<h1>Diagram check</h1>
+<p class="lede">The check lists everything wrong with your diagram, points at each problem on the canvas, and says why it matters and how to fix it.</p>
+<p class="meta"><span class="tag free">Free</span> <span>How it runs and Code need Pro</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#run-it">Run it</a></li>
+<li><a href="#two-places-to-read-it">Two places to read it</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#every-check-has-an-id">Every check has an id</a></li>
+<li><a href="#the-groups">The groups</a></li>
+<li><a href="#drawing-and-rules-are-different">Drawing and rules are different</a></li>
+<li><a href="#problems-outside-the-editor">Problems outside the editor</a></li>
+<li><a href="#check-the-whole-project">Check the whole project</a></li>
+<li><a href="#fix-a-whole-diagram-at-once">Fix a whole diagram at once</a></li>
+<li><a href="#what-it-cannot-see">What it cannot see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="run-it"><a href="#run-it">Run it</a></h2>
 
-  <div class="docbody">
-    <h1>Check and problems</h1>
+<ol class="steps">
+  <li>Press <span class="ui">Check</span> on the toolbar, or pick the <strong>Problems</strong> tab of the sidebar. A card called <em>Diagram check</em> opens at the bottom right of the canvas, over it rather than under it.</li>
+  <li>Read the header. It counts the findings in words and how many are notes about readability, for example <em>8 errors, 1 warning, 1 readability</em>.</li>
+  <li>Click a line. The canvas scrolls to that element and selects it, and its outline turns red.</li>
+  <li>Press <span class="ui">Show all</span> to open the Problems tab, where every finding is, with its <strong>Why</strong> and <strong>Fix</strong> lines and a link to that check's own page.</li>
+  <li>Fix the problem. The card updates by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span> puts the card and the outlines away.</li>
+</ol>
 
-    <p class="lede">Check asks three things about a diagram: can it be read, is it modelled
-    correctly, and can the engine run it. The answers appear in two places - a short card over the
-    canvas and the Problems tab of the sidebar, where the full list lives.</p>
+<h2 id="two-places-to-read-it"><a href="#two-places-to-read-it">Two places to read it</a></h2>
 
-    <!-- image: problems-tab.png -->
+<p>The card is a summary: the counts, the first few findings, <span class="ui">Recheck</span>, <span class="ui">Close</span> and <span class="ui">Show all</span>. The <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a> is the full list, in groups, each finding with an error or a warning icon. The tab keeps its place while you look at another tab, so you can go to Properties to fix something and come back to the list.</p>
 
-    <h2>The check card</h2>
+<p>Clicking a finding in either place selects its element on the canvas and opens the property that fixes it: job type, form key or id, correlation key, history time to live, called element, error, escalation, message and signal references and timer definitions, and a missing job type, topic, class or delegate expression in the code. A finding with no single field still switches the sidebar to Properties and selects the element.</p>
 
-    <p>Press <strong>Check</strong> in the toolbar, or pick the Problems tab, and a card appears
-    at the bottom right of the canvas. It is a summary: the counts in words, the first few
-    findings, <strong>Recheck</strong>, <strong>Close</strong>, and <strong>Show all</strong>,
-    which opens the Problems tab.</p>
+<figure class="shot">
+  <img src="../img/check-card.png" alt="The Diagram check card over the canvas with three drawing problems listed and a Show all link, and the Code tab of the sidebar beside it">
+  <figcaption>The card is a summary. Show all opens the Problems tab, which holds every finding. The elements that have findings keep an outline while the card is open.</figcaption>
+</figure>
 
-    <p>Each finding in the card is clickable, and the element it is about is outlined on the
-    canvas. Everything the check found keeps an outline while the card is open, so the trouble is
-    visible without reading a single line.</p>
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
-    <p>A small pill on the canvas carries the count, and the badge on the Problems tab carries it
-    too. The pill is hidden while the card is open, since the card says the same thing, and both
-    count the same findings. A compatibility rule the linter reports as information counts as a
-    warning, and a problem two checks both report is counted once.</p>
+<p>While the card is open, every element that a problem is about carries an outline on the canvas. A small pill on the canvas carries the count, and the badge on the Problems tab carries it too. The pill is hidden while the card is open, since the card says the same thing, and both count the same findings: a compatibility rule the linter reports as information counts as a warning, and a problem two checks both report is counted once. With nothing wrong, the card says <em>Nothing to report across N elements and connections</em> and the pill says <em>No Issues</em>.</p>
 
-    <h2>The Problems tab</h2>
+<figure class="shot">
+  <img src="../img/editor-overview.png" alt="A clean diagram with the No Issues pill under the canvas and the Problems tab of the sidebar with no badge">
+  <figcaption>Nothing to report. The pill under the canvas reads No Issues, and the Problems tab carries no badge.</figcaption>
+</figure>
 
-    <p>The tab holds every finding, in groups, each with an error or a warning icon. It keeps its
-    place while you look at another tab, so you can go to Properties to fix something and come
-    back to the list. A tab with nothing to show says so and hints at what to do.</p>
+<h2 id="every-check-has-an-id"><a href="#every-check-has-an-id">Every check has an id</a></h2>
 
-    <p>Clicking a finding selects its element on the canvas and opens the property that fixes it.
-    That covers job type, form key or id, correlation key, history time to live, called element,
-    error, escalation, message and signal references and timer definitions, and a missing job
-    type, topic, class or delegate expression in the code. A finding with no single field still
-    switches the sidebar to Properties and selects the element, so the next edit is one click
-    away.</p>
+<p>Each check has a stable id, such as <code>drawing/overlap</code>, <code>bpmnlint/label-required</code> or <code>form/key-clash</code>, a line on why it matters and a line on how to fix it. The same id travels with the finding everywhere else it is reported: <code>penstock check --format json</code>, SARIF and GitHub annotations all carry the id and the address of its page, so a finding in a pull request leads back to the same page the editor showed.</p>
 
-    <h2>Every check has an id, and says why and how</h2>
+<p>The catalogue is generated from the rule definitions, so an id never changes meaning. Every check has its own page under <a href="../rules/">Every rule</a>, grouped by what it is about, and you can read them all without opening a diagram.</p>
 
-    <p>Each check has a stable id - <code>drawing/overlap</code>,
-    <code>bpmnlint/label-required</code>, <code>form/key-clash</code> - a line on why it matters
-    and a line on how to fix it. Select a finding and the two lines appear under it, with a link
-    to that check's own page. The same id travels with the finding everywhere else it is
-    reported: <span class="mono">penstock check --format json</span>, SARIF and GitHub
-    annotations all carry the id and its link, so a finding in a pull request leads back to the
-    same page the editor showed.</p>
+<h2 id="the-groups"><a href="#the-groups">The groups</a></h2>
 
-    <p>The catalogue is generated from the rule definitions, so an id never changes meaning. Every
-    check has its own page under <a href="../rules/">Rules</a>, grouped by what it is about, and
-    you can read them all without opening a diagram.</p>
+<p>Both places group findings by what they are about. A group only appears when it has something to say.</p>
 
-    <h2>The groups</h2>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Group</th><th>What it lists</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td>How it runs</td><td>Problems in how the process runs: it can get stuck, a part runs twice, a step can never run, it may never finish, a decision has no way out. Selecting one outlines the path that leads there. See <a href="flow-analysis.html">Flow analysis</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Problems</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other, a connection that doubles back along itself.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Engine</td><td>What the engine the diagram is written for cannot run: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. Each finding is a plain sentence naming the element, and every rule has an id and a page. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away, a called process no diagram defines, a form no file provides. Each finding has the file and the line. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="tag pro">Pro</span> to convert</td></tr>
+  <tr><td>Readability</td><td>Collapsed by default. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
+  </tbody>
+</table></div></div>
 
-    <h3>Drawing</h3>
+<p>Without Pro, the group says how many such problems it found and offers to buy it. The same analysis is the flow section of <code>penstock check</code>, or <code>penstock check --only flow</code> on its own.</p>
 
-    <p>What is wrong with how the diagram is drawn. These break the picture: a reader cannot tell
-    what a diagram means when two shapes sit on top of each other, so they are listed first, with
-    an error icon.</p>
+<h2 id="drawing-and-rules-are-different"><a href="#drawing-and-rules-are-different">Drawing and rules are different</a></h2>
 
-    <table class="facts">
-      <tr><td>Shapes sit on top of each other</td><td>Two shapes overlap. Neither can be read, and
-        a click lands on whichever happens to be on top.</td></tr>
-      <tr><td>Connection runs through a shape</td><td>A line crosses the interior of a shape it
-        does not connect, so it reads as though it stops there.</td></tr>
-      <tr><td>Connection does not reach the shape it connects</td><td>The line ends short of, or
-        past, the element it is attached to. Usually the result of moving a shape without the
-        line following it.</td></tr>
-      <tr><td>Element outside the container it belongs to</td><td>An element is drawn outside the
-        pool, lane or sub-process that owns it in the model, or inside one that does not.</td></tr>
-      <tr><td>Boundary event is off its host</td><td>A boundary event is no longer on the border of
-        the activity it is attached to.</td></tr>
-      <tr><td>Labels cover each other</td><td>Two labels overlap, so at least one of them cannot be
-        read.</td></tr>
-      <tr><td>Connection doubles back along itself</td><td>A route leaves a point, goes past it and
-        comes back along the same line. It reads as a single line drawn twice.</td></tr>
-    </table>
+<p>The drawing checks answer "can the diagram be read?". They know nothing about the process. bpmnlint answers "is the process modelled correctly?". They never report the same thing twice.</p>
 
-    <h3>How it runs</h3>
+<h2 id="problems-outside-the-editor"><a href="#problems-outside-the-editor">Problems outside the editor</a></h2>
 
-    <p>Pro, and Team in a pipeline. Flow analysis follows every way a token can take from each
-    start event and reports what goes wrong on the way. Each finding names the cause, and clicking
-    it outlines the path that leads there on the diagram.</p>
+<p>Where the findings appear outside the editor is up to your tool. Some put them in their own problem list, and mark the file itself.</p>
 
-    <table class="facts">
-      <tr><td>The process can get stuck</td><td>A gateway waits for something that never comes -
-        usually a parallel gateway joining branches an exclusive gateway chose between, or a
-        boundary event that took the run somewhere else.</td></tr>
-      <tr><td>A part of the process can run twice</td><td>Branches that run at the same time meet
-        at an exclusive gateway or a task, so everything after it runs once per branch.</td></tr>
-      <tr><td>An element can never run</td><td>Nothing leads to it, or every way to it is closed
-        off.</td></tr>
-      <tr><td>The process may never finish</td><td>Once it gets to a certain point, no path leads
-        to an end: it can only go round.</td></tr>
-      <tr><td>A decision has no way out for some values</td><td>A gateway without a default flow
-        whose conditions leave a value uncovered - <code>amount &gt; 100</code> and
-        <code>amount &lt; 100</code> stop at exactly 100 - so the process stops there with an
-        incident.</td></tr>
-      <tr><td>Two ways out of a decision can both hold</td><td>Two conditions of an exclusive
-        gateway overlap, and the engine takes whichever it checks first.</td></tr>
-      <tr><td>Two variables look like one</td><td>Names that differ only by letter case or one
-        character, such as <code>orderId</code> and <code>orderID</code>: one of them is probably a
-        typo.</td></tr>
-    </table>
+<div class="hosts">
+<p class="hosts-title">Problems outside the editor</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>The findings are in the IDE's own <strong>Problems</strong> window, and a file with findings is marked in the project view. The inspection is called Penstock and can be turned off in <span class="mono">Settings | Editor | Inspections</span>; the findings stay in the editor either way.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<p class="unavailable">Not available on the command line. The command line has no IDE window. penstock check reports the same findings, and they carry the same ids and the same rule pages, so a finding in a build log leads to the same page.</p>
+</section>
+</div>
+</div>
 
-    <p>Without Pro the group says how many such problems it found and offers to buy it. The same
-    analysis is the flow section of <span class="mono">penstock check</span>, or
-    <span class="mono">penstock check --only flow</span> on its own.</p>
+<h2 id="check-the-whole-project"><a href="#check-the-whole-project">Check the whole project</a></h2>
 
-    <h3>Engine</h3>
+<p>The card checks the diagram you have open. The same checks also run over every diagram, decision and form of a project at once, and their findings carry the same rule ids. Only errors make a whole-project check fail. A warning is shown as a note.</p>
 
-    <p>Free. This is what the engine the diagram is written for cannot run, taken from
-    <code>bpmnlint-plugin-camunda-compat</code>: a service task with no job type, an element or an
-    expression the chosen version cannot run, a process with no history time to live. Every rule
-    has an id, such as <code>compat/implementation</code>, and its own page in the rules
-    catalogue.</p>
+<div class="hosts">
+<p class="hosts-title">Check from your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Press <span class="ui">Check</span> on the editor's toolbar for the diagram you have open. For a whole project, right-click a file or a folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Check</span>. The report opens in the Run window. It runs only in a trusted project.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>$ penstock check .
+ok    src/main/resources/approve-order.form
+fail  src/main/resources/order-process.bpmn
+        OVERLAP: approve_order &lt;-&gt; charge_card
+        DETACHED-EDGE: Flow_1 (order_received-&gt;approve_order)
+        note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
+ok    src/main/resources/shipping-method.dmn
 
-    <p>They run against the version in the file's <code>modeler:executionPlatformVersion</code>,
-    or the newest one when the file has none, and against the engine
-    <code>penstock.yaml</code> names. Operaton and CIB seven are checked as Camunda 7.</p>
+Every rule has a page with why it matters and how to fix it: https://kern0x1b.github.io/penstock-release/rules</code></pre>
+<p>A line that starts with <code>note</code> is a warning. Only errors make the command exit with 1. See <a href="../cli/commands.html#check">Every command</a>.</p>
+</section>
+</div>
+</div>
 
-    <p>Each finding is a plain sentence naming the element: <em>Charge card has no job type</em>,
-    <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>,
-    <em>History time to live is missing</em>. The same sentence is used in the card, on the
-    canvas, in <span class="mono">penstock check</span>, in SARIF and in GitHub annotations, so it
-    reads the same wherever you meet it.</p>
+<h2 id="fix-a-whole-diagram-at-once"><a href="#fix-a-whole-diagram-at-once">Fix a whole diagram at once</a></h2>
 
-    <p>In a <code>.bpmnlintrc</code> a compatibility rule is turned off as
-    <code>camunda-compat/&lt;rule&gt;</code>, the plugin's own name, or as
-    <code>compat/&lt;rule&gt;</code>. A problem another check already reports on the same element -
-    two blank start events, a link event name used twice - is shown once, by bpmnlint. See
-    <a href="validation.html">Validation</a>.</p>
+<p>If the list is long because the diagram drifted, <a href="auto-layout.html">Auto layout</a> is usually faster than fixing line by line. The check measures. Auto layout draws a diagram that passes.</p>
 
-    <h3>Rules</h3>
+<h2 id="what-it-cannot-see"><a href="#what-it-cannot-see">What it cannot see</a></h2>
 
-    <p>What bpmnlint reports, with the project's <code>.bpmnlintrc</code> or, when there is none,
-    <code>bpmnlint:recommended</code>. A rule set to warn is marked as a warning and is not counted
-    as an error in the header. If the rules cannot run, the group says why instead of staying
-    empty. See <a href="validation.html">Validation</a>.</p>
+<p>Three measures need the file rather than the canvas: a connection declared in the XML that was never drawn, a connection with an end missing, and a comparison of what the diagram meant before an operation against after. The check leaves those out instead of reporting them as passing. A diagram that cannot be read shows a screen of its own rather than a card: what the parser objected to, the line it objected on, that the file was not changed, and buttons to open the XML in the Text tab at that line and to Reload.</p>
 
-    <h3>Code</h3>
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
-    <p>Where a diagram and the code that runs it disagree: a service task, listener or external
-    task whose job type, topic, class or Spring bean has nothing in the project to run it, a call
-    activity that calls a process no diagram defines, a business rule task whose decision no
-    <code>.dmn</code> file defines, a user task whose form no <code>.form</code> file provides, and
-    a worker no diagram uses. Each finding has the file and the line, and the IDE opens it there.
-    This is part of the link between diagrams and code, so it is Pro.</p>
-
-    <h3>Migrate to Camunda 8</h3>
-
-    <p>For a Camunda 7, Operaton or CIB seven diagram only, a group of its own with the result of
-    the migration analysis, grouped by diagram, decision and form, and a <strong>Convert</strong>
-    action. See <a href="migration.html">Camunda 7 to Camunda 8</a>.</p>
-
-    <h3>Readability</h3>
-
-    <p>The last group is collapsed, and deliberately so: a diagram drawn by hand always has some of
-    these, and a count of zero is not the goal. They are worth reading when a diagram is hard to
-    follow and you want to know why.</p>
-
-    <table class="facts">
-      <tr><td>Connections cross</td><td>Two lines cross each other.</td></tr>
-      <tr><td>Connections run along the same line</td><td>Two lines run parallel close enough to be
-        read as one.</td></tr>
-      <tr><td>Connection runs along the border of a shape</td><td>A line runs beside a shape's edge
-        for long enough to look attached to it.</td></tr>
-      <tr><td>Connection crosses a label</td><td>A line is drawn over a label that belongs to
-        something else.</td></tr>
-      <tr><td>Connection takes a long way round</td><td>The route is more than twice the distance
-        between the two shapes it connects.</td></tr>
-      <tr><td>Connection sidesteps for no reason</td><td>A short jog between two parallel runs with
-        nothing in the way of the straight line.</td></tr>
-      <tr><td>Label sits far from what it names</td><td>A label has drifted away from its shape or
-        its own line.</td></tr>
-      <tr><td>Annotation sits far from what it describes</td><td>A text annotation is joined to its
-        element by an unusually long association.</td></tr>
-      <tr><td>Connection is not drawn at right angles</td><td>A segment runs diagonally rather than
-        horizontally or vertically.</td></tr>
-    </table>
-
-    <h2>Decisions and forms</h2>
-
-    <p>The decision and form editors have a Problems tab of their own, and it is the same list
-    for one file. For a <code>.dmn</code> file it is the decision check: rules of a Unique table
-    that match the same input, which is an error at run time, rules of an Any table that do so
-    with different results, and inputs no rule matches, each naming the rules and a value both
-    match. That is Pro.</p>
-
-    <p>For a <code>.form</code> file it is the form check: two fields writing one variable, or a
-    field writing the path of a group, which Tasklist refuses to open, fields that write no
-    variable, option lists offering one value twice, and inputs with no label. The form check is
-    free, in the editor and in <span class="mono">penstock check</span> alike, because it is lint.</p>
-
-    <h2>On the command line</h2>
-
-    <p><span class="mono">penstock check</span> reports everything in one run, in sections: the
-    drawing, the rules, the engine compatibility rules, and on Pro how the processes, decisions and
-    forms run. <span class="mono">--only drawing,rules,flow</span> narrows it. The exit code is
-    what makes a build fail, and a baseline makes it fail only on what is new. See
-    <a href="cli.html">Command line</a>.</p>
-
-    <h2>Fixing a whole diagram at once</h2>
-
-    <p><a href="auto-layout.html">Auto layout</a> is the other half of this. The check measures a
-    diagram against a set of rules; auto layout draws a diagram that satisfies them. On a diagram
-    that has drifted far enough to collect a long list of drawing problems, laying it out again is
-    usually faster than working down the list by hand.</p>
-
-    <h2>What it cannot see</h2>
-
-    <p>Three measures need the file rather than the canvas - a connection declared in the XML that
-    was never drawn, one drawn with an end missing, and a comparison of what the diagram meant
-    before an operation against what it means after. The check leaves those out rather than
-    reporting them as passing. A diagram that cannot be read shows its own screen instead of a
-    card: the parser's line, that the file was not changed, and a button that opens the XML in the
-    Text tab at that line, with Reload beside it.</p>
-
-  </div>
-
+<dl class="problems">
+  <dt>The card says "The bpmnlint rules could not run".</dt>
+  <dd>Your <code>.bpmnlintrc</code> uses rules from a plugin. The editor needs those rules in a bundle. See <a href="validation.html#custom-rules">Validation</a>.</dd>
+  <dt>I fixed a problem and it is still listed.</dt>
+  <dd>Press <span class="ui">Recheck</span>. The list refreshes a moment after you stop editing.</dd>
+  <dt>The count in the header is lower than the list.</dt>
+  <dd>Notes about readability are not counted as problems, and a rule set to warn is a warning rather than an error.</dd>
+  <dt>There is no Check button.</dt>
+  <dd>It may have been moved off the bar. Open <span class="ui">More</span> and pin <span class="ui">Check</span>. See <a href="toolbar.html">The toolbar and the More menu</a>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/validation.html">Validation with bpmnlint</a> - The modelling rules, and how to change them.</li>
+<li><a href="../guide/flow-analysis.html">Flow analysis</a> - Deadlocks, dead steps and loops, found before you run anything.</li>
+<li><a href="../guide/auto-layout.html">Auto layout</a> - Tidy a diagram in one click.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/files.html"><span>Previous</span>Files Penstock reads and writes</a>
+<a class="next" href="../rules/"><span>Next</span>Every rule</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

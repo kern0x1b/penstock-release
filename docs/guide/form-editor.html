@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The form editor - Penstock</title>
+<meta name="description" content="The form editor builds the screens a user sees in a user task, and saves them as a Camunda Form.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/form-editor.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html" aria-current="page">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>The form editor</h1>
+<p class="lede">The form editor builds the screens a user sees in a user task, and saves them as a Camunda Form.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#open-and-edit-a-form">Open and edit a form</a></li>
+<li><a href="#the-toolbar">The toolbar</a></li>
+<li><a href="#preview">Preview</a></li>
+<li><a href="#the-form-check">The form check</a></li>
+<li><a href="#forms-and-the-rest-of-the-project">Forms and the rest of the project</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>A Camunda Form is a JSON file with the extension <code>.form</code>. A user task shows it to a person. The editor is built on <a href="https://bpmn.io/toolkit/form-js/">form-js</a>. The file is saved as you edit.</p>
+
+<h2 id="open-and-edit-a-form"><a href="#open-and-edit-a-form">Open and edit a form</a></h2>
+
+<ol class="steps">
+  <li>Open a <code>.form</code> file. Penstock takes only files that are Camunda Forms. A form file of another tool is left alone.</li>
+  <li>The palette of fields is a floating island beside the canvas, the form in the middle, and the properties in the <strong>Properties</strong> tab of the sidebar on the right.</li>
+  <li>Drag a field onto the form. Give it a <strong>label</strong>, and a <strong>key</strong>. The key is the name of the process variable the field writes.</li>
+  <li>Press <span class="ui">Deploy</span> to send it to the engine, with the same settings a diagram uses.</li>
+</ol>
+
+<h2 id="the-toolbar"><a href="#the-toolbar">The toolbar</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Preview</td><td>Opens the <strong>Preview</strong> tab of the sidebar, which shows the form as a user sees it. See below.</td></tr>
+  <tr><td>Check</td><td>Opens the <strong>Problems</strong> tab. The form check is lint, so it is free.</td></tr>
+  <tr><td>Deploy</td><td>Sends the form to the engine. See <a href="deployment.html">Deployment</a>.</td></tr>
+  <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="preview"><a href="#preview">Preview</a></h2>
+
+<p>Press <span class="ui">Preview</span> on the toolbar to try the form with sample data. The <strong>Preview</strong> tab of the <a href="sidebar.html">sidebar</a> opens beside the canvas and shows three things:</p>
+
+<ul>
+  <li>The form as a user sees it.</li>
+  <li><strong>Input data</strong>: the JSON the form is given. It starts as sample data made from the fields: a text, a number, the first option of a choice, one row of a dynamic list, a group under its path. It follows the form as you edit it, until you write your own. If what you wrote is not valid JSON, the preview says what is wrong.</li>
+  <li><strong>Output data</strong>: the JSON the form would submit.</li>
+</ul>
+
+<p>The palette is hidden while the preview is open, and its tooltip says so. It is why the canvas never grows a fourth column for the preview. The form-js logo stays visible.</p>
+
+<figure class="shot">
+  <img src="../img/form-editor.png" alt="The Preview tab of the sidebar showing a form as a user sees it, with the input data below it and the Properties tab beside it">
+  <figcaption>The form as a user sees it, with the input data under it. The palette is hidden while the preview is open.</figcaption>
+</figure>
+
+<h2 id="the-form-check"><a href="#the-form-check">The form check</a></h2>
+
+<p>The form check is lint, so it is free: no licence is asked for, in the editor or in <code>penstock check</code>. The decision editor's overlap and gap analysis is the one that is Pro.</p>
+
+<ol class="steps">
+  <li>Press <span class="ui">Check</span>. A card called <em>Form check</em> opens over the canvas, and the <strong>Problems</strong> tab holds the whole list.</li>
+  <li>Click a finding to select the field and open its properties.</li>
+</ol>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Two fields write the same variable, or a field writes a group's path. Tasklist refuses to open such a form.</td><td><a href="../rules/form-key-clash">form/key-clash</a></td></tr>
+  <tr><td>A field writes no variable</td><td><a href="../rules/form-no-key">form/no-key</a></td></tr>
+  <tr><td>An option list offers one value twice</td><td><a href="../rules/form-repeated-option">form/repeated-option</a></td></tr>
+  <tr><td>An input has no label</td><td><a href="../rules/form-no-label">form/no-label</a></td></tr>
+  </tbody>
+</table></div></div>
+
+<p>When all is well the card says <em>Every field writes its own variable, and every option means something different.</em> The same check runs on every form when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
+
+<h2 id="forms-and-the-rest-of-the-project"><a href="#forms-and-the-rest-of-the-project">Forms and the rest of the project</a></h2>
+
+<ul>
+  <li>A user task links to a form by its id. If no <code>.form</code> file has that id, the check reports <a href="../rules/code-unknown-form">code/unknown-form</a>.</li>
+  <li><code>penstock docs</code> writes a page for each form with the variable every field writes, whether it is required, its options and when it is hidden.</li>
+  <li>The <a href="project-model.html">project model</a> lists forms and the tasks that use them.</li>
+</ul>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>The palette of fields beside the canvas, the form in the middle, its properties in the Properties tab of the sidebar.</li>
+  <li>After <span class="ui">Check</span>, a card called <em>Form check</em> with a count of problems, or the line <em>Every field writes its own variable, and every option means something different.</em></li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>My .form file does not open in the form editor.</dt>
+  <dd>It is not a Camunda Form (a JSON object with <code>components</code>). Penstock leaves other <code>.form</code> files to the tool that made them.</dd>
+  <dt>"This file could not be read as a Camunda form".</dt>
+  <dd>The JSON is not a valid form. The editor shows the reason.</dd>
+  <dt>Tasklist will not open my form.</dt>
+  <dd>Run <span class="ui">Check</span>. Two fields with the same key is the usual reason.</dd>
+  <dt>Where did the preview go?</dt>
+  <dd>Press <span class="ui">Preview</span> again. It is the second tab of the sidebar, and the palette is hidden while it is open.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/dmn-editor.html">The DMN editor</a> - Decision tables and decision requirement diagrams.</li>
+<li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
+<li><a href="../guide/share-html.html">Share as HTML</a> - One offline file anyone can open.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/dmn-editor.html"><span>Previous</span>The DMN editor</a>
+<a class="next" href="../guide/engine-profiles.html"><span>Next</span>Engines</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

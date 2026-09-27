@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Security and privacy - Penstock</title>
+<meta name="description" content="A complete list of what leaves your machine, when, and to whom. Nothing is sent by surprise, and nothing is sent to track you.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/security.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html" aria-current="page">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Licence and privacy</p>
+<h1>Security and privacy</h1>
+<p class="lede">A complete list of what leaves your machine, when, and to whom. Nothing is sent by surprise, and nothing is sent to track you.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#the-short-version">The short version</a></li>
+<li><a href="#everything-that-talks-to-the-network">Everything that talks to the network</a></li>
+<li><a href="#what-a-deployment-sends">What a deployment sends</a></li>
+<li><a href="#credentials">Credentials</a></li>
+<li><a href="#scenario-runs-are-safe-by-design">Scenario runs are safe by design</a></li>
+<li><a href="#trust">Trust</a></li>
+<li><a href="#the-shared-html-file">The shared HTML file</a></li>
+<li><a href="#checkout">Opening the checkout</a></li>
+<li><a href="#this-website">This website</a></li>
+<li><a href="#report-a-vulnerability">Report a vulnerability</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="the-short-version"><a href="#the-short-version">The short version</a></h2>
+
+<ul>
+  <li>Penstock has <strong>no telemetry</strong>. It does not report what you do, what you open or what your diagrams contain.</li>
+  <li>Your diagrams leave your machine only when <strong>you</strong> deploy them, to the engine <strong>you</strong> configured.</li>
+  <li>Passwords and secrets go to the secret store of your tool, never to a project file, and never to the web page inside the editor.</li>
+  <li>This website sets no cookies and loads nothing from other sites. Opening the checkout is the one time a visitor's browser talks to a third party, and only after pressing a Buy button. See <a href="#checkout">Opening the checkout</a>.</li>
+</ul>
+
+<h2 id="everything-that-talks-to-the-network"><a href="#everything-that-talks-to-the-network">Everything that talks to the network</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>What</th><th>When</th><th>Where to</th><th>What is sent</th></tr></thead>
+  <tbody>
+  <tr>
+    <td>Deploy</td>
+    <td>When you press Deploy, or run <code>penstock deploy</code>.</td>
+    <td>The address in <code>deployment.url</code>.</td>
+    <td>The file you deploy, and the credentials of the profile. Nothing else from the project. See <a href="deployment.html">Deployment</a>.</td>
+  </tr>
+  <tr>
+    <td>OAuth token request</td>
+    <td>With <code>auth.type: oauth</code>, just before a deploy or an engine call.</td>
+    <td>The <code>tokenUrl</code> you configured.</td>
+    <td>The client id and secret, and the audience if you set one.</td>
+  </tr>
+  <tr>
+    <td>Engine questions</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="scenarios.html">Scenarios</a>, or Open run.</td>
+    <td>The engine of the profile in force.</td>
+    <td>Requests to the engine's REST API, with the profile's credentials. The tool adds the credentials. The web page in the editor never sees them.</td>
+  </tr>
+  <tr>
+    <td>Connector templates</td>
+    <td>When you open <span class="ui">Templates…</span>, or press <span class="ui">Download</span> on a missing template. Never when your tool starts. Never when you open a diagram. At most once a day.</td>
+    <td><code>api.github.com</code> (the release list of <code>camunda/connectors</code>) and <code>codeload.github.com</code> (the release archive).</td>
+    <td>A plain HTTPS request. No credentials, no cookies, no project data. It uses the proxy settings of your tool. See <a href="element-templates.html">Element templates</a>.</td>
+  </tr>
+  <tr>
+    <td>Licence</td>
+    <td>Once a day, in the background. When you buy or sign in.</td>
+    <td>The licence service, Polar.</td>
+    <td>The licence, and the machine it is for: a one-way hash of the machine's own id, and the host name as a label so you can recognise it. When you sign in: your e-mail address and the code. Never a diagram. Nobody copies a key: buying opens Polar's checkout and Penstock polls it, and signing in is an e-mail code. See <a href="sign-in.html">Buying and signing in</a>.</td>
+  </tr>
+  <tr>
+    <td>The command line download</td>
+    <td>The first time a project needs a version of the <code>penstock</code> command that is not on the machine. That includes the commands a tool runs for you when the project has no <code>penstockw</code>.</td>
+    <td>The npm registry, package <code>@penstock/cli</code>.</td>
+    <td>A normal npm install request.</td>
+  </tr>
+  <tr>
+    <td>Pull request comments</td>
+    <td>When <code>penstock bot</code> or <code>penstock report</code> runs in your pipeline.</td>
+    <td>Your own Git host.</td>
+    <td>The comment, using the pipeline's own token. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</td>
+  </tr>
+  <tr>
+    <td>The checkout</td>
+    <td>Only when you press a <span class="ui">Buy</span> button on the <a href="plans.html">Plans page</a>, or buy from your tool.</td>
+    <td>Polar, the merchant of record. The address is a Polar checkout link.</td>
+    <td>Your browser asks Polar for its checkout page, so Polar sees your address and what your browser sends to any web page. What you type there, such as your e-mail and card, goes to Polar and not to Penstock. See <a href="#checkout">Opening the checkout</a>.</td>
+  </tr>
+  <tr>
+    <td>The education link</td>
+    <td>When you press the link.</td>
+    <td>Your browser.</td>
+    <td>Nothing from Penstock.</td>
+  </tr>
+  </tbody>
+</table></div></div>
+
+<p>That is the whole list. There is no update polling, no crash reporting and no usage statistics. <a href="share-html.html">Share as HTML</a> and <a href="import.html">Import</a> work entirely on your machine.</p>
+
+<h2 id="what-a-deployment-sends"><a href="#what-a-deployment-sends">What a deployment sends</a></h2>
+
+<p>One request per deployment. It carries the file you deploy, as multipart form data, and the deployment settings from <code>penstock.yaml</code> (name, source, tenant). It does not carry other diagrams, element templates or the settings file. The request is made by your tool, not by the web page in the editor, so no CORS setup is needed on the engine. Timeouts are 10 seconds to connect and 30 seconds for the request.</p>
+
+<h2 id="credentials"><a href="#credentials">Credentials</a></h2>
+
+<ul>
+  <li>In an editor the password or client secret goes into the <strong>secret store of your tool</strong>, once for each profile.</li>
+  <li>The web page in the editor never reads a secret. It is told only whether a secret is saved. Leave the field empty to keep it. Type to replace it.</li>
+  <li>On the command line the secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>.</li>
+  <li>Nothing secret is ever written to <code>penstock.yaml</code> or <code>penstock.local.yaml</code>.</li>
+  <li>Penstock has no option to skip TLS certificate checks. An engine with a private certificate must be trusted by the runtime of your tool.</li>
+</ul>
+
+<h2 id="scenario-runs-are-safe-by-design"><a href="#scenario-runs-are-safe-by-design">Scenario runs are safe by design</a></h2>
+
+<p>A <a href="scenarios.html">scenario run</a> deploys a test build of its own. Every process, decision, form and the calls between them in that build carries a <code>penstock.&lt;run&gt;.</code> prefix, so the engine never takes it for a version you deployed, and what is left on the engine afterwards is what you deployed. Every resource is marked with the run, so an interrupted one can be cleaned up by the next.</p>
+
+<ul>
+  <li>It goes only to an engine marked <code>deployment.forTests: true</code>, or to a local engine on this machine after one confirmation. In the editor it asks once per profile. In a terminal it asks once per run. A pipeline is never asked: without the <code>forTests</code> mark, the run is refused.</li>
+  <li>Afterwards it removes the build and its instances.</li>
+  <li>The host enforces the same rule itself. Every call of a run, and anything that deletes, cancels, answers jobs or writes variables, is refused on any other engine.</li>
+  <li>A list of deployed builds is kept (<code>~/.penstock/test-builds.json</code> for the command line), so the next run can remove what an interrupted one left.</li>
+  <li>Traces are written only under the project's <code>.penstock/runs/</code>, which has its own <code>.gitignore</code>.</li>
+</ul>
+
+<h2 id="trust"><a href="#trust">Trust</a></h2>
+
+<ul>
+  <li>Commands that a tool starts for you, and <code>preDeploy</code> and <code>postDeploy</code> hooks run from an editor, run only in a project you have marked as trusted in that tool.</li>
+  <li>The review bot reads diagrams and <code>penstock.yaml</code>. It never runs the hooks that a pull request's configuration might declare.</li>
+  <li>The review bot answers a <code>/penstock</code> comment only from someone who is an owner, a member or a collaborator of the repository, and never on a pull request from a fork. It says so in one line naming both repositories, and does not check the fork out or run anything from it, so a fork cannot be executed with a token that writes to the repository.</li>
+  <li>The MCP server takes absolute paths. When the AI client tells it which folders are open (MCP roots), it refuses everything outside them.</li>
+</ul>
+
+<h2 id="the-shared-html-file"><a href="#the-shared-html-file">The shared HTML file</a></h2>
+
+<p>A file made with <a href="share-html.html">Share as HTML</a> loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of it.</p>
+
+<h2 id="checkout"><a href="#checkout">Opening the checkout</a></h2>
+
+<p>The Buy buttons on the <a href="plans.html">Plans page</a> are links to a Polar checkout page. Pressing one opens Polar's page, either in a new page or, where the site has switched it on, in a frame over this one. Either way it is Polar's page that loads. Polar sees the visit, and whatever you type there goes to Polar. Penstock never sees your card.</p>
+
+<ul>
+  <li><strong>Nothing else on this site contacts a third party.</strong> No page loads a font, a script, an image, a counter or a stylesheet from another site. Reading the guide, the rules and the licence sends nothing to anyone but the server that hosts this site (GitHub Pages).</li>
+  <li><strong>The prices are read at build time</strong>, when the site is generated, and are part of the page. Your browser does not ask Polar for them.</li>
+  <li><strong>The access token stays with the owner.</strong> It is used only on the machine that builds the site. It is never in the site or in the repository.</li>
+  <li><strong>Without JavaScript the Buy button still works.</strong> It is an ordinary link.</li>
+  <li>The button that opens the checkout in a frame uses Polar's own script, <code>@polar-sh/checkout</code> (Apache-2.0). It is served from this site, not from a CDN, and it does nothing until you press a Buy button. Its licence is in <a href="../vendor/polar-checkout/LICENSE.txt">vendor/polar-checkout/LICENSE.txt</a>.</li>
+</ul>
+
+<h2 id="this-website"><a href="#this-website">This website</a></h2>
+
+<p>The pages you are reading are plain HTML and one style sheet. They set no cookies and load no fonts, images or code from other sites. The font, JetBrains Mono, is served from this site. Nothing tracks visitors. GitHub, which hosts the site, keeps its own server logs. Apart from the checkout above, the only links that leave this site are ordinary links that you click.</p>
+
+<h2 id="report-a-vulnerability"><a href="#report-a-vulnerability">Report a vulnerability</a></h2>
+
+<p>Do not open a public issue. Read <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a> and report it privately.</p>
+
+<div class="hosts">
+<p class="hosts-title">What is specific to your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<ul>
+  <li>Secrets are kept in the <strong>IDE password safe</strong>, once for each profile.</li>
+  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a project marked as trusted. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @penstock/cli</code>, which downloads the command from npm the first time.</li>
+  <li>A private certificate must be trusted by the Java runtime of the IDE. Penstock never skips the check.</li>
+  <li>The connector download uses the IDE proxy settings.</li>
+</ul>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<ul>
+  <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Set them in the environment of the command, never in a file.</li>
+  <li>The wrapper downloads the pinned version from npm once, into <code>~/.penstock/wrapper</code>. After that it runs offline.</li>
+  <li>The connector download uses <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> when they are set.</li>
+</ul>
+</section>
+</div>
+</div>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>My firewall shows a request to GitHub from my tool.</dt>
+  <dd>You opened the connector browser, or pressed <span class="ui">Download</span> on a missing template. That is the only GitHub request. It is at most once a day.</dd>
+  <dt>My firewall shows a request to npm.</dt>
+  <dd>A command line action needed a version of <code>@penstock/cli</code> that was not on the machine. <code>penstock init</code> adds a wrapper that pins the version and keeps the download in <code>~/.penstock/wrapper</code>.</dd>
+  <dt>I work offline.</dt>
+  <dd>Everything works offline except deploy, engine questions, the connector download and the licence check. An active licence works 30 days without a connection.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../guide/files.html">Files Penstock reads and writes</a> - Every file, and where it lives.</li>
+<li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/sign-in.html"><span>Previous</span>Buying and signing in</a>
+<a class="next" href="../guide/troubleshooting.html"><span>Next</span>Troubleshooting</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

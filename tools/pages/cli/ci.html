@@ -1,0 +1,171 @@
+<!--
+title: Pipelines, reports and the bot
+lede: Run the checks on every push, get a review comment on every pull request, and deploy from CI, all with the same commands you use on your machine.
+tags: free
+needs: The free check runs anywhere. The bot, reports, baselines and SARIF need Team in a pipeline.
+related: index, commands, guide/sign-in, guide/profiles
+-->
+<h2>Set up a pipeline in one command</h2>
+
+<ol class="steps">
+  <li>In your project run <code>penstock init --ci github</code>. The other choices are <code>gitea</code>, <code>forgejo</code>, <code>gitlab</code>, <code>bitbucket</code> and <code>azure</code>.</li>
+  <li>Penstock writes the pipeline files, and tells you what to add in your CI settings (a secret, a token).</li>
+  <li>Commit the files and push.</li>
+</ol>
+
+<p>The pipeline it writes depends on the licence on the machine that ran the command. Without Team it runs the free check, the drawing and the rules, so its first run does not fail on a feature nobody has bought. With Team it also sets up the review bot, SARIF and baselines. If you buy Team later, run <code>init --ci</code> again.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Platform</th><th>Files written</th></tr></thead>
+  <tbody>
+  <tr><td>GitHub</td><td><code>.github/workflows/penstock.yml</code>, <code>penstock-publish.yml</code>, and with Team <code>penstock-bot.yml</code></td></tr>
+  <tr><td>Gitea, Forgejo</td><td><code>.gitea/workflows/</code> or <code>.forgejo/workflows/</code>: <code>penstock.yml</code>, or <code>penstock-bot.yml</code> with Team</td></tr>
+  <tr><td>GitLab</td><td><code>penstock.gitlab-ci.yml</code>. Include it from <code>.gitlab-ci.yml</code></td></tr>
+  <tr><td>Bitbucket</td><td><code>bitbucket-pipelines.penstock.yml</code>. Merge it into <code>bitbucket-pipelines.yml</code></td></tr>
+  <tr><td>Azure DevOps</td><td><code>azure-pipelines.penstock.yml</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2>The check in a pipeline</h2>
+
+<p>The free workflow on GitHub looks like this:</p>
+
+<pre><code>name: Diagrams
+
+on: [push, pull_request]
+
+jobs:
+  penstock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: kern0x1b/penstock-release@main
+        with:
+          command: check</code></pre>
+
+<p>The action runs your project's <code>penstockw</code> when there is one, so CI runs exactly the version the project pins, and it caches the download. Inputs: <code>command</code> (check, layout, fmt, deploy or doctor), <code>paths</code>, <code>profile</code>, <code>version</code>, <code>baseline</code>, <code>sarif</code> and <code>args</code>.</p>
+
+<p>With Team, the same step gets the licence from a secret, writes SARIF against the baseline and uploads it to code scanning:</p>
+
+<pre><code>      - uses: kern0x1b/penstock-release@main
+        env:
+          PENSTOCK_LICENSE: ${{ secrets.PENSTOCK_LICENSE }}
+        with:
+          command: check
+          sarif: penstock.sarif
+          baseline: 'true'
+
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: penstock.sarif</code></pre>
+
+<h3>Get the licence into the pipeline</h3>
+
+<ol class="steps">
+  <li>On a machine that has Team, run <code>penstock license key</code>.</li>
+  <li>Store the key as a secret named <code>PENSTOCK_LICENSE</code>.</li>
+</ol>
+
+<p>The key takes no machine's place. See <a href="@guide/sign-in.html">Buying and signing in</a>.</p>
+
+<h2>Machine formats</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>--format sarif</code></td><td>SARIF 2.1.0. GitHub code scanning reads it and shows notes on the pull request.</td></tr>
+  <tr><td><code>--format github</code></td><td>Annotation lines for a workflow that does not use code scanning.</td></tr>
+  <tr><td><code>--format json</code></td><td>For anything else. Every finding carries its rule id and the address of its page.</td></tr>
+  </tbody>
+</table></div>
+
+<p>SARIF and annotations are Pro on your machine and Team in a pipeline, and cover every section of the check.</p>
+
+<h2>Only what is new</h2>
+
+<p>A first run on a repository that has drawn diagrams for years is red, and a red build nobody can fix gets switched off. Record what the project already lives with, and check against it from then on.</p>
+
+<pre><code>penstock check . --update-baseline   # writes penstock-baseline.json. Commit it.
+penstock check . --baseline          # fails only on what is new</code></pre>
+
+<p>It also says what was fixed since the baseline was taken, so you can refresh the file when the backlog shrinks. A baseline covers every section. One taken before the check had sections needs refreshing with <code>--update-baseline</code>. Baselines are Pro, and Team in a pipeline.</p>
+
+<h2>Before the commit</h2>
+
+<p><code>penstock init --hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries, and nothing else. It lives in <code>.git/hooks</code>, so it is yours, not the repository's. Deleting the file removes it. It runs <code>check --baseline</code>, so it needs Pro.</p>
+
+<h2>The pull request report</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<p><code>penstock report</code> writes one Markdown comment for a pull request: the check against the baseline, what changed by element, and pictures with the changes outlined (green arrived, amber differs).</p>
+
+<pre><code>penstock report . --base origin/main --out penstock-report.md</code></pre>
+
+<h2>The review bot</h2>
+<p><span class="tag team">Team in a pipeline</span></p>
+
+<p>The bot is <code>penstock bot</code> running in your own CI. There is no service behind it and nothing to register. It answers with the token of the pipeline it runs in.</p>
+
+<p>On a pull or merge request that touches a diagram it leaves one comment, and edits that same comment on every push. In the conversation you can ask it:</p>
+
+<pre><code>/penstock                    the full review
+/penstock check              only the problems
+/penstock diff v1.4.0        what changed since a commit, branch or tag, outlined
+/penstock image orders.bpmn  a picture of the diagram as it is now
+/penstock help</code></pre>
+
+<p>The picture is drawn by Penstock itself without a browser. Nothing is ever committed to the repository.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Platform</th><th>Comments answered</th><th>The picture</th><th>What to add</th></tr></thead>
+  <tbody>
+  <tr><td>GitHub</td><td>yes</td><td>kept with the run, opens from the link in the comment</td><td>Nothing</td></tr>
+  <tr><td>Gitea, Forgejo</td><td>yes</td><td>attached to the pull request, shown inline</td><td>Nothing (or <code>PENSTOCK_TOKEN</code>)</td></tr>
+  <tr><td>GitLab</td><td>yes, through a webhook on the pipeline trigger</td><td>uploaded to the project, shown inline</td><td><code>PENSTOCK_TOKEN</code>: a project access token, role Developer, scope api</td></tr>
+  <tr><td>Azure DevOps</td><td>no, the review only</td><td>attached to the pull request, shown inline</td><td>Let the build service contribute to pull requests</td></tr>
+  <tr><td>Bitbucket</td><td>no, the review only</td><td>a pipeline artifact, linked from the comment</td><td><code>PENSTOCK_TOKEN</code>: a repository access token with pull request write</td></tr>
+  </tbody>
+</table></div>
+
+<p><code>init --ci</code> prints exactly what to add for your platform. The bot reads the diagrams and <code>penstock.yaml</code>. It never runs hooks that a pull request's configuration might declare.</p>
+
+<h2>Deploy from CI</h2>
+
+<p><code>init --ci github</code> also writes a publishing workflow. On merge it runs <code>penstock deploy . --wait</code> with the <code>prod</code> profile:</p>
+
+<pre><code>PENSTOCK_PROFILE=prod \
+PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
+./penstockw deploy . --wait</code></pre>
+
+<p>The profile chooses the environment. The secret arrives through the environment, not through the repository. With <code>auth.type: oauth</code> the client secret comes from <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when the engine wants one. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run, for example <code>PENSTOCK_DEPLOYMENT_URL</code>. <code>--wait</code> matters: it asks the engine for the definitions it just accepted until the engine answers. Run <code>--dry-run</code> first in a new pipeline. See <a href="@guide/deployment.html">Deployment</a>.</p>
+
+<h2>Test cases in CI</h2>
+
+<p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock scenarios run . --junit-xml build/test-cases.xml</code> runs them. See <a href="@guide/scenarios.html">Scenarios</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>In your CI system, a job called <em>Diagrams</em> (or <em>Penstock bot</em> with Team) runs on every push or pull request. It shows <code>ok</code> or <code>fail</code> for each file.</li>
+  <li>On a pull request that touches a diagram, the bot leaves one comment and edits that same comment on every push (Team).</li>
+  <li>With SARIF, GitHub shows the findings as notes on the changed lines.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The bot does not answer.</dt>
+  <dd>Check the token setup that <code>init --ci</code> printed for your platform, and that <code>PENSTOCK_LICENSE</code> holds a Team key. Also check that the job has <code>fetch-depth: 0</code>, so it can compare against the base branch.</dd>
+  <dt>The first run of the check is red on an old repository.</dt>
+  <dd>Take a baseline with <code>--update-baseline</code> and check with <code>--baseline</code> from then on.</dd>
+  <dt>"Findings in the code review ... is part of Penstock Team".</dt>
+  <dd>SARIF and annotations in a pipeline need Team. Use the plain <code>check</code>, or add a Team key.</dd>
+  <dt>My pipeline downloads Penstock on every run.</dt>
+  <dd>Commit the wrapper (<code>penstockw</code> and its properties file). The GitHub action then caches <code>~/.penstock/wrapper/dists</code>.</dd>
+</dl>

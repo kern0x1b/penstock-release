@@ -1,0 +1,46 @@
+<!--
+title: Diagram diff
+lede: See what changed between two versions of a diagram as two pictures, instead of two blocks of XML.
+tags: pro
+related: cli/commands, cli/ci, auto-layout
+-->
+<h2>What it is</h2>
+
+<p>When you compare two versions of a <code>.bpmn</code> file, Penstock shows the two diagrams side by side: <em>Before</em> on the left, <em>After</em> on the right. Both are read-only.</p>
+
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Take a <code>.bpmn</code> file that is under version control.</li>
+  <li>Compare it with an earlier version.</li>
+  <li>Two diagrams are shown instead of two blocks of XML.</li>
+</ol>
+
+{{host:diff-open|Compare in your tool}}
+
+<h2>What you see</h2>
+
+<p>Every changed element is outlined in a colour. The comparison is by meaning, not by text. Penstock reads both versions and sorts each element into a bucket:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Bucket</th><th>Shown on</th></tr></thead>
+  <tbody>
+  <tr><td>Removed</td><td>The Before side</td></tr>
+  <tr><td>Added</td><td>The After side</td></tr>
+  <tr><td>Changed</td><td>Both sides</td></tr>
+  <tr><td>Only moved or resized</td><td>The After side, in its own colour</td></tr>
+  </tbody>
+</table></div>
+
+<p>The last bucket is the useful one. A commit that only ran auto layout reads as what it is: everything moved, nothing changed in meaning.</p>
+
+<p>A pull request report and the review bot use the same comparison. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I see XML, not two diagrams.</dt>
+  <dd>The visual diff is a Pro feature. Without Pro you get the normal text diff of your tool. See <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>Everything is marked as changed.</dt>
+  <dd>Check whether the commit reformatted the file. <code>penstock fmt</code> makes the XML stable so later diffs stay small.</dd>
+</dl>

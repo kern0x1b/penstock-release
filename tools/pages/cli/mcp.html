@@ -1,0 +1,101 @@
+<!--
+title: The MCP server
+lede: Let an AI assistant read, check and, if you allow it, edit the diagrams in your project, with the same checks a person gets.
+tags: free
+needs: Reading and checking are free. Flow analysis, scenarios, code links and editing need Pro, and Team in a pipeline.
+related: commands, guide/plans, guide/security
+-->
+<h2>What it is</h2>
+
+<p><strong>MCP</strong> (Model Context Protocol) is a way for an AI assistant to use a program's tools. <code>penstock mcp</code> starts a small server on your machine that talks to the assistant over standard input and output. It offers a few tools. An assistant that edits a diagram can check straight away that it still runs to its end.</p>
+
+<h2>Connect an assistant</h2>
+
+<ol class="steps">
+  <li>Run <code>penstock mcp --config</code>. It prints the entry for your assistant's configuration. It prints the command only.</li>
+  <li>Paste the entry into the assistant's MCP settings, for example Claude Desktop or Cursor.</li>
+  <li>Start the assistant. It lists the tools.</li>
+</ol>
+
+<pre><code>$ penstock mcp --config
+{
+  "mcpServers": {
+    "penstock": {
+      "command": "npx",
+      "args": ["--yes", "@penstock/cli", "mcp"]
+    }
+  }
+}</code></pre>
+
+<p>There is no folder in the entry. You set it up once, and it works for every project. The server finds the project itself, as described next.</p>
+
+<h2>How the server finds your project</h2>
+
+<p>The server serves diagrams across projects. For each request it starts from the file or folder the assistant names, walks up to the nearest <code>penstock.yaml</code> (or the repository root), and uses that project's engine, settings and conventions.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Kind of tool</th><th>How you point it at a project</th></tr></thead>
+  <tbody>
+  <tr><td>Diagram tools: <code>show_diagram</code>, <code>check_diagram</code>, <code>analyze_flow</code>, <code>list_scenarios</code>, <code>edit_diagram</code></td><td>The assistant passes the <strong>absolute path</strong> of a <code>.bpmn</code> or <code>.bpmn20.xml</code> file, in <code>file</code>.</td></tr>
+  <tr><td>Whole-project tools: <code>list_diagrams</code>, <code>check_code_links</code></td><td>The assistant passes an absolute folder in the optional <code>project</code>. Without it, the tool uses the folders the AI client has open.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>The folders the client has open (MCP roots)</h3>
+
+<p>Many AI clients tell the server which folders are open in their workspace. MCP calls these <em>roots</em>. When the client does, the server:</p>
+
+<ul>
+  <li>uses those folders as the default projects for <code>list_diagrams</code> and <code>check_code_links</code>,</li>
+  <li>updates the list when the client says the folders changed,</li>
+  <li>refuses any file or folder outside them, so the assistant cannot read outside the workspace it was given.</li>
+</ul>
+
+<p>When the client sends no roots, the whole-project tools need an explicit absolute <code>project</code>. The diagram tools then accept any valid BPMN diagram whose path resolves to a project.</p>
+
+<h2>The tools</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Tool</th><th>What it does</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td><code>list_diagrams</code></td><td>Lists the BPMN diagrams of a project, as absolute paths.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>show_diagram</code></td><td>Describes a diagram: every element and flow with id, type, name, connections and engine properties. Read this before editing. Edits refer to these ids.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>check_diagram</code></td><td>Reports what is wrong, as the editor's check does: the drawing, your bpmnlint rules and, with a licence, how the process runs.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>list_scenarios</code></td><td>Lists every distinct way through a diagram: the decisions taken, their conditions, the steps and where it ends.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>check_code_links</code></td><td>Checks every diagram against the code, with file and line.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span></td></tr>
+  </tbody>
+</table></div>
+
+<p>A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="@guide/plans.html">Plans and licence</a>.</p>
+
+<h2>Safety</h2>
+
+<ul>
+  <li>The server runs on your machine. Nothing is sent anywhere by it. See <a href="@guide/security.html">Security and privacy</a>.</li>
+  <li>When the client gives roots, paths outside them are refused. Files that are not <code>.bpmn</code> or <code>.bpmn20.xml</code> diagrams are refused too.</li>
+  <li>An assistant can change your files only with <code>edit_diagram</code>. Ask the assistant to use <code>dryRun</code> first, and keep your diagrams in Git so you can review the diff.</li>
+</ul>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The assistant lists the tools. Paid tools show a note on what they need.</li>
+  <li>A tool call returns JSON, or a plain error message that says what is wrong.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The assistant does not see the tools.</dt>
+  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 20.19 or later must be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
+  <dt>"must be an absolute path to a diagram" or "\"project\" must be an absolute path".</dt>
+  <dd>The tools take absolute paths. Ask the assistant to pass the full path, as <code>list_diagrams</code> prints it.</dd>
+  <dt>"is outside the workspace roots".</dt>
+  <dd>The path is not inside a folder the client has open. Open the project in the client, or give a path inside an open folder.</dd>
+  <dt>"is not a Penstock project".</dt>
+  <dd>The folder has no <code>penstock.yaml</code> and no repository root above it. Run <code>penstock init</code> there.</dd>
+  <dt>A paid tool says it needs a licence.</dt>
+  <dd>Sign in on the machine that runs the server: <code>penstock license login</code>.</dd>
+</dl>

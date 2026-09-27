@@ -1,0 +1,119 @@
+<!--
+title: Element templates
+lede: An element template turns a plain task into a ready-made one, for example "send an e-mail", with a short form of its own.
+tags: free
+needs: Camunda 7 and Camunda 8. The connector browser is for Camunda 8.
+related: properties-panel, security, settings
+-->
+<h2>What it is</h2>
+
+<p>An element template is a JSON file. It says: "this task is a Slack message, and it needs a channel and a text". When you apply it, the properties panel shows only those two fields and Penstock writes the technical settings for you. Penstock uses the Camunda template format. For the format itself, read <a href="https://docs.camunda.io/docs/components/modeler/element-templates/about-templates/">Camunda's documentation</a>.</p>
+
+<h2>Where Penstock finds templates</h2>
+
+<p>Two places, and nothing else in the project is scanned:</p>
+
+<ul>
+  <li>A folder named <code>.camunda/element-templates</code>, next to the diagram or in any folder above it, up to the project root. This is where the Camunda Modeler keeps templates. You do not have to list it.</li>
+  <li>The files and folders listed under <code>elementTemplates</code> in <code>penstock.yaml</code>, relative to the project root. A folder is read whole, with every <code>.json</code> file in it and below it.</li>
+</ul>
+
+<pre><code>elementTemplates:
+  - templates/connectors
+  - shared/payment-task.json</code></pre>
+
+<p>Like the rest of <code>penstock.yaml</code>, the list can differ per folder. The file nearest the diagram wins. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<p>A file may hold one template or an array of templates. Both work.</p>
+
+<h3>What is skipped without an error</h3>
+
+<ul>
+  <li>A path that no longer exists.</li>
+  <li>A file larger than 10 MB. A warning goes to the log of your tool.</li>
+  <li>A file that is not valid JSON. The error goes to the log of your tool, with the path.</li>
+</ul>
+
+<p>Penstock re-reads a file when its modification time changes, so an edited template is picked up without restarting your tool.</p>
+
+<h2>Apply a template</h2>
+
+<ol class="steps">
+  <li>Select a task or event in a Camunda 7 or Camunda 8 diagram.</li>
+  <li>In the properties panel, use the template chooser at the top. Pick a template.</li>
+  <li>Fill in the fields the template shows.</li>
+</ol>
+
+<p>The element records which template it came from. Under Camunda 7 that is <code>camunda:modelerTemplate</code>. Under Camunda 8 it is <code>zeebe:modelerTemplate</code>. The Classic profile has no template support.</p>
+
+<h2>The connector browser</h2>
+
+<p>Camunda publishes ready-made connector templates: Slack, e-mail, REST, and many more. Penstock has a browser for them.</p>
+
+<h3>Open it</h3>
+
+<ol class="steps">
+  <li>Open a Camunda 8 diagram.</li>
+  <li>Open <span class="ui">More</span> and choose <span class="ui">Templates…</span>. A dialog called <em>Connector Templates</em> opens.</li>
+  <li>The first time, it says <em>Downloading the connector templates from GitHub…</em>. Wait a moment.</li>
+</ol>
+
+<p>The templates are not bundled with Penstock. They are downloaded from Camunda's public <code>camunda/connectors</code> repository on GitHub, and kept in <code>~/.penstock/connectors/</code>. Every tool on your machine shares that folder. Penstock asks GitHub at most once a day. It sends no credentials, no cookies and no project data. Opening a diagram never downloads anything. See <a href="security.html">Security and privacy</a>.</p>
+
+<h3>Find a template</h3>
+
+<ul>
+  <li>Type in <span class="ui">Search name, description, keyword</span>.</li>
+  <li>Use the <em>Element type</em> and <em>Category</em> lists on the left. The number beside each is how many templates it holds.</li>
+  <li>Press <span class="ui">Installed only</span> to see what your project already has.</li>
+  <li>Templates that need a newer Camunda engine than the diagram targets are hidden. Press <span class="ui">Show N for newer engines</span> to see them.</li>
+  <li>The line at the top says which release you are looking at, for example <em>Camunda connectors 8.8, checked 10:14</em>. Press <span class="ui">Check for updates</span> to ask GitHub now.</li>
+</ul>
+
+<p>Each card shows the name, a short description, the element type, the version, and the Camunda version it needs. A template Camunda has deprecated is badged <em>Deprecated</em>, with its own reason where the template gives one, and sorted after the current ones rather than in among them. <span class="ui">Details</span> opens the whole template: its fields, grouped, and a link to the documentation. The details are shown inside the browser itself rather than in a second window.</p>
+
+<p>A connector that ships several templates installs all of them at once: that path asks for a folder, warns that it will write one file per template and overwrite files of the same names, and waits for you to confirm. To take one template of such a connector, open <span class="ui">Details</span> and install it from the list.</p>
+
+<h3>Install one</h3>
+
+<ol class="steps">
+  <li>Press <span class="ui">Install</span> on a card, or <span class="ui">Install template</span> in its details.</li>
+  <li>A save panel opens, pre-filled with the template's own file name, in the nearest <code>.camunda/element-templates</code> folder above the diagram, using one that already exists where the project has one. Save it there, or into a folder your <code>elementTemplates</code> list already names. Cancel writes nothing.</li>
+  <li>If <code>penstock.yaml</code> has no <code>elementTemplates</code> list yet, the file you saved is added as its first entry. A list that exists is left alone.</li>
+  <li>The open diagram uses it at once. You do not need to reopen it.</li>
+</ol>
+
+<p>A message says <em>Template "…" installed</em>. The card then says <span class="ui">Installed</span> and its button is off.</p>
+
+<h3>A diagram that names a template you do not have</h3>
+
+<p>When a diagram uses a connector template that is not in the project, Penstock looks in the downloaded set. If it is there, the diagram uses it. If not, a small badge on the element says <em>Template not downloaded</em> with a <span class="ui">Download</span> button. Press it to fetch the catalogue.</p>
+
+<h3>From a terminal</h3>
+
+<pre><code>penstock connectors                 # list the current templates
+penstock connectors resolve io.camunda.connectors.HttpJson.v2
+penstock connectors --refresh       # ask GitHub now</code></pre>
+
+<p>See <a href="@cli/commands.html#connectors">Every command</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>After you pick a template, the properties panel shows only the fields the template exposes.</li>
+  <li>After an install, a message <em>Template "…" installed</em>, and the card says <span class="ui">Installed</span>.</li>
+  <li>The element records the template it came from, in <code>camunda:modelerTemplate</code> or <code>zeebe:modelerTemplate</code>.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A template does not appear.</dt>
+  <dd>Check three things in this order. The diagram's engine must be Camunda 7 or Camunda 8, not Classic. The file must be in a <code>.camunda/element-templates</code> folder at or above the diagram, or under a path in <code>elementTemplates</code>. The file must still exist. <code>penstock doctor</code> reports a listed path that is missing. Then read the log of your tool: a file that is too large or not valid JSON is skipped with a message.</dd>
+  <dt>There is no Templates… item.</dt>
+  <dd>The connector browser is only for Camunda 8 diagrams.</dd>
+  <dt>The browser says the connector templates could not be downloaded.</dt>
+  <dd>Penstock could not reach GitHub. Check the network and the proxy settings of your tool, then press <span class="ui">Retry</span>. If it worked before, Penstock uses the templates it already downloaded. It tries again automatically after a while.</dd>
+  <dt>Install says nothing was written.</dt>
+  <dd>You cancelled the save dialog. Nothing is written when you cancel.</dd>
+</dl>

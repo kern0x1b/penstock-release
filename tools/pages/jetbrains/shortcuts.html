@@ -1,0 +1,49 @@
+<!--
+title: Shortcuts
+lede: The keys that work in the Penstock editor and in your code inside a JetBrains IDE.
+tags: free
+related: where-things-are, code-links, guide/editing
+-->
+<h2>In the diagram editor</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Cmd</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>Y</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Redo.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>Copy the selection.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>V</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Paste.</td></tr>
+  <tr><td><kbd>Del</kbd></td><td>Delete the selection.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td>Copy as image: the selection, or the whole diagram when nothing is selected, as a PNG on the clipboard.</td></tr>
+  <tr><td>Mouse wheel with <kbd>Cmd</kbd> or <kbd>Ctrl</kbd></td><td>Zoom the canvas.</td></tr>
+  <tr><td><kbd>Esc</kbd></td><td>Close a dialog.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>In your code and in the tool window</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Cmd</kbd>+click / <kbd>Ctrl</kbd>+click on a string</td><td>Go to the diagram element it names. Same as <span class="ui">Go to Declaration</span>. Pro. See <a href="code-links.html">Code links in the IDE</a>.</td></tr>
+  <tr><td>The IDE's own shortcut for <span class="ui">Find Usages</span></td><td>In the tool window, on a node: find the code that names it.</td></tr>
+  <tr><td>The IDE's own shortcut for <span class="ui">Go to Implementation</span></td><td>In the tool window, on a worker: open its implementation.</td></tr>
+  <tr><td>The IDE's own shortcut for <span class="ui">Copy</span></td><td>In the tool window: copy the id of the node.</td></tr>
+  <tr><td><kbd>Enter</kbd> or double-click</td><td>Open the selected node of the tool window.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The IDE's own shortcuts depend on the keymap you chose. Look them up in <span class="ui">Settings | Keymap</span>. Penstock does not define shortcuts of its own for them.</p>
+
+<h2>What you see</h2>
+
+<p>The keys above show next to their entries in the context menu of the editor and of the tool window.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A key does nothing in the diagram.</dt>
+  <dd>The canvas must have focus. Click an empty spot on it. During a token simulation, keys that edit the diagram are switched off.</dd>
+  <dt>Cmd/Ctrl+click does nothing on a string.</dt>
+  <dd>Code links need Pro, and the string must be a name a diagram uses.</dd>
+</dl>

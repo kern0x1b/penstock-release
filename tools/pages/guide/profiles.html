@@ -1,0 +1,104 @@
+<!--
+title: Profiles
+lede: A profile is a named set of settings, such as test or prod, so one project can deploy to several places.
+tags: free
+related: settings, deployment, cli/ci
+-->
+<h2>Two words, two meanings</h2>
+
+<p>The word <em>profile</em> has two uses in Penstock. This page is about the second.</p>
+
+<ul>
+  <li>An <strong>engine profile</strong> is the kind of editor Penstock builds: Classic, Camunda 7, Camunda 8, Operaton or CIB seven. See <a href="engine-profiles.html">Engines</a>.</li>
+  <li>A <strong>deployment profile</strong>, or just profile, is a named block of overrides in <code>penstock.yaml</code>. Use one for each environment.</li>
+</ul>
+
+<h2>Define a profile</h2>
+
+<ol class="steps">
+  <li>Open <code>penstock.yaml</code>.</li>
+  <li>Add a <code>profiles</code> block. Under it, give each profile a name and the keys that differ.</li>
+</ol>
+
+<pre><code>deployment:
+  url: http://localhost:8080/engine-rest
+  name: Order handling
+
+profiles:
+  test:
+    deployment:
+      url: https://bpm-test.example.com/engine-rest
+      auth:
+        type: basic
+        username: ${BPM_USER:ci}
+  prod:
+    deployment:
+      url: https://bpm.example.com/engine-rest
+      auth:
+        type: oauth
+        clientId: penstock
+        tokenUrl: https://auth.example.com/oauth/token</code></pre>
+
+<p>Anything a profile does not say keeps the value from above it. A profile may override any key, not only <code>deployment</code>.</p>
+
+<h2>Choose the profile in force</h2>
+
+<ul>
+  <li>Set <code>profile: test</code> in the file, or</li>
+  <li>Set the environment variable <code>PENSTOCK_PROFILE</code>, or</li>
+  <li>Pass <code>--profile test</code> to a command. It sets the variable for that run.</li>
+</ul>
+
+<p>The environment variable wins over the file. That is how a pipeline deploys to production without editing anything:</p>
+
+<pre><code>PENSTOCK_PROFILE=prod ./penstockw deploy . --wait</code></pre>
+
+<h2>Order of the layers</h2>
+
+<p>A profile is laid over the merged result of all <code>penstock.yaml</code> files, <em>including</em> <code>penstock.local.yaml</code>. So a profile beats a plain value in your local file. To override a profile on your own machine, put the key under <code>profiles.&lt;name&gt;</code> in <code>penstock.local.yaml</code>. This is exactly what the Connection dialog does when you enter an engine address for a profile. Environment variables come last. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<h2>Deploy to another profile from the editor</h2>
+
+<ol class="steps">
+  <li>Click the arrow next to <span class="ui">Deploy</span>.</li>
+  <li>Pick <span class="ui">Deploy to &lt;profile&gt;</span>. There is one entry for each profile, and <span class="ui">Deploy to default</span> for the plain settings.</li>
+  <li>The diagram goes there. The profile in force does not change.</li>
+</ol>
+
+<p>The Deploy popover names every profile in the file, so a diagram can go to another environment without changing what is in force, and its <span class="ui">Edit connection&hellip;</span> edits the address and sign-in of the profile you picked. See <a href="deployment.html">Deployment</a>.</p>
+
+<h2>See the profiles</h2>
+
+<pre><code>$ penstock doctor
+node        v22.12.0
+root        /work/orders
+config      penstock.yaml
+engine      camunda-7
+profiles    *prod, test
+deployment  https://bpm.example.com/engine-rest - reachable (200)</code></pre>
+
+<p>The star marks the profile in force. <code>penstock doctor --format json</code> prints all the settings that apply after every layer, including the profile.</p>
+
+<h2>Secrets belong to the profile</h2>
+
+<p>In the editor, the password or client secret is stored in the secret store of your tool once for each profile. On the command line use <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. Never write them into <code>penstock.yaml</code>. See <a href="security.html">Security and privacy</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li><code>penstock doctor</code> lists the profiles and puts a star before the one in force.</li>
+  <li>The arrow next to Deploy shows one <span class="ui">Deploy to &lt;profile&gt;</span> entry for each profile.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My profile is ignored.</dt>
+  <dd>Check the spelling and that <code>profile</code> or <code>PENSTOCK_PROFILE</code> names it exactly. <code>penstock doctor</code> lists the profiles it found and marks the one in force.</dd>
+  <dt>The profile in force is not the one I set in the file.</dt>
+  <dd><code>PENSTOCK_PROFILE</code> wins over the file. Check your environment.</dd>
+  <dt>I set a value in <code>penstock.local.yaml</code> but the profile overrides it.</dt>
+  <dd>Right. A profile beats plain values in every file. Put the value under <code>profiles.&lt;name&gt;</code> in the local file.</dd>
+  <dt>The editor asks for the password again.</dt>
+  <dd>The password is stored per profile. A new profile has none yet.</dd>
+</dl>

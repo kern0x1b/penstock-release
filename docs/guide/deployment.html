@@ -3,132 +3,175 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Deployment - Penstock</title>
-<meta name="description" content="Deploying a diagram, a decision or a form from Penstock: the Deploy popover, the Connection dialog, profiles and penstock.yaml, the credentials, hooks, and what an engine says when it refuses.">
+<meta name="description" content="Deploy sends the diagram you are editing to the engine your project names, after one more click that shows exactly what will go where.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/deployment.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html">Check and problems</a></li>
-      <li><a href="deployment.html" aria-current="page">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html" aria-current="page">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Running</p>
+<h1>Deployment</h1>
+<p class="lede">Deploy sends the diagram you are editing to the engine your project names, after one more click that shows exactly what will go where.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Camunda 7, Camunda 8, Operaton or CIB seven</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#deploy-from-the-editor">Deploy from the editor</a></li>
+<li><a href="#what-the-popover-tells-you">What the popover tells you</a></li>
+<li><a href="#the-connection-dialog">The Connection dialog</a></li>
+<li><a href="#what-is-set-in-penstock-yaml">What is set in penstock.yaml</a></li>
+<li><a href="#what-is-sent">What is sent</a></li>
+<li><a href="#how-the-request-is-made">How the request is made</a></li>
+<li><a href="#oauth">OAuth</a></li>
+<li><a href="#hooks">Hooks</a></li>
+<li><a href="#deploy-more-than-one-file">Deploy more than one file</a></li>
+<li><a href="#feedback-and-errors">Feedback and errors</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="deploy-from-the-editor"><a href="#deploy-from-the-editor">Deploy from the editor</a></h2>
 
-  <div class="docbody">
-    <h1>Deployment</h1>
+<ol class="steps">
+  <li>Open a diagram, a decision or a form.</li>
+  <li>Press <span class="ui">Deploy</span> on the right of the toolbar. A popover opens under the button rather than deploying at once.</li>
+  <li>Read the popover: which profile is in force, where it will go, and which files will be sent. Pick another profile if you need to, or press <span class="ui">Edit connection&hellip;</span> to set the address first.</li>
+  <li>Press <span class="ui">Deploy</span>. A notification says where the file went, or what the engine answered.</li>
+</ol>
 
-    <p class="lede">Deploy is one click and then one more. It sends the diagram you are editing,
-    the decision or the form, to the engine <code>penstock.yaml</code> points at, and asks for the
-    engine address and the sign-in the first time. The request is made by the IDE process, not by
-    the embedded browser, so no CORS configuration is needed on the engine. Secrets go to the IDE
-    password safe, never to a project file.</p>
+<p>Deploy sends the state of the canvas, including edits that have not reached the disk yet. The DMN and form editors have the same button, and the result is still a notification. Under the Classic BPMN profile there is no deployment target, so there is no button. See <a href="engine-profiles.html">Engines</a>.</p>
 
-    <h2>The Deploy popover</h2>
+<!-- image: deploy-popover.png, the Deploy popover under the Deploy button with the profile, the engine address, the files that will be sent, Edit connection and Deploy -->
 
-    <!-- image: deploy-popover.png -->
+<h2 id="what-the-popover-tells-you"><a href="#what-the-popover-tells-you">What the popover tells you</a></h2>
 
-    <p><strong>Deploy</strong> sits at the right of the editor toolbar, as the one primary
-    action, when the file's engine profile has an engine behind it: Camunda 7, Camunda 8, Operaton
-    or CIB seven. Under the Classic BPMN 2.0 profile there is no deployment target and the button
-    is not shown. See <a href="engine-profiles.html">Engine profiles</a>.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Profile</td><td>Which one is in force, and every other profile in the file, so a diagram can go to staging without changing what is in force. See <a href="profiles.html">Profiles</a>.</td></tr>
+  <tr><td>Engine address</td><td>Where it will go, or <em>Not set yet</em>.</td></tr>
+  <tr><td>What will be sent</td><td>The files, by name, with a count for the rest. For a diagram that is the diagram and nothing else.</td></tr>
+  <tr><td>Edit connection&hellip;</td><td>Opens the Connection dialog for the profile you picked.</td></tr>
+  <tr><td>Deploy</td><td>Sends, to the profile you picked.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <p>Pressing it opens a popover under the button rather than deploying at once. The popover
-    tells you three things and offers two actions:</p>
+<h2 id="the-connection-dialog"><a href="#the-connection-dialog">The Connection dialog</a></h2>
 
-    <table class="facts">
-      <tr><td>Profile</td><td>Which one is in force, and every other profile in the file, so a
-        diagram can go to staging without changing what is in force</td></tr>
-      <tr><td>Engine address</td><td>Where it will go, or <em>Not set yet</em></td></tr>
-      <tr><td>What will be sent</td><td>The files, by name, with a count for the rest. For a
-        diagram that is the diagram and nothing else</td></tr>
-      <tr><td>Edit connection…</td><td>Opens the Connection dialog for the profile you picked</td></tr>
-      <tr><td>Deploy</td><td>Sends, to the profile you picked</td></tr>
-    </table>
+<p>It opens from <span class="ui">Edit connection&hellip;</span> in the popover, and it opens by itself the first time you deploy to a profile that has no engine address, or whose sign-in has no password or secret yet. Its title names the engine and the profile, for example <em>Camunda 8 &middot; prod</em>.</p>
 
-    <p>It sends the current state of the canvas, including edits that have not reached the disk
-    yet. The result is a notification: where the diagram went, or what the engine answered. The
-    DMN and form editors have the same button, and the tool window's Deploy sends every diagram in
-    a folder to its profile after asking.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
+  <tbody>
+  <tr><td>Engine address</td><td>The REST address of the engine. Required. <code>http</code> or <code>https</code>. Camunda 7, Operaton and CIB seven: for example <code>http://localhost:8080/engine-rest</code>. Camunda 8: the address of the REST API, for example <code>http://localhost:8080</code> or <code>http://localhost:8080/v2</code>.</td></tr>
+  <tr><td>Sign in</td><td><em>Not needed</em>, <em>User and password</em>, or <em>OAuth client</em>.</td></tr>
+  <tr><td>User, Password</td><td>For <em>User and password</em>. Sent as HTTP Basic.</td></tr>
+  <tr><td>Client id, Client secret, Token address, Audience</td><td>For <em>OAuth client</em>. Penstock uses the client credentials grant. The audience is optional.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <h2>The Connection dialog</h2>
+<p>Opened from <span class="ui">Edit connection&hellip;</span> the dialog offers <span class="ui">Save</span>, which only saves, and <span class="ui">Save and Deploy</span>. Opened by a deploy, because nothing is set up yet, it offers <span class="ui">Save and Deploy</span> alone. If something is missing, the dialog says what is still needed, under the field, with a red outline once you have left it.</p>
 
-    <!-- image: connection-dialog.png -->
+<h3 id="where-it-is-kept"><a href="#where-it-is-kept">Where it is kept</a></h3>
 
-    <p>The dialog opens from <strong>Edit connection…</strong> in the popover, and it opens by
-    itself the first time you deploy to a profile that has no engine address, or whose sign-in
-    has no password or client secret stored yet. Its title names the engine and the profile, such
-    as <em>Camunda 8 · prod</em>.</p>
+<ul>
+  <li>The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force. It stays on your machine.</li>
+  <li>The password or client secret goes to the <strong>secret store of your tool</strong>, once for each profile.</li>
+  <li>When you open the dialog again, the field says <em>Saved - type to replace</em>. Leave it empty to keep the secret. Type to replace it. Set <em>Sign in</em> to <em>Not needed</em> and save to remove it.</li>
+</ul>
 
-    <table class="facts">
-      <tr><td>Engine address</td><td>The Camunda 7 REST API, such as
-        <code>http://localhost:8080/engine-rest</code>, which is what Operaton and CIB seven answer
-        on as well, or the Camunda 8 REST address, such as <code>http://localhost:8088</code>.
-        Required, <code>http</code> or <code>https</code></td></tr>
-      <tr><td>Sign in</td><td><em>Not needed</em>, <em>User and password</em>, or <em>OAuth
-        client</em></td></tr>
-      <tr><td>User, Password</td><td>For <em>User and password</em>, sent as
-        <code>Authorization: Basic</code></td></tr>
-      <tr><td>Client id, Client secret, Token address, Audience</td><td>For <em>OAuth client</em>:
-        the client credentials grant. The audience is optional</td></tr>
-    </table>
+<h2 id="what-is-set-in-penstock-yaml"><a href="#what-is-set-in-penstock-yaml">What is set in penstock.yaml</a></h2>
 
-    <p>Opened from <strong>Edit connection…</strong>, the dialog offers <strong>Save</strong>,
-    which only saves, and <strong>Save and deploy</strong>. Opened by a deploy, because nothing is
-    set up yet, it offers <strong>Save and deploy</strong> alone.</p>
-
-    <p>The address and the sign-in type, user name, client id, token address and audience go to
-    <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which
-    stays on this machine; see <a href="settings.html">Configuration</a>. The password or client
-    secret goes to the IDE password safe, separately for each profile, and the dialog only says
-    that one is stored rather than reading the value back out. Leaving the field empty keeps the
-    stored one, and typing replaces it. Saving with <em>Sign in</em> set to <em>Not needed</em>
-    removes it.</p>
-
-    <h2>What is set in penstock.yaml</h2>
-
-    <p>Everything else about a deployment is part of the project, not the dialog: the deployment
-    name, the tenant, the source, the activation time and whether to leave out what the engine
-    already has. A profile overrides any of it for another environment.</p>
+<p>Everything else about a deployment belongs to the project, not to the dialog. A profile can override any of it for another environment.</p>
 
 <pre><code>deployment:
   url: http://localhost:8080/engine-rest
@@ -149,130 +192,146 @@ hooks:
   preDeploy: npm run verify-workers
   postDeploy: ./notify-release.sh</code></pre>
 
-    <table class="facts">
-      <tr><td><code>name</code></td><td>Defaults to <code>Penstock deployment</code>, so the
-        engine's duplicate check can match one deployment to the next</td></tr>
-      <tr><td><code>source</code></td><td>Defaults to <code>penstock</code></td></tr>
-      <tr><td><code>tenantId</code></td><td>Empty means the default tenant</td></tr>
-      <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has unchanged.
-        On unless set to <code>false</code></td></tr>
-      <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and
-        answer jobs on. See <a href="sidebar.html">The sidebar</a></td></tr>
-      <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means activate
-        immediately. Camunda 7 family</td></tr>
-    </table>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>name</code></td><td>Default <code>Penstock deployment</code>. Keep it the same between deployments, so the engine's duplicate check can match one to the next.</td></tr>
+  <tr><td><code>source</code></td><td>Default <code>penstock</code>.</td></tr>
+  <tr><td><code>tenantId</code></td><td>Empty means the default tenant.</td></tr>
+  <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has, unchanged. On unless <code>false</code>.</td></tr>
+  <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means at once. Camunda 7 family.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <h2>What is sent</h2>
+<h2 id="what-is-sent"><a href="#what-is-sent">What is sent</a></h2>
 
-    <p>The diagram goes to the engine as one <code>multipart/form-data</code> POST carrying a
-    single file part named after the file, with content type <code>application/xml</code>
-    (<code>application/json</code> for a form). Nothing else from the project is included - no
-    other diagrams, no element templates, no settings file. OAuth is the one case that makes a
-    second request: the token request that precedes the deployment.</p>
+<p>One <code>multipart/form-data</code> POST with the file as a single part, named after the file. Its type is <code>application/xml</code>, or <code>application/json</code> for a form. Nothing else from the project goes with it. OAuth makes one more request first: the token request.</p>
 
-    <table class="facts">
-      <tr><td>Camunda 7, Operaton, CIB seven</td><td><code>/deployment/create</code> is appended
-        to the address. The deployment name, source, tenant and activation time go as form fields
-        beside the file, and <code>changedOnly</code> sets both
-        <code>enable-duplicate-filtering</code> and <code>deploy-changed-only</code></td></tr>
-      <tr><td>Camunda 8</td><td><code>/v2/deployments</code> is appended to the address; an
-        address that already ends in <code>/v2</code> works as well. The file goes as
-        <code>resources</code>, with <code>tenantId</code> beside it when one is set</td></tr>
-    </table>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><code>/deployment/create</code> is added to the address. Name, source, tenant and activation time go as form fields. <code>changedOnly</code> sets both <code>enable-duplicate-filtering</code> and <code>deploy-changed-only</code>.</td></tr>
+  <tr><td>Camunda 8</td><td><code>/v2/deployments</code> is added to the address. An address that already ends in <code>/v2</code> works too. The file goes as <code>resources</code>, with <code>tenantId</code> beside it when set.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <p><span class="mono">penstock deploy</span> on the command line uses the same addresses and
-    the same settings, and sends the diagrams, decisions and forms together grouped by the target
-    each folder asks for, so the IDE and a pipeline mean the same thing by
-    <code>deployment.url</code>. See <a href="cli.html">Command line</a>.</p>
+<p>Every tool uses the same addresses and settings, so an editor and a pipeline mean the same thing by <code>deployment.url</code>.</p>
 
-    <h2>OAuth</h2>
+<h2 id="how-the-request-is-made"><a href="#how-the-request-is-made">How the request is made</a></h2>
 
-    <p>With <em>OAuth client</em>, Penstock first POSTs
-    <code>grant_type=client_credentials</code> with the client id and secret to the token address
-    as a form-encoded body, reads <code>access_token</code> out of the JSON response, and uses it
-    as a bearer token on the deployment request. If the token endpoint cannot be reached, answers
-    with a non-2xx status, or returns a body without an access token, the deployment stops there
-    and the error says which of the three happened. The audience is sent only when you fill it in.
-    The token request has its own 15-second timeout.</p>
+<p>The request is made by the host process, not by the browser built into your tool, so no CORS configuration is needed on the engine. The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which stays on this machine and is added to <code>.gitignore</code>. The password or client secret goes to the <strong>secret store of your tool</strong>, separately for each profile, and the dialog only says that one is stored rather than reading the value back out. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read; a password comes from <code>PENSTOCK_PASSWORD</code> or from the secret store.</p>
 
-    <h2>Hooks</h2>
+<h2 id="oauth"><a href="#oauth">OAuth</a></h2>
 
-    <p><code>preDeploy</code> and <code>postDeploy</code> in <code>penstock.yaml</code> run around
-    a deployment from the IDE, as they do on the command line. They run in the project root with
-    <code>PENSTOCK_FILES</code> - one file per line - <code>PENSTOCK_ROOT</code>,
-    <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code> set. A <code>preDeploy</code>
-    that fails stops the deployment and nothing is sent; <code>postDeploy</code> runs after a
-    successful one.</p>
+<p>Penstock first sends <code>grant_type=client_credentials</code> with the client id and secret to the token address, as a form. It reads <code>access_token</code> from the JSON answer and uses it as a bearer token on the deployment. The audience is sent only if you fill it in. If the token endpoint cannot be reached, answers with an error, or sends no access token, the deployment stops and the error says which. The token request times out after 15 seconds.</p>
 
-    <p>Hooks run only in a trusted project. In a project the IDE does not trust, a configured
-    <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
+<p>On the command line use <code>auth.type: oauth</code> and set the secret in <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code>, if set, is used as a bearer token instead. <code>PENSTOCK_PASSWORD</code> is the password for basic sign-in.</p>
 
-    <h2>What the engine says</h2>
+<h2 id="hooks"><a href="#hooks">Hooks</a></h2>
 
-    <p>A successful deployment names the file and the address it went to.</p>
+<p><code>preDeploy</code> and <code>postDeploy</code> run around every deployment, from the editor and from the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. Where a tool has a notion of a trusted project, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
 
-    <p>A deployment the engine refuses says which files it refused and why, one line for each,
-    in the editor and in <span class="mono">penstock deploy</span>, rather than repeating the
-    engine's raw list of element errors. An answer of 401 or 403 offers <strong>Edit
-    connection</strong> in the editor's message; <span class="mono">penstock deploy</span> says
-    what to set, which is <code>deployment.auth</code> in
-    <code>penstock.local.yaml</code>, or <code>PENSTOCK_PASSWORD</code>,
-    <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>. A request that never
-    reached the engine says <em>Could not reach the engine at &lt;url&gt;</em>, and a deployment
-    with no address anywhere says so and points at <code>deployment.url</code> or the Connection
-    dialog. The request times out on its own after 30 seconds, and the connection after 10.</p>
+<h2 id="deploy-more-than-one-file"><a href="#deploy-more-than-one-file">Deploy more than one file</a></h2>
 
-    <p>Before anything is sent, <span class="mono">penstock deploy</span> and
-    <span class="mono">penstock doctor</span> say so when <code>deployment.auth.type</code> is
-    <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the
-    engine refuse it.</p>
+<p>Deploying sends the files of a project grouped by the target each folder asks for: files from folders whose <code>penstock.yaml</code> names another engine go to that engine. You can also send every diagram to one profile at once, after a confirmation.</p>
 
-    <h2>How a dialog is put together</h2>
+<div class="hosts">
+<p class="hosts-title">Deploy many files in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>In the <a href="../jetbrains/tool-window.html">Penstock tool window</a>: right-click a file or a process and press <span class="ui">Deploy</span>. It goes to that file's profile. Right-click a profile under <em>Deployment</em> to send every diagram to it. Hooks run only in a trusted project, and the password comes from the IDE password safe.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
+<pre><code>$ penstock deploy . --dry-run
+would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
+      src/main/resources/approve-order.form
+      src/main/resources/order-process.bpmn
+      src/main/resources/shipping-method.dmn</code></pre>
+<ul>
+  <li><code>--dry-run</code> says where, and sends nothing. Try it first in a new pipeline.</li>
+  <li><code>--wait</code> asks the engine until it shows the definitions.</li>
+  <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run.</li>
+</ul>
+<p>See <a href="../cli/commands.html#deploy">Every command</a>.</p>
+</section>
+</div>
+</div>
 
-    <p>Every dialog, popover and form in the editor follows one standard, and the Connection
-    dialog is one of them: the same sizes, the same footer, the same focus and Esc behaviour,
-    labels without a colon, help as permanent text under the field rather than a tooltip, and an
-    error as text under the field with a red outline once you have left it. Export, the import
-    report, Run with input, Save as scenario, Open run and the connector template browser use the
-    same one. The buttons of a dialog follow the IDE: the primary button is on the right on macOS
-    and first on Windows and Linux.</p>
+<h2 id="feedback-and-errors"><a href="#feedback-and-errors">Feedback and errors</a></h2>
 
-    <h2>Security</h2>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Success</td><td><em>Deployed order-process.bpmn as order-process v3 on http://localhost:8080</em></td></tr>
+  <tr><td>The engine said no</td><td>One line for each file it refused and why, rather than a list of element errors. The editor's message offers <span class="ui">Edit connection</span> when the engine answered 401 or 403; the command line says what to set.</td></tr>
+  <tr><td>Not signed in</td><td>An answer of 401 or 403 means the address or the credentials are wrong. In a terminal, set <code>deployment.auth</code> in <code>penstock.local.yaml</code>, or <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>.</td></tr>
+  <tr><td>Not reachable</td><td><em>Could not reach the engine at &lt;url&gt;</em>.</td></tr>
+  <tr><td>No address</td><td>The message says so and points at <code>deployment.url</code> or the Connection dialog.</td></tr>
+  <tr><td>preDeploy failed</td><td><em>The preDeploy hook failed, nothing was sent</em>. The hook's output follows.</td></tr>
+  <tr><td>Not confirmed</td><td>With <code>--wait</code>: <em>The engine took the deployment but did not show its definitions in time</em>. Penstock waited 30 seconds per definition.</td></tr>
+  <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the deployment request.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <p>Deployment is the only thing that sends a diagram off the machine. The plugin makes no
-    other outbound call of its own apart from the licence check, which talks to the licence
-    service about the licence and nothing else, and the connector template download described
-    under <a href="element-templates.html">Element templates</a>. No telemetry, no update polling.
-    A command-line action run from the Penstock tool window downloads the penstock CLI the first
-    time it needs a version it does not have yet. A diagram leaves the machine only when you
-    press Deploy, and only to the address configured for the profile.</p>
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
-    <p>Because secrets are held by the IDE password safe, nothing a deployment needs to sign in
-    is committed with the project. The address typed into the Connection dialog stays in
-    <code>penstock.local.yaml</code>, which Penstock adds to <code>.gitignore</code> when the
-    project has one. A <code>password:</code> key in <code>penstock.local.yaml</code> is not
-    read; a password comes from <code>PENSTOCK_PASSWORD</code> or from the IDE password safe.</p>
+<ul>
+  <li>A popover under the Deploy button, then a notification: <em>Deployed order-process.bpmn as order-process v3 on http://localhost:8080</em>.</li>
+  <li>In the engine's own web application, the process shows a new version, or the same one when nothing changed and <code>changedOnly</code> is on.</li>
+</ul>
 
-    <p>There is no option to skip certificate validation, and none is planned. An engine behind a
-    self-signed or private certificate has to be trusted by the Java runtime the IDE is using.</p>
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
-  </div>
-
+<dl class="problems">
+  <dt>Deploy is not on the toolbar.</dt>
+  <dd>The engine is Classic, or not set. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>Every deploy is a new version.</dt>
+  <dd>The engine's duplicate check matches by name. Keep <code>deployment.name</code> the same, and leave <code>changedOnly</code> on.</dd>
+  <dt>The editor says 404 or the wrong path on Camunda 8.</dt>
+  <dd>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. If your address already ends in <code>/v2</code>, that is fine too.</dd>
+  <dt>The engine has a private certificate.</dt>
+  <dd>Penstock does not skip certificate checks. Trust the certificate in the runtime of your tool. See the troubleshooting page of your tool.</dd>
+  <dt>A wrong password is saved.</dt>
+  <dd>Press <span class="ui">Deploy</span>, then <span class="ui">Edit connection&hellip;</span>, type the right one and save.</dd>
+  <dt>There is no Deploy button.</dt>
+  <dd>The profile is Classic BPMN, which has no engine behind it. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
+  <dt>Nothing is deployed when I press Deploy.</dt>
+  <dd>It opens the popover on purpose. Press <span class="ui">Deploy</span> in the popover to send.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/profiles.html">Profiles</a> - Named settings for dev, test and prod.</li>
+<li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/auto-layout.html"><span>Previous</span>Auto layout</a>
+<a class="next" href="../guide/monitor.html"><span>Next</span>Monitor</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

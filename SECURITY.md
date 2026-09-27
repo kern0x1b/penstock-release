@@ -32,7 +32,7 @@ coordinate the announcement with you.
 ## Safe harbour
 
 We will not pursue or support legal action against anyone who, in good faith, discovers and
-reports a vulnerability under this policy — provided you:
+reports a vulnerability under this policy, provided you:
 
 - test only against your own IDE installation and your own BPMN files;
 - do not access, modify, or exfiltrate data belonging to anyone else;
@@ -49,7 +49,7 @@ If you are unsure whether something is in scope, ask before testing.
 | < 2.3   | No        |
 
 Fixes ship in the current release line only. Because the plugin is published in two compatibility
-variants, a security fix is released as a pair of builds — one for IDEs 2025.2–2026.1 and one for
+variants, a security fix is released as a pair of builds, one for IDEs 2025.2-2026.1 and one for
 2026.2 and later.
 
 ## Scope
@@ -64,10 +64,10 @@ In scope:
 
 Out of scope:
 
-- vulnerabilities in the IntelliJ Platform itself — report those to
+- vulnerabilities in the IntelliJ Platform itself: report those to
   [JetBrains](https://www.jetbrains.com/legal/docs/terms/vulnerability-disclosure/);
 - vulnerabilities in bundled open-source components, unless the plugin's use of them creates the
-  issue — report those upstream, and tell us so we can update;
+  issue: report those upstream, and tell us so we can update;
 - findings that require an attacker to already have local code execution as the user;
 - issues in a Camunda engine you deploy to.
 

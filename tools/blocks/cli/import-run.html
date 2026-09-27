@@ -1,0 +1,17 @@
+<pre><code>$ penstock import order-process.drawio
+wrote order-process.bpmn
+
+Imported from draw.io: 9 elements, 7 flows, 2 pools, 2 lanes.
+
+Not imported (2):
+  - "Legacy system" (cloud) has no BPMN meaning, so it was not imported.
+  - "to be decided" is not attached to two shapes, so it was left out.
+
+Guessed (1):
+  - 2 elements outside every pool went into the nearest pool: "Call the customer if it takes longer", "Order".</code></pre>
+<ul>
+  <li><code>-o &lt;file.bpmn&gt;</code>: the file to write. Default: next to the source, with the extension <code>.bpmn</code>. For a source that is already a <code>.bpmn</code> the default is <code>name.penstock.bpmn</code>.</li>
+  <li><code>--force</code>: replace a file that is already there. Without it, an existing file stops the command.</li>
+  <li><code>--format json</code>: print the result as JSON for a tool.</li>
+</ul>
+<p>See <a href="@cli/commands.html#import">Every command</a>.</p>

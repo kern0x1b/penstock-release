@@ -1,0 +1,53 @@
+<!--
+title: Monitor
+lede: Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, and where the incidents are.
+tags: free
+needs: A deployment profile with an address
+related: sidebar, check-workers, deployment, scenarios
+-->
+<h2>Read it</h2>
+
+<ol class="steps">
+  <li>Deploy the process, so the engine has it. See <a href="deployment.html">Deployment</a>.</li>
+  <li>Press <span class="ui">Monitor</span> on the toolbar, or pick the <strong>Monitor</strong> tab of the sidebar.</li>
+  <li>Penstock asks the engine of the profile in force. The tab names the engine and the version of each process it found, so you can tell whether you are looking at what you think you are.</li>
+  <li>Look at the diagram. Badges on the shapes show how many instances wait there, and how many have an incident.</li>
+  <li>Press <span class="ui">Refresh</span> to ask again.</li>
+</ol>
+
+{{host:monitor-availability|Where Monitor is available}}
+
+<figure class="shot">
+  <img src="@img/monitor-tab.png" alt="The Monitor tab of the sidebar saying no engine is connected, with a Set up connection action">
+  <figcaption>With no engine connected the tab says how to set one up rather than showing an empty list.</figcaption>
+</figure>
+
+<h2>What you see</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Incidents</td><td>Each incident with the step and the message the engine gave. Click one to select the step. <span class="ui">Go to code</span> opens the worker that runs the task, when Pro links code to the diagram.</td></tr>
+  <tr><td>Waiting</td><td>Each step with instances waiting on it, and how many.</td></tr>
+  <tr><td>Badges</td><td>On the canvas: how many wait at each step, and how many have an incident, so a busy step is visible without opening the tab.</td></tr>
+  <tr><td>Hover</td><td>The hover card of an element says what waits on it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Other messages: <em>No instance is running on prod.</em> and <em>order-process is not deployed on prod.</em> The tab says which address was asked and when.</p>
+
+<h2>When the engine is asked</h2>
+
+<p>Only when you open Monitor or press <span class="ui">Refresh</span>. Never in the background. It works on Camunda 7, Operaton and CIB seven, and on Camunda 8.8 and later. The request is made with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The tab says no engine is connected.</dt>
+  <dd>The profile in force has no address. Press the arrow next to Deploy and choose <span class="ui">Edit connection&hellip;</span>. Or set <code>deployment.url</code>. See <a href="deployment.html">Deployment</a>.</dd>
+  <dt>"The engine refused the question (403)".</dt>
+  <dd>The profile's user may not read process instances. Use a user that may.</dd>
+  <dt>"is not deployed on &hellip;".</dt>
+  <dd>Deploy the process to that profile first.</dd>
+  <dt>The numbers look old.</dt>
+  <dd>Press <span class="ui">Refresh</span>. Monitor does not update by itself.</dd>
+</dl>

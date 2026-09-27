@@ -1,0 +1,79 @@
+<!--
+title: The BPMN editor
+lede: The BPMN editor draws a process and saves every change into the file itself.
+tags: free
+related: toolbar, properties-panel, editing, engine-profiles, project-model
+-->
+<h2>What it is</h2>
+
+<p>A BPMN file is a text file (XML) that holds two things: the meaning of the process and where every box is drawn. The BPMN editor shows the picture and edits the file for you. You never have to touch the XML, but you always can.</p>
+
+<p>The editor is <a href="https://bpmn.io/toolkit/bpmn-js/">bpmn-js</a>, the same drawing library the Camunda Modeler uses. So the drawing and the files are the ones you already know. Penstock adds the tool around it: checks, deploy, links to your code, and a project model.</p>
+
+<h2>Open a diagram</h2>
+
+<p>Open a file with the extension <code>.bpmn</code>, <code>.bpmn.xml</code> or <code>.bpmn20.xml</code>. The diagram opens straight away. There is no setup screen. Change something: drag a box, rename a task, add an element. The change is already in the file.</p>
+
+{{host:editor-open|Open it in your tool}}
+
+<h2>What you see</h2>
+
+<figure class="shot">
+  <img src="@img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette beside the canvas, the Properties tab of the sidebar on the right and the editor tabs below">
+  <figcaption>A diagram open in the editor: the palette beside the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
+</figure>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Part</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td>Toolbar</td><td>Actions along the top. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
+  <tr><td>Palette</td><td>The floating island beside the canvas. Drag elements from it. See <a href="elements.html">BPMN elements</a>.</td></tr>
+  <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool.</td></tr>
+  <tr><td>Properties panel</td><td>The settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Check card</td><td>A small card at the bottom right that lists problems. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Saving</h2>
+
+<p>There is no save button. Every change is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. Other views of the same file, and version control, see the change immediately.</p>
+
+<h3>When the file changes outside the editor</h3>
+
+<p>Penstock watches the file. If something else changes it, for example a <code>git checkout</code>, a formatter or a text view of the same file, the editor asks what to do:</p>
+
+<ul>
+  <li><strong>Reload</strong> takes the new content. Unsaved edits on the canvas are dropped.</li>
+  <li><strong>Keep Editing</strong> keeps your version. Your next change then overwrites the outside change.</li>
+</ul>
+
+<p>Renaming or moving the file needs no answer.</p>
+
+<h2>Themes</h2>
+
+<p>The diagram always takes the theme of your tool: light or dark. There is no separate theme dialog. If you change the theme, the diagram redraws. If you want a hand-drawn look, use <span class="ui">Sketchy drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
+
+<p>The bpmn.io logo in the bottom corner has to stay visible. The licence of the drawing library requires it. Penstock recolours it so it stays readable, and never hides it.</p>
+
+<h2>Which engine is this diagram for?</h2>
+
+<p>Penstock finds out for you. It reads <code>engine</code> in the nearest <code>penstock.yaml</code>. If there is none, it reads the diagram: the execution platform the Camunda Modeler wrote into it, or the <code>zeebe:</code> and <code>camunda:</code> attributes it already has. Only an empty new diagram asks, once, in a line above the canvas. See <a href="engine-profiles.html">Engines</a>.</p>
+
+<h2>Hover for a summary</h2>
+
+<p>Rest the pointer on an element for half a second. A card shows its id, type, name and connections. It also shows what runs it (a class, a delegate or a job type), or on a user task the assignee and candidates. With Pro it adds the tests that name the element and the variables it sets and reads. See <a href="code-links.html">Code links</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The editor is blank.</dt>
+  <dd>The view that draws it could not start. See the troubleshooting page of your tool: <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dt>I only see XML, there is no picture.</dt>
+  <dd>Switch to the editor view of the file. See "Open it in your tool" above.</dd>
+  <dt>A reload dialog appears and I do not know why.</dt>
+  <dd>Something changed the file on disk: a Git operation, a formatter or another tool. Choose <strong>Reload</strong> to see it.</dd>
+  <dt>My change disappeared.</dt>
+  <dd>You chose <strong>Reload</strong> after an outside change while you had edits on the canvas. Use the history of your tool or of Git to get the earlier file back.</dd>
+  <dt>A file called <code>.form</code> opens in the wrong editor.</dt>
+  <dd>Penstock opens a <code>.form</code> file only if it is a Camunda Form. See <a href="form-editor.html">The form editor</a>.</dd>
+</dl>

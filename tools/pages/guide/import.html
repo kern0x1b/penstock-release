@@ -1,0 +1,75 @@
+<!--
+title: Import a diagram
+lede: Turn a draw.io, Visio, Signavio or Bizagi diagram into a BPMN 2.0 file, and get a list of everything that could not be carried over.
+tags: free
+related: share-html, auto-layout, editing, cli/commands
+-->
+<h2>What can be imported</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>From</th><th>Files</th></tr></thead>
+  <tbody>
+  <tr><td>draw.io (diagrams.net)</td><td><code>.drawio</code>, <code>.xml</code>, compressed or not</td></tr>
+  <tr><td>Visio</td><td><code>.vsdx</code></td></tr>
+  <tr><td>Signavio</td><td><code>.bpmn</code> exported by Signavio</td></tr>
+  <tr><td>Bizagi</td><td><code>.bpmn</code> exported by Bizagi, and a package that holds a BPMN file</td></tr>
+  </tbody>
+</table></div>
+
+<p>These are mapped: tasks and their kinds, events and their triggers, boundary events, gateways, sub-processes, pools, lanes, sequence flows, message flows and default flows, text annotations and data objects. The positions and the bends of connectors are kept.</p>
+
+<p>These cannot be read: a Bizagi <code>.bpm</code> package, the old binary Visio <code>.vsd</code>, and XPDL. The message says what to do instead: from Bizagi, export BPMN 2.0 (a <code>.bpmn</code> file). From Visio, use File &gt; Save As and choose Visio Drawing (<code>.vsdx</code>). From a tool that wrote XPDL, export BPMN 2.0.</p>
+
+<h2>Steps in the editor</h2>
+
+<ol class="steps">
+  <li>Open any diagram in the editor. Open <span class="ui">More</span> and choose <span class="ui">Import diagram…</span>.</li>
+  <li>A file chooser called <em>Import diagram</em> opens. Pick the file.</li>
+  <li>A second dialog, <em>Save the imported diagram</em>, asks where to put the new BPMN file. It suggests a name: <code>order-process.bpmn</code> from <code>order-process.drawio</code>.</li>
+  <li>The new diagram opens. A report dialog called <em>Diagram imported</em> lists what was and was not carried over.</li>
+</ol>
+
+<!-- image: import-report.png, the Import report dialog after a draw.io import, with the count heading and the list of what could not be mapped in the warning colour -->
+
+<h2>Read the report</h2>
+
+<p>Nothing is dropped silently. The heading leads with the count, for example <em>3 not imported</em>, and the report has three groups. What could not be mapped is in the warning colour; the red is kept for a file that could not be read at all.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Group</th><th>What it says</th></tr></thead>
+  <tbody>
+  <tr><td><strong>Not imported</strong></td><td>These have no BPMN meaning and are not in the new diagram. For example a cloud shape, or a line not attached to two shapes.</td></tr>
+  <tr><td><strong>Guessed</strong></td><td>These were read by what they look like. Check that they are what you meant. For example, elements outside every pool went into the nearest pool.</td></tr>
+  <tr><td><strong>Not carried over</strong></td><td>BPMN 2.0 has no place for these, so they are not in the new diagram.</td></tr>
+  </tbody>
+</table></div>
+
+<p>If nothing was left out, the report says <em>Everything in the file was mapped.</em> Connectors keep the route they were drawn with. <a href="auto-layout.html">Auto layout</a> (Pro) can tidy the result.</p>
+
+<h2>In a terminal</h2>
+
+<pre><code>penstock import diagram.drawio -o process.bpmn</code></pre>
+
+<p>Nothing is written if the file already exists, unless you pass <code>--force</code> or name another output with <code>-o</code>. A file that could not be read writes nothing at all. <code>import</code> is free, so it can run in a pipeline: convert a draw.io file kept in the repository before the check runs.</p>
+
+{{host:import-run|Import from your tool}}
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A new <code>.bpmn</code> file, opened in the editor.</li>
+  <li>A dialog called <em>Diagram imported</em>, or the same lines in the terminal, that says what was imported and what was not.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"This file could not be imported".</dt>
+  <dd>The dialog says why. Common reasons: an unsupported format (<code>.vsd</code>, a Bizagi <code>.bpm</code> package), a draw.io page larger than 32 MB when unpacked, or a file that is not a diagram.</dd>
+  <dt>A shape I drew is missing.</dt>
+  <dd>Read the <strong>Not imported</strong> group. It names each one and says why.</dd>
+  <dt>The imported diagram looks untidy.</dt>
+  <dd>Connectors keep the route they were drawn with. Press <span class="ui">Auto layout</span> (Pro).</dd>
+  <dt>Elements ended up in the wrong pool.</dt>
+  <dd>See <strong>Guessed</strong>. Elements outside every pool go into the nearest one. Drag them where they belong.</dd>
+</dl>

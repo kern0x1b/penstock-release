@@ -1,0 +1,5 @@
+<pre><code>penstock scenarios run .
+penstock scenarios run src/test/resources/test-cases/orders.json
+penstock scenarios run . --junit-xml build/test-cases.xml --timeout 60
+penstock scenarios run . --teamcity</code></pre>
+<p>Scenarios run one after another. The command exits with 1 if any fails. In a pipeline the engine needs <code>deployment.forTests: true</code>. See <a href="@cli/commands.html#scenarios-run">Every command</a>.</p>

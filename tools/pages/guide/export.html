@@ -1,0 +1,60 @@
+<!--
+title: Export
+lede: Save the diagram as a picture: SVG, PNG or PDF.
+tags: free
+related: share-html, toolbar, cli/commands
+-->
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Press the export shortcut, or open <span class="ui">More</span> and choose <span class="ui">Export&hellip;</span>. The same dialog opens from the context menu of the canvas. It is called <em>Export BPMN Diagram</em>, and the whole diagram is centred in the preview pane on the left.</li>
+  <li>Choose the options on the right: <span class="ui">Theme</span>, <span class="ui">Schema</span>, <span class="ui">Format</span> and <span class="ui">Use Background</span>. The dialog opens light on white.</li>
+  <li>Along the bottom, in one row at the right, are <span class="ui">Cancel</span>, <span class="ui">Copy</span> and <span class="ui">Save</span>. <strong>Copy</strong> puts the diagram on the clipboard as a PNG, drawn with the theme and background chosen there. <strong>Save</strong> then asks where to put the file.</li>
+</ol>
+
+<!-- image: export-dialog.png, the Export dialog: the preview on the left centred in its pane, the settings on the right, and Cancel, Copy and Save in one row at the bottom right -->
+
+<p>Copy as image is free, and there is no separate menu item for it any more. The picture is written by the host, since the browser clipboard is not available in the editor, so it is ready to paste into a wiki, a chat or an e-mail.</p>
+
+<h2>The options</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>Choices</th></tr></thead>
+  <tbody>
+  <tr><td>Diagram</td><td>Only shown when the diagram has collapsed sub-processes. <em>Main Diagram</em>, or one of the sub-processes.</td></tr>
+  <tr><td>Theme</td><td>Light, Dark, Dracula</td></tr>
+  <tr><td>Schema</td><td>Default, or Sketchy, which draws the diagram as if by hand in the Virgil font</td></tr>
+  <tr><td>Format</td><td>SVG, PNG, PDF</td></tr>
+  <tr><td>Use Background</td><td>Off: the picture is transparent. On: the theme's background colour is painted behind the diagram.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>About the formats</h2>
+
+<ul>
+  <li><strong>SVG</strong> is written exactly as drawn. It stays sharp at any size and text stays text.</li>
+  <li><strong>PNG</strong> is drawn at twice the diagram's size. The longer side is capped at 8192 pixels, so large diagrams fit in the browser's limit.</li>
+  <li><strong>PDF</strong> is that PNG on one A4 page. Portrait or landscape follows the shape of the diagram. It is scaled to fit under a heading.</li>
+</ul>
+
+<h2>Without the editor</h2>
+
+{{host:export-run|Export a picture in your tool}}
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A dialog with a live preview that follows your choices.</li>
+  <li>After <span class="ui">Export</span>, a save dialog, then the file in the folder you chose.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My PNG is blurry when I zoom in.</dt>
+  <dd>PNG is a picture of pixels. Use SVG when you need to zoom.</dd>
+  <dt>The exported picture has no background.</dt>
+  <dd>Turn on <span class="ui">Use Background</span>.</dd>
+  <dt>I want a file someone can open without a picture viewer.</dt>
+  <dd>Use <a href="share-html.html">Share as HTML</a>. It makes one file that opens in any browser, with zoom and click-for-documentation.</dd>
+</dl>

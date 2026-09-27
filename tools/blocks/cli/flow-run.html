@@ -1,0 +1,4 @@
+<pre><code>$ penstock check . --only flow
+fail  stuck.bpmn
+        DEADLOCK: "Join" waits for "Task B", which never arrives. "Which way" sent this run down another branch. Path: Start → Which way → Task A</code></pre>
+<p>Run <code>penstock check .</code> without <code>--only</code> to get all sections at once. The JSON, SARIF and GitHub output carry the same rule ids.</p>

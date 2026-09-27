@@ -1,0 +1,48 @@
+<!--
+title: Token simulation
+lede: Watch a token walk through your process, to check that the flow does what you think.
+tags: free
+related: flow-analysis, scenarios, monitor
+-->
+<h2>What it is</h2>
+
+<p>A token marks where a process run is at. In simulation, Penstock puts a token on the start event and moves it along the flows. You see which path it takes. Nothing is sent to an engine. It is only a picture, to test your understanding.</p>
+
+<h2>Steps</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Simulate</span> on the toolbar.</li>
+  <li>The canvas gets a green frame. Every start event shows a play button. Press one.</li>
+  <li>Watch the token move. At an exclusive gateway you choose which way the token goes.</li>
+  <li>Use the speed controls at the bottom to go faster or slower.</li>
+  <li>Press <span class="ui">Simulate</span> again to stop.</li>
+</ol>
+
+<figure class="shot">
+<!-- image: token-simulation.png, a token simulation running on a collaboration -->
+  <figcaption>In simulation the canvas is framed in green, each start event has a play button, and the speed controls are at the bottom.</figcaption>
+</figure>
+
+<h2>What is switched off while it runs</h2>
+
+<p>The simulation library blocks dragging, the pad and direct editing. Penstock blocks the rest: Undo, Redo, Copy, Paste, Delete and Auto layout refuse to run and say <em>Stop Token Simulation before editing the diagram</em>. Without that, an edit made during what looks like a read-only preview would be written to your file like any other.</p>
+
+<p>The bpmnlint markers on the canvas are also hidden while it runs.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A green frame around the canvas, a play button on each start event, and speed controls at the bottom.</li>
+  <li>A token that moves along the flows.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Undo does nothing.</dt>
+  <dd>It is switched off during a simulation. Stop the simulation first.</dd>
+  <dt>The token stops and never finishes.</dt>
+  <dd>Your process may really be stuck there, for example a parallel gateway waiting for a branch that never arrives. <a href="flow-analysis.html">Flow analysis</a> finds this without playing the process.</dd>
+  <dt>Simulation does not call my workers or forms.</dt>
+  <dd>Right. It only moves a token. To run a process against an engine, with mocks, see <a href="scenarios.html">Scenarios</a>.</dd>
+</dl>

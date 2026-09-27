@@ -1,0 +1,96 @@
+<!--
+title: Plans and licence
+lede: Penstock is free, and what only Penstock does is Pro or Team. One rule decides which one a feature needs.
+tags: free
+checkout: true
+related: sign-in, security, faq
+-->
+<h2>Choose a plan</h2>
+
+{{plans}}
+
+<h2>The one rule</h2>
+
+<p>Everything that earlier releases had, and everything other tools give away, is <strong>free</strong>. What only Penstock does is <strong>Pro</strong> or <strong>Team</strong>.</p>
+
+<p>A paid feature needs <strong>Pro on your own machine</strong> and <strong>Team inside a pipeline</strong>. A pipeline is any run where the environment variable <code>CI</code> is set. There are no exceptions for a single feature or a single flag.</p>
+
+<p>Every machine starts with <strong>30 days of Pro</strong>. A pipeline gets no trial.</p>
+
+<h2>What each plan gives</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Plan</th><th>What it includes</th></tr></thead>
+  <tbody>
+  <tr>
+    <td><span class="tag free">Free</span></td>
+    <td>
+      <p>In the editors: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in a code editor of your tool, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Monitor, export, the hand-drawn look, opening a run that already exists, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
+      <p>The Camunda 7 to Camunda 8 analysis and its report are free too.</p>
+      <p>The command palette and every action in it, the sidebar, the check card and the Problems tab, transaction boundaries, the first-run tour, and the findings in your tool's own Problems window.</p>
+      <p>On the command line: <code>init</code>, <code>doctor</code>, <code>check</code> (the drawing, rules and form sections), <code>migrate analyze</code> and <code>migrate report</code>, <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>show</code>, <code>deploy</code>, <code>share</code>, <code>import</code>, <code>connectors</code>, <code>license</code>, <code>update</code>, and <code>edit --schema</code>.</p>
+      <p>The MCP tools <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code>, which only read and explain.</p>
+    </td>
+  </tr>
+  <tr>
+    <td><span class="tag pro">Pro</span><br>on your machine</td>
+    <td>
+      <ul>
+        <li><a href="auto-layout.html">Auto layout</a>.</li>
+        <li><a href="flow-analysis.html">Flow analysis</a>, and the decision table check. The form check is lint, so it is free.</li>
+        <li>The visual <a href="diagram-diff.html">diagram diff</a>, and pictures of what changed.</li>
+        <li>Modelling conventions from <code>penstock.yaml</code>.</li>
+        <li><a href="migration.html">Converting Camunda 7 to Camunda 8</a>: the preview, <code>penstock migrate convert</code> and the job worker skeletons.</li>
+        <li><a href="scenarios.html">Scenarios</a>: test cases on a local engine, step by step.</li>
+        <li>The link between diagrams and code: <a href="code-links.html">code links</a>. From a step to its worker and back, usages, hints above the code, variables and error codes across both, tests run from the diagram, <a href="process-tests.html">coverage</a> on it, the debugger's position on the diagram, linked repositories, and <a href="check-workers.html">Check Workers</a>.</li>
+        <li>In the command line: <code>layout</code>, <code>check --only flow</code>, <code>scenarios list</code>, <code>junit</code>, <code>scenarios run</code>, <code>scenarios generate</code>, <code>code</code>, <code>docs</code>, <code>diff --images</code>, <code>edit</code>, <code>report</code>, check baselines, and findings as SARIF or GitHub annotations.</li>
+        <li>The review bot, when you run it on your machine.</li>
+        <li>The MCP tools <code>analyze_flow</code>, <code>list_scenarios</code>, <code>check_code_links</code> and <code>edit_diagram</code>. Each needs the same plan as its command line twin.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><span class="tag team">Team</span><br>in a pipeline</td>
+    <td>
+      <p>Everything in Pro, inside a pipeline. That includes the review bot in pull and merge requests, the pull request report, check baselines, and findings as SARIF or GitHub annotations in the code review. Every paid command in a pipeline needs Team.</p>
+    </td>
+  </tr>
+  </tbody>
+</table></div>
+
+<p>Not sure what a page needs? The tag under its title says. <span class="tag free">Free</span> means free. <span class="tag pro">Pro</span> means a paid feature.</p>
+
+<h2>What you see when you reach a paid feature</h2>
+
+<p>Nothing else in the editor changes. When you reach for a paid feature you do not have, Penstock explains what it does and offers to buy it or to sign in, at that moment.</p>
+
+<ul>
+  <li>In an editor, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and offers <span class="ui">Buy Pro</span>, <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so.</li>
+  <li>In a terminal, the command prints what the feature gives and the commands <code>penstock license buy</code> and <code>penstock license login</code>. In a pipeline it says the feature needs Team and to give the pipeline a key in <code>PENSTOCK_LICENSE</code>.</li>
+  <li>An MCP tool called without the licence says the same in its error result. It also shows in the tool list with a note on what it needs.</li>
+</ul>
+
+<h2>Paying</h2>
+
+<p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of record. Polar also takes care of VAT and invoices. You can cancel at any time from the link in the receipt. After you pay, Penstock notices by itself and sends a sign-in code to the address that paid. There is no key to copy. See <a href="sign-in.html">Buying and signing in</a>.</p>
+
+<h2>How the licence is checked</h2>
+
+<p>The licence is a signed token, not a flag. A small licence service turns Polar's answer into a token signed with a key only it holds, and the plugin, the command line and the editor carry the public half and check the signature themselves, offline. A file edited by hand, a redirected address or a server pretending to be the licence service cannot make a machine Pro.</p>
+
+<p>What is on the machine is the token and nothing else: no key, no tier, no date you could edit. <code>penstock license</code> says which licence this machine has and where it comes from, and during the trial it says the trial is on and until when, instead of saying there is no licence. See <a href="sign-in.html#how-the-licence-is-checked">Buying and signing in</a>.</p>
+
+<h2>Free Pro for students, teachers and open-source maintainers</h2>
+
+<p>Students, teachers and open-source maintainers can get Pro for free. Penstock shows it in three places, and only when the application address is set: the licence dialog, the message that explains a paid feature, and the output of <code>penstock license</code>. While no address is set, nothing about it is shown anywhere. See <a href="sign-in.html#education">Buying and signing in</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A feature that worked yesterday now asks me to buy Pro.</dt>
+  <dd>Your 30-day trial has ended, or your licence was released or ended. Run <code>penstock license</code> to see which licence this machine has.</dd>
+  <dt>It works on my laptop but the pipeline says it needs Team.</dt>
+  <dd>That is the rule: a pipeline needs Team for every paid feature. <code>penstock init --ci</code> writes a pipeline for the licence on the machine that ran it, so its first run does not fail on something nobody bought.</dd>
+  <dt>Which plan do I need for the review bot?</dt>
+  <dd>Team in a pipeline. Pro is enough to run it on your own machine.</dd>
+</dl>

@@ -1,0 +1,91 @@
+<!--
+title: The example project
+lede: A small order process that runs from the first minute, so you can see every part of Penstock work on something real.
+tags: free
+needs: Test cases need Pro. Every machine starts with 30 days of Pro.
+related: getting-started, scenarios, deployment, cli/commands
+-->
+<h2>What it is</h2>
+
+<p>The example is an order process. A user approves the order. A worker charges the card. A decision picks the shipping method. The process waits for a message that the parcel has shipped. Then a receipt is sent. If the card is declined, the order ends early.</p>
+
+<p>There are two versions. Pick the engine you use.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Camunda 8</th><th>Camunda 7</th></tr></thead>
+  <tbody>
+  <tr><td>Card is charged by</td><td>A Spring Boot job worker for the job type <code>charge-card</code></td><td>An external task worker for the topic <code>charge-card</code>, a plain Java client in <code>worker/</code></td></tr>
+  <tr><td>Receipt is sent by</td><td>A Node job worker for the job type <code>send-receipt</code></td><td>A Java delegate, <code>SendReceiptDelegate</code></td></tr>
+  <tr><td>Engine</td><td>You run one, for example Camunda 8 Run</td><td>Part of the example: a Spring Boot app with the engine, the REST API and the web apps on an in-memory database</td></tr>
+  <tr><td>Deployment address</td><td><code>http://localhost:8080/v2</code></td><td><code>http://localhost:8080/engine-rest</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2>Write it into a folder</h2>
+
+<p>Write the example into an <em>empty</em> folder. If the folder is not empty, Penstock stops and writes nothing. It never overwrites your files. A <code>.git</code> folder does not count as content. Penstock also adds the <code>penstockw</code> wrapper scripts and adds <code>penstock.local.yaml</code> to <code>.gitignore</code>.</p>
+
+{{host:write-example|Write the example}}
+
+<h2>The files</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>File</th><th>What it is</th></tr></thead>
+  <tbody>
+  <tr><td><code>src/main/resources/order-process.bpmn</code></td><td>The process</td></tr>
+  <tr><td><code>src/main/resources/shipping-method.dmn</code></td><td>The decision. It picks <code>express</code>, <code>standard</code> or <code>international</code> from the country and the amount.</td></tr>
+  <tr><td><code>src/main/resources/approve-order.form</code></td><td>The Camunda Form of the user task</td></tr>
+  <tr><td><code>src/test/resources/test-cases/order-process.json</code></td><td>Three test cases in the Camunda test-case format</td></tr>
+  <tr><td><code>penstock.yaml</code></td><td>The engine and where to deploy. See <a href="settings.html">penstock.yaml</a></td></tr>
+  <tr><td><code>README.md</code></td><td>The commands to run it against a local engine</td></tr>
+  <tr><td><code>pom.xml</code>, <code>application.yaml</code></td><td>The Maven build and Spring Boot settings</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Run it</h2>
+
+<p>The README written into the folder has the exact commands and versions. In short:</p>
+
+<ol class="steps">
+  <li><strong>Start the engine.</strong> On Camunda 8, start Camunda 8 Run. On Camunda 7, run <code>mvn spring-boot:run</code>. The web apps open at <code>http://localhost:8080</code>. The login is <code>demo</code> and <code>demo</code>.</li>
+  <li><strong>Look at the diagrams</strong> and check them. See <a href="getting-started.html">Getting started</a>.</li>
+  <li><strong>Deploy</strong> the process, the decision and the form. See <a href="deployment.html">Deployment</a>. On Camunda 7 they are also deployed when the app starts.</li>
+  <li><strong>Start the workers</strong>, each in its own terminal.</li>
+  <li><strong>Start an order.</strong> A home order under 1000 is paid and ships standard. Use <code>"amount": 5000</code> to see the card declined.</li>
+  <li><strong>Approve it</strong> in Tasklist, then send the message <code>shipment-confirmed</code> to tell the process the parcel has shipped.</li>
+</ol>
+
+<h2>Run the scenarios</h2>
+
+<p>The example has three scenarios. Running them deploys a test build, mocks the workers and runs them against your local engine. The first run on a local engine asks once whether it may. See <a href="scenarios.html">Scenarios</a>.</p>
+
+<ul>
+  <li>A home order is approved, paid, shipped standard and completed.</li>
+  <li>An order from abroad ships internationally.</li>
+  <li>A declined card ends the order without a shipment.</li>
+</ul>
+
+{{host:example-scenarios|Run the three scenarios}}
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The check finds nothing wrong. Every task has a worker, the decision and the form exist, and the drawing is clean.</li>
+  <li>The project model shows the process with its workers, its message, its decision, its form and its error code. See <a href="project-model.html">Your project as a model</a>.</li>
+  <li>The process has two ways through it: the order completes, or the card is declined.</li>
+</ul>
+
+{{host:example-what-you-see|What it looks like}}
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"is not empty. An example is written into an empty folder"</dt>
+  <dd>Run the command in a new, empty folder. Penstock refuses to write into a folder that has files, so nothing of yours is overwritten.</dd>
+  <dt>"Unknown example"</dt>
+  <dd>The only names are <code>camunda-8</code> and <code>camunda-7</code>.</dd>
+  <dt>Deploy says the engine is not reachable.</dt>
+  <dd>Start the engine first, and check <code>deployment.url</code> in <code>penstock.yaml</code>. See <a href="deployment.html">Deployment</a>.</dd>
+  <dt>The scenarios ask a question the first time.</dt>
+  <dd>Scenarios deploy a test build. On a local engine Penstock asks once before it does. See <a href="scenarios.html">Scenarios</a>.</dd>
+</dl>

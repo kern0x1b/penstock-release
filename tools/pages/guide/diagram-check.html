@@ -1,0 +1,98 @@
+<!--
+title: Diagram check
+lede: The check lists everything wrong with your diagram, points at each problem on the canvas, and says why it matters and how to fix it.
+tags: free
+needs: How it runs and Code need Pro
+related: validation, flow-analysis, auto-layout, sidebar, cli/commands
+-->
+<h2>Run it</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Check</span> on the toolbar, or pick the <strong>Problems</strong> tab of the sidebar. A card called <em>Diagram check</em> opens at the bottom right of the canvas, over it rather than under it.</li>
+  <li>Read the header. It counts the findings in words and how many are notes about readability, for example <em>8 errors, 1 warning, 1 readability</em>.</li>
+  <li>Click a line. The canvas scrolls to that element and selects it, and its outline turns red.</li>
+  <li>Press <span class="ui">Show all</span> to open the Problems tab, where every finding is, with its <strong>Why</strong> and <strong>Fix</strong> lines and a link to that check's own page.</li>
+  <li>Fix the problem. The card updates by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span> puts the card and the outlines away.</li>
+</ol>
+
+<h2>Two places to read it</h2>
+
+<p>The card is a summary: the counts, the first few findings, <span class="ui">Recheck</span>, <span class="ui">Close</span> and <span class="ui">Show all</span>. The <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a> is the full list, in groups, each finding with an error or a warning icon. The tab keeps its place while you look at another tab, so you can go to Properties to fix something and come back to the list.</p>
+
+<p>Clicking a finding in either place selects its element on the canvas and opens the property that fixes it: job type, form key or id, correlation key, history time to live, called element, error, escalation, message and signal references and timer definitions, and a missing job type, topic, class or delegate expression in the code. A finding with no single field still switches the sidebar to Properties and selects the element.</p>
+
+<figure class="shot">
+  <img src="@img/check-card.png" alt="The Diagram check card over the canvas with three drawing problems listed and a Show all link, and the Code tab of the sidebar beside it">
+  <figcaption>The card is a summary. Show all opens the Problems tab, which holds every finding. The elements that have findings keep an outline while the card is open.</figcaption>
+</figure>
+
+<h2>What you see</h2>
+
+<p>While the card is open, every element that a problem is about carries an outline on the canvas. A small pill on the canvas carries the count, and the badge on the Problems tab carries it too. The pill is hidden while the card is open, since the card says the same thing, and both count the same findings: a compatibility rule the linter reports as information counts as a warning, and a problem two checks both report is counted once. With nothing wrong, the card says <em>Nothing to report across N elements and connections</em> and the pill says <em>No Issues</em>.</p>
+
+<figure class="shot">
+  <img src="@img/editor-overview.png" alt="A clean diagram with the No Issues pill under the canvas and the Problems tab of the sidebar with no badge">
+  <figcaption>Nothing to report. The pill under the canvas reads No Issues, and the Problems tab carries no badge.</figcaption>
+</figure>
+
+<h2>Every check has an id</h2>
+
+<p>Each check has a stable id, such as <code>drawing/overlap</code>, <code>bpmnlint/label-required</code> or <code>form/key-clash</code>, a line on why it matters and a line on how to fix it. The same id travels with the finding everywhere else it is reported: <code>penstock check --format json</code>, SARIF and GitHub annotations all carry the id and the address of its page, so a finding in a pull request leads back to the same page the editor showed.</p>
+
+<p>The catalogue is generated from the rule definitions, so an id never changes meaning. Every check has its own page under <a href="../rules/">Every rule</a>, grouped by what it is about, and you can read them all without opening a diagram.</p>
+
+<h2>The groups</h2>
+
+<p>Both places group findings by what they are about. A group only appears when it has something to say.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Group</th><th>What it lists</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td>How it runs</td><td>Problems in how the process runs: it can get stuck, a part runs twice, a step can never run, it may never finish, a decision has no way out. Selecting one outlines the path that leads there. See <a href="flow-analysis.html">Flow analysis</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Problems</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other, a connection that doubles back along itself.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Engine</td><td>What the engine the diagram is written for cannot run: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. Each finding is a plain sentence naming the element, and every rule has an id and a page. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away, a called process no diagram defines, a form no file provides. Each finding has the file and the line. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="tag pro">Pro</span> to convert</td></tr>
+  <tr><td>Readability</td><td>Collapsed by default. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
+  </tbody>
+</table></div>
+
+<p>Without Pro, the group says how many such problems it found and offers to buy it. The same analysis is the flow section of <code>penstock check</code>, or <code>penstock check --only flow</code> on its own.</p>
+
+<h2>Drawing and rules are different</h2>
+
+<p>The drawing checks answer "can the diagram be read?". They know nothing about the process. bpmnlint answers "is the process modelled correctly?". They never report the same thing twice.</p>
+
+<h2>Problems outside the editor</h2>
+
+<p>Where the findings appear outside the editor is up to your tool. Some put them in their own problem list, and mark the file itself.</p>
+
+{{host:check-outside|Problems outside the editor}}
+
+<h2>Check the whole project</h2>
+
+<p>The card checks the diagram you have open. The same checks also run over every diagram, decision and form of a project at once, and their findings carry the same rule ids. Only errors make a whole-project check fail. A warning is shown as a note.</p>
+
+{{host:check-run|Check from your tool}}
+
+<h2>Fix a whole diagram at once</h2>
+
+<p>If the list is long because the diagram drifted, <a href="auto-layout.html">Auto layout</a> is usually faster than fixing line by line. The check measures. Auto layout draws a diagram that passes.</p>
+
+<h2>What it cannot see</h2>
+
+<p>Three measures need the file rather than the canvas: a connection declared in the XML that was never drawn, a connection with an end missing, and a comparison of what the diagram meant before an operation against after. The check leaves those out instead of reporting them as passing. A diagram that cannot be read shows a screen of its own rather than a card: what the parser objected to, the line it objected on, that the file was not changed, and buttons to open the XML in the Text tab at that line and to Reload.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The card says "The bpmnlint rules could not run".</dt>
+  <dd>Your <code>.bpmnlintrc</code> uses rules from a plugin. The editor needs those rules in a bundle. See <a href="validation.html#custom-rules">Validation</a>.</dd>
+  <dt>I fixed a problem and it is still listed.</dt>
+  <dd>Press <span class="ui">Recheck</span>. The list refreshes a moment after you stop editing.</dd>
+  <dt>The count in the header is lower than the list.</dt>
+  <dd>Notes about readability are not counted as problems, and a rule set to warn is a warning rather than an error.</dd>
+  <dt>There is no Check button.</dt>
+  <dd>It may have been moved off the bar. Open <span class="ui">More</span> and pin <span class="ui">Check</span>. See <a href="toolbar.html">The toolbar and the More menu</a>.</dd>
+</dl>

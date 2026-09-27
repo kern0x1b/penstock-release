@@ -1,0 +1,134 @@
+<!--
+title: Editing a diagram
+lede: The window around the canvas: the toolbar, the palette, the sidebar, the XML one tab away, and every action that edits a diagram.
+tags: free
+related: elements, properties-panel, sidebar, toolbar, scripts, token-simulation, bpmn-editor, export, diagram-diff, dmn-editor, form-editor
+-->
+<h2>What the editor is</h2>
+
+<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar, and the raw XML never more than one click away.</p>
+
+<h2>Add an element</h2>
+
+<ol class="steps">
+  <li>Drag an element from the palette beside the canvas and drop it where you want it.</li>
+  <li>Type to give it a name. Double-click the element to rename it later.</li>
+  <li>To connect it to another element, select the first one and drag from the arrow icon of the small pad beside it onto the second.</li>
+</ol>
+
+<p>Or let Penstock add the next element for you: select an element and use the pad beside it. The pad appends the element you choose, already connected. Its <span class="ui">Create element</span> catalogue lists every element by what it is for. See <a href="elements.html">BPMN elements</a>.</p>
+
+<h2>Change an element into another</h2>
+
+<ol class="steps">
+  <li>Select the element.</li>
+  <li>Press the wrench on its pad.</li>
+  <li>Pick what it should become. A task can become a service task, a start event a message start event, an exclusive gateway a parallel one.</li>
+</ol>
+
+<p>The name, the connections and the properties that still apply are kept.</p>
+
+<h2>The tools at the top of the palette</h2>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td>Hand</td><td>Moves the canvas without selecting anything.</td></tr>
+  <tr><td>Lasso</td><td>Selects everything inside a rectangle you drag.</td></tr>
+  <tr><td>Space</td><td>Makes room. Drag a line across the diagram and everything past it moves.</td></tr>
+  <tr><td>Global connect</td><td>Draws a connection starting from any element.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The canvas and the palette</h2>
+
+<p>Which modeller is built depends on the engine profile: Camunda 7, Camunda 8, Operaton and CIB seven get the matching Camunda modeler, which carries that platform's own extensions, properties and element templates, and Classic BPMN gets plain bpmn-js with the standard ones. All of them load task resizing, token simulation and the minimap, the colour picker in the context pad, and the grid with snapping. See <a href="engine-profiles.html">Engines</a>.</p>
+
+<p>The palette is a floating island beside the canvas, not a strip of the window: sixteen pixels from the left edge, vertically centred, rounded, and never more than three quarters of the height of the canvas, so a palette with more entries scrolls inside it. A canvas with a palette beside it is inset, so nothing sits under it, and a diagram is fitted into that inset when it opens.</p>
+
+<p>A diagram opens fitted into the canvas at 100% at most, rather than cut off at the edge. Opening a panel over a fitted diagram fits it again, unless you have moved or zoomed it yourself. The <span class="ui">Fit diagram</span> action does it on demand, and it has a shortcut in every tool that has one. Switching your tool's theme keeps your zoom, your pan and your selection.</p>
+
+<figure class="shot">
+  <img src="@img/editor-overview.png" alt="A diagram open in the editor with the palette island on the left, the context pad on a selected service task, the problems pill under the canvas and the Properties tab of the sidebar">
+  <figcaption>The canvas with its palette island, a service task selected with its pad, and the properties of that task in the sidebar.</figcaption>
+</figure>
+
+<h2>Undo and redo</h2>
+
+<p>Undo and Redo are the first two buttons on the toolbar. They step through every change in the order you made it, through the modeller's own command stack. While a token simulation runs they refuse to run, so a preview cannot change your file.</p>
+
+<h2>Copy and paste</h2>
+
+<p>Copy and paste use the clipboard of your system or tool, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another open diagram. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+
+<p>To get the diagram itself as a picture, use <span class="ui">Copy</span> in the export dialog. It is free. See <a href="export.html">Export</a>.</p>
+
+<h2>Scripts and conditions</h2>
+
+<p>Under Camunda 7, Operaton and CIB seven, a field that holds a script is a small code editor with colours, and <span class="ui">Edit in new tab</span> opens it in a code editor of your tool as a real file. See <a href="scripts.html">Scripts in their own tab</a>.</p>
+
+<h2>Transaction boundaries</h2>
+
+<p><span class="ui">Transaction boundaries</span>, under View in the <span class="ui">More</span> menu, draws a bar where the engine commits a transaction: before a user task, a receive task, an event-based gateway, an external task and a message, timer, signal or conditional catch event, and before or after any activity with an asynchronous continuation, multi-instance ones included. The bars follow the diagram as you edit it, take the accent colour of the theme, and each says <em>Transaction boundary: the engine commits here</em> when you rest the pointer on it. Camunda 7, Operaton and CIB seven. Free.</p>
+
+<!-- image: transaction-boundaries.png, a Camunda 7 diagram with the transaction boundary bars drawn, each with its tooltip -->
+
+<h2>The XML one tab away</h2>
+
+<p>The diagram editor is registered ahead of your tool's own editor rather than in place of it, so the plain XML editor stays available as a second tab on the same file, called Text. A diagram that cannot be read opens a screen of its own instead of an empty canvas: what the parser objected to and on which line, that the file was not changed, and buttons to open the XML in the Text tab at that line and to Reload.</p>
+
+<p>Edits round-trip in both directions. Every change on the canvas re-serialises the diagram and writes the whole file: the content goes to a temporary file beside the target, which is moved over it atomically and refreshed, so the Text tab and version control see the new content at once and a folder that does not exist yet is created.</p>
+
+<p>The other direction is watched rather than merged. Penstock tracks the file's modification stamp and ignores its own writes. When something else changes the file, the Text tab, a Git checkout or a formatter, the editor asks whether to reload. Reloading takes the external content and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites the external one. Renames are handled silently.</p>
+
+{{host:xml-tab|The Text tab in your tool}}
+
+<h2>Token simulation</h2>
+
+<p><span class="ui">Simulate</span> switches the canvas into simulation mode: it is framed in green, every start event gains a play button, and the speed controls sit at the bottom. The button stays pressed until you switch it off. The simulation blocks dragging, the context pad, popup menus and direct editing, and Penstock blocks the rest: Undo, Redo, Copy, Paste, Delete and Auto layout refuse to run and say <em>Stop Token Simulation before editing the diagram</em>. Otherwise an edit made during what looks like a read-only preview would be written to the file like any other. Free. See <a href="token-simulation.html">Token simulation</a>.</p>
+
+<h2>Export and the diagram diff</h2>
+
+<p><span class="ui">Export&hellip;</span> opens a dialog with the whole diagram centred in the preview and the settings beside it, and copies the diagram to the clipboard as a picture. See <a href="export.html">Export</a>. Penstock also registers a diff with your tool, so any two-sided comparison where one side is a BPMN file is shown as two diagrams rather than two blocks of XML. See <a href="diagram-diff.html">Diagram diff</a>.</p>
+
+<h2>The minimap</h2>
+
+<p>Open <span class="ui">More</span> and choose <span class="ui">Minimap</span>. A small overview of the whole diagram appears. It helps on large diagrams.</p>
+
+<h2>Right-click</h2>
+
+<p>The context menu of the canvas holds Reload, Undo, Redo, Copy, Paste, Delete and <span class="ui">Export&hellip;</span>. The context menu of an element holds the editing actions, the change-element menu, and, when they apply, an entry that goes to the code that runs the element, and the Pro actions that link to your code. See <a href="code-links.html">Code links</a>.</p>
+
+<h3>Go to the class of a task</h3>
+
+<p>A task can name a Java class: a Camunda 7 <code>camunda:class</code>, a delegate expression that unwraps to a full class name, or a listener that names a class. Right-click it and the menu offers to go to that class. Penstock finds the class by name and package in your own sources. A delegate expression that holds a bean name, such as <code>${checkStockDelegate}</code>, names no class, so nothing is offered. Pro's <a href="code-links.html">code links</a> handle beans.</p>
+
+{{host:go-to-class|Go to the class in your tool}}
+
+<h2>Hover</h2>
+
+<p>Rest the pointer on an element and a card shows its id, type, name and flows. On a service task it also shows the implementation. On a user task it shows the assignee and candidates.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The new element is on the canvas, connected where you dropped it.</li>
+  <li>Every change is already in the file.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I cannot drag or delete anything.</dt>
+  <dd>Token simulation is on. Press <span class="ui">Simulate</span> again to stop it.</dd>
+  <dt>Paste does nothing.</dt>
+  <dd>Copy something first. Select one or more elements, open <span class="ui">More</span> and choose <span class="ui">Copy</span>.</dd>
+  <dt>The entry that goes to the class is missing.</dt>
+  <dd>The task names no class, or the class lives in a library instead of your own sources, or your tool has no source view.</dd>
+  <dt>The diagram opens cut off at the edge.</dt>
+  <dd>Press <span class="ui">Fit diagram</span>.</dd>
+  <dt>The file changed and my edits are gone.</dt>
+  <dd>Something outside the editor wrote the file while you were editing, and you chose to reload. Reloading takes the file on disk. See above.</dd>
+  <dt>I dropped an element in the wrong place.</dt>
+  <dd>Press Undo. Or, if you already did other things, drag it back.</dd>
+</dl>

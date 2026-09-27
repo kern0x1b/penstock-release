@@ -1,0 +1,128 @@
+<!--
+title: Scenarios
+lede: Run the diagram's scenarios on a local engine and see every step: the path taken, and the variables that came in, went out and changed.
+tags: pro
+needs: Team in a pipeline. An engine marked for tests: deployment.forTests: true, or a local engine you confirm once.
+related: sidebar, process-tests, flow-analysis, monitor, settings, security, example-project, jetbrains/test-runner, cli/commands
+-->
+<h2>What it is</h2>
+
+<p>A <strong>scenario</strong> is one way through a process, with the variables it starts with and an answer for each task. A <strong>run</strong> starts the process on a real engine, answers its tasks with mocks that you choose, and shows the path it took on the diagram. For each step you see what came in, what went out, and what changed. Scenarios need no build setup. They are stored in Camunda's test-case format, so they are ordinary files that live in Git and run in a pipeline. <a href="flow-analysis.html">Flow analysis</a> finds the ways through a diagram, and <span class="ui">Generate</span> turns them into runnable ones.</p>
+
+<p>A step that a mock answered carries a <span class="tag pro">Mocked</span> badge. A green run over mocks is not proof that your code works. The badge says so.</p>
+
+<figure class="shot">
+  <img src="@img/scenarios.png" alt="The Scenarios tab of the sidebar with a scenario's steps numbered on the diagram, its start variables and a user task step">
+  <figcaption>The Scenarios tab beside the diagram it belongs to. The steps carry numbers, the panel lists them in plain words with the values, and what the process is doing is drawn on the canvas.</figcaption>
+</figure>
+
+<h2>Before you begin</h2>
+
+<ol class="steps">
+  <li>Start an engine on your machine. The <a href="example-project.html">example project</a> tells you how.</li>
+  <li>Make sure the profile in force has a <code>deployment.url</code>. See <a href="profiles.html">Profiles</a>.</li>
+  <li>Deploy nothing by hand. A run deploys its own test build and removes it afterwards.</li>
+</ol>
+
+<div class="callout warn">
+  <span class="label">Safety</span>
+  <p>A run deploys a test build, starts instances and answers jobs. So Penstock runs only on an engine that is marked for tests: <code>deployment.forTests: true</code> in <code>penstock.yaml</code>, or an engine on this machine that you confirm once. It asks once per profile in the editor, and once per run in a terminal. It never asks in a pipeline: there you need the <code>forTests</code> mark. Every other engine is refused, by the editor and by the host. See <a href="security.html">Security and privacy</a>.</p>
+</div>
+
+<h2>Read the Scenarios tab</h2>
+
+<p>The <strong>Scenarios</strong> tab of the <a href="sidebar.html">sidebar</a> reads the diagram's test-case file, and a diagram whose file has been renamed still finds it by the process id inside. The tab lists the scenarios with their last result. Pro, and Team in a pipeline. Without it the tab says what scenarios are and offers to buy them.</p>
+
+{{host:scenarios-open|Read and run scenarios in your tool}}
+
+<h2>Generating scenarios from the diagram</h2>
+
+<p><span class="ui">Generate</span> in the Scenarios tab does not write files. It opens a review over the diagram: the scenario you are looking at is drawn on the canvas with its steps numbered and the flows between them, and the steps are listed beside it in plain words, with the value each step passes on. A value can be edited, and a gateway condition that cannot be right is fixed from the step that holds it. Every change plans the scenarios again, so the drawing and the list always agree. Nothing reaches the file until you press <strong>Create scenarios</strong>.</p>
+
+<p>A scenario already in the file is kept as it is, and its box is ticked and cannot be unticked, so generating never loses work. A way the process takes that the data cannot choose, such as a gateway whose conditions need something no variable can decide, is listed with a note saying so and is not offered for writing.</p>
+
+<p>The same view opens a saved scenario, so what a scenario does can be read before it is run. After a run it shows the plan against what actually happened, step by step.</p>
+
+<p><strong>Add scenario</strong> plans one scenario by hand, and for a process that starts on a message, a timer or a signal it asks which start event to begin from. The process instance is then started at that event directly, so the first steps of a process that waits for something are still covered. A start kind Penstock cannot express as a scenario is said in the review rather than left out quietly. <code>penstock scenarios generate</code> behaves the same.</p>
+
+<!-- image: scenarios-review.png, Generate in the Scenarios tab with the review open over the diagram -->
+
+<h2>Running scenarios</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Run all</span>, or click one scenario. The engine the profile in force names runs the test cases step by step, and stops at every step left to ask.</li>
+  <li>Watch the diagram. Completed steps turn green, the step that failed turns red, the step it is waiting at turns blue.</li>
+  <li>Read the table: <em>Step</em>, <em>State</em>, <em>In</em>, <em>Out</em>, <em>Changed</em>. Click a row to select the element. Select an element to see its row.</li>
+</ol>
+
+<p>A step can be answered by the real worker, or by a mock: complete it, throw a BPMN error, fail a number of times and then complete, or ask. A timer can be made to fire at once. Each step a mock answered carries a Mocked badge on the canvas, and the table under the run says what each step received, sent and changed, and where each value came from.</p>
+
+<p>Every test case is checked against the Camunda test-case schema before the run starts. A case that lacks what the schema requires, such as an assertion with no <code>processInstanceSelector</code> or an instruction with a property the schema does not allow, is not run and says what it lacks.</p>
+
+<p>A run never touches the definitions you deployed. It builds a copy whose ids are prefixed with <code>penstock.&lt;run&gt;.</code>, every process, decision, form and the calls between them, deploys that, and removes it afterwards, so what is left on the engine is what you deployed and the process id you start is the one you deployed.</p>
+
+<h3>Where the values come from</h3>
+
+<p>On Camunda 7 the engine keeps a full history, so the table is exact. On Camunda 8 the engine keeps no variable history. The path is exact. What a mock received and sent is known. Decisions are read from the engine. Everything else is the difference between two readings, attributed to the stretch between them, not to one step. The panel says which.</p>
+
+<h2>Run with input</h2>
+
+<p>Use it to try a process by hand.</p>
+
+<ol class="steps">
+  <li>Press <span class="ui">Run with input&hellip;</span>. A dialog called <em>Run with input</em> opens, sized to what it holds.</li>
+  <li>Type the <strong>Start variables</strong> as JSON. They are filled in from the variables the diagram reads.</li>
+  <li>Under <strong>Steps</strong> choose what happens at each service task: <span class="ui">Ask me</span>, <span class="ui">Complete</span> (with variables), <span class="ui">Throw error</span>, <span class="ui">Fail, then complete</span>, or <span class="ui">Real worker</span>. For a timer choose <span class="ui">Fire now</span> or <span class="ui">Wait for it</span>.</li>
+  <li>Press <span class="ui">Run</span>.</li>
+  <li>The run stops at every step left to ask. The panel says <em>Waiting at Charge card for the job charge-card</em>, shows what was received, and asks what to send. Type the variables, or an error code, and answer. For a user task, complete it. For a message, press <span class="ui">Correlate</span>.</li>
+</ol>
+
+<p><span class="ui">Open run&hellip;</span> shows the path and the steps of an instance that already exists. <span class="ui">Save as scenario&hellip;</span> writes what was answered as a scenario that checks the path and the variables. Reading an existing run only reads, so it works on any engine the profile can read, and it is free.</p>
+
+<!-- image: run-with-input.png, the Run with input dialog with start variables and a behaviour for each step -->
+
+<h2>The scenario file</h2>
+
+<p>Scenarios are Camunda Process Test JSON test cases, the same format that Camunda's own tooling reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
+
+<p>Penstock's own additions go in an <code>x-penstock</code> block on the scenario, which Camunda's tools ignore:</p>
+
+<pre><code>"x-penstock": {
+  "engines": ["camunda-8", "camunda-7"],
+  "behaviours": {
+    "ReserveStock": { "fail": 2, "then": "complete", "variables": { "reserved": 3 } },
+    "WaitForPayment": { "then": "fire" }
+  }
+}</code></pre>
+
+<p>A scenario that needs a behaviour is tagged <span class="tag">Penstock only</span>, because Camunda Process Test would run it differently.</p>
+
+<h2>Run many scenarios at once</h2>
+
+<p>The tab runs the scenarios of the diagram you have open. Your tool can also run the scenario files of a whole project, one after another, and report pass or fail for each. The test-case file is an ordinary file, so it runs in a test runner too.</p>
+
+{{host:scenarios-batch|Run scenario files in your tool}}
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The scenarios of the diagram with their last result, in the tab.</li>
+  <li>The path of a run on the diagram, and a table of every step with what came in, went out and changed.</li>
+  <li>A <span class="tag pro">Mocked</span> badge on each step that a mock answered.</li>
+  <li>For a whole project: <code>pass</code> or <code>fail</code> for each scenario, and a total such as <em>2 passed, 0 failed, 0 skipped in 1 file</em>.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"is not marked deployment.forTests: run in a terminal to confirm it once, or mark the profile".</dt>
+  <dd>Set <code>deployment.forTests: true</code> on the profile for your test engine. Or run in a terminal and answer <kbd>y</kbd>. See <a href="settings.html">penstock.yaml</a>.</dd>
+  <dt>A step does not finish.</dt>
+  <dd>A step without a mock runs the real code. If no worker takes it within the timeout, the run fails and says what it was waiting for. Start the worker, or mock the step.</dd>
+  <dt>The tab is empty.</dt>
+  <dd>There is no test-case file for this diagram yet. Press <span class="ui">Generate</span> and review what it plans.</dd>
+  <dt>The tab is not there.</dt>
+  <dd>Scenarios is shown for Camunda 7, Camunda 8, Operaton and CIB seven. See <a href="sidebar.html">The sidebar</a>.</dd>
+  <dt>The run left builds in my engine.</dt>
+  <dd>An interrupted run is cleaned up by the next run, once it is old enough.</dd>
+</dl>

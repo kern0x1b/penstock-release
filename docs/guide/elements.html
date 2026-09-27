@@ -3,204 +3,281 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>BPMN elements - Penstock</title>
-<meta name="description" content="The Penstock palette and the Create element catalogue: every task, gateway, event and data element BPMN defines, what each is for, and how to change one element into another.">
+<meta name="description" content="Every element you can draw, what it is for, and how to find it.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/elements.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html" aria-current="page">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html">Validation</a></li>
-      <li><a href="diagram-check.html">Check and problems</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html" aria-current="page">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>BPMN elements</h1>
+<p class="lede">Every element you can draw, what it is for, and how to find it.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#add-an-element">Add an element</a></li>
+<li><a href="#the-palette">The palette</a></li>
+<li><a href="#the-catalogue">The catalogue</a></li>
+<li><a href="#collapse-and-expand-an-event-sub-process">Collapse and expand an event sub-process</a></li>
+<li><a href="#colours-and-the-grid">Colours and the grid</a></li>
+<li><a href="#change-an-element-into-another">Change an element into another</a></li>
+<li><a href="#what-changes-with-the-engine">What changes with the engine</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="add-an-element"><a href="#add-an-element">Add an element</a></h2>
 
-  <div class="docbody">
-    <h1>BPMN elements</h1>
+<ol class="steps">
+  <li>Look at the palette, the floating island beside the canvas. It has the elements most diagrams need.</li>
+  <li>Drag one onto the canvas. Or click it, then click on the canvas.</li>
+  <li>For any other element, press <span class="ui">Create element</span> at the foot of the palette. Type to search, or open a group.</li>
+</ol>
 
-    <p class="lede">The palette beside the canvas carries the elements most diagrams are built
-    from. Everything else - every task type, every event, every gateway - is behind
-    <strong>Create element</strong> at the foot of the palette, which is searchable and explains
-    what each element is for.</p>
+<p>The same catalogue opens from the pad of an element you have selected. There it appends the element you choose to the selected one, already connected.</p>
 
-    <h2>The palette</h2>
+<!-- image: create-element.png, the Create element catalogue open over the diagram -->
 
-    <p>It is a floating island rather than a strip of the window: sixteen pixels in from the left
-    edge of the canvas, vertically centred, rounded, with a border and a shadow, and never more
-    than three quarters of the height of the canvas. A palette with more entries than that scrolls
-    inside the island. The canvas is inset so nothing sits under it.</p>
+<h2 id="the-palette"><a href="#the-palette">The palette</a></h2>
 
-    <p>Four tools and ten elements, in this order:</p>
+<p>It is a floating island rather than a strip of the window: sixteen pixels in from the left edge of the canvas, vertically centred, rounded, and never more than three quarters of the height of the canvas, so a palette with more entries than that scrolls inside the island. The canvas is inset so nothing sits under it. See <a href="editing.html">Editing a diagram</a>.</p>
 
-    <table class="facts">
-      <tr><td>Hand tool</td><td>Pans the canvas without selecting anything.</td></tr>
-      <tr><td>Lasso tool</td><td>Rubber-band selection.</td></tr>
-      <tr><td>Space tool</td><td>Inserts or removes empty space, moving everything past the line
-        you drag.</td></tr>
-      <tr><td>Global connect tool</td><td>Draws a connection starting from any element.</td></tr>
-      <tr><td>Start event</td><td>Where a process or a path begins.</td></tr>
-      <tr><td>Intermediate / boundary event</td><td>Something the process waits for or emits part
-        way through; dropped on the border of an activity it becomes a boundary event.</td></tr>
-      <tr><td>End event</td><td>Where a path ends.</td></tr>
-      <tr><td>Gateway</td><td>A branch or a join.</td></tr>
-      <tr><td>Task</td><td>A step of work.</td></tr>
-      <tr><td>Expanded sub-process</td><td>A process drawn inside the diagram that contains
-        it.</td></tr>
-      <tr><td>Data object reference</td><td>Data that lives as long as the process instance.</td></tr>
-      <tr><td>Data store reference</td><td>Data that outlives the instance.</td></tr>
-      <tr><td>Pool / participant</td><td>An organisation or system taking part in a
-        collaboration.</td></tr>
-      <tr><td>Group</td><td>A visual box around elements; it carries no execution meaning.</td></tr>
-      <tr><td>Create element</td><td>Opens the catalogue below.</td></tr>
-    </table>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Item</th><th>What it is for</th></tr></thead>
+  <tbody>
+  <tr><td>Hand tool</td><td>Moves the canvas without selecting anything.</td></tr>
+  <tr><td>Lasso tool</td><td>Selects everything inside a rectangle.</td></tr>
+  <tr><td>Space tool</td><td>Adds or removes empty space. Everything past the line you drag moves.</td></tr>
+  <tr><td>Global connect tool</td><td>Draws a connection that starts from any element.</td></tr>
+  <tr><td>Start event</td><td>Where a process or a path begins.</td></tr>
+  <tr><td>Intermediate / boundary event</td><td>Something the process waits for or sends partway. Dropped on the border of a task, it becomes a boundary event.</td></tr>
+  <tr><td>End event</td><td>Where a path ends.</td></tr>
+  <tr><td>Gateway</td><td>A split or a join of the path.</td></tr>
+  <tr><td>Task</td><td>A step of work.</td></tr>
+  <tr><td>Expanded sub-process</td><td>A process drawn inside another.</td></tr>
+  <tr><td>Data object reference</td><td>Data that lives as long as the process instance.</td></tr>
+  <tr><td>Data store reference</td><td>Data that outlives the instance.</td></tr>
+  <tr><td>Pool / participant</td><td>An organisation or system taking part.</td></tr>
+  <tr><td>Group</td><td>A visual box around elements. It has no meaning when the process runs.</td></tr>
+  <tr><td>Create element</td><td>Opens the catalogue.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <h2>The catalogue</h2>
+<h2 id="the-catalogue"><a href="#the-catalogue">The catalogue</a></h2>
 
-    <p><strong>Create element</strong> groups every element by what it is for, and searches by
-    name. Type to filter, or open a group. The same catalogue appears from an element's context
-    pad, where it appends the element you choose to the one you started from, already
-    connected.</p>
+<h3 id="tasks"><a href="#tasks">Tasks</a></h3>
 
-    <h3>Tasks - atomic units of work in a process</h3>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Task</td><td>An unspecified step. Often a placeholder.</td></tr>
+  <tr><td>User task</td><td>Work a person has to do.</td></tr>
+  <tr><td>Service task</td><td>Automated work done by a job worker or a connector.</td></tr>
+  <tr><td>Business rule task</td><td>Evaluates a business rule, usually a DMN decision.</td></tr>
+  <tr><td>Script task</td><td>Runs a script. On Camunda 7 the script can open as an editor tab. See <a href="scripts.html">Scripts in their own tab</a>.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <table class="facts">
-      <tr><td>Task</td><td>An unspecified step, often used as a placeholder.</td></tr>
-      <tr><td>User task</td><td>Work that needs to be done by a person.</td></tr>
-      <tr><td>Service task</td><td>Automated work carried out by a job worker or connector.</td></tr>
-      <tr><td>Business rule task</td><td>Evaluates a business rule, typically a DMN decision.</td></tr>
-      <tr><td>Script task</td><td>Runs a script. On Camunda 7 the script opens as a real editor tab
-        - see <a href="editing.html">Editing a diagram</a>.</td></tr>
-    </table>
+<h3 id="gateways"><a href="#gateways">Gateways</a></h3>
 
-    <h3>Gateways - route the flow</h3>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Exclusive gateway</td><td>Sends the token down one path, chosen by data.</td></tr>
+  <tr><td>Parallel gateway</td><td>Splits into parallel paths, or joins them.</td></tr>
+  <tr><td>Event-based gateway</td><td>Follows the path of whichever event happens first.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <table class="facts">
-      <tr><td>Exclusive gateway</td><td>Routes the token down one path, based on data.</td></tr>
-      <tr><td>Parallel gateway</td><td>Splits the flow into parallel paths, or joins them.</td></tr>
-      <tr><td>Event-based gateway</td><td>Follows the path of whichever event occurs first.</td></tr>
-    </table>
+<h3 id="sub-processes"><a href="#sub-processes">Sub-processes</a></h3>
 
-    <h3>Sub-processes - nested or reusable activities</h3>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Call activity</td><td>Calls another process, like a function call.</td></tr>
+  <tr><td>Transaction</td><td>A sub-process that completes as a whole, or is compensated.</td></tr>
+  <tr><td>Event sub-process</td><td>A sub-process started by an event in its scope.</td></tr>
+  <tr><td>Sub-process, collapsed</td><td>Shown as one box. Double-click to open it in its own view.</td></tr>
+  <tr><td>Sub-process, expanded</td><td>Drawn inline, with its contents.</td></tr>
+  <tr><td>Ad-hoc sub-process</td><td>Activities run in any order, any number of times. Collapsed or expanded.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <table class="facts">
-      <tr><td>Call activity</td><td>Calls another process as a reusable subprocess.</td></tr>
-      <tr><td>Transaction</td><td>A subprocess that completes as a whole, or is compensated.</td></tr>
-      <tr><td>Event sub-process</td><td>A subprocess triggered by an event in its scope. It can be
-        collapsed and expanded again from the change-element menu, in every engine profile.</td></tr>
-      <tr><td>Sub-process, collapsed</td><td>Groups elements into a subprocess, shown collapsed.
-        Double-click to open it in its own view.</td></tr>
-      <tr><td>Sub-process, expanded</td><td>Groups elements into a subprocess, drawn inline.</td></tr>
-      <tr><td>Ad-hoc sub-process</td><td>Activities run in any order, any number of times.
-        Collapsed or expanded.</td></tr>
-    </table>
+<h3 id="events"><a href="#events">Events</a></h3>
 
-    <h3>Events - what a process reacts to or emits</h3>
+<p>Events are grouped by where they sit in the flow, because the same trigger means different things in each place.</p>
 
-    <p>Events are grouped by where they sit in the flow rather than by what they carry, because
-    the same kind of trigger means different things in each position.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Start events</td><td>Where a process or path begins.</td></tr>
+  <tr><td>Intermediate catch events</td><td>Wait for something to happen, then continue.</td></tr>
+  <tr><td>Intermediate throw events</td><td>Send something, then continue.</td></tr>
+  <tr><td>Boundary events</td><td>React to something while a task runs. An interrupting one cancels the task. A non-interrupting one leaves it running.</td></tr>
+  <tr><td>End events</td><td>Where a path ends.</td></tr>
+  </tbody>
+</table></div></div>
 
-    <table class="facts">
-      <tr><td>Start events</td><td>Where a process or path begins.</td></tr>
-      <tr><td>Intermediate catch events</td><td>Wait for something to happen before
-        continuing.</td></tr>
-      <tr><td>Intermediate throw events</td><td>Emit an event, then continue.</td></tr>
-      <tr><td>Boundary events</td><td>React to something while an activity is running. Interrupting
-        ones cancel the activity; non-interrupting ones leave it running.</td></tr>
-      <tr><td>End events</td><td>Where a process path ends.</td></tr>
-    </table>
+<p>Inside each group are the triggers BPMN defines: message, timer, error, escalation, signal, compensation, conditional, link and terminate. Only the ones that are allowed in that place are offered.</p>
 
-    <p>Inside each group are the triggers BPMN defines - message, timer, error, escalation, signal,
-    compensation, conditional, link, terminate - restricted to the ones that are legal in that
-    position.</p>
+<h3 id="data-and-participants"><a href="#data-and-participants">Data and participants</a></h3>
 
-    <h3>Data</h3>
+<p>Data object reference and data store reference are drawn as in the palette. A pool stands for an organisation or a system. Two pools in one diagram make a <em>collaboration</em>. Only a message flow may cross between pools. Lanes divide a pool by role or department. They carry no meaning when the process runs.</p>
 
-    <table class="facts">
-      <tr><td>Data object reference</td><td>Data created and used within a process instance.</td></tr>
-      <tr><td>Data store reference</td><td>Data that persists beyond the process instance.</td></tr>
-    </table>
+<h2 id="collapse-and-expand-an-event-sub-process"><a href="#collapse-and-expand-an-event-sub-process">Collapse and expand an event sub-process</a></h2>
 
-    <h3>Participants</h3>
+<p>Select an event sub-process and open the change-element menu (the wrench). It offers to collapse the sub-process into one box, and to expand it again. bpmn-js offers this only for ordinary sub-processes. Penstock adds it for event sub-processes, in every diagram type.</p>
 
-    <p>A pool stands for an organisation or a system. Two pools in one diagram make it a
-    collaboration, and the only thing that may cross between them is a message flow. Lanes divide
-    a pool by role or department and carry no execution meaning of their own.</p>
+<h2 id="colours-and-the-grid"><a href="#colours-and-the-grid">Colours and the grid</a></h2>
 
-    <h2>Changing an element into another</h2>
+<p>The context pad carries a colour picker, and the canvas carries a grid that elements snap to. Both are free, and both are in the Classic BPMN profile as well as in the Camunda ones.</p>
 
-    <p>Select an element and use the wrench on its context pad. The menu offers every element the
-    selected one can legally become - a task to a service task, a start event to a message start
-    event, an exclusive gateway to a parallel one - and the change keeps the connections, the name
-    and the properties that still apply. The same menu is where an event sub-process is collapsed
-    and expanded.</p>
+<!-- image: collapse-event-subprocess.png, an event sub-process collapsed with the wrench menu open on the collapsed shape -->
 
-    <h2>Colours and the grid</h2>
+<h2 id="change-an-element-into-another"><a href="#change-an-element-into-another">Change an element into another</a></h2>
 
-    <p>The context pad carries a colour picker, and the canvas carries a grid that elements snap
-    to. Both are free, and both are in the Classic BPMN profile as well as the Camunda ones.</p>
+<p>Select it and press the wrench on its pad. The menu offers what the element can legally become. The name, connections and properties that still apply are kept.</p>
 
-    <h2>What each profile adds</h2>
+<h2 id="what-changes-with-the-engine"><a href="#what-changes-with-the-engine">What changes with the engine</a></h2>
 
-    <p>The palette and the catalogue are the same in every engine profile: BPMN is BPMN. What
-    changes is what the properties panel offers once an element is selected, and which namespace
-    the editor writes into the file. See <a href="engine-profiles.html">Engine profiles</a>.</p>
+<p>The palette and the catalogue are the same for every engine. What changes is what the properties panel offers and which namespace is written into the file. See <a href="engine-profiles.html">Engines</a>.</p>
 
-  </div>
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
+<ul>
+  <li>The element appears on the canvas.</li>
+  <li>The properties panel shows the settings of that element.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>I cannot find an element in the palette.</dt>
+  <dd>Use <span class="ui">Create element</span>. It has every element.</dd>
+  <dt>My boundary event will not attach.</dt>
+  <dd>Drop it on the border of a task or sub-process, not inside.</dd>
+  <dt>I need a Camunda-specific task, for example a connector.</dt>
+  <dd>Use an <a href="element-templates.html">element template</a> on a service task.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+<li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
+<li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/properties-panel.html"><span>Previous</span>Properties panel</a>
+<a class="next" href="../guide/editing.html"><span>Next</span>Editing a diagram</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

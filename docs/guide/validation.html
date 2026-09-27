@@ -3,75 +3,146 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Validation - Penstock</title>
-<meta name="description" content="Validation in Penstock: bpmnlint without setup, a project .bpmnlintrc, rules from plugins, the Camunda engine compatibility rules, and where the findings appear in the editor and in penstock check.">
+<meta name="color-scheme" content="light dark">
+<title>Validation with bpmnlint - Penstock</title>
+<meta name="description" content="bpmnlint checks that a process is modelled correctly, and Penstock runs it for you with nothing to install.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/validation.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to the content</a>
 
-<header>
-  <div class="wrap bar">
-    <a href="../" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit">
-      <img src="../icon.svg" alt="">
-      <span class="name">Penstock</span>
-    </a>
-    <nav>
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap doc guide">
-
-  <nav class="docnav" aria-label="Documentation">
-    <h2>Documentation</h2>
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
-      <li><a href="getting-started.html">Getting started</a></li>
-      <li><a href="engine-profiles.html">Engine profiles</a></li>
-      <li><a href="elements.html">BPMN elements</a></li>
-      <li><a href="editing.html">Editing a diagram</a></li>
-      <li><a href="sidebar.html">The sidebar</a></li>
-      <li><a href="element-templates.html">Element templates</a></li>
-      <li><a href="validation.html" aria-current="page">Validation</a></li>
-      <li><a href="diagram-check.html">Check and problems</a></li>
-      <li><a href="deployment.html">Deployment</a></li>
-      <li><a href="migration.html">Camunda 7 to Camunda 8</a></li>
-      <li><a href="exchange.html">Sharing and importing</a></li>
-      <li><a href="auto-layout.html">Auto layout</a></li>
-      <li><a href="settings.html">Configuration</a></li>
-      <li><a href="cli.html">Command line</a></li>
-      <li><a href="plans.html">Plans and licence</a></li>
-      <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html" aria-current="page">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
   </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Checking</p>
+<h1>Validation with bpmnlint</h1>
+<p class="lede">bpmnlint checks that a process is modelled correctly, and Penstock runs it for you with nothing to install.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#see-it-working">See it working</a></li>
+<li><a href="#which-rules-apply">Which rules apply</a></li>
+<li><a href="#engine-compatibility-checks">Engine compatibility checks</a></li>
+<li><a href="#on-the-command-line">On the command line</a></li>
+<li><a href="#whole-project-checks">Whole-project checks</a></li>
+<li><a href="#custom-rules">Custom rules from a plugin</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-  <div class="docbody">
-    <h1>Validation</h1>
+<p>bpmnlint is a well-known tool that finds modelling mistakes in a BPMN file: an event with no outgoing flow, a task with no name, a gateway that splits without saying how. Penstock has it built in. Nothing to install and no paths to set.</p>
 
-    <p class="lede">Validation answers whether a process is modelled correctly: an event with no
-    outgoing flow, a gateway that splits without saying how, a service task with no job type.
-    Penstock runs it without any setup, in the editor as you draw and in
-    <span class="mono">penstock check</span>, with nothing to install and no paths to
-    configure.</p>
+<h2 id="see-it-working"><a href="#see-it-working">See it working</a></h2>
 
-    <h2>Which rules apply</h2>
+<ol class="steps">
+  <li>Open a diagram and draw a task with no name.</li>
+  <li>A marker appears on that task. This is the editor marking problems as you draw.</li>
+  <li>Press <span class="ui">Check</span>. The same finding is listed under <strong>Rules</strong>, with the rule name <code>bpmnlint/label-required</code>.</li>
+  <li>Click the line. The task is selected. Give it a name and the marker goes away.</li>
+</ol>
 
-    <p>Without a configuration the rules are bpmnlint's own recommended set,
-    <code>bpmnlint:recommended</code>. A <code>.bpmnlintrc</code> in the project root replaces
-    that set, and the editor and the command line both read it. To keep it somewhere else, name
-    it with <code>lint.configPath</code> in <code>penstock.yaml</code>, relative to the project
-    root; see <a href="settings.html">Configuration</a>.</p>
+<p>The same finding is in the <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a>, beside the drawing problems, with its error or warning icon and the id of the rule. Clicking it selects the element and opens the property that fixes it. See <a href="diagram-check.html">Diagram check</a>.</p>
 
-    <p>A minimal <code>.bpmnlintrc</code>:</p>
+<p>The linting button on the canvas turns the markers off and on. It starts on. It is hidden while a token simulation runs.</p>
+
+<h2 id="which-rules-apply"><a href="#which-rules-apply">Which rules apply</a></h2>
+
+<ol>
+  <li>Without any configuration: <code>bpmnlint:recommended</code>, bpmnlint's own set.</li>
+  <li>With a <code>.bpmnlintrc</code> in the project root: that file replaces the set. The editor and the command line both read it.</li>
+  <li>With <code>lint.configPath</code> in <code>penstock.yaml</code>: that file, relative to the project root. Use it when your rules live elsewhere.</li>
+</ol>
+
+<p>A small <code>.bpmnlintrc</code>:</p>
 
 <pre><code>{
   "extends": ["bpmnlint:recommended"],
@@ -81,100 +152,116 @@
   }
 }</code></pre>
 
-    <h2>Engine compatibility</h2>
+<p>Each rule can be set to <code>error</code>, <code>warn</code> or <code>off</code>. An error makes <code>penstock check</code> fail. A warning is shown as a note. Every rule that Penstock knows has a page: <a href="../rules/">Every rule</a>. Those pages say which level is the default.</p>
 
-    <p>Penstock also runs the rules of <code>bpmnlint-plugin-camunda-compat</code>, which ask
-    what the engine the diagram is written for can actually run: a service task with no job type,
-    an element or an expression the chosen Camunda version does not support, a process with no
-    history time to live. They are free, and they are part of the same
-    <code>.bpmnlintrc</code>.</p>
+<h2 id="engine-compatibility-checks"><a href="#engine-compatibility-checks">Engine compatibility checks</a></h2>
+<p><span class="tag free">Free</span></p>
 
-    <p>They are checked against the version in the file's
-    <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none, and
-    against the engine <code>penstock.yaml</code> names. Operaton and CIB seven are checked as
-    Camunda 7.</p>
+<p>Next to the modelling rules, Penstock checks the diagram against the engine and the version it is written for. It finds what that engine cannot run: a service task with no job type, an element or an expression the chosen version does not support, a process with no history time to live.</p>
 
-    <p>Each compatibility rule has an id, such as <code>compat/implementation</code>, and its own
-    page in the rules catalogue with a line on why it matters and a line on how to fix it. To
-    turn one off, name it in <code>.bpmnlintrc</code> as
-    <code>camunda-compat/&lt;rule&gt;</code>, the plugin's own name, or as
-    <code>compat/&lt;rule&gt;</code>:</p>
+<ul>
+  <li>They run on Camunda 7 and Camunda 8 diagrams, in the editor and when you check the whole project. Operaton and CIB seven are checked as Camunda 7.</li>
+  <li>The version is the one in the file's <code>modeler:executionPlatformVersion</code>. Without one, the newest version is used.</li>
+  <li>Each finding is one plain sentence that names the element: <em>Charge card has no job type</em>, <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>, <em>History time to live is missing</em>. The sentence is the same in the check card, on the canvas and in every report.</li>
+  <li>Each finding has the id <code>compat/&lt;rule&gt;</code>, for example <code>compat/implementation</code>. Every rule has a page: see <a href="../rules/">Every rule</a>.</li>
+  <li>To turn one off, set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code>, which is the plugin's own name, or as <code>compat/&lt;rule&gt;</code>.</li>
+  <li>A problem that another check already reports on the same element, for example two blank start events, is shown once, by bpmnlint.</li>
+</ul>
 
-<pre><code>{
-  "extends": ["bpmnlint:recommended"],
-  "rules": {
-    "camunda-compat/compatibility": "off"
-  }
-}</code></pre>
+<h2 id="on-the-command-line"><a href="#on-the-command-line">On the command line</a></h2>
 
-    <p>See <a href="diagram-check.html">Check and problems</a> for what the findings look like and
-    where they appear.</p>
+<p><code>penstock check</code> runs the same rules as one section of its report, beside the drawing, the engine compatibility rules and, on Pro, the flow analysis. <code>penstock check --only rules</code> runs the rules alone. A rule set to <code>error</code> makes the run fail; a warning is reported as a note.</p>
 
-    <h2>In the diagram editor</h2>
+<p>The older name <code>penstock lint</code> still works and says that it is now <code>penstock check --only rules</code>.</p>
 
-    <p>The editor marks problems on the elements as you draw, with a marker on each element a
-    rule reports. The linting button on the canvas turns the markers off and on; it starts on, and
-    is hidden while token simulation is running, since the canvas is showing something else at
-    that point.</p>
+<h2 id="whole-project-checks"><a href="#whole-project-checks">Whole-project checks</a></h2>
 
-    <p>The same findings are in the Problems tab, beside the drawing problems, each with its
-    error or warning icon and the id of the rule. Clicking a finding selects the element and opens
-    the property that fixes it. See <a href="diagram-check.html">Check and problems</a>.</p>
+<p>The same rules run over every diagram of a project when you check the whole project. Errors fail the check. Warnings are notes. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 
-    <h2>On the command line</h2>
-
-    <p><span class="mono">penstock check</span> runs the same rules as one section of its report,
-    beside the drawing, the engine compatibility rules and, on Pro, the flow analysis.
-    <span class="mono">penstock check --only rules</span> runs the rules alone. A rule set to
-    error makes the run fail; a warning is reported as a note.</p>
-
+<div class="hosts">
+<p class="hosts-title">Run only the rules</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<h4>JetBrains</h4>
+<p>Right-click a file or folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Check</span>. It runs the whole check, and the rules are one section of it.</p>
+</section>
+<section class="host" aria-label="Command line">
+<h4>Command line</h4>
 <pre><code>penstock check --only rules .</code></pre>
+<p>This runs the same rules as one section of the check. <code>penstock lint</code> still works in this release and prints that it is now <code>penstock check --only rules</code>.</p>
+</section>
+</div>
+</div>
 
-    <p>In the IDE, <span class="mono">Check</span> in the context menu of the Penstock tool
-    window runs <span class="mono">penstock check</span> on a file or folder and shows the report
-    in the Run window. It runs only in a trusted project.</p>
+<h2 id="custom-rules"><a href="#custom-rules">Custom rules from a plugin</a></h2>
 
-    <p><span class="mono">penstock lint</span> still works in this release and says that it is now
-    <span class="mono">penstock check --only rules</span>.</p>
+<p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package.</p>
 
-    <h2>Custom rules</h2>
-
-    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. Declare it in
-    the project's <code>package.json</code> and run <code>npm install</code>: the command line
-    reads plugins from the project's <code>node_modules</code>, with no installed bpmnlint
-    needed.</p>
-
-    <p>The editor cannot load packages from <code>node_modules</code>. For a
-    <code>.bpmnlintrc</code> that uses a plugin, build a bundle of the rules with
-    <code>bpmnlint-pack-config</code> and name it with <code>lint.clientBundlePath</code> in
-    <code>penstock.yaml</code>. Rebuild it whenever the rules change; the editor loads that bundle,
-    not the <code>.bpmnlintrc</code>. Without it, the Rules group says <em>The bpmnlint rules
-    could not run</em> and points at <code>lint.clientBundlePath</code>.</p>
+<ol class="steps">
+  <li>Add the package to your <code>package.json</code> and run <code>npm install</code>. The command line now finds it in <code>node_modules</code>. It needs no installed bpmnlint.</li>
+  <li>For the editor, build a bundle of your rules with <code>bpmnlint-pack-config</code>.</li>
+  <li>Point to the bundle in <code>penstock.yaml</code>. Rebuild it whenever the rules change.</li>
+</ol>
 
 <pre><code>lint:
   configPath: .bpmnlintrc
   clientBundlePath: .bpmnlint/client.bundle.js</code></pre>
 
-    <p>Only rules from a bpmnlint plugin need the bundle. A <code>.bpmnlintrc</code> that only
-    uses built-in rules, and the compatibility rules, need nothing at all.</p>
+<p>The editor cannot read <code>node_modules</code>. It loads the bundle, not the <code>.bpmnlintrc</code>. Without the bundle the check says <em>The bpmnlint rules could not run</em>.</p>
 
-  </div>
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
+<ul>
+  <li>Markers on the elements a rule reports, while you draw.</li>
+  <li>The same findings under <strong>Rules</strong> in the check card, each with the rule name.</li>
+  <li>In a whole-project report, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>My plugin rule works in the terminal but not in the editor.</dt>
+  <dd>Build the bundle and set <code>lint.clientBundlePath</code>. See above.</dd>
+  <dt>A rule I switched off still reports.</dt>
+  <dd>Check that <code>.bpmnlintrc</code> is in the project root, or that <code>lint.configPath</code> names it. When <code>lint.configPath</code> is set, <code>penstock doctor</code> prints the path and says if it is missing.</dd>
+  <dt>I have no markers on the canvas.</dt>
+  <dd>The linting button on the canvas may be off. Press it once.</dd>
+  <dt>The whole-project check does nothing.</dt>
+  <dd>Your tool may need the project to be trusted before it runs commands. See the troubleshooting page of your tool.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../rules/"><span>Previous</span>Every rule</a>
+<a class="next" href="../guide/flow-analysis.html"><span>Next</span>Flow analysis</a>
+</nav>
 </main>
+</div>
 
 <footer>
-  <div class="wrap">
-    <div class="links">
-      <a href="../">Overview</a>
-      <a href="index.html">Documentation</a>
-      <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
-      <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="../license/">License</a>
-      <a href="../notices/">Third-party notices</a>
-    </div>
-    <p>Copyright © 2024–2026 kern0x1b. All rights reserved.</p>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
 </body>

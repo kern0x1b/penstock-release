@@ -1,0 +1,163 @@
+<!--
+title: Deployment
+lede: Deploy sends the diagram you are editing to the engine your project names, after one more click that shows exactly what will go where.
+tags: free
+needs: Camunda 7, Camunda 8, Operaton or CIB seven
+related: profiles, settings, security, cli/commands, monitor
+-->
+<h2>Deploy from the editor</h2>
+
+<ol class="steps">
+  <li>Open a diagram, a decision or a form.</li>
+  <li>Press <span class="ui">Deploy</span> on the right of the toolbar. A popover opens under the button rather than deploying at once.</li>
+  <li>Read the popover: which profile is in force, where it will go, and which files will be sent. Pick another profile if you need to, or press <span class="ui">Edit connection&hellip;</span> to set the address first.</li>
+  <li>Press <span class="ui">Deploy</span>. A notification says where the file went, or what the engine answered.</li>
+</ol>
+
+<p>Deploy sends the state of the canvas, including edits that have not reached the disk yet. The DMN and form editors have the same button, and the result is still a notification. Under the Classic BPMN profile there is no deployment target, so there is no button. See <a href="engine-profiles.html">Engines</a>.</p>
+
+<!-- image: deploy-popover.png, the Deploy popover under the Deploy button with the profile, the engine address, the files that will be sent, Edit connection and Deploy -->
+
+<h2>What the popover tells you</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Profile</td><td>Which one is in force, and every other profile in the file, so a diagram can go to staging without changing what is in force. See <a href="profiles.html">Profiles</a>.</td></tr>
+  <tr><td>Engine address</td><td>Where it will go, or <em>Not set yet</em>.</td></tr>
+  <tr><td>What will be sent</td><td>The files, by name, with a count for the rest. For a diagram that is the diagram and nothing else.</td></tr>
+  <tr><td>Edit connection&hellip;</td><td>Opens the Connection dialog for the profile you picked.</td></tr>
+  <tr><td>Deploy</td><td>Sends, to the profile you picked.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The Connection dialog</h2>
+
+<p>It opens from <span class="ui">Edit connection&hellip;</span> in the popover, and it opens by itself the first time you deploy to a profile that has no engine address, or whose sign-in has no password or secret yet. Its title names the engine and the profile, for example <em>Camunda 8 &middot; prod</em>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Field</th><th>What to enter</th></tr></thead>
+  <tbody>
+  <tr><td>Engine address</td><td>The REST address of the engine. Required. <code>http</code> or <code>https</code>. Camunda 7, Operaton and CIB seven: for example <code>http://localhost:8080/engine-rest</code>. Camunda 8: the address of the REST API, for example <code>http://localhost:8080</code> or <code>http://localhost:8080/v2</code>.</td></tr>
+  <tr><td>Sign in</td><td><em>Not needed</em>, <em>User and password</em>, or <em>OAuth client</em>.</td></tr>
+  <tr><td>User, Password</td><td>For <em>User and password</em>. Sent as HTTP Basic.</td></tr>
+  <tr><td>Client id, Client secret, Token address, Audience</td><td>For <em>OAuth client</em>. Penstock uses the client credentials grant. The audience is optional.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Opened from <span class="ui">Edit connection&hellip;</span> the dialog offers <span class="ui">Save</span>, which only saves, and <span class="ui">Save and Deploy</span>. Opened by a deploy, because nothing is set up yet, it offers <span class="ui">Save and Deploy</span> alone. If something is missing, the dialog says what is still needed, under the field, with a red outline once you have left it.</p>
+
+<h3>Where it is kept</h3>
+
+<ul>
+  <li>The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force. It stays on your machine.</li>
+  <li>The password or client secret goes to the <strong>secret store of your tool</strong>, once for each profile.</li>
+  <li>When you open the dialog again, the field says <em>Saved - type to replace</em>. Leave it empty to keep the secret. Type to replace it. Set <em>Sign in</em> to <em>Not needed</em> and save to remove it.</li>
+</ul>
+
+<h2>What is set in penstock.yaml</h2>
+
+<p>Everything else about a deployment belongs to the project, not to the dialog. A profile can override any of it for another environment.</p>
+
+<pre><code>deployment:
+  url: http://localhost:8080/engine-rest
+  name: Order handling
+  tenantId: orders
+  changedOnly: true
+
+profiles:
+  prod:
+    deployment:
+      url: https://bpm.example.com/engine-rest
+      auth:
+        type: oauth
+        clientId: penstock
+        tokenUrl: https://auth.example.com/oauth/token
+
+hooks:
+  preDeploy: npm run verify-workers
+  postDeploy: ./notify-release.sh</code></pre>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>name</code></td><td>Default <code>Penstock deployment</code>. Keep it the same between deployments, so the engine's duplicate check can match one to the next.</td></tr>
+  <tr><td><code>source</code></td><td>Default <code>penstock</code>.</td></tr>
+  <tr><td><code>tenantId</code></td><td>Empty means the default tenant.</td></tr>
+  <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has, unchanged. On unless <code>false</code>.</td></tr>
+  <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means at once. Camunda 7 family.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>What is sent</h2>
+
+<p>One <code>multipart/form-data</code> POST with the file as a single part, named after the file. Its type is <code>application/xml</code>, or <code>application/json</code> for a form. Nothing else from the project goes with it. OAuth makes one more request first: the token request.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><code>/deployment/create</code> is added to the address. Name, source, tenant and activation time go as form fields. <code>changedOnly</code> sets both <code>enable-duplicate-filtering</code> and <code>deploy-changed-only</code>.</td></tr>
+  <tr><td>Camunda 8</td><td><code>/v2/deployments</code> is added to the address. An address that already ends in <code>/v2</code> works too. The file goes as <code>resources</code>, with <code>tenantId</code> beside it when set.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Every tool uses the same addresses and settings, so an editor and a pipeline mean the same thing by <code>deployment.url</code>.</p>
+
+<h2>How the request is made</h2>
+
+<p>The request is made by the host process, not by the browser built into your tool, so no CORS configuration is needed on the engine. The address, the sign-in type, the user name, the client id, the token address and the audience go to <code>penstock.local.yaml</code>, under the profile's name when a profile is in force, which stays on this machine and is added to <code>.gitignore</code>. The password or client secret goes to the <strong>secret store of your tool</strong>, separately for each profile, and the dialog only says that one is stored rather than reading the value back out. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read; a password comes from <code>PENSTOCK_PASSWORD</code> or from the secret store.</p>
+
+<h2>OAuth</h2>
+
+<p>Penstock first sends <code>grant_type=client_credentials</code> with the client id and secret to the token address, as a form. It reads <code>access_token</code> from the JSON answer and uses it as a bearer token on the deployment. The audience is sent only if you fill it in. If the token endpoint cannot be reached, answers with an error, or sends no access token, the deployment stops and the error says which. The token request times out after 15 seconds.</p>
+
+<p>On the command line use <code>auth.type: oauth</code> and set the secret in <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code>, if set, is used as a bearer token instead. <code>PENSTOCK_PASSWORD</code> is the password for basic sign-in.</p>
+
+<h2>Hooks</h2>
+
+<p><code>preDeploy</code> and <code>postDeploy</code> run around every deployment, from the editor and from the command line. They run in the project root and see <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. A <code>preDeploy</code> that fails stops the deployment, and nothing is sent. <code>postDeploy</code> runs after a successful one. Where a tool has a notion of a trusted project, hooks run only in a trusted project. In a project that is not trusted, a configured <code>preDeploy</code> is not run, and the deployment stops rather than go ahead without it.</p>
+
+<h2>Deploy more than one file</h2>
+
+<p>Deploying sends the files of a project grouped by the target each folder asks for: files from folders whose <code>penstock.yaml</code> names another engine go to that engine. You can also send every diagram to one profile at once, after a confirmation.</p>
+
+{{host:deploy-many|Deploy many files in your tool}}
+
+<h2>Feedback and errors</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Success</td><td><em>Deployed order-process.bpmn as order-process v3 on http://localhost:8080</em></td></tr>
+  <tr><td>The engine said no</td><td>One line for each file it refused and why, rather than a list of element errors. The editor's message offers <span class="ui">Edit connection</span> when the engine answered 401 or 403; the command line says what to set.</td></tr>
+  <tr><td>Not signed in</td><td>An answer of 401 or 403 means the address or the credentials are wrong. In a terminal, set <code>deployment.auth</code> in <code>penstock.local.yaml</code>, or <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>.</td></tr>
+  <tr><td>Not reachable</td><td><em>Could not reach the engine at &lt;url&gt;</em>.</td></tr>
+  <tr><td>No address</td><td>The message says so and points at <code>deployment.url</code> or the Connection dialog.</td></tr>
+  <tr><td>preDeploy failed</td><td><em>The preDeploy hook failed, nothing was sent</em>. The hook's output follows.</td></tr>
+  <tr><td>Not confirmed</td><td>With <code>--wait</code>: <em>The engine took the deployment but did not show its definitions in time</em>. Penstock waited 30 seconds per definition.</td></tr>
+  <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the deployment request.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A popover under the Deploy button, then a notification: <em>Deployed order-process.bpmn as order-process v3 on http://localhost:8080</em>.</li>
+  <li>In the engine's own web application, the process shows a new version, or the same one when nothing changed and <code>changedOnly</code> is on.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Deploy is not on the toolbar.</dt>
+  <dd>The engine is Classic, or not set. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>Every deploy is a new version.</dt>
+  <dd>The engine's duplicate check matches by name. Keep <code>deployment.name</code> the same, and leave <code>changedOnly</code> on.</dd>
+  <dt>The editor says 404 or the wrong path on Camunda 8.</dt>
+  <dd>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. If your address already ends in <code>/v2</code>, that is fine too.</dd>
+  <dt>The engine has a private certificate.</dt>
+  <dd>Penstock does not skip certificate checks. Trust the certificate in the runtime of your tool. See the troubleshooting page of your tool.</dd>
+  <dt>A wrong password is saved.</dt>
+  <dd>Press <span class="ui">Deploy</span>, then <span class="ui">Edit connection&hellip;</span>, type the right one and save.</dd>
+  <dt>There is no Deploy button.</dt>
+  <dd>The profile is Classic BPMN, which has no engine behind it. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
+  <dt>Nothing is deployed when I press Deploy.</dt>
+  <dd>It opens the popover on purpose. Press <span class="ui">Deploy</span> in the popover to send.</dd>
+</dl>

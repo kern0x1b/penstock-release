@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Licence in the IDE - Penstock</title>
+<meta name="description" content="Where to see and change your licence in a JetBrains IDE: the status bar, the Tools menu and the licence dialog.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/licence.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/" aria-current="true">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="JetBrains">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../jetbrains/">JetBrains IDEs</a></li>
+      <li><a href="../jetbrains/installing.html">Installing</a></li>
+      <li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../jetbrains/editor.html">The editor in the IDE</a></li>
+      <li><a href="../jetbrains/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../jetbrains/code-links.html">Code links in the IDE</a></li>
+      <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
+      <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../jetbrains/licence.html" aria-current="page">Licence in the IDE</a></li>
+      <li><a href="../jetbrains/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Licence and help</p>
+<h1>Licence in the IDE</h1>
+<p class="lede">Where to see and change your licence in a JetBrains IDE: the status bar, the Tools menu and the licence dialog.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#the-status-bar">The status bar</a></li>
+<li><a href="#the-licence-dialog">The licence dialog</a></li>
+<li><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<p>How the trial, buying, signing in and machines work is described once in <a href="../guide/sign-in.html">Buying and signing in</a>. This page is about the IDE.</p>
+
+<h2 id="the-status-bar"><a href="#the-status-bar">The status bar</a></h2>
+
+<p>The right end of the IDE's status bar shows the licence: <em>Penstock Pro trial: 27d</em> while the trial runs, <em>Penstock Free</em> when it ends, and <em>Penstock Pro</em> or <em>Penstock Team</em> once you have a licence. Hover it for the detail. Click it to open the licence dialog.</p>
+
+<h2 id="the-licence-dialog"><a href="#the-licence-dialog">The licence dialog</a></h2>
+
+<p>Open it by clicking the status bar, or with <span class="ui">Tools | Penstock Licence…</span>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Without a licence</td><td>One field, <em>E-mail or licence key</em>. Type the address you bought with, and a code is sent. A key works too. <span class="ui">Sign In</span> continues. <span class="ui">Buy Pro</span> opens the checkout. The link <em>Buy Team, for pipelines and the review bot</em> opens the Team checkout.</td></tr>
+  <tr><td>With a licence</td><td>The plan and the address it belongs to, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy Key for CI</span>, <span class="ui">Release This Machine</span> and <span class="ui">Close</span>.</td></tr>
+  <tr><td>When every machine is in use</td><td>A list of the machines and when each was activated. Pick one to free with <span class="ui">Free It for This Machine</span>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="the-message-that-explains-a-paid-feature"><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></h2>
+
+<p>When you use a paid feature without the licence, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and what the feature does. Its buttons are <span class="ui">Buy Pro</span> (or Team), <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so. When the education offer is set up, a button <span class="ui">Apply for Free Pro</span> is there too.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>After paying, the IDE notices the payment by itself and asks for the code that was sent to your e-mail.</li>
+  <li>After signing in, the status bar changes at once. The command line on the same machine uses the licence too.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The status bar shows nothing about Penstock.</dt>
+  <dd>The widget may be hidden. Right-click the status bar and turn on <em>Penstock Licence</em>.</dd>
+  <dt>I signed in on the command line but the IDE still shows the trial.</dt>
+  <dd>They share <code>~/.penstock/license.json</code>. Open the licence dialog to see what the IDE found.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
+<li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a> - Every place Penstock shows up: toolbar, tool window, menus, gutter.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../jetbrains/shortcuts.html"><span>Previous</span>Shortcuts</a>
+<a class="next" href="../jetbrains/troubleshooting.html"><span>Next</span>Troubleshooting</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

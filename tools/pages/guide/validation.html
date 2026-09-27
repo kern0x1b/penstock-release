@@ -1,0 +1,105 @@
+<!--
+title: Validation with bpmnlint
+lede: bpmnlint checks that a process is modelled correctly, and Penstock runs it for you with nothing to install.
+tags: free
+related: diagram-check, settings, sidebar, cli/commands
+-->
+<h2>What it is</h2>
+
+<p>bpmnlint is a well-known tool that finds modelling mistakes in a BPMN file: an event with no outgoing flow, a task with no name, a gateway that splits without saying how. Penstock has it built in. Nothing to install and no paths to set.</p>
+
+<h2>See it working</h2>
+
+<ol class="steps">
+  <li>Open a diagram and draw a task with no name.</li>
+  <li>A marker appears on that task. This is the editor marking problems as you draw.</li>
+  <li>Press <span class="ui">Check</span>. The same finding is listed under <strong>Rules</strong>, with the rule name <code>bpmnlint/label-required</code>.</li>
+  <li>Click the line. The task is selected. Give it a name and the marker goes away.</li>
+</ol>
+
+<p>The same finding is in the <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a>, beside the drawing problems, with its error or warning icon and the id of the rule. Clicking it selects the element and opens the property that fixes it. See <a href="diagram-check.html">Diagram check</a>.</p>
+
+<p>The linting button on the canvas turns the markers off and on. It starts on. It is hidden while a token simulation runs.</p>
+
+<h2>Which rules apply</h2>
+
+<ol>
+  <li>Without any configuration: <code>bpmnlint:recommended</code>, bpmnlint's own set.</li>
+  <li>With a <code>.bpmnlintrc</code> in the project root: that file replaces the set. The editor and the command line both read it.</li>
+  <li>With <code>lint.configPath</code> in <code>penstock.yaml</code>: that file, relative to the project root. Use it when your rules live elsewhere.</li>
+</ol>
+
+<p>A small <code>.bpmnlintrc</code>:</p>
+
+<pre><code>{
+  "extends": ["bpmnlint:recommended"],
+  "rules": {
+    "label-required": "error",
+    "no-implicit-split": "warn"
+  }
+}</code></pre>
+
+<p>Each rule can be set to <code>error</code>, <code>warn</code> or <code>off</code>. An error makes <code>penstock check</code> fail. A warning is shown as a note. Every rule that Penstock knows has a page: <a href="../rules/">Every rule</a>. Those pages say which level is the default.</p>
+
+<h2>Engine compatibility checks</h2>
+<p><span class="tag free">Free</span></p>
+
+<p>Next to the modelling rules, Penstock checks the diagram against the engine and the version it is written for. It finds what that engine cannot run: a service task with no job type, an element or an expression the chosen version does not support, a process with no history time to live.</p>
+
+<ul>
+  <li>They run on Camunda 7 and Camunda 8 diagrams, in the editor and when you check the whole project. Operaton and CIB seven are checked as Camunda 7.</li>
+  <li>The version is the one in the file's <code>modeler:executionPlatformVersion</code>. Without one, the newest version is used.</li>
+  <li>Each finding is one plain sentence that names the element: <em>Charge card has no job type</em>, <em>Ad-hoc sub-processes need Camunda 8.7 or newer - this diagram targets 8.6</em>, <em>History time to live is missing</em>. The sentence is the same in the check card, on the canvas and in every report.</li>
+  <li>Each finding has the id <code>compat/&lt;rule&gt;</code>, for example <code>compat/implementation</code>. Every rule has a page: see <a href="../rules/">Every rule</a>.</li>
+  <li>To turn one off, set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code>, which is the plugin's own name, or as <code>compat/&lt;rule&gt;</code>.</li>
+  <li>A problem that another check already reports on the same element, for example two blank start events, is shown once, by bpmnlint.</li>
+</ul>
+
+<h2>On the command line</h2>
+
+<p><code>penstock check</code> runs the same rules as one section of its report, beside the drawing, the engine compatibility rules and, on Pro, the flow analysis. <code>penstock check --only rules</code> runs the rules alone. A rule set to <code>error</code> makes the run fail; a warning is reported as a note.</p>
+
+<p>The older name <code>penstock lint</code> still works and says that it is now <code>penstock check --only rules</code>.</p>
+
+<h2>Whole-project checks</h2>
+
+<p>The same rules run over every diagram of a project when you check the whole project. Errors fail the check. Warnings are notes. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
+
+{{host:lint-run|Run only the rules}}
+
+<h2 id="custom-rules">Custom rules from a plugin</h2>
+
+<p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package.</p>
+
+<ol class="steps">
+  <li>Add the package to your <code>package.json</code> and run <code>npm install</code>. The command line now finds it in <code>node_modules</code>. It needs no installed bpmnlint.</li>
+  <li>For the editor, build a bundle of your rules with <code>bpmnlint-pack-config</code>.</li>
+  <li>Point to the bundle in <code>penstock.yaml</code>. Rebuild it whenever the rules change.</li>
+</ol>
+
+<pre><code>lint:
+  configPath: .bpmnlintrc
+  clientBundlePath: .bpmnlint/client.bundle.js</code></pre>
+
+<p>The editor cannot read <code>node_modules</code>. It loads the bundle, not the <code>.bpmnlintrc</code>. Without the bundle the check says <em>The bpmnlint rules could not run</em>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>Markers on the elements a rule reports, while you draw.</li>
+  <li>The same findings under <strong>Rules</strong> in the check card, each with the rule name.</li>
+  <li>In a whole-project report, lines such as <code>note bpmnlint/label-required: ...</code> under the file.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>My plugin rule works in the terminal but not in the editor.</dt>
+  <dd>Build the bundle and set <code>lint.clientBundlePath</code>. See above.</dd>
+  <dt>A rule I switched off still reports.</dt>
+  <dd>Check that <code>.bpmnlintrc</code> is in the project root, or that <code>lint.configPath</code> names it. When <code>lint.configPath</code> is set, <code>penstock doctor</code> prints the path and says if it is missing.</dd>
+  <dt>I have no markers on the canvas.</dt>
+  <dd>The linting button on the canvas may be off. Press it once.</dd>
+  <dt>The whole-project check does nothing.</dt>
+  <dd>Your tool may need the project to be trusted before it runs commands. See the troubleshooting page of your tool.</dd>
+</dl>

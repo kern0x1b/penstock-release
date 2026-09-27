@@ -1,0 +1,83 @@
+<!--
+title: Process tests and coverage
+lede: Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.
+tags: pro
+needs: Team in a pipeline
+related: scenarios, code-links, cli/commands, jetbrains/test-runner
+-->
+<h2>Three tools, one idea</h2>
+
+<p>A process with two gateways has several ways through it. Each way is a <strong>scenario</strong>. Penstock finds them all, and then:</p>
+
+<ul>
+  <li><strong>Paths</strong> lists the scenarios, as a test plan you can read.</li>
+  <li><strong>Tests</strong> writes a JUnit test for each scenario.</li>
+  <li><strong>Coverage</strong> shows which elements your tests reached.</li>
+</ul>
+
+<h2>List the ways through</h2>
+
+<p>Each scenario shows the decision taken at each gateway and its condition. You can print the list as text, as a Markdown checklist to paste into a test plan, or as JSON for a tool. An AI assistant gets it from the MCP tool <code>list_scenarios</code>.</p>
+
+{{host:paths-run|List the scenarios in your tool}}
+
+<h2>Write the tests</h2>
+
+<p>Penstock writes one JUnit class per process, with a test for every way through it. It names the test dependencies your build is missing. Add them, then run the tests with your normal test runner.</p>
+
+<p>Each test starts the process with variables chosen to take that way: a value just past each condition, and at a default flow a value no other condition accepts. It completes the jobs, user tasks and external tasks, correlates messages, moves time past timers, throws errors from jobs where an error boundary is taken, and checks the elements the run passed.</p>
+
+{{host:tests-write|Write the tests in your tool}}
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Camunda 8</td><td>Camunda Process Test.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td>camunda-bpm-assert (or the engine's own equivalent) with an in-memory engine and mocked delegate beans.</td></tr>
+  <tr><td>Where the tests go</td><td>The diagram's own module, in Kotlin or Java as that module already is, and in its application's package followed by <code>.process</code>.</td></tr>
+  <tr><td>A way the data cannot choose</td><td>Marked in the test for you to finish.</td></tr>
+  </tbody>
+</table></div>
+
+<p>If the guess is wrong, set <code>tests</code> in <code>penstock.yaml</code>: <code>language</code> (<code>java</code> or <code>kotlin</code>), <code>out</code> (the source folder) and <code>package</code>. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<h2>Run and debug tests from the diagram</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<p>From an element on the canvas you can run or debug the test methods that name the element or its process, with your project's own test runner. When you debug, the diagram shows where the process stops.</p>
+
+{{host:tests-run-debug|Run and debug in your tool}}
+
+<h2>Coverage</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>Run your process tests with your build. Use Camunda Process Test, or on Camunda 7 the process test coverage extension.</li>
+  <li>A button <span class="ui">Coverage</span> appears on the toolbar. Press it.</li>
+  <li>The diagram colours what the tests reached and dims what they did not.</li>
+  <li>The panel lists the tests with how much of the diagram each covers. Pick one to see the way it takes. It also lists the elements no test reaches.</li>
+  <li>Run the tests again. Coverage follows.</li>
+</ol>
+
+<p>Penstock reads the reports under <code>target</code> or <code>build</code>, and follows them as the tests run again.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A test class file in your test sources, with one test for each way through the process.</li>
+  <li>After a test run, a <span class="ui">Coverage</span> button. Pressed, it colours what was reached and dims the rest.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>There is no Coverage button.</dt>
+  <dd>No test report was found yet. Run the process tests first. Reports must be under <code>target</code> or <code>build</code>.</dd>
+  <dt>The generated test does not compile.</dt>
+  <dd>Add the test dependencies the command printed to your build file.</dd>
+  <dt>The tests went to the wrong place.</dt>
+  <dd>Set <code>tests.out</code> and <code>tests.package</code> in <code>penstock.yaml</code>.</dd>
+  <dt>"To fill in".</dt>
+  <dd>A way that the data cannot choose is marked for you to finish. Fill in the variables that take it.</dd>
+  <dt>I want to run scenarios against a live engine without JUnit.</dt>
+  <dd>Use <a href="scenarios.html">Scenarios</a>. They need no build setup.</dd>
+</dl>

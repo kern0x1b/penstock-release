@@ -1,0 +1,92 @@
+<!--
+title: Troubleshooting
+lede: Fixes for the problems people meet most, by symptom. Most come down to an untrusted project, a setting that is not where Penstock looks, or an engine that answered with an error.
+tags: free
+related: faq, files, settings, security
+-->
+<h2>First, run the doctor</h2>
+
+<p>The doctor prints the settings files that apply, the engine, the profiles, and whether the engine answers. Most problems show up right there.</p>
+
+{{host:doctor-run|Run the doctor}}
+
+<h2>Problems that depend on your tool</h2>
+
+<p>A blank editor, a file that opens as plain text, a command that will not start: these depend on the tool you use.</p>
+
+{{host:troubleshooting-host|Problems in your tool}}
+
+<h2>Check and lint findings do not appear</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>No markers on the canvas</td><td>The linting button on the canvas turns them off and on. It is hidden while token simulation runs. The findings are in the <strong>Problems</strong> tab of the sidebar, under <strong>Rules</strong>.</td></tr>
+  <tr><td>"The bpmnlint rules could not run"</td><td>Your <code>.bpmnlintrc</code> uses a bpmnlint plugin. The editor loads plugin rules only from a bundle named by <code>lint.clientBundlePath</code>. See <a href="validation.html#custom-rules">Validation</a>.</td></tr>
+  <tr><td>My own rules are ignored</td><td><code>lint.configPath</code> is relative to the project root. <code>penstock doctor</code> prints the path and says if it is missing.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Deployment fails</h2>
+
+<p>A deployment the engine refuses says which files it refused and why, one line for each, rather than repeating the engine's raw list of element errors. Read it first: it is the engine talking. A request that never arrived says <em>Could not reach the engine at &lt;url&gt;</em>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>No engine address</td><td>Neither <code>deployment.url</code> nor the Connection dialog gives one for the profile in force. Press <span class="ui">Deploy</span>, then <span class="ui">Edit connection&hellip;</span> in the popover.</td></tr>
+  <tr><td>404 on Camunda 8</td><td>Use the address of the REST API. Penstock adds <code>/v2/deployments</code>. An address that ends in <code>/v2</code> works too.</td></tr>
+  <tr><td>401 or 403</td><td>The user or the client may not deploy. The editor's message offers <span class="ui">Edit connection</span>. In a terminal, <code>penstock deploy</code> says which of <code>deployment.auth</code> in <code>penstock.local.yaml</code>, <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code> to set.</td></tr>
+  <tr><td>No password sent</td><td><code>deployment.auth.type</code> is <code>basic</code> and <code>PENSTOCK_PASSWORD</code> is not set. <code>penstock deploy</code> and <code>penstock doctor</code> say so before anything is sent. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read.</td></tr>
+  <tr><td>OAuth</td><td>A failed token request is reported apart: the endpoint could not be reached, answered with an error, or sent no <code>access_token</code>.</td></tr>
+  <tr><td>"The preDeploy hook failed, nothing was sent"</td><td>Read the hook's output that follows. In an untrusted project a configured <code>preDeploy</code> is not run, and the deployment stops.</td></tr>
+  <tr><td>Certificate errors</td><td>Penstock has no option to skip certificate checks. Trust the certificate in the runtime of your tool.</td></tr>
+  <tr><td>Timeouts</td><td>10 seconds to connect, 30 seconds for the request, 15 for the token.</td></tr>
+  <tr><td>Wrong password saved</td><td>Open <span class="ui">Edit connection&hellip;</span> from the Deploy popover, type the right one, <span class="ui">Save and Deploy</span>. Set <em>Sign in</em> to <em>Not needed</em> and save to forget it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>See <a href="deployment.html">Deployment</a>.</p>
+
+<h2>Element templates do not appear</h2>
+
+<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic BPMN editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the log of your tool. See <a href="element-templates.html">Element templates</a>.</p>
+
+<h2>The connector browser is empty or cannot download</h2>
+
+<ul>
+  <li>Press <span class="ui">Retry</span>, or <span class="ui">Check for updates</span>.</li>
+  <li>It needs to reach <code>api.github.com</code> and <code>codeload.github.com</code>, through the proxy settings of your tool. See <a href="security.html">Security and privacy</a>.</li>
+  <li>If it worked before, Penstock uses what it downloaded and says <em>Could not check for a newer release</em>.</li>
+  <li>From a terminal: <code>penstock connectors --refresh</code>.</li>
+</ul>
+
+<h2>The diagram was changed on disk</h2>
+
+<p>The editor asks whether to reload or to keep editing. See <a href="bpmn-editor.html">The BPMN editor</a>.</p>
+
+<h2>A paid feature asks me to buy Pro</h2>
+
+<p>Your trial may have ended, or the licence was released or ended. Run <code>penstock license</code>: it says which licence the machine has and where it came from, and during the trial it says the trial is on and until when. A machine in a pipeline needs Team, and a pipeline gets no trial. See <a href="sign-in.html">Buying and signing in</a>.</p>
+
+<p>The licence is a signed token, checked offline and renewed once a day when the machine is online; offline it keeps working until it runs out, and the message says how many days are left. A machine whose clock has been set back below a time it has already seen is refused, with the reason given.</p>
+
+<h2>Test cases will not run</h2>
+
+<ul>
+  <li><em>is not marked deployment.forTests</em>: mark the profile, or confirm once when your tool asks.</li>
+  <li>A case is not run because it lacks what the Camunda test-case schema requires: an assertion with no <code>processInstanceSelector</code>, or an instruction with a property the schema does not allow. The message says which.</li>
+  <li>A step waits and fails: no worker took it in time. Start the worker or mock the step.</li>
+</ul>
+
+<p>See <a href="scenarios.html">Scenarios</a>.</p>
+
+<h2>Where else to look</h2>
+
+<ul>
+  <li>The log and the developer tools of your tool. See the troubleshooting page of your tool.</li>
+  <li>The <a href="files.html">list of files</a> Penstock reads and writes.</li>
+  <li>The <a href="faq.html">questions and answers</a>.</li>
+</ul>
+
+<h2>Still stuck</h2>
+
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the tool and its version, the version of Penstock, the engine, the output of the doctor, and a <code>.bpmn</code> file that shows the problem. Security problems go to <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">SECURITY.md</a>, not to a public issue.</p>

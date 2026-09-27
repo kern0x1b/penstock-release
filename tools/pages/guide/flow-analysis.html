@@ -1,0 +1,63 @@
+<!--
+title: Flow analysis
+lede: Flow analysis follows every way a token can take through your process and tells you what will go wrong before you run anything.
+tags: pro
+needs: Team in a pipeline
+related: diagram-check, scenarios, cli/ci
+-->
+<h2>What it finds</h2>
+
+<p>It starts a token at each start event and follows every path. It reports these problems, each with the reason, and it outlines the path that leads there:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Problem</th><th>What it means</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>The process can get stuck</td><td>A gateway waits for something that never comes. Usually a parallel gateway joins branches that an exclusive gateway chose between, or a boundary event took the run somewhere else.</td><td><a href="../rules/flow-deadlock">flow/deadlock</a></td></tr>
+  <tr><td>A part of the process can run twice</td><td>Branches that run at the same time meet at an exclusive gateway or a task. Everything after runs once per branch.</td><td><a href="../rules/flow-no-synchronization">flow/no-synchronization</a></td></tr>
+  <tr><td>An element can never run</td><td>Nothing leads to it, or every way to it is closed off.</td><td><a href="../rules/flow-dead-element">flow/dead-element</a></td></tr>
+  <tr><td>The process may never finish</td><td>Once it gets to a point, no path leads to an end. It can only go round.</td><td><a href="../rules/flow-never-finishes">flow/never-finishes</a></td></tr>
+  <tr><td>Only part of the process was analysed</td><td>The process has too many states to check all. What the check says is true of the part it reached.</td><td><a href="../rules/flow-too-complex">flow/too-complex</a></td></tr>
+  <tr><td>A decision has no way out for some values</td><td>A gateway with no default flow whose conditions leave a value uncovered. <code>amount &gt; 100</code> and <code>amount &lt; 100</code> both miss 100.</td><td><a href="../rules/flow-no-way-out">flow/no-way-out</a></td></tr>
+  <tr><td>Two ways out of a decision can both hold</td><td>Two conditions of an exclusive gateway overlap. The engine takes whichever it checks first.</td><td><a href="../rules/flow-overlap">flow/overlap</a></td></tr>
+  <tr><td>A decision may have no way out</td><td>A gateway that has conditions but no default flow, and whose conditions could not be read.</td><td><a href="../rules/flow-no-default">flow/no-default</a></td></tr>
+  <tr><td>Two variables look like one</td><td>Names that differ by a letter or its case, such as <code>orderId</code> and <code>orderID</code>. One is probably a typo.</td><td><a href="../rules/flow-lookalike">flow/lookalike</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>Conditions are read when they are simple: comparisons, <code>and</code>, <code>or</code> and <code>not</code>, in FEEL (Camunda 8) and JUEL (Camunda 7). A condition that cannot be read, with no default flow, is reported as a note.</p>
+
+<p>The same walk finds the <strong>scenarios</strong> of a diagram: the ways through it. See <a href="scenarios.html">Scenarios</a>, where <span class="ui">Generate</span> turns them into runnable ones.</p>
+
+<h2>In the editor</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Check</span>.</li>
+  <li>Look for the section <strong>How it runs</strong>.</li>
+  <li>Click a finding. The path that leads to the problem is outlined on the diagram, and the line shows it in words: <em>Path: Start → Which way → Task A</em>.</li>
+  <li>Read the <strong>Why</strong> and <strong>Fix</strong> lines under it.</li>
+</ol>
+
+<h2>Without the editor</h2>
+
+<p>The flow section also runs when you check a whole project. Its findings carry the same rule ids.</p>
+
+{{host:flow-run|Run only the flow check}}
+
+<h2>Decision tables and forms</h2>
+
+<p>The same idea covers the other two file types. In the DMN editor and the form editor, <span class="ui">Check</span> runs the table and form checks. See <a href="dmn-editor.html">The DMN editor</a> and <a href="form-editor.html">The form editor</a>.</p>
+
+<h2>What you see without Pro</h2>
+
+<p>The card shows one line that says how many flow problems were found and that flow analysis is part of Pro. Pressing it explains what Pro gives and how to buy or sign in. In a pipeline the command says the same and that a pipeline needs Team. See <a href="plans.html">Plans and licence</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>It reports a deadlock but my process works.</dt>
+  <dd>It follows every path that the diagram allows, not the paths your data takes. If your data never takes the path, the diagram still allows it. Either make the diagram say what you mean, or accept the finding.</dd>
+  <dt>"Only part of the process was analysed."</dt>
+  <dd>The process is too big to check whole. Split it into sub-processes or call activities.</dd>
+  <dt>A condition is not understood.</dt>
+  <dd>Only simple comparisons are read. Add a default flow so the decision has a way out either way.</dd>
+</dl>

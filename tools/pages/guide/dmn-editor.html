@@ -1,0 +1,100 @@
+<!--
+title: The DMN editor
+lede: The DMN editor draws decisions as tables, so business rules live in a file you can review, check and deploy.
+tags: free
+needs: The decision table check needs Pro
+related: form-editor, deployment, share-html, flow-analysis, sidebar
+-->
+<h2>What it is</h2>
+
+<p>DMN is a standard for writing decisions as tables. A row says: when these inputs match, give this output. Penstock opens <code>.dmn</code> files in an editor built on <a href="https://bpmn.io/toolkit/dmn-js/">dmn-js</a>. The file is saved as you edit, like a diagram.</p>
+
+<h2>Open a decision</h2>
+
+<ol class="steps">
+  <li>Open a <code>.dmn</code> file.</li>
+  <li>The bar at the top shows one button for the <strong>Requirements</strong> diagram, and one for each decision in the file. Press a decision to open its table.</li>
+  <li>Edit the table. Add rows, change the inputs and outputs, set the <em>hit policy</em>. The hit policy says what happens when several rows match, for example <code>FIRST</code> takes the first row.</li>
+  <li>Use the extra column for annotations on each rule.</li>
+  <li>To edit the id, name and documentation of a decision, switch to the <strong>Requirements</strong> view, select the decision and open the <strong>Properties</strong> tab of the sidebar.</li>
+</ol>
+
+<h2>What you can edit</h2>
+
+<ul>
+  <li>The requirements diagram (DRD): which decisions depend on which.</li>
+  <li>Decision tables, with typed inputs and outputs and rule annotations.</li>
+  <li>Literal expressions and boxed expressions.</li>
+  <li>The Camunda DMN extensions. They are read and kept.</li>
+</ul>
+
+<h2>The properties panel</h2>
+
+<p>In the requirements view, the <strong>Properties</strong> tab of the sidebar edits a decision: its <strong>id</strong>, <strong>name</strong> and <strong>documentation</strong>. So the id that a business rule task calls can be changed without opening the XML. On Camunda 7 and CIB seven it also has the <strong>version tag</strong> and the <strong>history time to live</strong>. On Camunda 8 it has the version tag. On Operaton it shows id and name only. The tab has the same dense layout and theme as the one for BPMN, and opens and closes with the same sidebar toggle. Over a decision table the tab is empty on purpose, because a table belongs to its requirements diagram, and it offers an action that opens it.</p>
+
+<h2>Older DMN files</h2>
+
+<p>Files written as DMN 1.1 or 1.2 open in the editor. Penstock converts them to DMN 1.3 in memory, and keeps what the engine added to a decision. A notice above the editor says the file will be saved as DMN 1.3 when you change it: <em>It was converted to DMN 1.3 and will be saved as DMN 1.3 when you change it.</em> The file on disk is not touched until you change something.</p>
+
+<h2>The toolbar</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>View buttons</td><td>Requirements, then one per decision.</td></tr>
+  <tr><td>Sidebar</td><td>An icon that shows or hides the sidebar. Its tabs are Properties and Problems.</td></tr>
+  <tr><td>Check</td><td>Runs the decision table check. Pro.</td></tr>
+  <tr><td>Deploy</td><td>Sends the file to the engine with the settings a diagram uses. Shown when the engine is known. See <a href="deployment.html">Deployment</a>.</td></tr>
+  <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The DMN editor follows the theme of your tool, and looks like the diagram editor: the same toolbar order, the same floating palette, the same sidebar. Tables sit inset with quiet lines, no stripes, and a highlight on the row under the pointer.</p>
+
+<figure class="shot">
+  <img src="@img/dmn-editor.png" alt="A decision table open with its hit policy at the top, the Requirements and decision buttons on the bar, and the Properties tab of the sidebar saying the properties of a decision are edited in the requirements diagram">
+  <figcaption>A decision table with its hit policy. A decision is edited in the requirements diagram, which the Properties tab says when a table is open.</figcaption>
+</figure>
+
+<h2>The decision table check</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<ol class="steps">
+  <li>Open a decision table and press <span class="ui">Check</span>. A card called <em>Decision check</em> opens over the canvas, and the <strong>Problems</strong> tab holds the whole list.</li>
+  <li>Each finding names the rules and a value that both match, or the values that no rule matches.</li>
+  <li>Click a finding. The editor goes to it.</li>
+</ol>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Rule</th></tr></thead>
+  <tbody>
+  <tr><td>Two rules of a table that expects one match match the same input. For an Any table, rules that do so with different results.</td><td><a href="../rules/table-rule-overlap">table/rule-overlap</a></td></tr>
+  <tr><td>An input that no rule matches</td><td><a href="../rules/table-rule-gap">table/rule-gap</a></td></tr>
+  <tr><td>A table with an expression the check cannot read</td><td><a href="../rules/table-table-unread">table/table-unread</a></td></tr>
+  </tbody>
+</table></div>
+
+<p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
+
+<p>The same check runs on every <code>.dmn</code> file when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
+
+<h2>Documentation of a decision</h2>
+
+<p><code>penstock docs</code> writes a page for each decision file with every rule as a table, its hit policy in words, what it needs, and the table check. See <a href="@cli/commands.html#docs">Every command</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A bar of buttons: <em>Requirements</em> and one for each decision. The table sits inset, with a highlight on the row under the pointer.</li>
+  <li>After <span class="ui">Check</span>, a card called <em>Decision check</em> with a count of problems, or the line <em>No rules overlap, and every input has a rule.</em></li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The file "could not be read as DMN".</dt>
+  <dd>The editor shows the reason. The file may not be valid DMN XML. Open the <span class="ui">Text</span> tab and look at the message.</dd>
+  <dt>The table check says a table cannot be checked.</dt>
+  <dd>A cell holds an expression the check cannot read. Simplify the cell named in the finding.</dd>
+  <dt>Deploy is missing.</dt>
+  <dd>It shows when the engine is known. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
+</dl>

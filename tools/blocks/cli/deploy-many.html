@@ -1,0 +1,11 @@
+<pre><code>$ penstock deploy . --dry-run
+would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
+      src/main/resources/approve-order.form
+      src/main/resources/order-process.bpmn
+      src/main/resources/shipping-method.dmn</code></pre>
+<ul>
+  <li><code>--dry-run</code> says where, and sends nothing. Try it first in a new pipeline.</li>
+  <li><code>--wait</code> asks the engine until it shows the definitions.</li>
+  <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run.</li>
+</ul>
+<p>See <a href="@cli/commands.html#deploy">Every command</a>.</p>
