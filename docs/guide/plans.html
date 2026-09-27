@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plans and licence — Penstock</title>
-<meta name="description" content="What Penstock Free, Pro and Team include, how to buy them from the editor or the terminal, and how the licence moves between machines.">
+<title>Plans and licence - Penstock</title>
+<meta name="description" content="What Penstock Free covers, what Pro and Team add, the one rule that decides which a feature needs, buying and signing in, and how the licence is checked offline.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -57,94 +57,159 @@
   <div class="docbody">
     <h1>Plans and licence</h1>
 
-    <p class="lede">Penstock is free on the JetBrains Marketplace, and everything a modeller needs
-      stays free. Pro and Team add the parts that save a team real time — laying a diagram out,
-      proving it runs, documenting it, reviewing it in a pull request. Every new machine starts with
-      thirty days of Pro.</p>
+    <p class="lede">Penstock is free on the JetBrains Marketplace, and everything a modeller
+    needs stays free. Pro and Team add the parts that save a team real time: laying a diagram out,
+    proving it runs, linking it to the code, and reviewing it in a pull request. Every machine
+    starts with thirty days of Pro.</p>
 
     <h2>One rule</h2>
 
     <p>A paid feature needs Pro on a developer's machine and Team inside a pipeline, which is any
-      run with <code>CI</code> set. There are no exceptions per feature or flag: the review bot, SARIF
-      and annotations, baselines and <code>report</code> run locally on Pro, and every paid command in
-      a pipeline needs Team.</p>
+    run with <code>CI</code> set. There are no exceptions per feature or flag: the review bot,
+    SARIF and annotations, baselines and <code>report</code> run locally on Pro, and every paid
+    command in a pipeline needs Team. <code>penstock init --ci</code> writes a pipeline for the
+    licence the machine has, so nobody's first run fails on a feature nobody has bought.</p>
 
     <h2>What each plan includes</h2>
 
     <table class="facts">
-      <tr><td>Free</td><td>The editor with the Classic, Camunda 7 and Camunda 8 profiles, the
-        properties panels, the DMN and form editors, element templates and the template marketplace,
-        scripts in an IDE tab, jumping from a diagram to its Java code, token simulation, the
-        drawing check, bpmnlint, deployment, export and the hand-drawn look. In the terminal:
-        <code>check</code> with its drawing and rules sections, <code>fmt</code>, <code>diff</code>,
-        <code>export</code>, <code>show</code>, <code>deploy</code>, <code>doctor</code>.</td></tr>
-      <tr><td>Pro<br>€3 a month or €30 a year</td><td>Auto layout; flow analysis,
-        which finds deadlocks, branches that run twice, steps that can never run and loops with no
-        way out, and shows the path that leads there; process scenarios, every distinct way
-        through a process with the conditions it takes, and a JUnit test for each that takes it;
-        documentation for every process; the visual
-        diagram diff in version control; modelling conventions from
-        <span class="mono">penstock.yaml</span>; pictures of what changed; editing from the command
-        line and the MCP server for AI agents; and, on your machine, the pull request report, check
-        baselines and findings as SARIF or GitHub annotations.</td></tr>
-      <tr><td>Team<br>€12 a month or €120 a year</td><td>Everything in Pro, in a pipeline as well:
-        the review bot in pull and merge requests, the pull request report, check baselines,
-        findings as SARIF or GitHub annotations, and every other paid command inside CI.</td></tr>
+      <tr><td>Free</td><td>The diagram, decision and form editors with the Classic BPMN, Camunda
+        7, Camunda 8, Operaton and CIB seven profiles; the properties panels; the command palette
+        and every action in it; the sidebar, the check card and the Problems tab; element
+        templates and the connector browser; scripts in an IDE tab; going from a Camunda 7 delegate
+        to its class or bean; token simulation; transaction boundaries; the drawing check and
+        bpmnlint with the engine compatibility rules; the Camunda 7 to Camunda 8 analysis and its
+        report; deployment; Monitor; sharing a diagram as one HTML file; importing draw.io, Visio,
+        Signavio and Bizagi; export; and the hand-drawn look. In the terminal:
+        <code>check</code> with its drawing and rules sections, <code>migrate analyze</code>,
+        <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>share</code>,
+        <code>import</code>, <code>show</code>, <code>deploy</code>, <code>doctor</code>,
+        <code>mcp</code> for reading and checking.</td></tr>
+      <tr><td>Pro</td><td>Auto layout; flow analysis, which finds deadlocks, branches that run
+        twice, steps that can never run and loops with no way out, and shows the path that leads
+        there; the link between diagrams and code, which is the way from a step to its worker and
+        back, usages, Code Vision, variables and error codes across both, tests run from the
+        diagram, coverage on it, linked repositories and Check Workers; scenarios, every distinct
+        way through a process with the conditions it takes, and a test-case run against a local
+        engine with mocks; a JUnit test for each way; documentation for every process, decision and
+        form; converting a Camunda 7 diagram to Camunda 8, with the visual diagram diff before
+        anything is written; modelling conventions from <span class="mono">penstock.yaml</span>;
+        pictures of what changed; editing from the command line; and, on your machine, the pull
+        request report, check baselines and findings as SARIF or GitHub annotations.</td></tr>
+      <tr><td>Team</td><td>Everything in Pro, in a pipeline as well: the review bot in pull and
+        merge requests, the pull request report, check baselines, findings as SARIF or GitHub
+        annotations, converting a Camunda 7 project, and every other paid command inside CI.</td></tr>
     </table>
 
     <p>A paid feature you have not bought says what it does and offers to buy it or to sign in,
-      at the moment you reach for it. Nothing else in the editor changes.</p>
+    at the moment you reach for it. Nothing else in the editor changes, and the diagram opens as
+    usual.</p>
 
     <h2>Buying</h2>
 
+    <p>Pro and Team are monthly or yearly. The price is shown at the checkout, which is where the
+    plan is chosen, so nothing here goes out of date.</p>
+
     <p>In the IDE, click <strong>Penstock</strong> in the status bar or choose
-      <strong>Tools | Penstock Licence…</strong>. Signing in is one field, <em>E-mail or licence
-      key</em>, with <strong>Buy Pro</strong> beside it and a link to buy Team. In a terminal, run
-      <span class="mono">penstock license buy</span> (or <span class="mono">penstock license buy
-      team</span>). The checkout opens in your browser; yearly billing is selected, and monthly is
-      one click away. Once the payment goes through, Penstock notices by itself and sends a sign-in
-      code to the address that paid; type it in and the licence is active. There is no key to copy.</p>
+    <strong>Tools | Penstock Licence…</strong>. Signing in is one field, <em>E-mail or licence
+    key</em>, with <strong>Buy Pro</strong> beside it and a link to buy Team. In a terminal, run
+    <span class="mono">penstock license buy</span> or
+    <span class="mono">penstock license buy team</span>. The checkout opens in your browser; yearly
+    billing is selected, and monthly is one click away. Once the payment goes through, Penstock
+    notices by itself and sends a sign-in code to the address that paid; type it in and the
+    licence is active. There is no key to copy.</p>
 
     <p>Payments are handled by <a href="https://polar.sh">Polar</a>, the reseller and merchant of
-      record, which also takes care of VAT and invoices. Cancel at any time from the link in the
-      receipt.</p>
+    record, which also takes care of VAT and invoices. Cancel at any time from the link in the
+    receipt. The full terms are in the <a href="../license/">licence</a>.</p>
+
+    <p>Students, teachers and open-source maintainers can ask for Pro at no charge. The licence
+    dialog and <span class="mono">penstock license</span> carry a link to apply, where the vendor
+    offers it.</p>
 
     <h2>One licence for the IDE and the terminal</h2>
 
     <p>The licence lives in <span class="mono">~/.penstock</span>, and the editor and
-      <span class="mono">penstock</span> both read it: sign in once on a machine and both are
-      licensed. On another machine, type the address you bought it with into the sign-in field -
-      it gets a code - or run <span class="mono">penstock license login</span>. A key works in the
-      same field too, or with <span class="mono">penstock license activate &lt;key&gt;</span>.</p>
+    <span class="mono">penstock</span> both read it: sign in once on a machine and both are
+    licensed. On another machine, type the address you bought it with into the sign-in field - it
+    gets a code - or run <span class="mono">penstock license login</span>. A key works in the
+    same field too.</p>
 
-    <p>A licence covers a number of machines at once — three for Pro, ten for Team. Signing in again
-      on the same machine, after reinstalling the IDE for example, reuses its place rather than
-      taking a new one. When every place is taken, signing in lists the machines and when each was
-      activated, and frees the one you pick. <strong>Release This Machine</strong> or
-      <span class="mono">penstock license logout</span> does the same by hand.</p>
+    <p>A licence covers a number of machines at once. Signing in again on the same machine, after
+    reinstalling the IDE for example, reuses its place rather than taking a new one. When every
+    place is taken, signing in lists the machines and frees the one you pick.
+    <strong>Release This Machine</strong> or
+    <span class="mono">penstock license logout</span> does the same by hand.</p>
 
-    <p>The licence is checked once a day and keeps working for thirty days without a connection.</p>
+    <h2>How the licence is checked</h2>
+
+    <p>The licence is a signed token, not a flag. A small service turns the answer from Polar into
+    a token signed with a key only it holds, and the plugin, the command line and the editor carry
+    the public half and check the signature themselves, offline. A file edited by hand, a
+    redirected address or a server pretending to be the licence service cannot make a machine
+    Pro.</p>
+
+    <p>The token belongs to one machine, lasts thirty days, and is renewed once a day when the
+    machine is online. Offline it keeps working until it runs out, and the editor says how many
+    days are left rather than stopping. A machine whose clock has been set back is refused, with
+    the reason given.</p>
+
+    <p>What is on the machine is the token and nothing else: no key, no tier, no date you could
+    edit. <span class="mono">penstock license</span> says which licence this machine has and where
+    it comes from, and during the trial it says the trial is on and until when, instead of saying
+    there is no licence.</p>
+
+    <h2>The thirty-day trial</h2>
+
+    <p>Every machine gets thirty days of Pro from its first use. The start date is kept by the
+    licence service rather than on the machine, so deleting files no longer starts a new one, and
+    a machine clock cannot move it.</p>
+
+    <p>This release moves the licensing to Polar, so <strong>every machine starts a fresh
+    thirty-day Pro trial</strong> with it. An earlier trial does not carry over: the old trial
+    file is ignored and removed, and nothing about it is read again.</p>
+
+    <p>A pipeline gets no trial. A trial is for a person at a machine.</p>
 
     <h2>In a pipeline</h2>
 
-    <p>A pipeline does not sign in. Copy the key with <strong>Copy Key for CI</strong>, or print it
-      with <span class="mono">penstock license key</span>, and store it as a secret named
-      <span class="mono">PENSTOCK_LICENSE</span>. The key is checked without taking a machine's
-      place, and the pipelines <span class="mono">penstock init --ci</span> writes already pass it
-      through, when the machine that ran it has Team; without Team it writes a pipeline that runs
-      the free check, so its first run does not fail on a feature nobody has bought. A pipeline gets
-      no trial.</p>
+    <p>A pipeline does not sign in. A <strong>Team</strong> key is stored as a secret named
+    <span class="mono">PENSTOCK_LICENSE</span>, and <strong>Copy Key for CI</strong> or
+    <span class="mono">penstock license key</span> finds it again by the same e-mail code, since
+    the machine no longer keeps it. The key is only honoured when <code>CI</code> is set, and it
+    is exchanged for a short-lived token rather than used as a flag. The pipelines
+    <span class="mono">penstock init --ci</span> writes already pass it through, when the machine
+    that ran it has Team; without Team it writes a pipeline that runs the free check, so its
+    first run does not fail on a feature nobody has bought.</p>
 
     <h2>Commands</h2>
 
     <table class="facts">
-      <tr><td>license buy [pro|team]</td><td>Open the checkout, wait for the payment and activate the licence.</td></tr>
-      <tr><td>license login [email]</td><td>Sign in with the address you bought Penstock with.</td></tr>
-      <tr><td>license logout</td><td>Release this machine so the licence can be used on another.</td></tr>
+      <tr><td>license buy [pro|team]</td><td>Open the checkout, wait for the payment and activate
+        the licence.</td></tr>
+      <tr><td>license login [email]</td><td>Sign in with the address you bought Penstock
+        with.</td></tr>
+      <tr><td>license logout</td><td>Release this machine so the licence can be used on
+        another.</td></tr>
       <tr><td>license</td><td>Which licence this machine has and where it comes from.
-        <code>license key</code> prints the key for a pipeline; <code>license activate
-        &lt;key&gt;</code> activates a key typed in by hand.</td></tr>
+        <code>license key</code> prints the key for a pipeline;
+        <code>license activate &lt;key&gt;</code> activates a key typed in by hand.</td></tr>
     </table>
+
+    <h2>For an AI agent</h2>
+
+    <p>The MCP server is priced tool by tool rather than as a whole.
+    <span class="mono">list_diagrams</span>, <span class="mono">show_diagram</span> and
+    <span class="mono">check_diagram</span> only read and explain a diagram, so they are free.
+    <span class="mono">analyze_flow</span> needs flow analysis,
+    <span class="mono">list_scenarios</span> needs <span class="mono">scenarios list</span>,
+    <span class="mono">check_code_links</span> needs <span class="mono">code</span>, and
+    <span class="mono">edit_diagram</span> needs <span class="mono">edit</span>: the same tier
+    those commands need on the command line. A tool called without the licence says in its result
+    what it gives and how to buy or sign in, and still appears in
+    <span class="mono">tools/list</span> with a note on what it needs. See
+    <a href="cli.html">Command line</a>.</p>
+
   </div>
 
 </main>

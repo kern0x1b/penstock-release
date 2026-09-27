@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Settings and project files — Penstock</title>
-<meta name="description" content="The penstock command line: check, layout, diff and deploy from a terminal or a pipeline, reading the same penstock.yaml the editor reads.">
+<title>Command line - Penstock</title>
+<meta name="description" content="The penstock command line: init, check, scenarios, junit, migrate, code, docs, layout, diff, share, import, deploy, edit, license, the MCP server and the review bot, with a wrapper that pins the version.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -58,8 +58,8 @@
     <h1>Command line</h1>
 
     <p class="lede">The editor is one way to use this project; a terminal is the other. The same
-      <span class="mono">penstock.yaml</span>, the same profiles, the same checks — without an IDE,
-      which is what makes them usable in a pipeline.</p>
+    <span class="mono">penstock.yaml</span>, the same profiles, the same checks - without an IDE,
+    which is what makes them usable in a pipeline.</p>
 
     <h2>Running it</h2>
 
@@ -68,69 +68,161 @@ npx @penstock/cli doctor
 npx @penstock/cli deploy . --profile prod</code></pre>
 
     <p>Or pin a version for everyone, the way <span class="mono">gradlew</span> does.
-      <span class="mono">penstock init</span> writes the same layout Gradle uses:</p>
+    <span class="mono">penstock init</span> writes the same layout Gradle uses:</p>
 
 <pre><code>penstockw                                    run this instead of penstock
 penstockw.cmd                                the same, on Windows
 penstock/wrapper/penstock-wrapper.properties the version, and where to get it</code></pre>
 
     <p>Commit all three, and a laptop and a CI runner cannot disagree about which version they are
-      running. The CLI itself is not committed: the first run downloads the pinned version into
-      <span class="mono">~/.penstock/wrapper/dists</span>, and every run after that starts from
-      there, offline.</p>
+    running. The CLI itself is not committed: the first run downloads the pinned version into
+    <span class="mono">~/.penstock/wrapper/dists</span>, and every run after that starts from
+    there, offline.</p>
 
 <pre><code>./penstockw check .
 ./penstockw update          # the latest version
-./penstockw update 2.5.0    # a version of your choosing</code></pre>
+./penstockw update 26.10.0  # a version of your choosing</code></pre>
 
     <p><span class="mono">update</span> pins the version, downloads it, and replaces the wrapper
-      scripts with the ones that version ships, as <span class="mono">gradle wrapper</span> does.
-      Editing the version in the properties file by hand works too — the next run notices it is not
-      downloaded yet and fetches it. A company registry or a tarball goes in
-      <span class="mono">distribution=</span> in the same file.</p>
+    scripts with the ones that version ships, as <span class="mono">gradle wrapper</span> does.
+    Editing the version in the properties file by hand works too - the next run notices it is not
+    downloaded yet and fetches it. A company registry or a tarball goes in
+    <span class="mono">distribution=</span> in the same file.</p>
 
     <p>Paths default to the working directory, and the configuration is read from there upward, so
-      it does not matter which folder you run it in — the same rule Maven follows with a pom.</p>
+    it does not matter which folder you run it in - the same rule Maven follows with a pom.</p>
 
     <h2>Commands</h2>
 
     <p>A command marked Pro is a paid one, and one rule decides what it needs: Pro on your machine,
-      Team in a pipeline, which is any run with <code>CI</code> set. See
-      <a href="plans.html">Plans and licence</a>.</p>
+    Team in a pipeline, which is any run with <code>CI</code> set. See
+    <a href="plans.html">Plans and licence</a>.</p>
 
     <table class="facts">
-      <tr><td>init</td><td>Write a <code>penstock.yaml</code> with the engine guessed from the diagrams already in the repository, add the local file to <code>.gitignore</code>, install the wrapper. <code>--ci &lt;github|gitea|forgejo|gitlab|bitbucket|azure&gt;</code> writes a pipeline as well, for the licence on the machine; <code>--hooks</code> installs a pre-commit hook.</td></tr>
-      <tr><td>doctor</td><td>Answer "why does it not work": which configuration files apply, the engine, the profiles on offer with the active one marked, the rules and templates the configuration names, and whether the engine is reachable. <code>--format json</code> prints the configuration that applies.</td></tr>
-      <tr><td>check</td><td>Everything wrong with the diagrams in one run, in sections. <em>drawing</em>: the defects the editor's own panel reports: overlaps, detached connections, elements outside their pool. <em>rules</em>: bpmnlint, with the project's <code>.bpmnlintrc</code> or <code>bpmnlint:recommended</code>, and plugins from the project's <code>node_modules</code>. <em>flow</em>, on Pro: whether each process can actually run - deadlocks, branches that run twice, steps that can never run, loops with no way out, each with the path that leads there - and, on <code>.dmn</code> files, overlapping rules and inputs no rule matches, and on Camunda Forms, fields that clash or write nothing. <code>--only drawing,rules,flow</code> runs part of it. Exits non-zero when it finds an error.</td></tr>
-      <tr><td>code</td><td>Pro. Compare the diagrams with the code: a service task, listener or external task whose job type, topic, class or Spring bean has nothing in the project to run it, a call activity that calls a process no diagram defines, and a worker no diagram uses — each with the file and line. Workers are read from Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#; connectors and job types set by an expression are left alone.</td></tr>
-      <tr><td>paths</td><td>Pro. Every distinct way through each process, with the decision taken at each gateway and its condition. <code>--format md</code> writes it as a checklist for a test plan.</td></tr>
-      <tr><td>tests</td><td>Pro. A JUnit class per process, with a test for every way through it: variables that take that way, its jobs, user tasks and messages driven, its timers passed, and the elements it went through checked. Camunda Process Test for Camunda 8, camunda-bpm-assert for Camunda 7. Each diagram's tests go to its own module, in the language and package that module already uses, and the command says which test dependencies are missing. <code>tests:</code> in <code>penstock.yaml</code>, or <code>--out</code> and <code>--package</code>, choose otherwise.</td></tr>
-      <tr><td>docs</td><td>Pro. A page for every process — its picture, steps with who and what runs them, decisions and their conditions, events, the data each step sets and reads, and whether it runs to its end — a page for every <code>.dmn</code> file, with each decision's rules, hit policy and what it needs, and the table check; and a page for every Camunda Form with the variable each field writes. HTML by default, <code>--format md</code> for a wiki, into <code>--out</code>.</td></tr>
-      <tr><td>layout</td><td>Pro. Lay the diagrams out. <code>--write</code> saves; without it, it says what would change.</td></tr>
-      <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a one-line diff. <code>--write</code> saves.</td></tr>
-      <tr><td>diff</td><td>What changed in a process: added, removed and changed elements by name, and "only the drawing moved" when that is all. Give it two files to compare them, or a commit, branch or tag - <code>HEAD~1</code> by default - and optionally paths, for what the working tree changed since then. <code>--images</code>, Pro, renders before and after with the changes coloured in.</td></tr>
-      <tr><td>export</td><td>Render the diagrams as SVG, with nothing to install. PNG needs <span class="mono">puppeteer</span> in the project.</td></tr>
-      <tr><td>report</td><td>Pro. One markdown comment for a pull request: check, diff against the base, and pictures with the changes outlined.</td></tr>
-      <tr><td>license</td><td>Which licence this machine has, or its key for a pipeline. <code>license buy</code>, <code>license login</code> and <code>license logout</code> buy Penstock, sign in and release this machine. See <a href="plans.html">plans and licence</a>.</td></tr>
-      <tr><td>update</td><td>Move the project's wrapper to a version, the latest by default.</td></tr>
-      <tr><td>deploy</td><td>Send the diagrams, decisions (<code>.dmn</code>) and forms (<code>.form</code>) to the engine the configuration names, grouped by the target each folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code> confirms the definitions are live.</td></tr>
+      <tr><td>init</td><td>Write a <code>penstock.yaml</code> for this project and add the local
+        file to <code>.gitignore</code>, and install the wrapper.
+        <code>--engine camunda-8|camunda-7|operaton|cib-seven|classic</code> says what the
+        project runs on; in a terminal on an empty project init asks with a numbered choice
+        instead, and anywhere else it guesses from the diagrams.
+        <code>--example camunda-8|camunda-7</code> writes a small project that runs into an empty
+        folder: an order process with a service task, a user task with a Camunda Form, a decision,
+        a message and an error boundary, workers for the engine, test cases in the Camunda format,
+        a <code>penstock.yaml</code> and a README with the commands to run it against a local
+        engine. <code>--ci &lt;github|gitea|forgejo|gitlab|bitbucket|azure&gt;</code> writes a
+        pipeline as well, for the licence on the machine; <code>--hooks</code> installs a
+        pre-commit hook.</td></tr>
+      <tr><td>doctor</td><td>Answer "why does it not work": which configuration files apply, the
+        engine, the profiles on offer with the active one marked, the rules and templates the
+        configuration names, whether the engine is reachable, and whether a deployment would be
+        sent credentials it does not have. <code>--format json</code> prints the configuration
+        that applies.</td></tr>
+      <tr><td>check</td><td>Everything wrong with the diagrams in one run, in sections.
+        <em>drawing</em>: the defects the editor's own check reports - overlaps, detached
+        connections, elements outside their pool. <em>rules</em>: bpmnlint, with the project's
+        <code>.bpmnlintrc</code> or <code>bpmnlint:recommended</code>, the engine compatibility
+        rules, and plugins from the project's <code>node_modules</code>, plus the form checks on
+        <code>.form</code> files, which are free. <em>flow</em>, on Pro: whether each process can
+        actually run - deadlocks, branches that run twice, steps that can never run, loops with no
+        way out, each with the path that leads there - and, on <code>.dmn</code> files, overlapping
+        rules and inputs no rule matches. <code>--only drawing,rules,flow</code> runs part of it.
+        Exits non-zero when it finds an error.</td></tr>
+      <tr><td>migrate [analyze|convert|report]</td><td>Camunda 7, Operaton or CIB seven to
+        Camunda 8. <em>analyze</em> says what does not carry over, <em>convert</em> writes the
+        Camunda 8 files and the job worker skeletons (Pro), and <em>report</em> writes the report
+        to hand on, which is free. <code>--format text|json|sarif|github</code>,
+        <code>--fail-on warning</code>, <code>--baseline</code>, <code>--target 8.5</code> to
+        <code>8.9</code>, <code>--dry-run</code> and <code>--out &lt;dir&gt;</code>. The exit
+        code follows <code>check</code>. See <a href="migration.html">Camunda 7 to Camunda 8</a>.</td></tr>
+      <tr><td>code</td><td>Pro. Compare the diagrams with the code: a service task, listener or
+        external task whose job type, topic, class or Spring bean has nothing in the project to
+        run it, a call activity that calls a process no diagram defines, and a worker no diagram
+        uses - each with the file and line. Workers are read from Java, Kotlin, Groovy, Scala,
+        Python, JavaScript, TypeScript, Go and C#; connectors and job types set by an expression
+        are understood. The repositories named by <code>linked</code> are read as part of the
+        project.</td></tr>
+      <tr><td>scenarios list</td><td>Pro. Every distinct way through each process, with the
+        decision taken at each gateway and its condition. <code>--format md</code> writes it as a
+        checklist for a test plan.</td></tr>
+      <tr><td>scenarios run</td><td>Pro. Run the Camunda test-case files against their engine,
+        step by step, with mocks. <code>--teamcity</code> for service messages, as the IDE reads
+        them; <code>--junit-xml &lt;file&gt;</code> for a report; <code>--timeout</code> for how
+        long one step may take.</td></tr>
+      <tr><td>scenarios generate</td><td>Pro. Write the test-case files from the ways through
+        each process, one scenario per way, keeping the ones already in the file. A process that
+        starts on a message, a timer or a signal is planned from that start event.</td></tr>
+      <tr><td>junit</td><td>Pro. A JUnit test for every way through each process, with the
+        variables that take it there. Camunda Process Test for Camunda 8,
+        camunda-bpm-assert with an in-memory engine for Camunda 7, Operaton and CIB seven, each
+        with its own Java packages. <code>--out &lt;dir&gt;</code> and
+        <code>--package &lt;name&gt;</code> choose otherwise.</td></tr>
+      <tr><td>docs</td><td>Pro. A page for every process - its picture, steps with who and what
+        runs them, decisions and their conditions, events, the data each step sets and reads, and
+        whether it runs to its end - a page for every <code>.dmn</code> file, with each decision's
+        rules, hit policy and what it needs, and the table check; and a page for every Camunda Form
+        with the variable each field writes. HTML by default, <code>--format md</code> for a wiki,
+        into <code>--out</code>. Reads DMN 1.1 and 1.2 files by moving them to 1.3 first.</td></tr>
+      <tr><td>layout</td><td>Pro. Lay the diagrams out. <code>--write</code> saves; without it, it
+        says what would change.</td></tr>
+      <tr><td>fmt</td><td>Rewrite the XML the way the editor saves it, so a renamed task is a
+        one-line diff. <code>--write</code> saves.</td></tr>
+      <tr><td>diff</td><td>What changed in a process: added, removed and changed elements by name,
+        and "only the drawing moved" when that is all. Give it two files to compare them, or a
+        commit, branch or tag - <code>HEAD~1</code> by default - and optionally paths, for what
+        the working tree changed since then. <code>--images</code>, Pro, renders before and after
+        with the changes coloured in.</td></tr>
+      <tr><td>export</td><td>Render the diagrams as SVG, with nothing to install. PNG needs
+        <span class="mono">puppeteer</span> in the project.</td></tr>
+      <tr><td>share &lt;file&gt;</td><td>One HTML file to send: a read-only viewer with zoom, pan
+        and the documentation of each element, which opens offline and loads nothing.
+        <code>-o out.html</code>. Free. See
+        <a href="exchange.html">Sharing and importing</a>.</td></tr>
+      <tr><td>import &lt;file&gt;</td><td>Turn a draw.io, Visio, Signavio or Bizagi diagram into
+        BPMN 2.0, and list what could not be mapped. <code>-o out.bpmn</code>,
+        <code>--force</code>. Free. See <a href="exchange.html">Sharing and importing</a>.</td></tr>
+      <tr><td>connectors [resolve &lt;id&gt;]</td><td>List Camunda's connector templates, or print
+        one. Downloaded from GitHub at most once a day, cached where the IDE reads it too;
+        <code>--refresh</code> checks now.</td></tr>
+      <tr><td>report</td><td>Pro. One markdown comment for a pull request: check, diff against the
+        base, and pictures with the changes outlined.</td></tr>
+      <tr><td>bot</td><td>Answer in a pull or merge request, from the CI run it is in. Team.
+        <span class="mono">init --ci</span> sets it up.</td></tr>
+      <tr><td>deploy</td><td>Send the diagrams, decisions (<code>.dmn</code>) and forms
+        (<code>.form</code>) to the engine the configuration names, grouped by the target each
+        folder asks for. <code>--dry-run</code> says where without sending; <code>--wait</code>
+        confirms the definitions are live.</td></tr>
+      <tr><td>show &lt;file&gt;</td><td>List a diagram's elements, flows and properties.
+        <code>--format json</code> for tools.</td></tr>
+      <tr><td>edit &lt;file&gt;</td><td>Pro. Add, connect, set or remove, the way the editor would.
+        <code>--ops</code> for JSON, <code>--schema</code> for the contract. See
+        <a href="#edit">below</a>.</td></tr>
+      <tr><td>license [status|key]</td><td>Which licence this machine has, or its key for a
+        pipeline. <code>license buy</code>, <code>license login</code> and
+        <code>license logout</code> buy Penstock, sign in and release this machine. See
+        <a href="plans.html">Plans and licence</a>.</td></tr>
+      <tr><td>mcp</td><td>Serve the project's diagrams to an AI agent over the Model Context
+        Protocol. See <a href="#mcp">below</a>.</td></tr>
+      <tr><td>update [version]</td><td>Move the project's wrapper to a version, the latest by
+        default.</td></tr>
     </table>
 
-    <p>Older names still work in this release, and say what replaces them: <code>lint</code> and
-      <code>analyze</code> are <code>check --only rules</code> and <code>check --only flow</code>,
-      <code>against</code> is <code>diff &lt;ref&gt;</code>, <code>config</code> and
-      <code>profiles</code> are <code>doctor</code>, <code>upgrade</code>, <code>login</code> and
-      <code>logout</code> are <code>license buy</code>, <code>license login</code> and
-      <code>license logout</code>, <code>wrapper</code> is <code>update</code>, and the flags
-      <code>--json</code> and <code>--image</code> are <code>--format json</code> and
-      <code>--images</code>. The <strong>Run Penstock</strong> menu in the IDE uses the new
-      names.</p>
+    <p>The scenario commands are named after what they do. The old names still work and are left
+    out of the help: <code>paths</code> is <code>scenarios list</code>,
+    <code>test-cases</code> is <code>scenarios run</code>,
+    <code>test-cases --generate</code> is <code>scenarios generate</code>, and <code>tests</code>
+    is <code>junit</code>. <code>lint</code> and <code>analyze</code> are
+    <code>check --only rules</code> and <code>check --only flow</code>, <code>against</code> is
+    <code>diff &lt;ref&gt;</code>, <code>config</code> and <code>profiles</code> are
+    <code>doctor</code>, <code>upgrade</code>, <code>login</code> and <code>logout</code> are
+    <code>license buy</code>, <code>license login</code> and <code>license logout</code>,
+    <code>wrapper</code> is <code>update</code>, and the flags <code>--json</code> and
+    <code>--image</code> are <code>--format json</code> and <code>--images</code>. The
+    <strong>Run Penstock</strong> menu in the IDE uses the new names.</p>
 
     <h2>In a pipeline</h2>
 
     <p><code>penstock init --ci github</code> writes a pipeline for the licence on the machine, and
-      the other platforms get their equivalent. Without Team it runs the free check - the drawing
-      and the rules - so its first run does not fail on a feature nobody has bought:</p>
+    the other platforms get their equivalent. Without Team it runs the free check - the drawing
+    and the rules - so its first run does not fail on a feature nobody has bought:</p>
 
 <pre><code>name: Diagrams
 
@@ -152,50 +244,53 @@ jobs:
           command: check</code></pre>
 
     <p>With Team on the machine, the same step passes <code>PENSTOCK_LICENSE</code> from the
-      repository's secrets, writes SARIF against the baseline and uploads it to code scanning, and
-      the review bot is set up beside it.</p>
+    repository's secrets, writes SARIF against the baseline and uploads it to code scanning, and
+    the review bot is set up beside it. The pipeline it writes runs when a <code>.bpmn</code>,
+    <code>.bpmn20.xml</code>, <code>.bpmn.xml</code>, <code>.dmn</code> or <code>.form</code> file
+    changes, not only on a <code>.bpmn</code>.</p>
 
-    <p><code>check</code> speaks three machine formats besides its own: <code>--format sarif</code>
-      produces SARIF 2.1.0, which GitHub code scanning reads directly and turns into annotations on
-      the pull request; <code>--format github</code> produces the annotation lines for a workflow
-      that does not use code scanning; <code>--format json</code> is for everything else. SARIF and
-      annotations are Pro, and Team in a pipeline, and cover every section of the check.</p>
+    <p><code>check</code> speaks three machine formats besides its own:
+    <code>--format sarif</code> produces SARIF 2.1.0, which GitHub code scanning reads directly
+    and turns into annotations on the pull request; <code>--format github</code> produces the
+    annotation lines for a workflow that does not use code scanning; <code>--format json</code> is
+    for everything else. SARIF and annotations are Pro, and Team in a pipeline, and cover every
+    section of the check. Every finding carries the id of its check and the link to its page.</p>
 
     <h2>Only what is new</h2>
 
     <p>A first run on a repository that has been drawing diagrams for years is red, and a red build
-      nobody can fix gets switched off. Record what the project already lives with, and check against
-      it from then on:</p>
+    nobody can fix gets switched off. Record what the project already lives with, and check against
+    it from then on:</p>
 
 <pre><code>penstock check . --update-baseline   # writes penstock-baseline.json, commit it
 penstock check . --baseline          # fails only on what is new</code></pre>
 
     <p>It also says what has been fixed since the baseline was taken, so the file can be refreshed
-      when the backlog shrinks. A baseline covers every section of the check; one taken before the
-      check had sections needs refreshing with <code>--update-baseline</code>. Baselines are Pro,
-      and Team in a pipeline.</p>
+    when the backlog shrinks. A baseline covers every section of the check; one taken before the
+    check had sections needs refreshing with <code>--update-baseline</code>. Baselines are Pro,
+    and Team in a pipeline.</p>
 
     <h2>Before the commit</h2>
 
     <p><code>penstock init --hooks</code> installs a pre-commit hook that formats and checks the
-      diagrams a commit is carrying, and nothing else. It lives in <span class="mono">.git/hooks</span>,
-      so it is yours rather than the repository's, and deleting the file removes it.</p>
+    diagrams a commit is carrying, and nothing else. It lives in <span class="mono">.git/hooks</span>,
+    so it is yours rather than the repository's, and deleting the file removes it.</p>
 
     <h2>Pictures</h2>
 
 <pre><code>penstock export . --out docs/img</code></pre>
 
-    <p>SVG, drawn by penstock itself from the diagram's own coordinates — no browser, nothing to
-      install, the same picture on a laptop and in CI. <span class="mono">--format png</span> paints
-      that SVG into pixels, and that one step does need a browser: install
-      <span class="mono">puppeteer</span> in the project for it. Everything else, including the
-      pictures in pull request reviews, is SVG.</p>
+    <p>SVG, drawn by penstock itself from the diagram's own coordinates - no browser, nothing to
+    install, the same picture on a laptop and in CI. <span class="mono">--format png</span> paints
+    that SVG into pixels, and that one step does need a browser: install
+    <span class="mono">puppeteer</span> in the project for it. Everything else, including the
+    pictures in pull request reviews, is SVG.</p>
 
-    <h2>Editing from the command line</h2>
+    <h2 id="edit">Editing from the command line</h2>
 
     <p><span class="mono">penstock edit</span> changes a diagram the way the editor would, not by
-      rewriting XML: a new element is placed and connected by the editor's own modelling, gets an id
-      from the project's conventions, and carries only properties the project's engine knows.</p>
+    rewriting XML: a new element is placed and connected by the editor's own modelling, gets an id
+    from the project's conventions, and carries only properties the project's engine knows.</p>
 
 <pre><code>penstock show orders.bpmn
 penstock edit orders.bpmn add service-task --after Task_check --name "Reserve stock" --set jobType=reserve-stock
@@ -204,36 +299,55 @@ penstock edit orders.bpmn set Task_notify --set assignee=support --input custome
 penstock edit orders.bpmn remove Task_legacy</code></pre>
 
     <p>The same changes can be given as JSON with <span class="mono">--ops</span>, which is the
-      contract: <span class="mono">penstock edit orders.bpmn --schema</span> prints it for the
-      project's engine, and an unknown operation, field or property is refused rather than ignored.
-      Several operations apply together or not at all. After an edit the diagram is read back and
-      checked; one that would break the drawing — shapes on top of each other, a flow through a
-      shape, a flow torn from its element — is not written, and a crossing or a flow running along a
-      shape is reported without stopping it. <span class="mono">--dry-run</span> shows the result
-      without writing.</p>
+    contract: <span class="mono">penstock edit orders.bpmn --schema</span> prints it for the
+    project's engine, and an unknown operation, field or property is refused rather than ignored.
+    Several operations apply together or not at all. After an edit the diagram is read back and
+    checked; one that would break the drawing - shapes on top of each other, a flow through a
+    shape, a flow torn from its element - is not written, and a crossing or a flow running along a
+    shape is reported without stopping it. <span class="mono">--dry-run</span> shows the result
+    without writing.</p>
 
-    <h2>For an AI agent</h2>
+    <h2 id="mcp">For an AI agent</h2>
 
     <p><span class="mono">penstock mcp</span> serves the project's diagrams over the Model Context
-      Protocol, with the same contract: <span class="mono">list_diagrams</span>,
-      <span class="mono">show_diagram</span>, <span class="mono">check_diagram</span>,
-      <span class="mono">analyze_flow</span>, <span class="mono">list_scenarios</span>,
-      <span class="mono">check_code_links</span> and
-      <span class="mono">edit_diagram</span>, limited to files inside the project. An agent that
-      edits a diagram can check straight away that it still runs to its end.
-      <span class="mono">penstock mcp --config</span> prints the entry for a client's configuration.</p>
+    Protocol, limited to files inside the project.
+    <span class="mono">penstock mcp --config</span> prints the entry for a client's configuration.
+    The server is not gated as a whole: each tool is priced like the command it stands for, and
+    nothing else.</p>
+
+    <table class="facts">
+      <tr><td><span class="mono">list_diagrams</span></td><td>Free. The diagrams in the project.</td></tr>
+      <tr><td><span class="mono">show_diagram</span></td><td>Free. One diagram, read and explained.</td></tr>
+      <tr><td><span class="mono">check_diagram</span></td><td>Free. What is wrong with one
+        diagram, with the id of each check.</td></tr>
+      <tr><td><span class="mono">analyze_flow</span></td><td>Pro. Flow analysis, as
+        <span class="mono">check --only flow</span> does it.</td></tr>
+      <tr><td><span class="mono">list_scenarios</span></td><td>Pro. As
+        <span class="mono">scenarios list</span>.</td></tr>
+      <tr><td><span class="mono">check_code_links</span></td><td>Pro. As
+        <span class="mono">code</span>.</td></tr>
+      <tr><td><span class="mono">edit_diagram</span></td><td>Pro. As
+        <span class="mono">edit</span>.</td></tr>
+    </table>
+
+    <p>A tool called without the licence says in its result what it gives and how to buy or sign
+    in, rather than failing quietly, and it still appears in <span class="mono">tools/list</span>
+    with a note on what it needs - so an agent can tell the difference between "this is not
+    allowed" and "this does not exist". An agent that edits a diagram can check straight away that
+    it still runs to its end.</p>
 
     <h2>A bot in the repository</h2>
 
     <p>The bot is <span class="mono">penstock bot</span> running in your own CI, so it needs Team.
-      There is no service behind it and nothing to register: it answers with the token of the pipeline it runs in, and
-      <code>penstock init --ci &lt;github|gitea|forgejo|gitlab|bitbucket|azure&gt;</code> writes the
-      pipeline for it.</p>
+    There is no service behind it and nothing to register: it answers with the token of the
+    pipeline it runs in, and
+    <code>penstock init --ci &lt;github|gitea|forgejo|gitlab|bitbucket|azure&gt;</code> writes
+    the pipeline for it.</p>
 
     <p>On a pull or merge request that touches a diagram it leaves one comment and edits that same
-      comment on every push: what broke against the baseline, what changed in the process — by
-      element, from the semantic diff, not from the XML — and a picture with what arrived in green
-      and what differs in amber. In the conversation it answers:</p>
+    comment on every push: what broke against the baseline, what changed in the process - by
+    element, from the semantic diff, not from the XML - and a picture with what arrived in green
+    and what differs in amber. In the conversation it answers:</p>
 
 <pre><code>/penstock                    the full review
 /penstock check              only the problems
@@ -242,7 +356,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 /penstock help</code></pre>
 
     <p>The picture is drawn by penstock itself, without a browser, and goes wherever the platform
-      lets a pipeline put it. Nothing is ever committed to the repository.</p>
+    lets a pipeline put it. Nothing is ever committed to the repository.</p>
 
     <table>
       <tr><th>Platform</th><th>Comments answered</th><th>The picture</th><th>What to add</th></tr>
@@ -254,12 +368,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
     </table>
 
     <p>The bot reads the diagrams and <span class="mono">penstock.yaml</span>, and never runs the
-      hooks a pull request's configuration might declare.</p>
-
-    <p><code>init --ci github</code> also writes a publishing workflow: on merge,
-      <code>penstock deploy . --wait</code> with the <code>prod</code> profile and the secrets from
-      the environment. <code>--wait</code> matters — it asks the engine for the definitions it just
-      accepted until the engine answers, because "deployed" and "running" are not the same claim.</p>
+    hooks a pull request's configuration might declare.</p>
 
     <h2>The action</h2>
 
@@ -270,7 +379,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
     sarif: penstock.sarif</code></pre>
 
     <p>The action runs the project's <span class="mono">penstockw</span> when there is one, so CI
-      runs exactly the version the project pins, and keeps the download cached between runs.</p>
+    runs exactly the version the project pins, and keeps the download cached between runs.</p>
 
     <h2>Deploying from CI</h2>
 
@@ -279,14 +388,14 @@ PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 npx @penstock/cli deploy . </code></pre>
 
     <p>The profile chooses the environment, and the secret arrives through the environment rather
-      than through the repository. With <code>auth.type: oauth</code> the client secret comes from
-      <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when
-      the engine wants one, and any <code>PENSTOCK_*</code> variable matching a configuration key
-      overrides it for that run — <code>PENSTOCK_DEPLOYMENT_URL</code> to send one build somewhere
-      else, for instance.</p>
+    than through the repository. With <code>auth.type: oauth</code> the client secret comes from
+    <code>PENSTOCK_CLIENT_SECRET</code>. <code>PENSTOCK_TOKEN</code> is used as a bearer token when
+    the engine wants one, and any <code>PENSTOCK_*</code> variable matching a configuration key
+    overrides it for that run - <code>PENSTOCK_DEPLOYMENT_URL</code> to send one build somewhere
+    else, for instance.</p>
 
     <p>Run <code>penstock deploy --dry-run</code> first in a new pipeline: it prints the target and
-      the file list, and sends nothing.</p>
+    the file list, and sends nothing.</p>
 
   </div>
 
