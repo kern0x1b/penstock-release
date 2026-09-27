@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Element templates and connectors — Penstock</title>
-<meta name="description" content="How Penstock loads Camunda element templates from a project and how the built-in connector browser installs them.">
+<title>Element templates - Penstock</title>
+<meta name="description" content="Element templates in Penstock: the folders Camunda Modeler uses, the ones penstock.yaml lists, and the connector template browser, which downloads Camunda's connector templates from GitHub on demand and caches them for the IDE and the CLI.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -55,12 +55,12 @@
   </nav>
 
   <div class="docbody">
-    <h1>Element templates and connectors</h1>
+    <h1>Element templates</h1>
 
     <p class="lede">An element template is a JSON file that turns a plain task or event into a
     pre-configured one, with its own properties panel. Penstock reads templates from the folders
-    Camunda Modeler uses and from the ones <code>penstock.yaml</code> lists, and ships a browser for
-    the Camunda connector templates so you can install one without leaving the IDE.</p>
+    Camunda Modeler uses and from the ones <code>penstock.yaml</code> lists, and ships a browser
+    for Camunda's connector templates so you can install one without leaving the IDE.</p>
 
     <h2>Where templates come from</h2>
 
@@ -71,23 +71,23 @@
         folder above it up to the project root. That is where Camunda Modeler keeps templates, and
         they are used without being listed.</li>
       <li>The files and folders listed under <code>elementTemplates</code> in
-        <code>penstock.yaml</code>, relative to the project root. A folder is read whole, with every
-        <code>.json</code> file in it and in the folders below it.</li>
+        <code>penstock.yaml</code>, relative to the project root. A folder is read whole, with
+        every <code>.json</code> file in it and in the folders below it.</li>
     </ul>
 
 <pre><code>elementTemplates:
   - templates/connectors
   - shared/payment-task.json</code></pre>
 
-    <p>Like the rest of <code>penstock.yaml</code>, the list can differ per folder: the file nearest
-    the diagram wins. See <a href="settings.html">Configuration</a>.</p>
+    <p>Like the rest of <code>penstock.yaml</code>, the list can differ per folder: the file
+    nearest the diagram wins. See <a href="settings.html">Configuration</a>.</p>
 
     <h2>What Penstock does with each file</h2>
 
-    <p>Every listed file is read and parsed as JSON. A file may contain a single template object or
-    an array of them; both are accepted, and an array is expanded into its members. The parsed
-    templates are handed to the modeler when a diagram opens, so the properties panel can offer
-    them.</p>
+    <p>Every listed file is read and parsed as JSON. A file may contain a single template object
+    or an array of them; both are accepted, and an array is expanded into its members. The
+    parsed templates are handed to the modeler when a diagram opens, so the properties panel can
+    offer them.</p>
 
     <p>Three cases are handled quietly rather than with an error dialog:</p>
 
@@ -101,24 +101,39 @@
     <p>Results are cached per file and invalidated by the file's modification time, so editing a
     template on disk is picked up without restarting the IDE.</p>
 
-    <p>Penstock does not define the template format — it consumes the Camunda one. For the schema,
-    the binding types and the property definitions, see
+    <p>Penstock does not define the template format - it consumes the Camunda one. For the
+    schema, the binding types and the property definitions, see
     <a href="https://docs.camunda.io/docs/components/modeler/element-templates/about-templates/">Camunda's
     own element template documentation</a>.</p>
 
     <h2>The connector browser</h2>
 
-    <p><strong>Templates…</strong> in the editor's More menu opens <em>Element Templates
-    Marketplace</em>, a browser over the Camunda connector templates bundled with the plugin. The
+    <p><strong>Templates…</strong> in the File section of the editor's More menu opens
+    <em>Element Templates Marketplace</em>, a browser over Camunda's connector templates. The
     menu item is present only when the diagram's engine profile is Camunda 8.</p>
 
-    <p>The catalogue is part of the plugin. The template files are taken from the
-    <code>camunda/connectors</code> repository when the plugin is built, and are read from disk at
-    runtime, so the browser works without network access and without a Camunda account.</p>
+    <h3>Where the catalogue comes from</h3>
 
-    <p>The left sidebar has a search box, an <em>Installed only</em> toggle and a <em>Categories</em>
-    list with a count against each entry. The list starts with <em>All Connectors</em>, then the
-    eight fixed categories:</p>
+    <p>The connector templates are not bundled with the plugin. They are downloaded from GitHub,
+    from <code>api.github.com</code> and <code>codeload.github.com</code>, the first time you open
+    the browser or press Download on a template the diagram is missing. Nothing is fetched at IDE
+    startup, and nothing is fetched when a diagram opens on its own.</p>
+
+    <p>The download is cached in <span class="mono">~/.penstock/connectors/&lt;ref&gt;/</span>,
+    where the IDE and <span class="mono">penstock</span> share it, so the command line reads the
+    same templates the browser shows. Opening a diagram resolves templates from that cache
+    without a network request, so a project opens the same way offline as online.</p>
+
+    <p>Downloads are refreshed at most once a day, send no credentials, no cookies and no project
+    data, follow the IDE's proxy settings, and fall back to the cache when the network is not
+    there. A proxy or a firewall that blocks the download is therefore a slow catalogue, not a
+    broken editor.</p>
+
+    <h3>The list</h3>
+
+    <p>The left sidebar has a search box, an <em>Installed only</em> toggle and an
+    <em>Categories</em> list with a count against each entry. The list starts with <em>All
+    Connectors</em>, then the eight fixed categories:</p>
 
     <table class="facts">
       <tr><td>Communication</td><td>Messaging and notification connectors</td></tr>
@@ -132,92 +147,102 @@
         category for</td></tr>
     </table>
 
-    <p>Each connector is a card carrying its description, its template count and its category, with
-    a <strong>Details</strong> button. For a connector with one template that opens the template
-    straight away; for a connector with several it opens the list first, and you pick one from
-    there.</p>
+    <p>Each connector is a card carrying its description, its template count, its category and
+    its version, with a <strong>Details</strong> button. For a connector with one template that
+    opens the template straight away; for a connector with several it opens the list first, and
+    you pick one from there. A template Camunda has deprecated is badged <em>Deprecated</em>, with
+    its own reason where the template gives one, and sorted after the current ones rather than
+    in among them alphabetically.</p>
 
     <p>A template's own view shows its description, the element type it creates, the BPMN element
     types it applies to, the engine versions it declares, the number of properties that are not
     hidden, and the properties themselves under the template's own groups, with anything ungrouped
-    collected under <em>Other Properties</em>. Where the template carries a documentation reference,
-    a <em>View Documentation</em> link opens it in a browser.</p>
+    collected under <em>Other Properties</em>. Where the template carries a documentation
+    reference, a <em>View Documentation</em> link opens it in a browser. The details are shown
+    inside the browser itself rather than in a second window.</p>
 
     <h2>Installing from the browser</h2>
 
-    <p>Installing writes the template file into your project, in one action. Save it into a
-    <code>.camunda/element-templates</code> folder, or into a folder <code>elementTemplates</code>
-    already lists, and every diagram that looks there picks it up:</p>
+    <p>Installing writes the template file into your project, in one action. The save panel opens
+    in the nearest <code>.camunda/element-templates</code> folder above the diagram, using one
+    that already exists where the project has one, so the template lands where the editor will
+    look for it. Nothing is written if you cancel.</p>
 
     <ol class="steps">
       <li>
         <div>
           <h3>The template is read and parsed</h3>
-          <p>The JSON is read from the bundled catalogue and parsed first, so a template that would
-          not load never reaches the next step.</p>
+          <p>The JSON is read from the catalogue and parsed first, so a template that would not
+          load never reaches the next step.</p>
         </div>
       </li>
       <li>
         <div>
           <h3>Choose where it goes</h3>
-          <p>A save dialog opens, pre-filled with the template's own file name. Nothing is written
-          if you cancel.</p>
+          <p>A save panel opens, pre-filled with the template's own file name, in the folder
+            above. Nothing is written if you cancel.</p>
         </div>
       </li>
       <li>
         <div>
           <h3>The file is written</h3>
-          <p>The template JSON is saved to the path you picked.</p>
+          <p>The template JSON is saved to the path you picked, and the open diagram picks it up
+            immediately: the template is applied to the running modeler, so there is nothing to
+            reopen and nothing to restart.</p>
         </div>
       </li>
       <li>
         <div>
           <h3>The configuration is updated, the first time</h3>
-          <p>When the project's <code>penstock.yaml</code> has no <code>elementTemplates</code> list
-          yet, the new file becomes its first entry. A list that is already there is not
-          changed.</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>The open diagram picks it up</h3>
-          <p>The template is applied to the running modeler immediately. You do not have to reopen
-          the diagram or restart the IDE.</p>
+          <p>When the project's <code>penstock.yaml</code> has no <code>elementTemplates</code>
+            list yet, the new file becomes its first entry. A list that is already there is not
+            changed.</p>
         </div>
       </li>
     </ol>
 
-    <p>For a connector that ships several templates, the card's install button takes every template
-    of that connector you do not already have. That path asks for a folder rather than a file name,
-    then warns that it will write one file per template into that folder and overwrite existing
-    files with the same names, and waits for you to confirm. Each file is saved under the template's
-    own file name; progress is shown on the connector's
-    button. To take one template of such a connector on its own, open <em>Details</em> and install
-    it from the list.</p>
+    <p>For a connector that ships several templates, the card's install button takes every
+    template of that connector you do not already have. That path asks for a folder rather than a
+    file name, then warns that it will write one file per template into that folder and overwrite
+    existing files with the same names, and waits for you to confirm. Each file is saved under
+    the template's own file name; progress is shown on the connector's button. To take one
+    template of such a connector on its own, open <em>Details</em> and install it from the
+    list.</p>
 
     <p>Templates already present are marked as installed and their install buttons are disabled.
-    A catalogue template counts as present when an entry in <code>elementTemplates</code> ends in the
-    same file name, or when a template already loaded for the diagram carries the same name.</p>
+    A catalogue template counts as present when an entry in <code>elementTemplates</code> ends in
+    the same file name, or when a template already loaded for the diagram carries the same
+    name.</p>
 
-    <h2>Camunda 7 and Classic BPMN</h2>
+    <h2>Camunda 7, Operaton, CIB seven and Classic BPMN</h2>
 
-    <p>Only the connector browser is gated on Camunda 8: under Camunda 7 or Classic BPMN the More
-    menu has no <strong>Templates…</strong>.</p>
+    <p>Only the connector browser is gated on Camunda 8: under the other profiles the More menu
+    has no <strong>Templates…</strong>.</p>
 
     <p>Loading is not gated the same way. The templates are read and handed to the editor whichever
-    profile the diagram uses. The Camunda 7 editor applies templates — it carries the same element
-    template properties provider and template chooser as the Camunda 8 one — so Camunda 7 templates
-    in <code>.camunda/element-templates</code> work there as well. The Classic BPMN editor has no
-    element template support at all, and templates handed to it are ignored.</p>
+    profile the diagram uses. The Camunda 7 modeler applies templates - it carries the same element
+    template properties provider and template chooser as the Camunda 8 one - so Camunda 7 templates
+    in <code>.camunda/element-templates</code> work there as well, and so do Operaton and CIB
+    seven, which use that modeler. The Classic BPMN editor has no element template support at
+    all, and templates handed to it are ignored.</p>
+
+    <h2>In a terminal</h2>
+
+    <p><span class="mono">penstock connectors</span> lists Camunda's connector templates, and
+    <span class="mono">penstock connectors resolve &lt;id&gt; [version]</span> prints one. It
+    reads the same cache the browser fills, downloads from GitHub at most once a day, and works
+    from the cache when the network is not there. <span class="mono">--refresh</span> asks GitHub
+    for a newer release now. See <a href="cli.html">Command line</a>.</p>
 
     <h2>When a template does not appear</h2>
 
-    <p>Check, in this order: that the diagram's engine profile is Camunda 8 or Camunda 7 rather than
-    Classic BPMN, that the file is in a <code>.camunda/element-templates</code> folder at or above
-    the diagram or under a path <code>elementTemplates</code> lists, relative to the project root,
-    and that the file still exists there. <span class="mono">penstock doctor</span> reports a listed
-    path that is missing. If all of that holds, look in the IDE log — a file that is too large or
-    does not parse is skipped with a message naming the path.</p>
+    <p>Check, in this order: that the diagram's engine profile is Camunda 8 or one of the Camunda
+    7 family rather than Classic BPMN, that the file is in a
+    <code>.camunda/element-templates</code> folder at or above the diagram or under a path
+    <code>elementTemplates</code> lists, relative to the project root, and that the file still
+    exists there. <span class="mono">penstock doctor</span> reports a listed path that is missing.
+    If all of that holds, look in the IDE log - a file that is too large or does not parse is
+    skipped with a message naming the path.</p>
 
   </div>
 
