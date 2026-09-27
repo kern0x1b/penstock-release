@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BPMN elements — Penstock</title>
-<meta name="description" content="Every element Penstock can draw: the palette, the searchable Create element catalogue, and what each task, gateway, event and data element is for.">
+<title>BPMN elements - Penstock</title>
+<meta name="description" content="The Penstock palette and the Create element catalogue: every task, gateway, event and data element BPMN defines, what each is for, and how to change one element into another.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -57,12 +57,17 @@
   <div class="docbody">
     <h1>BPMN elements</h1>
 
-    <p class="lede">The palette down the left of the canvas carries the elements most diagrams are
-    built from. Everything else — every task type, every event, every gateway — is behind
+    <p class="lede">The palette beside the canvas carries the elements most diagrams are built
+    from. Everything else - every task type, every event, every gateway - is behind
     <strong>Create element</strong> at the foot of the palette, which is searchable and explains
     what each element is for.</p>
 
     <h2>The palette</h2>
+
+    <p>It is a floating island rather than a strip of the window: sixteen pixels in from the left
+    edge of the canvas, vertically centred, rounded, with a border and a shadow, and never more
+    than three quarters of the height of the canvas. A palette with more entries than that scrolls
+    inside the island. The canvas is inset so nothing sits under it.</p>
 
     <p>Four tools and ten elements, in this order:</p>
 
@@ -90,11 +95,12 @@
 
     <h2>The catalogue</h2>
 
+    <p><strong>Create element</strong> groups every element by what it is for, and searches by
+    name. Type to filter, or open a group. The same catalogue appears from an element's context
+    pad, where it appends the element you choose to the one you started from, already
+    connected.</p>
 
-    <p>Type to filter, or open a group. The same catalogue appears from an element's context pad,
-    where it appends the element you choose to the one you started from, already connected.</p>
-
-    <h3>Tasks — atomic units of work in a process</h3>
+    <h3>Tasks - atomic units of work in a process</h3>
 
     <table class="facts">
       <tr><td>Task</td><td>An unspecified step, often used as a placeholder.</td></tr>
@@ -102,10 +108,10 @@
       <tr><td>Service task</td><td>Automated work carried out by a job worker or connector.</td></tr>
       <tr><td>Business rule task</td><td>Evaluates a business rule, typically a DMN decision.</td></tr>
       <tr><td>Script task</td><td>Runs a script. On Camunda 7 the script opens as a real editor tab
-        — see <a href="editing.html">Editing a diagram</a>.</td></tr>
+        - see <a href="editing.html">Editing a diagram</a>.</td></tr>
     </table>
 
-    <h3>Gateways — route the flow</h3>
+    <h3>Gateways - route the flow</h3>
 
     <table class="facts">
       <tr><td>Exclusive gateway</td><td>Routes the token down one path, based on data.</td></tr>
@@ -113,12 +119,13 @@
       <tr><td>Event-based gateway</td><td>Follows the path of whichever event occurs first.</td></tr>
     </table>
 
-    <h3>Sub-processes — nested or reusable activities</h3>
+    <h3>Sub-processes - nested or reusable activities</h3>
 
     <table class="facts">
       <tr><td>Call activity</td><td>Calls another process as a reusable subprocess.</td></tr>
       <tr><td>Transaction</td><td>A subprocess that completes as a whole, or is compensated.</td></tr>
-      <tr><td>Event sub-process</td><td>A subprocess triggered by an event in its scope.</td></tr>
+      <tr><td>Event sub-process</td><td>A subprocess triggered by an event in its scope. It can be
+        collapsed and expanded again from the change-element menu, in every engine profile.</td></tr>
       <tr><td>Sub-process, collapsed</td><td>Groups elements into a subprocess, shown collapsed.
         Double-click to open it in its own view.</td></tr>
       <tr><td>Sub-process, expanded</td><td>Groups elements into a subprocess, drawn inline.</td></tr>
@@ -126,22 +133,23 @@
         Collapsed or expanded.</td></tr>
     </table>
 
-    <h3>Events — what a process reacts to or emits</h3>
+    <h3>Events - what a process reacts to or emits</h3>
 
-    <p>Events are grouped by where they sit in the flow rather than by what they carry, because the
-    same kind of trigger means different things in each position.</p>
+    <p>Events are grouped by where they sit in the flow rather than by what they carry, because
+    the same kind of trigger means different things in each position.</p>
 
     <table class="facts">
       <tr><td>Start events</td><td>Where a process or path begins.</td></tr>
-      <tr><td>Intermediate catch events</td><td>Wait for something to happen before continuing.</td></tr>
+      <tr><td>Intermediate catch events</td><td>Wait for something to happen before
+        continuing.</td></tr>
       <tr><td>Intermediate throw events</td><td>Emit an event, then continue.</td></tr>
       <tr><td>Boundary events</td><td>React to something while an activity is running. Interrupting
         ones cancel the activity; non-interrupting ones leave it running.</td></tr>
       <tr><td>End events</td><td>Where a process path ends.</td></tr>
     </table>
 
-    <p>Inside each group are the triggers BPMN defines — message, timer, error, escalation, signal,
-    compensation, conditional, link, terminate — restricted to the ones that are legal in that
+    <p>Inside each group are the triggers BPMN defines - message, timer, error, escalation, signal,
+    compensation, conditional, link, terminate - restricted to the ones that are legal in that
     position.</p>
 
     <h3>Data</h3>
@@ -154,19 +162,25 @@
     <h3>Participants</h3>
 
     <p>A pool stands for an organisation or a system. Two pools in one diagram make it a
-    collaboration, and the only thing that may cross between them is a message flow. Lanes divide a
-    pool by role or department and carry no execution meaning of their own.</p>
+    collaboration, and the only thing that may cross between them is a message flow. Lanes divide
+    a pool by role or department and carry no execution meaning of their own.</p>
 
     <h2>Changing an element into another</h2>
 
     <p>Select an element and use the wrench on its context pad. The menu offers every element the
-    selected one can legally become — a task to a service task, a start event to a message start
-    event, an exclusive gateway to a parallel one — and the change keeps the connections, the name
-    and the properties that still apply.</p>
+    selected one can legally become - a task to a service task, a start event to a message start
+    event, an exclusive gateway to a parallel one - and the change keeps the connections, the name
+    and the properties that still apply. The same menu is where an event sub-process is collapsed
+    and expanded.</p>
+
+    <h2>Colours and the grid</h2>
+
+    <p>The context pad carries a colour picker, and the canvas carries a grid that elements snap
+    to. Both are free, and both are in the Classic BPMN profile as well as the Camunda ones.</p>
 
     <h2>What each profile adds</h2>
 
-    <p>The palette and the catalogue are the same in all three engine profiles: BPMN is BPMN. What
+    <p>The palette and the catalogue are the same in every engine profile: BPMN is BPMN. What
     changes is what the properties panel offers once an element is selected, and which namespace
     the editor writes into the file. See <a href="engine-profiles.html">Engine profiles</a>.</p>
 

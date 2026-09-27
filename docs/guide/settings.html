@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Settings and project files — Penstock</title>
-<meta name="description" content="penstock.yaml decides how Penstock behaves for a project - engine, lint, element templates, tests, hooks and deployment - with per-folder overrides and a JSON schema for completion. Personal view settings live in ~/.penstock/preferences.json.">
+<title>Configuration - Penstock</title>
+<meta name="description" content="penstock.yaml: the one hand-written file that says what a Penstock project is - engine, element templates, linked repositories, linter, conventions, tests, deployment and profiles - and the personal preferences kept outside it.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -58,19 +58,23 @@
     <h1>Configuration</h1>
 
     <p class="lede">One file in the project root, <span class="mono">penstock.yaml</span>, says what
-      the project is: which engine, which templates, which linter, where deploy sends it. It is
-      hand-written, committed with the diagrams, overridden per folder, per machine, per profile and
-      finally by the environment. Nothing about how your editor looks lives in it.</p>
+    the project is: which engine, which templates, which repositories, which linter, where deploy
+    sends it. It is hand-written, committed with the diagrams, overridden per folder, per machine,
+    per profile and finally by the environment. Nothing about how your editor looks lives in
+    it.</p>
 
     <h2>penstock.yaml</h2>
 
 <pre><code># yaml-language-server: $schema=https://kern0x1b.github.io/penstock-release/schema/penstock.schema.json
 
-engine: camunda-7        # classic | camunda-7 | camunda-8
+engine: camunda-7        # classic | camunda-7 | camunda-8 | operaton | cib-seven
 scriptType: groovy       # none | groovy | javascript
 
 elementTemplates:
   - templates/connectors
+
+linked:
+  - ../shared-processes
 
 lint:
   configPath: rules/.bpmnlintrc
@@ -100,55 +104,64 @@ profiles:
         clientId: penstock
         tokenUrl: https://auth.example.com/oauth/token</code></pre>
 
-    <p>There is one <code>deployment.url</code>, not one per engine: <code>engine</code> already says
-      whether that address is a Camunda 7 REST API or a Camunda 8 gateway. Everything is optional —
-      what you leave out keeps its default.</p>
+    <p>There is one <code>deployment.url</code>, not one per engine: <code>engine</code> already
+    says whether that address is a Camunda 7 REST API, an Operaton or CIB seven one, or a Camunda 8
+    gateway. Everything is optional - what you leave out keeps its default.</p>
 
     <p><code>elementTemplates</code> lists files and folders relative to the project root; a
-      <code>.camunda/element-templates</code> folder next to a diagram or above it is read without
-      being listed. <code>lint</code> is only needed when the rules are not in a
-      <code>.bpmnlintrc</code> in the project root, or come from a bpmnlint plugin; see
-      <a href="element-templates.html">Element templates</a> and
-      <a href="validation.html">Validation</a>. There are no layout settings: auto layout uses its
-      own spacing, and <code>.bpmnlayoutrc</code> is not read.</p>
+    <code>.camunda/element-templates</code> folder next to a diagram or above it is read without
+    being listed. <code>linked</code> names other repositories that belong to the project, so their
+    diagrams, workers, delegates and beans count as part of it; a path that is not checked out is
+    skipped. <code>lint</code> is only needed when the rules are not in a
+    <code>.bpmnlintrc</code> in the project root, or come from a bpmnlint plugin; see
+    <a href="element-templates.html">Element templates</a> and
+    <a href="validation.html">Validation</a>. There are no layout settings: auto layout uses its
+    own spacing, and <code>.bpmnlayoutrc</code> is not read.</p>
 
     <p><code>tests</code> is only needed when the defaults are wrong. Without it,
-      <code>penstock tests</code> puts each diagram's tests in its own module - the nearest folder
-      with a Gradle or Maven build - in Kotlin if that module has Kotlin sources and Java otherwise,
-      in the package of its Spring Boot application, or the one all its sources share, followed by
-      <code>.process</code>. <code>out</code> is relative to the project root.</p>
+    <span class="mono">penstock junit</span> puts each diagram's tests in its own module - the
+    nearest folder with a Gradle or Maven build - in Kotlin if that module has Kotlin sources and
+    Java otherwise, in the package of its Spring Boot application, or the one all its sources
+    share, followed by <code>.process</code>. <code>out</code> is relative to the project root.</p>
 
     <h2>Profiles</h2>
 
-    <p>A profile is a named set of overrides, applied on top of everything above it. Choose one with
-      <code>profile: test</code> in the file, or with the <span class="mono">PENSTOCK_PROFILE</span>
-      environment variable, which wins — that is how a CI job deploys to staging without editing
-      anything.</p>
+    <p>A profile is a named set of overrides, applied on top of everything above it. Choose one
+    with <code>profile: test</code> in the file, or with the
+    <span class="mono">PENSTOCK_PROFILE</span> environment variable, which wins - that is how a CI
+    job deploys to staging without editing anything.</p>
 
-    <p>A profile beats the plain values in every file, including the local one. To override a profile
-      on your own machine, put the key under <code>profiles.&lt;name&gt;</code> in
-      <span class="mono">penstock.local.yaml</span> — which is exactly what the Connection dialog
-      does when you enter an engine address for a profile. See
-      <a href="deployment.html">Deployment</a>.</p>
+    <p>A profile beats the plain values in every file, including the local one. To override a
+    profile on your own machine, put the key under <code>profiles.&lt;name&gt;</code> in
+    <span class="mono">penstock.local.yaml</span> - which is exactly what the Connection dialog
+    does when you enter an engine address for a profile. See
+    <a href="deployment.html">Deployment</a>.</p>
 
     <h2>Four ways to override, in order</h2>
 
     <table class="facts">
-      <tr><td>1. penstock.yaml</td><td>The project's answer, committed. Every folder from the root down to the diagram is merged, so the file nearest the diagram wins.</td></tr>
-      <tr><td>2. penstock.local.yaml</td><td>This machine's answer, in the same folders, read straight after the file beside it. Keep it out of version control; Penstock adds it to <code>.gitignore</code> when it writes one.</td></tr>
-      <tr><td>3. profiles.&lt;name&gt;</td><td>The active profile, folded over the merged result.</td></tr>
-      <tr><td>4. PENSTOCK_*</td><td>Environment variables have the last word: <code>PENSTOCK_DEPLOYMENT_URL</code>, <code>PENSTOCK_ENGINE</code>, <code>PENSTOCK_LINT_CONFIGPATH</code> — the key path in capitals, joined by underscores.</td></tr>
+      <tr><td>1. penstock.yaml</td><td>The project's answer, committed. Every folder from the root
+        down to the diagram is merged, so the file nearest the diagram wins.</td></tr>
+      <tr><td>2. penstock.local.yaml</td><td>This machine's answer, in the same folders, read
+        straight after the file beside it. Keep it out of version control; Penstock adds it to
+        <code>.gitignore</code> when it writes one.</td></tr>
+      <tr><td>3. profiles.&lt;name&gt;</td><td>The active profile, folded over the merged
+        result.</td></tr>
+      <tr><td>4. PENSTOCK_*</td><td>Environment variables have the last word:
+        <code>PENSTOCK_DEPLOYMENT_URL</code>, <code>PENSTOCK_ENGINE</code>,
+        <code>PENSTOCK_LINT_CONFIGPATH</code> - the key path in capitals, joined by
+        underscores.</td></tr>
     </table>
 
-    <p>Any string may also reference the environment: <code>${VAR}</code>, or <code>${VAR:fallback}</code>
-      when it may be missing. That is how a secret gets into the configuration without being written
-      down in it.</p>
+    <p>Any string may also reference the environment: <code>${VAR}</code>, or
+    <code>${VAR:fallback}</code> when it may be missing. That is how a secret gets into the
+    configuration without being written down in it.</p>
 
     <h2>Rules the editor applies for you</h2>
 
     <p>Camunda's own guidance asks for readable technical ids, and every team writes the convention
-      down somewhere and then forgets it. Put it in the file instead - the editor applies it on
-      Penstock Pro:</p>
+    down somewhere and then forgets it. Put it in the file instead - the editor applies it on
+    Penstock Pro:</p>
 
 <pre><code>conventions:
   ids:
@@ -158,11 +171,11 @@ profiles:
     bpmn:ServiceTask:
       camunda:asyncBefore: true</code></pre>
 
-    <p><code>ids</code> rewrites the id when the label changes, keeping it unique by adding a number
-      rather than colliding. <code>defaults</code> sets attributes on an element as it is created —
-      and morphing counts as creating, since a task that becomes a service task is how most service
-      tasks are made. Both happen inside the same modelling command, so one undo takes them back
-      together with the change that caused them.</p>
+    <p><code>ids</code> rewrites the id when the label changes, keeping it unique by adding a
+    number rather than colliding. <code>defaults</code> sets attributes on an element as it is
+    created - and morphing counts as creating, since a task that becomes a service task is how
+    most service tasks are made. Both happen inside the same modelling command, so one undo takes
+    them back together with the change that caused them.</p>
 
     <h2>Commands around a stage</h2>
 
@@ -172,59 +185,66 @@ profiles:
   postLayout: git add -A</code></pre>
 
     <p>These run when the command line reaches that stage, in the project root, with
-      <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and the
-      active profile in the environment. <code>preDeploy</code> and <code>postDeploy</code> also run
-      around a deployment from the IDE, and there only in a trusted project. A <code>pre</code> hook
-      that exits non-zero stops the stage — which is how a project says "not without this
-      check".</p>
+    <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and the
+    active profile in the environment. <code>preDeploy</code> and <code>postDeploy</code> also run
+    around a deployment from the IDE, and there only in a trusted project. A <code>pre</code> hook
+    that exits non-zero stops the stage - which is how a project says "not without this check".</p>
 
     <h2>Secrets</h2>
 
     <p>Passwords, bearer tokens and client secrets are never read from these files and never
-      written to them. In the IDE they go to the password safe, separately for each profile, when you
-      enter them in the Connection dialog. On the command line they come from
-      <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and
-      <code>PENSTOCK_TOKEN</code>. A user name or a client id is not a secret and belongs in the file;
-      what unlocks them does not.</p>
+    written to them. In the IDE they go to the password safe, separately for each profile, when you
+    enter them in the Connection dialog. On the command line they come from
+    <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and
+    <code>PENSTOCK_TOKEN</code>. A user name or a client id is not a secret and belongs in the
+    file; what unlocks them does not.</p>
 
     <h2>What is not in the file</h2>
 
     <p>Nothing about the editor's appearance. The diagram always takes the IDE's theme. The rest -
-      which toolbar actions are pinned, Sketchy Drawing, whether the tool window shows a tree or a
-      flat list, the picture format its Export… item last used - is yours, not the project's, and lives in
-      <span class="mono">~/.penstock/preferences.json</span>, or under
-      <span class="mono">PENSTOCK_HOME</span> when that is set. It is the same in every IDE on the
-      machine and survives a restart. Putting it in a file everyone shares would mean one person's
-      toolbar arriving in everyone else's checkout.</p>
+    which toolbar actions are pinned, whether the tour has been seen, Sketchy drawing, the width
+    of the sidebar and the tab you left selected, whether the tool window shows a tree or a flat
+    list, the picture format its Export item last used - is yours, not the project's, and lives in
+    <span class="mono">~/.penstock/preferences.json</span>, or under
+    <span class="mono">PENSTOCK_HOME</span> when that is set. It is the same in every IDE on the
+    machine and survives a restart. Putting it in a file everyone shares would mean one person's
+    toolbar arriving in everyone else's checkout.</p>
 
     <h2>Completion and validation</h2>
 
     <p>The plugin ships a JSON Schema and registers it for <span class="mono">penstock.yaml</span>,
-      <span class="mono">penstock.yml</span>, <span class="mono">penstock.json</span> and their
-      <span class="mono">.local</span> variants, so completion, validation and hover documentation
-      work in the IDE with no setup and no network. The <code>yaml-language-server</code> line at the
-      top is for everything else — VS Code, Neovim, a review in a browser — and is why the generated
-      file starts with it.</p>
+    <span class="mono">penstock.yml</span>, <span class="mono">penstock.json</span> and their
+    <span class="mono">.local</span> variants, so completion, validation and hover documentation
+    work in the IDE with no setup and no network. It is published at
+    <a href="../schema/penstock.schema.json"><span class="mono">/schema/penstock.schema.json</span></a>.
+    The <code>yaml-language-server</code> line at the top is for everything else - VS Code,
+    Neovim, a review in a browser - and is why the generated file starts with it.</p>
 
-    <p>A file Penstock cannot parse is reported in a notification naming the file and the error, and
-      the previous answer stands until it parses. It is not ignored quietly.</p>
+    <p>A file Penstock cannot parse is reported in a notification naming the file and the error,
+    and the previous answer stands until it parses. It is not ignored quietly.</p>
 
     <h2>Coming from the IDE settings</h2>
 
     <p>Older projects kept this in <span class="mono">.idea/bpmn-project.xml</span>. That file is
-      legacy. When a project has settings there and no <span class="mono">penstock.yaml</span>, a
-      notification offers to write one, and the engine question above an empty new diagram writes
-      the file rather than the XML. Penstock has no page in <span class="mono">Settings</span>.</p>
+    legacy. When a project has settings there and no <span class="mono">penstock.yaml</span>, a
+    notification offers to write one, and the engine question above an empty new diagram writes the
+    file rather than the XML. Penstock has no page in <span class="mono">Settings</span>.</p>
 
     <h2>What belongs in version control</h2>
 
     <table class="facts">
-      <tr><td>penstock.yaml</td><td>Commit it. That is the point: everyone gets the same engine, the same lint setup, the same deployment targets, and a change to any of it is reviewed like any other change.</td></tr>
-      <tr><td>penstock.local.yaml</td><td>Do not commit it. It is where your machine disagrees with the project.</td></tr>
-      <tr><td>.bpmnlintrc, .camunda/element-templates</td><td>Commit them. They are the project's rules and templates, read by the editor and the command line alike.</td></tr>
+      <tr><td>penstock.yaml</td><td>Commit it. That is the point: everyone gets the same engine,
+        the same lint setup, the same deployment targets, and a change to any of it is reviewed
+        like any other change.</td></tr>
+      <tr><td>penstock.local.yaml</td><td>Do not commit it. It is where your machine disagrees
+        with the project.</td></tr>
+      <tr><td>.bpmnlintrc, .camunda/element-templates</td><td>Commit them. They are the project's
+        rules and templates, read by the editor and the command line alike.</td></tr>
       <tr><td>.bpmnlayoutrc</td><td>No longer read. Delete it.</td></tr>
-      <tr><td>Credentials</td><td>Nothing to commit. They live in the IDE password safe, outside the project.</td></tr>
-      <tr><td>.bpmn and .bpmn20.xml</td><td>Commit them. They are the process definitions, and reviewing them alongside code is the point.</td></tr>
+      <tr><td>Credentials</td><td>Nothing to commit. They live in the IDE password safe, outside
+        the project.</td></tr>
+      <tr><td>.bpmn and .bpmn20.xml</td><td>Commit them. They are the process definitions, and
+        reviewing them alongside code is the point.</td></tr>
     </table>
 
   </div>
