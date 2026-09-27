@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Validation with bpmnlint — Penstock</title>
-<meta name="description" content="How Penstock runs bpmnlint without setup: the built-in rules, a project .bpmnlintrc that replaces them, rules from plugins, and where the findings appear in the editor and on the command line.">
+<title>Validation - Penstock</title>
+<meta name="description" content="Validation in Penstock: bpmnlint without setup, a project .bpmnlintrc, rules from plugins, the Camunda engine compatibility rules, and where the findings appear in the editor and in penstock check.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
       <li><a href="index.html">Contents</a></li>
@@ -54,21 +54,22 @@
     </ul>
   </nav>
 
-    <div class="docbody">
-    <h1>Validation with bpmnlint</h1>
+  <div class="docbody">
+    <h1>Validation</h1>
 
-    <p class="lede">bpmnlint answers whether a process is modelled correctly: an event with no
-    outgoing flow, a gateway that splits without saying how. Penstock runs it without any setup, in
-    the editor as you draw and in <span class="mono">penstock check</span>, with nothing to install
-    and no paths to configure.</p>
+    <p class="lede">Validation answers whether a process is modelled correctly: an event with no
+    outgoing flow, a gateway that splits without saying how, a service task with no job type.
+    Penstock runs it without any setup, in the editor as you draw and in
+    <span class="mono">penstock check</span>, with nothing to install and no paths to
+    configure.</p>
 
     <h2>Which rules apply</h2>
 
     <p>Without a configuration the rules are bpmnlint's own recommended set,
-    <code>bpmnlint:recommended</code>. A <code>.bpmnlintrc</code> in the project root replaces that
-    set, and the editor and the command line both read it. To keep it somewhere else, name it with
-    <code>lint.configPath</code> in <code>penstock.yaml</code>, relative to the project root; see
-    <a href="settings.html">Configuration</a>.</p>
+    <code>bpmnlint:recommended</code>. A <code>.bpmnlintrc</code> in the project root replaces
+    that set, and the editor and the command line both read it. To keep it somewhere else, name
+    it with <code>lint.configPath</code> in <code>penstock.yaml</code>, relative to the project
+    root; see <a href="settings.html">Configuration</a>.</p>
 
     <p>A minimal <code>.bpmnlintrc</code>:</p>
 
@@ -80,50 +81,82 @@
   }
 }</code></pre>
 
+    <h2>Engine compatibility</h2>
+
+    <p>Penstock also runs the rules of <code>bpmnlint-plugin-camunda-compat</code>, which ask
+    what the engine the diagram is written for can actually run: a service task with no job type,
+    an element or an expression the chosen Camunda version does not support, a process with no
+    history time to live. They are free, and they are part of the same
+    <code>.bpmnlintrc</code>.</p>
+
+    <p>They are checked against the version in the file's
+    <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none, and
+    against the engine <code>penstock.yaml</code> names. Operaton and CIB seven are checked as
+    Camunda 7.</p>
+
+    <p>Each compatibility rule has an id, such as <code>compat/implementation</code>, and its own
+    page in the rules catalogue with a line on why it matters and a line on how to fix it. To
+    turn one off, name it in <code>.bpmnlintrc</code> as
+    <code>camunda-compat/&lt;rule&gt;</code>, the plugin's own name, or as
+    <code>compat/&lt;rule&gt;</code>:</p>
+
+<pre><code>{
+  "extends": ["bpmnlint:recommended"],
+  "rules": {
+    "camunda-compat/compatibility": "off"
+  }
+}</code></pre>
+
+    <p>See <a href="diagram-check.html">Check and problems</a> for what the findings look like and
+    where they appear.</p>
+
     <h2>In the diagram editor</h2>
 
-    <p>The editor marks problems on the elements as you draw, with a marker on each element a rule
-    reports. The linting button on the canvas turns the markers off and on; it
-    starts on, and is hidden while token simulation is running, since the canvas is showing
-    something else at that point.</p>
+    <p>The editor marks problems on the elements as you draw, with a marker on each element a
+    rule reports. The linting button on the canvas turns the markers off and on; it starts on, and
+    is hidden while token simulation is running, since the canvas is showing something else at
+    that point.</p>
 
-    <p>The same findings are listed under <strong>Rules</strong> in the
-    <a href="diagram-check.html">diagram check</a>, beside the drawing problems. Each line gives the
-    message, the element it is about and the rule's name, with <em>warning</em> after the name for
-    a rule set to warn. Clicking a line scrolls to the element and selects it.</p>
+    <p>The same findings are in the Problems tab, beside the drawing problems, each with its
+    error or warning icon and the id of the rule. Clicking a finding selects the element and opens
+    the property that fixes it. See <a href="diagram-check.html">Check and problems</a>.</p>
 
     <h2>On the command line</h2>
 
     <p><span class="mono">penstock check</span> runs the same rules as one section of its report,
-    beside the drawing and, on Pro, the flow analysis. <span class="mono">penstock check --only
-    rules</span> runs the rules alone. A rule set to error makes the run fail; a warning is reported
-    as a note. See <a href="cli.html">Command line</a>.</p>
+    beside the drawing, the engine compatibility rules and, on Pro, the flow analysis.
+    <span class="mono">penstock check --only rules</span> runs the rules alone. A rule set to
+    error makes the run fail; a warning is reported as a note.</p>
 
 <pre><code>penstock check --only rules .</code></pre>
 
-    <p>In the IDE, <span class="mono">Check</span> in the context menu of the Penstock tool window
-    runs <span class="mono">penstock check</span> on a file or folder and shows the report in the Run
-    window. It runs only in a trusted project.</p>
+    <p>In the IDE, <span class="mono">Check</span> in the context menu of the Penstock tool
+    window runs <span class="mono">penstock check</span> on a file or folder and shows the report
+    in the Run window. It runs only in a trusted project.</p>
 
     <p><span class="mono">penstock lint</span> still works in this release and says that it is now
     <span class="mono">penstock check --only rules</span>.</p>
 
     <h2>Custom rules</h2>
 
-    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. Declare it in the
-    project's <code>package.json</code> and run <code>npm install</code>: the command line reads
-    plugins from the project's <code>node_modules</code>, with no installed bpmnlint needed.</p>
+    <p>A custom rule comes from a <code>bpmnlint-plugin-&lt;name&gt;</code> package. Declare it in
+    the project's <code>package.json</code> and run <code>npm install</code>: the command line
+    reads plugins from the project's <code>node_modules</code>, with no installed bpmnlint
+    needed.</p>
 
     <p>The editor cannot load packages from <code>node_modules</code>. For a
     <code>.bpmnlintrc</code> that uses a plugin, build a bundle of the rules with
     <code>bpmnlint-pack-config</code> and name it with <code>lint.clientBundlePath</code> in
     <code>penstock.yaml</code>. Rebuild it whenever the rules change; the editor loads that bundle,
-    not the <code>.bpmnlintrc</code>. Without it, the diagram check says <em>The bpmnlint rules could
-    not run</em> and points at <code>lint.clientBundlePath</code>.</p>
+    not the <code>.bpmnlintrc</code>. Without it, the Rules group says <em>The bpmnlint rules
+    could not run</em> and points at <code>lint.clientBundlePath</code>.</p>
 
 <pre><code>lint:
   configPath: .bpmnlintrc
   clientBundlePath: .bpmnlint/client.bundle.js</code></pre>
+
+    <p>Only rules from a bpmnlint plugin need the bundle. A <code>.bpmnlintrc</code> that only
+    uses built-in rules, and the compatibility rules, need nothing at all.</p>
 
   </div>
 
