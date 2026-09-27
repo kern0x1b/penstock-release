@@ -12,11 +12,13 @@
       "enum": [
         "classic",
         "camunda-7",
-        "camunda-8"
+        "camunda-8",
+        "operaton",
+        "cib-seven"
       ]
     },
     "scriptType": {
-      "description": "Default language for script tasks. Camunda 7 only.",
+      "description": "Default language for script tasks. Camunda 7, Operaton and CIB seven only.",
       "type": "string",
       "enum": [
         "none",
@@ -26,6 +28,13 @@
     },
     "elementTemplates": {
       "description": "Folders and files to read Camunda element templates from, relative to the project root. .camunda/element-templates next to a diagram or in any folder above it is read without being listed.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked": {
+      "description": "Other repositories that belong to this project, relative to its root: the workers, delegates and diagrams in them count as part of it. A path that is not checked out is skipped.",
       "type": "array",
       "items": {
         "type": "string"
@@ -84,7 +93,7 @@
       }
     },
     "tests": {
-      "description": "Where `penstock tests` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
+      "description": "Where `penstock junit` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -162,6 +171,10 @@
           "description": "Leave out what the engine already has unchanged. On unless set to false.",
           "type": "boolean"
         },
+        "forTests": {
+          "description": "This engine is for tests: Penstock may deploy test builds and answer jobs on it when it runs test cases.",
+          "type": "boolean"
+        },
         "activationTime": {
           "description": "ISO timestamp the deployment becomes active.",
           "type": "string"
@@ -222,11 +235,13 @@
           "enum": [
             "classic",
             "camunda-7",
-            "camunda-8"
+            "camunda-8",
+            "operaton",
+            "cib-seven"
           ]
         },
         "scriptType": {
-          "description": "Default language for script tasks. Camunda 7 only.",
+          "description": "Default language for script tasks. Camunda 7, Operaton and CIB seven only.",
           "type": "string",
           "enum": [
             "none",
@@ -236,6 +251,13 @@
         },
         "elementTemplates": {
           "description": "Folders and files to read Camunda element templates from, relative to the project root. .camunda/element-templates next to a diagram or in any folder above it is read without being listed.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linked": {
+          "description": "Other repositories that belong to this project, relative to its root: the workers, delegates and diagrams in them count as part of it. A path that is not checked out is skipped.",
           "type": "array",
           "items": {
             "type": "string"
@@ -294,7 +316,7 @@
           }
         },
         "tests": {
-          "description": "Where `penstock tests` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
+          "description": "Where `penstock junit` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -370,6 +392,10 @@
             },
             "changedOnly": {
               "description": "Leave out what the engine already has unchanged. On unless set to false.",
+              "type": "boolean"
+            },
+            "forTests": {
+              "description": "This engine is for tests: Penstock may deploy test builds and answer jobs on it when it runs test cases.",
               "type": "boolean"
             },
             "activationTime": {
