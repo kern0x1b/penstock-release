@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Documentation — Penstock</title>
-<meta name="description" content="Contents page for the Penstock documentation: getting started, engine profiles, editing, element templates, validation, deployment, auto layout, configuration, the command line, plans and troubleshooting.">
+<title>Documentation - Penstock</title>
+<meta name="description" content="Contents page for the Penstock documentation: getting started, engine profiles, editing, the sidebar, element templates, validation, the check, deployment, migration, sharing, auto layout, configuration, the command line, plans and troubleshooting.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
     </a>
     <nav>
       <a href="../">Overview</a>
-      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="index.html">Documentation</a>
       <a href="../license/">License</a>
       <a href="../notices/">Third-party notices</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -31,10 +31,10 @@
 
 <main class="wrap doc guide">
 
-<nav class="docnav" aria-label="Documentation">
+  <nav class="docnav" aria-label="Documentation">
     <h2>Documentation</h2>
     <ul>
-      <li><a href="index.html">Contents</a></li>
+      <li><a href="index.html" aria-current="page">Contents</a></li>
       <li><a href="getting-started.html">Getting started</a></li>
       <li><a href="engine-profiles.html">Engine profiles</a></li>
       <li><a href="elements.html">BPMN elements</a></li>
@@ -57,70 +57,89 @@
   <div class="docbody">
     <h1>Documentation</h1>
 
-    <p class="lede">Penstock is a BPMN 2.0 editor that runs inside JetBrains IDEs. These thirteen
-    pages cover it from installation to troubleshooting. Read them in order the first time, or go
-    straight to the one you need.</p>
+    <p class="lede">Penstock is a BPMN, DMN and form editor that runs inside JetBrains IDEs. These
+    sixteen pages cover it from installation to troubleshooting. Read them in order the first time,
+    or go straight to the one you need.</p>
 
-    <h2>Pages</h2>
+    <h2>The editor</h2>
 
     <table class="facts">
       <tr>
         <td><a href="getting-started.html">Getting started</a></td>
-        <td>Requirements, installing from the Marketplace, which files open in the diagram
-          editor, how the engine is chosen, and a tour of the toolbar and the Penstock tool
+        <td>Requirements, installing from the Marketplace, which files open in which editor, how
+          the engine is chosen, the two example projects, the first-run tour, and the tool
           window.</td>
       </tr>
       <tr>
         <td><a href="engine-profiles.html">Engine profiles</a></td>
-        <td>What separates the Classic BPMN 2.0, Camunda 7 and Camunda 8 profiles, which
-          namespaces each one writes into the XML, and what else the choice changes.</td>
+        <td>What separates the Classic BPMN, Camunda 7, Camunda 8, Operaton and CIB seven
+          profiles, which namespace each one writes into the XML, and what else the choice
+          changes.</td>
       </tr>
       <tr>
         <td><a href="elements.html">BPMN elements</a></td>
-        <td>Every element the editor can draw: the four tools and ten elements on the palette,
-          the searchable Create element catalogue, what each task, gateway, event and data element
-          is for, and how to change one element into another.</td>
+        <td>The palette and the searchable Create element catalogue: every task, gateway, event
+          and data element, and how to change one element into another.</td>
       </tr>
       <tr>
         <td><a href="editing.html">Editing a diagram</a></td>
-        <td>Working on the canvas and in the properties panel: the palette, the XML tab, editing a
-          script in its own IDE tab, copy and paste, undo and redo, the minimap, token simulation,
-          export, and comparing two revisions of a file as two diagrams side by side.</td>
+        <td>The toolbar, the command palette and pinning an action to it, the palette, the XML
+          tab, a script in its own IDE tab, copy and paste, token simulation, transaction
+          boundaries, export, and comparing two revisions as two diagrams.</td>
       </tr>
       <tr>
-        <td><a href="element-templates.html">Element templates</a></td>
-        <td>Which JSON files Penstock reads as element templates - the files and folders
-          <code>penstock.yaml</code> lists, and every <code>.camunda/element-templates</code> folder
-          from the diagram up - what it does with each one, and how the bundled connector browser,
-          shown under Camunda 8, writes a template into the project.</td>
+        <td><a href="sidebar.html">The sidebar</a></td>
+        <td>The Properties, Scenarios, Problems, Monitor and Code tabs of the diagram editor, the
+          tabs of the decision and form editors, the Scenarios review drawn over the diagram, and
+          the live form preview.</td>
       </tr>
       <tr>
-        <td><a href="validation.html">Validation</a></td>
-        <td>bpmnlint without setup: the built-in rules, a project <code>.bpmnlintrc</code> that
-          replaces them, rules from plugins, and where the findings appear in the editor and on the
-          command line.</td>
-      </tr>
-      <tr>
-        <td><a href="diagram-check.html">Diagram check</a></td>
-        <td>The panel that lists what is wrong with the drawing — overlapping shapes, connections
-          that do not reach what they connect, elements outside their pool — points at each one on
-          the canvas, and separates real problems from readability.</td>
+        <td><a href="diagram-check.html">Check and problems</a></td>
+        <td>The card over the canvas, the Problems tab, and what each group of findings means: the
+          drawing, how the process runs, the modelling rules, what the engine can run, the code,
+          and the Camunda 7 to Camunda 8 result.</td>
       </tr>
       <tr>
         <td><a href="deployment.html">Deployment</a></td>
-        <td>Sending the open diagram to a Camunda 7 or Camunda 8 engine in one click, deploying to
-          another profile, the Connection dialog, hooks, and where the address and the credentials
-          are stored.</td>
+        <td>The Deploy popover, the Connection dialog, profiles, credentials and hooks, and what an
+          engine says when it refuses.</td>
+      </tr>
+    </table>
+
+    <h2>Getting a diagram in and out</h2>
+
+    <table class="facts">
+      <tr>
+        <td><a href="element-templates.html">Element templates</a></td>
+        <td>Which JSON files Penstock reads as element templates, and the connector browser, whose
+          catalogue is downloaded from GitHub on demand and cached for the IDE and the command
+          line.</td>
+      </tr>
+      <tr>
+        <td><a href="migration.html">Camunda 7 to Camunda 8</a></td>
+        <td>What does not carry over, why and who does it, the free report, the conversion preview
+          with the visual diff, job worker skeletons from your delegates, and
+          <span class="mono">penstock migrate</span>.</td>
+      </tr>
+      <tr>
+        <td><a href="exchange.html">Sharing and importing</a></td>
+        <td>Share as HTML, one file that opens offline in any browser, and Import diagram from
+          draw.io, Visio, Signavio and Bizagi. Both free.</td>
       </tr>
       <tr>
         <td><a href="auto-layout.html">Auto layout</a></td>
         <td>What the layout engine does to a diagram and what it will not produce, how to run it,
           and how to take it back.</td>
       </tr>
+    </table>
+
+    <h2>The project and the pipeline</h2>
+
+    <table class="facts">
       <tr>
-        <td><a href="cli.html">Command line</a></td>
-        <td>The same checks and the same deployment from a terminal or a pipeline, with a wrapper
-          that pins the version and SARIF output GitHub reads directly.</td>
+        <td><a href="validation.html">Validation</a></td>
+        <td>bpmnlint without setup, a project <code>.bpmnlintrc</code> that replaces it, rules
+          from plugins, the engine compatibility rules, and where the findings appear.</td>
       </tr>
       <tr>
         <td><a href="settings.html">Configuration</a></td>
@@ -129,14 +148,27 @@
           kept outside it.</td>
       </tr>
       <tr>
+        <td><a href="cli.html">Command line</a></td>
+        <td>The same checks and the same deployment from a terminal or a pipeline, scenarios and
+          their runs, the conversion, sharing and importing, the MCP server, the review bot, and a
+          wrapper that pins the version.</td>
+      </tr>
+    </table>
+
+    <h2>The rest</h2>
+
+    <table class="facts">
+      <tr>
         <td><a href="plans.html">Plans and licence</a></td>
         <td>What is free, what Pro and Team add, the one rule that decides which a feature needs,
-          buying and signing in, and the licence in a pipeline.</td>
+          buying and signing in, the thirty-day trial, and the signed token that is checked
+          offline.</td>
       </tr>
       <tr>
         <td><a href="troubleshooting.html">Troubleshooting</a></td>
-        <td>Fixes for a blank editor, lint findings that do not appear, failed deployments and
-          missing element templates, plus answers to common questions.</td>
+        <td>Fixes for a blank editor, a diagram that will not open, lint findings that do not
+          appear, failed deployments and missing element templates, plus answers to common
+          questions.</td>
       </tr>
     </table>
 
