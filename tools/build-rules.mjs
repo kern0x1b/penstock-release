@@ -35,29 +35,29 @@ const FAMILIES = {
   bpmnlint: {
     pro: false,
     guide: ['validation', 'Validation with bpmnlint'],
-    where: (rule) => `<p>The editor puts a marker on the element while you draw. The check card lists it under <strong>Rules</strong>, with the rule name <code>${rule.id}</code>. In a terminal, <code>penstock check --only rules</code> reports it.</p>
+    where: (rule) => `<p>The editor puts a marker on the element while you draw, and the <strong>Problems</strong> tab of the sidebar lists it under <strong>Rules</strong>, with the rule name <code>${rule.id}</code>. In a terminal, <code>penstock check --only rules</code> reports it.</p>
 <p>To change how strict this rule is, set <code>${rule.id.replace('bpmnlint/', '')}</code> to <code>error</code>, <code>warn</code> or <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
   },
   compat: {
     pro: false,
     guide: ['validation', 'Validation'],
-    where: (rule) => `<p>The check card lists it under <strong>Rules</strong>, the editor marks the element on the canvas, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It checks the diagram against the engine and the version it is written for: the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none. Operaton and CIB seven are checked as Camunda 7. This check is free.</p>
+    where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>Engine</strong>, the editor marks the element on the canvas, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It checks the diagram against the engine and the version it is written for: the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none. Operaton and CIB seven are checked as Camunda 7. This check is free.</p>
 <p>To turn it off, set <code>${rule.id.replace('compat/', 'camunda-compat/')}</code> or <code>${rule.id}</code> to <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
   },
   drawing: {
     pro: false,
     guide: ['diagram-check', 'Diagram check'],
-    where: (rule) => `<p>The check card lists it under <strong>${rule.severity === 'error' ? 'Problems' : 'Readability'}</strong>, and outlines the element on the canvas. In a terminal, <code>penstock check --only drawing</code> reports it as <code>${rule.shown}</code>. <a href="../guide/auto-layout.html">Auto layout</a> often fixes it for the whole diagram at once.</p>`,
+    where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>${rule.severity === 'error' ? 'Problems' : 'Readability'}</strong>, and outlines the element on the canvas. In a terminal, <code>penstock check --only drawing</code> reports it as <code>${rule.shown}</code>. <a href="../guide/auto-layout.html">Auto layout</a> often fixes it for the whole diagram at once.</p>`,
   },
   flow: {
     pro: true,
     guide: ['flow-analysis', 'Flow analysis'],
-    where: (rule) => `<p>The check card lists it under <strong>How it runs</strong> and outlines the path that leads there. In a terminal, <code>penstock check --only flow</code> reports it as <code>${rule.shown}</code>. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
+    where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>How it runs</strong> and outlines the path that leads there. In a terminal, <code>penstock check --only flow</code> reports it as <code>${rule.shown}</code>. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
   },
   table: {
     pro: true,
     guide: ['dmn-editor', 'The DMN editor'],
-    where: (rule) => `<p>Press <span class="ui">Check</span> in the DMN editor. The <em>Decision check</em> card lists it. In a terminal, <code>penstock check</code> reports it as <code>${rule.shown}</code> for every <code>.dmn</code> file. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
+    where: (rule) => `<p>Press <span class="ui">Check</span> in the DMN editor. The <strong>Problems</strong> tab of the sidebar lists it. In a terminal, <code>penstock check</code> reports it as <code>${rule.shown}</code> for every <code>.dmn</code> file. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
   },
   form: {
     pro: false,
@@ -68,7 +68,7 @@ const FAMILIES = {
   code: {
     pro: true,
     guide: ['code-links', 'Code links'],
-    where: () => `<p>The check card lists it under <strong>Code</strong>. In a terminal, <code>penstock code</code> reports it with the file and line. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
+    where: () => `<p>The <strong>Problems</strong> tab lists it under <strong>Code</strong>. In a terminal, <code>penstock code</code> reports it with the file and line. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
   },
   convention: {
     pro: true,
@@ -161,7 +161,7 @@ const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: $
 
 const indexBody = `<h2>How to read a rule page</h2>
 
-<p>Every check Penstock makes has a page. It says <strong>why it matters</strong>, <strong>how to fix it</strong>, and where you see it. In the diagram check, select a finding and its link opens the page. In <code>penstock check --format json</code>, SARIF and GitHub annotations, every finding carries the rule id and the address of its page.</p>
+<p>Every check Penstock makes has a page. It says <strong>why it matters</strong>, <strong>how to fix it</strong>, and where you see it. Select a finding in the <strong>Problems</strong> tab and its link opens the page. In <code>penstock check --format json</code>, SARIF and GitHub annotations, every finding carries the rule id and the address of its page.</p>
 
 <div class="table-wrap"><table>
   <thead><tr><th>Level</th><th>Meaning</th></tr></thead>
