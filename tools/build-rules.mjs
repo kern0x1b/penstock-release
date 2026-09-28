@@ -63,7 +63,7 @@ const FAMILIES = {
     pro: false,
     about: 'What a Camunda Form does with what the user enters. The form check is lint, so it is free.',
     guide: ['form-editor', 'The form editor'],
-    where: (rule) => `<p>Press <span class="ui">Check</span> in the form editor. The <em>Form check</em> card lists it, and the Problems tab of the sidebar holds them all. In a terminal, <code>penstock check</code> reports it as <code>${rule.shown}</code> for every form. The form check is lint, so it is free.</p>`,
+    where: (rule) => `<p>Press <span class="ui">Check</span> in the form editor. The <strong>Problems</strong> tab of the sidebar lists it. In a terminal, <code>penstock check</code> reports it as <code>${rule.shown}</code> for every form. The form check is lint, so it is free.</p>`,
   },
   code: {
     pro: true,
