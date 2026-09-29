@@ -49,7 +49,7 @@
 <main class="doc" id="content">
 <h1>Command line</h1>
 <p class="lede">The penstock command does in a terminal what the editors do, with the same settings and the same answers, so it works in a script or a pipeline.</p>
-<p class="meta"><span class="tag free">Free</span> <span>Node.js 20.19 or later. Some commands need Pro, and Team in a pipeline.</span></p>
+<p class="meta"><span class="tag free">Free</span> <span>Node.js 22.22 or later. Some commands need Pro, and Team in a pipeline.</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
@@ -89,7 +89,7 @@ npx @penstock/cli doctor</code></pre>
 
 <p><code>update</code> pins the version, downloads it, and replaces the wrapper scripts with the ones that version ships. You can also edit <code>version=</code> in the properties file by hand. A company registry or a tarball goes in <code>distribution=</code> in the same file.</p>
 
-<p>The wrapper needs Node.js 20.19 or later, with npm, on the PATH. Without them it says <em>penstockw needs Node.js 20.19 or later, with npm, on the PATH</em>.</p>
+<p>The wrapper needs Node.js 22.22 or later, with npm, on the PATH. Without them it says <em>penstockw needs Node.js 22.22 or later, with npm, on the PATH</em>.</p>
 
 <h2 id="paths-and-configuration"><a href="#paths-and-configuration">Paths and configuration</a></h2>
 
@@ -145,8 +145,8 @@ npx @penstock/cli doctor</code></pre>
 <dl class="problems">
   <dt>"No .bpmn files found."</dt>
   <dd>The path has no diagram. Check the path, or run from your project folder.</dd>
-  <dt>"penstockw needs Node.js 20.19 or later".</dt>
-  <dd>Install Node.js 20.19 or later, and make sure <code>node</code> and <code>npm</code> are on the PATH of the shell or the CI job.</dd>
+  <dt>"penstockw needs Node.js 22.22 or later".</dt>
+  <dd>Install Node.js 22.22 or later, and make sure <code>node</code> and <code>npm</code> are on the PATH of the shell or the CI job.</dd>
   <dt>"penstockw could not find the latest @penstock/cli".</dt>
   <dd>The npm registry could not be reached. Pin a version in <code>penstock-wrapper.properties</code>.</dd>
   <dt>The command says a feature is part of Pro, in a pipeline.</dt>
