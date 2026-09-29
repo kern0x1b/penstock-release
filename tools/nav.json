@@ -307,6 +307,11 @@
               "about": "Click through, completion, gutter icons, Code Vision, Find Usages, the debugger."
             },
             {
+              "slug": "rename",
+              "title": "Rename in the IDE",
+              "about": "One rename for a job type, topic, class, bean, message or process, in diagrams and code."
+            },
+            {
               "slug": "test-runner",
               "title": "Tests in the IDE",
               "about": "Test-case files in the test runner, gutter icons, process tests, coverage."

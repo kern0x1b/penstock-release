@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Monitor - Penstock</title>
-<meta name="description" content="Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, and where the incidents are.">
+<meta name="description" content="Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, where the incidents are, what an expression gives on a real instance, and which variable names the model and the engine disagree on.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/monitor.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -101,8 +101,19 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Running</p>
 <h1>Monitor</h1>
-<p class="lede">Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, and where the incidents are.</p>
+<p class="lede">Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, where the incidents are, what an expression gives on a real instance, and which variable names the model and the engine disagree on.</p>
 <p class="meta"><span class="tag free">Free</span> <span>A deployment profile with an address</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#read-it">Read it</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#try-an-expression-on-a-real-instance">Try an expression on a real instance</a></li>
+<li><a href="#variable-names-the-model-and-the-engine-disagree-on">Variable names the model and the engine disagree on</a></li>
+<li><a href="#when-the-engine-is-asked">When the engine is asked</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
 <h2 id="read-it"><a href="#read-it">Read it</a></h2>
 
 <ol class="steps">
@@ -145,9 +156,41 @@
 
 <p>Other messages: <em>No instance is running on prod.</em> and <em>order-process is not deployed on prod.</em> The tab says which address was asked and when.</p>
 
+<h2 id="try-an-expression-on-a-real-instance"><a href="#try-an-expression-on-a-real-instance">Try an expression on a real instance</a></h2>
+
+<ol class="steps">
+  <li>Pick an instance in the Monitor tab, and select an element in the diagram.</li>
+  <li>Every condition, input and output mapping and script on it can be run against that instance's variables. The result, or the engine's own complaint, appears next to the expression.</li>
+  <li>The same action is on the expression field in the properties panel, where the result lands under the field.</li>
+</ol>
+
+<p>Nothing is written on the engine. On Camunda 8.9 and later the engine evaluates the expression. Camunda 7, Operaton and CIB seven cannot evaluate an expression on request, so the tab shows the instance's variables and says what evaluation needs. Penstock does not evaluate an expression locally: a local answer would not be the engine's answer. A <code>camunda.secrets</code> reference shows the placeholder the engine returns, and Penstock does not resolve the secret.</p>
+
+<h2 id="variable-names-the-model-and-the-engine-disagree-on"><a href="#variable-names-the-model-and-the-engine-disagree-on">Variable names the model and the engine disagree on</a></h2>
+
+<p>On Camunda 8.10 and later the engine can list the variable names it has seen for the deployed definition. Compared with what the diagram reads and writes, that gives two short lists.</p>
+
+<ul>
+  <li><strong>Unused in the model.</strong> The engine has seen the name and nothing in the diagram names it.</li>
+  <li><strong>Never set in production.</strong> The diagram reads the name and the engine has never seen it. The elements that read it are listed, and a click selects one.</li>
+</ul>
+
+<p>The comparison is with the diagram, not with the code. A variable that only the code reads is still unused in the model. The Code tab is where the two are compared.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th></th><th>Camunda 8.10+</th><th>Camunda 8.9</th><th>Camunda 8 before 8.9</th><th>Camunda 7, Operaton, CIB seven</th></tr></thead>
+  <tbody>
+  <tr><td>Instances and their variables</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr>
+  <tr><td>Evaluate an expression</td><td>yes</td><td>yes</td><td>needs 8.9</td><td>needs 8.9</td></tr>
+  <tr><td>Variable names the engine has seen</td><td>yes</td><td>needs 8.10</td><td>needs 8.10</td><td>not offered</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The version is never guessed. Penstock asks, and when the engine has no such endpoint the tab says which version it needs.</p>
+
 <h2 id="when-the-engine-is-asked"><a href="#when-the-engine-is-asked">When the engine is asked</a></h2>
 
-<p>Only when you open Monitor or press <span class="ui">Refresh</span>. Never in the background. It works on Camunda 7, Operaton and CIB seven, and on Camunda 8.8 and later. The request is made with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
+<p>Only when you open Monitor, press <span class="ui">Refresh</span> or ask for a result. Never in the background. Every question is a read. It works on Camunda 7, Operaton and CIB seven, and on Camunda 8.8 and later. The request is made with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

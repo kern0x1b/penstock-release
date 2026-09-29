@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rename in the IDE - Penstock</title>
+<meta name="description" content="Rename a job type, topic, class, bean, message, signal, process, decision, form or error once, and every diagram and every line of code that names it follows.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/rename.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/" aria-current="true">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="JetBrains">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../jetbrains/">JetBrains IDEs</a></li>
+      <li><a href="../jetbrains/installing.html">Installing</a></li>
+      <li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../jetbrains/editor.html">The editor in the IDE</a></li>
+      <li><a href="../jetbrains/tool-window.html">The Penstock tool window</a></li>
+      <li><a href="../jetbrains/code-links.html">Code links in the IDE</a></li>
+      <li><a href="../jetbrains/rename.html" aria-current="page">Rename in the IDE</a></li>
+      <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
+      <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../jetbrains/licence.html">Licence in the IDE</a></li>
+      <li><a href="../jetbrains/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Using it</p>
+<h1>Rename in the IDE</h1>
+<p class="lede">Rename a job type, topic, class, bean, message, signal, process, decision, form or error once, and every diagram and every line of code that names it follows.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>Team in a pipeline. Without Pro, the IDE's own Rename still works and touches only the code it always did.</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#from-the-code">From the code</a></li>
+<li><a href="#from-the-diagram">From the diagram</a></li>
+<li><a href="#what-a-rename-covers">What a rename covers</a></li>
+<li><a href="#what-a-rename-leaves-alone">What a rename leaves alone</a></li>
+<li><a href="#instances-that-are-already-running">Instances that are already running</a></li>
+</ul>
+</nav>
+<p>A name that a diagram and its code share is a string in both, so neither side can find the other by resolving a symbol. Rename reads the links Penstock already knows (see <a href="code-links.html">Code links in the IDE</a>) and changes both sides in one step.</p>
+
+<h2 id="from-the-code"><a href="#from-the-code">From the code</a></h2>
+
+<ol class="steps">
+  <li>Put the caret on the name: a string literal that an API takes the name in, a method that a <code>@JobWorker</code> takes its job type from, a <code>@Bean</code> method, or a bean or worker class.</li>
+  <li>Press <kbd>Shift</kbd>+<kbd>F6</kbd>, the IDE's own Rename.</li>
+  <li>The dialog lists every place that writes the name, in diagrams, forms and code. Untick what should stay.</li>
+  <li>Confirm. The whole rename is one step in the IDE's undo.</li>
+</ol>
+
+<h2 id="from-the-diagram"><a href="#from-the-diagram">From the diagram</a></h2>
+
+<p>Change one of these values in the properties panel. Penstock asks how many places still hold the old value and offers the rename in a notification. Nothing is written until you say so.</p>
+
+<h2 id="what-a-rename-covers"><a href="#what-a-rename-covers">What a rename covers</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Job type</td><td>The task definition's type in the diagram, and <code>@JobWorker(type=)</code>, <code>jobType("")</code> and the equivalents in the code.</td></tr>
+  <tr><td>Topic</td><td><code>camunda:topic</code>, and <code>topicName("")</code>, <code>subscribe("")</code> and <code>@ExternalTaskSubscription</code>.</td></tr>
+  <tr><td>Class and bean</td><td><code>camunda:class</code> and <code>camunda:delegateExpression</code>, and the class or the <code>@Component</code>, <code>@Service</code>, <code>@Named</code> or <code>@Bean</code> declaration itself.</td></tr>
+  <tr><td>Message and signal</td><td>The name on the message or signal, and the calls that correlate a message or broadcast a signal.</td></tr>
+  <tr><td>Process</td><td>The process id, every call activity that names it, and the calls that start it.</td></tr>
+  <tr><td>Decision</td><td>The decision id, every business rule task that names it, and the calls that evaluate it.</td></tr>
+  <tr><td>Form</td><td>The form key or id in the diagram, the form's own id, and the calls that name it.</td></tr>
+  <tr><td>Error</td><td>The error code, and <code>BpmnError</code> and the handlers that name it.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Files in the project and in the repositories listed under <code>linked</code> in <code>penstock.yaml</code> are both reached, whichever side you start from. Workers in Python, Go, JavaScript and the other supported languages are found by their text, the same way code links find them.</p>
+
+<h2 id="what-a-rename-leaves-alone"><a href="#what-a-rename-leaves-alone">What a rename leaves alone</a></h2>
+
+<ul>
+  <li><strong>Element ids.</strong> A rename moves a name and leaves every id where it is.</li>
+  <li><strong>Variables.</strong> Nothing can promise that every read and write of a variable is known, so Penstock does not offer to rename one.</li>
+</ul>
+
+<h2 id="instances-that-are-already-running"><a href="#instances-that-are-already-running">Instances that are already running</a></h2>
+
+<p>A process id, a job type and a message name are what a deployed engine knows. Renaming one changes what happens to instances that are already running: an instance keeps the old name and its next step may no longer be found. The dialog says so and offers <span class="ui">Check running instances</span>. It asks the engine of the profile in force, only when you press it, and reports how many active instances there are, how many external tasks wait on a topic and how many subscriptions wait on a message.</p>
+
+<p>Camunda 8 activates jobs itself and does not report what is waiting for a job type, and it does not expose message subscriptions. The button says so rather than guessing.</p>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../jetbrains/code-links.html"><span>Previous</span>Code links in the IDE</a>
+<a class="next" href="../jetbrains/test-runner.html"><span>Next</span>Tests in the IDE</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
