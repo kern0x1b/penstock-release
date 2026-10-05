@@ -175,15 +175,15 @@
 <p class="hosts-title">Where the secret lives</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>The IDE password safe, once for each profile. Older versions also kept settings in <code>.idea/bpmn-project.xml</code>. That file is legacy. Penstock offers to move its settings into <code>penstock.yaml</code>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line"><a href="#command-line">Command line</a></h3>
+<p class="host-name">Command line</p>
 <p>There is none. Give the secret to a command through the environment: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p>VS Code's secret storage, once for each workspace, profile and field. Nothing is written to a file.</p>
 </section>
 </div>
@@ -201,15 +201,15 @@
 <p class="hosts-title">Remove Penstock from your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>Open <span class="ui">Settings | Plugins</span> and the <span class="ui">Installed</span> tab, choose <strong>Penstock</strong>, press <span class="ui">Uninstall</span> and restart the IDE. Your diagrams stay as they are.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
+<p class="host-name">Command line</p>
 <p>Delete <code>penstockw</code>, <code>penstockw.cmd</code> and <code>penstock/wrapper</code> from your project. If you installed the command with npm, run <code>npm uninstall -g @kern0x1b/penstock-cli</code>. <code>penstock init --hooks</code> wrote a pre-commit hook into <code>.git/hooks</code>: delete that file too. Penstock keeps a few small files of its own in <code>~/.penstock</code>, which you can delete.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p>Open the Extensions view, find <strong>Penstock</strong> and press <span class="ui">Uninstall</span>. Your diagrams stay as they are. See <a href="../vscode/installing.html">Installing in VS Code</a>.</p>
 </section>
 </div>

@@ -408,11 +408,14 @@ strong, b { font-weight: var(--type-weight-semibold); }
 
 .tag::before {
   content: "";
+  flex: none;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--theme-icon-default);
 }
+
+td .tag { height: auto; min-height: 20px; padding-top: 2px; padding-bottom: 2px; white-space: normal; text-align: left; }
 
 .tag.free { background: var(--theme-success-subtle); }
 .tag.free::before { background: var(--theme-success); }
@@ -864,7 +867,7 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
   min-width: 0;
 }
 
-.host h3 {
+.host .host-name {
   margin: 0 0 var(--space-1);
   font-size: var(--type-size-tiny);
   font-weight: var(--type-weight-semibold);

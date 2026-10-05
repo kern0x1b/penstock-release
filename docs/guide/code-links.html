@@ -156,15 +156,15 @@
 <p class="hosts-title">Where you use the links</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>All of it works in the IDE, in Java and Kotlin sources: click through, completion, gutter icons, Code Vision, Find Usages and the debugger's position on the diagram. Ctrl/Cmd+click opens a diagram element named in a string or a comment, and the Run tests and Debug tests actions on the Code tab run the test cases that use the selected step. See <a href="../jetbrains/code-links.html">Code links in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line"><a href="#command-line">Command line</a></h3>
+<p class="host-name">Command line</p>
 <p>Only the check against the code: <code>penstock code</code>. The MCP tool <code>check_code_links</code> does the same for an AI assistant.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p>In VS Code, with Pro, they work in the nine languages the command line reads. A code lens above a worker, delegate or subscription names the diagram and element that use it. Go to Definition and Find All References go between code and diagrams, the Code view in the Explorer lists processes, workers, variables, messages and errors, and the Problems view carries what <code>penstock code</code> reports. Completion of ids, gutter icons, the debugger's position on the diagram and running the tests from the diagram are not in VS Code. See <a href="../vscode/code-links.html">Code links in VS Code</a>.</p>
 </section>
 </div>
@@ -190,11 +190,11 @@
 <p class="hosts-title">Check diagrams against code in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>The check card has a <strong>Code</strong> section. For the whole project, right-click in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Code</span>. Each finding has a file and line, which the IDE opens at the line.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
+<p class="host-name">Command line</p>
 <pre><code>$ penstock code .
 3 source file(s), 1 diagram(s), 4 reference(s) from diagrams to code
 
@@ -202,7 +202,7 @@ Every task the diagrams hand to code has something in the code to run it.</code>
 <p>Each finding has a file and a line. <code>--format json</code> is for a tool. See <a href="../cli/commands.html#code">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p>The check card has a <strong>Code</strong> section. In VS Code the same findings are in the Problems view for the whole workspace, under the source <em>penstock</em>, once you have Pro. Each one has a file and a line, and a click opens it. For a pipeline, run <code>penstock code</code>. See <a href="../vscode/code-links.html">Code links in VS Code</a>.</p>
 </section>
 </div>

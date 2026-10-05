@@ -277,7 +277,7 @@
 <p class="hosts-title">What is specific to your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <ul>
   <li>Secrets are kept in the <strong>IDE password safe</strong>, once for each profile.</li>
   <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a trusted project. From IDE 2025.2 the IDE's own <span class="ui">Trust Project</span> decides, and Penstock never overrides it. On 2024.2 and 2025.1 Penstock asks itself, in a dialog that names the command, and keeps the answer in <code>~/.penstock/trusted-projects.json</code>. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
@@ -286,7 +286,7 @@
 </ul>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line"><a href="#command-line">Command line</a></h3>
+<p class="host-name">Command line</p>
 <ul>
   <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Set them in the environment of the command, never in a file.</li>
   <li>A <code>hooks:</code> command from <code>penstock.yaml</code> runs for <code>check</code>, <code>layout</code> and <code>deploy</code> only in a project you have trusted with <code>penstock trust</code>, or for one run with <code>--trust-project</code>. Inside a pipeline, where <code>CI</code> is set, hooks run without a question. A hook sees only <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>, never the licence key, a password or a token.</li>
@@ -295,7 +295,7 @@
 </ul>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <ul>
   <li>Passwords and client secrets are kept in <strong>VS Code's secret storage</strong>, once for each workspace, profile and field.</li>
   <li>The <code>preDeploy</code> and <code>postDeploy</code> hooks of <code>penstock.yaml</code> run only in a trusted workspace.</li>

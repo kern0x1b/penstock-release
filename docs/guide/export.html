@@ -173,16 +173,16 @@
 <p class="hosts-title">Export a picture in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>The <span class="ui">Export…</span> action described above uses the IDE's save dialog. To export every diagram of a project at once, use <span class="ui">Run Penstock | Export…</span> in the <a href="../jetbrains/tool-window.html">tool window</a>. It asks for a folder and a format, SVG or PNG. SVG needs nothing, and PNG needs <code>puppeteer</code> installed in the project.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line"><a href="#command-line">Command line</a></h3>
+<p class="host-name">Command line</p>
 <pre><code>penstock export . --out docs/img</code></pre>
 <p>This writes SVG, drawn by Penstock from the diagram's coordinates. It needs no browser. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="../cli/commands.html#export">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p>The <span class="ui">Export…</span> action described above asks where to save the picture. To export every diagram of a project at once, use the command line. Putting the picture on the clipboard is not available in VS Code, because its clipboard holds only text.</p>
 </section>
 </div>

@@ -172,11 +172,11 @@
 <p class="hosts-title">Migrate a whole project</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>Open the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and find <strong>Migrate to Camunda 8</strong>. It lists every file with its status and findings, and the Java code with what each class becomes. Right-click a file and choose <span class="ui">Convert to Camunda 8…</span>, or use <span class="ui">Convert All…</span> on the root.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line"><a href="#command-line">Command line</a></h3>
+<p class="host-name">Command line</p>
 <pre><code>$ penstock migrate .
 ready       src/main/resources/approve-order.form  1 convert
 needs work  src/main/resources/order-process.bpmn  1 to do, 8 convert
@@ -195,7 +195,7 @@ Job workers to write: 2</code></pre>
 <p>The converted folder gets a <code>penstock.yaml</code> of its own that says <code>engine: camunda-8</code>, and the <code>penstock.yaml</code> of the Camunda 7 files is not touched. See <a href="../cli/commands.html#migrate">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p class="unavailable">Not available in VS Code. The Camunda 7 to Camunda 8 conversion is not available in VS Code yet, and neither is the project list that shows it. Use penstock migrate on the command line.</p>
 </section>
 </div>
@@ -256,15 +256,15 @@ Job workers to write: 2</code></pre>
 <p class="hosts-title">Write a skeleton in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>In the tool window, open <strong>Migrate to Camunda 8</strong>, then <strong>Code</strong>. Right-click an item and choose <span class="ui">Job Worker Skeleton…</span> (Spring), <span class="ui">Node Worker Skeleton…</span> or <span class="ui">Python Worker Skeleton…</span>. Pro.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
+<p class="host-name">Command line</p>
 <p class="unavailable">Not available on the command line. Skeletons are written from the IDE. penstock migrate prints how many job workers there are to write.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p class="unavailable">Not available in VS Code. Job worker skeletons are written from the JetBrains IDE and are not available in VS Code yet. penstock migrate prints how many job workers there are to write.</p>
 </section>
 </div>
@@ -278,18 +278,18 @@ Job workers to write: 2</code></pre>
 <p class="hosts-title">Write the report in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h3 id="jetbrains-2-2"><a href="#jetbrains-2-2">JetBrains</a></h3>
+<p class="host-name">JetBrains</p>
 <p>Press <span class="ui">Migration Report</span> on the root of <strong>Migrate to Camunda 8</strong> in the tool window.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h3 id="command-line-2-2"><a href="#command-line-2-2">Command line</a></h3>
+<p class="host-name">Command line</p>
 <pre><code>$ penstock migrate report .
 wrote migration-report.md
 wrote migration-report.html</code></pre>
 <p>Use <code>--out &lt;dir&gt;</code> to choose the folder.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h3 id="vs-code-2-2"><a href="#vs-code-2-2">VS Code</a></h3>
+<p class="host-name">VS Code</p>
 <p class="unavailable">Not available in VS Code. The migration report is not available in VS Code yet. Run penstock migrate report on the command line.</p>
 </section>
 </div>
