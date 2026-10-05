@@ -1,0 +1,4302 @@
+[
+ {
+  "row": "Layout & convert: Auto layout",
+  "kind": "action",
+  "source": "libs/core/src/actions (auto-layout)",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:Auto layout",
+   "T:Auto layout"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Check & run: Check",
+  "kind": "action",
+  "source": "libs/core/src/actions (diagram-check)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Check",
+   "T:Check"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Check & run: Simulate",
+  "kind": "action",
+  "source": "libs/core/src/actions (token-simulation)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Simulate",
+   "T:Simulate"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Check & run: Coverage",
+  "kind": "action",
+  "source": "libs/core/src/actions (coverage)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Coverage",
+   "T:Coverage"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Check & run: Monitor",
+  "kind": "action",
+  "source": "libs/core/src/actions (live)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Monitor",
+   "T:Monitor"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Check & run: Scenarios",
+  "kind": "action",
+  "source": "libs/core/src/actions (runs)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Scenarios",
+   "T:Scenarios"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Layout & convert: Migrate to Camunda 8",
+  "kind": "action",
+  "source": "libs/core/src/actions (migration)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Migrate to Camunda 8",
+   "T:Migrate to Camunda 8"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Deploy & share: Deploy",
+  "kind": "action",
+  "source": "libs/core/src/actions (deploy)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Deploy",
+   "T:Deploy"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Sidebar",
+  "kind": "action",
+  "source": "libs/core/src/actions (toggle-sidebar)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Sidebar",
+   "T:Sidebar"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Sidebar: Mod+Alt+'",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions (toggle-sidebar)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:(Cmd|Ctrl)\\s?\\+\\s?Alt\\s?\\+\\s?'"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Fit diagram",
+  "kind": "action",
+  "source": "libs/core/src/actions (fit-diagram)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Fit diagram",
+   "T:Fit diagram"
+  ],
+  "page": "guide/editing.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Fit diagram: Mod+0",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions (fit-diagram)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:(Cmd|Ctrl)\\s?\\+\\s?0"
+  ],
+  "page": "jetbrains/shortcuts.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Zoom in",
+  "kind": "action",
+  "source": "libs/core/src/actions (zoom-in)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Zoom in",
+   "T:Zoom in"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Zoom out",
+  "kind": "action",
+  "source": "libs/core/src/actions (zoom-out)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Zoom out",
+   "T:Zoom out"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Transaction boundaries",
+  "kind": "action",
+  "source": "libs/core/src/actions (transaction-boundaries)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Transaction boundaries",
+   "T:Transaction boundaries"
+  ],
+  "page": "guide/editing.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Minimap",
+  "kind": "action",
+  "source": "libs/core/src/actions (minimap)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Minimap",
+   "T:Minimap"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Trace paths",
+  "kind": "action",
+  "source": "libs/core/src/actions (trace-paths)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Trace paths",
+   "T:Trace paths"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Trace paths: Mod+Shift+;",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions (trace-paths)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:(Cmd|Ctrl)\\s?\\+\\s?Shift\\s?\\+\\s?;"
+  ],
+  "page": "jetbrains/shortcuts.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Sketchy drawing",
+  "kind": "action",
+  "source": "libs/core/src/actions (sketchy)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Sketchy drawing",
+   "T:Sketchy drawing"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Show comment badges",
+  "kind": "action",
+  "source": "libs/core/src/actions (show-comment-badges)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Show comment badges",
+   "T:Show comment badges"
+  ],
+  "page": "guide/comments.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Export…",
+  "kind": "action",
+  "source": "libs/core/src/actions (export)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Export",
+   "T:Export"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Export…: Mod+Shift+C",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions (export)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:(Cmd|Ctrl)\\s?\\+\\s?Shift\\s?\\+\\s?C"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Templates…",
+  "kind": "action",
+  "source": "libs/core/src/actions (marketplace)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Templates",
+   "T:Templates"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Import diagram…",
+  "kind": "action",
+  "source": "libs/core/src/actions (import)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Import diagram",
+   "T:Import diagram"
+  ],
+  "page": "guide/import.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Deploy & share: Share as HTML…",
+  "kind": "action",
+  "source": "libs/core/src/actions (share)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Share as HTML",
+   "T:Share as HTML"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Edit: Copy",
+  "kind": "action",
+  "source": "libs/core/src/actions (copy)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Copy",
+   "T:Copy"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Edit: Paste",
+  "kind": "action",
+  "source": "libs/core/src/actions (paste)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Paste",
+   "T:Paste"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Help: Show the tour again",
+  "kind": "action",
+  "source": "libs/core/src/actions (tour)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Show the tour again",
+   "T:Show the tour again"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Help: Keyboard shortcuts",
+  "kind": "action",
+  "source": "libs/core/src/actions (keyboard-shortcuts)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Keyboard shortcuts",
+   "T:Keyboard shortcuts"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Keyboard shortcuts: Shift+/",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions (keyboard-shortcuts)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:Shift\\s?\\+\\s?/"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "File: Export decision table as a workbook…",
+  "kind": "action",
+  "source": "libs/core/src/actions (export-table-workbook)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Export decision table as a workbook",
+   "T:Export decision table as a workbook"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Export decision table as CSV…",
+  "kind": "action",
+  "source": "libs/core/src/actions (export-table-csv)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Export decision table as CSV",
+   "T:Export decision table as CSV"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Import decision table…",
+  "kind": "action",
+  "source": "libs/core/src/actions (import-table)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Import decision table",
+   "T:Import decision table"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "File: Add rules from spreadsheet…",
+  "kind": "action",
+  "source": "libs/core/src/actions (import-table-new)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Add rules from spreadsheet",
+   "T:Add rules from spreadsheet"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "View: Preview",
+  "kind": "action",
+  "source": "libs/core/src/actions (preview)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Preview",
+   "T:Preview"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Find action: Mod+Alt+,",
+  "kind": "shortcut",
+  "source": "libs/core/src/actions/palette.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:(Cmd|Ctrl)\\s?\\+\\s?Alt\\s?\\+\\s?,"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock init",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:init",
+   "T:penstock init",
+   "L:init"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock doctor",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:doctor",
+   "T:penstock doctor",
+   "L:doctor"
+  ],
+  "page": "guide/element-templates.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock check",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:check",
+   "T:penstock check",
+   "L:check"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock migrate analyze",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:migrate analyze",
+   "T:penstock migrate analyze",
+   "L:analyze"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock migrate convert",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:migrate convert",
+   "T:penstock migrate convert",
+   "L:convert"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock migrate report",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:migrate report",
+   "T:penstock migrate report",
+   "L:report"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock code",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:code",
+   "T:penstock code",
+   "L:code"
+  ],
+  "page": "guide/check-workers.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock templates generate",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:templates generate",
+   "T:penstock templates generate",
+   "L:generate"
+  ],
+  "page": "guide/element-templates.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock templates check",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:templates check",
+   "T:penstock templates check",
+   "L:check"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock scenarios list",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:scenarios list",
+   "T:penstock scenarios list",
+   "L:list"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock scenarios run",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:scenarios run",
+   "T:penstock scenarios run",
+   "L:run"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock scenarios generate",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:scenarios generate",
+   "T:penstock scenarios generate",
+   "L:generate"
+  ],
+  "page": "guide/flow-analysis.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock junit",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:junit",
+   "T:penstock junit",
+   "L:junit"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock layout",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:layout",
+   "T:penstock layout",
+   "L:layout"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock fmt",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:fmt",
+   "T:penstock fmt",
+   "L:fmt"
+  ],
+  "page": "guide/diagram-diff.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock diff",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:diff",
+   "T:penstock diff",
+   "L:diff"
+  ],
+  "page": "guide/diagram-diff.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock export",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:export",
+   "T:penstock export",
+   "L:export"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock share",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:share",
+   "T:penstock share",
+   "L:share"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock import",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:import",
+   "T:penstock import",
+   "L:import"
+  ],
+  "page": "guide/import.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock docs",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:docs",
+   "T:penstock docs",
+   "L:docs"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock report",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:report",
+   "T:penstock report",
+   "L:report"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock bot",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:bot",
+   "T:penstock bot",
+   "L:bot"
+  ],
+  "page": "guide/security.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock deploy",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:deploy",
+   "T:penstock deploy",
+   "L:deploy"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock show",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:show",
+   "T:penstock show",
+   "L:show"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock edit",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:edit",
+   "T:penstock edit",
+   "L:edit"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license status",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license status",
+   "T:penstock license status",
+   "L:status"
+  ],
+  "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license key",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license key",
+   "T:penstock license key",
+   "L:key"
+  ],
+  "page": "guide/form-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license buy",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license buy",
+   "T:penstock license buy",
+   "L:buy"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license login",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license login",
+   "T:penstock license login",
+   "L:login"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license activate",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license activate",
+   "T:penstock license activate",
+   "L:activate"
+  ],
+  "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock license logout",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:license logout",
+   "T:penstock license logout",
+   "L:logout"
+  ],
+  "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock trust",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:trust",
+   "T:penstock trust",
+   "L:trust"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock mcp",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "L:mcp",
+   "T:penstock mcp",
+   "L:mcp"
+  ],
+  "page": "guide/glossary.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock connectors",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:connectors",
+   "T:penstock connectors",
+   "L:connectors"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock connectors resolve",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:connectors resolve",
+   "T:penstock connectors resolve",
+   "L:resolve"
+  ],
+  "page": "guide/comments.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock update",
+  "kind": "cli-command",
+  "source": "apps/cli/src/help.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:update",
+   "T:penstock update",
+   "L:update"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--engine",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (init)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--engine(?![\\w-])"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--example",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (init)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--example(?![\\w-])"
+  ],
+  "page": "guide/example-project.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--ci",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (init)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--ci(?![\\w-])"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--hooks",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (init)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--hooks(?![\\w-])"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--profile",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (init, doctor, check, migrate analyze, migrate convert, migrate report, code, templates generate, templates check, scenarios list, scenarios run, scenarios generate, junit, layout, fmt, diff, export, share, import, docs, report, bot, deploy, show, edit, license status, license key, license buy, license login, license activate, license logout, trust, connectors, connectors resolve, update)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--profile(?![\\w-])"
+  ],
+  "page": "guide/profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--format",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (doctor, check, migrate analyze, migrate convert, migrate report, code, scenarios list, export, import, docs, show)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--format(?![\\w-])"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--only",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (check)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--only(?![\\w-])"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--baseline",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (check, migrate analyze, migrate convert, migrate report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--baseline(?![\\w-])"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--update-baseline",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (check, migrate analyze, migrate convert, migrate report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--update-baseline(?![\\w-])"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--trust-project",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (check, layout, deploy)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--trust-project(?![\\w-])"
+  ],
+  "page": "guide/security.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--out",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (migrate analyze, migrate convert, migrate report, junit, diff, export, share, import, docs, report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--out(?![\\w-])"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--dry-run",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (migrate analyze, migrate convert, migrate report, deploy, edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--dry-run(?![\\w-])"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--target",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (migrate analyze, migrate convert, migrate report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--target(?![\\w-])"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--fail-on",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (migrate analyze, migrate convert, migrate report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--fail-on(?![\\w-])"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--verbose",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (migrate analyze, migrate convert, migrate report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--verbose(?![\\w-])"
+  ],
+  "page": "guide/migration.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--check",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (templates generate, templates check)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--check(?![\\w-])"
+  ],
+  "page": "guide/element-templates.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--timeout",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (scenarios run, scenarios generate)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--timeout(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--junit-xml",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (scenarios run, scenarios generate)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--junit-xml(?![\\w-])"
+  ],
+  "page": "cli/ci.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--junit",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (scenarios run)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--junit(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--teamcity",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (scenarios run, scenarios generate)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--teamcity(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--package",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (junit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--package(?![\\w-])"
+  ],
+  "page": "guide/process-tests.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--write",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (layout, fmt)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--write(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--images",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (diff)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--images(?![\\w-])"
+  ],
+  "page": "guide/diagram-diff.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--force",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (import, edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--force(?![\\w-])"
+  ],
+  "page": "guide/import.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--base",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--base(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--images-dir",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--images-dir(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--image-base",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--image-base(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--images-link",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (report)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--images-link(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--stage",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (bot)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--stage(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--wait",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (deploy)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--wait(?![\\w-])"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--ops",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--ops(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--ops-file",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--ops-file(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--schema",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--schema(?![\\w-])"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--after",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--after(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--event",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--event(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--name",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--name(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--id",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--id(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--condition",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--condition(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--set",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--set(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--input",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--input(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--output",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (edit)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--output(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--list",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (trust)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--list(?![\\w-])"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--forget",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (trust)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--forget(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--yes",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (trust)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--yes(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--config",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (mcp)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--config(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "--refresh",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (connectors, connectors resolve)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--refresh(?![\\w-])"
+  ],
+  "page": "guide/element-templates.html",
+  "depth": "mention"
+ },
+ {
+  "row": "--distribution",
+  "kind": "cli-flag",
+  "source": "apps/cli/src/help.ts (update)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "R:--distribution(?![\\w-])"
+  ],
+  "page": "cli/commands.html",
+  "depth": "explained"
+ },
+ {
+  "row": "list_diagrams",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:list_diagrams"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "show_diagram",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:show_diagram"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "check_diagram",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:check_diagram"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "analyze_flow",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:analyze_flow"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "list_scenarios",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:list_scenarios"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "check_code_links",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:check_code_links"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "edit_diagram",
+  "kind": "mcp-tool",
+  "source": "apps/cli/src/mcp.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:edit_diagram"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "engine",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:engine",
+   "T:engine"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "scriptType",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:scriptType",
+   "T:scriptType"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "elementTemplates",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:elementTemplates",
+   "T:elementTemplates"
+  ],
+  "page": "guide/element-templates.html",
+  "depth": "explained"
+ },
+ {
+  "row": "linked",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:linked",
+   "T:linked"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "lint",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:lint",
+   "T:lint"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "lint.configPath",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:lint.configPath",
+   "L:lint.configPath",
+   "L:configPath"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "lint.clientBundlePath",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:lint.clientBundlePath",
+   "L:lint.clientBundlePath",
+   "L:clientBundlePath"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "conventions",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:conventions",
+   "T:conventions"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "conventions.ids",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:conventions.ids",
+   "L:conventions.ids",
+   "L:ids"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "conventions.ids.fromName",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:conventions.ids.fromName",
+   "L:conventions.ids.fromName",
+   "L:fromName"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "conventions.ids.pattern",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:conventions.ids.pattern",
+   "L:conventions.ids.pattern",
+   "L:pattern"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "conventions.defaults",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:conventions.defaults",
+   "L:conventions.defaults",
+   "L:defaults"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "tests",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:tests",
+   "T:tests"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "tests.language",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:tests.language",
+   "L:tests.language",
+   "L:language"
+  ],
+  "page": "guide/process-tests.html",
+  "depth": "explained"
+ },
+ {
+  "row": "tests.out",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:tests.out",
+   "L:tests.out",
+   "L:out"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "tests.package",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:tests.package",
+   "L:tests.package",
+   "L:package"
+  ],
+  "page": "guide/process-tests.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:hooks",
+   "T:hooks"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.preCheck",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.preCheck",
+   "L:hooks.preCheck",
+   "L:preCheck"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.postCheck",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.postCheck",
+   "L:hooks.postCheck",
+   "L:postCheck"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.preLayout",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.preLayout",
+   "L:hooks.preLayout",
+   "L:preLayout"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.postLayout",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.postLayout",
+   "L:hooks.postLayout",
+   "L:postLayout"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.preDeploy",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.preDeploy",
+   "L:hooks.preDeploy",
+   "L:preDeploy"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "hooks.postDeploy",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:hooks.postDeploy",
+   "L:hooks.postDeploy",
+   "L:postDeploy"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:deployment",
+   "T:deployment"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.url",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.url",
+   "L:deployment.url",
+   "L:url"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.name",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.name",
+   "L:deployment.name",
+   "L:name"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.tenantId",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.tenantId",
+   "L:deployment.tenantId",
+   "L:tenantId"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.source",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.source",
+   "L:deployment.source",
+   "L:source"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "mention"
+ },
+ {
+  "row": "deployment.changedOnly",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.changedOnly",
+   "L:deployment.changedOnly",
+   "L:changedOnly"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.forTests",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.forTests",
+   "L:deployment.forTests",
+   "L:forTests"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.activationTime",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.activationTime",
+   "L:deployment.activationTime",
+   "L:activationTime"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.auth",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth",
+   "L:deployment.auth",
+   "L:auth"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.auth.type",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth.type",
+   "L:deployment.auth.type",
+   "L:type"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "deployment.auth.username",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth.username",
+   "L:deployment.auth.username",
+   "L:username"
+  ],
+  "page": "guide/settings.html",
+  "depth": "mention"
+ },
+ {
+  "row": "deployment.auth.clientId",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth.clientId",
+   "L:deployment.auth.clientId",
+   "L:clientId"
+  ],
+  "page": "guide/settings.html",
+  "depth": "mention"
+ },
+ {
+  "row": "deployment.auth.tokenUrl",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth.tokenUrl",
+   "L:deployment.auth.tokenUrl",
+   "L:tokenUrl"
+  ],
+  "page": "guide/settings.html",
+  "depth": "mention"
+ },
+ {
+  "row": "deployment.auth.audience",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:deployment.auth.audience",
+   "L:deployment.auth.audience",
+   "L:audience"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "profile",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:profile",
+   "T:profile"
+  ],
+  "page": "guide/check-workers.html",
+  "depth": "explained"
+ },
+ {
+  "row": "profiles",
+  "kind": "yaml-key",
+  "source": "penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:profiles",
+   "T:profiles"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "auto-layout: Auto layout",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Auto layout"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "flow-analysis: Flow analysis",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Flow analysis"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "docs: Process documentation",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:docs"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "paths: Process scenarios",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:scenarios list"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "tests: Process tests",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:junit"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "code-links: Diagram and code checks",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:code links"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "element-templates: Element templates",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:templates generate"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "changes-pictures: Pictures of changes",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:diff --images"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "edit: Editing from the command line",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:edit"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "pr-report: Pull request reports",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:report"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bot: The review bot",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:review bot"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "baseline: Check baselines",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:baseline"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "ci-annotations: Findings in the code review",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:SARIF"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "test-runs: Process test runs",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:scenarios run"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "test-case-generation: Test case files",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:scenarios generate"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "migration: Camunda 7 to Camunda 8 conversion",
+  "kind": "tier-gate",
+  "source": "libs/core/src/node/features.ts",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:migrate convert"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "classic: Classic BPMN",
+  "kind": "engine",
+  "source": "libs/core/src/config/engine.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Classic BPMN",
+   "T:Classic BPMN"
+  ],
+  "only": [
+   "guide/engine-profiles.html"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "camunda-7: Camunda 7",
+  "kind": "engine",
+  "source": "libs/core/src/config/engine.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Camunda 7",
+   "T:Camunda 7"
+  ],
+  "only": [
+   "guide/engine-profiles.html"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "camunda-8: Camunda 8",
+  "kind": "engine",
+  "source": "libs/core/src/config/engine.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Camunda 8",
+   "T:Camunda 8"
+  ],
+  "only": [
+   "guide/engine-profiles.html"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "operaton: Operaton",
+  "kind": "engine",
+  "source": "libs/core/src/config/engine.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Operaton",
+   "T:Operaton"
+  ],
+  "only": [
+   "guide/engine-profiles.html"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "cib-seven: CIB seven",
+  "kind": "engine",
+  "source": "libs/core/src/config/engine.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:CIB seven",
+   "T:CIB seven"
+  ],
+  "only": [
+   "guide/engine-profiles.html"
+  ],
+  "page": "guide/engine-profiles.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: properties",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Properties",
+   "T:Properties tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: scenarios",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Scenarios",
+   "T:Scenarios tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: problems",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Problems",
+   "T:Problems tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: comments",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Comments",
+   "T:Comments tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: monitor",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Monitor",
+   "T:Monitor tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "bpmn editor: code",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/editorTabs/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Code",
+   "T:Code tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "form editor: properties",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/form/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Properties",
+   "T:Properties tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "form editor: preview",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/form/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Preview",
+   "T:Preview tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "form editor: problems",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/form/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Problems",
+   "T:Problems tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "dmn editor: properties",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/dmn/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Properties",
+   "T:Properties tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "dmn editor: problems",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/dmn/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Problems",
+   "T:Problems tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "dmn editor: try",
+  "kind": "sidebar-tab",
+  "source": "libs/webview/src/features/dmn/tabs.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Try",
+   "T:Try tab"
+  ],
+  "only": [
+   "guide/sidebar.html"
+  ],
+  "page": "guide/sidebar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "How it runs",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:How it runs",
+   "A:How it runs&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Drawing",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Drawing",
+   "A:Drawing&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Engine",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Engine",
+   "A:Engine&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Code",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Code",
+   "A:Code&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Rules",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Rules",
+   "A:Rules&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Migrate to Camunda 8",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Migrate to Camunda 8",
+   "A:Migrate to Camunda 8&problems"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Readability",
+  "kind": "problems-group",
+  "source": "libs/webview/src/features/diagramCheck/FindingsList.tsx",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:readability"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "1. Palette",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&Palette"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "2. Properties panel",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&Properties panel"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "3. Check",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&Check"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "4. Tool window",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&Tool window"
+  ],
+  "page": "guide/getting-started.html",
+  "depth": "explained"
+ },
+ {
+  "row": "5. Deploy",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&Deploy"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "6. More",
+  "kind": "tour-step",
+  "source": "libs/webview/src/features/tour/tourSteps.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:tour&More"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Modelling rules",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (bpmnlint)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Modelling rules"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Engine compatibility",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (compat)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Engine compatibility"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Drawing",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (drawing)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Drawing"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Process flow",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (flow)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Process flow"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "rules/index.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Decision tables",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (table)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Decision tables"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "rules/index.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Forms",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (form)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Forms"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "rules/index.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Diagrams and code",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (code)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Diagrams and code"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "rules/index.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Modelling conventions",
+  "kind": "rule-group",
+  "source": "libs/core/src/rules/catalog.ts (convention)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Modelling conventions"
+  ],
+  "only": [
+   "guide/diagram-check.html",
+   "guide/validation.html",
+   "rules/index.html"
+  ],
+  "page": "rules/index.html",
+  "depth": "explained"
+ },
+ {
+  "row": "toolbarPinned",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&pin",
+   "T:toolbarPinned",
+   "A:pin&action"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "toolbarUnpinned",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&pin",
+   "T:toolbarUnpinned",
+   "A:pin&action"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "recentActions",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&Recent",
+   "T:recentActions",
+   "A:recent&action"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "rendering",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&Sketchy",
+   "T:rendering"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "toolWindowTree",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&tree",
+   "T:toolWindowTree"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "toolWindowGroupByFiles",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&group by",
+   "T:toolWindowGroupByFiles"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "tourSeen",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&tour",
+   "T:tourSeen"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "sidebarWidth",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&sidebar",
+   "T:sidebarWidth"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "sidebarByEditor",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&sidebar",
+   "T:sidebarByEditor"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "showCommentBadges",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&comment badges",
+   "T:showCommentBadges",
+   "T:comment badges"
+  ],
+  "page": "guide/comments.html",
+  "depth": "explained"
+ },
+ {
+  "row": "locale",
+  "kind": "preference",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "A:preferences.json&language",
+   "T:locale"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_BOT_DIR",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_BOT_DIR"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_CLIENT_SECRET",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_CLIENT_SECRET"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_COMMAND",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_COMMAND"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_FILES",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_FILES"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_HOME",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_HOME"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_LICENSE",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_LICENSE"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_LICENSE_API",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": false,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_LICENSE_API"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_LICENSE_WORKER",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": false,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_LICENSE_WORKER"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_PASSWORD",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_PASSWORD"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_PICTURES_URL",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_PICTURES_URL"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PENSTOCK_PROFILE",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_PROFILE"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_ROOT",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_ROOT"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_STAGE",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_STAGE"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_TOKEN",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_TOKEN"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "PENSTOCK_YAML",
+  "kind": "environment-variable",
+  "source": "apps/cli/src, libs/core/src",
+  "userFacing": false,
+  "tier": "free",
+  "terms": [
+   "T:PENSTOCK_YAML"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "penstock.licenseStatus: Licence and account",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Licence and account"
+  ],
+  "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.activateLicense: Sign in",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Sign in"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.openCodeLens: Open the diagrams that use this",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Open the diagrams that use this"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "penstock.codeUsages: Find usages in code",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Find usages in code"
+  ],
+  "page": "jetbrains/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.codeCopy: Copy ID",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Copy ID"
+  ],
+  "page": "jetbrains/tool-window.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.refreshCodeLinks: Refresh the code links",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Refresh the code links"
+  ],
+  "page": "vscode/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.openAsText: Open as text",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Open as text"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.compareWith: Compare with",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Compare with"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.openRunTrace: Open run on the diagram",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Open run on the diagram"
+  ],
+  "page": "guide/scenarios.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.findAction: Find action",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Find action"
+  ],
+  "page": "guide/toolbar.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.bpmn: *.bpmn, *.bpmn20.xml",
+  "kind": "file-type",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:*.bpmn",
+   "T:*.bpmn20.xml"
+  ],
+  "page": "vscode/troubleshooting.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.dmn: *.dmn",
+  "kind": "file-type",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:*.dmn"
+  ],
+  "page": "vscode/troubleshooting.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.form: *.form",
+  "kind": "file-type",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:*.form"
+  ],
+  "page": "vscode/troubleshooting.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.diff: **/.penstock-diff/*.bpmn",
+  "kind": "file-type",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.penstock-diff/*.bpmn"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "configuration properties in package.json: none",
+  "kind": "vscode-setting",
+  "source": "apps/vscode/package.json",
+  "userFacing": false,
+  "tier": "free",
+  "terms": [],
+  "note": "none declared",
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "Penstock licence…",
+  "kind": "ide-action",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Penstock licence…"
+  ],
+  "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Create element template",
+  "kind": "ide-action",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Create element template"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Diagram findings from the check",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Diagram findings from the chec"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Diagram element a comment or a string names, and the project does not have",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Diagram element a comment or a"
+  ],
+  "page": "jetbrains/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Penstock",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Penstock"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Penstock",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Penstock"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Unknown process, element, job type, message, decision or error code",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Unknown process, element, job "
+  ],
+  "page": "jetbrains/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Variable the worker's code reads or writes",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Variable the worker's code rea"
+  ],
+  "page": "jetbrains/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Job type taken from the method name",
+  "kind": "ide-inspection",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Job type taken from the method"
+  ],
+  "page": "jetbrains/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Settings page: version and third-party licences",
+  "kind": "ide-setting",
+  "source": "PenstockAboutConfigurable.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:third-party"
+  ],
+  "page": "jetbrains/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Settings page: trusted projects, with Remove",
+  "kind": "ide-setting",
+  "source": "PenstockAboutConfigurable.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:trusted projects"
+  ],
+  "page": "guide/security.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.yaml",
+  "kind": "project-file",
+  "source": "libs/core/src/node/load.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:penstock.yaml"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.yml (accepted name)",
+  "kind": "project-file",
+  "source": "libs/core/src/node/load.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock.yml"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.json (accepted name)",
+  "kind": "project-file",
+  "source": "libs/core/src/node/load.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock.json"
+  ],
+  "page": "guide/settings.html",
+  "depth": "explained"
+ },
+ {
+  "row": "test-cases/*.json in src/test/resources",
+  "kind": "project-file",
+  "source": "libs/core/src/node/testCases.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:test-cases"
+  ],
+  "page": "guide/scenarios.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".camunda/element-templates",
+  "kind": "project-file",
+  "source": "libs/core/src/templates/template.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.camunda/element-templates"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".bpmnlintrc",
+  "kind": "project-file",
+  "source": "libs/core/src/node/lint.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.bpmnlintrc"
+  ],
+  "page": "guide/diagram-check.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock-baseline.json",
+  "kind": "project-file",
+  "source": "libs/core/src/node/baseline.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock-baseline.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock-migration-baseline.json",
+  "kind": "project-file",
+  "source": "libs/core/src/node/baseline.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock-migration-baseline.json"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": ".penstock/runs/<run>/<case>.json",
+  "kind": "project-file",
+  "source": "libs/core/src/testCases/trace.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.penstock/runs"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".penstock/images",
+  "kind": "project-file",
+  "source": "apps/cli/src/index.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.penstock/images"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".penstock/penstock-bot",
+  "kind": "project-file",
+  "source": "apps/cli/src/bot.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock-bot"
+  ],
+  "page": "cli/ci.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".penstock-diff/*.bpmn (VS Code diff)",
+  "kind": "project-file",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:.penstock-diff",
+   "T:Compare with"
+  ],
+  "page": "guide/auto-layout.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstockw and penstockw.cmd wrapper",
+  "kind": "project-file",
+  "source": "apps/cli/src/wrapper.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstockw"
+  ],
+  "page": "guide/example-project.html",
+  "depth": "explained"
+ },
+ {
+  "row": ".gitea and .forgejo workflows written by init",
+  "kind": "project-file",
+  "source": "apps/cli/src/init.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:forgejo"
+  ],
+  "page": "cli/ci.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/preferences.json",
+  "kind": "user-file",
+  "source": "apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:preferences.json"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/trusted-projects.json",
+  "kind": "user-file",
+  "source": "apps/cli/src/trust.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:trusted-projects.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock.local.yaml",
+  "kind": "project-file",
+  "source": "libs/core/src/node/load.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock.local.yaml"
+  ],
+  "page": "guide/deployment.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock-report.md",
+  "kind": "project-file",
+  "source": "apps/cli/src/index.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock-report.md"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock-wrapper.properties",
+  "kind": "project-file",
+  "source": "apps/cli/src/wrapper.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock-wrapper.properties"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/license.json",
+  "kind": "user-file",
+  "source": "libs/core/src/node/license.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:license.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/clock.json",
+  "kind": "user-file",
+  "source": "libs/core/src/node/license.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:clock.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/pipeline.json",
+  "kind": "user-file",
+  "source": "libs/core/src/node/license.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:pipeline.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/test-builds.json",
+  "kind": "user-file",
+  "source": "libs/core/src/node/testCases.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:test-builds.json"
+  ],
+  "page": "guide/files.html",
+  "depth": "explained"
+ },
+ {
+  "row": "~/.penstock/wrapper/dists",
+  "kind": "user-file",
+  "source": "apps/cli/src/wrapper/penstockw",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:wrapper/dists"
+  ],
+  "page": "cli/ci.html",
+  "depth": "explained"
+ },
+ {
+  "row": "penstock:Comments namespace in the BPMN file",
+  "kind": "bpmn-extension",
+  "source": "libs/webview/src/features/comments/penstockModdle.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock:comments",
+   "T:penstock.dev/schema"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "draw.io",
+  "kind": "import-format",
+  "source": "libs/core/src/import/drawio.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:draw.io"
+  ],
+  "page": "guide/faq.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Visio",
+  "kind": "import-format",
+  "source": "libs/core/src/import/visio.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Visio"
+  ],
+  "page": "guide/code-links.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Signavio",
+  "kind": "import-format",
+  "source": "libs/core/src/import/dialect.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Signavio"
+  ],
+  "page": "guide/faq.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Bizagi",
+  "kind": "import-format",
+  "source": "libs/core/src/import/dialect.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Bizagi"
+  ],
+  "page": "guide/faq.html",
+  "depth": "explained"
+ },
+ {
+  "row": "SVG and PNG from the command line",
+  "kind": "export-format",
+  "source": "apps/cli/src/export.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:penstock export"
+  ],
+  "page": "guide/bpmn-editor.html",
+  "depth": "explained"
+ },
+ {
+  "row": "ASSERT_DECISION",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_DECISION"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_ELEMENT_INSTANCE",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_ELEMENT_INSTANCE"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_ELEMENT_INSTANCES",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_ELEMENT_INSTANCES"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_PROCESS_INSTANCE",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_PROCESS_INSTANCE"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_USER_TASK",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_USER_TASK"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "ASSERT_VARIABLES",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:ASSERT_VARIABLES"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "BROADCAST_SIGNAL",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:BROADCAST_SIGNAL"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "COMPLETE_JOB",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:COMPLETE_JOB"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "COMPLETE_JOB_AD_HOC_SUB_PROCESS",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:COMPLETE_JOB_AD_HOC_SUB_PROCESS"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "COMPLETE_JOB_USER_TASK_LISTENER",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:COMPLETE_JOB_USER_TASK_LISTENER"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "COMPLETE_USER_TASK",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:COMPLETE_USER_TASK"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "CORRELATE_MESSAGE",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:CORRELATE_MESSAGE"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "CREATE_PROCESS_INSTANCE",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:CREATE_PROCESS_INSTANCE"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "EVALUATE_CONDITIONAL_START_EVENT",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:EVALUATE_CONDITIONAL_START_EVENT"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "EVALUATE_DECISION",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:EVALUATE_DECISION"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "INCREASE_TIME",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:INCREASE_TIME"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "MOCK_CHILD_PROCESS",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:MOCK_CHILD_PROCESS"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "MOCK_DMN_DECISION",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:MOCK_DMN_DECISION"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "MOCK_JOB_WORKER_COMPLETE_JOB",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:MOCK_JOB_WORKER_COMPLETE_JOB"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "MOCK_JOB_WORKER_THROW_BPMN_ERROR",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:MOCK_JOB_WORKER_THROW_BPMN_ERROR"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "PUBLISH_MESSAGE",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:PUBLISH_MESSAGE"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "RESOLVE_INCIDENT",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:RESOLVE_INCIDENT"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "SET_TIME",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:SET_TIME"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "THROW_BPMN_ERROR_FROM_JOB",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:THROW_BPMN_ERROR_FROM_JOB"
+  ],
+  "page": null,
+  "depth": "none"
+ },
+ {
+  "row": "UPDATE_VARIABLES",
+  "kind": "test-case-instruction",
+  "source": "libs/core/src/testCases/schema.ts",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:UPDATE_VARIABLES"
+  ],
+  "page": null,
+  "depth": "none"
+ }
+]
