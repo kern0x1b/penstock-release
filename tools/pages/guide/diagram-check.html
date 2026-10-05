@@ -94,6 +94,11 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
 
 <p>The card checks the diagram you have open. The same checks also run over every diagram, decision and form of a project at once, and their findings carry the same rule ids. Only errors make a whole-project check fail. A warning is shown as a note.</p>
 
+<figure class="shot">
+  <img src="@img/check-project.png" alt="A terminal running penstock check. diagrams/credit-hold.bpmn fails with three errors and two warnings, each with its rule id and element id. invoice-approval.form, order-to-cash.bpmn and shipping-decision.dmn are ok">
+  <figcaption>penstock check over the project: the same findings as the card, with the same rule ids.</figcaption>
+</figure>
+
 {{host:check-run|Check from your tool}}
 
 <h2>Fix a whole diagram at once</h2>

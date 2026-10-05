@@ -98,6 +98,11 @@ related: index, ci, mcp, guide/settings
 <p><strong>Example</strong></p>
 <pre><code>$ penstock init --engine camunda-8</code></pre>
 
+<figure class="shot">
+  <img src="@img/settings-init-terminal.png" alt="A terminal running penstock init --engine camunda-8. The output lists wrote penstock.yaml with engine camunda-8, updated .gitignore with penstock.local.yaml, and wrote penstockw, penstockw.cmd and penstock/wrapper/penstock-wrapper.properties">
+  <figcaption>What init writes into a folder: the file, the .gitignore line and the wrapper.</figcaption>
+</figure>
+
 <p><strong>Needs:</strong> <span class="tag free">Free</span></p>
 
 <div class="table-wrap"><table>
@@ -135,6 +140,11 @@ deployment  http://localhost:8080/v2 - answered 404</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock doctor --format json</code></pre>
+
+<figure class="shot">
+  <img src="@img/profiles-show.png" alt="A terminal running penstock doctor. It prints node, root, config penstock.yaml, engine camunda-8, profiles prod, test, and deployment http://localhost:8090/v2 as unreachable with the reason fetch failed">
+  <figcaption>The doctor of a project with two profiles, run when no engine answers at the address.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag free">Free</span></p>
 
@@ -176,6 +186,11 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock check --only rules src/orders</code></pre>
+
+<figure class="shot">
+  <img src="@img/check-project.png" alt="A terminal running penstock check. diagrams/credit-hold.bpmn fails with three errors and two warnings, each with its rule id and the element id. invoice-approval.form, order-to-cash.bpmn and shipping-decision.dmn are ok. A line points to the page of the rules">
+  <figcaption>penstock check over a project. A file with findings says fail and lists them; the others say ok.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag free">Free</span> With <code>--only flow</code>, <code>--baseline</code> or <code>--format sarif|github</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
@@ -318,6 +333,11 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <p><strong>Example</strong></p>
 <pre><code>$ penstock code src/orders</code></pre>
 
+<figure class="shot">
+  <img src="@img/workers-check-terminal.png" alt="A terminal running penstock code. It prints 1 source file, 2 diagrams, 12 references from diagrams to code, and the line Every task the diagrams hand to code has something in the code to run it">
+  <figcaption>penstock code on a project where every task has code to run it.</figcaption>
+</figure>
+
 <p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
 <div class="table-wrap"><table>
@@ -347,6 +367,11 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock templates generate</code></pre>
+
+<figure class="shot">
+  <img src="@img/templates-check.png" alt="A terminal running penstock templates generate, then penstock templates generate --check. The first lists nine templates, each with its worker, the file and line, and the number of inputs, all written, and ends 9 templates written, 0 updated. The second says Every element template still matches the worker it was written from">
+  <figcaption>Generate writes one template per worker. The check says whether they still match.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
@@ -440,6 +465,11 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock scenarios run --junit-xml target/scenarios.xml</code></pre>
+
+<figure class="shot">
+  <img src="@img/plans-paid-terminal.png" alt="A terminal running penstock scenarios run on a machine without a licence. It says Process test runs are part of Penstock Pro, and gives two commands: penstock license buy and penstock license login">
+  <figcaption>What a paid command prints without a licence.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
@@ -705,6 +735,11 @@ src/main/resources/order-process.bpmn
 <p><strong>Example</strong></p>
 <pre><code>$ penstock import legacy.drawio -o order.bpmn</code></pre>
 
+<figure class="shot">
+  <img src="@img/import-terminal.png" alt="A terminal running penstock import drawio-sample.drawio. It wrote drawio-sample.bpmn, says Imported from draw.io: 4 elements, 3 flows, lists two guesses where a circle became a start event and an end event, and a line about the routes of the connectors">
+  <figcaption>The report of an import: what was written, what was counted and what was guessed.</figcaption>
+</figure>
+
 <p><strong>Needs:</strong> <span class="tag free">Free</span></p>
 
 <div class="table-wrap"><table>
@@ -881,6 +916,11 @@ SequenceFlow           Flow_2  approve_order -&gt; charge_card</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock show src/orders/order.bpmn --format json</code></pre>
+
+<figure class="shot">
+  <img src="@img/model-diagram.png" alt="A terminal running penstock show diagrams/order-to-cash.bpmn. A table with the columns TYPE, ID, NAME and FLOW lists the start event, the gateways, the tasks, the intermediate catch event, the end event and the sequence flows with the elements they join">
+  <figcaption>show prints every element and flow with its id.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag free">Free</span></p>
 
@@ -1139,6 +1179,11 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock trust --list</code></pre>
+
+<figure class="shot">
+  <img src="@img/security-trust.png" alt="A terminal running penstock check in a project that is not trusted. A hook line says preCheck was not run, because the project is not a trusted project, and tells you to run penstock trust or pass --trust-project. The next line says the Check stage was stopped by its pre hook. Then penstock trust --list says No project is trusted on this machine">
+  <figcaption>A hook that does not run in a project nobody has trusted, and the list of trusted projects.</figcaption>
+</figure>
 
 <p><strong>Needs:</strong> <span class="tag free">Free</span></p>
 

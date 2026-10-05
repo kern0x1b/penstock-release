@@ -133,6 +133,16 @@
   <li>Press <span class="ui">Deploy</span> to send it to the engine, with the same settings a diagram uses.</li>
 </ol>
 
+<figure class="shot">
+  <img src="../img/form-components.png" alt="The invoice approval form in the form editor. The Components palette is a floating island at the left with the groups Input, Selection and Presentation. The form Approve invoice is in the middle, and the sidebar shows Properties for the form invoice-approval">
+  <figcaption>The Components palette beside the form, with nothing selected.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/form-field-properties.png" alt="The Customer field of the form selected, with a blue frame and a bin icon on it. The sidebar shows Properties for a text field named Customer, with the groups General, Condition, Layout, Appearance, Validation and Custom properties">
+  <figcaption>A field selected. Its label and key are in General, and the other groups are beside it.</figcaption>
+</figure>
+
 <h2 id="the-toolbar"><a href="#the-toolbar">The toolbar</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
@@ -165,6 +175,16 @@
 
 <p>The <a href="sidebar.html">sidebar</a> of a form has three tabs, in this order: <strong>Properties</strong>, the settings of the selected field; <strong>Preview</strong>, described above; and <strong>Problems</strong>, the list of the form check. Until you press <span class="ui">Check</span> the Problems tab says <em>Check the form to see problems here.</em> If the file cannot be read, it says <em>This form could not be read, so there is nothing to check</em>, and the reason is on the canvas.</p>
 
+<figure class="shot">
+  <img src="../img/sidebar-tabs-form.png" alt="The tab row of a form: Properties, open and named, then two icon tabs, Preview and Problems">
+  <figcaption>The tab row of a form.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/form-problems-empty.png" alt="The Problems tab of a form that has not been checked. A Recheck button is at the top right and the tab says Check the form to see problems here, and Use Check in the toolbar to look for problems">
+  <figcaption>The Problems tab before Check has been pressed.</figcaption>
+</figure>
+
 <h2 id="the-form-check"><a href="#the-form-check">The form check</a></h2>
 
 <p>The form check is lint, so it is free: no licence is asked for, in the editor or in <code>penstock check</code>. The decision editor's overlap and gap analysis is the one that is Pro.</p>
@@ -184,6 +204,11 @@
   <tr><td>An input has no label</td><td><a href="../rules/form-no-label">form/no-label</a></td></tr>
   </tbody>
 </table></div></div>
+
+<figure class="shot">
+  <img src="../img/form-check-clean.png" alt="The invoice approval form with the Form check card open at the bottom right. It reads 0 problems, with Recheck and Close, and the line Every field writes its own variable, and every option means something different">
+  <figcaption>The card of a form with nothing to report.</figcaption>
+</figure>
 
 <p>When all is well the card says <em>Every field writes its own variable, and every option means something different.</em> The same check runs on every form when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 

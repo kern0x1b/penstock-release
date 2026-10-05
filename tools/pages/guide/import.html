@@ -29,6 +29,11 @@ related: share-html, auto-layout, editing, cli/commands
   <li>The new diagram opens. A report dialog called <em>Diagram imported</em> lists what was and was not carried over.</li>
 </ol>
 
+<figure class="shot">
+  <img src="@img/import-menu.png" alt="The command palette with import typed in the field. One action is listed, Import diagram, in the section File, with a pin at its right">
+  <figcaption>Import diagram found by typing import in the palette.</figcaption>
+</figure>
+
 <!-- image: import-report.png, the Import report dialog after a draw.io import, with the count heading and the list of what could not be mapped in the warning colour -->
 
 <h2>Read the report</h2>
@@ -49,6 +54,12 @@ related: share-html, auto-layout, editing, cli/commands
 <h2>In a terminal</h2>
 
 <pre><code>penstock import diagram.drawio -o process.bpmn</code></pre>
+
+<figure class="shot">
+  <img src="@img/import-terminal.png" alt="A terminal running penstock import drawio-sample.drawio. It wrote drawio-sample.bpmn, says Imported from draw.io: 4 elements, 3 flows, lists two guesses where a circle became a start event and an end event, and ends with a line about the routes of the connectors">
+  <figcaption>The report of an import: what was written, what was counted and what was guessed.</figcaption>
+</figure>
+
 
 <p>Nothing is written if the file already exists, unless you pass <code>--force</code> or name another output with <code>-o</code>. A file that could not be read writes nothing at all. <code>import</code> is free, so it can run in a pipeline: convert a draw.io file kept in the repository before the check runs.</p>
 

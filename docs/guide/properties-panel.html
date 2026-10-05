@@ -141,6 +141,16 @@
 
 <p>The groups depend on two things: what the element is, and which engine the diagram is for. A service task has different groups from a gateway. A Camunda 8 service task has different groups from a Camunda 7 one.</p>
 
+<figure class="shot">
+  <img src="../img/properties-service-task.png" alt="The service task Validate order selected in the order-to-cash diagram. In the sidebar the Task definition group is open, with Job type validate-order and Retries 3. The groups General, Documentation, Job priority, Input mapping, Output mapping, Headers, Execution listeners, Extension properties and Example data are closed">
+  <figcaption>A Camunda 8 service task. Task definition is open: the job type and the retries.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/properties-gateway.png" alt="A parallel gateway selected in the order-to-cash diagram. The sidebar shows only General, Documentation, Execution listeners, Extension properties and Example data">
+  <figcaption>A parallel gateway has fewer groups than a service task.</figcaption>
+</figure>
+
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Engine</th><th>What the panel offers</th></tr></thead>
   <tbody>

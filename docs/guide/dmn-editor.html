@@ -138,6 +138,11 @@
   <li>To edit the id, name and documentation of a decision, switch to the <strong>Requirements</strong> view, select the decision and open the <strong>Properties</strong> tab of the sidebar.</li>
 </ol>
 
+<figure class="shot">
+  <img src="../img/dmn-table.png" alt="The Shipping method decision table in the editor: hit policy First, the inputs Order weight, Destination zone and Customer tier, an output Shipping method, and ten numbered rules. The Properties tab of the sidebar says that the properties of a decision are edited in the requirements diagram">
+  <figcaption>A decision table with its bar of Requirements, Shipping method and Check above it. The sidebar offers Open the requirements diagram.</figcaption>
+</figure>
+
 <h2 id="what-you-can-edit"><a href="#what-you-can-edit">What you can edit</a></h2>
 
 <ul>
@@ -149,6 +154,11 @@
 
 <h2 id="the-properties-panel"><a href="#the-properties-panel">The properties panel</a></h2>
 
+<figure class="shot">
+  <img src="../img/dmn-requirements.png" alt="The Requirements view of a decision file: a card named Shipping at the top left and one box named Shipping method on the canvas. The Properties tab shows the definitions named Shipping, with General and Documentation">
+  <figcaption>The Requirements view is the one that has the decision properties. Here the definitions are selected, so the tab shows Shipping, not a decision.</figcaption>
+</figure>
+
 <p>In the requirements view, the <strong>Properties</strong> tab of the sidebar edits a decision: its <strong>id</strong>, <strong>name</strong> and <strong>documentation</strong>. So the id that a business rule task calls can be changed without opening the XML. On Camunda 7 and CIB seven it also has the <strong>version tag</strong> and the <strong>history time to live</strong>. On Camunda 8 it has the version tag. On Operaton it shows id and name only. The tab has the same dense layout and theme as the one for BPMN, and opens and closes with the same sidebar toggle. Over a decision table the tab is empty on purpose, because a table belongs to its requirements diagram, and it offers an action that opens it.</p>
 
 <h2 id="older-dmn-files"><a href="#older-dmn-files">Older DMN files</a></h2>
@@ -156,6 +166,11 @@
 <p>Files written as DMN 1.1 or 1.2 open in the editor. Penstock converts them to DMN 1.3 in memory, and keeps what the engine added to a decision. A notice above the editor says the file will be saved as DMN 1.3 when you change it: <em>It was converted to DMN 1.3 and will be saved as DMN 1.3 when you change it.</em> The file on disk is not touched until you change something.</p>
 
 <h2 id="the-toolbar"><a href="#the-toolbar">The toolbar</a></h2>
+
+<figure class="shot">
+  <img src="../img/toolbar-dmn.png" alt="The left end of the toolbar of a decision file: undo and redo, then the buttons Requirements, Shipping method and Check, then the More button">
+  <figcaption>The left end of the bar. Requirements is the open view; Shipping method is the decision, and Check is the table check.</figcaption>
+</figure>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
@@ -178,6 +193,11 @@
 
 <p>The <a href="sidebar.html">sidebar</a> of a decision has three tabs, in this order.</p>
 
+<figure class="shot">
+  <img src="../img/sidebar-tabs-dmn.png" alt="The tab row of a decision: Properties, open and named, then two icon tabs, the Problems tab and the Try tab">
+  <figcaption>The tab row of a decision. The open tab shows its name, the other two are icons.</figcaption>
+</figure>
+
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
   <tr><td>Properties</td><td>The id, name and documentation of a decision, in the requirements view. Over a decision table it says that the properties of a decision are edited in the requirements diagram, and offers to open it.</td></tr>
@@ -198,6 +218,11 @@
   <li>Read the sentence under the table. It says which rule matches and why, for example <em>Rule 1 matches: Order weight 1 fits &lt; 2, Destination zone "Domestic" fits "Domestic", Customer tier "Gold" fits "Gold"; it returns shippingMethod = "Same-day courier", deliveryDays = 1</em>.</li>
   <li>Under it, the outputs of the decision are listed with their values.</li>
 </ol>
+
+<figure class="shot">
+  <img src="../img/dmn-try-match.png" alt="The Try tab beside the Shipping method table with the values 12, EU and Gold typed in. Rule 6 is highlighted in the list of rules, and the sentence under it reads Rule 6 matches: Order weight 12 fits &lt; 15, Destination zone "EU" fits "EU"; it returns shippingMethod = "EU tracked", deliveryDays = 4">
+  <figcaption>Order weight 12, Destination zone EU and Customer tier Gold. The first matching rule is marked and the sentence says why it matches.</figcaption>
+</figure>
 
 <!-- image: dmn-try-no-match.png, the Try tab with values that match no rule, and the sentence that says so -->
 
@@ -241,6 +266,11 @@
   </tbody>
 </table></div></div>
 
+<figure class="shot">
+  <img src="../img/dmn-spreadsheet-menu.png" alt="The Find an action list with the word table typed. Four actions are listed, all under File: Export decision table as a workbook, Export decision table as CSV, Import decision table and Add rules from spreadsheet">
+  <figcaption>The four spreadsheet actions, found by typing table in Find an action.</figcaption>
+</figure>
+
 <p>Before anything is written, a preview says what would change: how many rules are added, removed or changed, rule by rule and cell by cell. A file that would change nothing says <em>The table already says this, so there is nothing to import</em>. The whole import is one change, so one Undo takes it back.</p>
 
 <p>An import is refused, with the reason, when the file is empty, when it is named like a workbook but is not one, when the workbook is damaged or protected by a password, when the header names other columns than the table has (<em>The header names &hellip;; the table needs &hellip;</em>), or when a cell is not a comparison, a range or a value (<em>Row 4 cannot be read</em>).</p>
@@ -267,6 +297,11 @@
 </table></div></div>
 
 <p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
+
+<figure class="shot">
+  <img src="../img/dmn-check-clean.png" alt="The decision table of Shipping method with the Decision check card open at the bottom right. The card reads 0 problems, with Recheck and Close, and the line No rules overlap, and every input has a rule">
+  <figcaption>The card of a table that has no overlap and no gap.</figcaption>
+</figure>
 
 <p>The same check runs on every <code>.dmn</code> file when you check the whole project. See <a href="diagram-check.html#check-the-whole-project">Diagram check</a>.</p>
 

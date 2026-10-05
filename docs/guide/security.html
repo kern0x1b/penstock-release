@@ -230,6 +230,11 @@
   <li>The MCP server takes absolute paths. When the AI client tells it which folders are open (MCP roots), it refuses everything outside them.</li>
 </ul>
 
+<figure class="shot">
+  <img src="../img/security-trust.png" alt="A terminal running penstock check in a project that is not trusted. A hook line says preCheck was not run because the project is not a trusted project, and tells you to run penstock trust or pass --trust-project. The next line says the Check stage was stopped by its pre hook. Then penstock trust --list says No project is trusted on this machine">
+  <figcaption>A hook that does not run in a project nobody has trusted, and the list of trusted projects.</figcaption>
+</figure>
+
 <h2 id="the-shared-html-file"><a href="#the-shared-html-file">The shared HTML file</a></h2>
 
 <p>A file made with <a href="share-html.html">Share as HTML</a> loads nothing and sends nothing. It makes no network request, uses no CDN, has no telemetry, and carries a content security policy that forbids all of it.</p>
