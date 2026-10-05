@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The scenario file - Penstock</title>
+<meta name="description" content="What a scenario file holds, which Camunda Process Test instructions Penstock runs on a local engine, which it refuses and why, and what Penstock adds under x-penstock.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="The scenario file - Penstock">
+<meta property="og:description" content="What a scenario file holds, which Camunda Process Test instructions Penstock runs on a local engine, which it refuses and why, and what Penstock adds under x-penstock.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/scenario-file.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/scenario-file.html" aria-current="page">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Running</p>
+<h1>The scenario file</h1>
+<p class="lede">What a scenario file holds, which Camunda Process Test instructions Penstock runs on a local engine, which it refuses and why, and what Penstock adds under x-penstock.</p>
+<p class="meta"><span class="tag pro">Pro</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#where-the-file-is">Where the file is</a></li>
+<li><a href="#the-shape-of-the-file">The shape of the file</a></li>
+<li><a href="#selectors">Selectors</a></li>
+<li><a href="#the-instructions-penstock-runs">The instructions Penstock runs</a></li>
+<li><a href="#what-penstock-refuses">What Penstock refuses</a></li>
+<li><a href="#what-penstock-adds-x-penstock">What Penstock adds: <code>x-penstock</code></a></li>
+<li><a href="#what-a-run-does-with-the-file">What a run does with the file</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>A scenario is a test case in the JSON format of Camunda Process Test. It is one list of instructions: start the process, answer the steps it reaches, and assert what it did. Penstock does not have a format of its own for it. The file is one that Camunda's own tooling reads, so you can run the same scenario in a Camunda Process Test suite, and Penstock plays it back step by step on a local engine and shows what every step received and changed.</p>
+
+<p>This page is the reference for the file. For the tab that lists, generates, edits and runs scenarios, see <a href="scenarios.html">Scenarios</a>. Running a scenario and editing one are part of Pro, and Team in a pipeline. The file itself is plain JSON, and any editor can open it.</p>
+
+<h2 id="where-the-file-is"><a href="#where-the-file-is">Where the file is</a></h2>
+
+<p>One file per diagram, named after the diagram, in a folder called <code>test-cases</code>:</p>
+
+<ul>
+  <li><code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> when the diagram is in <code>src/main/resources</code> of a Maven or Gradle module.</li>
+  <li><code>test-cases/&lt;diagram&gt;.json</code> next to the diagram everywhere else.</li>
+</ul>
+
+<p>The editors, the command line and the test explorer all use the same place. A file that is not valid JSON, or has no <code>testCases</code> list, is left as it is, and Penstock says why instead of writing over it. When it generates scenarios it adds only the cases that are not in the file yet, by name, and keeps every case that is.</p>
+
+<h2 id="the-shape-of-the-file"><a href="#the-shape-of-the-file">The shape of the file</a></h2>
+
+<pre><code>{
+  "$schema": "https://camunda.com/json-schema/cpt-test-cases/8.9/schema.json",
+  "testCases": [
+    {
+      "name": "Order is approved",
+      "description": "Approved by the clerk, shipped, done.",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": { "processDefinitionId": "order-process" },
+          "variables": { "orderId": "A-1001", "amount": 120 }
+        },
+        {
+          "type": "MOCK_JOB_WORKER_COMPLETE_JOB",
+          "jobType": "validate-order",
+          "variables": { "valid": true }
+        },
+        {
+          "type": "COMPLETE_USER_TASK",
+          "userTaskSelector": { "elementId": "Activity_approve" },
+          "variables": { "approved": true }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "variables": { "approved": true }
+        }
+      ]
+    }
+  ]
+}</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>$schema</code></td><td>Added on save when the file has none: the Camunda test-case schema, version 8.9.</td></tr>
+  <tr><td><code>testCases</code></td><td>The list of cases. Required.</td></tr>
+  <tr><td><code>name</code></td><td>Required, and not empty. The name identifies the case: generating never replaces a case with the same name.</td></tr>
+  <tr><td><code>description</code></td><td>Optional text.</td></tr>
+  <tr><td><code>instructions</code></td><td>Required, with at least one instruction. They run top to bottom.</td></tr>
+  <tr><td><code>x-penstock</code></td><td>Penstock's own additions, below. Camunda's tools ignore it.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Every case is checked against the schema before it runs. An instruction that lacks a required property, or has a property the schema does not allow for its type, is reported by case and instruction number and the case does not run.</p>
+
+<h2 id="selectors"><a href="#selectors">Selectors</a></h2>
+
+<p>Instructions point at things with selectors. Penstock reads these:</p>
+
+<ul>
+  <li><code>elementSelector</code> and the entries of <code>elementSelectors</code>: <code>elementId</code> or <code>elementName</code>.</li>
+  <li><code>jobSelector</code>: <code>jobType</code> or <code>elementId</code>.</li>
+  <li><code>userTaskSelector</code>: <code>elementId</code> or <code>taskName</code>.</li>
+  <li><code>processInstanceSelector</code> and <code>processDefinitionSelector</code>: <code>processDefinitionId</code>.</li>
+</ul>
+
+<p>An element name that no step of the diagram has, or an id that is not in the diagram, fails the case with that message.</p>
+
+<h2 id="the-instructions-penstock-runs"><a href="#the-instructions-penstock-runs">The instructions Penstock runs</a></h2>
+
+<p>Fifteen of the Camunda instructions run, and two more are known and refused, below. The first instruction that is not a mock must be <code>CREATE_PROCESS_INSTANCE</code>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Instruction</th><th>What Penstock does with it</th></tr></thead>
+  <tbody>
+  <tr><td><code>CREATE_PROCESS_INSTANCE</code></td><td>Starts the process with <code>variables</code>. <code>startInstructions</code> are passed to the engine. One per case.</td></tr>
+  <tr><td><code>MOCK_JOB_WORKER_COMPLETE_JOB</code></td><td>Answers every job of the type <code>jobType</code> with a completion and <code>variables</code>. It stands for the worker.</td></tr>
+  <tr><td><code>MOCK_JOB_WORKER_THROW_BPMN_ERROR</code></td><td>Answers every job of the type with a BPMN error: <code>errorCode</code> is required, <code>errorMessage</code> and <code>variables</code> are optional.</td></tr>
+  <tr><td><code>COMPLETE_JOB</code></td><td>Completes the waiting job that the <code>jobSelector</code> names, with <code>variables</code>.</td></tr>
+  <tr><td><code>THROW_BPMN_ERROR_FROM_JOB</code></td><td>Throws a BPMN error from that job.</td></tr>
+  <tr><td><code>COMPLETE_USER_TASK</code></td><td>Completes the user task, with <code>variables</code>.</td></tr>
+  <tr><td><code>CORRELATE_MESSAGE</code>, <code>PUBLISH_MESSAGE</code></td><td>Sends the message <code>name</code> with a <code>correlationKey</code> and <code>variables</code>.</td></tr>
+  <tr><td><code>BROADCAST_SIGNAL</code></td><td>Sends the signal <code>signalName</code>.</td></tr>
+  <tr><td><code>UPDATE_VARIABLES</code></td><td>Sets <code>variables</code> on the instance, or on the element an <code>elementSelector</code> names.</td></tr>
+  <tr><td><code>ASSERT_PROCESS_INSTANCE</code></td><td>Checks the <code>state</code>: <code>IS_ACTIVE</code>, <code>IS_COMPLETED</code> or <code>IS_TERMINATED</code>, and <code>hasActiveIncidents</code> true or false. <code>IS_CREATED</code> is accepted and checks nothing.</td></tr>
+  <tr><td><code>ASSERT_ELEMENT_INSTANCE</code></td><td>Checks that an element has an instance in the <code>state</code> <code>IS_ACTIVE</code>, <code>IS_COMPLETED</code> or <code>IS_TERMINATED</code>. With <code>amount</code> the number of such instances must be exactly that.</td></tr>
+  <tr><td><code>ASSERT_ELEMENT_INSTANCES</code></td><td>The same for a list of elements, with the states <code>IS_ACTIVE</code>, <code>IS_COMPLETED</code>, <code>IS_TERMINATED</code>, <code>IS_NOT_ACTIVE</code>, <code>IS_NOT_ACTIVATED</code>, <code>IS_ACTIVE_EXACTLY</code> and <code>IS_COMPLETED_IN_ORDER</code>.</td></tr>
+  <tr><td><code>ASSERT_VARIABLES</code></td><td>Checks that the names in <code>variableNames</code> are set, and that every entry of <code>variables</code> is set to that value. With an <code>elementSelector</code> it looks at the variables local to that element.</td></tr>
+  <tr><td><code>ASSERT_USER_TASK</code></td><td>Checks the <code>state</code>: <code>IS_CREATED</code> (the task is waiting), <code>IS_COMPLETED</code>, <code>IS_CANCELED</code> or <code>IS_FAILED</code>, and that <code>elementId</code> is the task selected. With no state it checks that the task was reached.</td></tr>
+  <tr><td><code>MOCK_CHILD_PROCESS</code>, <code>MOCK_DMN_DECISION</code></td><td>Accepted by the schema, refused by the runner: Penstock says it cannot run them yet.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="what-penstock-refuses"><a href="#what-penstock-refuses">What Penstock refuses</a></h2>
+
+<p>A case that Penstock cannot run fails at once with a message that names the instruction, before anything is deployed. It does not run half of it. The first instruction that cannot run gives the message.</p>
+
+<ul>
+  <li><strong>Instructions it does not know.</strong> Besides the two mocks above, the schema allows nine more: <code>ASSERT_DECISION</code>, <code>ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION</code>, <code>COMPLETE_JOB_AD_HOC_SUB_PROCESS</code>, <code>COMPLETE_JOB_USER_TASK_LISTENER</code>, <code>EVALUATE_CONDITIONAL_START_EVENT</code>, <code>EVALUATE_DECISION</code>, <code>INCREASE_TIME</code>, <code>RESOLVE_INCIDENT</code> and <code>SET_TIME</code>. They are valid in the file and Camunda Process Test can run them, but Penstock says <em>is not something Penstock can run</em>.</li>
+  <li><strong>More than one <code>CREATE_PROCESS_INSTANCE</code>.</strong> Penstock runs one instance per case.</li>
+  <li><strong>A selector for another process.</strong> Penstock follows only the instance of the process the case started. An instruction whose selector names another <code>processDefinitionId</code> is refused.</li>
+  <li><strong><code>useExampleData: true</code></strong> on a job or user task instruction.</li>
+  <li><strong>Runtime instructions.</strong> A non-empty <code>runtimeInstructions</code> on <code>CREATE_PROCESS_INSTANCE</code>.</li>
+  <li><strong>These fields of <code>ASSERT_USER_TASK</code>:</strong> <code>assignee</code>, <code>candidateGroups</code>, <code>priority</code>, <code>name</code>, <code>dueDate</code> and <code>followUpDate</code>.</li>
+</ul>
+
+<h2 id="what-penstock-adds-x-penstock"><a href="#what-penstock-adds-x-penstock">What Penstock adds: <code>x-penstock</code></a></h2>
+
+<p>A case can carry an <code>x-penstock</code> block. Camunda's tools ignore it. It has three parts.</p>
+
+<pre><code>"x-penstock": {
+  "engines": ["camunda-8", "camunda-7"],
+  "behaviours": {
+    "ReserveStock": { "then": "complete", "fail": 2, "variables": { "reserved": 3 } },
+    "WaitForPayment": { "then": "fire" },
+    "CheckCredit": { "then": "error", "errorCode": "NO_CREDIT" }
+  }
+}</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>engines</code></td><td>The engines the case is for, from <code>camunda-8</code>, <code>camunda-7</code>, <code>operaton</code>, <code>cib-seven</code> and <code>classic</code>. On any other engine the case is <em>skipped</em>, not failed, and says which engines it is for. <code>camunda-7</code> covers Operaton and CIB seven.</td></tr>
+  <tr><td><code>behaviours</code></td><td>What a step does, keyed by the id of the element. It answers a service task or a timer without a mock instruction.</td></tr>
+  <tr><td><code>recorded</code></td><td>Written by Penstock when a case is recorded from a run. It names the run it came from: <code>from</code>, <code>instance</code>, <code>engine</code> and <code>at</code>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>A behaviour has a required <code>then</code>:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th><code>then</code></th><th>What the step does</th></tr></thead>
+  <tbody>
+  <tr><td><code>complete</code></td><td>Completes the job, with <code>variables</code>.</td></tr>
+  <tr><td><code>error</code></td><td>Throws a BPMN error. <code>errorCode</code> is required, <code>errorMessage</code> is optional.</td></tr>
+  <tr><td><code>fire</code></td><td>For a timer: fires it at once instead of waiting for the time.</td></tr>
+  <tr><td><code>hold</code></td><td>Leaves the job unanswered and keeps its lock fresh, so the step stays waiting.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><code>fail</code> is a number. The step fails that many times, on purpose and with a message that says so, before it does what <code>then</code> says. It is how a scenario checks a retry.</p>
+
+<p>A case with at least one behaviour is shown with the tag <span class="tag">Penstock only</span>: Camunda Process Test would run it differently, because it does not know the block. A block that is not an object, an <code>engines</code> list with an unknown engine, or a behaviour without a valid <code>then</code> is reported as a problem of the case.</p>
+
+<h2 id="what-a-run-does-with-the-file"><a href="#what-a-run-does-with-the-file">What a run does with the file</a></h2>
+
+<ol class="steps">
+  <li>It reads the file and checks every case. A case for another engine is skipped.</li>
+  <li>It builds a copy of the process for the test and deploys it to the local engine you chose. See <a href="security.html">Scenario runs are safe by design</a> for what is and is not touched.</li>
+  <li>It runs the instructions in order. A step that waits for something that never comes fails after the step timeout, 30 seconds by default, with the name of the step that did not run. <code>--timeout</code> on the command line changes it.</li>
+  <li>It reads the instance after each step and checks the assertions. A failed assertion says what it expected, what it found, and which steps were active.</li>
+  <li>It removes its build from the engine and writes a trace of the run to <code>.penstock/runs/</code>. See <a href="files.html">Files Penstock reads and writes</a>.</li>
+</ol>
+
+<p>On the command line, interrupting a run once asks the engine to stop and the run goes on. Interrupting it twice cancels the running case, removes its build and stops, with exit code 130.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A file of cases that you can read, diff and review like any other file of the project.</li>
+  <li>In the Scenarios tab, each case with its steps, a <span class="tag">Penstock only</span> tag where it uses behaviours, and a message that names the instruction where a case cannot run.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"is not something Penstock can run".</dt>
+  <dd>The instruction is valid in the Camunda schema but not one of the fifteen above. Run that case with Camunda Process Test, or rewrite it with the instructions Penstock runs.</dd>
+  <dt>"Penstock runs one instance per test case".</dt>
+  <dd>The case has two <code>CREATE_PROCESS_INSTANCE</code>. Split it into two cases.</dd>
+  <dt>The case is skipped, not run.</dt>
+  <dd><code>x-penstock.engines</code> does not list the engine of the folder. Add it, or remove the list.</dd>
+  <dt>A run waits and then says the engine did not run a step.</dt>
+  <dd>Nothing took the job within the timeout. Add a <code>MOCK_JOB_WORKER_COMPLETE_JOB</code> for its job type, or a behaviour for the element. See <a href="scenarios.html">Scenarios</a>.</dd>
+  <dt>My file was not changed by Generate.</dt>
+  <dd>Generate adds a case only when its name is not in the file. Delete a case, or rename it, to have it written again.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/process-tests.html">Process tests and coverage</a> - A JUnit test for every way through a process.</li>
+<li><a href="../guide/profiles.html">Profiles</a> - Named settings for dev, test and prod.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+<li><a href="../guide/files.html">Files Penstock reads and writes</a> - Every file, and where it lives.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/scenarios.html"><span>Previous</span>Scenarios</a>
+<a class="next" href="../guide/process-tests.html"><span>Next</span>Process tests and coverage</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -136,6 +136,8 @@ related: sidebar, process-tests, flow-analysis, monitor, settings, security, exa
 
 <p>Scenarios are Camunda Process Test JSON test cases, the same format that Camunda's own tooling reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
 
+<p>Every instruction, the ones Penstock runs and the ones it refuses, is listed in <a href="scenario-file.html">The scenario file</a>.</p>
+
 <p>Penstock's own additions go in an <code>x-penstock</code> block on the scenario, which Camunda's tools ignore:</p>
 
 <pre><code>"x-penstock": {

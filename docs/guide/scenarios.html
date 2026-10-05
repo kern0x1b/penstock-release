@@ -94,6 +94,7 @@
       <li><a href="../guide/deployment.html">Deployment</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
       <li><a href="../guide/scenarios.html" aria-current="page">Scenarios</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
@@ -284,6 +285,8 @@
 
 <p>Scenarios are Camunda Process Test JSON test cases, the same format that Camunda's own tooling reads. The file is <code>src/test/resources/test-cases/&lt;diagram&gt;.json</code> in a Maven or Gradle module, or <code>test-cases/&lt;diagram&gt;.json</code> next to the diagram. Every tool uses the same place.</p>
 
+<p>Every instruction, the ones Penstock runs and the ones it refuses, is listed in <a href="scenario-file.html">The scenario file</a>.</p>
+
 <p>Penstock's own additions go in an <code>x-penstock</code> block on the scenario, which Camunda's tools ignore:</p>
 
 <pre><code>"x-penstock": {
@@ -361,7 +364,7 @@ penstock scenarios run . --teamcity</code></pre>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/monitor.html"><span>Previous</span>Monitor</a>
-<a class="next" href="../guide/process-tests.html"><span>Next</span>Process tests and coverage</a>
+<a class="next" href="../guide/scenario-file.html"><span>Next</span>The scenario file</a>
 </nav>
 </main>
 </div>

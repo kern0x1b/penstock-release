@@ -203,6 +203,11 @@
               "about": "Run the diagram's scenarios on a local engine and see every step."
             },
             {
+              "slug": "scenario-file",
+              "title": "The scenario file",
+              "about": "The test-case format, the instructions Penstock runs and refuses, and x-penstock."
+            },
+            {
               "slug": "process-tests",
               "title": "Process tests and coverage",
               "about": "A JUnit test for every way through a process."
