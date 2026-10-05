@@ -1,0 +1,40 @@
+<!--
+title: Shortcuts
+lede: The four keys Penstock binds in VS Code, and how undo and redo work in a diagram.
+tags: free
+related: where-things-are, code-links, guide/editing
+-->
+<h2>The keys Penstock binds</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd> on a Mac</td><td>Penstock: Find action</td><td>Open the editor's searchable list of every action.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd> on a Mac</td><td>Sidebar</td><td>Show or hide the sidebar of the editor.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd> on a Mac</td><td>Trace paths</td><td>The Trace paths action of the editor.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> on a Mac</td><td>Export…</td><td>Export the diagram as a picture.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Every one of these is bound only while a Penstock editor has the focus. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> is also the terminal's copy key on Windows and Linux, and this keeps it that way. Outside a Penstock editor, VS Code's own key applies.</p>
+
+<h2>Undo and redo</h2>
+
+<p>The text document is the only history of a diagram, and the diagram's own undo and redo keys and buttons ask VS Code to undo and redo. So VS Code's keys for Undo and Redo move the diagram, and so does <span class="ui">Edit | Undo</span>.</p>
+
+<h2>Any other action</h2>
+
+<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the four keys above do.</p>
+
+<h2>In your code</h2>
+
+<p>Penstock defines no keys for the code links. They use VS Code's own: <span class="ui">Go to Definition</span> and <span class="ui">Find All References</span> reach the diagrams, and a click on a code lens opens the diagram. See <a href="code-links.html">Code links in VS Code</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A key does nothing in the diagram.</dt>
+  <dd>The editor must have focus. Click an empty spot on the canvas. An action the diagram has switched off does nothing.</dd>
+  <dt><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> does not export.</dt>
+  <dd>It is bound only in a Penstock editor. In any other panel VS Code's own binding applies.</dd>
+</dl>

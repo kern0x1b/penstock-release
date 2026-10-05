@@ -1,0 +1,52 @@
+<!--
+title: VS Code
+lede: Penstock is a VS Code extension. BPMN, DMN and form files open in the Penstock editor, and the project, the deployment, the licence and the links to your code work as they do in the JetBrains plugin.
+tags: free
+description: Penstock in VS Code: install from the Marketplace, where things are, shortcuts, code links and the licence.
+-->
+<p>Every feature of Penstock is described once, for every tool, in <a href="@guide/">the Guide</a>. This section only says what is special about VS Code: how to install it, where things are, and what is not there yet.</p>
+
+<h2>Start here</h2>
+
+<ol class="steps">
+  <li><a href="installing.html">Install the extension</a> from the Visual Studio Marketplace. It needs VS Code 1.88 or later.</li>
+  <li>Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. It opens in the Penstock editor.</li>
+  <li>Read <a href="where-things-are.html">Where things are in VS Code</a>.</li>
+  <li>Then follow <a href="@guide/getting-started.html">Getting started</a> in the Guide.</li>
+</ol>
+
+{{contents}}
+
+<h2>What works</h2>
+
+<ul>
+  <li>The BPMN, DMN and form editors, with the toolbar, the palette, the properties panel and the sidebar. The text document is the only history, so VS Code's own Undo, Redo, Revert and git all work on a diagram.</li>
+  <li><code>penstock.yaml</code>, its layers per folder, <code>penstock.local.yaml</code>, profiles and <code>${VAR}</code> references.</li>
+  <li>Deployment to Camunda 7 and Camunda 8, with passwords and client secrets kept in VS Code's secret storage.</li>
+  <li>Scripts in their own tab, element templates, and the Check, Simulate, Monitor and Scenarios actions of the editor.</li>
+  <li>Test-case files in the Test Explorer, with a Pro licence.</li>
+  <li>The visual <a href="@guide/diagram-diff.html">diagram diff</a>, from the Explorer and Source Control menus, with a Pro licence.</li>
+  <li><a href="code-links.html">Code links</a>: code lenses, go to definition and references between diagrams and code, a Code view and Problems, with a Pro licence.</li>
+  <li>The licence, shared with the plugin and the command line. See <a href="licence.html">Licence in VS Code</a>.</li>
+  <li>Every action of the editor as a command in the Command Palette, under <em>Penstock</em>.</li>
+  <li>Your VS Code theme: the editor keeps its own layout and type and takes only its colour from the theme.</li>
+</ul>
+
+<h2>What is not there yet</h2>
+
+<ul>
+  <li>The Camunda 7 to Camunda 8 conversion preview, and the conversion itself.</li>
+  <li>Running the tests a diagram is linked to, from the diagram, and the debugger's position on the diagram.</li>
+  <li>Renaming a job type, topic, class or message in diagrams and code in one step.</li>
+  <li>Putting a picture on the clipboard. A picture can still be exported to a file.</li>
+  <li>The project tree of the JetBrains tool window and its Run Penstock actions. The Code view in the Explorer holds the code sections of that tree. Whole-project commands are in the <a href="@cli/">command line</a>.</li>
+  <li>A pipeline. There is no pipeline in VS Code, so there is no Team tier here. The <a href="@cli/ci.html">command line</a> runs in a pipeline.</li>
+</ul>
+
+<p>A feature that is missing says "not available in VS Code yet" when you reach for it. See <a href="troubleshooting.html">Troubleshooting</a>.</p>
+
+<h2>Pick your tool</h2>
+
+<p>The features are the same in every tool, and the licence is shared. Use the one that fits the job.</p>
+
+{{tools}}

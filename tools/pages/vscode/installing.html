@@ -1,0 +1,72 @@
+<!--
+title: Installing
+lede: How to put Penstock into VS Code, and how to check that it works.
+tags: free
+needs: VS Code 1.88 or later
+related: where-things-are, licence, guide/getting-started, guide/sign-in, cli/index
+-->
+<h2>What you need</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tr><td>VS Code</td><td>Version 1.88 or later. The extension declares <code>^1.88.0</code>. The automated tests of the extension run on VS Code 1.90.</td></tr>
+  <tr><td>The extension</td><td>Publisher <code>penstock</code>, name <code>penstock</code>, shown as <em>Penstock</em>. Its id is <code>penstock.penstock</code>.</td></tr>
+  <tr><td>A local folder</td><td>The extension reads <code>penstock.yaml</code>, templates and linked files from the local disk, so it does not support virtual workspaces.</td></tr>
+  <tr><td>The price</td><td>Free. Every new machine also gets 30 days of Pro. See <a href="@guide/plans.html">Plans and licence</a>.</td></tr>
+</table></div>
+
+<h2>Install from the Marketplace</h2>
+
+<ol class="steps">
+  <li>Open the Extensions view. The keys are <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>, or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> on a Mac.</li>
+  <li>Search for <strong>Penstock</strong> and press <span class="ui">Install</span>.</li>
+  <li>Open any <code>.bpmn</code> file. It opens in the Penstock editor.</li>
+</ol>
+
+<p>You can also open <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">the Marketplace page</a> in a browser and press <span class="ui">Install</span> there. The extension is not on the Marketplace until the release, so before then the page may not open.</p>
+
+<h2>Install from a VSIX file</h2>
+
+<ol class="steps">
+  <li>Open the Extensions view.</li>
+  <li>Open its <span class="ui">…</span> menu and choose <span class="ui">Install from VSIX…</span>.</li>
+  <li>Pick the <code>.vsix</code> file.</li>
+</ol>
+
+<p>From a terminal, <code>code --install-extension penstock.vsix</code> does the same.</p>
+
+<h2>First run</h2>
+
+<ul>
+  <li>Nothing needs to be set up. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file and the editor opens in place of the text.</li>
+  <li>A file that was already open as text when the extension started is switched to the editor, unless you opened it as text on purpose. See <a href="where-things-are.html">Where things are in VS Code</a>.</li>
+  <li>The first time the editor opens, it shows a short tour. It is shown once. <span class="ui">Penstock: Show the tour again</span> in the Command Palette plays it again.</li>
+  <li>A status bar item on the right shows the licence, for example <em>Penstock Pro trial: 27d</em>.</li>
+</ul>
+
+<h2>The 30-day trial</h2>
+
+<p>A new machine gets 30 days of Pro. The status bar counts the days down. When the trial ends, the item reads <em>Penstock Free</em> and a paid feature explains itself when you reach for it. The editors, deployment and everything else that is free keep working. The licence is kept in <code>~/.penstock</code>, which the plugin and the command line share, so they all see the same trial. See <a href="licence.html">Licence in VS Code</a>.</p>
+
+<h2>Uninstall</h2>
+
+<ol class="steps">
+  <li>Open the Extensions view and find <strong>Penstock</strong>.</li>
+  <li>Press <span class="ui">Uninstall</span>.</li>
+</ol>
+
+<p>Your diagrams are ordinary files, so they stay as they are. Penstock keeps a few small files of its own on your machine. To remove them all, delete the folder <code>~/.penstock</code>. <a href="@guide/files.html">Files Penstock reads and writes</a> lists each one.</p>
+
+<h2>The command line is separate</h2>
+
+<p>The extension does not install the <code>penstock</code> command. The command line needs Node.js 22.22 or later. See <a href="@cli/">Command line</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>VS Code says the extension is not compatible.</dt>
+  <dd>Your VS Code is older than 1.88. Update VS Code first.</dd>
+  <dt>A <code>.bpmn</code> file opens as plain XML.</dt>
+  <dd>See <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dt>Nothing happens in a virtual workspace.</dt>
+  <dd>The extension needs files on the local disk. Open a local folder.</dd>
+</dl>

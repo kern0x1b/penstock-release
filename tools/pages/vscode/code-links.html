@@ -1,0 +1,71 @@
+<!--
+title: Code links in VS Code
+lede: In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, a Code view and Problems.
+tags: pro
+related: guide/code-links, where-things-are, guide/check-workers
+-->
+<p>What code links are, and what they check, is described once in <a href="@guide/code-links.html">Code links</a>. This page is about what works in VS Code. The code links need a Pro licence on this machine. Without one, the Code view says what the feature gives and offers to buy or sign in, no code lens or definition is offered, and the Problems view stays empty. Going from a Camunda 7 task to its Java class or Spring bean needs no licence: it is a file search by package path and name.</p>
+
+<h2>What is read</h2>
+
+<p>The index is the one <code>penstock code</code> builds. Penstock reads the source files of the workspace once and after that only the file that a save, a create or a delete touched. A workspace with no diagram is not read at all. These are never read: <code>node_modules</code>, <code>target</code>, <code>out</code>, <code>dist</code>, folders that start with a dot, and a repository the project does not name under <code>linked</code> in <code>penstock.yaml</code>.</p>
+
+<p>The languages are the nine the command line reads: Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#. A process, element, message, decision, variable or error code that the code names in a call, a field or a <code>BpmnError</code> is found. A job type stays a worker. Only a string literal counts as a reference.</p>
+
+<h2>From a diagram to the code</h2>
+
+<ul>
+  <li>A step gets the worker or delegate that runs it, the subscription behind a topic, and the class or bean behind an expression.</li>
+  <li>The tooltip says what runs it, and the context menu opens it.</li>
+  <li>The Code tab of the editor's sidebar lists the same.</li>
+</ul>
+
+<h2>From the code to a diagram</h2>
+
+<ul>
+  <li>A <strong>code lens</strong> above a worker, a delegate, a subscription, an error throw, a variable or a started process names the diagram and the element that use it. Click it and the diagram opens with the element selected. When several diagrams use it, VS Code asks which.</li>
+  <li><span class="ui">Go to Definition</span> on a job type in a diagram goes to the worker. On a process, element, message, decision or error code in the code, it goes to the diagram.</li>
+  <li><span class="ui">Find All References</span> reaches the diagrams as well as the other files.</li>
+</ul>
+
+<p>Go to Definition and Find All References answer in the code files and in a diagram file opened as text. See <span class="ui">Penstock: Open as text</span> in <a href="where-things-are.html">Where things are in VS Code</a>.</p>
+
+<h2>The Code view</h2>
+
+<p>The Explorer has a view called <strong>Code</strong>. It holds the sections the JetBrains tool window has for the code: code links, processes, workers, variables, messages and errors, with the workers the code implements under each task. A node opens the diagram or the code. A node has the inline actions <span class="ui">Penstock: Find usages in code</span> and <span class="ui">Penstock: Copy ID</span>. The refresh button in the title bar, <span class="ui">Penstock: Refresh the code links</span>, reads the project again.</p>
+
+<h2>Problems</h2>
+
+<p>The Problems view carries what <code>penstock code</code> reports, under the source <em>penstock</em>:</p>
+
+<ul>
+  <li>a step nothing runs;</li>
+  <li>a worker no diagram uses;</li>
+  <li>a called process, decision or form that nothing defines;</li>
+  <li>a name that is a letter or a case away from one the project knows, with a hint such as <em>Did you mean</em>.</li>
+</ul>
+
+<p>The findings of the Check card of a diagram are not in the Problems view. They stay in the editor.</p>
+
+<h2>Tests</h2>
+
+<p>A file in a test folder, or one named <code>…Test</code>, <code>…Tests</code>, <code>…Spec</code> or <code>*.test.*</code>, is a test, and a link in it is a test rather than an implementation. This is decided by the path. A project that keeps its tests somewhere else is read as production code.</p>
+
+<h2>What is not in VS Code</h2>
+
+<ul>
+  <li>The debugger's position on the diagram, and starting a debug session from a diagram.</li>
+  <li>Running the tests a diagram is linked to, from the diagram. Test-case files run in the Test Explorer instead. See <a href="@guide/scenarios.html">Scenarios</a>.</li>
+  <li>Renaming what a diagram links to, in diagrams and code together.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>No code lenses, no definitions.</dt>
+  <dd>Code links need Pro. Open the <strong>Code</strong> view: it offers to buy or sign in.</dd>
+  <dt>A worker in another repository is reported as missing.</dt>
+  <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
+  <dt>A change is not reflected.</dt>
+  <dd>Save the file, or press the refresh button in the title bar of the Code view.</dd>
+</dl>

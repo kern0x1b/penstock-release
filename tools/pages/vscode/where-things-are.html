@@ -1,0 +1,57 @@
+<!--
+title: Where things are in VS Code
+lede: Every place Penstock shows up in VS Code, in one table, so you can find any feature.
+tags: free
+related: shortcuts, code-links, licence
+-->
+<h2>The map</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>What is there</th></tr></thead>
+  <tbody>
+  <tr><td>The editor of a <code>.bpmn</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file</td><td>A custom editor, called <em>Penstock BPMN Editor</em>, <em>Penstock DMN Editor</em> or <em>Penstock Form Editor</em>. It opens in place of the text when you open the file. See <a href="@guide/bpmn-editor.html">The BPMN editor</a>.</td></tr>
+  <tr><td>The toolbar of the editor</td><td>Auto layout, Check, Simulate, Monitor, Scenarios, the More menu, Deploy and the sidebar toggle. See <a href="@guide/toolbar.html">Toolbar and More menu</a>.</td></tr>
+  <tr><td>The sidebar of the editor</td><td>The column beside the canvas, with the tabs Properties, Scenarios, Problems, Monitor and Code. These are the editor's own tabs, not VS Code's. See <a href="@guide/sidebar.html">The sidebar</a>.</td></tr>
+  <tr><td>The <span class="ui">More</span> menu of the editor</td><td>A searchable list of every action, in the editor. See <a href="@guide/toolbar.html">Toolbar and More menu</a>.</td></tr>
+  <tr><td>The Command Palette, under <em>Penstock</em></td><td>Every action of the editor as a command with the name it has in the editor: Auto layout, Check, Deploy, Export…, Share as HTML… and the rest. Also <span class="ui">Penstock: Find action</span>, <span class="ui">Penstock: Open as text</span>, <span class="ui">Penstock: Compare with…</span>, <span class="ui">Penstock: Licence and account</span> and <span class="ui">Penstock: Sign in</span>. See below.</td></tr>
+  <tr><td>The Explorer view <strong>Code</strong></td><td>Processes, workers, variables, messages and errors, and the code that implements them. See <a href="code-links.html">Code links in VS Code</a>.</td></tr>
+  <tr><td>The Problems view</td><td>What <code>penstock code</code> reports: a step nothing runs, a worker no diagram uses, a name that is a letter or a case away from a known one. Pro. The findings of the Check card stay in the editor. See <a href="@guide/diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Above a worker, delegate or subscription in your code</td><td>A code lens that names the diagram and element that use it. Pro. See <a href="code-links.html">Code links in VS Code</a>.</td></tr>
+  <tr><td>The Test Explorer</td><td>A controller called <em>Penstock scenarios</em>, with one node per diagram and one per test case. Pro. See <a href="@guide/scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td>The Output panel</td><td>A channel called <em>Penstock Test Runs</em>, with the steps and the trace of a test run.</td></tr>
+  <tr><td>The context menu of a <code>.bpmn</code> file in the Explorer and in Source Control</td><td><span class="ui">Compare with…</span>, which opens the visual diagram diff. Pro. See <a href="@guide/diagram-diff.html">Diagram diff</a>.</td></tr>
+  <tr><td>The status bar, right side</td><td>The licence: <em>Penstock Free</em>, <em>Penstock Pro trial: 27d</em>, <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the account dialog. See <a href="licence.html">Licence in VS Code</a>.</td></tr>
+  <tr><td>VS Code's Settings</td><td>Nothing of Penstock's own. The extension contributes no settings. The project is set up in <code>penstock.yaml</code>. See <a href="@guide/settings.html">penstock.yaml</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Text and diagram</h2>
+
+<p>The text document is the only history of a diagram. An edit on the canvas changes the document, and an edit in a text editor beside it changes the canvas. Undo, Redo, Revert and git all act on that document. A file that changes on disk reaches the canvas.</p>
+
+<p>To read the XML, run <span class="ui">Penstock: Open as text</span> while the editor has focus. The file opens in VS Code's text editor beside the diagram and is remembered as one you opened as text, so Penstock does not switch it back to the diagram when VS Code starts.</p>
+
+<h2>The Command Palette</h2>
+
+<ul>
+  <li>An action that the open diagram does not offer is not in the palette. An action it has switched off is greyed out.</li>
+  <li>The commands are enabled while a Penstock editor has focus. If one is run with no editor open, VS Code says to open a Penstock editor to use it. If the diagram does not offer it, VS Code says the action is not available for this diagram.</li>
+  <li><span class="ui">Penstock: Find action</span> opens the editor's own searchable list.</li>
+</ul>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The editor keeps the layout, spacing, type and icons it has in the JetBrains IDE. Only the colours come from the VS Code theme, so a switch between Dark Modern, Light Modern, the high contrast themes or any theme you installed repaints it without a reload.</li>
+  <li>Dialogs put the main button on the right on a Mac and on the left everywhere else.</li>
+  <li>The text of the editor shell follows the language of the VS Code window.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I cannot find a feature.</dt>
+  <dd>Check the table above. Some actions are only in the <span class="ui">More</span> menu of the editor or in the Command Palette. A few are not available in VS Code yet. See <a href="index.html">VS Code</a>.</dd>
+  <dt>There is no Penstock page in Settings.</dt>
+  <dd>Right. The project is set up in <code>penstock.yaml</code>, and the personal choices are in <code>~/.penstock/preferences.json</code>.</dd>
+</dl>

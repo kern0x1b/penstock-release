@@ -390,10 +390,60 @@
       "id": "vscode",
       "title": "VS Code",
       "kind": "host",
-      "enabled": false,
-      "announce": true,
-      "summary": "An extension for VS Code is planned.",
-      "groups": [],
+      "enabled": true,
+      "summary": "Install from the Marketplace and find your way around VS Code.",
+      "groups": [
+        {
+          "title": "Start here",
+          "pages": [
+            {
+              "slug": "index",
+              "title": "VS Code",
+              "about": "What Penstock is inside VS Code, and what works."
+            },
+            {
+              "slug": "installing",
+              "title": "Installing",
+              "about": "Put Penstock into VS Code and check that it works."
+            },
+            {
+              "slug": "where-things-are",
+              "title": "Where things are in VS Code",
+              "about": "The editor, the sidebar, the command palette, the status bar and Problems."
+            }
+          ]
+        },
+        {
+          "title": "Using it",
+          "pages": [
+            {
+              "slug": "shortcuts",
+              "title": "Shortcuts",
+              "about": "The four keys Penstock binds, and how undo works."
+            },
+            {
+              "slug": "code-links",
+              "title": "Code links in VS Code",
+              "about": "Code lenses, go to definition, references, the Code view and Problems."
+            }
+          ]
+        },
+        {
+          "title": "Licence and help",
+          "pages": [
+            {
+              "slug": "licence",
+              "title": "Licence in VS Code",
+              "about": "The status bar, the account dialog, signing in and machines."
+            },
+            {
+              "slug": "troubleshooting",
+              "title": "Troubleshooting",
+              "about": "Files that open as text, commands that are greyed out, and what is not available yet."
+            }
+          ]
+        }
+      ],
       "where": "in VS Code"
     },
     {
