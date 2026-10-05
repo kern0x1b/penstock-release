@@ -7,6 +7,20 @@
 <title>Penstock - BPMN editor for Camunda in JetBrains IDEs</title>
 <meta name="description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, with checks, deployment, tests, auto layout and a command line.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Penstock - BPMN editor for Camunda in JetBrains IDEs">
+<meta property="og:description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, with checks, deployment, tests, auto layout and a command line.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/">
 <link rel="preload" href="fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
@@ -34,18 +48,19 @@
 <div class="wide">
 
 <section class="hero">
+  <img class="mark" src="icon.svg" alt="" width="48" height="48">
   <h1>BPMN diagrams, in the tools you already use.</h1>
   <p class="lede">Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven, next to the raw XML. Diagrams stay in your project and in version control, so they are reviewed like code. It runs inside JetBrains IDEs, and a <code>penstock</code> command does the same checks in a pipeline.</p>
   <div class="cta">
     <a class="btn" href="guide/">Read the guide</a>
     <a class="btn quiet" href="#install">Install</a>
-    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
     <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
-    <span class="note">Any JetBrains IDE from 2025.2. Free, with 30 days of Pro on every new machine.</span>
+    <span class="note">Any JetBrains IDE from 2024.2. Free, with 30 days of Pro on every new machine.</span>
   </div>
 </section>
 
-<figure class="shot" style="margin:0 0 32px">
+<figure class="shot">
   <img src="img/editor-overview.png" alt="A Camunda 8 diagram open in the editor, with a service task selected, its properties in the sidebar and the raw XML one tab away">
   <figcaption>A diagram open in the editor: the toolbar on top, the palette beside the canvas, the properties of the selected task in the sidebar, and the XML one tab away.</figcaption>
 </figure>
@@ -72,8 +87,8 @@
 <section class="band" id="install">
   <h2>Install Penstock</h2>
   <p class="prose-note">Pick the tool you use. All three share one licence and one trial.</p>
-  <div class="cards">
-    <div class="card"><strong><a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2025.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">Installing</a>.</span></div>
+  <div class="cards install">
+    <div class="card"><strong><a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2024.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">Installing</a>.</span></div>
     <div class="card"><strong><a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or install it from the <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">Marketplace page</a>.</span></div>
     <div class="card"><strong><a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. <a href="cli/">Command line</a>.</span></div>
   </div>
@@ -114,8 +129,8 @@
   </table></div>
     <p>Prices are per plan. Team is priced for each seat. <a href="guide/sign-in.html">How buying and signing in work</a>.</p>
     <div class="cta">
-    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
-    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
     </div>
     <p><a href="guide/plans.html">See exactly what each plan includes</a>. <a href="guide/security.html">See exactly what leaves your machine</a>: nothing but a deployment to your engine, and no telemetry.</p>
   </div>
@@ -126,7 +141,7 @@
   <div class="table-wrap"><table class="facts">
     <tbody>
     <tr><td>VS Code</td><td>The extension <code>penstock.penstock</code>, for VS Code 1.88 or later.</td></tr>
-    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2025.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
+    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2024.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
     <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, and plain BPMN 2.0.</td></tr>
     <tr><td>Command line</td><td>Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later.</td></tr>
     <tr><td>Licence</td><td>Free, with 30 days of Pro on every new machine. One licence covers the JetBrains plugin, the VS Code extension and the command line. Read the <a href="license/">end user licence</a> and the <a href="notices/">third-party notices</a>.</td></tr>

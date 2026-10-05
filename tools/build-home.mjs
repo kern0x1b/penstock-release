@@ -9,17 +9,18 @@ const body = `<main id="content">
 <div class="wide">
 
 <section class="hero">
+  <img class="mark" src="icon.svg" alt="" width="48" height="48">
   <h1>BPMN diagrams, in the tools you already use.</h1>
   <p class="lede">Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven, next to the raw XML. Diagrams stay in your project and in version control, so they are reviewed like code. It runs inside JetBrains IDEs, and a <code>penstock</code> command does the same checks in a pipeline.</p>
   <div class="cta">
     <a class="btn" href="guide/">Read the guide</a>
     <a class="btn quiet" href="#install">Install</a>
-    ${buyLinksHtml({ quiet: true })}
-    <span class="note">Any JetBrains IDE from 2025.2. Free, with 30 days of Pro on every new machine.</span>
+    ${buyLinksHtml({ primary: false })}
+    <span class="note">Any JetBrains IDE from 2024.2. Free, with 30 days of Pro on every new machine.</span>
   </div>
 </section>
 
-<figure class="shot" style="margin:0 0 32px">
+<figure class="shot">
   <img src="img/editor-overview.png" alt="A Camunda 8 diagram open in the editor, with a service task selected, its properties in the sidebar and the raw XML one tab away">
   <figcaption>A diagram open in the editor: the toolbar on top, the palette beside the canvas, the properties of the selected task in the sidebar, and the XML one tab away.</figcaption>
 </figure>
@@ -46,8 +47,8 @@ const body = `<main id="content">
 <section class="band" id="install">
   <h2>Install Penstock</h2>
   <p class="prose-note">Pick the tool you use. All three share one licence and one trial.</p>
-  <div class="cards">
-    <div class="card"><strong><a href="${STORES.jetbrains}">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2025.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">Installing</a>.</span></div>
+  <div class="cards install">
+    <div class="card"><strong><a href="${STORES.jetbrains}">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2024.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">Installing</a>.</span></div>
     <div class="card"><strong><a href="${STORES.vscode}">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or install it from the <a href="${STORES.vscode}">Marketplace page</a>.</span></div>
     <div class="card"><strong><a href="${STORES.npm}">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs ${NODE}. <a href="cli/">Command line</a>.</span></div>
   </div>
@@ -77,7 +78,7 @@ const body = `<main id="content">
     ${priceSummaryHtml()}
     <p>Prices are per plan. Team is priced for each seat. <a href="guide/sign-in.html">How buying and signing in work</a>.</p>
     <div class="cta">
-    ${buyLinksHtml()}
+    ${buyLinksHtml({ primary: false })}
     </div>
     <p><a href="guide/plans.html">See exactly what each plan includes</a>. <a href="guide/security.html">See exactly what leaves your machine</a>: nothing but a deployment to your engine, and no telemetry.</p>
   </div>
@@ -88,7 +89,7 @@ const body = `<main id="content">
   <div class="table-wrap"><table class="facts">
     <tbody>
     <tr><td>VS Code</td><td>The extension <code>penstock.penstock</code>, for VS Code 1.88 or later.</td></tr>
-    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2025.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
+    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2024.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
     <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, and plain BPMN 2.0.</td></tr>
     <tr><td>Command line</td><td>${NODE}.</td></tr>
     <tr><td>Licence</td><td>Free, with 30 days of Pro on every new machine. One licence covers the JetBrains plugin, the VS Code extension and the command line. Read the <a href="license/">end user licence</a> and the <a href="notices/">third-party notices</a>.</td></tr>
@@ -120,11 +121,13 @@ const missing = shell({
   title: 'Page not found - Penstock',
   description: 'This page does not exist.',
   canonical: '404.html',
+  base: '/penstock-release/',
   wrap: 'bare',
   section: 'home',
   body: `<main id="content">
 <div class="wide">
 <section class="hero">
+  <img class="mark" src="/penstock-release/icon.svg" alt="" width="48" height="48">
   <h1>This page does not exist.</h1>
   <p class="lede">The address may be old or mistyped. Every page of the guide is listed on the contents page.</p>
   <div class="cta">

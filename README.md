@@ -1,5 +1,7 @@
 # Penstock
 
+<img src="docs/icon.svg" alt="Penstock" width="64" height="64">
+
 **Penstock** is a BPMN 2.0 editor for Camunda 7 and Camunda 8 that runs inside JetBrains IDEs.
 Files with the `.bpmn` and `.bpmn20.xml` extensions open in a visual modeler next to the raw XML,
 so process models live in the project and are reviewed the same way as code.
