@@ -105,11 +105,12 @@ for (const name of [...environment].sort()) add('environment-variable', name, 'a
 
 const vscode = JSON.parse(read('apps/vscode/package.json')).contributes;
 const nls = JSON.parse(read('apps/vscode/package.nls.json'));
+const LENSES = { 'penstock.openCodeLens': ['A:code lens&click'] };
 for (const command of vscode.commands.filter((entry) => !entry.command.startsWith('penstock.action.'))) {
   const title = nls[command.title.replace(/%/g, '')].replace(/^Penstock: /, '').replace(/…$/, '');
-  add('vscode-command', `${command.command}: ${title}`, 'apps/vscode/package.json', [`T:${title}`]);
+  add('vscode-command', `${command.command}: ${title}`, 'apps/vscode/package.json', [`T:${title}`, ...(LENSES[command.command] ?? [])]);
 }
-for (const editor of vscode.customEditors) add('file-type', `${editor.viewType}: ${editor.selector.map((entry) => entry.filenamePattern).join(', ')}`, 'apps/vscode/package.json', editor.selector.map((entry) => `T:${entry.filenamePattern.replace(/^\*\*\//, '')}`));
+for (const editor of vscode.customEditors) add('file-type', `${editor.viewType}: ${editor.selector.map((entry) => entry.filenamePattern).join(', ')}`, 'apps/vscode/package.json', [...editor.selector.map((entry) => `T:${entry.filenamePattern.replace(/^\*\*\//, '')}`), `T:${nls[editor.displayName.replace(/%/g, '')]}`]);
 add('vscode-setting', 'configuration properties in package.json: none', 'apps/vscode/package.json', [], { userFacing: false, note: vscode.configuration ? 'declared' : 'none declared' });
 
 const plugin = read('apps/jetbrains/src/main/resources/META-INF/plugin.xml') + read('apps/jetbrains/src/main/resources/META-INF/penstock-java.xml');
@@ -155,6 +156,10 @@ for (const [kind, row, source, needle, terms] of CURATED) {
   if (!read(source).includes(needle)) console.error(`stale: ${row} (${needle} not in ${source})`);
   else add(kind, row, source, terms);
 }
+
+const guide = read('libs/core/src/docs/guide.ts');
+for (const [, topic, target] of guide.matchAll(/^\s+(\w+): '([^']+)',?$/gm)) add('product-link', `the product opens ${target}`, `libs/core/src/docs/guide.ts (${topic})`, [`P:${target}`]);
+add('product-link', 'the schema address in penstock.yaml files', 'apps/jetbrains/src/main/resources/schema/penstock.schema.json', ['P:schema/penstock.schema.json']);
 
 const { INSTRUCTION_SCHEMA } = await load('libs/core/src/testCases/schema.ts');
 for (const name of Object.keys(INSTRUCTION_SCHEMA)) add('test-case-instruction', name, 'libs/core/src/testCases/schema.ts', [`T:${name}`]);

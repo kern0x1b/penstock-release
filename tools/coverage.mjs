@@ -45,12 +45,21 @@ function hits(term, block) {
   throw new Error(`unknown term ${term}`);
 }
 
-export function depthOf(terms, pages, only = null) {
+function linkTarget(term, docs) {
+  const [target, id] = term.slice(2).split('#');
+  const file = path.join(docs, /\.\w+$/.test(target) ? target : `${target}.html`);
+  if (!fs.existsSync(file)) return null;
+  return !id || fs.readFileSync(file, 'utf8').includes(`id="${id}"`) ? target : null;
+}
+
+export function depthOf(terms, pages, only = null, docs = path.join(root, 'docs')) {
+  const linked = terms.filter((term) => term.startsWith('P:')).map((term) => linkTarget(term, docs)).find(Boolean);
+  if (linked) return { page: linked, depth: 'explained' };
   let best = { page: null, depth: 'none', rank: 0 };
   for (const { page, blocks } of pages) {
     if (only && !only.includes(page)) continue;
     for (const block of blocks) {
-      if (!terms.some((term) => hits(term, block))) continue;
+      if (!terms.some((term) => !term.startsWith('P:') && hits(term, block))) continue;
       const explained = /^h[1-6]$/.test(block.tag) || (block.tag !== 'pre' && block.words >= 10);
       const rank = (explained ? 2 : 1) * 10 + (page.startsWith('guide/') ? 2 : page.startsWith('cli/') ? 1 : 0);
       if (rank > best.rank) best = { page, depth: explained ? 'explained' : 'mention', rank };

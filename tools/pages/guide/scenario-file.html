@@ -95,10 +95,10 @@ related: scenarios, process-tests, profiles, security, files
   <tr><td><code>MOCK_JOB_WORKER_COMPLETE_JOB</code></td><td>Answers every job of the type <code>jobType</code> with a completion and <code>variables</code>. It stands for the worker.</td></tr>
   <tr><td><code>MOCK_JOB_WORKER_THROW_BPMN_ERROR</code></td><td>Answers every job of the type with a BPMN error: <code>errorCode</code> is required, <code>errorMessage</code> and <code>variables</code> are optional.</td></tr>
   <tr><td><code>COMPLETE_JOB</code></td><td>Completes the waiting job that the <code>jobSelector</code> names, with <code>variables</code>.</td></tr>
-  <tr><td><code>THROW_BPMN_ERROR_FROM_JOB</code></td><td>Throws a BPMN error from that job.</td></tr>
-  <tr><td><code>COMPLETE_USER_TASK</code></td><td>Completes the user task, with <code>variables</code>.</td></tr>
+  <tr><td><code>THROW_BPMN_ERROR_FROM_JOB</code></td><td>Throws a BPMN error from that job instead of completing it. <code>errorCode</code> is required, <code>errorMessage</code> and <code>variables</code> are optional.</td></tr>
+  <tr><td><code>COMPLETE_USER_TASK</code></td><td>Waits for the user task the <code>userTaskSelector</code> names to be waiting, then completes it with <code>variables</code>.</td></tr>
   <tr><td><code>CORRELATE_MESSAGE</code>, <code>PUBLISH_MESSAGE</code></td><td>Sends the message <code>name</code> with a <code>correlationKey</code> and <code>variables</code>.</td></tr>
-  <tr><td><code>BROADCAST_SIGNAL</code></td><td>Sends the signal <code>signalName</code>.</td></tr>
+  <tr><td><code>BROADCAST_SIGNAL</code></td><td>Broadcasts the signal <code>signalName</code> to the engine, with <code>variables</code>, so that catch events and start events waiting for it go on.</td></tr>
   <tr><td><code>UPDATE_VARIABLES</code></td><td>Sets <code>variables</code> on the instance, or on the element an <code>elementSelector</code> names.</td></tr>
   <tr><td><code>ASSERT_PROCESS_INSTANCE</code></td><td>Checks the <code>state</code>: <code>IS_ACTIVE</code>, <code>IS_COMPLETED</code> or <code>IS_TERMINATED</code>, and <code>hasActiveIncidents</code> true or false. <code>IS_CREATED</code> is accepted and checks nothing.</td></tr>
   <tr><td><code>ASSERT_ELEMENT_INSTANCE</code></td><td>Checks that an element has an instance in the <code>state</code> <code>IS_ACTIVE</code>, <code>IS_COMPLETED</code> or <code>IS_TERMINATED</code>. With <code>amount</code> the number of such instances must be exactly that.</td></tr>

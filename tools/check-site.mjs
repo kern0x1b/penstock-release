@@ -4,6 +4,7 @@ import { root } from './site.mjs';
 import { checkoutSettings } from './plans.mjs';
 import { readPrices } from './fetch-prices.mjs';
 import { contrastFailures } from './check-contrast.mjs';
+import { readPages, depthOf } from './coverage.mjs';
 
 const docs = path.join(root, 'docs');
 const pages = [];
@@ -87,6 +88,16 @@ for (const page of pages) {
 
 const contrast = contrastFailures();
 for (const failure of contrast.failures) problems.push(`docs/style.css: ${failure}`);
+
+const coverageFile = path.join(root, 'tools', 'coverage.json');
+const coverage = fs.existsSync(coverageFile) ? JSON.parse(fs.readFileSync(coverageFile, 'utf8')) : null;
+if (!coverage) problems.push('tools/coverage.json is missing. Run node tools/build-coverage.mjs <product path>.');
+else {
+  const coveragePages = readPages(docs);
+  for (const row of coverage.rows ?? coverage) {
+    if (row.userFacing && depthOf(row.terms, coveragePages, row.only, docs).depth === 'none') problems.push(`coverage: ${row.kind} "${row.row}" is not in the documentation`);
+  }
+}
 
 const warnings = [];
 const prices = readPrices();

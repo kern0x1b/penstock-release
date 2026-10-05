@@ -385,6 +385,19 @@
   "depth": "explained"
  },
  {
+  "row": "Help: Documentation",
+  "kind": "action",
+  "source": "libs/core/src/actions (open-documentation)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "L:Documentation",
+   "T:Documentation"
+  ],
+  "page": "guide/dmn-editor.html",
+  "depth": "explained"
+ },
+ {
   "row": "File: Export decision table as a workbook…",
   "kind": "action",
   "source": "libs/core/src/actions (export-table-workbook)",
@@ -1250,7 +1263,7 @@
   "terms": [
    "R:--force(?![\\w-])"
   ],
-  "page": "guide/import.html",
+  "page": "guide/edit-diagrams.html",
   "depth": "explained"
  },
  {
@@ -1310,7 +1323,7 @@
   "terms": [
    "R:--stage(?![\\w-])"
   ],
-  "page": "cli/commands.html",
+  "page": "cli/ci.html",
   "depth": "explained"
  },
  {
@@ -1358,7 +1371,7 @@
   "terms": [
    "R:--schema(?![\\w-])"
   ],
-  "page": "guide/plans.html",
+  "page": "guide/edit-diagrams.html",
   "depth": "explained"
  },
  {
@@ -1430,8 +1443,8 @@
   "terms": [
    "R:--set(?![\\w-])"
   ],
-  "page": "cli/commands.html",
-  "depth": "mention"
+  "page": "guide/edit-diagrams.html",
+  "depth": "explained"
  },
  {
   "row": "--input",
@@ -1442,8 +1455,8 @@
   "terms": [
    "R:--input(?![\\w-])"
   ],
-  "page": "cli/commands.html",
-  "depth": "mention"
+  "page": "guide/edit-diagrams.html",
+  "depth": "explained"
  },
  {
   "row": "--output",
@@ -1454,8 +1467,8 @@
   "terms": [
    "R:--output(?![\\w-])"
   ],
-  "page": "cli/commands.html",
-  "depth": "mention"
+  "page": "guide/edit-diagrams.html",
+  "depth": "explained"
  },
  {
   "row": "--list",
@@ -1550,7 +1563,7 @@
   "terms": [
    "T:show_diagram"
   ],
-  "page": "guide/plans.html",
+  "page": "guide/edit-diagrams.html",
   "depth": "explained"
  },
  {
@@ -1610,7 +1623,7 @@
   "terms": [
    "T:edit_diagram"
   ],
-  "page": "guide/plans.html",
+  "page": "guide/edit-diagrams.html",
   "depth": "explained"
  },
  {
@@ -1716,7 +1729,7 @@
    "L:conventions",
    "T:conventions"
   ],
-  "page": "guide/plans.html",
+  "page": "guide/edit-diagrams.html",
   "depth": "explained"
  },
  {
@@ -1993,8 +2006,8 @@
    "L:deployment.source",
    "L:source"
   ],
-  "page": "guide/deployment.html",
-  "depth": "mention"
+  "page": "guide/settings.html",
+  "depth": "explained"
  },
  {
   "row": "deployment.changedOnly",
@@ -2078,7 +2091,7 @@
    "L:username"
   ],
   "page": "guide/settings.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "deployment.auth.clientId",
@@ -2092,7 +2105,7 @@
    "L:clientId"
   ],
   "page": "guide/settings.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "deployment.auth.tokenUrl",
@@ -2106,7 +2119,7 @@
    "L:tokenUrl"
   ],
   "page": "guide/settings.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "deployment.auth.audience",
@@ -3153,7 +3166,7 @@
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "A:preferences.json&tree",
+   "A:preferences.json&flat",
    "T:toolWindowTree"
   ],
   "page": "guide/files.html",
@@ -3166,11 +3179,11 @@
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "A:preferences.json&group by",
+   "A:preferences.json&file by file",
    "T:toolWindowGroupByFiles"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/project-model.html",
+  "depth": "explained"
  },
  {
   "row": "tourSeen",
@@ -3235,8 +3248,8 @@
    "A:preferences.json&language",
    "T:locale"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/settings.html",
+  "depth": "explained"
  },
  {
   "row": "PENSTOCK_BOT_DIR",
@@ -3247,8 +3260,8 @@
   "terms": [
    "T:PENSTOCK_BOT_DIR"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "cli/ci.html",
+  "depth": "explained"
  },
  {
   "row": "PENSTOCK_CLIENT_SECRET",
@@ -3271,8 +3284,8 @@
   "terms": [
    "T:PENSTOCK_COMMAND"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "cli/ci.html",
+  "depth": "explained"
  },
  {
   "row": "PENSTOCK_FILES",
@@ -3355,8 +3368,8 @@
   "terms": [
    "T:PENSTOCK_PICTURES_URL"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "cli/ci.html",
+  "depth": "explained"
  },
  {
   "row": "PENSTOCK_PROFILE",
@@ -3443,16 +3456,29 @@
   "depth": "explained"
  },
  {
+  "row": "penstock.openDocumentation: Open documentation",
+  "kind": "vscode-command",
+  "source": "apps/vscode/package.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Open documentation"
+  ],
+  "page": "vscode/where-things-are.html",
+  "depth": "explained"
+ },
+ {
   "row": "penstock.openCodeLens: Open the diagrams that use this",
   "kind": "vscode-command",
   "source": "apps/vscode/package.json",
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "T:Open the diagrams that use this"
+   "T:Open the diagrams that use this",
+   "A:code lens&click"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "vscode/code-links.html",
+  "depth": "explained"
  },
  {
   "row": "penstock.codeUsages: Find usages in code",
@@ -3546,9 +3572,10 @@
   "tier": "free",
   "terms": [
    "T:*.bpmn",
-   "T:*.bpmn20.xml"
+   "T:*.bpmn20.xml",
+   "T:Penstock BPMN Editor"
   ],
-  "page": "vscode/troubleshooting.html",
+  "page": "guide/bpmn-editor.html",
   "depth": "explained"
  },
  {
@@ -3558,9 +3585,10 @@
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "T:*.dmn"
+   "T:*.dmn",
+   "T:Penstock DMN Editor"
   ],
-  "page": "vscode/troubleshooting.html",
+  "page": "guide/bpmn-editor.html",
   "depth": "explained"
  },
  {
@@ -3570,9 +3598,10 @@
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "T:*.form"
+   "T:*.form",
+   "T:Penstock Form Editor"
   ],
-  "page": "vscode/troubleshooting.html",
+  "page": "guide/bpmn-editor.html",
   "depth": "explained"
  },
  {
@@ -3582,10 +3611,11 @@
   "userFacing": true,
   "tier": "free",
   "terms": [
-   "T:.penstock-diff/*.bpmn"
+   "T:.penstock-diff/*.bpmn",
+   "T:Penstock Diagram Diff"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/diagram-diff.html",
+  "depth": "explained"
  },
  {
   "row": "configuration properties in package.json: none",
@@ -3608,6 +3638,18 @@
    "T:Penstock licence…"
   ],
   "page": "guide/sign-in.html",
+  "depth": "explained"
+ },
+ {
+  "row": "Penstock Documentation",
+  "kind": "ide-action",
+  "source": "apps/jetbrains/.../plugin.xml",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "T:Penstock Documentation"
+  ],
+  "page": "jetbrains/where-things-are.html",
   "depth": "explained"
  },
  {
@@ -3823,8 +3865,8 @@
   "terms": [
    "T:penstock-migration-baseline.json"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/migration.html",
+  "depth": "explained"
  },
  {
   "row": ".penstock/runs/<run>/<case>.json",
@@ -4093,6 +4135,126 @@
   "depth": "explained"
  },
  {
+  "row": "the product opens guide/properties-panel",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (properties)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/properties-panel"
+  ],
+  "page": "guide/properties-panel",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/scenarios",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (scenarios)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/scenarios"
+  ],
+  "page": "guide/scenarios",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/diagram-check",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (problems)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/diagram-check"
+  ],
+  "page": "guide/diagram-check",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/comments",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (comments)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/comments"
+  ],
+  "page": "guide/comments",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/monitor",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (monitor)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/monitor"
+  ],
+  "page": "guide/monitor",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/code-links",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (code)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/code-links"
+  ],
+  "page": "guide/code-links",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/dmn-editor#try",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (try)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/dmn-editor#try"
+  ],
+  "page": "guide/dmn-editor",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/form-editor#preview",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (preview)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/form-editor#preview"
+  ],
+  "page": "guide/form-editor",
+  "depth": "explained"
+ },
+ {
+  "row": "the product opens guide/sidebar",
+  "kind": "product-link",
+  "source": "libs/core/src/docs/guide.ts (sidebar)",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:guide/sidebar"
+  ],
+  "page": "guide/sidebar",
+  "depth": "explained"
+ },
+ {
+  "row": "the schema address in penstock.yaml files",
+  "kind": "product-link",
+  "source": "apps/jetbrains/src/main/resources/schema/penstock.schema.json",
+  "userFacing": true,
+  "tier": "free",
+  "terms": [
+   "P:schema/penstock.schema.json"
+  ],
+  "page": "schema/penstock.schema.json",
+  "depth": "explained"
+ },
+ {
   "row": "ASSERT_DECISION",
   "kind": "test-case-instruction",
   "source": "libs/core/src/testCases/schema.ts",
@@ -4186,7 +4348,7 @@
    "T:BROADCAST_SIGNAL"
   ],
   "page": "guide/scenario-file.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "COMPLETE_JOB",
@@ -4234,7 +4396,7 @@
    "T:COMPLETE_USER_TASK"
   ],
   "page": "guide/scenario-file.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "CORRELATE_MESSAGE",
@@ -4390,7 +4552,7 @@
    "T:THROW_BPMN_ERROR_FROM_JOB"
   ],
   "page": "guide/scenario-file.html",
-  "depth": "mention"
+  "depth": "explained"
  },
  {
   "row": "UPDATE_VARIABLES",
