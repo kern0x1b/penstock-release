@@ -4,7 +4,7 @@
 Files with the `.bpmn` and `.bpmn20.xml` extensions open in a visual modeler next to the raw XML,
 so process models live in the project and are reviewed the same way as code.
 
-Install it from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor).
+Install it from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor), the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=penstock.penstock) or [npm](https://www.npmjs.com/package/@kern0x1b/penstock-cli) (`npm install -g @kern0x1b/penstock-cli`).
 
 Penstock was published as **Camunda BPMN Editor** until 2026. Same plugin, same vendor, new name.
 It updates in place and nothing needs to be reinstalled.
