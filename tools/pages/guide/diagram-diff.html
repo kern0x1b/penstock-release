@@ -18,6 +18,38 @@ related: cli/commands, cli/ci, auto-layout
 
 {{host:diff-open|Compare in your tool}}
 
+<h2>Why it is a picture</h2>
+
+<p>The XML of a diagram holds the position of every shape and every bend of every flow. Move one task and the diff shows a dozen changed lines, and none of them says what the process now does. Run <a href="auto-layout.html">auto layout</a> and every line changes. Penstock compares the two files as diagrams: it matches elements by their id, decides which are new, gone or different in meaning, and treats a change of position or size as its own thing.</p>
+
+<h2>What is compared</h2>
+
+<ul>
+  <li>BPMN diagrams, <code>.bpmn</code> and <code>.bpmn20.xml</code>. A decision or a form has no visual diff.</li>
+  <li>Elements by id. An element whose id changed shows as removed on the left and added on the right.</li>
+  <li>Both versions are read as they are. Nothing is written to either file.</li>
+</ul>
+
+<h2>On the command line</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Command</th><th>What it does</th><th>Writes</th><th>Tier</th></tr></thead>
+  <tbody>
+  <tr><td><code>penstock diff before.bpmn after.bpmn</code></td><td>Lists the added, removed and changed elements, one line each, with type, name and id, and for a changed one the names of the attributes that differ. When only shapes moved it says <em>Only the drawing moved</em> and how many elements.</td><td>Nothing</td><td>Free</td></tr>
+  <tr><td><code>penstock diff [ref] [paths]</code></td><td>Compares the diagrams under the paths, or every diagram that changed, with the same diagram at a commit, branch or tag. Without a ref it uses <code>HEAD~1</code>. A diagram that is new since the ref is listed as new.</td><td>Nothing</td><td>Free</td></tr>
+  <tr><td><code>penstock diff [ref] --images</code></td><td>The same, and draws the pictures.</td><td>One <code>.before.svg</code> and one <code>.after.svg</code> per changed diagram, and one <code>.svg</code> per new one, in <code>.penstock/images</code> or the folder of <code>--out</code></td><td>Pro, and Team in a pipeline</td></tr>
+  </tbody>
+</table></div>
+
+<p>In the pictures a removed element is marked on the Before side, an added one on the After side, and a changed one on both. A repository is needed for a ref; outside one the command says so. A ref that does not exist is reported with its name. The pull request report and the review bot draw the same pictures. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</p>
+
+<p>Example, after a commit that renamed one task and ran auto layout:</p>
+
+<pre><code>$ penstock diff HEAD~1
+src/orders/order.bpmn
+  changed  UserTask "Approve order" Activity_approve (name)
+  and 14 elements only moved on the canvas</code></pre>
+
 <h2>What you see</h2>
 
 <p>Every changed element is outlined in a colour. The comparison is by meaning, not by text. Penstock reads both versions and sorts each element into a bucket:</p>
@@ -35,6 +67,13 @@ related: cli/commands, cli/ci, auto-layout
 <p>The last bucket is the useful one. A commit that only ran auto layout reads as what it is: everything moved, nothing changed in meaning.</p>
 
 <p>A pull request report and the review bot use the same comparison. See <a href="@cli/ci.html">Pipelines, reports and the bot</a>.</p>
+
+<h2>What it does not do</h2>
+
+<ul>
+  <li>It does not merge. It only shows the difference.</li>
+  <li>It does not compare DMN tables or forms.</li>
+</ul>
 
 <h2>Common problems</h2>
 
