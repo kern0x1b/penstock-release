@@ -126,16 +126,42 @@
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
 <h4>JetBrains</h4>
-<p>Install the plugin from the JetBrains Marketplace, in any JetBrains IDE from 2025.2. It takes two minutes. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a>.</p>
+<p>Open <span class="ui">Settings | Plugins | Marketplace</span> in any JetBrains IDE from 2025.2, search for <strong>Penstock</strong> and press <span class="ui">Install</span>. Or open the <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace page</a>. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
-<p>There is nothing to install. Run <code>npx @kern0x1b/penstock-cli</code>, or let a project pin a version with a wrapper script. It needs Node.js 22.22 or later. See <a href="../cli/">Command line</a>.</p>
+<p>Install it once, or run it without installing. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. The package is on <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>.</p>
+<pre><code>npm install -g @kern0x1b/penstock-cli
+npx @kern0x1b/penstock-cli</code></pre>
+<p>A project can also pin a version with a wrapper script. See <a href="../cli/">Command line</a>.</p>
 </section>
 </div>
 </div>
 
-<p>Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p>
+<p>In VS Code, run this in a terminal, or open <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">the extension's page</a> and press Install:</p>
+
+<pre><code>code --install-extension penstock.penstock</code></pre>
+
+<h3 id="try-it-and-buy-it"><a href="#try-it-and-buy-it">Try it, then buy it</a></h3>
+
+<p>Every machine starts with 30 days of Pro. You do not sign in or enter a card for the trial. When it ends, the machine is on the Free plan, and the editors, checks and deploy keep working.</p>
+
+<p>To buy, use one of these links. Polar's checkout opens in your browser, and when you have paid, Penstock notices and asks for the code sent to your e-mail. There is no key to copy. The same licence works in every tool on the machine.</p>
+
+<div class="cta">
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+</div>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+    <tbody>
+    <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
+    <tr><td>Pro</td><td>USD 9.00 per month or USD 90.00 per year</td></tr>
+    <tr><td>Team</td><td>USD 29.00 per month or USD 290.00 per year for each seat</td></tr>
+    </tbody>
+  </table></div></div>
+
+<p>How to activate it, what a licence covers, Team seats, pipelines, working offline, moving a machine and cancelling are on <a href="sign-in.html">Buying and signing in</a>. What each plan includes is on <a href="plans.html">Plans and licence</a>.</p>
 
 <h2 id="2-try-the-example"><a href="#2-try-the-example">2. Try the example</a></h2>
 
