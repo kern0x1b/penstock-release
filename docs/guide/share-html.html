@@ -127,6 +127,9 @@
 <ul>
 <li><a href="#steps">Steps</a></li>
 <li><a href="#what-the-reader-sees">What the reader sees</a></li>
+<li><a href="#what-is-in-the-file">What is in the file</a></li>
+<li><a href="#the-viewer">The viewer</a></li>
+<li><a href="#limits">Limits</a></li>
 <li><a href="#privacy">Privacy</a></li>
 <li><a href="#in-a-terminal">In a terminal</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -165,6 +168,39 @@
   <li><strong>A form</strong> is shown as its fields.</li>
   <li>The page is light or dark, following the reader's own setting.</li>
   <li>A small <em>Made with Penstock</em> line is at the foot. The bpmn.io logo stays visible in the corner.</li>
+</ul>
+
+<h2 id="what-is-in-the-file"><a href="#what-is-in-the-file">What is in the file</a></h2>
+
+<p>A shared page is built from the file you share and nothing else. It is one HTML file with its style and script inside it.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Source</th><th>What goes into the page</th><th>What does not</th></tr></thead>
+  <tbody>
+  <tr><td>A diagram (<code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>)</td><td>The drawing as a picture, and for every element that has a name or a documentation text: its id, its kind, its name and its documentation. The title is the name of the collaboration, or of the pool or process, or of the diagram, and the file name when none is set.</td><td>The XML itself, scripts, expressions, variable mappings, <code>camunda:</code> and <code>zeebe:</code> settings and <a href="comments.html">comments</a>. Only the drawing and the texts above are in the page.</td></tr>
+  <tr><td>A decision file (<code>.dmn</code>)</td><td>The decisions as tables, titled with the name of the definitions.</td><td>The decision file.</td></tr>
+  <tr><td>A form (<code>.form</code>)</td><td>The fields of the form as a table, titled with the file name.</td><td>The form file.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Anything you wrote in an element's documentation field is in the page, in plain text. Read it before you send it, as you would any document.</p>
+
+<h2 id="the-viewer"><a href="#the-viewer">The viewer</a></h2>
+
+<ul>
+  <li><strong>Move around:</strong> scroll to zoom, drag to pan, pinch on a touch screen. The plus, minus and fit buttons in the corner do the same by click.</li>
+  <li><strong>Keys,</strong> once the picture has the focus: <kbd>+</kbd> and <kbd>-</kbd> zoom, <kbd>0</kbd> fits the diagram, the arrow keys pan, <kbd>Esc</kbd> closes the documentation card.</li>
+  <li><strong>Documentation:</strong> click an element and a card shows its name, its kind and its documentation, or <em>No documentation.</em> when there is none.</li>
+  <li><strong>Dark setting:</strong> the page follows the reader's light or dark setting. In the dark setting the colours of the picture are inverted.</li>
+</ul>
+
+<h2 id="limits"><a href="#limits">Limits</a></h2>
+
+<ul>
+  <li>It is a snapshot. A change to the diagram is not in a page you made before, so make it again.</li>
+  <li>The reader cannot edit the diagram on the page.</li>
+  <li>The picture is made by the editor or the command line that shares it. A diagram that cannot be drawn gives <em>The diagram could not be drawn, so there is nothing to share</em>.</li>
+  <li>The bpmn.io logo in the corner is a link. The page itself does not load it from anywhere.</li>
 </ul>
 
 <h2 id="privacy"><a href="#privacy">Privacy</a></h2>
