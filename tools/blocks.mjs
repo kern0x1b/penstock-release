@@ -32,7 +32,7 @@ export function renderHostBlocks(body, page) {
         return '';
       }
       const inner = block.meta.unavailable ? `<p class="unavailable">Not available ${escapeHtml(host.where ?? `in ${host.title}`)}. ${escapeHtml(block.meta.unavailable)}</p>` : block.body.trim();
-      return `<section class="host" aria-label="${escapeHtml(host.title)}">\n<h4>${escapeHtml(host.title)}</h4>\n${inner}\n</section>`;
+      return `<section class="host" aria-label="${escapeHtml(host.title)}">\n<h3>${escapeHtml(host.title)}</h3>\n${inner}\n</section>`;
     });
     return `<div class="hosts">\n<p class="hosts-title">${escapeHtml(title)}</p>\n<div class="host-grid">\n${cards.join('\n')}\n</div>\n</div>`;
   });

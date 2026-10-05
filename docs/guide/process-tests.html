@@ -152,11 +152,11 @@
 <p class="hosts-title">List the scenarios in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
 <p>Right-click a file or folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Scenarios</span>. Each process in the tool window also lists its tests.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line"><a href="#command-line">Command line</a></h3>
 <pre><code>$ penstock scenarios list .
 src/main/resources/order-process.bpmn  2 scenario(s)
    1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
@@ -170,7 +170,7 @@ $ penstock scenarios list . --format md
 <p>Use <code>--format json</code> for a tool. See <a href="../cli/commands.html#scenarios-list">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
 <p>The <strong>Scenarios</strong> tab of the sidebar lists the ways through the diagram you have open. For a whole project, run <code>penstock scenarios list .</code> on the command line.</p>
 </section>
 </div>
@@ -186,11 +186,11 @@ $ penstock scenarios list . --format md
 <p class="hosts-title">Write the tests in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
 <p>Choose <span class="ui">Run Penstock | JUnit Tests</span> in the <a href="../jetbrains/tool-window.html">Penstock tool window</a>. The output names the test dependencies your build is missing.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
 <pre><code>$ penstock junit .
 wrote src/test/java/io/penstock/example/process/OrderProcessTest.java  2 scenario(s)
 
@@ -201,7 +201,7 @@ The tests need these test dependencies in pom.xml:
 <p>Use <code>--out</code> and <code>--package</code> to choose the folder and the package. See <a href="../cli/commands.html#junit">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
 <p class="unavailable">Not available in VS Code. VS Code has no action that writes JUnit tests. Run penstock junit on the command line.</p>
 </section>
 </div>
@@ -227,15 +227,15 @@ The tests need these test dependencies in pom.xml:
 <p class="hosts-title">Run and debug in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2-2"><a href="#jetbrains-2-2">JetBrains</a></h3>
 <p>Right-click an element on the canvas, or the empty canvas, and choose <span class="ui">Run Tests</span> or <span class="ui">Debug Tests</span>. In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> a <strong>Tests</strong> node lists every process test by class, and <span class="ui">Run All Process Tests</span> is on its toolbar. See <a href="../jetbrains/test-runner.html">Tests in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2-2"><a href="#command-line-2-2">Command line</a></h3>
 <p class="unavailable">Not available on the command line. Run the generated tests with your build tool, for example mvn test or gradle test.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2-2"><a href="#vs-code-2-2">VS Code</a></h3>
 <p class="unavailable">Not available in VS Code. Running the tests a diagram is linked to, from the diagram, is not available in VS Code yet, and there is no debugger position on the diagram. Test-case files run in the Testing view, and JUnit classes run with the Java extension.</p>
 </section>
 </div>

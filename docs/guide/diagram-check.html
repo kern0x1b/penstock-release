@@ -223,15 +223,15 @@
 <p class="hosts-title">Problems outside the editor</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
 <p>The findings are in the IDE's own <strong>Problems</strong> window, and a file with findings is marked in the project view. The inspection is <em>Diagram findings from the check</em>, in the group <em>Penstock</em> of <span class="mono">Settings | Editor | Inspections</span>. <span class="ui">Code | Inspect Code</span> runs it too, and it can be turned off there; the findings stay in the editor either way.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line"><a href="#command-line">Command line</a></h3>
 <p class="unavailable">Not available on the command line. The command line has no IDE window. penstock check reports the same findings, and they carry the same ids and the same rule pages, so a finding in a build log leads to the same page.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
 <p>The findings of the Check card stay in the editor. VS Code's Problems view carries only what <code>penstock code</code> reports, a step nothing runs or a worker no diagram uses, and only with Pro. A file with findings is not marked in the Explorer. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
 </section>
 </div>
@@ -250,11 +250,11 @@
 <p class="hosts-title">Check from your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
 <p>Press <span class="ui">Check</span> on the editor's toolbar for the diagram you have open. For a whole project, right-click a file or a folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Check</span>. The report opens in the Run window. It runs only in a trusted project.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
 <pre><code>$ penstock check .
 ok    src/main/resources/approve-order.form
 fail  src/main/resources/order-process.bpmn
@@ -267,7 +267,7 @@ Every rule has a page with why it matters and how to fix it: https://kern0x1b.gi
 <p>A line that starts with <code>note</code> is a warning. Only errors make the command exit with 1. See <a href="../cli/commands.html#check">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
 <p>Press <span class="ui">Check</span> on the toolbar of the editor, or run <span class="ui">Penstock: Check</span> in the Command Palette, for the diagram you have open. There is no action for a whole project in VS Code. Use <code>penstock check .</code> on the command line.</p>
 </section>
 </div>

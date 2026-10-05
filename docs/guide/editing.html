@@ -222,7 +222,6 @@
 
 <p><span class="ui">Transaction boundaries</span>, under View in the <span class="ui">More</span> menu, draws a bar where the engine commits a transaction: before a user task, a receive task, an event-based gateway, an external task and a message, timer, signal or conditional catch event, and before or after any activity with an asynchronous continuation, multi-instance ones included. The bars follow the diagram as you edit it, take the accent colour of the theme, and each says <em>Transaction boundary: the engine commits here</em> when you rest the pointer on it. Camunda 7, Operaton and CIB seven. Free.</p>
 
-<!-- image: transaction-boundaries.png, a Camunda 7 diagram with the transaction boundary bars drawn, each with its tooltip -->
 
 <h2 id="the-xml-one-tab-away"><a href="#the-xml-one-tab-away">The XML one tab away</a></h2>
 
@@ -236,15 +235,15 @@
 <p class="hosts-title">The Text tab in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
 <p>The second editor tab for the same file is called Text, and the editors are named BPMN Editor, DMN Editor and Form Editor. A file that is changed outside is detected by its modification stamp, and the editor asks before it reloads. See <a href="../jetbrains/editor.html">The editor in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line"><a href="#command-line">Command line</a></h3>
 <p class="unavailable">Not available on the command line. The command line edits the XML, not a diagram. penstock show lists a diagram's elements, and penstock edit makes a change the way the editor would.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
 <p>VS Code has no Text tab. The text document is the file, and the diagram is one view of it. <span class="ui">Penstock: Open as text</span> opens the XML in VS Code's text editor beside the diagram. An edit on either side reaches the other, and Undo, Redo, Revert and git all act on the document. The editors are named <em>Penstock BPMN Editor</em>, <em>Penstock DMN Editor</em> and <em>Penstock Form Editor</em>. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
 </section>
 </div>
@@ -291,15 +290,15 @@
 <p class="hosts-title">Go to the class in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
 <p>The menu entry is <span class="ui">Go to</span> with the class name. It opens the file in the IDE.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
 <p class="unavailable">Not available on the command line. The command line has no editor. Use penstock code to find tasks whose class or bean is missing.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
 <p>The menu entry opens the file beside the diagram. VS Code finds it by its package path and name in the workspace, and skips <code>node_modules</code>, <code>build</code>, <code>target</code> and <code>out</code>. A bean name is searched the same way. No licence is needed.</p>
 </section>
 </div>

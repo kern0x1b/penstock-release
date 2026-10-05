@@ -179,17 +179,17 @@
 <p class="hosts-title">Buy from your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains"><a href="#jetbrains">JetBrains</a></h3>
 <p>Click the licence in the status bar (<em>Penstock Free</em>, or the trial), or choose <span class="ui">Tools | Penstock licence…</span>. Press <span class="ui">Buy Pro</span>. For Team, press the link <em>Buy Team, for pipelines and the review bot</em>. See <a href="../jetbrains/licence.html">Licence in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line"><a href="#command-line">Command line</a></h3>
 <pre><code>penstock license buy          # Pro
 penstock license buy team     # Team</code></pre>
 <p>The command opens the checkout, prints its address, and waits up to an hour for the payment. Then it asks for the code that was sent to your e-mail. It needs a terminal to answer in.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
 <p>Click <span class="ui">Penstock</span> in the status bar, or run <span class="ui">Penstock: Licence and account</span>. Press <span class="ui">Buy Pro</span> or <span class="ui">Buy Team</span>. See <a href="../vscode/licence.html">Licence in VS Code</a>.</p>
 </section>
 </div>
@@ -208,16 +208,16 @@ penstock license buy team     # Team</code></pre>
 <p class="hosts-title">Sign in from your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2"><a href="#jetbrains-2">JetBrains</a></h3>
 <p>Open the licence dialog from the status bar or <span class="ui">Tools | Penstock licence…</span> and type your address, or a key, in <em>E-mail or licence key</em>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2"><a href="#command-line-2">Command line</a></h3>
 <pre><code>penstock license login [email]
 penstock license activate &lt;key&gt;   # a key you type in by hand</code></pre>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2"><a href="#vs-code-2">VS Code</a></h3>
 <p>Run <span class="ui">Penstock: Sign in</span>, or open the account dialog from the status bar and press <span class="ui">Sign in</span>. Type your address, or a key, in <em>E-mail or licence key</em>.</p>
 </section>
 </div>
@@ -270,16 +270,16 @@ penstock license activate &lt;key&gt;   # a key you type in by hand</code></pre>
 <p class="hosts-title">See which plan this machine has</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2-2"><a href="#jetbrains-2-2">JetBrains</a></h3>
 <p>The status bar at the bottom of the IDE shows <em>Penstock Pro trial: 27d</em>, then <em>Penstock Free</em> when the trial ends, or <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the licence dialog. <span class="ui">Release this machine</span> frees the machine.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2-2"><a href="#command-line-2-2">Command line</a></h3>
 <pre><code>penstock license</code></pre>
 <p>The answer is two rows, <em>tier</em> and <em>status</em>: which plan this machine has and why. On the trial or without a licence it adds how to buy or sign in. <code>penstock license logout</code> releases this machine.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2-2"><a href="#vs-code-2-2">VS Code</a></h3>
 <p>The status bar at the bottom of VS Code shows <em>Penstock Pro trial: 27d</em>, then <em>Penstock Free</em> when the trial ends, or <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the account dialog, or run <span class="ui">Penstock: Licence and account</span>. <span class="ui">Release this machine</span> frees the machine.</p>
 </section>
 </div>
@@ -308,16 +308,16 @@ penstock license activate &lt;key&gt;   # a key you type in by hand</code></pre>
 <p class="hosts-title">Get the key for a pipeline</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<h3 id="jetbrains-2-2-2"><a href="#jetbrains-2-2-2">JetBrains</a></h3>
 <p>Open the licence dialog and press <span class="ui">Copy key for CI</span>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<h3 id="command-line-2-2-2"><a href="#command-line-2-2-2">Command line</a></h3>
 <pre><code>penstock license key</code></pre>
 <p>It needs a licence activated on this machine and a terminal. It asks for the e-mail you bought with, sends a code, and prints the Team key to set as <code>PENSTOCK_LICENSE</code> in a pipeline. Keep it secret.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<h3 id="vs-code-2-2-2"><a href="#vs-code-2-2-2">VS Code</a></h3>
 <p>Open the account dialog and press <span class="ui">Copy key for CI</span>. VS Code asks for the e-mail code again and puts the Team key on the clipboard.</p>
 </section>
 </div>

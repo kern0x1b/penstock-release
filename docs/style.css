@@ -848,7 +848,7 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
   min-width: 0;
 }
 
-.host h4 {
+.host h3 {
   margin: 0 0 var(--space-1);
   font-size: var(--type-size-tiny);
   font-weight: var(--type-weight-semibold);
@@ -860,6 +860,7 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
 
 .host p, .host ul, .host ol { margin: var(--space-1) 0; }
 .host pre { margin: var(--space-2) 0; background: var(--theme-bg-tertiary); }
+.host pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .host code, .host kbd { background: var(--theme-bg-selected-inactive); }
 .host .unavailable { color: var(--theme-fg-secondary); }
 
