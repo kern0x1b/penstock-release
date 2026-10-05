@@ -98,6 +98,8 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 
 <p>It also says what was fixed since the baseline was taken, so you can refresh the file when the backlog shrinks. A baseline covers every section. One taken before the check had sections needs refreshing with <code>--update-baseline</code>. Baselines are Pro, and Team in a pipeline.</p>
 
+<p>The file is JSON: the time it was written, and a list of findings, each with the path of the file relative to the project, the rule id and the message. A finding is the same one when all three match. Changing the text of a message, or moving the diagram to another folder, makes it new. <code>penstock migrate analyze</code> has its own baseline, <code>penstock-migration-baseline.json</code>, written by <code>penstock migrate analyze --update-baseline</code> and read with <code>--baseline</code>, so the two lists of accepted findings do not mix.</p>
+
 <h2>Before the commit</h2>
 
 <p><code>penstock init --hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries, and nothing else. It lives in <code>.git/hooks</code>, so it is yours, not the repository's. Deleting the file removes it. It runs <code>check --baseline</code>, so it needs Pro.</p>
@@ -136,6 +138,21 @@ penstock check . --baseline          # fails only on what is new</code></pre>
 </table></div>
 
 <p><code>init --ci</code> prints exactly what to add for your platform. The bot reads the diagrams and <code>penstock.yaml</code>. It never runs hooks that a pull request's configuration might declare.</p>
+
+<h3>Asking the bot, and the variables it reads</h3>
+
+<p>A comment is read when it mentions <code>/penstock</code> or <code>@penstock</code>. After the mention: nothing or <code>report</code> gives the full review, <code>check</code> or <code>problems</code> only the problems, <code>diff</code> or <code>against</code> with a ref what changed since it, and <code>image</code>, <code>picture</code> or <code>screenshot</code> with a <code>.bpmn</code> path a picture. Anything else gives the help. A pull request from a fork gets a refusal, not a run.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>PENSTOCK_COMMAND</code></td><td>The request, as text, for a run that was not started by a comment, such as a pipeline on a pull request. Set it to <code>/penstock check</code> and the bot answers with the problems only. When it is not set, the answer is the full review. When it does not mention Penstock, the bot says it is not for it and stops.</td></tr>
+  <tr><td><code>PENSTOCK_BOT_DIR</code></td><td>Where the bot keeps what it draws, in a folder called <code>penstock-bot</code> inside it. Without it the bot uses <code>RUNNER_TEMP</code>, and then the system's temporary folder. The folder holds the saved answer, <code>answer.json</code>, and the pictures, stacked in <code>penstock-diagrams.svg</code>. Point it into the workspace when the pictures are to be kept as a pipeline artifact: the pipelines that <code>init --ci</code> writes for Bitbucket and Azure set it.</td></tr>
+  <tr><td><code>PENSTOCK_PICTURES_URL</code></td><td>The address that a comment links to for pictures it cannot show inline. By default it is the page of the run: the run on GitHub, the job's artifacts on GitLab, the pipeline's results on Bitbucket, the build's artifacts on Azure.</td></tr>
+  </tbody>
+</table></div>
+
+<p>A run can be split in two with <code>--stage draw</code> and <code>--stage post</code>. The first does everything except posting, and saves the answer and the pictures under <code>PENSTOCK_BOT_DIR</code>. The second posts the saved answer. Use it when the pictures have to be uploaded in between.</p>
 
 <h2>Deploy from CI</h2>
 

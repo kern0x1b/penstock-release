@@ -241,6 +241,11 @@
               "slug": "import",
               "title": "Import a diagram",
               "about": "Bring in draw.io, Visio, Signavio and Bizagi files."
+            },
+            {
+              "slug": "edit-diagrams",
+              "title": "Edit from the command line",
+              "about": "Change a diagram from a script or an assistant, with the editor's own modelling."
             }
           ]
         },

@@ -104,6 +104,7 @@
       <li><a href="../guide/migration.html" aria-current="page">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -221,6 +222,21 @@ Job workers to write: 2</code></pre>
   <tr><td>Converts</td><td>Penstock converts it exactly.</td></tr>
   <tr><td>To check</td><td>Penstock converts it. A person checks the result. The finding stays after converting.</td></tr>
   <tr><td>To do</td><td>Penstock leaves it and marks it on its element. A person does it.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="in-a-pipeline"><a href="#in-a-pipeline">In a pipeline</a></h3>
+
+<p>The analysis runs without the editor, so it can gate a pipeline while a project still has Camunda 7 diagrams in it.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--target &lt;version&gt;</code></td><td>The Camunda 8 version to check against, 8.8 by default.</td></tr>
+  <tr><td><code>--format text|json|sarif|github</code></td><td>The findings as a table, as JSON with a count of effort and the blockers, as SARIF, or as annotations on the changed lines. SARIF and annotations are Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>--fail-on error|warning</code></td><td>What makes the exit code 1. Errors always do. With <code>warning</code> a warning does too.</td></tr>
+  <tr><td><code>--baseline</code>, <code>--update-baseline</code></td><td>Fail only on what is new since the last <code>--update-baseline</code>, which writes <code>penstock-migration-baseline.json</code> in the project root. Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>--verbose</code></td><td>Also lists the notes, the things that only carry over as they are.</td></tr>
   </tbody>
 </table></div></div>
 

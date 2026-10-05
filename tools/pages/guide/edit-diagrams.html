@@ -1,0 +1,121 @@
+<!--
+title: Edit a diagram from the command line
+lede: Change a diagram from a script or an AI assistant with the editor's own modelling, and have Penstock refuse an edit that would leave the drawing broken.
+tags: pro
+needs: Team in a pipeline
+related: cli/commands, cli/mcp, diagram-check, security
+-->
+<h2>What it is</h2>
+
+<p>A diagram is XML with coordinates. Editing it by hand or by a text tool gets the process right and the picture wrong: the new task sits on top of another, the flow runs through a shape, a boundary event floats off its task. <code>penstock edit</code> does not touch the XML. It opens the diagram in the same modelling engine the editor uses, makes the change the way a person would on the canvas, and saves the result. A new element is placed after the one you name and connected to it, the way the editor places one.</p>
+
+<p>The same operations are available to an AI assistant as the MCP tool <code>edit_diagram</code>. See <a href="@cli/mcp.html">The MCP server</a>. Both run the same code.</p>
+
+<h2>Read before you edit</h2>
+
+<p>Edits refer to ids. <code>penstock show</code> lists every element and flow of a diagram with its type, id, name and connections, and <code>penstock show --format json</code> adds the parent and the engine properties. The MCP tool <code>show_diagram</code> returns the same. The engine is the one in <code>penstock.yaml</code>, or the one the diagram itself uses.</p>
+
+<pre><code>$ penstock show src/orders/order.bpmn
+src/orders/order.bpmn  (camunda-8)
+
+TYPE         ID               NAME             FLOW
+StartEvent   StartEvent_1     Order received
+ServiceTask  Task_check       Check stock
+...</code></pre>
+
+<h2>The four operations</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Operation</th><th>What it does</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td><code>add</code></td><td>Adds an element after an existing one, placed and connected as the editor does it. It can be given a name, an id, an event type and properties.</td><td><code>element</code> and <code>after</code></td></tr>
+  <tr><td><code>connect</code></td><td>Draws a sequence flow between two elements, with an optional name and condition.</td><td><code>from</code> and <code>to</code></td></tr>
+  <tr><td><code>set</code></td><td>Changes properties of an element or a flow.</td><td><code>id</code> and <code>properties</code></td></tr>
+  <tr><td><code>remove</code></td><td>Removes an element or a flow, with the flows that were attached to it.</td><td><code>id</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>On the command line, one operation is spelled out, and several come as JSON:</p>
+
+<pre><code>penstock edit orders.bpmn add service-task --after Task_check --name "Reserve stock" --set jobType=reserve-stock
+penstock edit orders.bpmn connect Gateway_stock Task_notify --condition "=not(inStock)"
+penstock edit orders.bpmn set Task_notify --set assignee=support --input customer==order.customer
+penstock edit orders.bpmn remove Task_legacy
+penstock edit orders.bpmn --ops-file changes.json
+echo '[{"op":"remove","id":"Task_legacy"}]' | penstock edit orders.bpmn --ops-file -</code></pre>
+
+<p>Several operations in one call apply together or not at all. If the third one fails, nothing is written, and the message says which one it was.</p>
+
+<h3>What can be added</h3>
+
+<ul>
+  <li><strong>Elements:</strong> <code>task</code>, <code>user-task</code>, <code>service-task</code>, <code>script-task</code>, <code>send-task</code>, <code>receive-task</code>, <code>business-rule-task</code>, <code>manual-task</code>, <code>call-activity</code>, <code>sub-process</code>, <code>end-event</code>, <code>intermediate-catch-event</code>, <code>intermediate-throw-event</code>, <code>exclusive-gateway</code>, <code>parallel-gateway</code>, <code>inclusive-gateway</code> and <code>event-based-gateway</code>.</li>
+  <li><strong>Event types</strong>, for the event elements, in <code>event</code>: <code>message</code>, <code>timer</code>, <code>signal</code>, <code>error</code>, <code>escalation</code>, <code>conditional</code> and <code>terminate</code>.</li>
+  <li><strong>Not</strong> after an end event, after a flow, or after a pool or a lane itself: name an element inside the lane.</li>
+  <li><strong>The id</strong> of a new element is the one you give, or else the one your <a href="settings.html">conventions</a> in <code>penstock.yaml</code> make. The conventions' defaults for that element type are applied to it.</li>
+</ul>
+
+<h3>Which properties</h3>
+
+<p>Only properties the engine of the diagram knows are accepted. Anything else is refused with the list of the ones that are. <code>penstock edit &lt;file&gt; --schema</code> prints the exact contract for the file's engine as a JSON schema, and changes nothing. It is free.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Engine</th><th>Properties</th></tr></thead>
+  <tbody>
+  <tr><td>All</td><td><code>name</code>, <code>documentation</code> and, on a sequence flow, <code>condition</code></td></tr>
+  <tr><td>Camunda 8</td><td>On service, send, business rule and script tasks: <code>jobType</code>, <code>retries</code>. On a user task: <code>assignee</code>, <code>candidateUsers</code>, <code>candidateGroups</code>, <code>formId</code>. On a call activity: <code>processId</code>. On tasks: <code>inputs</code> and <code>outputs</code> as mappings. The condition is a FEEL expression.</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td>On service, send, business rule and script tasks: <code>class</code>, <code>delegateExpression</code>, <code>expression</code>, <code>resultVariable</code>, <code>topic</code>. On any element: <code>asyncBefore</code>, <code>asyncAfter</code>. On a user task: <code>assignee</code>, <code>candidateUsers</code>, <code>candidateGroups</code>, <code>formKey</code>. On a call activity: <code>calledElement</code>. On tasks: <code>inputs</code> and <code>outputs</code>.</td></tr>
+  <tr><td>Classic BPMN</td><td>The common ones only</td></tr>
+  </tbody>
+</table></div>
+
+<p>With <code>--set name=value</code>, the value of a boolean property is <code>true</code> or <code>false</code>, and of a number such as <code>retries</code> digits. <code>--input name=value</code> and <code>--output name=value</code> add a mapping.</p>
+
+<h2>What stops an edit</h2>
+
+<p>After the edit Penstock saves the diagram in memory, reads it back, and runs the drawing check on both versions. It compares them, so a problem that was already there is not blamed on the edit.</p>
+
+<ul>
+  <li>If the diagram no longer reads back as well as before, nothing is written.</li>
+  <li>If the edit adds one of these drawing problems, it is <strong>refused</strong>: <code>LOST-CONNECTION</code>, <code>SEMANTIC-DRIFT</code>, <code>BACKTRACK</code>, <code>CONTAINMENT</code>, <code>OVERLAP</code>, <code>EDGE-THROUGH-NODE</code>, <code>DETACHED-EDGE</code>, <code>LABEL-OVERLAP</code>, <code>DANGLING-CONNECTION</code> or <code>BOUNDARY-OFF-HOST</code>. These break the picture. See <a href="diagram-check.html">Diagram check</a>.</li>
+  <li>If it only adds readability problems, it is written, and the answer lists them after <em>note reads less well</em>.</li>
+</ul>
+
+<p>The answer always says what was done, lists what changed by element, and says whether anything is broken. <code>--dry-run</code> does all of it and writes nothing. <code>--force</code> writes even when the edit would break the drawing.</p>
+
+<pre><code>$ penstock edit src/orders/order.bpmn add service-task --after Task_check --name "Reserve stock" --dry-run
+added   ServiceTask Activity_1q2w3e4 after Task_check
+
+  added    ServiceTask "Reserve stock" Activity_1q2w3e4
+
+ok    nothing broken
+
+Dry run: src/orders/order.bpmn was not changed.</code></pre>
+
+<h2>Limits</h2>
+
+<ul>
+  <li>BPMN diagrams only. A decision or a form is not edited this way.</li>
+  <li>The root of the diagram, a process or a collaboration, cannot be removed.</li>
+  <li>It does not move shapes. A new element goes where the editor would put it, and the rest stays.</li>
+  <li>It is part of Pro, and Team in a pipeline. The MCP tool needs the same plan. A pipeline that has no Team key is told so, and nothing is changed.</li>
+  <li>The conventions of the project apply, so the same edit made in two projects can give different ids.</li>
+</ul>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A list of what was applied, the changes by element, and a line that says <em>ok nothing broken</em> or <em>fail breaks the drawing</em> with the count of new problems.</li>
+  <li>A changed diagram, which you review as a normal diff. See <a href="diagram-diff.html">Diagram diff</a>.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"Nothing was written".</dt>
+  <dd>An operation could not be applied, or the result would not read back. The message names the operation by its number.</dd>
+  <dt>The edit is refused as breaking the drawing.</dt>
+  <dd>The answer lists the new problems. Change the edit, for example add after another element, or use <code>--force</code> if you will tidy it by hand.</dd>
+  <dt>A property is refused.</dt>
+  <dd>The engine of the diagram does not have it. Run <code>penstock edit &lt;file&gt; --schema</code> to see the ones it has.</dd>
+</dl>

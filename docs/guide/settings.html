@@ -104,6 +104,7 @@
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     <h2>Licence and privacy</h2>
     <ul>
@@ -134,6 +135,7 @@
 <li><a href="#commands-around-a-stage">Commands around a stage</a></li>
 <li><a href="#secrets">Secrets</a></li>
 <li><a href="#what-is-not-in-the-file">What is not in the file</a></li>
+<li><a href="#language">Language</a></li>
 <li><a href="#completion-and-validation">Completion and validation</a></li>
 <li><a href="#what-to-commit">What to commit</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -236,13 +238,13 @@ profiles:
   <tr><td><code>deployment.url</code></td><td>Where to deploy. The engine decides what the address means. See <a href="deployment.html">Deployment</a>.</td></tr>
   <tr><td><code>deployment.name</code></td><td>The deployment's name in the engine. Default <code>Penstock deployment</code>.</td></tr>
   <tr><td><code>deployment.tenantId</code></td><td>The tenant to deploy to. Empty means the default tenant.</td></tr>
-  <tr><td><code>deployment.source</code></td><td>The source the engine records. Default <code>penstock</code>.</td></tr>
+  <tr><td><code>deployment.source</code></td><td>The source the engine records for the deployment, so you can tell in the engine's own list who sent it. Default <code>penstock</code>.</td></tr>
   <tr><td><code>deployment.changedOnly</code></td><td>Leave out what the engine already has unchanged. On unless you set <code>false</code>.</td></tr>
   <tr><td><code>deployment.activationTime</code></td><td>An ISO 8601 timestamp when the deployment becomes active. Camunda 7 family.</td></tr>
   <tr><td><code>deployment.forTests</code></td><td>Marks an engine that test-case runs may deploy test builds to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
   <tr><td><code>deployment.auth.type</code></td><td><code>none</code>, <code>basic</code> or <code>oauth</code>.</td></tr>
-  <tr><td><code>deployment.auth.username</code></td><td>The user for <code>basic</code>.</td></tr>
-  <tr><td><code>deployment.auth.clientId</code>, <code>tokenUrl</code>, <code>audience</code></td><td>For <code>oauth</code>.</td></tr>
+  <tr><td><code>deployment.auth.username</code></td><td>The user for <code>basic</code>. Not a secret, so it may be in the file. The password comes from your tool's secret store, or from <code>PENSTOCK_PASSWORD</code> on the command line.</td></tr>
+  <tr><td><code>deployment.auth.clientId</code>, <code>tokenUrl</code>, <code>audience</code></td><td>For <code>oauth</code>: the client id, the address of the token endpoint that issues the access token, and the audience the token is for. The client secret comes from your tool's secret store, or from <code>PENSTOCK_CLIENT_SECRET</code> on the command line.</td></tr>
   <tr><td><code>profile</code></td><td>The profile in force. <code>PENSTOCK_PROFILE</code> wins. See <a href="profiles.html">Profiles</a>.</td></tr>
   <tr><td><code>profiles</code></td><td>Named sets of overrides. See <a href="profiles.html">Profiles</a>.</td></tr>
   </tbody>
@@ -302,6 +304,18 @@ profiles:
 <h2 id="what-is-not-in-the-file"><a href="#what-is-not-in-the-file">What is not in the file</a></h2>
 
 <p>Anything about how your editor looks: which toolbar actions are pinned, whether the tour has been seen, Sketchy drawing, the width of the sidebar and the tab you left selected, tree or flat view of the project model, the last export format. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+
+<h2 id="language"><a href="#language">Language</a></h2>
+
+<p>The editors, the messages and the command line are in English, German, Spanish, French, Japanese, Korean, Portuguese (Brazil), Russian and simplified Chinese. The pages of this guide and the rule pages are in English.</p>
+
+<ul>
+  <li><strong>In an editor</strong> a <code>locale</code> in <code>~/.penstock/preferences.json</code> comes first, if there is one. Without it the language of your tool is used, and without that the one of the browser engine the editor runs in.</li>
+  <li><strong>On the command line</strong> it is <code>--lang</code>, then the first of <code>LC_ALL</code>, <code>LC_MESSAGES</code> and <code>LANG</code> that is set and is not <code>C</code> or <code>POSIX</code>.</li>
+  <li>A language Penstock does not have gives English. So does Traditional Chinese (script Hant, or the regions TW, HK and MO), and any Portuguese other than Brazil.</li>
+</ul>
+
+<p>Only the words Penstock writes are translated. The names in your diagrams, the findings' ids and the keys of <code>penstock.yaml</code> stay as they are.</p>
 
 <h2 id="completion-and-validation"><a href="#completion-and-validation">Completion and validation</a></h2>
 

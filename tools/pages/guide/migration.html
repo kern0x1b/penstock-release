@@ -63,6 +63,21 @@ related: engine-profiles, code-links, cli/commands, cli/ci
   </tbody>
 </table></div>
 
+<h3>In a pipeline</h3>
+
+<p>The analysis runs without the editor, so it can gate a pipeline while a project still has Camunda 7 diagrams in it.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--target &lt;version&gt;</code></td><td>The Camunda 8 version to check against, 8.8 by default.</td></tr>
+  <tr><td><code>--format text|json|sarif|github</code></td><td>The findings as a table, as JSON with a count of effort and the blockers, as SARIF, or as annotations on the changed lines. SARIF and annotations are Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>--fail-on error|warning</code></td><td>What makes the exit code 1. Errors always do. With <code>warning</code> a warning does too.</td></tr>
+  <tr><td><code>--baseline</code>, <code>--update-baseline</code></td><td>Fail only on what is new since the last <code>--update-baseline</code>, which writes <code>penstock-migration-baseline.json</code> in the project root. Pro, and Team in a pipeline.</td></tr>
+  <tr><td><code>--verbose</code></td><td>Also lists the notes, the things that only carry over as they are.</td></tr>
+  </tbody>
+</table></div>
+
 <h2>What it looks at</h2>
 
 <ul>

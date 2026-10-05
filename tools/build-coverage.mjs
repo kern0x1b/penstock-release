@@ -62,6 +62,10 @@ const { FEATURES, featureTitle } = await load('libs/core/src/node/features.ts');
 const GATED = { 'auto-layout': 'Auto layout', 'flow-analysis': 'Flow analysis', docs: 'docs', paths: 'scenarios list', tests: 'junit', 'code-links': 'code links', 'element-templates': 'templates generate', 'changes-pictures': 'diff --images', edit: 'edit', 'pr-report': 'report', bot: 'review bot', baseline: 'baseline', 'ci-annotations': 'SARIF', 'test-runs': 'scenarios run', 'test-case-generation': 'scenarios generate', migration: 'migrate convert' };
 for (const feature of FEATURES) add('tier-gate', `${feature}: ${featureTitle(feature)}`, 'libs/core/src/node/features.ts', [`T:${GATED[feature]}`], { tier: 'Pro', only: ['guide/plans.html'] });
 
+const EDITOR_GATES = { AUTO_LAYOUT: 'Auto layout', CODE_LINKS: 'code links', VISUAL_DIFF: 'diagram diff', CONVENTIONS: 'Modelling conventions', FLOW_ANALYSIS: 'Flow analysis', MIGRATION: 'Converting Camunda 7', TEST_RUNS: 'Scenarios' };
+const gates = read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/license/PenstockLicenseService.kt');
+for (const [, name] of gates.matchAll(/^\s+([A-Z_]+)\(Tier\.PRO,/gm)) add('tier-gate', `editor: ${name}`, 'apps/jetbrains/.../PenstockLicenseService.kt', [`T:${EDITOR_GATES[name] ?? name}`], { tier: 'Pro', only: ['guide/plans.html'] });
+
 const { ENGINE_KEYS, profileOf } = await load('libs/core/src/config/engine.ts');
 for (const key of ENGINE_KEYS) add('engine', `${key}: ${profileOf(key).label}`, 'libs/core/src/config/engine.ts', [`L:${profileOf(key).label}`, `T:${profileOf(key).label}`], { only: ['guide/engine-profiles.html'] });
 
@@ -85,7 +89,7 @@ const catalogue = read('libs/core/src/rules/catalog.ts');
 for (const [, id, title] of catalogue.matchAll(/^  (\w+): \{\n    title: '([^']+)'/gm)) add('rule-group', title, `libs/core/src/rules/catalog.ts (${id})`, [`T:${title}`], { only: ['guide/diagram-check.html', 'guide/validation.html', 'rules/index.html'] });
 
 const PRESENT = { recentActions: ['A:recent&action'], showCommentBadges: ['T:comment badges'], toolbarPinned: ['A:pin&action'], toolbarUnpinned: ['A:pin&action'] };
-const PREFERENCES = { toolbarPinned: 'pin', toolbarUnpinned: 'pin', recentActions: 'Recent', rendering: 'Sketchy', toolWindowTree: 'tree', toolWindowGroupByFiles: 'group by', tourSeen: 'tour', sidebarWidth: 'sidebar', sidebarByEditor: 'sidebar', showCommentBadges: 'comment badges', locale: 'language' };
+const PREFERENCES = { toolbarPinned: 'pin', toolbarUnpinned: 'pin', recentActions: 'Recent', rendering: 'Sketchy', toolWindowTree: 'flat', toolWindowGroupByFiles: 'file by file', tourSeen: 'tour', sidebarWidth: 'sidebar', sidebarByEditor: 'sidebar', showCommentBadges: 'comment badges', locale: 'language' };
 for (const [, key] of read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt').matchAll(/^\s+(\w+) = json\./gm)) {
   add('preference', key, 'apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt', [`A:preferences.json&${PREFERENCES[key]}`, `T:${key}`, ...(PRESENT[key] ?? [])]);
 }

@@ -381,8 +381,8 @@
   "terms": [
    "R:Shift\\s?\\+\\s?/"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/toolbar.html",
+  "depth": "explained"
  },
  {
   "row": "File: Export decision table as a workbook…",
@@ -500,7 +500,7 @@
    "T:penstock check",
    "L:check"
   ],
-  "page": "guide/diagram-check.html",
+  "page": "guide/comments.html",
   "depth": "explained"
  },
  {
@@ -1094,7 +1094,7 @@
   "terms": [
    "R:--out(?![\\w-])"
   ],
-  "page": "guide/migration.html",
+  "page": "guide/diagram-diff.html",
   "depth": "explained"
  },
  {
@@ -1166,7 +1166,7 @@
   "terms": [
    "R:--timeout(?![\\w-])"
   ],
-  "page": "cli/commands.html",
+  "page": "guide/scenario-file.html",
   "depth": "explained"
  },
  {
@@ -1574,7 +1574,7 @@
   "terms": [
    "T:analyze_flow"
   ],
-  "page": "guide/plans.html",
+  "page": "guide/flow-analysis.html",
   "depth": "explained"
  },
  {
@@ -2250,8 +2250,8 @@
   "only": [
    "guide/plans.html"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/plans.html",
+  "depth": "explained"
  },
  {
   "row": "changes-pictures: Pictures of changes",
@@ -2381,6 +2381,111 @@
   "tier": "Pro",
   "terms": [
    "T:migrate convert"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: AUTO_LAYOUT",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Auto layout"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: CODE_LINKS",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:code links"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: VISUAL_DIFF",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:diagram diff"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: CONVENTIONS",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Modelling conventions"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: FLOW_ANALYSIS",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Flow analysis"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: MIGRATION",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Converting Camunda 7"
+  ],
+  "only": [
+   "guide/plans.html"
+  ],
+  "page": "guide/plans.html",
+  "depth": "explained"
+ },
+ {
+  "row": "editor: TEST_RUNS",
+  "kind": "tier-gate",
+  "source": "apps/jetbrains/.../PenstockLicenseService.kt",
+  "userFacing": true,
+  "tier": "Pro",
+  "terms": [
+   "T:Scenarios"
   ],
   "only": [
    "guide/plans.html"
@@ -3670,7 +3775,7 @@
   "terms": [
    "T:test-cases"
   ],
-  "page": "guide/scenarios.html",
+  "page": "guide/scenario-file.html",
   "depth": "explained"
  },
  {
@@ -3742,7 +3847,7 @@
   "terms": [
    "T:.penstock/images"
   ],
-  "page": "guide/files.html",
+  "page": "guide/diagram-diff.html",
   "depth": "explained"
  },
  {
@@ -3924,8 +4029,8 @@
    "T:penstock:comments",
    "T:penstock.dev/schema"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/comments.html",
+  "depth": "explained"
  },
  {
   "row": "draw.io",
@@ -3996,8 +4101,8 @@
   "terms": [
    "T:ASSERT_DECISION"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_ELEMENT_INSTANCE",
@@ -4008,8 +4113,8 @@
   "terms": [
    "T:ASSERT_ELEMENT_INSTANCE"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_ELEMENT_INSTANCES",
@@ -4020,8 +4125,8 @@
   "terms": [
    "T:ASSERT_ELEMENT_INSTANCES"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_PROCESS_INSTANCE",
@@ -4032,8 +4137,8 @@
   "terms": [
    "T:ASSERT_PROCESS_INSTANCE"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION",
@@ -4044,8 +4149,8 @@
   "terms": [
    "T:ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_USER_TASK",
@@ -4056,8 +4161,8 @@
   "terms": [
    "T:ASSERT_USER_TASK"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "ASSERT_VARIABLES",
@@ -4068,8 +4173,8 @@
   "terms": [
    "T:ASSERT_VARIABLES"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "BROADCAST_SIGNAL",
@@ -4080,8 +4185,8 @@
   "terms": [
    "T:BROADCAST_SIGNAL"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "mention"
  },
  {
   "row": "COMPLETE_JOB",
@@ -4092,8 +4197,8 @@
   "terms": [
    "T:COMPLETE_JOB"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "COMPLETE_JOB_AD_HOC_SUB_PROCESS",
@@ -4104,8 +4209,8 @@
   "terms": [
    "T:COMPLETE_JOB_AD_HOC_SUB_PROCESS"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "COMPLETE_JOB_USER_TASK_LISTENER",
@@ -4116,8 +4221,8 @@
   "terms": [
    "T:COMPLETE_JOB_USER_TASK_LISTENER"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "COMPLETE_USER_TASK",
@@ -4128,8 +4233,8 @@
   "terms": [
    "T:COMPLETE_USER_TASK"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "mention"
  },
  {
   "row": "CORRELATE_MESSAGE",
@@ -4140,8 +4245,8 @@
   "terms": [
    "T:CORRELATE_MESSAGE"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "CREATE_PROCESS_INSTANCE",
@@ -4152,8 +4257,8 @@
   "terms": [
    "T:CREATE_PROCESS_INSTANCE"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "EVALUATE_CONDITIONAL_START_EVENT",
@@ -4164,8 +4269,8 @@
   "terms": [
    "T:EVALUATE_CONDITIONAL_START_EVENT"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "EVALUATE_DECISION",
@@ -4176,8 +4281,8 @@
   "terms": [
    "T:EVALUATE_DECISION"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "INCREASE_TIME",
@@ -4188,8 +4293,8 @@
   "terms": [
    "T:INCREASE_TIME"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "MOCK_CHILD_PROCESS",
@@ -4200,8 +4305,8 @@
   "terms": [
    "T:MOCK_CHILD_PROCESS"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "MOCK_DMN_DECISION",
@@ -4212,8 +4317,8 @@
   "terms": [
    "T:MOCK_DMN_DECISION"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "MOCK_JOB_WORKER_COMPLETE_JOB",
@@ -4224,8 +4329,8 @@
   "terms": [
    "T:MOCK_JOB_WORKER_COMPLETE_JOB"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "MOCK_JOB_WORKER_THROW_BPMN_ERROR",
@@ -4236,8 +4341,8 @@
   "terms": [
    "T:MOCK_JOB_WORKER_THROW_BPMN_ERROR"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "PUBLISH_MESSAGE",
@@ -4248,8 +4353,8 @@
   "terms": [
    "T:PUBLISH_MESSAGE"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "RESOLVE_INCIDENT",
@@ -4260,8 +4365,8 @@
   "terms": [
    "T:RESOLVE_INCIDENT"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "SET_TIME",
@@ -4272,8 +4377,8 @@
   "terms": [
    "T:SET_TIME"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  },
  {
   "row": "THROW_BPMN_ERROR_FROM_JOB",
@@ -4284,8 +4389,8 @@
   "terms": [
    "T:THROW_BPMN_ERROR_FROM_JOB"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "mention"
  },
  {
   "row": "UPDATE_VARIABLES",
@@ -4296,7 +4401,7 @@
   "terms": [
    "T:UPDATE_VARIABLES"
   ],
-  "page": null,
-  "depth": "none"
+  "page": "guide/scenario-file.html",
+  "depth": "explained"
  }
 ]
