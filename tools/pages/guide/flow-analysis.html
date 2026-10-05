@@ -28,6 +28,34 @@ related: diagram-check, scenarios, cli/ci
 
 <p>The same walk finds the <strong>scenarios</strong> of a diagram: the ways through it. See <a href="scenarios.html">Scenarios</a>, where <span class="ui">Generate</span> turns them into runnable ones.</p>
 
+<h2>An example</h2>
+
+<p>A diagram starts, reaches an exclusive gateway called <em>Which way</em>, and sends the token either to <em>Task A</em> or to <em>Task B</em>. Both flows meet again at a parallel gateway called <em>Join</em>, and then the process ends.</p>
+
+<p>The exclusive gateway sends the token down one branch only. The parallel gateway waits for a token from each branch. The second one never comes. The check reports <em>The process can get stuck</em> for <em>Join</em>, with the path <em>Start → Which way → Task A</em>, and outlines that path on the canvas. The fix is to join with an exclusive gateway, or to make the split parallel.</p>
+
+<h2>How it works</h2>
+
+<ul>
+  <li>It works on the diagram only. It does not need an engine, and it does not run anything.</li>
+  <li>A process, and each sub-process, transaction and ad hoc sub-process inside it, is a scope. It starts a token at each start event of the scope and explores every way the tokens can move. At an exclusive gateway the token goes down each outgoing flow in turn, at a parallel gateway it splits.</li>
+  <li>Each place the walk can be in counts as one state. The walk stops at 20,000 states in a scope and then reports <em>Only part of the process was analysed</em>.</li>
+  <li>Conditions on flows are read as FEEL for Camunda 8 and as JUEL for Camunda 7, as far as they are comparisons joined with <code>and</code>, <code>or</code> and <code>not</code>. This is what lets it say that two conditions overlap or leave a value out.</li>
+</ul>
+
+<h2>What goes in and what comes out</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>Input</th><th>Output</th></tr></thead>
+  <tbody>
+  <tr><td>The editor</td><td>The open diagram</td><td>The section <em>How it runs</em> in the check card and the Problems tab</td></tr>
+  <tr><td><code>penstock check --only flow</code></td><td>The diagrams under the paths. Forms alone are not flow-checked.</td><td>A table of findings with the rule id, or <code>--format json</code>, <code>sarif</code> or <code>github</code>. Exit code 1 when something is found.</td></tr>
+  <tr><td>The MCP tool <code>analyze_flow</code></td><td>The absolute path of one diagram</td><td>A JSON list of problems. Each has <code>kind</code>, <code>title</code>, <code>detail</code>, <code>elements</code> (the ids involved) and <code>trace</code> (the ids of the path that leads there)</td></tr>
+  </tbody>
+</table></div>
+
+<p>Flow analysis is part of Pro, and Team in a pipeline. The same applies to the command and to the MCP tool. Nothing is written to your project.</p>
+
 <h2>In the editor</h2>
 
 <ol class="steps">
