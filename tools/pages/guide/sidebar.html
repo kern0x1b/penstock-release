@@ -1,27 +1,50 @@
 <!--
 title: The sidebar
-lede: The sidebar runs the full height of the editor beside the canvas, with a row of tabs along its top: the properties of what is selected, the scenarios of a process, what the check found, what the engine is doing and the code behind a step.
+lede: The sidebar runs the full height of the editor beside the canvas, with a row of tabs along its top: the properties of what is selected, the scenarios of a process, what the check found, the comments, what the engine is doing and the code behind a step.
 tags: free
-related: properties-panel, scenarios, diagram-check, monitor, code-links, form-editor, toolbar
+related: properties-panel, scenarios, diagram-check, comments, monitor, code-links, dmn-editor, form-editor, toolbar
 -->
 <h2>What it is</h2>
 
-<p>The sidebar is one surface in all three editors, and it is where most of what Penstock adds to a diagram is read. It sits to the right of the canvas and carries a row of tabs along its top. Each editor registers its own tabs, in a fixed order, so the tabs you know from a diagram are in the same place in a decision or a form.</p>
+<p>The sidebar is one surface in all three editors, and it is where most of what Penstock adds to a diagram is read. It sits to the right of the canvas and carries a row of tabs along its top. Each editor registers its own tabs, in a fixed order, so a tab you know from a diagram is in the same place whenever the same tab exists in a decision or a form.</p>
 
 <p>With the sidebar open and an element selected, you can go from what the diagram says to the engine, to the files and back without leaving the editor. <a href="editing.html">Editing a diagram</a> covers the canvas beside it.</p>
+
+<figure class="shot">
+  <img src="@img/editor-overview.png" alt="The Properties tab of the sidebar for a selected user task. The tab row shows the open tab by name and the other five tabs as icons">
+  <figcaption>The tab row of a diagram. The open tab shows its name, the others are icons with a tooltip. The groups below the row are the Properties tab.</figcaption>
+</figure>
 
 <h2>The tabs</h2>
 
 <div class="table-wrap"><table>
   <thead><tr><th>Editor</th><th>Tabs, in order</th></tr></thead>
   <tbody>
-  <tr><td>A diagram</td><td>Properties, Scenarios, Problems, Monitor, Code</td></tr>
-  <tr><td>A decision</td><td>Properties, Problems</td></tr>
+  <tr><td>A diagram</td><td>Properties, Scenarios, Problems, Comments, Monitor, Code</td></tr>
+  <tr><td>A decision</td><td>Properties, Problems, Try</td></tr>
   <tr><td>A form</td><td>Properties, Preview, Problems</td></tr>
   </tbody>
 </table></div>
 
-<p>The row shows the tabs as icons when the sidebar is narrow, with a tooltip that names each one, and a count badge on Problems. A tab with nothing to show says what it is for and what to do next, rather than staying blank.</p>
+<p>The tab that is open shows an icon and its name. Every other tab is an icon, and resting the pointer on it names it. A count badge sits on Problems, and on Comments in a diagram. A tab with nothing to show says what it is for and what to do next, rather than staying blank. The arrow keys move between the tabs.</p>
+
+<h2>What each tab is for</h2>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Tab</th><th>Editor</th><th>What it holds</th></tr></thead>
+  <tbody>
+  <tr><td>Properties</td><td>All three</td><td>The settings of the selected element, in the groups the engine defines. In a decision, the id, name and documentation of the selected decision. <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Scenarios</td><td>Diagram</td><td>The ways through this process, generated from the diagram or written by hand, and run against an engine. Open a scenario to read it step by step. <a href="scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td>Problems</td><td>All three</td><td>Everything the check found, in groups. The diagram's list has a group for each kind of finding. The decision's and the form's is one list. <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Comments</td><td>Diagram</td><td>The comments on the elements of the diagram, and the thread of the selected element. <a href="comments.html">Comments</a>.</td></tr>
+  <tr><td>Monitor</td><td>Diagram</td><td>What the engine is doing with this diagram now: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a>.</td></tr>
+  <tr><td>Code</td><td>Diagram</td><td>The workers, classes, beans, tests and usages behind the selected step. <a href="code-links.html">Code links</a>.</td></tr>
+  <tr><td>Try</td><td>Decision</td><td>Type the values a decision table asks for and see which rules match and what it returns. <a href="dmn-editor.html#try">The DMN editor</a>.</td></tr>
+  <tr><td>Preview</td><td>Form</td><td>The form as a user sees it, beside the JSON it is given and the JSON it would submit. <a href="form-editor.html#preview">The form editor</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Only the tabs of the editor you have open are there. A diagram has no Preview tab, because a form is the only thing that previews, and a form has no Scenarios tab.</p>
 
 <h2>Open and close it</h2>
 
@@ -31,31 +54,22 @@ related: properties-panel, scenarios, diagram-check, monitor, code-links, form-e
 
 <h2>How wide, and what it remembers</h2>
 
-<p>The sidebar takes about a third of the width of the editor, between 320 and 480 pixels, and the dividing line can be dragged from 280 pixels to half the editor. Below about 840 pixels wide it becomes a drawer over the canvas rather than a column beside it, so nothing on the page is pushed sideways on a phone.</p>
+<p>The sidebar takes about a third of the width of the editor, between 320 and 480 pixels. The dividing line can be dragged from 280 pixels to half the editor, and a double click on it brings back the default width. With the keyboard, focus the dividing line and use the left and right arrow keys.</p>
 
-<p>The width, and the tab you left selected, are kept in <code>~/.penstock/preferences.json</code>, so they are the same in every tool on the machine. Problems, Monitor and Code each keep their own state while you look at another tab, so Monitor holds the instances it fetched and Code holds what you had open. The tabs choose what you look at; going deeper inside one is a separate step, and a small <strong>&#8249;</strong> in the tab's own header takes you back.</p>
+<p>Below about 960 pixels of editor width the sidebar is a drawer over the canvas rather than a column beside it, so the canvas keeps room for the toolbar. A drawer has a close button at the end of the tab row. Closed that way it leaves a slim bar with the name of the tab, and for Scenarios the step you are on, and a button that opens it again.</p>
 
-<h2>What each tab is for</h2>
+<p>The width is kept in <code>~/.penstock/preferences.json</code>, so it is the same in every tool on the machine. The tab you left selected, and whether the sidebar was hidden, are kept for each editor separately: a diagram, a decision and a form each come back on the tab you left in that kind of file.</p>
 
-<div class="table-wrap"><table class="facts">
-  <tbody>
-  <tr><td>Properties</td><td>The settings of the selected element, in the groups the engine defines. <a href="properties-panel.html">The properties panel</a>.</td></tr>
-  <tr><td>Scenarios</td><td>The ways through this process, generated from the diagram or written by hand, and run against an engine. <a href="scenarios.html">Scenarios</a>.</td></tr>
-  <tr><td>Problems</td><td>Everything the check found, in groups. <a href="diagram-check.html">Diagram check</a>.</td></tr>
-  <tr><td>Monitor</td><td>What the engine is doing with this diagram now: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a>.</td></tr>
-  <tr><td>Code</td><td>The workers, classes, beans, tests and usages behind the selected step. <a href="code-links.html">Code links</a>.</td></tr>
-  <tr><td>Preview</td><td>A form as a user sees it, beside the JSON it is given. <a href="form-editor.html">The form editor</a>.</td></tr>
-  </tbody>
-</table></div>
+<h2>Going deeper inside a tab</h2>
 
-<p>Only the tabs of the editor you have open are there. A diagram has no Preview tab, because a form is the only thing that previews.</p>
+<p>The tabs choose what you look at. Going deeper inside one is a separate step: opening a scenario, a thread of comments or a long group of code usages. A row with a <strong>&#8249;</strong> and the name of what you are in appears under the tab row, and it takes you back. <kbd>Esc</kbd> does the same while the focus is not in a text field. Problems, Monitor, Comments and Code each keep their own state while you look at another tab, so Monitor holds the instances it fetched and Code holds what you had open.</p>
 
 <h2>What you see</h2>
 
 <ul>
   <li>A column beside the canvas with a row of tabs along its top.</li>
-  <li>A count badge on Problems while the check has findings.</li>
-  <li>Icons instead of names when the sidebar is narrow.</li>
+  <li>A count badge on Problems while the check has errors or warnings, and on Comments while a comment is open.</li>
+  <li>The open tab by name, the others as icons.</li>
 </ul>
 
 <h2>Common problems</h2>
@@ -63,10 +77,14 @@ related: properties-panel, scenarios, diagram-check, monitor, code-links, form-e
 <dl class="problems">
   <dt>The sidebar is gone.</dt>
   <dd>Press the sidebar toggle at the right of the toolbar, or the <strong>Sidebar</strong> action in the <span class="ui">More</span> menu.</dd>
+  <dt>I closed it and only a bar is left.</dt>
+  <dd>The editor is narrow, so the sidebar is a drawer. Press the button on the bar to open it again, or make the editor wider.</dd>
   <dt>Monitor says there is no engine.</dt>
   <dd>It asks for the address of the profile in force. <a href="monitor.html">Monitor</a> has what to set.</dd>
   <dt>Scenarios says it needs Pro.</dt>
   <dd>Scenarios is Pro on your machine and Team in a pipeline. <a href="plans.html">Plans and licence</a>.</dd>
   <dt>A tab is missing.</dt>
-  <dd>Each editor has its own tabs: Scenarios, Monitor and Code are for diagrams, Preview for forms. The table above says which.</dd>
+  <dd>Each editor has its own tabs: Scenarios, Comments, Monitor and Code are for diagrams, Try for decisions, Preview for forms. The table above says which. Scenarios is shown for Camunda 7, Camunda 8, Operaton and CIB seven diagrams.</dd>
+  <dt>The Problems badge says 5 and the card lists fewer.</dt>
+  <dd>The card is a summary of the first findings. <span class="ui">Show all</span> opens the Problems tab with the whole list.</dd>
 </dl>

@@ -1,0 +1,62 @@
+<!--
+title: Trace paths
+lede: Select a step and the editor shows every path that runs through it, what leads there and what leads on from there, with the rest of the diagram dimmed.
+tags: free
+related: editing, token-simulation, flow-analysis, dmn-editor, toolbar
+-->
+<h2>What it is</h2>
+
+<p>In a large diagram the question is often "how does the process get here?" or "what can happen after this?". Trace paths answers it on the canvas. It follows the flows backwards from the step you chose to every start, and forwards to every end, and dims everything that is on neither side.</p>
+
+<p>It reads only the diagram. Nothing is sent to an engine and no token moves, so it is not <a href="token-simulation.html">Token simulation</a>. It also looks at every path the drawing allows, not the paths your data takes, which is what <a href="flow-analysis.html">Flow analysis</a> reports on.</p>
+
+<h2>Trace a step</h2>
+
+<ol class="steps">
+  <li>Select a task, a gateway or an event.</li>
+  <li>Press the trace icon on the pad beside the element, or choose <span class="ui">Trace paths</span> in the <span class="ui">More</span> menu, under View.</li>
+  <li>The paths that lead to the step and the paths that lead on from it stay in full colour. The rest of the diagram is dimmed.</li>
+  <li>Read the small card over the canvas. It names what is traced and counts the steps on each side, for example <em>Tracing Approve order - 3 before, 5 after</em>.</li>
+  <li>To end it, press <kbd>Esc</kbd>, click on the empty canvas, press the close button on the card, or run the action again.</li>
+</ol>
+
+<p>The action is off until something that can be traced is selected. Its tooltip then says <em>Select a task, a gateway or an event to trace the paths that run through it</em>.</p>
+
+<!-- image: trace-paths-card.png, a step selected with the paths through it in full colour, the rest dimmed, and the trace card over the canvas -->
+
+<h2>How boundary events and event sub-processes read</h2>
+
+<ul>
+  <li>A <strong>boundary event</strong> is read as a way out of the task it sits on. Tracing the task includes the path that leaves through the boundary event.</li>
+  <li>An <strong>event sub-process</strong> is read as one way into its parent. Tracing a step inside the parent includes it.</li>
+</ul>
+
+<h2>Follow message flows</h2>
+
+<p>In a diagram with more than one pool the card has a checkbox, <span class="ui">Follow message flows</span>. Tick it and the trace follows the message flows across the pools. Without it the trace does not cross them.</p>
+
+<h2>In a decision</h2>
+
+<p>The decision editor has the same action. In the requirements diagram, select a decision and run <span class="ui">Trace paths</span>. It shows every decision and input the selected decision needs, and everything that depends on it. Its tooltip, with nothing selected, says <em>Select a decision in the requirements diagram to trace what it needs</em>. See <a href="dmn-editor.html">The DMN editor</a>.</p>
+
+<h2>What it does not change</h2>
+
+<p>A trace exists on the canvas only. It adds nothing to the undo history, nothing to the file, and nothing to an <a href="export.html">export</a> or a <a href="share-html.html">shared page</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The traced step with the paths on both sides in full colour, and the rest of the canvas dimmed.</li>
+  <li>A card with the name of the step and how many steps are before and after it.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Trace paths is greyed out.</dt>
+  <dd>Nothing traceable is selected. Select a task, a gateway or an event first.</dd>
+  <dt>The other pool is dimmed.</dt>
+  <dd>Tick <span class="ui">Follow message flows</span> in the card to cross the message flows between pools.</dd>
+  <dt>I want the paths a real run took.</dt>
+  <dd>Trace paths shows what the drawing allows. For what a run did, use <a href="scenarios.html">Scenarios</a> or <a href="monitor.html">Monitor</a>.</dd>
+</dl>
