@@ -120,7 +120,7 @@
 
 <ol class="steps">
   <li>Deploy the process, so the engine has it. See <a href="deployment.html">Deployment</a>.</li>
-  <li>Press <span class="ui">Monitor</span> on the toolbar, or pick the <strong>Monitor</strong> tab of the sidebar.</li>
+  <li>Press <span class="ui">Monitor</span> on the toolbar, or pick the <strong>Monitor</strong> tab of the sidebar. With no engine set up it says <em>No engine connected.</em> and offers <span class="ui">Set up connection&hellip;</span>.</li>
   <li>Penstock asks the engine of the profile in force. The tab names the engine and the version of each process it found, so you can tell whether you are looking at what you think you are.</li>
   <li>Look at the diagram. Badges on the shapes show how many instances wait there, and how many have an incident.</li>
   <li>Press <span class="ui">Refresh</span> to ask again.</li>
@@ -156,13 +156,13 @@
   </tbody>
 </table></div></div>
 
-<p>Other messages: <em>No instance is running on prod.</em> and <em>order-process is not deployed on prod.</em> The tab says which address was asked and when.</p>
+<p>Other messages: <em>No instance of order-process is running on prod.</em>, <em>Nothing is waiting or has an incident on prod.</em> and <em>order-process is not deployed.</em> followed by <em>It is not on prod yet. Deploy the diagram to see its instances.</em> The tab says which address was asked and when, and <em>The engine could not be read.</em> when it got no answer.</p>
 
 <h2 id="try-an-expression-on-a-real-instance"><a href="#try-an-expression-on-a-real-instance">Try an expression on a real instance</a></h2>
 
 <ol class="steps">
-  <li>Pick an instance in the Monitor tab, and select an element in the diagram.</li>
-  <li>Every condition, input and output mapping and script on it can be run against that instance's variables. The result, or the engine's own complaint, appears next to the expression.</li>
+  <li>Pick an instance in the Monitor tab: press <span class="ui">Use</span> on it, or on the one an incident names. Then select a task, a gateway or a flow in the diagram. Until you do, the tab says <em>Select a task, a gateway or a flow to try its conditions and mappings on</em> the instance.</li>
+  <li>Every condition, input and output mapping and script on it can be run against that instance's variables with <span class="ui">Try</span>. The result, or the engine's own complaint, appears next to the expression. <span class="ui">Read the variables</span> shows the variables of the instance.</li>
   <li>The same action is on the expression field in the properties panel, where the result lands under the field.</li>
 </ol>
 
@@ -177,7 +177,7 @@
   <li><strong>Never set in production.</strong> The diagram reads the name and the engine has never seen it. The elements that read it are listed, and a click selects one.</li>
 </ul>
 
-<p>The comparison is with the diagram, not with the code. A variable that only the code reads is still unused in the model. The Code tab is where the two are compared.</p>
+<p>Press <span class="ui">Compare with what the engine has seen</span> to ask. When the two agree, the tab says <em>The model and the engine agree on every variable name.</em> The comparison is with the diagram, not with the code. A variable that only the code reads is still unused in the model. The Code tab is where the two are compared.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <thead><tr><th></th><th>Camunda 8.10+</th><th>Camunda 8.9</th><th>Camunda 8 before 8.9</th><th>Camunda 7, Operaton, CIB seven</th></tr></thead>

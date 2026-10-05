@@ -35,6 +35,43 @@ related: sidebar, process-tests, flow-analysis, monitor, settings, security, exa
 
 {{host:scenarios-open|Read and run scenarios in your tool}}
 
+<h2 id="open-a-scenario">Open a scenario</h2>
+
+<p>The list shows one row for each scenario, with a dot for its last result and, when the file has a mistake in it, a number of problems. Click a row to select it. The arrow keys, <kbd>Home</kbd> and <kbd>End</kbd> move through the list, and <kbd>Enter</kbd> opens the scenario.</p>
+
+<ol class="steps">
+  <li>Select a scenario and press <span class="ui">Open scenario</span>, or double-click it. The tab changes to that scenario. A row under the tabs names it and has a <strong>&#8249;</strong> back to the list.</li>
+  <li>Read the steps. Each one is numbered, in the order the process takes them, and named in plain words: <em>Starts at Order received with these variables</em>, <em>A person completes Approve order</em>, <em>Evaluates the decision shipping-method</em>, <em>The process ends at Order fulfilled</em>. The same numbers are drawn on the diagram, so a step and its place on the canvas are the same thing. Click a step to select its element, or select an element to find its step. An element the scenario does not pass says <em>That element is not on this scenario's path.</em></li>
+  <li>Under a step, read what it carries: the start variables, what a worker returns, what a person completes a form with, what a message carries, and the variables that must be set at the end.</li>
+  <li>Switch from <strong>Steps</strong> to <strong>Text</strong> to read the scenario as it is written in the file.</li>
+  <li>Press <span class="ui">Run</span> to run this one scenario. While it runs the button says <span class="ui">Stop</span>.</li>
+</ol>
+
+<p>A step offers the shortcuts that belong to it, as links under its text.</p>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Link</th><th>On which step</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td>Go to the worker</td><td>A step that a worker runs</td><td>Opens the code that runs it. See <a href="code-links.html">Code links</a>.</td></tr>
+  <tr><td>Show the decision rule</td><td>A business rule task</td><td>Opens a view of the rule that matches, one level deeper in the tab, with <strong>&#8249;</strong> back to the steps.</td></tr>
+  <tr><td>Open the decision</td><td>A business rule task</td><td>Opens the decision file at that decision. If the project has no decision with that id, it says so.</td></tr>
+  <tr><td>Go to the form</td><td>A user task with a form</td><td>Opens the form file. If the project has no form with that id, it says so.</td></tr>
+  <tr><td>Wrong way? Fix the conditions</td><td>A gateway</td><td>Shows the conditions on the way out. When the values of the scenario would take another way than the scenario says, they are shown at once.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Change a scenario</h3>
+
+<p>The values under a step can be edited: add or remove a variable, change a value. Editing a scenario is part of Pro. Without it the values are read-only and say so. A gateway condition that is wrong is fixed from the step that holds it. That change is made in the diagram, it can be undone there, and every scenario is planned again. A change to a scenario that is in the file is kept in the tab until you press <span class="ui">Save changes</span>, which writes it to the file.</p>
+
+<h3>After a run</h3>
+
+<p>Once a scenario has run, its view shows the plan against what happened. The line above the steps says <em>The run matches the steps of the plan.</em> or <em>The run differs from the steps of the plan in 2 places.</em> When the scenario asserts variables at its end, it says <em>the steps of the plan and the variables asserted at its end</em> instead. A step that differs says how: <em>planned, but it did not run</em>, <em>ran, but the scenario did not plan it</em>, <em>expected approved, took rejected</em> at a gateway, or <em>amount: expected 150, got 100</em> for a variable. The table of the run is in the run panel, described under <a href="#running-scenarios">Running scenarios</a>.</p>
+
+<p>If the sidebar is a drawer and you close it while a scenario is open, the bar it leaves has <strong>&#8249;</strong> and <strong>&#8250;</strong> to go to the previous and the next step, and says which step you are on, for example <em>Step 3 of 7</em>. The diagram keeps showing that step.</p>
+
+<!-- image: scenario-steps.png, an opened scenario with the Steps view, the numbered steps drawn on the canvas and the links under a step -->
+
 <h2>Generating scenarios from the diagram</h2>
 
 <p><span class="ui">Generate</span> in the Scenarios tab does not write files. It opens a review over the diagram: the scenario you are looking at is drawn on the canvas with its steps numbered and the flows between them, and the steps are listed beside it in plain words, with the value each step passes on. A value can be edited, and a gateway condition that cannot be right is fixed from the step that holds it. Every change plans the scenarios again, so the drawing and the list always agree. Nothing reaches the file until you press <strong>Create scenarios</strong>.</p>
@@ -47,7 +84,7 @@ related: sidebar, process-tests, flow-analysis, monitor, settings, security, exa
 
 <!-- image: scenarios-review.png, Generate in the Scenarios tab with the review open over the diagram -->
 
-<h2>Running scenarios</h2>
+<h2 id="running-scenarios">Running scenarios</h2>
 
 <ol class="steps">
   <li>Press <span class="ui">Run all</span>, or click one scenario. The engine the profile in force names runs the test cases step by step, and stops at every step left to ask.</li>
