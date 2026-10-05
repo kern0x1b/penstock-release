@@ -591,6 +591,22 @@ figure.shot img {
   box-shadow: var(--theme-shadow-float);
 }
 
+figure.shot img[src$="/check-card.png"] { max-width: min(100%, 480px); }
+figure.shot img[src$="/toolbar-palette-find.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/toolbar-palette-search.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/dmn-spreadsheet-menu.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/import-menu.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/share-menu.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-bpmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-dmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-form.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/toolbar-form.png"] { max-width: min(100%, 420px); }
+figure.shot img[src$="/toolbar-dmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/toolbar-bar.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/settings-init-terminal.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/gs-example-folder.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/workers-check-terminal.png"] { max-width: min(100%, 600px); }
+
 figure.shot figcaption {
   margin-top: var(--space-3);
   font-size: var(--type-size-small);
