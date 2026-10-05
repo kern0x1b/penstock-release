@@ -103,7 +103,7 @@ The rule pages are generated from the product's `docs/rules`, which the product 
 rule catalogue. The product links to `https://kern0x1b.github.io/penstock-release/rules/<rule>`, so
 those addresses must keep working.
 
-`docs/guide/TODO-screenshots.md` lists the pages that still need a picture, and the pictures to retake.
+`tools/screenshot-plan.md` lists every picture the guide still needs, with the fixture and the UI state for each.
 
 ### Prices and the Buy buttons
 
