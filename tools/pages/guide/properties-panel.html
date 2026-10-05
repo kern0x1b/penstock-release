@@ -51,6 +51,11 @@ related: sidebar, engine-profiles, scripts, element-templates
 
 <p>On Camunda 7, Operaton and CIB seven, a field that holds a script is a small code editor with colours. Groovy is coloured as Groovy, all else as JavaScript. Under the field there is a button <span class="ui">Edit in new tab</span> that opens the script in a code editor of your tool. See <a href="scripts.html">Scripts in their own tab</a>.</p>
 
+<figure class="shot">
+  <img src="@img/props-call-activity.png" alt="The call activity Fulfil order selected. The sidebar lists General, Documentation, Called element, Business ID, Input propagation, Input mapping with 1 entry, Output propagation, Output mapping, Execution listeners, Extension properties and Example data">
+  <figcaption>A call activity has groups of its own: Called element, Business ID and the propagation of variables.</figcaption>
+</figure>
+
 <h2>Try an expression on a running instance</h2>
 
 <p>A field that holds an expression, such as a gateway condition or a mapping, has <span class="ui">Try on instance</span>. Pick an instance in the <a href="monitor.html">Monitor</a> tab first, and the expression is run against that instance's variables. The result, or the engine's own complaint, lands under the field. Without an instance the field says <em>Pick an instance in the Monitor tab to run this on its variables.</em> Camunda 8.9 or newer evaluates it. On Camunda 7 the field says <em>Camunda 7 cannot evaluate an expression. It needs Camunda 8.9 or newer.</em> Nothing is written on the engine. See <a href="monitor.html#try-an-expression-on-a-real-instance">Monitor</a>.</p>
@@ -79,7 +84,10 @@ related: sidebar, engine-profiles, scripts, element-templates
   &lt;/bpmn:ioSpecification&gt;
 &lt;/bpmn:serviceTask&gt;</code></pre>
 
-<!-- image: classic-io.png, a Classic BPMN task selected with the Inputs and Outputs groups open in the sidebar -->
+<figure class="shot">
+  <img src="@img/classic-io.png" alt="The user task Check invoice selected. The sidebar shows the groups General and Documentation, then Inputs with 2 entries, orderNumber and invoiceTotal, and Outputs with 1 entry, decision">
+  <figcaption>A task with the Inputs and Outputs groups open.</figcaption>
+</figure>
 
 <p>Remove the last input and the last output and the whole specification goes with them, so a file never has an empty one. Camunda 7 and Camunda 8 keep their own input and output editors, because those write <code>camunda:inputOutput</code> and <code>zeebe:ioMapping</code>, which is what those engines read.</p>
 

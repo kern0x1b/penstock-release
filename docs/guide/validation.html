@@ -149,6 +149,16 @@
 
 <p>The same finding is in the <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a>, beside the drawing problems, with its error or warning icon and the id of the rule. Clicking it selects the element and opens the property that fixes it. See <a href="diagram-check.html">Diagram check</a>.</p>
 
+<figure class="shot">
+  <img src="../img/validation-marker.png" alt="A diagram whose script task has no name. The toolbar pill reads 1 error, and the Problems tab of the sidebar has a badge of 1">
+  <figcaption>A task with no name. The count of the check is in the pill at the bottom right and on the Problems tab.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/validation-rules-group.png" alt="The Problems tab after Check, reading 1 error. Under the group Rules, the finding The script task has no name, script task, label-required">
+  <figcaption>The same finding under Rules, with its rule name.</figcaption>
+</figure>
+
 <p>The linting button on the canvas turns the markers off and on. It starts on. It is hidden while a token simulation runs.</p>
 
 <h2 id="which-rules-apply"><a href="#which-rules-apply">Which rules apply</a></h2>
@@ -184,6 +194,11 @@
   <li>To turn one off, set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>camunda-compat/&lt;rule&gt;</code>, which is the plugin's own name, or as <code>compat/&lt;rule&gt;</code>.</li>
   <li>A problem that another check already reports on the same element, for example two blank start events, is shown once, by bpmnlint.</li>
 </ul>
+
+<figure class="shot">
+  <img src="../img/validation-compat.png" alt="The Problems tab reading 1 error. Under the group Rules, the finding Notify carrier has no job type, Notify carrier, compat/implementation. The service task Notify carrier is on the canvas">
+  <figcaption>An engine compatibility finding, listed under Rules with its compat id.</figcaption>
+</figure>
 
 <h2 id="on-the-command-line"><a href="#on-the-command-line">On the command line</a></h2>
 
