@@ -109,10 +109,14 @@
 <li><a href="#the-trial">The trial</a></li>
 <li><a href="#buy-pro-or-team">Buy Pro or Team</a></li>
 <li><a href="#sign-in-on-another-machine">Sign in on another machine</a></li>
+<li><a href="#where-the-licence-lives">Where the licence lives</a></li>
 <li><a href="#how-many-machines">How many machines</a></li>
+<li><a href="#team-seats">Team seats</a></li>
 <li><a href="#check-your-licence">Check your licence</a></li>
 <li><a href="#how-the-licence-is-checked">How the licence is checked</a></li>
 <li><a href="#in-a-pipeline">In a pipeline</a></li>
+<li><a href="#cancel">Cancel</a></li>
+<li><a href="#questions">Questions</a></li>
 <li><a href="#education">Free Pro for students, teachers and open-source maintainers</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -121,6 +125,8 @@
 <h2 id="the-trial"><a href="#the-trial">The trial</a></h2>
 
 <p>The first time you use Penstock on a machine, that machine gets 30 days of Pro. You do nothing. When the trial ends, the machine is on the Free plan. The start date is kept by the licence service rather than on the machine, so deleting files on the machine starts nothing new and a clock cannot move it. It needs no network to read it. A pipeline gets no trial.</p>
+
+<p>The trial starts when the licence service first hears from the machine, so a new machine needs a network connection once to start it. While the trial runs, the licence status of your tool says how many days are left. Activating a key uses the trial up. A machine with no operating-system machine id gets no trial.</p>
 
 <p>This release moves the licensing to Polar, so <strong>every machine starts a fresh 30-day Pro trial</strong> with it. An earlier trial does not carry over: the old <code>trial.json</code> is ignored and removed, and nothing about it is read again.</p>
 
@@ -134,6 +140,23 @@
 </ol>
 
 <p>You can also reach the same step from a paid feature: the message that explains it has a Buy button.</p>
+
+<p>To go straight to the checkout, use one of these. They open Polar's own page.</p>
+
+<div class="cta">
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+</div>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+    <tbody>
+    <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
+    <tr><td>Pro</td><td>USD 9.00 per month or USD 90.00 per year</td></tr>
+    <tr><td>Team</td><td>USD 29.00 per month or USD 290.00 per year for each seat</td></tr>
+    </tbody>
+  </table></div></div>
+
+<p>Team is priced for each seat: you choose the number of seats at checkout. Prices are read from Polar. The price you pay is the one shown at checkout. See <a href="plans.html">Plans and licence</a> for what each plan includes.</p>
 
 <div class="hosts">
 <p class="hosts-title">Buy from your tool</p>
@@ -175,11 +198,46 @@ penstock license activate &lt;key&gt;   # a key you type in by hand</code></pre>
 </div>
 </div>
 
-<p>Every tool on a machine shares the licence, and the editor and <code>penstock</code> read the same file, <code>~/.penstock/license.json</code>. Sign in once and both are licensed. It holds the token and a clock mark, never a key, a tier or a date you could edit.</p>
+<h3 id="in-vs-code"><a href="#in-vs-code">In VS Code</a></h3>
+
+<p>Install the extension with <code>code --install-extension penstock.penstock</code>, or from <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">its page in the VS Code store</a>. Open the Command Palette and run <span class="ui">Penstock: Licence and account</span> to see the licence on this machine. Run <span class="ui">Penstock: Sign in</span> to sign in with the e-mail you bought with. A paid feature you reach without a licence offers to buy or to sign in at that moment. The extension reads the same <code>~/.penstock/license.json</code> as the other tools, and it can also copy the key for CI and release this machine.</p>
+
+<h3 id="on-the-command-line"><a href="#on-the-command-line">On the command line</a></h3>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>penstock license</code> or <code>penstock license status</code></td><td>Says which licence this machine has and why. During the trial it says when the trial ends.</td></tr>
+  <tr><td><code>penstock license buy [pro|team]</code></td><td>Opens the checkout, prints its address, waits up to an hour for the payment, then asks for the code sent to your e-mail. Pro is the default.</td></tr>
+  <tr><td><code>penstock license login [email]</code></td><td>Signs in with the e-mail you bought with and a code. Lists the machines when every place is taken, so you can free one.</td></tr>
+  <tr><td><code>penstock license activate &lt;key&gt;</code></td><td>Activates a key you type in by hand.</td></tr>
+  <tr><td><code>penstock license key [email]</code></td><td>Prints the Team key for <code>PENSTOCK_LICENSE</code>, after the same e-mail sign-in.</td></tr>
+  <tr><td><code>penstock license logout</code></td><td>Releases this machine, so its place is free to use elsewhere.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><code>buy</code>, <code>login</code> and <code>key</code> need a terminal to answer in. <code>penstock license deactivate</code> still works and does what <code>logout</code> does. See <a href="../cli/commands.html#license">license</a>.</p>
+
+<h2 id="where-the-licence-lives"><a href="#where-the-licence-lives">Where the licence lives</a></h2>
+
+<p>The licence is the file <code>~/.penstock/license.json</code>, in your home folder. Every tool, and <code>penstock</code>, reads it, so you sign in once and every tool is licensed. It holds the token and a clock mark, never a key, a tier or a date you could edit. Beside it are <code>clock.json</code>, a second copy of the clock mark, and <code>pipeline.json</code>, which a pipeline writes. If the environment variable <code>PENSTOCK_HOME</code> is set, the files are in that folder instead.</p>
 
 <h2 id="how-many-machines"><a href="#how-many-machines">How many machines</a></h2>
 
-<p>A licence covers a number of machines at once. Signing in again on the same machine, for example after reinstalling your tool, reuses its place. It does not take a new one. When every place is taken, signing in lists the machines and when each was activated. Pick the one to free, and this machine takes its place. You can also release a machine by hand.</p>
+<p>One key covers <strong>three machines</strong> at once, for Pro and for each Team seat. Signing in again on the same machine, for example after reinstalling your tool, reuses its place. It does not take a new one. When every place is taken, signing in lists the machines and when each was activated. Pick the one to free, and this machine takes its place.</p>
+
+<h3 id="move-a-machine"><a href="#move-a-machine">Move a machine</a></h3>
+
+<ol class="steps">
+  <li>On the machine you are leaving, release it: the release button of the licence screen in your tool, or <code>penstock license logout</code>. If you no longer have that machine, free its place when you sign in on the new one.</li>
+  <li>On the new machine, sign in with the same e-mail.</li>
+</ol>
+
+<p>A token cannot be taken back from a machine that is offline, so a freed place is not always free at once. Each key gets one free move per place in any 30 days, and those moves free their place immediately. A further release keeps counting against the limit until 30 days after it was noticed, and the message says the date. A machine that comes back after its own release does not wait. Releasing too often from one key is refused for a while.</p>
+
+<h2 id="team-seats"><a href="#team-seats">Team seats</a></h2>
+
+<p>Team is sold for each seat. At checkout you choose how many seats you want. You then give the seats to people in <a href="https://polar.sh">Polar</a>'s customer portal: sign in to it with the e-mail you bought with, and assign each seat to a person by e-mail. Each person who accepts a seat gets a key of their own, with three machines, and signs in as above with their own e-mail. Taking a seat away ends that key.</p>
 
 <h2 id="check-your-licence"><a href="#check-your-licence">Check your licence</a></h2>
 
@@ -210,12 +268,13 @@ penstock license buy   buy Pro        penstock license login   already bought</c
   <li>Offline it keeps working until it runs out. The status shows how many days are left rather than stopping.</li>
   <li>After 30 days without a check, the machine falls back to Free until it connects once.</li>
   <li>If the subscription ended, or the licence was released from another place, the machine falls back to the trial, or to Free when the trial is over.</li>
+  <li>When the licence service cannot be reached, a valid token keeps working. Only buying, signing in, activating and starting a trial need it, and each says that the service cannot be reached.</li>
   <li>A machine whose clock has been set back below a time it has already seen is refused, and the reason is given.</li>
 </ul>
 
 <h2 id="in-a-pipeline"><a href="#in-a-pipeline">In a pipeline</a></h2>
 
-<p>A pipeline does not sign in. A <strong>Team</strong> key is stored as a secret named <code>PENSTOCK_LICENSE</code>, and the key is only honoured when <code>CI</code> is set: on any other machine it is ignored. It is exchanged for a short-lived token rather than used as a flag, and it takes no machine's place. The pipelines that <code>penstock init --ci</code> writes already pass it, when the machine that ran the command has Team. Without Team on the machine, <code>init --ci</code> writes a pipeline that runs only the free checks. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</p>
+<p>A pipeline does not sign in. A <strong>Team</strong> key is stored as a secret named <code>PENSTOCK_LICENSE</code>, and the key is only honoured when <code>CI</code> is set: on any other machine it is ignored. It is exchanged for a token that lasts six hours rather than used as a flag, and it takes no machine's place. Each new runner sends the key to the licence service once and keeps the token, not the key, on disk. If the service cannot be reached, the pipeline runs as Free. A Pro key does not work in a pipeline. The pipelines that <code>penstock init --ci</code> writes already pass it, when the machine that ran the command has Team. Without Team on the machine, <code>init --ci</code> writes a pipeline that runs only the free checks. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</p>
 
 <p>The machine no longer keeps the key, so <code>penstock license key</code> and <strong>Copy Key for CI</strong> find it again through the same e-mail sign-in, and they find a Team key, because a pipeline needs Team. A key can still be typed in by hand with <code>penstock license activate &lt;key&gt;</code>.</p>
 
@@ -233,6 +292,30 @@ penstock license buy   buy Pro        penstock license login   already bought</c
 </section>
 </div>
 </div>
+
+<h2 id="cancel"><a href="#cancel">Cancel</a></h2>
+
+<p>You can cancel at any time. The link is in the receipt Polar sent you, and you can also sign in to Polar's customer portal with the e-mail you bought with. Polar, not Penstock, holds the subscription. After you cancel, a machine keeps its licence until the subscription ends. Within a day of an online check, or when its token runs out, it falls back to the trial if one is left, or to Free. Your diagrams and files are not touched.</p>
+
+<h2 id="questions"><a href="#questions">Questions</a></h2>
+
+<details class="faq"><summary>Do I need a key?</summary>
+<p>No. Buying and signing in end with the licence on the machine. A key only matters for a pipeline, or if you want to type one in.</p></details>
+
+<details class="faq"><summary>What happens when the 30 days end?</summary>
+<p>The machine is on the Free plan. The editors, checks, deploy and Monitor keep working. Paid features offer to buy or to sign in when you reach them.</p></details>
+
+<details class="faq"><summary>Do I get a second trial if I reinstall?</summary>
+<p>No. The start of the trial is kept by the licence service, not on the machine.</p></details>
+
+<details class="faq"><summary>Does one purchase cover the plugin, VS Code and the command line?</summary>
+<p>Yes. They share one licence file on the machine.</p></details>
+
+<details class="faq"><summary>Can I use my Pro key in CI?</summary>
+<p>No. A pipeline needs a Team key, and the key only counts when <code>CI</code> is set.</p></details>
+
+<details class="faq"><summary>Does it work without a network?</summary>
+<p>A valid token works offline until it runs out, 30 days at most. It is renewed once a day when you are online.</p></details>
 
 <h2 id="education"><a href="#education">Free Pro for students, teachers and open-source maintainers</a></h2>
 
