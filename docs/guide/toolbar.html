@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -112,6 +114,7 @@
 <li><a href="#pin-or-unpin-an-action">Pin or unpin an action</a></li>
 <li><a href="#every-action-in-the-diagram-editor">Every action in the diagram editor</a></li>
 <li><a href="#the-decision-and-form-editors">The decision and form editors</a></li>
+<li><a href="#keyboard-shortcuts">Keyboard shortcuts</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -124,7 +127,7 @@
 
 <h2 id="the-command-palette"><a href="#the-command-palette">The command palette</a></h2>
 
-<p><span class="ui">More</span> opens a searchable list of every action, in sections, with the ones you used last first. It is also the <strong>command palette</strong>, and the first-run tour names it. Type to filter: the letters you matched are marked in each row, and an action answers to keywords as well as to its name, so <code>png</code> finds Export, <code>c8</code> finds what is Camunda 8 and <code>bpmnlint</code> finds Check. Each row has a pin.</p>
+<p><span class="ui">More</span> opens a searchable list of every action, in sections, with the five you used last first under <em>Recent</em>. It is also the <strong>command palette</strong>, and the first-run tour names it. Type to filter: the letters you matched are marked in each row, and an action answers to keywords as well as to its name, so <code>png</code> finds Export, <code>c8</code> finds what is Camunda 8 and <code>bpmnlint</code> finds Check. Each row has a pin, and the list says how many actions match. With the keyboard, the arrow keys move, <kbd>Enter</kbd> runs the action, <kbd>Shift</kbd>+<kbd>Enter</kbd> pins or unpins it and <kbd>Esc</kbd> closes the list.</p>
 
 <div class="hosts">
 <p class="hosts-title">The command palette in your tool</p>
@@ -148,9 +151,11 @@
 
 <ol class="steps">
   <li>Open <span class="ui">More</span> (three dots).</li>
-  <li>Find the action. Next to its name there is a small pin.</li>
-  <li>Click the pin. The action moves onto the bar. Click it again and it goes back into the menu only.</li>
+  <li>Find the action. Next to its name there is a small pin. It is a quiet grey on an action that is pinned already, and it shows on the other rows when the pointer or the keyboard is on them.</li>
+  <li>Click the pin, or press <kbd>Shift</kbd>+<kbd>Enter</kbd> on the row. The action moves onto the bar. Do it again and it goes back into the menu only.</li>
 </ol>
+
+<!-- image: toolbar-pin.png, the More list with the pointer on the Minimap row so its pin shows, and Check and Auto layout already pinned with the grey pin -->
 
 <p>Penstock remembers your choice in <code>~/.penstock/preferences.json</code>, the same file that keeps the width of the sidebar and whether you have seen the tour. It is the same in every tool on your machine and survives a restart. It is never stored in <code>penstock.yaml</code>, so your toolbar never lands in a teammate's checkout. If a later version adds a new action, you still get it, even if you rearranged the bar.</p>
 
@@ -165,7 +170,7 @@
   <tbody>
   <tr><td>Undo, Redo</td><td>Take back or repeat the last change.</td><td>Always on the bar</td><td>All</td></tr>
   <tr><td>Auto layout <span class="tag pro">Pro</span></td><td>Lays the whole diagram out again, then offers Undo. <a href="auto-layout.html">Auto layout</a></td><td>Yes</td><td>All</td></tr>
-  <tr><td>Check</td><td>Opens the Problems tab. <a href="diagram-check.html">Diagram check</a></td><td>Yes</td><td>All</td></tr>
+  <tr><td>Check</td><td>Opens the check card, with <span class="ui">Show all</span> for the Problems tab. <a href="diagram-check.html">Diagram check</a></td><td>Yes</td><td>All</td></tr>
   <tr><td>Simulate</td><td>Moves a token through the process. <a href="token-simulation.html">Token simulation</a></td><td>Yes</td><td>All</td></tr>
   <tr><td>Monitor</td><td>What the engine is doing with this diagram: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a></td><td>Yes</td><td>All</td></tr>
   <tr><td>Scenarios <span class="tag pro">Pro</span></td><td>The ways through this process, and running them. <a href="scenarios.html">Scenarios</a></td><td>Yes</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
@@ -176,17 +181,20 @@
   <tr><td>Fit diagram, Zoom in, Zoom out</td><td>The view. Each has a shortcut in the tools that have one.</td><td>No</td><td>All</td></tr>
   <tr><td>Transaction boundaries</td><td>Draws a bar where the engine commits a transaction: before a user task, a receive task, an event-based gateway, an external task and a message, timer, signal or conditional catch event, and before or after an activity with an asynchronous continuation. The bars follow the diagram as you edit.</td><td>No</td><td>Camunda 7, Operaton, CIB seven</td></tr>
   <tr><td>Minimap</td><td>Shows a small overview of a large diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Trace paths</td><td>Shows every path that runs through the selected step and dims the rest. Off until a task, a gateway or an event is selected. <a href="trace-paths.html">Trace paths</a></td><td>No</td><td>All</td></tr>
+  <tr><td>Show comment badges</td><td>Draws the number of open comments on each element that has some. <a href="comments.html">Comments</a></td><td>No</td><td>All</td></tr>
   <tr><td>Sketchy drawing</td><td>Draws the diagram as if by hand, on your screen only.</td><td>No</td><td>All</td></tr>
   <tr><td>Export&hellip;</td><td>Opens the export dialog, where you can also copy the diagram as a picture. <a href="export.html">Export</a></td><td>No</td><td>All</td></tr>
   <tr><td>Templates&hellip;</td><td>Opens the connector template browser. <a href="element-templates.html">Element templates</a></td><td>No</td><td>Camunda 8</td></tr>
   <tr><td>Import diagram&hellip;</td><td>Turns a draw.io, Visio, Signavio or Bizagi file into BPMN. <a href="import.html">Import a diagram</a></td><td>No</td><td>All</td></tr>
   <tr><td>Share as HTML&hellip;</td><td>Writes one offline HTML file. <a href="share-html.html">Share as HTML</a></td><td>No</td><td>All</td></tr>
   <tr><td>Copy, Paste</td><td>Use the system clipboard. You can paste into another diagram.</td><td>No</td><td>All</td></tr>
+  <tr><td>Keyboard shortcuts</td><td>Opens the sheet of every shortcut of the editor. See below.</td><td>No</td><td>All</td></tr>
   <tr><td>Show the tour again</td><td>Replays the six-step tour of the editor.</td><td>No</td><td>All</td></tr>
   </tbody>
 </table></div></div>
 
-<p>Check, Simulate, Monitor, Scenarios, Coverage, Transaction boundaries, Minimap and Sketchy drawing stay pressed while they are on. Undo, Redo, Copy, Paste and Auto layout refuse to run while a token simulation is on, so a read-only preview cannot be written to the file. See <a href="token-simulation.html">Token simulation</a>.</p>
+<p>Check, Simulate, Monitor, Scenarios, Coverage, Migrate to Camunda 8, Transaction boundaries, Minimap, Trace paths, Sketchy drawing and Show comment badges stay pressed while they are on. Undo, Redo, Copy, Paste and Auto layout refuse to run while a token simulation is on, so a read-only preview cannot be written to the file. See <a href="token-simulation.html">Token simulation</a>.</p>
 
 <figure class="shot">
   <img src="../img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette at the left of the canvas, a user task selected and the Properties tab of the sidebar on the right">
@@ -195,7 +203,23 @@
 
 <h2 id="the-decision-and-form-editors"><a href="#the-decision-and-form-editors">The decision and form editors</a></h2>
 
-<p>They have the same kind of bar. The decision editor has a button for each view of the file, and the form editor has <span class="ui">Preview</span>. Both have the More menu, the sidebar toggle and Deploy on the right, and their own tabs in the sidebar. See <a href="dmn-editor.html">The DMN editor</a>, <a href="form-editor.html">The form editor</a> and <a href="sidebar.html">The sidebar</a>.</p>
+<p>They have the same kind of bar: Undo and Redo, the actions of that editor, Deploy and the sidebar toggle, with the same <span class="ui">More</span> menu and command palette. Their actions are fewer.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Editor</th><th>On the bar</th><th>In the More menu</th></tr></thead>
+  <tbody>
+  <tr><td>Decision</td><td>A button for each view of the file (the requirements diagram, then one per decision), Check, Deploy, Sidebar</td><td>Trace paths, Export decision table as a workbook, Export decision table as CSV, Import decision table, Add rules from spreadsheet, Share as HTML, Keyboard shortcuts</td></tr>
+  <tr><td>Form</td><td>Preview, Check, Deploy, Sidebar</td><td>Share as HTML, Keyboard shortcuts</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Deploy is shown when the engine is known. Check on a form is free. The form's Check is off while the file cannot be read, and its tooltip says so. See <a href="dmn-editor.html">The DMN editor</a>, <a href="form-editor.html">The form editor</a> and <a href="sidebar.html">The sidebar</a>.</p>
+
+<h2 id="keyboard-shortcuts"><a href="#keyboard-shortcuts">Keyboard shortcuts</a></h2>
+
+<p>The <strong>Keyboard shortcuts</strong> action, in the BPMN, DMN and form editors, opens a sheet with every shortcut of the editor you are in, in groups: Canvas, Edit, Modeling and Penstock. It has a search field, <em>Search actions and keys</em>. The sheet is built from what the editor really binds, so it cannot drift from the editor. Press <kbd>?</kbd> to open it, or choose it from the <span class="ui">More</span> list. Where an action has a shortcut, its tooltip on the bar says so.</p>
+
+<!-- image: keyboard-shortcuts.png, the Keyboard shortcuts sheet open over a diagram with the groups and the search field -->
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
@@ -223,7 +247,7 @@
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/bpmn-editor.html">The BPMN editor</a> - The window, the tabs and how saving works.</li>
-<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
 <li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
 <li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>

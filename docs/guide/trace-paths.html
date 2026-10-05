@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Trace paths - Penstock</title>
+<meta name="description" content="Select a step and the editor shows every path that runs through it, what leads there and what leads on from there, with the rest of the diagram dimmed.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/trace-paths.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html" aria-current="page">Trace paths</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>Trace paths</h1>
+<p class="lede">Select a step and the editor shows every path that runs through it, what leads there and what leads on from there, with the rest of the diagram dimmed.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#trace-a-step">Trace a step</a></li>
+<li><a href="#how-boundary-events-and-event-sub-processes-read">How boundary events and event sub-processes read</a></li>
+<li><a href="#follow-message-flows">Follow message flows</a></li>
+<li><a href="#in-a-decision">In a decision</a></li>
+<li><a href="#what-it-does-not-change">What it does not change</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>In a large diagram the question is often "how does the process get here?" or "what can happen after this?". Trace paths answers it on the canvas. It follows the flows backwards from the step you chose to every start, and forwards to every end, and dims everything that is on neither side.</p>
+
+<p>It reads only the diagram. Nothing is sent to an engine and no token moves, so it is not <a href="token-simulation.html">Token simulation</a>. It also looks at every path the drawing allows, not the paths your data takes, which is what <a href="flow-analysis.html">Flow analysis</a> reports on.</p>
+
+<h2 id="trace-a-step"><a href="#trace-a-step">Trace a step</a></h2>
+
+<ol class="steps">
+  <li>Select a task, a gateway or an event.</li>
+  <li>Press the trace icon on the pad beside the element, or choose <span class="ui">Trace paths</span> in the <span class="ui">More</span> menu, under View.</li>
+  <li>The paths that lead to the step and the paths that lead on from it stay in full colour. The rest of the diagram is dimmed.</li>
+  <li>Read the small card over the canvas. It names what is traced and counts the steps on each side, for example <em>Tracing Approve order - 3 before, 5 after</em>.</li>
+  <li>To end it, press <kbd>Esc</kbd>, click on the empty canvas, press the close button on the card, or run the action again.</li>
+</ol>
+
+<p>The action is off until something that can be traced is selected. Its tooltip then says <em>Select a task, a gateway or an event to trace the paths that run through it</em>.</p>
+
+<!-- image: trace-paths-card.png, a step selected with the paths through it in full colour, the rest dimmed, and the trace card over the canvas -->
+
+<h2 id="how-boundary-events-and-event-sub-processes-read"><a href="#how-boundary-events-and-event-sub-processes-read">How boundary events and event sub-processes read</a></h2>
+
+<ul>
+  <li>A <strong>boundary event</strong> is read as a way out of the task it sits on. Tracing the task includes the path that leaves through the boundary event.</li>
+  <li>An <strong>event sub-process</strong> is read as one way into its parent. Tracing a step inside the parent includes it.</li>
+</ul>
+
+<h2 id="follow-message-flows"><a href="#follow-message-flows">Follow message flows</a></h2>
+
+<p>In a diagram with more than one pool the card has a checkbox, <span class="ui">Follow message flows</span>. Tick it and the trace follows the message flows across the pools. Without it the trace does not cross them.</p>
+
+<h2 id="in-a-decision"><a href="#in-a-decision">In a decision</a></h2>
+
+<p>The decision editor has the same action. In the requirements diagram, select a decision and run <span class="ui">Trace paths</span>. It shows every decision and input the selected decision needs, and everything that depends on it. Its tooltip, with nothing selected, says <em>Select a decision in the requirements diagram to trace what it needs</em>. See <a href="dmn-editor.html">The DMN editor</a>.</p>
+
+<h2 id="what-it-does-not-change"><a href="#what-it-does-not-change">What it does not change</a></h2>
+
+<p>A trace exists on the canvas only. It adds nothing to the undo history, nothing to the file, and nothing to an <a href="export.html">export</a> or a <a href="share-html.html">shared page</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>The traced step with the paths on both sides in full colour, and the rest of the canvas dimmed.</li>
+  <li>A card with the name of the step and how many steps are before and after it.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>Trace paths is greyed out.</dt>
+  <dd>Nothing traceable is selected. Select a task, a gateway or an event first.</dd>
+  <dt>The other pool is dimmed.</dt>
+  <dd>Tick <span class="ui">Follow message flows</span> in the card to cross the message flows between pools.</dd>
+  <dt>I want the paths a real run took.</dt>
+  <dd>Trace paths shows what the drawing allows. For what a run did, use <a href="scenarios.html">Scenarios</a> or <a href="monitor.html">Monitor</a>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+<li><a href="../guide/token-simulation.html">Token simulation</a> - Watch a token walk through the process.</li>
+<li><a href="../guide/flow-analysis.html">Flow analysis</a> - Deadlocks, dead steps and loops, found before you run anything.</li>
+<li><a href="../guide/dmn-editor.html">The DMN editor</a> - Decision tables, trying a table with values, spreadsheets and the requirements diagram.</li>
+<li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/comments.html"><span>Previous</span>Comments</a>
+<a class="next" href="../guide/scripts.html"><span>Next</span>Scripts in their own tab</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -7,7 +7,7 @@ related: sidebar, check-workers, project-model, process-tests, settings, jetbrai
 -->
 <h2>What it is</h2>
 
-<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, JavaScript, TypeScript, Python, Go and C# by reading the text, so a worker in another language or another repository still counts.</p>
+<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, Groovy, Scala, JavaScript, TypeScript, Python, Go and C# by reading the text, so a worker in another language or another repository still counts.</p>
 
 <h2>Free and Pro</h2>
 
@@ -31,13 +31,14 @@ related: sidebar, check-workers, project-model, process-tests, settings, jetbrai
   <li><strong>An element named in any file.</strong> <code>order.bpmn#ServiceTask_charge</code>, a path to the file, or a process id and the element's id after <code>#</code>, is a link from any language. Completion after <code>#</code> offers the ids of the diagram that is named, and an id no diagram in the project has is marked with a quick fix offering the near ones.</li>
   <li><strong>From diagram to code.</strong> Hover an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it. The element's menu goes to the implementation, and finds the code that names the element, its process, the job type, class or bean it runs, its message or its decision: the worker, the tests, and the code that starts it.</li>
   <li><strong>Variables.</strong> Penstock reads where each process variable is set and read: input and output mappings, conditions, FEEL and JUEL expressions, result variables, form fields, message correlation keys, multi-instance collections, call activity in and out. A variable that is read but never set is marked. When a name is a letter away from a known one, Penstock asks <em>set as 'approved'?</em>. In code, <code>getVariable</code>, <code>setVariable</code>, <code>variable</code>, <code>@Variable</code> and the test assertions use the names the diagrams use.</li>
+  <li><strong>Variables across the code boundary.</strong> The variables the code of a step reads and writes are part of the analysis of that step. Penstock reads <code>@JobWorker(fetchVariables)</code>, <code>@Variable</code>, <code>@VariablesAsType</code> classes with their fields and <code>@JsonProperty</code> names, <code>job.getVariable</code>, what a worker returns, <code>execution.getVariable</code> and <code>setVariable</code>, and the variables of an external task handler, and the Node, Python, Go and C# clients beside them. So the findings you have for the diagram reach into the code: a name a worker reads that no step before it sets, and a typo near one that is.</li>
   <li><strong>Error codes.</strong> The code in <code>new BpmnError("...")</code>, <code>handleBpmnError(task, "...")</code>, an error command's <code>errorCode("...")</code> or <code>CamundaError.bpmnError("...")</code> is linked to the error event that catches it. A code no error event catches is marked, and so is an error event nothing throws.</li>
   <li><strong>Tests and coverage.</strong> The link goes both ways between a process and the tests that name it. See <a href="process-tests.html">Process tests and coverage</a>.</li>
 </ul>
 
 <h2>Check the diagram against the code</h2>
 
-<p>Penstock compares every diagram with the code and reports what does not fit. In the editor, the check card has a <strong>Code</strong> section.</p>
+<p>Penstock compares every diagram with the code and reports what does not fit. In the editor, the Problems tab has a <strong>Code</strong> group, and the check card lists the same findings.</p>
 
 {{host:code-check-run|Check diagrams against code in your tool}}
 
@@ -61,6 +62,31 @@ It reports:
 </table></div>
 
 <p>Names are matched exactly. A name that differs only by case, such as <code>charge-Card</code> against <code>charge-card</code>, is pointed out, because Camunda matches names exactly. Connector job types such as <code>io.camunda:http-json:1</code> and job types set by an expression are understood and left alone. Job types of Camunda 8 execution and task listeners count as workers. The full list is in <a href="../rules/">Every rule</a>.</p>
+
+<h3>Where a step and its code do not agree</h3>
+
+<p>These findings are reported on the step. The three about variables, the first three in the table, are marked in the code too, on the line that reads or writes the variable.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Finding</th><th>Id</th></tr></thead>
+  <tbody>
+  <tr><td>A worker reads a variable it does not fetch, so it is null at runtime</td><td><code>code/worker-fetch</code></td></tr>
+  <tr><td>A worker sets a variable that no step after it reads</td><td><code>code/writer-unread</code></td></tr>
+  <tr><td>A parallel multi-instance step collects results with no output element, so every instance overwrites the others</td><td><code>code/lost-update</code></td></tr>
+  <tr><td>A worker reads a variable that no step before it sets</td><td><code>code/late-read</code></td></tr>
+  <tr><td>A job type, topic, class or bean is one letter off the one in the code, or differs from it only in case</td><td><code>code/near-name</code></td></tr>
+  <tr><td>A mapping line reads a value that an earlier line was meant to set, which the engine gives as null (camunda#11789)</td><td><code>code/mapping-order</code></td></tr>
+  <tr><td>A job worker takes its job type from its method name, so a rename breaks the diagram silently</td><td><code>code/implicit-job-type</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2>Rename a name the diagram and the code share</h2>
+
+<p>A job type, a topic, a Camunda 7 bean or class, and a process, decision or form id are written in the diagram and in the code. Renaming one from either side opens a preview that lists every diagram, decision, form and source file that writes the name, in the project and in a linked repository, and one command writes them all. Going the other way, changing such a value in the properties panel offers to rename the places that still hold the old one. It never edits code on its own. A process id, a job type and a message name are what a deployed engine knows, so the preview says that instances already running keep the old name, and offers to ask the engine, only when you ask, how many are active. Variables are left out, because the analysis reports the uses it saw, not that it saw them all. See <a href="@jetbrains/rename.html">Rename</a>.</p>
+
+<h2>Element templates from worker code</h2>
+
+<p>A job worker in your code can become an element template. <span class="ui">Create Element Template</span>, on a <code>@JobWorker</code> method, a <code>newWorker().jobType(...)</code> registration or a Camunda 7 external task subscription, writes the template of that job type or topic into <code>.camunda/element-templates</code>, with one field for each variable the worker reads, typed by its Java type, an enum as a dropdown, and the variables it sets as output mappings. A template that already exists for the same job type is brought up to date, with its version raised and the labels and descriptions you wrote kept. A template that no longer matches its worker is marked, and the gap is named on the step. See <a href="element-templates.html">Element templates</a>.</p>
 
 <h2>Other repositories</h2>
 

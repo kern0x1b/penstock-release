@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -142,8 +144,9 @@
   <thead><tr><th>File</th><th>What it is</th></tr></thead>
   <tbody>
   <tr><td><code>preferences.json</code></td><td>Your toolbar choices, whether the tour was seen, the width of the sidebar and the tab you left selected, Sketchy drawing, tree or flat view of the project model, and the last export format.</td></tr>
-  <tr><td><code>license.json</code></td><td>Your licence key and the time it was last checked. Readable only by you.</td></tr>
-  <tr><td><code>trial.json</code></td><td>When this machine's 30-day Pro trial started.</td></tr>
+  <tr><td><code>license.json</code></td><td>The signed licence token and a clock mark, never a key, a tier or a date you could edit. Readable only by you. See <a href="sign-in.html">Buying and signing in</a>.</td></tr>
+  <tr><td><code>clock.json</code>, <code>pipeline.json</code></td><td>The latest time the machine has seen, kept beside the licence so a clock set back is noticed, and the short-lived token of a pipeline run.</td></tr>
+  <tr><td><code>trusted-projects.json</code></td><td>The projects you have trusted to run a deploy hook, the project's command line and its lint rules. Trusting in one tool trusts in the others. Settings in your tool list them, and <code>penstock trust --list</code> prints them.</td></tr>
   <tr><td><code>connectors/&lt;release&gt;/</code></td><td>The Camunda connector templates downloaded from GitHub.</td></tr>
   <tr><td><code>wrapper/dists/&lt;version&gt;/</code></td><td>The command line versions the wrapper downloaded.</td></tr>
   <tr><td><code>test-builds.json</code></td><td>A list of test builds a test-case run deployed, so the next run can remove what an interrupted one left.</td></tr>
@@ -201,7 +204,7 @@
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>After a few days of use, <code>~/.penstock</code> holds <code>preferences.json</code>, <code>license.json</code> or <code>trial.json</code>, and maybe <code>connectors</code>.</li>
+  <li>After a few days of use, <code>~/.penstock</code> holds <code>preferences.json</code> and <code>license.json</code>, and maybe <code>connectors</code> and <code>trusted-projects.json</code>.</li>
   <li>Your projects hold <code>penstock.yaml</code> and, if you ran <code>init</code>, the wrapper files.</li>
 </ul>
 

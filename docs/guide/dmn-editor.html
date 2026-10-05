@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>The DMN editor - Penstock</title>
-<meta name="description" content="The DMN editor draws decisions as tables, so business rules live in a file you can review, check and deploy.">
+<meta name="description" content="The DMN editor draws decisions as tables, so business rules live in a file you can review, try with real values, check and deploy.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/dmn-editor.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -102,7 +104,7 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
 <h1>The DMN editor</h1>
-<p class="lede">The DMN editor draws decisions as tables, so business rules live in a file you can review, check and deploy.</p>
+<p class="lede">The DMN editor draws decisions as tables, so business rules live in a file you can review, try with real values, check and deploy.</p>
 <p class="meta"><span class="tag free">Free</span> <span>The decision table check needs Pro</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
@@ -113,6 +115,9 @@
 <li><a href="#the-properties-panel">The properties panel</a></li>
 <li><a href="#older-dmn-files">Older DMN files</a></li>
 <li><a href="#the-toolbar">The toolbar</a></li>
+<li><a href="#the-sidebar-of-a-decision">The sidebar of a decision</a></li>
+<li><a href="#try">Try a decision table</a></li>
+<li><a href="#spreadsheets">Decision tables and spreadsheets</a></li>
 <li><a href="#the-decision-table-check">The decision table check</a></li>
 <li><a href="#documentation-of-a-decision">Documentation of a decision</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -136,7 +141,7 @@
 <h2 id="what-you-can-edit"><a href="#what-you-can-edit">What you can edit</a></h2>
 
 <ul>
-  <li>The requirements diagram (DRD): which decisions depend on which.</li>
+  <li>The requirements diagram (DRD): which decisions depend on which. <a href="trace-paths.html">Trace paths</a> follows what a decision needs and what depends on it.</li>
   <li>Decision tables, with typed inputs and outputs and rule annotations.</li>
   <li>Literal expressions and boxed expressions.</li>
   <li>The Camunda DMN extensions. They are read and kept.</li>
@@ -155,10 +160,10 @@
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
   <tr><td>View buttons</td><td>Requirements, then one per decision.</td></tr>
-  <tr><td>Sidebar</td><td>An icon that shows or hides the sidebar. Its tabs are Properties and Problems.</td></tr>
-  <tr><td>Check</td><td>Runs the decision table check. Pro.</td></tr>
+  <tr><td>Check</td><td>Runs the decision table check and opens the Problems tab. Pro.</td></tr>
   <tr><td>Deploy</td><td>Sends the file to the engine with the settings a diagram uses. Shown when the engine is known. See <a href="deployment.html">Deployment</a>.</td></tr>
-  <tr><td>More</td><td>Holds <span class="ui">Share as HTML…</span>. See <a href="share-html.html">Share as HTML</a>.</td></tr>
+  <tr><td>Sidebar</td><td>An icon that shows or hides the sidebar.</td></tr>
+  <tr><td>More</td><td>Holds <span class="ui">Trace paths</span>, the four spreadsheet actions, <span class="ui">Share as HTML…</span> and <span class="ui">Keyboard shortcuts</span>. The spreadsheet actions are for tables: see <a href="#spreadsheets">Decision tables and spreadsheets</a>. The others: <a href="trace-paths.html">Trace paths</a>, <a href="share-html.html">Share as HTML</a>.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -169,13 +174,87 @@
   <figcaption>A decision table with its hit policy. The Try tab runs the table against values you type, marks the rule that matches and says why.</figcaption>
 </figure>
 
+<h2 id="the-sidebar-of-a-decision"><a href="#the-sidebar-of-a-decision">The sidebar of a decision</a></h2>
+
+<p>The <a href="sidebar.html">sidebar</a> of a decision has three tabs, in this order.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Properties</td><td>The id, name and documentation of a decision, in the requirements view. Over a decision table it says that the properties of a decision are edited in the requirements diagram, and offers to open it.</td></tr>
+  <tr><td>Problems</td><td>The findings of the decision table check. Until you press <span class="ui">Check</span> it says <em>Check the decisions to see problems here.</em> See below.</td></tr>
+  <tr><td>Try</td><td>Runs the open table against values you type. See <a href="#try">Try a decision table</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="try"><a href="#try">Try a decision table</a></h2>
+
+<p>The Try tab answers "what does this table give for these values?" without deploying anything and without leaving the file. It reads the table, runs it in the editor and shows which rules match, why, and what the decision returns. Nothing is sent to an engine and nothing is written to the file.</p>
+
+<ol class="steps">
+  <li>Open a decision table: press the button of a decision in the bar above the editor.</li>
+  <li>Open the <strong>Try</strong> tab of the sidebar. It names the decision and says what its hit policy does, for example <em>First: the first matching rule wins</em>.</li>
+  <li>Type a value for each input the table asks for. A number input takes a number, a date input takes a date as <code>YYYY-MM-DD</code>, a true or false input is a checkbox. A value of the wrong kind says what it should be.</li>
+  <li>Read the table under the fields. The rules that match are marked.</li>
+  <li>Read the sentence under the table. It says which rule matches and why, for example <em>Rule 1 matches: Order weight 1 fits &lt; 2, Destination zone "Domestic" fits "Domestic", Customer tier "Gold" fits "Gold"; it returns shippingMethod = "Same-day courier", deliveryDays = 1</em>.</li>
+  <li>Under it, the outputs of the decision are listed with their values.</li>
+</ol>
+
+<!-- image: dmn-try-no-match.png, the Try tab with values that match no rule, and the sentence that says so -->
+
+<h3 id="what-each-hit-policy-returns"><a href="#what-each-hit-policy-returns">What each hit policy returns</a></h3>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Hit policy</th><th>What the Try tab shows</th></tr></thead>
+  <tbody>
+  <tr><td>First</td><td>The first matching rule.</td></tr>
+  <tr><td>Rule order</td><td>Every matching rule, in rule order.</td></tr>
+  <tr><td>Collect</td><td>Every matching rule. With an aggregation, the result of it over the matches: Sum, Count, Smallest, Largest, Average, Middle or Most often.</td></tr>
+  <tr><td>Unique, Any</td><td>The engine's own error where the engine would raise one: two rules match under Unique, or rules with different results match under Any.</td></tr>
+  <tr><td>Priority</td><td>The matching rule with the highest output priority.</td></tr>
+  <tr><td>Output order</td><td>Every matching rule, by output priority.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="a-decision-that-other-decisions-feed"><a href="#a-decision-that-other-decisions-feed">A decision that other decisions feed</a></h3>
+
+<p>When a decision needs the result of another decision, the Try tab runs that one first, in order, and shows it above. Its result is the input of the decision that uses it, so you are not asked for it. You type only the values that come from outside.</p>
+
+<h3 id="what-it-remembers-and-what-it-will-not-guess"><a href="#what-it-remembers-and-what-it-will-not-guess">What it remembers, and what it will not guess</a></h3>
+
+<ul>
+  <li>The last values you typed for a decision are kept while the file stays open, so you can switch tabs and come back.</li>
+  <li>While a value is missing, the tab says <em>needs a value for</em> and names it, and no rule is compared.</li>
+  <li>A cell Penstock cannot read is named, with the words <em>Penstock cannot evaluate this cell here</em>, instead of being guessed at.</li>
+  <li>With no decision table open the tab says <em>Select a decision table to try it.</em></li>
+</ul>
+
+<h2 id="spreadsheets"><a href="#spreadsheets">Decision tables and spreadsheets</a></h2>
+
+<p>A decision table goes to a spreadsheet and back, so the rules can be read and edited in a spreadsheet. These actions are in the <span class="ui">More</span> menu, under File. The first three are offered while a decision table is open.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Export decision table as a workbook…</td><td>Saves the inputs, the outputs and every rule as an Excel workbook. The first row names the inputs and the outputs.</td></tr>
+  <tr><td>Export decision table as CSV…</td><td>The same as comma separated values, one cell per column.</td></tr>
+  <tr><td>Import decision table…</td><td>Replaces the rules of the selected table with those in a workbook or a CSV whose first row names the inputs and the outputs.</td></tr>
+  <tr><td>Add rules from spreadsheet…</td><td>Fills the open decision table with the rules in a workbook or a CSV.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Before anything is written, a preview says what would change: how many rules are added, removed or changed, rule by rule and cell by cell. A file that would change nothing says <em>The table already says this, so there is nothing to import</em>. The whole import is one change, so one Undo takes it back.</p>
+
+<p>An import is refused, with the reason, when the file is empty, when it is named like a workbook but is not one, when the workbook is damaged or protected by a password, when the header names other columns than the table has (<em>The header names &hellip;; the table needs &hellip;</em>), or when a cell is not a comparison, a range or a value (<em>Row 4 cannot be read</em>).</p>
+
+<!-- image: dmn-import-preview.png, the Import decision table preview with the count of rules added, removed and changed -->
+
 <h2 id="the-decision-table-check"><a href="#the-decision-table-check">The decision table check</a></h2>
 <p><span class="tag pro">Pro</span></p>
 
 <ol class="steps">
-  <li>Open a decision table and press <span class="ui">Check</span>. A card called <em>Decision check</em> opens over the canvas, and the <strong>Problems</strong> tab holds the whole list.</li>
+  <li>Open a decision table and press <span class="ui">Check</span>. A card called <em>Decision check</em> opens over the canvas with the first findings. <span class="ui">Show all</span> opens the <strong>Problems</strong> tab, which holds the whole list. While that tab is open the card stays away.</li>
   <li>Each finding names the rules and a value that both match, or the values that no rule matches.</li>
   <li>Click a finding. The editor goes to it.</li>
+  <li>Press <span class="ui">Check</span> again to put the card away. <span class="ui">Recheck</span>, on the card and on the tab, runs the check again.</li>
 </ol>
 
 <div class="table-wrap"><div class="table-wrap"><table>
@@ -200,6 +279,7 @@
 <ul>
   <li>A bar of buttons: <em>Requirements</em> and one for each decision. The table sits inset, with a highlight on the row under the pointer.</li>
   <li>After <span class="ui">Check</span>, a card called <em>Decision check</em> with a count of problems, or the line <em>No rules overlap, and every input has a rule.</em></li>
+  <li>In the Try tab, the rules that match your values marked in the table, and a sentence that says why.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
@@ -209,17 +289,26 @@
   <dd>The editor shows the reason. The file may not be valid DMN XML. Open the <span class="ui">Text</span> tab and look at the message.</dd>
   <dt>The table check says a table cannot be checked.</dt>
   <dd>A cell holds an expression the check cannot read. Simplify the cell named in the finding.</dd>
+  <dt>The Try tab says a decision needs a value.</dt>
+  <dd>An input has no value yet. Type one in the field with that name. No rule is compared until every input has a value.</dd>
+  <dt>The Try tab says Penstock cannot evaluate a cell.</dt>
+  <dd>The cell holds an expression that is not a comparison, a range or a value Penstock reads. The tab names the cell. Simplify it, or try the decision on an engine.</dd>
+  <dt>An import is refused.</dt>
+  <dd>The message names the reason, such as a header that does not match the columns of the table or a cell that cannot be read. Fix the file and import it again. Nothing is written until you confirm the preview.</dd>
+  <dt>The spreadsheet actions are not in the menu.</dt>
+  <dd>Export and Import need a decision table to be open. Press the button of a decision in the bar first.</dd>
   <dt>Deploy is missing.</dt>
   <dd>It shows when the engine is known. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
-<li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn and edited.</li>
+<li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn, previewed and checked.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
 <li><a href="../guide/share-html.html">Share as HTML</a> - One offline file anyone can open.</li>
 <li><a href="../guide/flow-analysis.html">Flow analysis</a> - Deadlocks, dead steps and loops, found before you run anything.</li>
-<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
+<li><a href="../guide/trace-paths.html">Trace paths</a> - Every path that runs through a step, with the rest dimmed.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">

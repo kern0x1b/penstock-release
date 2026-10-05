@@ -8,32 +8,47 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
 <h2>Run it</h2>
 
 <ol class="steps">
-  <li>Press <span class="ui">Check</span> on the toolbar, or pick the <strong>Problems</strong> tab of the sidebar. A card called <em>Diagram check</em> opens at the bottom right of the canvas, over it rather than under it.</li>
+  <li>Press <span class="ui">Check</span> on the toolbar. A card called <em>Diagram check</em> opens at the bottom right of the canvas, over it rather than under it.</li>
   <li>Read the header. It counts the findings in words and how many are notes about readability, for example <em>8 errors, 1 warning, 1 readability</em>.</li>
   <li>Click a line. The canvas scrolls to that element and selects it, and its outline turns red.</li>
-  <li>Press <span class="ui">Show all</span> to open the Problems tab, where every finding is, with its <strong>Why</strong> and <strong>Fix</strong> lines and a link to that check's own page.</li>
-  <li>Fix the problem. The card updates by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span> puts the card and the outlines away.</li>
+  <li>Press <span class="ui">Show all</span> to open the Problems tab, where every finding is. Click a finding there and its <strong>Why</strong> and <strong>Fix</strong> lines open under it, with a link to that check's own page.</li>
+  <li>Fix the problem. The check runs again by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span>, or pressing <span class="ui">Check</span> again, puts the card and the outlines away.</li>
 </ol>
+
+<p>The check starts as soon as a diagram is read and runs again as you edit, whether or not the card or the tab is open. That is why the count is always on the canvas and always the same number.</p>
 
 <h2>Two places to read it</h2>
 
-<p>The card is a summary: the counts, the first few findings, <span class="ui">Recheck</span>, <span class="ui">Close</span> and <span class="ui">Show all</span>. The <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a> is the full list, in groups, each finding with an error or a warning icon. The tab keeps its place while you look at another tab, so you can go to Properties to fix something and come back to the list.</p>
+<p>You can choose the <strong>Problems</strong> tab of the <a href="sidebar.html">sidebar</a> directly, without the card. The <span class="ui">Check</span> button stays pressed while either one is showing. Opening the tab puts the card away, since the tab says everything the card does.</p>
 
-<p>Clicking a finding in either place selects its element on the canvas and opens the property that fixes it: job type, form key or id, correlation key, history time to live, called element, error, escalation, message and signal references and timer definitions, and a missing job type, topic, class or delegate expression in the code. A finding with no single field still switches the sidebar to Properties and selects the element.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>The card</th><th>The Problems tab</th></tr></thead>
+  <tbody>
+  <tr><td>Where</td><td>Over the canvas, at the bottom right.</td><td>In the sidebar, beside the diagram.</td></tr>
+  <tr><td>What it lists</td><td>The first three findings, and <span class="ui">Show all</span> with how many more there are.</td><td>Every finding, in groups, each with an error or a warning icon.</td></tr>
+  <tr><td>Why and Fix</td><td>No.</td><td>Yes, under the finding you select, with the rule's id and a link to its page.</td></tr>
+  <tr><td>Buttons</td><td><span class="ui">Recheck</span>, <span class="ui">Close</span>, <span class="ui">Show all</span>.</td><td><span class="ui">Recheck</span>, and the count line at the top.</td></tr>
+  <tr><td>Stays</td><td>Until you close it.</td><td>While you look at another tab. Go to Properties to fix something and come back to the same list.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Clicking a finding in either place selects its element on the canvas and opens the property that fixes it: job type, form key or id, correlation key, history time to live, called element, error, escalation, message and signal references and timer definitions, and a missing job type, topic, class or delegate expression in the code. A finding with no single field still switches the sidebar to Properties and selects the element. Resting the pointer on a drawing finding in the tab shows its element on the canvas without selecting it.</p>
+
+<figure class="shot">
+  <img src="@img/problems-tab.png" alt="The Problems tab of the sidebar for a diagram with three errors and two warnings, grouped under How it runs and Rules, each finding with its rule id, and a Recheck button at the top">
+  <figcaption>The Problems tab holds every finding of the diagram. The count line and Recheck are at the top, the findings are grouped, each one names its rule, and the tab carries the count as a badge.</figcaption>
+</figure>
 
 <figure class="shot">
   <img src="@img/check-card.png" alt="The Diagram check card over the canvas with three drawing problems listed and a Show all link, and the Code tab of the sidebar beside it">
-  <figcaption>The card is a summary. Show all opens the Problems tab, which holds every finding. The elements that have findings keep an outline while the card is open.</figcaption>
+  <figcaption>The card is a summary of the first findings. Show all opens the Problems tab. The elements that have findings keep an outline while the card is open.</figcaption>
 </figure>
 
 <h2>What you see</h2>
 
-<p>While the card is open, every element that a problem is about carries an outline on the canvas. A small pill on the canvas carries the count, and the badge on the Problems tab carries it too. The pill is hidden while the card is open, since the card says the same thing, and both count the same findings: a compatibility rule the linter reports as information counts as a warning, and a problem two checks both report is counted once. With nothing wrong, the card says <em>Nothing to report across N elements and connections</em> and the pill says <em>No Issues</em>.</p>
+<p>While the card is open, every element that a problem is about carries an outline on the canvas. A small pill at the bottom of the canvas says the same as the header of the card, in the same words. It is green when nothing is wrong, amber for warnings and red for errors. The badge on the Problems tab carries the number of errors and warnings. The pill is hidden while the card is open, since the card says the same thing, and both count the same findings: a compatibility rule the linter reports as information counts as a warning, and a problem two checks both report is counted once.</p>
 
-<figure class="shot">
-  <img src="@img/problems-tab.png" alt="The Problems tab of the sidebar for a diagram with three errors and two warnings, grouped under How it runs and Rules, each finding with its rule id, and a Recheck button at the top">
-  <figcaption>The Problems tab holds every finding of the diagram. They are grouped, each one names its rule, and the tab carries the count as a badge.</figcaption>
-</figure>
+<p>With nothing wrong, the pill says <em>No problems found.</em> In the Problems tab the same words are the heading, with <em>Nothing to report across N elements and connections. The check runs again as you edit.</em> under it. Until the first pass is done the tab says <em>Waiting for a diagram to check.</em></p>
 
 <h2>Every check has an id</h2>
 
@@ -43,22 +58,22 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
 
 <h2>The groups</h2>
 
-<p>Both places group findings by what they are about. A group only appears when it has something to say.</p>
+<p>The Problems tab groups findings by what they are about, in this order. A group only appears when it has something to say.</p>
 
 <div class="table-wrap"><table>
   <thead><tr><th>Group</th><th>What it lists</th><th>Needs</th></tr></thead>
   <tbody>
-  <tr><td>How it runs</td><td>Problems in how the process runs: it can get stuck, a part runs twice, a step can never run, it may never finish, a decision has no way out. Selecting one outlines the path that leads there. See <a href="flow-analysis.html">Flow analysis</a>.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td>Problems</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other, a connection that doubles back along itself.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td>Engine</td><td>What the engine the diagram is written for cannot run: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. Each finding is a plain sentence naming the element, and every rule has an id and a page. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>How it runs</td><td>Problems in how the process runs: it can get stuck, a part runs twice, a step can never run, it may never finish, a decision has no way out. Selecting one outlines the path that leads there and writes it in words, as <em>Path: Start &rarr; Which way &rarr; Task A</em>. See <a href="flow-analysis.html">Flow analysis</a>.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Drawing</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other, a connection that doubles back along itself.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Engine</td><td>A diagram whose namespace is not the one of the engine of the project, for example <em>This is an Operaton project, but the diagram uses the Camunda 7 namespace.</em> The row has a <span class="ui">Fix</span> button that converts the namespace.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away, a called process no diagram defines, a form no file provides. Each finding has the file and the line. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="tag pro">Pro</span> to convert</td></tr>
-  <tr><td>Readability</td><td>Collapsed by default. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>, and the engine compatibility findings, whose ids start with <code>compat/</code>: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram, with a <span class="ui">Convert</span> button. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="ui">Convert</span> is <span class="tag pro">Pro</span></td></tr>
+  <tr><td>Readability</td><td>Collapsed by default, with its count on the heading. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
   </tbody>
 </table></div>
 
-<p>Without Pro, the group says how many such problems it found and offers to buy it. The same analysis is the flow section of <code>penstock check</code>, or <code>penstock check --only flow</code> on its own.</p>
+<p>Without Pro, the flow group is one row that says how many such problems it found and offers to buy it. The same analysis is the flow section of <code>penstock check</code>, or <code>penstock check --only flow</code> on its own.</p>
 
 <h2>Drawing and rules are different</h2>
 
@@ -92,7 +107,9 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
   <dt>I fixed a problem and it is still listed.</dt>
   <dd>Press <span class="ui">Recheck</span>. The list refreshes a moment after you stop editing.</dd>
   <dt>The count in the header is lower than the list.</dt>
-  <dd>Notes about readability are not counted as problems, and a rule set to warn is a warning rather than an error.</dd>
+  <dd>The card lists only its first three findings, and <span class="ui">Show all</span> opens the rest. The badge on the Problems tab counts errors and warnings but not the notes about readability, which the header counts apart. A rule set to warn is a warning rather than an error.</dd>
+  <dt>The pill says "No problems found." but I see something wrong.</dt>
+  <dd>The check reads the drawing, the rules and, with Pro, the flow and the code. A wrong value in a field, or a mistake it has no rule for, is not a finding. See <a href="validation.html">Validation</a> for the rules that run.</dd>
   <dt>There is no Check button.</dt>
   <dd>It may have been moved off the bar. Open <span class="ui">More</span> and pin <span class="ui">Check</span>. See <a href="toolbar.html">The toolbar and the More menu</a>.</dd>
 </dl>

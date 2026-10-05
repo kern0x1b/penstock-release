@@ -10,10 +10,12 @@ related: scenarios, code-links, cli/commands, jetbrains/test-runner
 <p>A process with two gateways has several ways through it. Each way is a <strong>scenario</strong>. Penstock finds them all, and then:</p>
 
 <ul>
-  <li><strong>Paths</strong> lists the scenarios, as a test plan you can read.</li>
-  <li><strong>Tests</strong> writes a JUnit test for each scenario.</li>
+  <li><strong>Listing</strong> the scenarios gives a test plan you can read. In a terminal it is <code>penstock scenarios list</code>.</li>
+  <li><strong>JUnit tests</strong> are written for each scenario. In a terminal it is <code>penstock junit</code>.</li>
   <li><strong>Coverage</strong> shows which elements your tests reached.</li>
 </ul>
+
+<p>Running the scenarios against an engine, without JUnit, is <a href="scenarios.html">Scenarios</a>. The older command names <code>paths</code> and <code>tests</code> still work and are left out of the help.</p>
 
 <h2>List the ways through</h2>
 

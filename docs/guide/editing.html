@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html" aria-current="page">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -117,6 +119,9 @@
 <li><a href="#scripts-and-conditions">Scripts and conditions</a></li>
 <li><a href="#transaction-boundaries">Transaction boundaries</a></li>
 <li><a href="#the-xml-one-tab-away">The XML one tab away</a></li>
+<li><a href="#follow-a-path">Follow a path</a></li>
+<li><a href="#leave-a-note-on-an-element">Leave a note on an element</a></li>
+<li><a href="#shortcuts">Shortcuts</a></li>
 <li><a href="#token-simulation">Token simulation</a></li>
 <li><a href="#export-and-the-diagram-diff">Export and the diagram diff</a></li>
 <li><a href="#the-minimap">The minimap</a></li>
@@ -128,7 +133,7 @@
 </nav>
 <h2 id="what-the-editor-is"><a href="#what-the-editor-is">What the editor is</a></h2>
 
-<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar, and the raw XML never more than one click away.</p>
+<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar with tabs for the properties, scenarios, problems, comments, Monitor and code, and the raw XML never more than one click away.</p>
 
 <h2 id="add-an-element"><a href="#add-an-element">Add an element</a></h2>
 
@@ -221,6 +226,18 @@
 </div>
 </div>
 
+<h2 id="follow-a-path"><a href="#follow-a-path">Follow a path</a></h2>
+
+<p>Select a task, a gateway or an event and press the trace icon on its pad, or choose <span class="ui">Trace paths</span> in the <span class="ui">More</span> menu. Every path that runs through the step stays in colour and the rest of the diagram is dimmed. It lives on the canvas only: it adds nothing to the undo history and nothing to the file. See <a href="trace-paths.html">Trace paths</a>.</p>
+
+<h2 id="leave-a-note-on-an-element"><a href="#leave-a-note-on-an-element">Leave a note on an element</a></h2>
+
+<p>Select an element and open the Comments tab of the sidebar. A comment is kept in the file, inside the element, and a small number on the element's corner says how many are still open. See <a href="comments.html">Comments</a>.</p>
+
+<h2 id="shortcuts"><a href="#shortcuts">Shortcuts</a></h2>
+
+<p>The <span class="ui">Keyboard shortcuts</span> action, or the <kbd>?</kbd> key, opens the sheet of every shortcut the editor binds, with a search field. See <a href="toolbar.html#keyboard-shortcuts">The toolbar and the More menu</a>.</p>
+
 <h2 id="token-simulation"><a href="#token-simulation">Token simulation</a></h2>
 
 <p><span class="ui">Simulate</span> switches the canvas into simulation mode: it is framed in green, every start event gains a play button, and the speed controls sit at the bottom. The button stays pressed until you switch it off. The simulation blocks dragging, the context pad, popup menus and direct editing, and Penstock blocks the rest: Undo, Redo, Copy, Paste, Delete and Auto layout refuse to run and say <em>Stop Token Simulation before editing the diagram</em>. Otherwise an edit made during what looks like a read-only preview would be written to the file like any other. Free. See <a href="token-simulation.html">Token simulation</a>.</p>
@@ -291,20 +308,20 @@
 <ul>
 <li><a href="../guide/elements.html">BPMN elements</a> - Every element you can draw, and what it is for.</li>
 <li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
-<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, Monitor and code.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
 <li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
 <li><a href="../guide/scripts.html">Scripts in their own tab</a> - Edit an inline script as a real file in your code editor.</li>
 <li><a href="../guide/token-simulation.html">Token simulation</a> - Watch a token walk through the process.</li>
 <li><a href="../guide/bpmn-editor.html">The BPMN editor</a> - The window, the tabs and how saving works.</li>
 <li><a href="../guide/export.html">Export</a> - Save the diagram as SVG, PNG or PDF.</li>
 <li><a href="../guide/diagram-diff.html">Diagram diff</a> - Compare two versions of a diagram, side by side.</li>
-<li><a href="../guide/dmn-editor.html">The DMN editor</a> - Decision tables and decision requirement diagrams.</li>
-<li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn and edited.</li>
+<li><a href="../guide/dmn-editor.html">The DMN editor</a> - Decision tables, trying a table with values, spreadsheets and the requirements diagram.</li>
+<li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn, previewed and checked.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/elements.html"><span>Previous</span>BPMN elements</a>
-<a class="next" href="../guide/scripts.html"><span>Next</span>Scripts in their own tab</a>
+<a class="next" href="../guide/comments.html"><span>Next</span>Comments</a>
 </nav>
 </main>
 </div>

@@ -54,7 +54,7 @@
             {
               "slug": "sidebar",
               "title": "The sidebar",
-              "about": "The column beside the canvas: properties, scenarios, problems, Monitor and code."
+              "about": "The column beside the canvas: properties, scenarios, problems, comments, Monitor and code."
             },
             {
               "slug": "properties-panel",
@@ -70,6 +70,16 @@
               "slug": "editing",
               "title": "Editing a diagram",
               "about": "The canvas, the palette, copy and paste, undo, the minimap."
+            },
+            {
+              "slug": "comments",
+              "title": "Comments",
+              "about": "Notes on elements, kept in the file."
+            },
+            {
+              "slug": "trace-paths",
+              "title": "Trace paths",
+              "about": "Every path that runs through a step, with the rest dimmed."
             },
             {
               "slug": "scripts",
@@ -99,12 +109,12 @@
             {
               "slug": "dmn-editor",
               "title": "The DMN editor",
-              "about": "Decision tables and decision requirement diagrams."
+              "about": "Decision tables, trying a table with values, spreadsheets and the requirements diagram."
             },
             {
               "slug": "form-editor",
               "title": "The form editor",
-              "about": "Camunda Forms, drawn and edited."
+              "about": "Camunda Forms, drawn, previewed and checked."
             }
           ]
         },

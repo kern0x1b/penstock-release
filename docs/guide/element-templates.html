@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html" aria-current="page">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -110,6 +112,7 @@
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#where-penstock-finds-templates">Where Penstock finds templates</a></li>
 <li><a href="#apply-a-template">Apply a template</a></li>
+<li><a href="#templates-from-your-worker-code">Templates from your worker code</a></li>
 <li><a href="#the-connector-browser">The connector browser</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -155,6 +158,15 @@
 </ol>
 
 <p>The element records which template it came from. Under Camunda 7 that is <code>camunda:modelerTemplate</code>. Under Camunda 8 it is <code>zeebe:modelerTemplate</code>. The Classic profile has no template support.</p>
+
+<h2 id="templates-from-your-worker-code"><a href="#templates-from-your-worker-code">Templates from your worker code</a></h2>
+<p><span class="tag pro">Pro</span></p>
+
+<p>A template can also be written from the worker that does the job. <span class="ui">Create Element Template</span> is offered on a job worker in your code: a <code>@JobWorker</code> method, a <code>newWorker().jobType(...)</code> registration or a Camunda 7 external task subscription. It writes the template of the job type or topic into <code>.camunda/element-templates</code>, with one field for each variable the worker reads, typed by the Java type, an enum as a dropdown, and the variables the worker sets as output mappings. If a template for the same job type is there already, it is brought up to date: its version is raised and the labels and descriptions you wrote are kept.</p>
+
+<p>A template says which worker it came from. One whose variables no longer match that worker is marked, and the step names the gap in the code check. From a template you can also write a job worker, in Java Spring, Node or Python, through the same generator the Camunda 7 to Camunda 8 conversion uses. In a terminal, <code>penstock templates generate</code> writes one template for every worker in the project, and <code>--check</code> writes nothing and fails when a template has drifted. See <a href="code-links.html">Code links</a>.</p>
+
+<!-- image: element-template-from-worker.png, the Create Element Template action on a job worker and the template file it wrote -->
 
 <h2 id="the-connector-browser"><a href="#the-connector-browser">The connector browser</a></h2>
 

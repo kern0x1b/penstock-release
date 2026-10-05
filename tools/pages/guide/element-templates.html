@@ -46,6 +46,15 @@ related: properties-panel, security, settings
 
 <p>The element records which template it came from. Under Camunda 7 that is <code>camunda:modelerTemplate</code>. Under Camunda 8 it is <code>zeebe:modelerTemplate</code>. The Classic profile has no template support.</p>
 
+<h2>Templates from your worker code</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<p>A template can also be written from the worker that does the job. <span class="ui">Create Element Template</span> is offered on a job worker in your code: a <code>@JobWorker</code> method, a <code>newWorker().jobType(...)</code> registration or a Camunda 7 external task subscription. It writes the template of the job type or topic into <code>.camunda/element-templates</code>, with one field for each variable the worker reads, typed by the Java type, an enum as a dropdown, and the variables the worker sets as output mappings. If a template for the same job type is there already, it is brought up to date: its version is raised and the labels and descriptions you wrote are kept.</p>
+
+<p>A template says which worker it came from. One whose variables no longer match that worker is marked, and the step names the gap in the code check. From a template you can also write a job worker, in Java Spring, Node or Python, through the same generator the Camunda 7 to Camunda 8 conversion uses. In a terminal, <code>penstock templates generate</code> writes one template for every worker in the project, and <code>--check</code> writes nothing and fails when a template has drifted. See <a href="code-links.html">Code links</a>.</p>
+
+<!-- image: element-template-from-worker.png, the Create Element Template action on a job worker and the template file it wrote -->
+
 <h2>The connector browser</h2>
 
 <p>Camunda publishes ready-made connector templates: Slack, e-mail, REST, and many more. Penstock has a browser for them.</p>

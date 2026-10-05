@@ -48,6 +48,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -112,6 +114,7 @@
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#saving">Saving</a></li>
 <li><a href="#themes">Themes</a></li>
+<li><a href="#the-first-run-tour">The first-run tour</a></li>
 <li><a href="#which-engine-is-this-diagram-for">Which engine is this diagram for?</a></li>
 <li><a href="#hover-for-a-summary">Hover for a summary</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -149,7 +152,7 @@
 
 <figure class="shot">
   <img src="../img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette beside the canvas, the Properties tab of the sidebar on the right and the editor tabs below">
-  <figcaption>A diagram open in the editor: the palette beside the canvas, the properties panel on the right and the check card at the bottom right.</figcaption>
+  <figcaption>A diagram open in the editor: the toolbar on top, the palette beside the canvas, the Properties tab of the sidebar on the right, the problems pill at the bottom of the canvas and the Text tab one click below.</figcaption>
 </figure>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
@@ -158,14 +161,19 @@
   <tr><td>Toolbar</td><td>Actions along the top. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
   <tr><td>Palette</td><td>The floating island beside the canvas. Drag elements from it. See <a href="elements.html">BPMN elements</a>.</td></tr>
   <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool.</td></tr>
-  <tr><td>Properties panel</td><td>The settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
-  <tr><td>Check card</td><td>A small card at the bottom right that lists problems. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Sidebar</td><td>The column on the right, with a tab for the properties, scenarios, problems, comments, Monitor and code. See <a href="sidebar.html">The sidebar</a>.</td></tr>
+  <tr><td>Properties panel</td><td>The first tab of the sidebar: the settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Problems pill</td><td>A small pill at the bottom of the canvas that counts the findings of the check, or says <em>No problems found.</em> See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Check card</td><td>A card at the bottom right that lists the first problems, while Check is on. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Text tab</td><td>The raw XML of the same file, one tab away. See <a href="editing.html">Editing a diagram</a>.</td></tr>
   </tbody>
 </table></div></div>
 
 <h2 id="saving"><a href="#saving">Saving</a></h2>
 
 <p>There is no save button. Every change is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. Other views of the same file, and version control, see the change immediately.</p>
+
+<p>A saved diagram says <code>exporter="Penstock"</code> and the version of Penstock that wrote it, the way a file from Camunda Modeler says which tool and version wrote it. Opening a file changes nothing in it.</p>
 
 <h3 id="when-the-file-changes-outside-the-editor"><a href="#when-the-file-changes-outside-the-editor">When the file changes outside the editor</a></h3>
 
@@ -180,9 +188,13 @@
 
 <h2 id="themes"><a href="#themes">Themes</a></h2>
 
-<p>The diagram always takes the theme of your tool: light or dark. There is no separate theme dialog. If you change the theme, the diagram redraws. If you want a hand-drawn look, use <span class="ui">Sketchy drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
+<p>The diagram always takes the colours of your tool, light, dark or any theme you have installed, including an accent colour you have changed. There is no separate theme dialog. If you change the theme while a diagram is open, the diagram redraws and keeps your zoom, your pan and your selection. If you want a hand-drawn look, use <span class="ui">Sketchy drawing</span> in the <span class="ui">More</span> menu. It changes only how the diagram looks on your screen, never the file.</p>
 
 <p>The bpmn.io logo in the bottom corner has to stay visible. The licence of the drawing library requires it. Penstock recolours it so it stays readable, and never hides it.</p>
+
+<h2 id="the-first-run-tour"><a href="#the-first-run-tour">The first-run tour</a></h2>
+
+<p>The first time the editor opens, a tour of six short steps points at the palette, the properties panel, the check, the tool that lists the whole project, Deploy and the More menu. It is shown once, and that is remembered in <code>~/.penstock/preferences.json</code>. <span class="ui">Show the tour again</span> in the <span class="ui">More</span> menu replays it.</p>
 
 <h2 id="which-engine-is-this-diagram-for"><a href="#which-engine-is-this-diagram-for">Which engine is this diagram for?</a></h2>
 

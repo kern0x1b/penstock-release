@@ -1,0 +1,83 @@
+<!--
+title: Comments
+lede: Leave a comment on any element of a diagram. It is kept in the file, so it travels with the diagram through version control and nothing it says changes what the process does.
+tags: free
+related: sidebar, bpmn-editor, editing, files
+-->
+<h2>What it is</h2>
+
+<p>A comment is a short note on one element of a diagram: what the step is for, what is still missing, a question for the next person. Comments are free. They are kept in the diagram file itself, inside the element they belong to, so a branch, a pull request and a checkout carry them like any other change to the diagram.</p>
+
+<p>Comments are in the BPMN editor. A decision and a form have no Comments tab.</p>
+
+<h2>Add a comment</h2>
+
+<ol class="steps">
+  <li>Select an element on the canvas.</li>
+  <li>Open the <strong>Comments</strong> tab of the <a href="sidebar.html">sidebar</a>. It shows the thread of that element under the element's name.</li>
+  <li>Type in the field <em>Add a comment</em>. The line under it says who signs the comment: <em>Signed</em> and your name, or <em>without a name</em>.</li>
+  <li>Press <span class="ui">Add comment</span>. The button stays off until there is text.</li>
+</ol>
+
+<p>The name is the one your version control has for the project. You can leave the name empty, and the comment is then shown as <em>Anonymous</em>. Each comment shows who wrote it and when.</p>
+
+<h2>Work with a comment</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Edit</td><td>Changes the text, with <span class="ui">Save</span> and <span class="ui">Cancel</span>. It is offered only on a comment that is yours, that is one signed with your name.</td></tr>
+  <tr><td>Resolve</td><td>Marks the comment as dealt with. A resolved comment is labelled <em>Resolved</em> and stops counting as open.</td></tr>
+  <tr><td>Reopen</td><td>Takes a resolved comment back to open.</td></tr>
+  <tr><td>Delete</td><td>Removes the comment from the file.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Adding, editing, resolving, reopening and deleting a comment are each one step of Undo, like any other change to the diagram.</p>
+
+<!-- image: comments-thread.png, the Comments tab with the thread of one element, a resolved comment and the Add a comment field -->
+
+<h2>The list of the whole diagram</h2>
+
+<p>With nothing selected, the Comments tab lists every element of the diagram that has a comment, the open ones first. Each element shows its thread, and the line above it counts what is still open, for example <em>2 open comments</em>.</p>
+
+<ul>
+  <li>Click an element's name to bring it into view on the canvas.</li>
+  <li>Resolved comments are hidden. <span class="ui">Show resolved</span> brings them back, with their count, and the same button then says <span class="ui">Hide resolved</span>.</li>
+  <li>Select an element and the tab shows only its thread, with a <strong>&#8249;</strong> back to the list.</li>
+  <li>With no comment at all the tab says <em>No comments yet.</em> and <em>Select an element and add a comment to it.</em></li>
+</ul>
+
+<p>A label, and anything that is not a BPMN element, cannot take comments. The tab says so when you select one.</p>
+
+<h2>The badges on the canvas</h2>
+
+<p>A small number on the corner of an element says how many comments on it are still open. Click it and the Comments tab opens on that element. The Comments tab itself carries the number of open comments in the whole diagram.</p>
+
+<p><span class="ui">Show comment badges</span> in the <span class="ui">More</span> menu, under View, turns the numbers on the canvas off and on. It changes only what you see. The comments stay in the file. Comments are not drawn on a picture from <a href="export.html">Export</a>.</p>
+
+<h2>Where they are kept</h2>
+
+<p>A comment is written into a <code>penstock</code> extension element inside the element it belongs to. Camunda Modeler and both engines ignore that element, so nothing a comment says changes how the process runs. Because it is part of the file, a comment is part of the diff in a pull request. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>The thread of the selected element in the Comments tab, with the field that adds a comment.</li>
+  <li>A number on the corner of each element that has an open comment.</li>
+  <li>A count on the Comments tab.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>There is no Comments tab.</dt>
+  <dd>Comments are for BPMN diagrams. A decision and a form do not have them. In a diagram, the sidebar may be hidden: press the sidebar toggle at the right of the toolbar.</dd>
+  <dt>There is no Edit button on a comment.</dt>
+  <dd>Edit is only on your own comments. Resolve, Reopen and Delete are on every comment.</dd>
+  <dt>The numbers on the canvas are gone.</dt>
+  <dd>Show comment badges is off. Turn it on in the <span class="ui">More</span> menu.</dd>
+  <dt>"This element cannot take comments."</dt>
+  <dd>The selection is a label or not a BPMN element. Select the shape or the connection itself.</dd>
+  <dt>My comment does not show in the exported picture.</dt>
+  <dd>Right. Comments are not drawn on a picture.</dd>
+</dl>
