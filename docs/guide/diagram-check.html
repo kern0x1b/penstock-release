@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -193,6 +194,10 @@
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line has no IDE window. penstock check reports the same findings, and they carry the same ids and the same rule pages, so a finding in a build log leads to the same page.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>The findings of the Check card stay in the editor. VS Code's Problems view carries only what <code>penstock code</code> reports, a step nothing runs or a worker no diagram uses, and only with Pro. A file with findings is not marked in the Explorer. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
+</section>
 </div>
 </div>
 
@@ -219,6 +224,10 @@ ok    src/main/resources/shipping-method.dmn
 
 Every rule has a page with why it matters and how to fix it: https://kern0x1b.github.io/penstock-release/rules</code></pre>
 <p>A line that starts with <code>note</code> is a warning. Only errors make the command exit with 1. See <a href="../cli/commands.html#check">Every command</a>.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Press <span class="ui">Check</span> on the toolbar of the editor, or run <span class="ui">Penstock: Check</span> in the Command Palette, for the diagram you have open. There is no action for a whole project in VS Code. Use <code>penstock check .</code> on the command line.</p>
 </section>
 </div>
 </div>
@@ -266,6 +275,7 @@ Every rule has a page with why it matters and how to fix it: https://kern0x1b.gi
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

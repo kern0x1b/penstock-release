@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -271,6 +272,15 @@
   <li>The connector download uses <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> when they are set.</li>
 </ul>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<ul>
+  <li>Passwords and client secrets are kept in <strong>VS Code's secret storage</strong>, once for each workspace, profile and field.</li>
+  <li>The <code>preDeploy</code> and <code>postDeploy</code> hooks of <code>penstock.yaml</code> run only in a trusted workspace.</li>
+  <li>Files are read and written only inside the workspace folders, or where you chose in a dialog.</li>
+  <li>The connector catalogue is downloaded on demand into <code>~/.penstock/connectors</code>, with a cap of 64 MB.</li>
+</ul>
+</section>
 </div>
 </div>
 
@@ -306,6 +316,7 @@
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

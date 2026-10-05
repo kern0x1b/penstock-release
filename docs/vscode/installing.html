@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Installing - Penstock</title>
+<meta name="description" content="How to put Penstock into VS Code, and how to check that it works.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/vscode/installing.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/" aria-current="true">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="VS Code">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../vscode/">VS Code</a></li>
+      <li><a href="../vscode/installing.html" aria-current="page">Installing</a></li>
+      <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../vscode/licence.html">Licence in VS Code</a></li>
+      <li><a href="../vscode/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../vscode/">VS Code</a> / Start here</p>
+<h1>Installing</h1>
+<p class="lede">How to put Penstock into VS Code, and how to check that it works.</p>
+<p class="meta"><span class="tag free">Free</span> <span>VS Code 1.88 or later</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-you-need">What you need</a></li>
+<li><a href="#install-from-the-marketplace">Install from the Marketplace</a></li>
+<li><a href="#install-from-a-vsix-file">Install from a VSIX file</a></li>
+<li><a href="#first-run">First run</a></li>
+<li><a href="#the-30-day-trial">The 30-day trial</a></li>
+<li><a href="#uninstall">Uninstall</a></li>
+<li><a href="#the-command-line-is-separate">The command line is separate</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-you-need"><a href="#what-you-need">What you need</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tr><td>VS Code</td><td>Version 1.88 or later. The extension declares <code>^1.88.0</code>. The automated tests of the extension run on VS Code 1.90.</td></tr>
+  <tr><td>The extension</td><td>Publisher <code>penstock</code>, name <code>penstock</code>, shown as <em>Penstock</em>. Its id is <code>penstock.penstock</code>.</td></tr>
+  <tr><td>A local folder</td><td>The extension reads <code>penstock.yaml</code>, templates and linked files from the local disk, so it does not support virtual workspaces.</td></tr>
+  <tr><td>The price</td><td>Free. Every new machine also gets 30 days of Pro. See <a href="../guide/plans.html">Plans and licence</a>.</td></tr>
+</table></div></div>
+
+<h2 id="install-from-the-marketplace"><a href="#install-from-the-marketplace">Install from the Marketplace</a></h2>
+
+<ol class="steps">
+  <li>Open the Extensions view. The keys are <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>, or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> on a Mac.</li>
+  <li>Search for <strong>Penstock</strong> and press <span class="ui">Install</span>.</li>
+  <li>Open any <code>.bpmn</code> file. It opens in the Penstock editor.</li>
+</ol>
+
+<p>You can also open <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">the Marketplace page</a> in a browser and press <span class="ui">Install</span> there. The extension is not on the Marketplace until the release, so before then the page may not open.</p>
+
+<p>From a terminal, <code>code --install-extension penstock.penstock</code> installs it from the Marketplace.</p>
+
+<h2 id="install-from-a-vsix-file"><a href="#install-from-a-vsix-file">Install from a VSIX file</a></h2>
+
+<ol class="steps">
+  <li>Open the Extensions view.</li>
+  <li>Open its <span class="ui">…</span> menu and choose <span class="ui">Install from VSIX…</span>.</li>
+  <li>Pick the <code>.vsix</code> file.</li>
+</ol>
+
+<p>From a terminal, <code>code --install-extension penstock.vsix</code> does the same.</p>
+
+<h2 id="first-run"><a href="#first-run">First run</a></h2>
+
+<ul>
+  <li>Nothing needs to be set up. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file and the editor opens in place of the text.</li>
+  <li>A file that was already open as text when the extension started is switched to the editor, unless you opened it as text on purpose. See <a href="where-things-are.html">Where things are in VS Code</a>.</li>
+  <li>The first time the editor opens, it shows a short tour. It is shown once. <span class="ui">Penstock: Show the tour again</span> in the Command Palette plays it again.</li>
+  <li>A status bar item on the right shows the licence, for example <em>Penstock Pro trial: 27d</em>.</li>
+</ul>
+
+<figure class="shot">
+  <img src="../img/vscode-dmn.png" alt="A VS Code window with shipping-decision.dmn open in the Penstock editor: a decision table called Shipping method with ten rules and the hit policy First, and a Try panel on the right.">
+  <figcaption>A <code>.dmn</code> file opens in the same editor, as a decision table. The status bar reads <em>Penstock Pro trial: 30d</em>.</figcaption>
+</figure>
+
+<h2 id="the-30-day-trial"><a href="#the-30-day-trial">The 30-day trial</a></h2>
+
+<p>A new machine gets 30 days of Pro. The status bar counts the days down. When the trial ends, the item reads <em>Penstock Free</em> and a paid feature explains itself when you reach for it. The editors, deployment and everything else that is free keep working. The licence is kept in <code>~/.penstock</code>, which the plugin and the command line share, so they all see the same trial. See <a href="licence.html">Licence in VS Code</a>.</p>
+
+<h2 id="uninstall"><a href="#uninstall">Uninstall</a></h2>
+
+<ol class="steps">
+  <li>Open the Extensions view and find <strong>Penstock</strong>.</li>
+  <li>Press <span class="ui">Uninstall</span>.</li>
+</ol>
+
+<p>Your diagrams are ordinary files, so they stay as they are. Penstock keeps a few small files of its own on your machine. To remove them all, delete the folder <code>~/.penstock</code>. <a href="../guide/files.html">Files Penstock reads and writes</a> lists each one.</p>
+
+<h2 id="the-command-line-is-separate"><a href="#the-command-line-is-separate">The command line is separate</a></h2>
+
+<p>The extension does not install the <code>penstock</code> command. The command line needs Node.js 22.22 or later. See <a href="../cli/">Command line</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>VS Code says the extension is not compatible.</dt>
+  <dd>Your VS Code is older than 1.88. Update VS Code first.</dd>
+  <dt>A <code>.bpmn</code> file opens as plain XML.</dt>
+  <dd>See <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dt>Nothing happens in a virtual workspace.</dt>
+  <dd>The extension needs files on the local disk. Open a local folder.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../vscode/where-things-are.html">Where things are in VS Code</a> - The editor, the sidebar, the command palette, the status bar and Problems.</li>
+<li><a href="../vscode/licence.html">Licence in VS Code</a> - The status bar, the account dialog, signing in and machines.</li>
+<li><a href="../guide/getting-started.html">Getting started</a> - Get Penstock, open a diagram, deploy it.</li>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../cli/">Command line</a> - Install, run, and use it in a script.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../vscode/"><span>Previous</span>VS Code</a>
+<a class="next" href="../vscode/where-things-are.html"><span>Next</span>Where things are in VS Code</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

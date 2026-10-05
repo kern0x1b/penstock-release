@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Licence in VS Code - Penstock</title>
+<meta name="description" content="Where to see and change your licence in VS Code: the status bar, the account dialog, the Command Palette and the message that explains a paid feature.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/vscode/licence.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/" aria-current="true">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="VS Code">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../vscode/">VS Code</a></li>
+      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../vscode/licence.html" aria-current="page">Licence in VS Code</a></li>
+      <li><a href="../vscode/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../vscode/">VS Code</a> / Licence and help</p>
+<h1>Licence in VS Code</h1>
+<p class="lede">Where to see and change your licence in VS Code: the status bar, the account dialog, the Command Palette and the message that explains a paid feature.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#one-licence-for-every-tool">One licence for every tool</a></li>
+<li><a href="#the-status-bar">The status bar</a></li>
+<li><a href="#the-account-dialog">The account dialog</a></li>
+<li><a href="#buy">Buy</a></li>
+<li><a href="#sign-in">Sign in</a></li>
+<li><a href="#copy-the-key-for-a-pipeline">Copy the key for a pipeline</a></li>
+<li><a href="#machines">Machines</a></li>
+<li><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<p>How the trial, buying, signing in and machines work is described once in <a href="../guide/sign-in.html">Buying and signing in</a>. This page is about VS Code.</p>
+
+<h2 id="one-licence-for-every-tool"><a href="#one-licence-for-every-tool">One licence for every tool</a></h2>
+
+<p>The extension reads the licence from <code>~/.penstock</code>, the folder the JetBrains plugin and the command line use. So a licence bought or a trial started in one tool is the licence in the others, and signing in once on a machine is enough.</p>
+
+<h2 id="the-status-bar"><a href="#the-status-bar">The status bar</a></h2>
+
+<p>The right end of the status bar shows the licence: <em>Penstock Pro trial: 27d</em> while the trial runs, <em>Penstock Free</em> when it ends, and <em>Penstock Pro</em> or <em>Penstock Team</em> once you have a licence. Hover it for the detail. Click it to open the account dialog. In the list of status bar items it is called <em>Penstock Licence</em>.</p>
+
+<h2 id="the-account-dialog"><a href="#the-account-dialog">The account dialog</a></h2>
+
+<p>Open it by clicking the status bar item, or run <span class="ui">Penstock: Licence and account</span> in the Command Palette.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Without a licence</td><td>A dialog that names the plan, for example <em>Penstock Free</em>, and has the buttons <span class="ui">Buy Pro</span>, <span class="ui">Buy Team</span> and <span class="ui">Sign in</span>.</td></tr>
+  <tr><td>With a licence</td><td>The plan and its detail, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy key for CI</span> and <span class="ui">Release this machine</span>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="buy"><a href="#buy">Buy</a></h2>
+
+<ol class="steps">
+  <li>Open the account dialog and press <span class="ui">Buy Pro</span> or <span class="ui">Buy Team</span>.</li>
+  <li>The checkout opens in your browser. Pay there.</li>
+  <li>VS Code notices the payment by itself. It stops waiting after an hour. If you paid after that, sign in with the address you paid with.</li>
+  <li>It then asks for the code sent to your e-mail. Type it in and the licence is active on this machine.</li>
+</ol>
+
+<h2 id="sign-in"><a href="#sign-in">Sign in</a></h2>
+
+<ol class="steps">
+  <li>Run <span class="ui">Penstock: Sign in</span>, or press <span class="ui">Sign in</span> in the account dialog.</li>
+  <li>Type the e-mail you bought Penstock with, or a licence key that starts with <code>PENSTOCK-</code>, in the box <em>E-mail or licence key</em>.</li>
+  <li>For an e-mail, type the code that is sent to it. After three wrong codes, the attempt ends.</li>
+</ol>
+
+<h2 id="copy-the-key-for-a-pipeline"><a href="#copy-the-key-for-a-pipeline">Copy the key for a pipeline</a></h2>
+
+<p>The machine does not keep the key. <span class="ui">Copy key for CI</span> asks for the e-mail code again and finds the Team key. The key is put on the clipboard. Keep it secret, and in a pipeline set it as <code>PENSTOCK_LICENSE</code>. Only a Team key works in a pipeline. VS Code itself has no pipeline, so there is no Team tier in the extension. See <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
+
+<h2 id="machines"><a href="#machines">Machines</a></h2>
+
+<p>When the licence is in use on as many machines as it allows, signing in lists them with the time each was activated. Pick one to free for this machine. <span class="ui">Release this machine</span> frees this one for use elsewhere. If there is no seat on this machine, the licence file is cleared and VS Code says so.</p>
+
+<h2 id="the-message-that-explains-a-paid-feature"><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></h2>
+
+<p>When you use a paid feature without the licence, a message says, for example, <em>Auto layout is part of Penstock Pro</em> and what the feature does. If the trial has ended, it says that too. It offers to buy, or to sign in if you already bought. The paid features are auto layout, modelling conventions, flow analysis, process test runs, the visual diagram diff and the code links.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The status bar shows nothing about Penstock.</dt>
+  <dd>The item is hidden when the licence cannot be read. It may also be hidden in the status bar menu: right-click the status bar and turn on <em>Penstock Licence</em>.</dd>
+  <dt>I signed in on the command line but VS Code still shows the trial.</dt>
+  <dd>They share <code>~/.penstock/license.json</code>. Open the account dialog to see what VS Code found.</dd>
+  <dt>"The licence service could not be reached."</dt>
+  <dd>Penstock could not reach the licence service. Check the network, then try again.</dd>
+  <dt>"There is no Penstock licence bought with" an address.</dt>
+  <dd>The address is not the one you paid with. Sign in with that address, or buy a licence.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
+<li><a href="../vscode/where-things-are.html">Where things are in VS Code</a> - The editor, the sidebar, the command palette, the status bar and Problems.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../vscode/code-links.html"><span>Previous</span>Code links in VS Code</a>
+<a class="next" href="../vscode/troubleshooting.html"><span>Next</span>Troubleshooting</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

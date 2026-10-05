@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -164,6 +165,10 @@ fail  stuck.bpmn
         DEADLOCK: "Join" waits for "Task B", which never arrives. "Which way" sent this run down another branch. Path: Start → Which way → Task A</code></pre>
 <p>Run <code>penstock check .</code> without <code>--only</code> to get all sections at once. The JSON, SARIF and GitHub output carry the same rule ids.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>In the editor, the section <strong>How it runs</strong> of the check card shows it. Flow analysis needs Pro. There is no whole-project action in VS Code. Run <code>penstock check .</code> on the command line, and the flow section is part of the report.</p>
+</section>
 </div>
 </div>
 
@@ -206,6 +211,7 @@ fail  stuck.bpmn
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

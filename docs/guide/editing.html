@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -213,6 +214,10 @@
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line edits the XML, not a diagram. penstock show lists a diagram's elements, and penstock edit makes a change the way the editor would.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>VS Code has no Text tab. The text document is the file, and the diagram is one view of it. <span class="ui">Penstock: Open as text</span> opens the XML in VS Code's text editor beside the diagram. An edit on either side reaches the other, and Undo, Redo, Revert and git all act on the document. The editors are named <em>Penstock BPMN Editor</em>, <em>Penstock DMN Editor</em> and <em>Penstock Form Editor</em>. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
+</section>
 </div>
 </div>
 
@@ -246,6 +251,10 @@
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line has no editor. Use penstock code to find tasks whose class or bean is missing.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>The menu entry opens the file beside the diagram. VS Code finds it by its package path and name in the workspace, and skips <code>node_modules</code>, <code>build</code>, <code>target</code> and <code>out</code>. A bean name is searched the same way. No licence is needed.</p>
 </section>
 </div>
 </div>
@@ -306,6 +315,7 @@
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

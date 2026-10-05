@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Troubleshooting in VS Code - Penstock</title>
+<meta name="description" content="Fixes for the problems that only happen in VS Code: a file that opens as text, a command that does nothing, and what is not available yet.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/vscode/troubleshooting.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/" aria-current="true">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="VS Code">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../vscode/">VS Code</a></li>
+      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../vscode/licence.html">Licence in VS Code</a></li>
+      <li><a href="../vscode/troubleshooting.html" aria-current="page">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../vscode/">VS Code</a> / Licence and help</p>
+<h1>Troubleshooting in VS Code</h1>
+<p class="lede">Fixes for the problems that only happen in VS Code: a file that opens as text, a command that does nothing, and what is not available yet.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#a-file-opens-as-text-not-in-the-editor">A file opens as text, not in the editor</a></li>
+<li><a href="#a-command-is-greyed-out-or-does-nothing">A command is greyed out, or does nothing</a></li>
+<li><a href="#is-not-available-in-vs-code-yet">"… is not available in VS Code yet"</a></li>
+<li><a href="#code-links-show-nothing">Code links show nothing</a></li>
+<li><a href="#test-cases">Test cases</a></li>
+<li><a href="#compare-with">Compare with…</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#where-else-to-look">Where else to look</a></li>
+<li><a href="#still-stuck">Still stuck</a></li>
+</ul>
+</nav>
+<p>Problems that are not about VS Code, such as a failed deployment or a missing template, are in the <a href="../guide/troubleshooting.html">general troubleshooting page</a>.</p>
+
+<h2 id="a-file-opens-as-text-not-in-the-editor"><a href="#a-file-opens-as-text-not-in-the-editor">A file opens as text, not in the editor</a></h2>
+
+<ul>
+  <li>The Penstock editors claim <code>*.bpmn</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
+  <li>A file that you opened with <span class="ui">Penstock: Open as text</span> stays text, and Penstock remembers that. To get the diagram back, use <span class="ui">Reopen Editor With…</span> and choose the Penstock editor.</li>
+  <li>A file that was already open as text when VS Code started is switched to the editor once the extension is active, unless you opened it as text on purpose.</li>
+  <li>The extension needs the files on the local disk. In a virtual workspace it does not work.</li>
+</ul>
+
+<h2 id="a-command-is-greyed-out-or-does-nothing"><a href="#a-command-is-greyed-out-or-does-nothing">A command is greyed out, or does nothing</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>The command is greyed out in the palette</td><td>The Penstock commands are enabled while a Penstock editor has focus. Click the diagram first. An action the open diagram has switched off is greyed out too.</td></tr>
+  <tr><td>"Penstock: open a Penstock editor to use …"</td><td>The command ran with no Penstock editor open. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file.</td></tr>
+  <tr><td>"Penstock: … is not available for this diagram."</td><td>The open diagram does not offer that action.</td></tr>
+  <tr><td>A key does nothing</td><td>The four Penstock keys are bound only while a Penstock editor has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="is-not-available-in-vs-code-yet"><a href="#is-not-available-in-vs-code-yet">"… is not available in VS Code yet"</a></h2>
+
+<p>The editor asked for something the extension does not do yet, and said so rather than pretending. These are:</p>
+
+<ul>
+  <li>the Camunda 7 to Camunda 8 conversion and its preview;</li>
+  <li>running the tests a diagram is linked to, from the diagram;</li>
+  <li>renaming what a diagram links to, in diagrams and code together;</li>
+  <li>putting a picture on the clipboard. Export it to a file instead;</li>
+  <li>the project tree of the JetBrains tool window. The Code view in the Explorer holds the code sections.</li>
+</ul>
+
+<p>The debugger's position on the diagram is not there either, and nothing is drawn.</p>
+
+<h2 id="code-links-show-nothing"><a href="#code-links-show-nothing">Code links show nothing</a></h2>
+
+<p>They need Pro. Open the <strong>Code</strong> view in the Explorer. Without Pro it says what the feature gives and offers to buy or sign in. The Problems view stays empty too. With Pro, press the refresh button in the title bar of the Code view, and check that the code is in the workspace folder or under <code>linked</code> in <code>penstock.yaml</code>. See <a href="code-links.html">Code links in VS Code</a>.</p>
+
+<h2 id="test-cases"><a href="#test-cases">Test cases</a></h2>
+
+<dl class="problems">
+  <dt>The Test Explorer lists no test cases.</dt>
+  <dd>Penstock finds the <code>test-cases</code> folder beside the diagram, or <code>src/test/resources/test-cases</code> for a diagram under <code>src/main/resources</code>. A diagram with no test-case file says so, and <code>penstock test-cases --generate</code> writes one next to the diagram.</dd>
+  <dt>VS Code asks <em>Run test cases on this engine?</em></dt>
+  <dd>Penstock deploys a test build to the engine of the profile, starts instances, answers the jobs the test case mocks, and removes the build and the instances after each run. To stop being asked, mark the profile with <code>deployment.forTests: true</code>. An engine that is neither marked for tests nor on this machine is not changed.</dd>
+  <dt>Where is the trace of a run?</dt>
+  <dd>In the Output panel, in the channel <em>Penstock Test Runs</em>, and under <code>.penstock/runs</code>. <span class="ui">Open run on the diagram</span> in the menu of a test case shows the path on the diagram.</dd>
+  <dt>JUnit tests are not listed.</dt>
+  <dd>JUnit and Camunda Process Test classes are run by the Java extension. Penstock runs only the test-case files.</dd>
+</dl>
+
+<h2 id="compare-with"><a href="#compare-with">Compare with…</a></h2>
+
+<dl class="problems">
+  <dt>"Open a BPMN diagram to compare, or pick one in the explorer."</dt>
+  <dd>Open a <code>.bpmn</code> file, or right-click one in the Explorer or in Source Control.</dd>
+  <dt>"… is not in a git repository, so there is no … of it to compare with."</dt>
+  <dd>Pick another file to compare with, or put the folder under git.</dd>
+</dl>
+
+<h2 id="deployment"><a href="#deployment">Deployment</a></h2>
+
+<ul>
+  <li>The hooks of <code>penstock.yaml</code> run only in a trusted workspace.</li>
+  <li>A password or client secret is kept in VS Code's secret storage, once for each workspace, profile and field. If it is missing, the message says to enter it under <em>Connection</em> in the Deploy popover.</li>
+  <li>A request that VS Code does not answer within two minutes fails with a message, except those that wait for you.</li>
+</ul>
+
+<h2 id="where-else-to-look"><a href="#where-else-to-look">Where else to look</a></h2>
+
+<ul>
+  <li>The <strong>Output</strong> panel, channel <em>Penstock Test Runs</em>, for test runs.</li>
+  <li>The editor is a webview. <span class="ui">Developer: Open Webview Developer Tools</span> in the Command Palette shows its console.</li>
+</ul>
+
+<h2 id="still-stuck"><a href="#still-stuck">Still stuck</a></h2>
+
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the VS Code version, the extension version, the engine, and a <code>.bpmn</code> file that shows the problem.</p>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/troubleshooting.html">Troubleshooting</a> - Fixes for the problems people meet most.</li>
+<li><a href="../vscode/where-things-are.html">Where things are in VS Code</a> - The editor, the sidebar, the command palette, the status bar and Problems.</li>
+<li><a href="../vscode/installing.html">Installing</a> - Put Penstock into VS Code and check that it works.</li>
+<li><a href="../vscode/licence.html">Licence in VS Code</a> - The status bar, the account dialog, signing in and machines.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../vscode/licence.html"><span>Previous</span>Licence in VS Code</a>
+
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

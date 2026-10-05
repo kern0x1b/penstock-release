@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -147,6 +148,10 @@
 <p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
 <pre><code>penstock init --example camunda-8</code></pre>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p class="unavailable">Not available in VS Code. VS Code cannot write the example, because the project tree that offers it is not part of the extension. Run penstock init --example camunda-8 (or camunda-7) in an empty folder, then open the folder in VS Code.</p>
+</section>
 </div>
 </div>
 
@@ -200,6 +205,10 @@
 <pre><code>penstock scenarios run .</code></pre>
 <p>See <a href="../cli/commands.html#scenarios-run">Every command</a>.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Open the Testing view. Penstock lists a node for the diagram and one for each test case in <code>order-process.json</code>. Run them there, or press <span class="ui">Scenarios</span> on the diagram's toolbar. Pro. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
+</section>
 </div>
 </div>
 
@@ -230,6 +239,10 @@ src/main/resources/order-process.bpmn  2 scenario(s)
    1. Order received → Approve order → Charge card → Decide shipping method → Shipment confirmed → Send receipt → Order completed
    2. Order received → Approve order → Charge card → Card declined → Payment declined
         Card declined fires on Charge card</code></pre>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Open the <strong>Code</strong> view in the Explorer. With Pro, <strong>Processes</strong> lists the order process and <strong>Workers</strong> lists <code>charge-card</code> and the others. The Testing view lists the test cases. See <a href="../vscode/code-links.html">Code links in VS Code</a>.</p>
 </section>
 </div>
 </div>
@@ -268,6 +281,7 @@ src/main/resources/order-process.bpmn  2 scenario(s)
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -135,6 +136,10 @@
 npx @kern0x1b/penstock-cli</code></pre>
 <p>A project can also pin a version with a wrapper script. See <a href="../cli/">Command line</a>.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Install the extension from the Visual Studio Marketplace, in VS Code 1.88 or later. See <a href="../vscode/installing.html">Installing in VS Code</a>.</p>
+</section>
 </div>
 </div>
 
@@ -179,6 +184,10 @@ npx @kern0x1b/penstock-cli</code></pre>
 <p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
 <pre><code>penstock init --example camunda-8</code></pre>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p class="unavailable">Not available in VS Code. VS Code cannot write the example, because the project tree that offers it is not part of the extension. Run penstock init --example camunda-8 (or camunda-7) in an empty folder, then open the folder in VS Code.</p>
+</section>
 </div>
 </div>
 
@@ -204,6 +213,10 @@ npx @kern0x1b/penstock-cli</code></pre>
 penstock deploy . --dry-run
 penstock deploy .</code></pre>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Open the file from the Explorer. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the toolbar of the editor.</p>
+</section>
 </div>
 </div>
 
@@ -227,6 +240,10 @@ penstock deploy .</code></pre>
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram and penstock edit to change it.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Double-click a <code>.bpmn</code> file in the Explorer. It opens in the Penstock editor. <span class="ui">Penstock: Open as text</span> opens the XML beside it. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
 </section>
 </div>
 </div>
@@ -258,6 +275,10 @@ penstock deploy .</code></pre>
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. There is no editor and so no tour. penstock doctor prints the setup it would point at.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>The first time the editor opens, it shows a short tour. It is shown once. <span class="ui">Penstock: Show the tour again</span> in the Command Palette, or <span class="ui">Show the tour again</span> in the More menu, plays it again.</p>
 </section>
 </div>
 </div>
@@ -316,6 +337,7 @@ penstock deploy .</code></pre>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

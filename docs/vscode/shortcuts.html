@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Shortcuts - Penstock</title>
+<meta name="description" content="The four keys Penstock binds in VS Code, and how undo and redo work in a diagram.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/vscode/shortcuts.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/" aria-current="true">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="VS Code">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../vscode/">VS Code</a></li>
+      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../vscode/shortcuts.html" aria-current="page">Shortcuts</a></li>
+      <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../vscode/licence.html">Licence in VS Code</a></li>
+      <li><a href="../vscode/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../vscode/">VS Code</a> / Using it</p>
+<h1>Shortcuts</h1>
+<p class="lede">The four keys Penstock binds in VS Code, and how undo and redo work in a diagram.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#the-keys-penstock-binds">The keys Penstock binds</a></li>
+<li><a href="#undo-and-redo">Undo and redo</a></li>
+<li><a href="#any-other-action">Any other action</a></li>
+<li><a href="#in-your-code">In your code</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="the-keys-penstock-binds"><a href="#the-keys-penstock-binds">The keys Penstock binds</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd> on a Mac</td><td>Penstock: Find action</td><td>Open the editor's searchable list of every action.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd> on a Mac</td><td>Sidebar</td><td>Show or hide the sidebar of the editor.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd> on a Mac</td><td>Trace paths</td><td>The Trace paths action of the editor.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> on a Mac</td><td>Export…</td><td>Export the diagram as a picture.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Every one of these is bound only while a Penstock editor has the focus. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> is also the terminal's copy key on Windows and Linux, and this keeps it that way. Outside a Penstock editor, VS Code's own key applies.</p>
+
+<h2 id="undo-and-redo"><a href="#undo-and-redo">Undo and redo</a></h2>
+
+<p>The text document is the only history of a diagram, and the diagram's own undo and redo keys and buttons ask VS Code to undo and redo. So VS Code's keys for Undo and Redo move the diagram, and so does <span class="ui">Edit | Undo</span>.</p>
+
+<h2 id="any-other-action"><a href="#any-other-action">Any other action</a></h2>
+
+<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the four keys above do.</p>
+
+<h2 id="in-your-code"><a href="#in-your-code">In your code</a></h2>
+
+<p>Penstock defines no keys for the code links. They use VS Code's own: <span class="ui">Go to Definition</span> and <span class="ui">Find All References</span> reach the diagrams, and a click on a code lens opens the diagram. See <a href="code-links.html">Code links in VS Code</a>.</p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>A key does nothing in the diagram.</dt>
+  <dd>The editor must have focus. Click an empty spot on the canvas. An action the diagram has switched off does nothing.</dd>
+  <dt><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> does not export.</dt>
+  <dd>It is bound only in a Penstock editor. In any other panel VS Code's own binding applies.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../vscode/where-things-are.html">Where things are in VS Code</a> - The editor, the sidebar, the command palette, the status bar and Problems.</li>
+<li><a href="../vscode/code-links.html">Code links in VS Code</a> - Code lenses, go to definition, references, the Code view and Problems.</li>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../vscode/where-things-are.html"><span>Previous</span>Where things are in VS Code</a>
+<a class="next" href="../vscode/code-links.html"><span>Next</span>Code links in VS Code</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

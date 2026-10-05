@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Where things are in VS Code - Penstock</title>
+<meta name="description" content="Every place Penstock shows up in VS Code, in one table, so you can find any feature.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/vscode/where-things-are.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/" aria-current="true">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="VS Code">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../vscode/">VS Code</a></li>
+      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/where-things-are.html" aria-current="page">Where things are in VS Code</a></li>
+    </ul>
+    <h2>Using it</h2>
+    <ul>
+      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
+    </ul>
+    <h2>Licence and help</h2>
+    <ul>
+      <li><a href="../vscode/licence.html">Licence in VS Code</a></li>
+      <li><a href="../vscode/troubleshooting.html">Troubleshooting</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../vscode/">VS Code</a> / Start here</p>
+<h1>Where things are in VS Code</h1>
+<p class="lede">Every place Penstock shows up in VS Code, in one table, so you can find any feature.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#the-map">The map</a></li>
+<li><a href="#text-and-diagram">Text and diagram</a></li>
+<li><a href="#the-command-palette">The Command Palette</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="the-map"><a href="#the-map">The map</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>What is there</th></tr></thead>
+  <tbody>
+  <tr><td>The editor of a <code>.bpmn</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> or <code>.form</code> file</td><td>A custom editor, called <em>Penstock BPMN Editor</em>, <em>Penstock DMN Editor</em> or <em>Penstock Form Editor</em>. It opens in place of the text when you open the file. See <a href="../guide/bpmn-editor.html">The BPMN editor</a>.</td></tr>
+  <tr><td>The toolbar of the editor</td><td>Auto layout, Check, Simulate, Monitor, Scenarios, the More menu, Deploy and the sidebar toggle. See <a href="../guide/toolbar.html">Toolbar and More menu</a>.</td></tr>
+  <tr><td>The sidebar of the editor</td><td>The column beside the canvas, with the tabs Properties, Scenarios, Problems, Monitor and Code. These are the editor's own tabs, not VS Code's. See <a href="../guide/sidebar.html">The sidebar</a>.</td></tr>
+  <tr><td>The <span class="ui">More</span> menu of the editor</td><td>A searchable list of every action, in the editor. See <a href="../guide/toolbar.html">Toolbar and More menu</a>.</td></tr>
+  <tr><td>The Command Palette, under <em>Penstock</em></td><td>Every action of the editor as a command with the name it has in the editor: Auto layout, Check, Deploy, Export…, Share as HTML… and the rest. Also <span class="ui">Penstock: Find action</span>, <span class="ui">Penstock: Open as text</span>, <span class="ui">Penstock: Compare with…</span>, <span class="ui">Penstock: Licence and account</span> and <span class="ui">Penstock: Sign in</span>. See below.</td></tr>
+  <tr><td>The Explorer view <strong>Code</strong></td><td>Processes, workers, variables, messages and errors, and the code that implements them. See <a href="code-links.html">Code links in VS Code</a>.</td></tr>
+  <tr><td>The Problems view</td><td>What <code>penstock code</code> reports: a step nothing runs, a worker no diagram uses, a name that is a letter or a case away from a known one. Pro. The findings of the Check card stay in the editor. See <a href="../guide/diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Above a worker, delegate or subscription in your code</td><td>A code lens that names the diagram and element that use it. Pro. See <a href="code-links.html">Code links in VS Code</a>.</td></tr>
+  <tr><td>The Test Explorer</td><td>A controller called <em>Penstock scenarios</em>, with one node per diagram and one per test case. Pro. See <a href="../guide/scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td>The Output panel</td><td>A channel called <em>Penstock Test Runs</em>, with the steps and the trace of a test run.</td></tr>
+  <tr><td>The context menu of a <code>.bpmn</code> file in the Explorer and in Source Control</td><td><span class="ui">Compare with…</span>, which opens the visual diagram diff. Pro. See <a href="../guide/diagram-diff.html">Diagram diff</a>.</td></tr>
+  <tr><td>The status bar, right side</td><td>The licence: <em>Penstock Free</em>, <em>Penstock Pro trial: 27d</em>, <em>Penstock Pro</em> or <em>Penstock Team</em>. Click it for the account dialog. See <a href="licence.html">Licence in VS Code</a>.</td></tr>
+  <tr><td>VS Code's Settings</td><td>Nothing of Penstock's own. The extension contributes no settings. The project is set up in <code>penstock.yaml</code>. See <a href="../guide/settings.html">penstock.yaml</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<figure class="shot">
+  <img src="../img/vscode-problems.png" alt="credit-hold.bpmn in the Penstock editor after pressing Check. The sidebar shows the Problems tab with the count 5, the text 3 errors, 2 warnings, a Recheck button, and the groups How it runs and Rules with their findings. The VS Code status bar at the bottom left shows 0 errors and 0 warnings.">
+  <figcaption>The Problems tab of the editor's sidebar after Check, with three errors and two warnings. It is the editor's own tab. VS Code's Problems view, whose counts are at the bottom left, shows nothing for it.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/vscode-scenarios.png" alt="order-to-cash.bpmn with the Scenarios tab of the sidebar open. It lists order-to-cash.json with three scenarios and has the buttons Generate, Run all, Open scenario and Run.">
+  <figcaption>The Scenarios tab of the sidebar, with the three scenarios of <code>order-to-cash.json</code>.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="../img/vscode-form.png" alt="invoice-approval.form in the Penstock editor: a Components palette with Input, Selection and Presentation groups on the left, the form Approve invoice on the canvas, and a Preview tab on the right.">
+  <figcaption>A <code>.form</code> file opens in the form editor, with the Components palette and a live preview.</figcaption>
+</figure>
+
+<h2 id="text-and-diagram"><a href="#text-and-diagram">Text and diagram</a></h2>
+
+<p>The text document is the only history of a diagram. An edit on the canvas changes the document, and an edit in a text editor beside it changes the canvas. Undo, Redo, Revert and git all act on that document. A file that changes on disk reaches the canvas.</p>
+
+<p>To read the XML, run <span class="ui">Penstock: Open as text</span> while the editor has focus. The file opens in VS Code's text editor beside the diagram and is remembered as one you opened as text, so Penstock does not switch it back to the diagram when VS Code starts.</p>
+
+<h2 id="the-command-palette"><a href="#the-command-palette">The Command Palette</a></h2>
+
+<ul>
+  <li>An action that the open diagram does not offer is not in the palette. An action it has switched off is greyed out.</li>
+  <li>The commands are enabled while a Penstock editor has focus. If one is run with no editor open, VS Code says to open a Penstock editor to use it. If the diagram does not offer it, VS Code says the action is not available for this diagram.</li>
+  <li><span class="ui">Penstock: Find action</span> opens the editor's own searchable list.</li>
+</ul>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>The editor keeps the layout, spacing, type and icons it has in the JetBrains IDE. Only the colours come from the VS Code theme, so a switch between Dark Modern, Light Modern, the high contrast themes or any theme you installed repaints it without a reload.</li>
+  <li>Dialogs put the main button on the right on a Mac and on the left everywhere else.</li>
+  <li>The text of the editor shell follows the language of the VS Code window.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>I cannot find a feature.</dt>
+  <dd>Check the table above. Some actions are only in the <span class="ui">More</span> menu of the editor or in the Command Palette. A few are not available in VS Code yet. See <a href="index.html">VS Code</a>.</dd>
+  <dt>There is no Penstock page in Settings.</dt>
+  <dd>Right. The project is set up in <code>penstock.yaml</code>, and the personal choices are in <code>~/.penstock/preferences.json</code>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../vscode/shortcuts.html">Shortcuts</a> - The four keys Penstock binds, and how undo works.</li>
+<li><a href="../vscode/code-links.html">Code links in VS Code</a> - Code lenses, go to definition, references, the Code view and Problems.</li>
+<li><a href="../vscode/licence.html">Licence in VS Code</a> - The status bar, the account dialog, signing in and machines.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../vscode/installing.html"><span>Previous</span>Installing</a>
+<a class="next" href="../vscode/shortcuts.html"><span>Next</span>Shortcuts</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

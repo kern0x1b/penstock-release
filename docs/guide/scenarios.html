@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -157,6 +158,10 @@
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line has no editor and so no Scenarios tab. penstock scenarios run does the same work on a whole project and prints the outcome of each case.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>The tab is beside the canvas, so the path is drawn on the diagram while the panel lists the steps. The test-case files also run in the Testing view, under a controller called <em>Penstock scenarios</em>, with one node for each diagram and one for each test case. Run a node there. Pro. A result for each case, a line for each step and the trace are in the Output panel, channel <em>Penstock Test Runs</em>. <span class="ui">Open run on the diagram</span> on a test case shows its path on the diagram. See <a href="../vscode/troubleshooting.html">Troubleshooting in VS Code</a>.</p>
+</section>
 </div>
 </div>
 
@@ -241,6 +246,10 @@ penstock scenarios run . --junit-xml build/test-cases.xml --timeout 60
 penstock scenarios run . --teamcity</code></pre>
 <p>Scenarios run one after another. The command exits with 1 if any fails. In a pipeline the engine needs <code>deployment.forTests: true</code>. See <a href="../cli/commands.html#scenarios-run">Every command</a>.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Open the Testing view and run the <em>Penstock scenarios</em> controller, a diagram or a single test case. Penstock deploys a test build to the engine of the profile, starts instances, answers the jobs the test case mocks and removes the build afterwards. It asks first, unless the profile is marked <code>deployment.forTests: true</code>. The Output panel has the steps, and the trace is under <code>.penstock/runs</code>. There is a Run profile and no Debug profile.</p>
+</section>
 </div>
 </div>
 
@@ -294,6 +303,7 @@ penstock scenarios run . --teamcity</code></pre>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>

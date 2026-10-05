@@ -21,6 +21,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -144,6 +145,10 @@
 <section class="host" aria-label="Command line">
 <h4>Command line</h4>
 <p>Run <code>penstock init</code>. To see which files and settings apply, run <code>penstock doctor</code>, or <code>penstock doctor --format json</code> for the result after all layers.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p>Open <code>penstock.yaml</code> like any other file. There is no Penstock action that opens or creates it. Choosing an engine in the editor writes it for you: it creates the file, or adds the engine to the one that is there and touches nothing else. A saved connection goes to <code>penstock.local.yaml</code>. Penstock has no page in VS Code's Settings.</p>
 </section>
 </div>
 </div>
@@ -290,6 +295,10 @@ profiles:
 <h4>Command line</h4>
 <p class="unavailable">Not available on the command line. The command line does not edit files. penstock doctor reports a file it cannot read.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<h4>VS Code</h4>
+<p class="unavailable">Not available in VS Code. The extension does not register a schema for penstock.yaml, so VS Code gives no completion or hover help for it from Penstock.</p>
+</section>
 </div>
 </div>
 
@@ -348,6 +357,7 @@ profiles:
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
