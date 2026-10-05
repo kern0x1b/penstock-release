@@ -64,6 +64,7 @@
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html" aria-current="page">Comments</a></li>
       <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -191,6 +192,37 @@
 <h2 id="where-they-are-kept"><a href="#where-they-are-kept">Where they are kept</a></h2>
 
 <p>A comment is written into a <code>penstock</code> extension element inside the element it belongs to. Camunda Modeler and both engines ignore that element, so nothing a comment says changes how the process runs. Because it is part of the file, a comment is part of the diff in a pull request. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+
+<p>The element lives in its own namespace, <code>https://penstock.dev/schema/1.0/bpmn</code>, with the prefix <code>penstock</code>. It sits in the <code>extensionElements</code> of the element that is commented, next to whatever else is there, for example <code>zeebe:</code> or <code>camunda:</code> content. For a task that carries one open and one resolved comment the file holds this:</p>
+
+<pre><code>&lt;bpmn:userTask id="Activity_review" name="Review order"&gt;
+  &lt;bpmn:extensionElements&gt;
+    &lt;penstock:comments&gt;
+      &lt;penstock:comment id="Comment_1" author="Ada" date="2026-09-20T09:00:00.000Z" resolved="true"&gt;Which limit applies here?&lt;/penstock:comment&gt;
+      &lt;penstock:comment id="Comment_2" author="Grace" date="2026-09-21T14:30:00.000Z"&gt;Limit is 500, see the policy page.&lt;/penstock:comment&gt;
+    &lt;/penstock:comments&gt;
+  &lt;/bpmn:extensionElements&gt;
+&lt;/bpmn:userTask&gt;</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>id</code></td><td>Made by the editor: <code>Comment_</code> and the next free number on that element.</td></tr>
+  <tr><td><code>author</code></td><td>The name of the project's version control, taken when the comment is added. Left out when there is no name.</td></tr>
+  <tr><td><code>date</code></td><td>The moment the comment was added, as an ISO 8601 time in UTC. Editing the text does not change it.</td></tr>
+  <tr><td><code>resolved</code></td><td>Present, as <code>true</code>, on a resolved comment.</td></tr>
+  <tr><td>Text</td><td>The body of the element.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Deleting the last comment of an element removes the <code>penstock:comments</code> element, and the <code>extensionElements</code> around it when nothing else is in it.</p>
+
+<h3 id="what-reads-them"><a href="#what-reads-them">What reads them</a></h3>
+
+<ul>
+  <li>The BPMN editor reads and writes them. That is the only place they are shown.</li>
+  <li>The command line and the MCP tools do not list or change comments. <code>penstock check</code> and the other commands leave them in the file as they are.</li>
+  <li>A comment is a note for people. The engines ignore the element, so it has no effect on a run.</li>
+</ul>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 

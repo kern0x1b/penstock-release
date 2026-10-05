@@ -1,0 +1,90 @@
+<!--
+title: Transaction boundaries
+lede: Draw a bar on the canvas wherever the engine commits a transaction, so you can see how much of a process runs in one go and where it stops and picks up again.
+tags: free
+related: editing, toolbar, flow-analysis, engine-profiles, elements
+-->
+<h2>What it is</h2>
+
+<p>On a Camunda 7 engine a process does not run from start to end in one piece. It runs until it reaches a place where it has to stop, commits what it has done to the database, and carries on later in a new transaction. If a step fails, everything since the last of those places is rolled back. Where those places are decides what is saved when something goes wrong, and how long a database transaction stays open.</p>
+
+<p>Nothing in the picture of a BPMN diagram shows them. They come from the kind of element and from the <em>asynchronous before</em> and <em>asynchronous after</em> switches in the properties panel. Transaction boundaries reads those and draws them, so you do not have to remember which element type waits.</p>
+
+<p>It reads only the diagram. It does not start a run and does not ask the engine. It is free.</p>
+
+<h2>Turn it on</h2>
+
+<ol class="steps">
+  <li>Open a process in the BPMN editor, with a Camunda 7, Operaton or CIB seven engine. See <a href="engine-profiles.html">Engines</a>.</li>
+  <li>Open the <span class="ui">More</span> menu and choose <span class="ui">Transaction boundaries</span>, under View.</li>
+  <li>A short bar appears on the edge of every element where a transaction is committed. The row stays pressed while the bars are on. Choose it again to hide them.</li>
+</ol>
+
+<!-- image: transaction-boundaries.png, a Camunda 7 diagram with the transaction boundary bars drawn on the edges of a service task, a user task and a timer event, one tooltip open -->
+
+<p>Rest the pointer on a bar and it says <em>Transaction boundary: the engine commits here</em>. The bars follow the diagram while you edit it: move a task, add an asynchronous switch, and they redraw.</p>
+
+<p>The action is in the menu and not on the toolbar to start with, and it has no shortcut. It is off until a diagram is drawn. You can pin it, see <a href="toolbar.html">The toolbar and the More menu</a>.</p>
+
+<h2>What gets a bar</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Element</th><th>Bar before it</th><th>Bar after it</th></tr></thead>
+  <tbody>
+  <tr><td>User task, receive task, event-based gateway</td><td>Always. They wait for something outside the engine.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Service task, send task, business rule task, intermediate throw event, end event, set to the <em>external</em> type</td><td>Always. The work is done by an external worker that fetches it.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Intermediate catch event with a message, timer, signal or conditional definition</td><td>Always. It waits for the event.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Any other element with <em>asynchronous before</em> switched on</td><td>Yes</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>A multi-instance activity</td><td>Yes, when <em>asynchronous before</em> is set on its multi-instance settings, or on the activity</td><td>Yes, when <em>asynchronous after</em> is set on its multi-instance settings, or on the activity</td></tr>
+  </tbody>
+</table></div>
+
+<p>An element that has none of these gets no bar. A label never gets one.</p>
+
+<h2>Where the bar sits</h2>
+
+<ul>
+  <li>A bar <strong>before</strong> an element is drawn where each incoming sequence flow arrives. An element with two incoming flows has two bars. An element with no incoming flow, such as a start event, has one on its left edge.</li>
+  <li>A bar <strong>after</strong> an element is drawn where each outgoing sequence flow leaves, or on its right edge when nothing leaves it.</li>
+  <li>The bar is a short line across the edge it sits on, in the accent colour of your theme. Message flows and associations are not counted.</li>
+</ul>
+
+<h2>Example</h2>
+
+<p>A process runs Receive order, Validate order, Approve order and Ship order. Validate order is a service task with <em>asynchronous before</em> on, Approve order is a user task and Ship order is an ordinary service task.</p>
+
+<ul>
+  <li>There is a bar on the flow that arrives at Validate order, because of the switch.</li>
+  <li>There is a bar on the flow that arrives at Approve order, because a user task always waits.</li>
+  <li>There is no bar at Ship order. It has no switch and is not a waiting element, so it runs in the same transaction as the step that came before it.</li>
+</ul>
+
+<p>Read the bars as the places where the process can pause. Between two bars, the steps run together and succeed or roll back together.</p>
+
+<h2>Camunda 8 and the other engines</h2>
+
+<p>The action is only in the menu for Camunda 7, Operaton and CIB seven. In a Camunda 8 or Classic BPMN diagram it is not offered. Camunda 8 has no transactions that span steps: every job and every wait is its own unit, so the asynchronous switches mean nothing there. When you convert a diagram, the migration report lists <em>Asynchronous continuation is dropped</em> for each element that had one, with the note that there is nothing to do. See <a href="migration.html">Camunda 7 to 8</a>.</p>
+
+<h2>What it does not do</h2>
+
+<ul>
+  <li>It adds nothing to the file and nothing to the undo history. The bars exist on the canvas only.</li>
+  <li>It does not say whether a boundary is a good idea. A bar says the engine commits there, not that it should.</li>
+  <li>It does not change any setting. To move a boundary, change the element's asynchronous switches in the <a href="properties-panel.html">properties panel</a>.</li>
+</ul>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A short bar on the edge of each element where the engine commits.</li>
+  <li>The <span class="ui">Transaction boundaries</span> row pressed in the More menu.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The menu has no Transaction boundaries.</dt>
+  <dd>The diagram is for Camunda 8 or Classic BPMN. The action is for Camunda 7, Operaton and CIB seven. It is also off until the diagram is drawn.</dd>
+  <dt>A user task has a bar before it, and I did not set anything.</dt>
+  <dd>That is right. A user task, a receive task and an event-based gateway always wait, so the engine always commits before them.</dd>
+</dl>

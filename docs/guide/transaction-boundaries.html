@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Transaction boundaries - Penstock</title>
+<meta name="description" content="Draw a bar on the canvas wherever the engine commits a transaction, so you can see how much of a process runs in one go and where it stops and picks up again.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Transaction boundaries - Penstock">
+<meta property="og:description" content="Draw a bar on the canvas wherever the engine commits a transaction, so you can see how much of a process runs in one go and where it stops and picks up again.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/transaction-boundaries.html">
+<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/" aria-current="true">Guide</a>
+      <a href="../jetbrains/">JetBrains</a>
+      <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
+      <a href="../guide/plans.html">Plans</a>
+      <a href="../license/">Licence</a>
+      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+      <a class="menu-link" href="#menu">Menu</a>
+
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <h2>Start here</h2>
+    <ul>
+      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    <h2>Editors</h2>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html" aria-current="page">Transaction boundaries</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+    </ul>
+    <h2>Project setup</h2>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    <h2>Checking</h2>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    <h2>Running</h2>
+    <ul>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    <h2>Moving and sharing</h2>
+    <ul>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+    </ul>
+    <h2>Licence and privacy</h2>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+    </ul>
+    <h2>Help</h2>
+    <ul>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Editors</p>
+<h1>Transaction boundaries</h1>
+<p class="lede">Draw a bar on the canvas wherever the engine commits a transaction, so you can see how much of a process runs in one go and where it stops and picks up again.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#turn-it-on">Turn it on</a></li>
+<li><a href="#what-gets-a-bar">What gets a bar</a></li>
+<li><a href="#where-the-bar-sits">Where the bar sits</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#camunda-8-and-the-other-engines">Camunda 8 and the other engines</a></li>
+<li><a href="#what-it-does-not-do">What it does not do</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>On a Camunda 7 engine a process does not run from start to end in one piece. It runs until it reaches a place where it has to stop, commits what it has done to the database, and carries on later in a new transaction. If a step fails, everything since the last of those places is rolled back. Where those places are decides what is saved when something goes wrong, and how long a database transaction stays open.</p>
+
+<p>Nothing in the picture of a BPMN diagram shows them. They come from the kind of element and from the <em>asynchronous before</em> and <em>asynchronous after</em> switches in the properties panel. Transaction boundaries reads those and draws them, so you do not have to remember which element type waits.</p>
+
+<p>It reads only the diagram. It does not start a run and does not ask the engine. It is free.</p>
+
+<h2 id="turn-it-on"><a href="#turn-it-on">Turn it on</a></h2>
+
+<ol class="steps">
+  <li>Open a process in the BPMN editor, with a Camunda 7, Operaton or CIB seven engine. See <a href="engine-profiles.html">Engines</a>.</li>
+  <li>Open the <span class="ui">More</span> menu and choose <span class="ui">Transaction boundaries</span>, under View.</li>
+  <li>A short bar appears on the edge of every element where a transaction is committed. The row stays pressed while the bars are on. Choose it again to hide them.</li>
+</ol>
+
+
+<p>Rest the pointer on a bar and it says <em>Transaction boundary: the engine commits here</em>. The bars follow the diagram while you edit it: move a task, add an asynchronous switch, and they redraw.</p>
+
+<p>The action is in the menu and not on the toolbar to start with, and it has no shortcut. It is off until a diagram is drawn. You can pin it, see <a href="toolbar.html">The toolbar and the More menu</a>.</p>
+
+<h2 id="what-gets-a-bar"><a href="#what-gets-a-bar">What gets a bar</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Element</th><th>Bar before it</th><th>Bar after it</th></tr></thead>
+  <tbody>
+  <tr><td>User task, receive task, event-based gateway</td><td>Always. They wait for something outside the engine.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Service task, send task, business rule task, intermediate throw event, end event, set to the <em>external</em> type</td><td>Always. The work is done by an external worker that fetches it.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Intermediate catch event with a message, timer, signal or conditional definition</td><td>Always. It waits for the event.</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>Any other element with <em>asynchronous before</em> switched on</td><td>Yes</td><td>Only with <em>asynchronous after</em></td></tr>
+  <tr><td>A multi-instance activity</td><td>Yes, when <em>asynchronous before</em> is set on its multi-instance settings, or on the activity</td><td>Yes, when <em>asynchronous after</em> is set on its multi-instance settings, or on the activity</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>An element that has none of these gets no bar. A label never gets one.</p>
+
+<h2 id="where-the-bar-sits"><a href="#where-the-bar-sits">Where the bar sits</a></h2>
+
+<ul>
+  <li>A bar <strong>before</strong> an element is drawn where each incoming sequence flow arrives. An element with two incoming flows has two bars. An element with no incoming flow, such as a start event, has one on its left edge.</li>
+  <li>A bar <strong>after</strong> an element is drawn where each outgoing sequence flow leaves, or on its right edge when nothing leaves it.</li>
+  <li>The bar is a short line across the edge it sits on, in the accent colour of your theme. Message flows and associations are not counted.</li>
+</ul>
+
+<h2 id="example"><a href="#example">Example</a></h2>
+
+<p>A process runs Receive order, Validate order, Approve order and Ship order. Validate order is a service task with <em>asynchronous before</em> on, Approve order is a user task and Ship order is an ordinary service task.</p>
+
+<ul>
+  <li>There is a bar on the flow that arrives at Validate order, because of the switch.</li>
+  <li>There is a bar on the flow that arrives at Approve order, because a user task always waits.</li>
+  <li>There is no bar at Ship order. It has no switch and is not a waiting element, so it runs in the same transaction as the step that came before it.</li>
+</ul>
+
+<p>Read the bars as the places where the process can pause. Between two bars, the steps run together and succeed or roll back together.</p>
+
+<h2 id="camunda-8-and-the-other-engines"><a href="#camunda-8-and-the-other-engines">Camunda 8 and the other engines</a></h2>
+
+<p>The action is only in the menu for Camunda 7, Operaton and CIB seven. In a Camunda 8 or Classic BPMN diagram it is not offered. Camunda 8 has no transactions that span steps: every job and every wait is its own unit, so the asynchronous switches mean nothing there. When you convert a diagram, the migration report lists <em>Asynchronous continuation is dropped</em> for each element that had one, with the note that there is nothing to do. See <a href="migration.html">Camunda 7 to 8</a>.</p>
+
+<h2 id="what-it-does-not-do"><a href="#what-it-does-not-do">What it does not do</a></h2>
+
+<ul>
+  <li>It adds nothing to the file and nothing to the undo history. The bars exist on the canvas only.</li>
+  <li>It does not say whether a boundary is a good idea. A bar says the engine commits there, not that it should.</li>
+  <li>It does not change any setting. To move a boundary, change the element's asynchronous switches in the <a href="properties-panel.html">properties panel</a>.</li>
+</ul>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A short bar on the edge of each element where the engine commits.</li>
+  <li>The <span class="ui">Transaction boundaries</span> row pressed in the More menu.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The menu has no Transaction boundaries.</dt>
+  <dd>The diagram is for Camunda 8 or Classic BPMN. The action is for Camunda 7, Operaton and CIB seven. It is also off until the diagram is drawn.</dd>
+  <dt>A user task has a bar before it, and I did not set anything.</dt>
+  <dd>That is right. A user task, a receive task and an event-based gateway always wait, so the engine always commits before them.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
+<li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
+<li><a href="../guide/flow-analysis.html">Flow analysis</a> - Deadlocks, dead steps and loops, found before you run anything.</li>
+<li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
+<li><a href="../guide/elements.html">BPMN elements</a> - Every element you can draw, and what it is for.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/trace-paths.html"><span>Previous</span>Trace paths</a>
+<a class="next" href="../guide/scripts.html"><span>Next</span>Scripts in their own tab</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

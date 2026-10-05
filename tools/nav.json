@@ -82,6 +82,11 @@
               "about": "Every path that runs through a step, with the rest dimmed."
             },
             {
+              "slug": "transaction-boundaries",
+              "title": "Transaction boundaries",
+              "about": "Where the engine commits a transaction, drawn on the canvas."
+            },
+            {
               "slug": "scripts",
               "title": "Scripts in their own tab",
               "about": "Edit an inline script as a real file in your code editor."
