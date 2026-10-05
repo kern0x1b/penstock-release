@@ -92,7 +92,7 @@ The HTML is generated and committed, so the site can be served as it is. After c
 node tools/build-pages.mjs        # every section: docs/guide, docs/jetbrains, docs/cli (and later docs/vscode)
 node tools/build-home.mjs         # docs/index.html and docs/404.html
 node tools/build-legal-pages.mjs  # docs/license and docs/notices, from LICENSE and THIRD-PARTY-NOTICES.md
-node tools/build-rules.mjs <path to the product's docs/rules>   # docs/rules
+node tools/build-rules.mjs [path to the product repository]   # docs/rules: every rule page and the index
 node tools/list-blocks.mjs [tool] # which per-tool blocks exist, and which a tool still needs
 node tools/check-site.mjs         # every internal link and image resolves, no external loads, no em dashes
 node tools/check-site.mjs --release   # the same, and it fails while prices or checkout are not ready to publish
@@ -101,8 +101,17 @@ node tools/check-site.mjs --release   # the same, and it fails while prices or c
 `docs/guide/cli.html` is a redirect stub (a plain `meta refresh`, no script) to `/cli/`. Redirects are listed in
 `tools/nav.json` under `redirects`.
 
-The rule pages are generated from the product's `docs/rules`, which the product generates from its
-rule catalogue. The product links to `https://kern0x1b.github.io/penstock-release/rules/<rule>`, so
+To rebuild every page of the site with one command (the product repository is read, never changed):
+
+```bash
+env -u POLAR_ACCESS_TOKEN node tools/build-all.mjs /path/to/jetbrains-bpmn-editor
+```
+
+The path can also be set as `PENSTOCK_PRODUCT`; by default it is `../jetbrains-bpmn-editor`.
+
+The rule pages are generated from the product's rule catalogue. `tools/build-rules.mjs` runs the product's
+`libs/core/scripts/generate-rule-docs.ts` into a temporary folder, wraps each page in the site shell
+and builds the index, then removes the folder. The product keeps no pages. The product links to `https://kern0x1b.github.io/penstock-release/rules/<rule>`, so
 those addresses must keep working.
 
 `tools/screenshot-plan.md` lists every picture the guide still needs, with the fixture and the UI state for each.

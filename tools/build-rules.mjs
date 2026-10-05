@@ -1,13 +1,24 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { escapeHtml, root } from './site.mjs';
 import { pageHtml } from './build-pages.mjs';
 
-const source = process.argv[2] ?? process.env.PENSTOCK_RULES ?? path.resolve(root, '..', 'jetbrains-bpmn-editor', 'docs', 'rules');
+const product = path.resolve(process.argv[2] ?? process.env.PENSTOCK_PRODUCT ?? path.join(root, '..', 'jetbrains-bpmn-editor'));
+const generator = path.join(product, 'libs', 'core', 'scripts', 'generate-rule-docs.ts');
 const outDir = path.join(root, 'docs', 'rules');
 
-if (!fs.existsSync(path.join(source, 'index.md'))) {
-  console.error(`No rule pages found in ${source}. Pass the product's docs/rules folder as the first argument.`);
+if (!fs.existsSync(generator)) {
+  console.error(`No product repository at ${product}. Pass its path as the first argument or set PENSTOCK_PRODUCT.`);
+  process.exit(1);
+}
+
+const source = fs.mkdtempSync(path.join(os.tmpdir(), 'penstock-rules-'));
+const run = spawnSync(process.execPath, ['--experimental-strip-types', generator, source], { cwd: path.dirname(path.dirname(generator)), encoding: 'utf8' });
+if (run.status !== 0) {
+  console.error(`The rule generator failed:\n${run.stderr}`);
+  fs.rmSync(source, { recursive: true, force: true });
   process.exit(1);
 }
 
@@ -194,4 +205,5 @@ fs.writeFileSync(
   }),
 );
 
+fs.rmSync(source, { recursive: true, force: true });
 console.log(`wrote ${rules.length} rule pages and the index`);
