@@ -269,6 +269,11 @@
   <li>With no decision table open the tab says <em>Select a decision table to try it.</em></li>
 </ul>
 
+<figure class="shot">
+  <img src="../img/dmn-try-cannot-evaluate.png" alt="The Try tab beside the Gift handling table, with Order note Gift for Sam and Order total 120. Rule 3 is marked. The sentence says Rule 3 matches; it returns handling = Standard pack; Penstock cannot evaluate this cell here: starts with(?, "Gift"). The same words repeat in amber, and the output handling Standard pack is below">
+  <figcaption>A cell Penstock cannot read is named in the sentence and in amber, not guessed at.</figcaption>
+</figure>
+
 <h2 id="spreadsheets"><a href="#spreadsheets">Decision tables and spreadsheets</a></h2>
 
 <p>A decision table goes to a spreadsheet and back, so the rules can be read and edited in a spreadsheet. These actions are in the <span class="ui">More</span> menu, under File. The first three are offered while a decision table is open.</p>
@@ -310,6 +315,11 @@
   <tr><td>A table with an expression the check cannot read</td><td><a href="../rules/table-table-unread">table/table-unread</a></td></tr>
   </tbody>
 </table></div></div>
+
+<figure class="shot">
+  <img src="../img/dmn-check-unread.png" alt="The Requirements view with the Decision check card open. It reads 1 problem, with Recheck and Close, and the finding A decision table could not be checked: Gift handling uses expressions in its rules that are more than comparisons, ranges and lists, so its rules were not compared. Show all is at the foot">
+  <figcaption>The card for a table the check cannot read.</figcaption>
+</figure>
 
 <p>Cells are read as FEEL unary tests: comparisons, ranges, lists, strings, booleans and <code>not()</code>. In an integer column the space between two whole numbers is not counted as a gap. When all is well the card says <em>No rules overlap, and every input has a rule.</em></p>
 
