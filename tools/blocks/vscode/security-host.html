@@ -1,0 +1,6 @@
+<ul>
+  <li>Passwords and client secrets are kept in <strong>VS Code's secret storage</strong>, once for each workspace, profile and field.</li>
+  <li>The <code>preDeploy</code> and <code>postDeploy</code> hooks of <code>penstock.yaml</code> run only in a trusted workspace.</li>
+  <li>Files are read and written only inside the workspace folders, or where you chose in a dialog.</li>
+  <li>The connector catalogue is downloaded on demand into <code>~/.penstock/connectors</code>, with a cap of 64 MB.</li>
+</ul>
