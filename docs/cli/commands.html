@@ -386,7 +386,21 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <h2 id="license"><a href="#license">license</a></h2>
 
-<p><strong>Buy, sign in, status.</strong> <code>penstock license [status|key]</code>, <code>license buy [pro|team]</code>, <code>license login [email]</code>, <code>license activate &lt;key&gt;</code>, <code>license logout</code>. Nobody copies a key: buying opens Polar's checkout and signing in is an e-mail code, and both end with the licence on this machine. <code>license key</code> and Copy Key for CI find a <strong>Team</strong> key again through the same sign-in, because a pipeline needs a Team key and the <code>CI</code> variable. See <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
+<p><strong>Buy, sign in, status.</strong> Nobody copies a key: buying opens Polar's checkout and signing in is an e-mail code, and both end with the licence on this machine, in <code>~/.penstock/license.json</code>. A key covers three machines.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>penstock license [status]</code></td><td>Which licence this machine has and why. During the trial, when it ends.</td></tr>
+  <tr><td><code>penstock license buy [pro|team]</code></td><td>Opens the checkout, waits up to an hour for the payment, then asks for the e-mail code. Needs a terminal.</td></tr>
+  <tr><td><code>penstock license login [email]</code></td><td>Signs in with the e-mail you bought with. Lists the machines when every place is taken, so you can free one.</td></tr>
+  <tr><td><code>penstock license activate &lt;key&gt;</code></td><td>Activates a key typed by hand.</td></tr>
+  <tr><td><code>penstock license key [email]</code></td><td>Prints the Team key for <code>PENSTOCK_LICENSE</code>, after the e-mail sign-in.</td></tr>
+  <tr><td><code>penstock license logout</code></td><td>Releases this machine. <code>license deactivate</code> does the same.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>In a pipeline set <code>PENSTOCK_LICENSE</code> to a Team key. It only counts when <code>CI</code> is set. See <a href="ci.html">Pipelines, reports and the bot</a> and <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
 
 <h2 id="mcp"><a href="#mcp">mcp</a></h2>
 

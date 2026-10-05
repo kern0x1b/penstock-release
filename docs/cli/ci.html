@@ -135,7 +135,7 @@ jobs:
   <li>Store the key as a secret named <code>PENSTOCK_LICENSE</code>.</li>
 </ol>
 
-<p>The key takes no machine's place. See <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
+<p>The key takes no machine's place, and only a Team key works: a Pro key is refused in a pipeline. Penstock uses it only when <code>CI</code> is set, so a laptop that has the variable does not become licensed by it. Each new runner exchanges the key for a token that lasts six hours. If the licence service cannot be reached, the run is Free. See <a href="../guide/sign-in.html#in-a-pipeline">Buying and signing in</a>.</p>
 
 <h2 id="machine-formats"><a href="#machine-formats">Machine formats</a></h2>
 

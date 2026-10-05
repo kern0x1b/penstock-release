@@ -4,7 +4,12 @@ import path from 'node:path';
 export const root = path.resolve(import.meta.dirname, '..');
 export const SITE = 'https://kern0x1b.github.io/penstock-release';
 export const REPO = 'https://github.com/kern0x1b/penstock-release';
-export const MARKETPLACE = 'https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor';
+export const STORES = {
+  jetbrains: 'https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor',
+  vscode: 'https://marketplace.visualstudio.com/items?itemName=penstock.penstock',
+  npm: 'https://www.npmjs.com/package/@kern0x1b/penstock-cli',
+};
+export const MARKETPLACE = STORES.jetbrains;
 
 export const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

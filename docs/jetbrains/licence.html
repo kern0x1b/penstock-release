@@ -64,6 +64,9 @@
 <li><a href="#the-status-bar">The status bar</a></li>
 <li><a href="#the-licence-dialog">The licence dialog</a></li>
 <li><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></li>
+<li><a href="#buy-and-activate">Buy and activate</a></li>
+<li><a href="#move-to-another-machine">Move to another machine</a></li>
+<li><a href="#offline-and-cancelling">Offline and cancelling</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -89,6 +92,27 @@
 <h2 id="the-message-that-explains-a-paid-feature"><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></h2>
 
 <p>When you use a paid feature without the licence, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and what the feature does. Its buttons are <span class="ui">Buy Pro</span> (or Team), <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so. When the education offer is set up, a button <span class="ui">Apply for Free Pro</span> is there too.</p>
+
+<h2 id="buy-and-activate"><a href="#buy-and-activate">Buy and activate</a></h2>
+
+<ol class="steps">
+  <li>Open the licence dialog and press <span class="ui">Buy Pro</span>, or press the link <em>Buy Team, for pipelines and the review bot</em>. You can also go straight to the checkout: <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a></li>
+  <li>Pay on Polar's page. The IDE notices the payment and asks for the code sent to the e-mail that paid.</li>
+  <li>Type the code in. The status bar changes to <em>Penstock Pro</em> or <em>Penstock Team</em>.</li>
+</ol>
+
+<p>On another machine, open the dialog, type the address you bought with in <em>E-mail or licence key</em> and press <span class="ui">Sign In</span>.</p>
+
+<p>The licence is kept in <code>~/.penstock/license.json</code>, shared with the command line and VS Code. One key covers three machines. Team seats are given out in Polar's customer portal. See <a href="../guide/sign-in.html#team-seats">Buying and signing in</a>.</p>
+
+<h2 id="move-to-another-machine"><a href="#move-to-another-machine">Move to another machine</a></h2>
+
+<p>Open the dialog on the machine you are leaving and press <span class="ui">Release This Machine</span>. Then sign in on the new one. If you cannot reach the old machine, sign in on the new one, and when the dialog lists the machines, press <span class="ui">Free It for This Machine</span> on the one to drop. See <a href="../guide/sign-in.html#move-a-machine">Move a machine</a> for what a release costs.</p>
+
+<h2 id="offline-and-cancelling"><a href="#offline-and-cancelling">Offline and cancelling</a></h2>
+
+<p>Without a network a licence keeps working until its token runs out, 30 days at most. If the licence service cannot be reached, a valid licence is not affected. Buying, signing in and starting a trial need it. To cancel, use the link in the receipt from Polar. See <a href="../guide/sign-in.html#cancel">Cancel</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 

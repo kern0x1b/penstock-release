@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { PAGES, REDIRECTS, SECTIONS, SITE, escapeHtml, pagesDir, root, sectionOf, shell, toolsRow, urlOf } from './site.mjs';
-import { plansHtml } from './plans.mjs';
+import { PAGES, REDIRECTS, SECTIONS, SITE, STORES, escapeHtml, pagesDir, root, sectionOf, shell, toolsRow, urlOf } from './site.mjs';
+import { buyLinksHtml, plansHtml, priceSummaryHtml } from './plans.mjs';
 import { refreshPrices } from './fetch-prices.mjs';
 import { missingBlocks, renderHostBlocks, unusedBlocks } from './blocks.mjs';
 
@@ -161,7 +161,12 @@ export function buildAll() {
       const body = renderHostBlocks(parsed.body, `${section.id}/${slug}`)
         .replace('{{contents}}', contents(section.id))
         .replace('{{tools}}', toolsRow('../'))
-        .replace('{{plans}}', plansHtml());
+        .replace('{{plans}}', plansHtml())
+        .replace('{{prices}}', priceSummaryHtml())
+        .replace('{{buy}}', buyLinksHtml())
+        .replaceAll('{{store:jetbrains}}', STORES.jetbrains)
+        .replaceAll('{{store:vscode}}', STORES.vscode)
+        .replaceAll('{{store:npm}}', STORES.npm);
       fs.writeFileSync(path.join(out, slug === 'index' ? 'index.html' : `${slug}.html`), pageHtml({ section: section.id, slug, meta, body }));
       count += 1;
     }
