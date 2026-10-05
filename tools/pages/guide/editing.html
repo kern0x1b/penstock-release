@@ -6,7 +6,7 @@ related: elements, properties-panel, sidebar, toolbar, scripts, token-simulation
 -->
 <h2>What the editor is</h2>
 
-<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar, and the raw XML never more than one click away.</p>
+<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar with tabs for the properties, scenarios, problems, comments, Monitor and code, and the raw XML never more than one click away.</p>
 
 <h2>Add an element</h2>
 
@@ -82,6 +82,18 @@ related: elements, properties-panel, sidebar, toolbar, scripts, token-simulation
 <p>The other direction is watched rather than merged. Penstock tracks the file's modification stamp and ignores its own writes. When something else changes the file, the Text tab, a Git checkout or a formatter, the editor asks whether to reload. Reloading takes the external content and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites the external one. Renames are handled silently.</p>
 
 {{host:xml-tab|The Text tab in your tool}}
+
+<h2>Follow a path</h2>
+
+<p>Select a task, a gateway or an event and press the trace icon on its pad, or choose <span class="ui">Trace paths</span> in the <span class="ui">More</span> menu. Every path that runs through the step stays in colour and the rest of the diagram is dimmed. It lives on the canvas only: it adds nothing to the undo history and nothing to the file. See <a href="trace-paths.html">Trace paths</a>.</p>
+
+<h2>Leave a note on an element</h2>
+
+<p>Select an element and open the Comments tab of the sidebar. A comment is kept in the file, inside the element, and a small number on the element's corner says how many are still open. See <a href="comments.html">Comments</a>.</p>
+
+<h2>Shortcuts</h2>
+
+<p>The <span class="ui">Keyboard shortcuts</span> action, or the <kbd>?</kbd> key, opens the sheet of every shortcut the editor binds, with a search field. See <a href="toolbar.html#keyboard-shortcuts">The toolbar and the More menu</a>.</p>
 
 <h2>Token simulation</h2>
 

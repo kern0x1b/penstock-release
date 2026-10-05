@@ -112,6 +112,8 @@
 <li><a href="#which-groups-you-see">Which groups you see</a></li>
 <li><a href="#show-or-hide-it">Show or hide it</a></li>
 <li><a href="#scripts-and-conditions">Scripts and conditions</a></li>
+<li><a href="#try-an-expression-on-a-running-instance">Try an expression on a running instance</a></li>
+<li><a href="#example-data-of-a-worker-step">Example data of a worker step</a></li>
 <li><a href="#templates">Templates</a></li>
 <li><a href="#inputs-and-outputs-in-the-classic-profile">Inputs and outputs in the Classic profile</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -132,7 +134,7 @@
   <figcaption>A user task is selected. The Properties tab lists its groups, and what you change in a group is written into the file as you type.</figcaption>
 </figure>
 
-<p>The panel is the same one bpmn.io's properties panel draws, with the groups the engine profile defines. The other tabs beside it are <a href="scenarios.html">Scenarios</a>, <a href="diagram-check.html">Problems</a>, <a href="monitor.html">Monitor</a> and <a href="code-links.html">Code</a>. <a href="sidebar.html">The sidebar</a> covers the surface they all sit in.</p>
+<p>The panel is the same one bpmn.io's properties panel draws, with the groups the engine profile defines. The other tabs beside it are <a href="scenarios.html">Scenarios</a>, <a href="diagram-check.html">Problems</a>, <a href="comments.html">Comments</a>, <a href="monitor.html">Monitor</a> and <a href="code-links.html">Code</a>. Comments are not a group of this panel: they have the tab of their own. <a href="sidebar.html">The sidebar</a> covers the surface they all sit in.</p>
 
 <h2 id="which-groups-you-see"><a href="#which-groups-you-see">Which groups you see</a></h2>
 
@@ -149,11 +151,21 @@
 
 <h2 id="show-or-hide-it"><a href="#show-or-hide-it">Show or hide it</a></h2>
 
-<p>The panel is the first tab of the sidebar, so it is shown and hidden with the sidebar rather than on its own. The sidebar is about a third of the width of the editor, between 320 and 480 pixels, and the dividing line can be dragged from 280 pixels to half the editor. Below about 840 pixels wide it becomes a drawer over the canvas. The width and the tab you left are kept in <code>~/.penstock/preferences.json</code>. See <a href="sidebar.html">The sidebar</a>.</p>
+<p>The panel is the first tab of the sidebar, so it is shown and hidden with the sidebar rather than on its own. The sidebar is about a third of the width of the editor, between 320 and 480 pixels, and the dividing line can be dragged from 280 pixels to half the editor. Below about 960 pixels of editor width it becomes a drawer over the canvas. The width and the tab you left are kept in <code>~/.penstock/preferences.json</code>. See <a href="sidebar.html">The sidebar</a>.</p>
 
 <h2 id="scripts-and-conditions"><a href="#scripts-and-conditions">Scripts and conditions</a></h2>
 
 <p>On Camunda 7, Operaton and CIB seven, a field that holds a script is a small code editor with colours. Groovy is coloured as Groovy, all else as JavaScript. Under the field there is a button <span class="ui">Edit in new tab</span> that opens the script in a code editor of your tool. See <a href="scripts.html">Scripts in their own tab</a>.</p>
+
+<h2 id="try-an-expression-on-a-running-instance"><a href="#try-an-expression-on-a-running-instance">Try an expression on a running instance</a></h2>
+
+<p>A field that holds an expression, such as a gateway condition or a mapping, has <span class="ui">Try on instance</span>. Pick an instance in the <a href="monitor.html">Monitor</a> tab first, and the expression is run against that instance's variables. The result, or the engine's own complaint, lands under the field. Without an instance the field says <em>Pick an instance in the Monitor tab to run this on its variables.</em> Camunda 8.9 or newer evaluates it. On Camunda 7 the field says <em>Camunda 7 cannot evaluate an expression. It needs Camunda 8.9 or newer.</em> Nothing is written on the engine. See <a href="monitor.html#try-an-expression-on-a-real-instance">Monitor</a>.</p>
+
+<h2 id="example-data-of-a-worker-step"><a href="#example-data-of-a-worker-step">Example data of a worker step</a></h2>
+
+<p>The Example data group is the one Camunda Modeler has. On a step that a worker runs, Penstock fills it from what it knows: the variables that reach the step, and the ones the worker's code reads, with the types the code gives them. <span class="ui">Write example output</span> writes that into the step, where Camunda Modeler reads example data back from, and the panel says <em>Example output written</em>. When nothing reaches the step, it says <em>Nothing reaches this step, so there is no example output to write.</em> See <a href="code-links.html">Code links</a>.</p>
+
+<!-- image: example-data.png, a service task selected with the Example data group open, showing the names and the Write example output button -->
 
 <h2 id="templates"><a href="#templates">Templates</a></h2>
 
