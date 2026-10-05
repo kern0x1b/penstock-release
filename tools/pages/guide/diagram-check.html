@@ -15,6 +15,11 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
   <li>Fix the problem. The check runs again by itself a moment after you stop editing. <span class="ui">Recheck</span> forces a new pass. <span class="ui">Close</span>, or pressing <span class="ui">Check</span> again, puts the card and the outlines away.</li>
 </ol>
 
+<figure class="shot">
+  <img src="@img/check-click-finding.png" alt="The editor with the Diagram check card open at the bottom right, reading 3 errors, 2 warnings. A service task with no name is outlined in red on the canvas, and the sidebar shows Properties for a service task">
+  <figcaption>A line of the card was clicked. The canvas selected the service task that has no name and outlined it in red, and the sidebar opened its properties.</figcaption>
+</figure>
+
 <p>The check starts as soon as a diagram is read and runs again as you edit, whether or not the card or the tab is open. That is why the count is always on the canvas and always the same number.</p>
 
 <h2>Two places to read it</h2>
@@ -35,13 +40,13 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
 <p>Clicking a finding in either place selects its element on the canvas and opens the property that fixes it: job type, form key or id, correlation key, history time to live, called element, error, escalation, message and signal references and timer definitions, and a missing job type, topic, class or delegate expression in the code. A finding with no single field still switches the sidebar to Properties and selects the element. Resting the pointer on a drawing finding in the tab shows its element on the canvas without selecting it.</p>
 
 <figure class="shot">
-  <img src="@img/problems-tab.png" alt="The Problems tab of the sidebar for a diagram with three errors and two warnings, grouped under How it runs and Rules, each finding with its rule id, and a Recheck button at the top">
-  <figcaption>The Problems tab holds every finding of the diagram. The count line and Recheck are at the top, the findings are grouped, each one names its rule, and the tab carries the count as a badge.</figcaption>
+  <img src="@img/problems-tab.png" alt="The Problems tab of the sidebar for a diagram with three errors and two warnings, grouped under How it runs and Rules, the findings under Rules showing their rule ids, and a Recheck button at the top">
+  <figcaption>The Problems tab holds every finding of the diagram. The count line and Recheck are at the top, the findings are grouped, the ones under Rules name their rule id, and the tab carries the count as a badge.</figcaption>
 </figure>
 
 <figure class="shot">
-  <img src="@img/check-card.png" alt="The Diagram check card over the canvas with three drawing problems listed and a Show all link, and the Code tab of the sidebar beside it">
-  <figcaption>The card is a summary of the first findings. Show all opens the Problems tab. The elements that have findings keep an outline while the card is open.</figcaption>
+  <img src="@img/check-card.png" alt="The Diagram check card: its header reads 3 errors, 2 warnings, with Recheck and Close buttons. Three errors are listed and Show all (2 more) is at the bottom right">
+  <figcaption>The card is a summary of the first findings, with Show all and the number still to read. Show all opens the Problems tab.</figcaption>
 </figure>
 
 <h2>What you see</h2>
