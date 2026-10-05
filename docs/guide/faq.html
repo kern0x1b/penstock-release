@@ -119,16 +119,16 @@
 <h2 id="basics"><a href="#basics">Basics</a></h2>
 
 <details class="faq"><summary>What is Penstock?</summary>
-<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven, with checks, deployment, tests and more. It comes as a plugin for JetBrains IDEs and as a <code>penstock</code> command line. A VS Code extension and a desktop app are planned. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
+<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven, with checks, deployment, tests and more. It comes as a plugin for JetBrains IDEs, as an extension for VS Code and as a <code>penstock</code> command line. A desktop app is planned. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
 
 <details class="faq"><summary>Which tools can I use?</summary>
-<p>Any JetBrains IDE from 2025.2 that has JCEF, which the standard downloads do, and the <code>penstock</code> command line, which needs Node.js 22.22 or later. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a> and <a href="../cli/">Command line</a>.</p></details>
+<p>Any JetBrains IDE from 2024.2 that has JCEF, which the standard downloads do, VS Code 1.88 or later and the editors built on it, and the <code>penstock</code> command line, which needs Node.js 22.22 or later. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a> and <a href="../cli/">Command line</a>.</p></details>
 
 <details class="faq"><summary>What happened to "Camunda BPMN Editor"?</summary>
 <p>It was renamed Penstock in 2026. It is the same plugin with the same id, so it updates in place. Nothing needs to be reinstalled.</p></details>
 
 <details class="faq"><summary>Is there a free version?</summary>
-<p>Yes. The editors, the properties panels, templates, token simulation, the check, lint, deploy, Monitor, export, share and import are free. Pro and Team add what only Penstock does. Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p></details>
+<p>Yes. The editors, the properties panels, templates, token simulation, the check, lint, comments, trace paths, deploy, Monitor, export, share and import are free. Pro and Team add what only Penstock does. Every machine starts with 30 days of Pro. See <a href="plans.html">Plans and licence</a>.</p></details>
 
 <details class="faq"><summary>Which engines work?</summary>
 <p>Camunda 7, Camunda 8, Operaton and CIB seven, plus plain BPMN 2.0. See <a href="engine-profiles.html">Engines</a>.</p></details>
@@ -162,6 +162,18 @@
 <p>Only on an engine you mark <code>deployment.forTests: true</code>, or a local one you confirm. It removes what it deployed. See <a href="scenarios.html">Scenarios</a>.</p></details>
 
 <h2 id="editing"><a href="#editing">Editing</a></h2>
+
+<details class="faq"><summary>Can I leave notes on a diagram?</summary>
+<p>Yes. Comments are free and are kept in the diagram file, so they travel through Git with it. See <a href="comments.html">Comments</a>.</p></details>
+
+<details class="faq"><summary>How do I see every path through a step?</summary>
+<p>Select it and use <span class="ui">Trace paths</span>. The rest of the diagram is dimmed. See <a href="trace-paths.html">Trace paths</a>.</p></details>
+
+<details class="faq"><summary>Can I try a decision table before I deploy it?</summary>
+<p>Yes. The Try tab of the decision editor runs the table against values you type and says which rules match. See <a href="dmn-editor.html#try">The DMN editor</a>.</p></details>
+
+<details class="faq"><summary>Where is the Comments tab, or the Try tab?</summary>
+<p>Each editor has its own tabs in the sidebar. A diagram has Properties, Scenarios, Problems, Comments, Monitor and Code. A decision has Properties, Problems and Try. A form has Properties, Preview and Problems. See <a href="sidebar.html">The sidebar</a>.</p></details>
 
 <details class="faq"><summary>Where is the save button?</summary>
 <p>There is none. Every change is written to the file at once. See <a href="bpmn-editor.html">The BPMN editor</a>.</p></details>

@@ -124,10 +124,13 @@
   <dd>A company and a family of process engines. Camunda 7 and Camunda 8 are two different engines with two different ways to write a diagram. See <a href="engine-profiles.html">Engines</a>.</dd>
 
   <dt id="check">Check</dt>
-  <dd>The list of what is wrong with a diagram. In the editor it is a card. In a terminal it is <code>penstock check</code>. See <a href="diagram-check.html">Diagram check</a>.</dd>
+  <dd>The list of what is wrong with a diagram. In the editor it is a card with the first findings and the Problems tab with all of them. In a terminal it is <code>penstock check</code>. See <a href="diagram-check.html">Diagram check</a>.</dd>
 
   <dt id="ci">CI, pipeline</dt>
   <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>
+
+  <dt id="comment">Comment</dt>
+  <dd>A short note on one element of a diagram, kept in the file. See <a href="comments.html">Comments</a>.</dd>
 
   <dt id="delegate">Delegate</dt>
   <dd>A Java class that Camunda 7 calls to do the work of a service task. See <a href="code-links.html">Code links</a>.</dd>
@@ -137,6 +140,9 @@
 
   <dt id="dmn">DMN</dt>
   <dd>Decision Model and Notation. A standard way to write business rules as tables. A DMN file has the extension <code>.dmn</code>. See <a href="dmn-editor.html">The DMN editor</a>.</dd>
+
+  <dt id="drd">DRD, requirements diagram</dt>
+  <dd>The diagram of a DMN file that shows which decisions need which other decisions and inputs. See <a href="dmn-editor.html">The DMN editor</a>.</dd>
 
   <dt id="element-template">Element template</dt>
   <dd>A JSON file that describes a ready-made task, for example "send an e-mail". You pick it, fill in a few fields and the task is configured. See <a href="element-templates.html">Element templates</a>.</dd>
@@ -160,7 +166,7 @@
   <dd>A rule in a decision table that says what happens when several rows match. For example, <code>FIRST</code> takes the first matching row.</dd>
 
   <dt id="host">Tool, host</dt>
-  <dd>The program you use Penstock in. Today that is a JetBrains IDE, or the <code>penstock</code> command line. Features work the same in each. See <a href="../jetbrains/">JetBrains</a> and <a href="../cli/">Command line</a>.</dd>
+  <dd>The program you use Penstock in. That is a JetBrains IDE, VS Code, or the <code>penstock</code> command line. Features work the same in each. See <a href="../jetbrains/">JetBrains</a> and <a href="../cli/">Command line</a>.</dd>
 
   <dt id="job-type">Job type, job worker</dt>
   <dd>The Camunda 8 way to do the work of a service task outside the engine. The task names a job type. A job worker asks the engine for jobs of that type and completes them. See <a href="code-links.html">Code links</a>.</dd>
@@ -173,6 +179,9 @@
 
   <dt id="mcp">MCP</dt>
   <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams. See <a href="../cli/mcp.html">The MCP server</a>.</dd>
+
+  <dt id="problems-tab">Problems tab</dt>
+  <dd>The tab of the sidebar that lists every finding of the check, in groups. See <a href="diagram-check.html">Diagram check</a> and <a href="sidebar.html">The sidebar</a>.</dd>
 
   <dt id="pool">Pool, lane</dt>
   <dd>A pool is a big box around one participant's process. A lane is a row inside a pool, usually one per role.</dd>
@@ -192,8 +201,17 @@
   <dt id="service-task">Service task</dt>
   <dd>A task done by a program instead of a person.</dd>
 
+  <dt id="sidebar">Sidebar</dt>
+  <dd>The column beside the canvas, with a row of tabs for the properties, scenarios, problems, comments, Monitor and code of a diagram. See <a href="sidebar.html">The sidebar</a>.</dd>
+
   <dt id="token">Token</dt>
   <dd>The marker that shows where a process instance is. Token simulation moves a token through the diagram so you can watch. See <a href="token-simulation.html">Token simulation</a>.</dd>
+
+  <dt id="trace-paths">Trace paths</dt>
+  <dd>Shows every path that runs through a chosen step and dims the rest of the diagram. See <a href="trace-paths.html">Trace paths</a>.</dd>
+
+  <dt id="try-tab">Try tab</dt>
+  <dd>The tab of the decision editor that runs a decision table against values you type. See <a href="dmn-editor.html#try">The DMN editor</a>.</dd>
 
   <dt id="user-task">User task</dt>
   <dd>A task done by a person, usually with a form.</dd>
