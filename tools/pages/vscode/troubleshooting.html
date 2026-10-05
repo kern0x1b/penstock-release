@@ -1,0 +1,86 @@
+<!--
+title: Troubleshooting in VS Code
+lede: Fixes for the problems that only happen in VS Code: a file that opens as text, a command that does nothing, and what is not available yet.
+tags: free
+related: guide/troubleshooting, where-things-are, installing, licence
+-->
+<p>Problems that are not about VS Code, such as a failed deployment or a missing template, are in the <a href="@guide/troubleshooting.html">general troubleshooting page</a>.</p>
+
+<h2>A file opens as text, not in the editor</h2>
+
+<ul>
+  <li>The Penstock editors claim <code>*.bpmn</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
+  <li>A file that you opened with <span class="ui">Penstock: Open as text</span> stays text, and Penstock remembers that. To get the diagram back, use <span class="ui">Reopen Editor With…</span> and choose the Penstock editor.</li>
+  <li>A file that was already open as text when VS Code started is switched to the editor once the extension is active, unless you opened it as text on purpose.</li>
+  <li>The extension needs the files on the local disk. In a virtual workspace it does not work.</li>
+</ul>
+
+<h2>A command is greyed out, or does nothing</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>The command is greyed out in the palette</td><td>The Penstock commands are enabled while a Penstock editor has focus. Click the diagram first. An action the open diagram has switched off is greyed out too.</td></tr>
+  <tr><td>"Penstock: open a Penstock editor to use …"</td><td>The command ran with no Penstock editor open. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file.</td></tr>
+  <tr><td>"Penstock: … is not available for this diagram."</td><td>The open diagram does not offer that action.</td></tr>
+  <tr><td>A key does nothing</td><td>The four Penstock keys are bound only while a Penstock editor has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>"… is not available in VS Code yet"</h2>
+
+<p>The editor asked for something the extension does not do yet, and said so rather than pretending. These are:</p>
+
+<ul>
+  <li>the Camunda 7 to Camunda 8 conversion and its preview;</li>
+  <li>running the tests a diagram is linked to, from the diagram;</li>
+  <li>renaming what a diagram links to, in diagrams and code together;</li>
+  <li>putting a picture on the clipboard. Export it to a file instead;</li>
+  <li>the project tree of the JetBrains tool window. The Code view in the Explorer holds the code sections.</li>
+</ul>
+
+<p>The debugger's position on the diagram is not there either, and nothing is drawn.</p>
+
+<h2>Code links show nothing</h2>
+
+<p>They need Pro. Open the <strong>Code</strong> view in the Explorer. Without Pro it says what the feature gives and offers to buy or sign in. The Problems view stays empty too. With Pro, press the refresh button in the title bar of the Code view, and check that the code is in the workspace folder or under <code>linked</code> in <code>penstock.yaml</code>. See <a href="code-links.html">Code links in VS Code</a>.</p>
+
+<h2>Test cases</h2>
+
+<dl class="problems">
+  <dt>The Test Explorer lists no test cases.</dt>
+  <dd>Penstock finds the <code>test-cases</code> folder beside the diagram, or <code>src/test/resources/test-cases</code> for a diagram under <code>src/main/resources</code>. A diagram with no test-case file says so, and <code>penstock test-cases --generate</code> writes one next to the diagram.</dd>
+  <dt>VS Code asks <em>Run test cases on this engine?</em></dt>
+  <dd>Penstock deploys a test build to the engine of the profile, starts instances, answers the jobs the test case mocks, and removes the build and the instances after each run. To stop being asked, mark the profile with <code>deployment.forTests: true</code>. An engine that is neither marked for tests nor on this machine is not changed.</dd>
+  <dt>Where is the trace of a run?</dt>
+  <dd>In the Output panel, in the channel <em>Penstock Test Runs</em>, and under <code>.penstock/runs</code>. <span class="ui">Open run on the diagram</span> in the menu of a test case shows the path on the diagram.</dd>
+  <dt>JUnit tests are not listed.</dt>
+  <dd>JUnit and Camunda Process Test classes are run by the Java extension. Penstock runs only the test-case files.</dd>
+</dl>
+
+<h2>Compare with…</h2>
+
+<dl class="problems">
+  <dt>"Open a BPMN diagram to compare, or pick one in the explorer."</dt>
+  <dd>Open a <code>.bpmn</code> file, or right-click one in the Explorer or in Source Control.</dd>
+  <dt>"… is not in a git repository, so there is no … of it to compare with."</dt>
+  <dd>Pick another file to compare with, or put the folder under git.</dd>
+</dl>
+
+<h2>Deployment</h2>
+
+<ul>
+  <li>The hooks of <code>penstock.yaml</code> run only in a trusted workspace.</li>
+  <li>A password or client secret is kept in VS Code's secret storage, once for each workspace, profile and field. If it is missing, the message says to enter it under <em>Connection</em> in the Deploy popover.</li>
+  <li>A request that VS Code does not answer within two minutes fails with a message, except those that wait for you.</li>
+</ul>
+
+<h2>Where else to look</h2>
+
+<ul>
+  <li>The <strong>Output</strong> panel, channel <em>Penstock Test Runs</em>, for test runs.</li>
+  <li>The editor is a webview. <span class="ui">Developer: Open Webview Developer Tools</span> in the Command Palette shows its console.</li>
+</ul>
+
+<h2>Still stuck</h2>
+
+<p>Open an issue on <a href="https://github.com/kern0x1b/penstock-release/issues">the support tracker</a>. Add the VS Code version, the extension version, the engine, and a <code>.bpmn</code> file that shows the problem.</p>

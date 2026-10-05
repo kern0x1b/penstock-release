@@ -1,0 +1,68 @@
+<!--
+title: Licence in VS Code
+lede: Where to see and change your licence in VS Code: the status bar, the account dialog, the Command Palette and the message that explains a paid feature.
+tags: free
+related: guide/sign-in, guide/plans, where-things-are
+-->
+<p>How the trial, buying, signing in and machines work is described once in <a href="@guide/sign-in.html">Buying and signing in</a>. This page is about VS Code.</p>
+
+<h2>One licence for every tool</h2>
+
+<p>The extension reads the licence from <code>~/.penstock</code>, the folder the JetBrains plugin and the command line use. So a licence bought or a trial started in one tool is the licence in the others, and signing in once on a machine is enough.</p>
+
+<h2>The status bar</h2>
+
+<p>The right end of the status bar shows the licence: <em>Penstock Pro trial: 27d</em> while the trial runs, <em>Penstock Free</em> when it ends, and <em>Penstock Pro</em> or <em>Penstock Team</em> once you have a licence. Hover it for the detail. Click it to open the account dialog. In the list of status bar items it is called <em>Penstock Licence</em>.</p>
+
+<h2>The account dialog</h2>
+
+<p>Open it by clicking the status bar item, or run <span class="ui">Penstock: Licence and account</span> in the Command Palette.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Without a licence</td><td>A dialog that names the plan, for example <em>Penstock Free</em>, and has the buttons <span class="ui">Buy Pro</span>, <span class="ui">Buy Team</span> and <span class="ui">Sign in</span>.</td></tr>
+  <tr><td>With a licence</td><td>The plan and its detail, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy key for CI</span> and <span class="ui">Release this machine</span>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Buy</h2>
+
+<ol class="steps">
+  <li>Open the account dialog and press <span class="ui">Buy Pro</span> or <span class="ui">Buy Team</span>.</li>
+  <li>The checkout opens in your browser. Pay there.</li>
+  <li>VS Code notices the payment by itself. It stops waiting after an hour. If you paid after that, sign in with the address you paid with.</li>
+  <li>It then asks for the code sent to your e-mail. Type it in and the licence is active on this machine.</li>
+</ol>
+
+<h2>Sign in</h2>
+
+<ol class="steps">
+  <li>Run <span class="ui">Penstock: Sign in</span>, or press <span class="ui">Sign in</span> in the account dialog.</li>
+  <li>Type the e-mail you bought Penstock with, or a licence key that starts with <code>PENSTOCK-</code>, in the box <em>E-mail or licence key</em>.</li>
+  <li>For an e-mail, type the code that is sent to it. After three wrong codes, the attempt ends.</li>
+</ol>
+
+<h2>Copy the key for a pipeline</h2>
+
+<p>The machine does not keep the key. <span class="ui">Copy key for CI</span> asks for the e-mail code again and finds the Team key. The key is put on the clipboard. Keep it secret, and in a pipeline set it as <code>PENSTOCK_LICENSE</code>. Only a Team key works in a pipeline. VS Code itself has no pipeline, so there is no Team tier in the extension. See <a href="@guide/sign-in.html">Buying and signing in</a>.</p>
+
+<h2>Machines</h2>
+
+<p>When the licence is in use on as many machines as it allows, signing in lists them with the time each was activated. Pick one to free for this machine. <span class="ui">Release this machine</span> frees this one for use elsewhere. If there is no seat on this machine, the licence file is cleared and VS Code says so.</p>
+
+<h2>The message that explains a paid feature</h2>
+
+<p>When you use a paid feature without the licence, a message says, for example, <em>Auto layout is part of Penstock Pro</em> and what the feature does. If the trial has ended, it says that too. It offers to buy, or to sign in if you already bought. The paid features are auto layout, modelling conventions, flow analysis, process test runs, the visual diagram diff and the code links.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The status bar shows nothing about Penstock.</dt>
+  <dd>The item is hidden when the licence cannot be read. It may also be hidden in the status bar menu: right-click the status bar and turn on <em>Penstock Licence</em>.</dd>
+  <dt>I signed in on the command line but VS Code still shows the trial.</dt>
+  <dd>They share <code>~/.penstock/license.json</code>. Open the account dialog to see what VS Code found.</dd>
+  <dt>"The licence service could not be reached."</dt>
+  <dd>Penstock could not reach the licence service. Check the network, then try again.</dd>
+  <dt>"There is no Penstock licence bought with" an address.</dt>
+  <dd>The address is not the one you paid with. Sign in with that address, or buy a licence.</dd>
+</dl>
