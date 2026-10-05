@@ -20,7 +20,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 
 <p>It downloads the command the first time and asks the npm registry each time you do not pin a version.</p>
 
-<h3>2. Pinned by your project, with the wrapper</h3>
+<h3 id="wrapper">2. Pinned by your project, with the wrapper</h3>
 
 <p>The wrapper is a small script, like <code>gradlew</code>, that runs the version your project chooses. Everyone, and your pipeline, runs the same version.</p>
 
@@ -37,7 +37,9 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 
 <p><code>update</code> pins the version, downloads it, and replaces the wrapper scripts with the ones that version ships. You can also edit <code>version=</code> in the properties file by hand. A company registry or a tarball goes in <code>distribution=</code> in the same file.</p>
 
-<p>The wrapper needs Node.js 22.22 or later, with npm, on the PATH. Without them it says <em>penstockw needs Node.js 22.22 or later, with npm, on the PATH</em>.</p>
+<p>The wrapper needs Node.js 22.22 or later, with npm, on the PATH. Without them it says <em>penstockw needs Node.js 22.22 or later, with npm, on the PATH</em> and stops with the exit code 127.</p>
+
+<p>The properties file holds two lines. <code>version=</code> is the version to run, or <code>latest</code> to ask npm each time. <code>distribution=</code> is optional: a registry spec or a tarball, and a path that starts with <code>./</code> or <code>../</code> is taken from the folder of the wrapper. Set <code>PENSTOCK_HOME</code> to keep the downloads somewhere other than <code>~/.penstock</code>. There is no command called <code>wrapper</code>: that was the old name of <a href="commands.html#update"><code>update</code></a>, and it still works and says so. <code>penstockw.cmd</code> is the same script for Windows.</p>
 
 <h2>Paths and configuration</h2>
 
@@ -51,6 +53,8 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td>Set up a project</td><td><code>penstock init</code></td></tr>
   <tr><td>Try an example</td><td><code>penstock init --example camunda-8</code></td></tr>
   <tr><td>Find out why something does not work</td><td><code>penstock doctor</code></td></tr>
+  <tr><td>Let a project run its hooks</td><td><code>penstock trust</code></td></tr>
+  <tr><td>Write element templates from your workers</td><td><code>penstock templates generate</code></td></tr>
   <tr><td>Check the diagrams</td><td><code>penstock check .</code></td></tr>
   <tr><td>Deploy</td><td><code>penstock deploy . --wait</code></td></tr>
   <tr><td>See what changed</td><td><code>penstock diff main</code></td></tr>
@@ -59,15 +63,18 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td>Import from draw.io or Visio</td><td><code>penstock import diagram.drawio</code></td></tr>
   <tr><td>Plan the move to Camunda 8</td><td><code>penstock migrate .</code></td></tr>
   <tr><td>Run scenarios</td><td><code>penstock scenarios run .</code></td></tr>
-  <tr><td>Let an AI assistant use the diagrams</td><td><code>penstock mcp</code></td></tr>
+  <tr><td>Let an AI assistant use the diagrams</td><td><code>penstock mcp --config</code></td></tr>
+  <tr><td>Set up a pipeline</td><td><code>penstock init --ci github</code></td></tr>
+  <tr><td>See which licence this machine has</td><td><code>penstock license</code></td></tr>
+  <tr><td>Pin the version for the project</td><td><code>./penstockw update</code></td></tr>
   </tbody>
 </table></div>
 
-<p>Every command, with every option and an example, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<p>Every command, with every option, an example, what it needs and its exit codes, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
 
 <h2>Paid commands</h2>
 
-<p>A command marked Pro is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline. A pipeline is any run where <code>CI</code> is set. When you run a paid command without the licence, it prints what the feature gives and how to buy or sign in, and exits with 1. See <a href="@guide/plans.html">Plans and licence</a>.</p>
+<p>A command marked <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span> is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline. A pipeline is any run where <code>CI</code> is set. When you run a paid command without the licence, it prints what the feature gives and how to buy or sign in, and exits with 1. See <a href="@guide/plans.html">Plans and licence</a>.</p>
 
 <h3>The licence</h3>
 
@@ -80,9 +87,13 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td><code>0</code></td><td>All is well.</td></tr>
   <tr><td><code>1</code></td><td>The command found errors, was refused for want of a licence, or failed at what it was asked to do.</td></tr>
   <tr><td><code>2</code></td><td>The command itself crashed. The message goes to the error output.</td></tr>
-  <tr><td><code>130</code></td><td>You pressed <kbd>Ctrl</kbd>+<kbd>C</kbd> twice while <code>test-cases</code> was running.</td></tr>
+  <tr><td><code>130</code></td><td>You pressed <kbd>Ctrl</kbd>+<kbd>C</kbd> twice while <code>scenarios run</code> was running. Once asks the engine to stop and keeps going.</td></tr>
   </tbody>
 </table></div>
+
+<h2>Output and streams</h2>
+
+<p>An answer goes to standard output, whatever it says and whatever the exit code is. <code>penstock check &gt; findings.txt</code> keeps the findings even when it exits with 1. A refusal goes to standard error and nothing goes to standard output: a missing path, a file that will not parse, a value an option does not take, a licence message, a hook that stopped the stage. The help and the version are answers, and an unknown command is a refusal.</p>
 
 <h2>Machine output</h2>
 

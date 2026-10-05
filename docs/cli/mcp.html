@@ -120,12 +120,14 @@
   <tr><td><code>list_diagrams</code></td><td>Lists the BPMN diagrams of a project, as absolute paths.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><code>show_diagram</code></td><td>Describes a diagram: every element and flow with id, type, name, connections and engine properties. Read this before editing. Edits refer to these ids.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><code>check_diagram</code></td><td>Reports what is wrong, as the editor's check does: the drawing, your bpmnlint rules and, with a licence, how the process runs.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><code>list_scenarios</code></td><td>Lists every distinct way through a diagram: the decisions taken, their conditions, the steps and where it ends.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><code>check_code_links</code></td><td>Checks every diagram against the code, with file and line.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><code>list_scenarios</code></td><td>Lists every distinct way through a diagram: the decisions taken, their conditions, the steps and where it ends.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><code>check_code_links</code></td><td>Checks every diagram against the code, with file and line.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   </tbody>
 </table></div></div>
+
+<p><code>edit_diagram</code> takes <code>file</code>, <code>operations</code> and the optional <code>dryRun</code>. The operations are the same contract as <a href="commands.html#edit"><code>penstock edit --ops</code></a>, and <code>penstock edit &lt;file&gt; --schema</code> prints it for the file's engine. The whole-project tools take <code>project</code>. The others take <code>file</code>.</p>
 
 <p>A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="../guide/plans.html">Plans and licence</a>.</p>
 

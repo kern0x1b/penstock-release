@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Every command - Penstock</title>
-<meta name="description" content="Every penstock command, one by one: what it does, its options, an example, and what it needs.">
+<meta name="description" content="Every penstock command, one by one: what it does, its options, an example, what it needs and its exit codes.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/cli/commands.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -50,23 +50,22 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../cli/">Command line</a> / Reference</p>
 <h1>Every command</h1>
-<p class="lede">Every penstock command, one by one: what it does, its options, an example, and what it needs.</p>
+<p class="lede">Every penstock command, one by one: what it does, its options, an example, what it needs and its exit codes.</p>
 <p class="meta"><span class="tag free">Free</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
 <li><a href="#all-commands-at-a-glance">All commands at a glance</a></li>
 <li><a href="#options-that-many-commands-share">Options that many commands share</a></li>
+<li><a href="#exit-codes">Exit codes</a></li>
 <li><a href="#init">init</a></li>
 <li><a href="#doctor">doctor</a></li>
 <li><a href="#check">check</a></li>
-<li><a href="#migrate">migrate</a></li>
+<li><a href="#migrate">migrate analyze</a></li>
 <li><a href="#code">code</a></li>
+<li><a href="#templates">templates generate</a></li>
 <li><a href="#scenarios-list">scenarios list</a></li>
 <li><a href="#junit">junit</a></li>
-<li><a href="#scenarios-run">scenarios run</a></li>
-<li><a href="#scenarios-generate">scenarios generate</a></li>
-<li><a href="#the-old-names">The old names</a></li>
 <li><a href="#layout">layout</a></li>
 <li><a href="#fmt">fmt</a></li>
 <li><a href="#diff">diff</a></li>
@@ -79,7 +78,8 @@
 <li><a href="#deploy">deploy</a></li>
 <li><a href="#show">show</a></li>
 <li><a href="#edit">edit</a></li>
-<li><a href="#license">license</a></li>
+<li><a href="#license">license status</a></li>
+<li><a href="#trust">trust</a></li>
 <li><a href="#mcp">mcp</a></li>
 <li><a href="#connectors">connectors</a></li>
 <li><a href="#update">update</a></li>
@@ -94,66 +94,109 @@
   <tbody>
   <tr><td><a href="#init"><code>init</code></a></td><td>Set up a project.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#doctor"><code>doctor</code></a></td><td>Check the setup.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><a href="#check"><code>check</code></a></td><td>Everything wrong with the diagrams.</td><td>Free. Flow, SARIF, baselines: <span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#migrate"><code>migrate</code></a></td><td>Camunda 7 to Camunda 8.</td><td>Free. <code>convert</code>: <span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#code"><code>code</code></a></td><td>Diagrams against code.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#scenarios-list"><code>scenarios list</code></a></td><td>Every way through each process.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#junit"><code>junit</code></a></td><td>Write a JUnit test for every way through.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#scenarios-run"><code>scenarios run</code></a></td><td>Run the test-case files on an engine.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#scenarios-generate"><code>scenarios generate</code></a></td><td>Write the test-case files from the ways through.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#layout"><code>layout</code></a></td><td>Auto layout.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#check"><code>check</code></a></td><td>Everything wrong with the diagrams.</td><td>Free. Flow, SARIF, baselines: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#migrate"><code>migrate</code></a></td><td>Camunda 7 to Camunda 8.</td><td>Free. <code>convert</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#code"><code>code</code></a></td><td>Diagrams against code.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#templates"><code>templates generate</code></a></td><td>Write an element template for every job worker.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#templates-check"><code>templates check</code></a></td><td>Check the templates against the workers.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#scenarios-list"><code>scenarios list</code></a></td><td>Every way through each process.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#scenarios-run"><code>scenarios run</code></a></td><td>Run the test-case files on an engine.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#scenarios-generate"><code>scenarios generate</code></a></td><td>Write the test-case files from the ways through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#junit"><code>junit</code></a></td><td>Write a JUnit test for every way through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#layout"><code>layout</code></a></td><td>Auto layout.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#fmt"><code>fmt</code></a></td><td>Format the XML.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><a href="#diff"><code>diff</code></a></td><td>What changed.</td><td>Free. <code>--images</code>: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#diff"><code>diff</code></a></td><td>What changed.</td><td>Free. <code>--images</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#export"><code>export</code></a></td><td>Pictures of diagrams.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#share"><code>share</code></a></td><td>One HTML file.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#import"><code>import</code></a></td><td>From draw.io, Visio, Signavio, Bizagi.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><a href="#docs"><code>docs</code></a></td><td>Documentation pages.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td><a href="#report"><code>report</code></a></td><td>A pull request comment.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#docs"><code>docs</code></a></td><td>Documentation pages.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#report"><code>report</code></a></td><td>A pull request comment.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#bot"><code>bot</code></a></td><td>The review bot.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#deploy"><code>deploy</code></a></td><td>Send to the engine.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#show"><code>show</code></a></td><td>List a diagram's elements.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><a href="#edit"><code>edit</code></a></td><td>Change a diagram.</td><td><span class="tag pro">Pro</span> (<code>--schema</code> is free)</td></tr>
+  <tr><td><a href="#edit"><code>edit</code></a></td><td>Change a diagram.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span> (<code>--schema</code> is free)</td></tr>
   <tr><td><a href="#license"><code>license</code></a></td><td>Buy, sign in, status.</td><td><span class="tag free">Free</span></td></tr>
-  <tr><td><a href="#mcp"><code>mcp</code></a></td><td>Serve diagrams to an AI agent.</td><td>Free to read. Other tools: <span class="tag pro">Pro</span></td></tr>
+  <tr><td><a href="#trust"><code>trust</code></a></td><td>Let a project run its hooks.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#mcp"><code>mcp</code></a></td><td>Serve diagrams to an AI agent.</td><td>Free to read. Other tools: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#connectors"><code>connectors</code></a></td><td>Camunda connector templates.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#update"><code>update</code></a></td><td>Move the wrapper to a version.</td><td><span class="tag free">Free</span></td></tr>
   </tbody>
 </table></div></div>
 
+<p>A command marked <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span> is a paid one. One rule decides what it needs: Pro on your machine, Team in a pipeline, which is any run where <code>CI</code> is set. See <a href="index.html#paid-commands">Paid commands</a>. <code>penstock help</code> and <code>penstock --version</code> print the overview and the version, and <code>penstock &lt;command&gt; --help</code> prints the page of one command, with the same options, example, tier and exit codes as here.</p>
+
 <h2 id="options-that-many-commands-share"><a href="#options-that-many-commands-share">Options that many commands share</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as <code>PENSTOCK_PROFILE</code> would. See <a href="../guide/profiles.html">Profiles</a>.</td></tr>
-  <tr><td><code>--format text|json|sarif|github|md</code></td><td>How <code>check</code>, <code>scenarios list</code>, <code>show</code> and <code>docs</code> report themselves.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as <code>PENSTOCK_PROFILE</code> would. Every command takes it. See <a href="../guide/profiles.html">Profiles</a>.</td></tr>
+  <tr><td><code>--format text|json|sarif|github|md</code></td><td>How a command reports itself. Each command takes only some of these, and says which below.</td></tr>
   <tr><td><code>--out &lt;dir&gt;</code>, <code>-o</code></td><td>Where a command puts what it writes. For <code>share</code> and <code>import</code>, <code>-o</code> is the file.</td></tr>
+  <tr><td><code>--lang &lt;tag&gt;</code></td><td>The language of the answer: en, ru, de, zh, ja, ko, es, pt-BR or fr. Without it <code>LANG</code>, then <code>LC_MESSAGES</code>, then <code>LC_ALL</code> decide, and English is the fallback.</td></tr>
   <tr><td><code>--help</code></td><td>Print the help and stop.</td></tr>
   <tr><td><code>--version</code></td><td>Print the version.</td></tr>
   </tbody>
 </table></div></div>
 
-<h2 id="init"><a href="#init">init</a></h2>
+<h2 id="exit-codes"><a href="#exit-codes">Exit codes</a></h2>
 
-<p><strong>Set up a project.</strong> <code>penstock init [path]</code></p>
-
-<ol class="steps">
-  <li>Writes <code>penstock.yaml</code> with the engine guessed from your diagrams. If a file exists, it is kept.</li>
-  <li>Adds <code>penstock.local.yaml</code> to <code>.gitignore</code>.</li>
-  <li>Installs the wrapper: <code>penstockw</code>, <code>penstockw.cmd</code>, and the properties file.</li>
-</ol>
+<p>Every command lists its own exit codes below. They follow one rule.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td><code>--engine camunda-8|camunda-7|operaton|cib-seven|classic</code></td><td>Say what the project runs on. Without it, in a terminal on an empty project, init asks with a numbered choice, and anywhere else it guesses from the diagrams.</td></tr>
-  <tr><td><code>--example camunda-8|camunda-7</code></td><td>Write a small runnable project into an <em>empty</em> folder. See <a href="../guide/example-project.html">The example project</a>.</td></tr>
-  <tr><td><code>--ci github|gitea|forgejo|gitlab|bitbucket|azure</code></td><td>Also write a pipeline, for the licence on this machine. See <a href="ci.html">Pipelines, reports and the bot</a>.</td></tr>
-  <tr><td><code>--hooks</code></td><td>Install a pre-commit hook. It formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours. Delete the file to stop it. It uses <code>check --baseline</code>, which needs Pro.</td></tr>
+  <tr><td><code>0</code></td><td>The command did what it was asked, and there was nothing to act on.</td></tr>
+  <tr><td><code>1</code></td><td>Something a person can act on: findings, a path that is not there, a file that is not a diagram, a value an option does not take, a licence this machine does not have.</td></tr>
+  <tr><td><code>2</code></td><td>The command line itself failed, not the command. The message says what.</td></tr>
+  <tr><td><code>130</code></td><td>Only <code>scenarios run</code> and <code>scenarios generate</code>: Ctrl and C twice.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>A command that produces a findings table and finds something exits with 1 and still writes the table to standard output. A refusal, such as a missing path or a licence message, goes to standard error. A machine format (<code>json</code>, <code>sarif</code>, <code>github</code>) is always written to standard output, even when it reports errors.</p>
+
+<h2 id="init"><a href="#init">init</a></h2>
+
+<p><strong>Write a penstock.yaml for this project: the engine it runs on, the rules, the profiles and the deployment. Asked in a terminal when the folder is empty and nothing says otherwise.</strong></p>
+
+<pre><code>penstock init [folder] [--engine camunda-8|camunda-7|operaton|cib-seven|classic] [--ci github|gitea|gitlab|bitbucket|azure] [--hooks]</code></pre>
+
+<ol class="steps">
+  <li>Writes <code>penstock.yaml</code> with the engine you chose, or guessed from your diagrams. If a file exists, it is kept and the command says so.</li>
+  <li>Adds <code>penstock.local.yaml</code> to <code>.gitignore</code>.</li>
+  <li>Installs the wrapper: <code>penstockw</code>, <code>penstockw.cmd</code> and <code>penstock/wrapper/penstock-wrapper.properties</code>. See <a href="index.html#wrapper">The wrapper</a>.</li>
+</ol>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--engine &lt;name&gt;</code></td><td>camunda-8, camunda-7, operaton, cib-seven or classic.</td></tr>
+  <tr><td><code>--example &lt;name&gt;</code></td><td>camunda-8 or camunda-7, to write a small runnable project into an empty folder.</td></tr>
+  <tr><td><code>--ci &lt;name&gt;</code></td><td>github, gitea, gitlab, bitbucket or azure: write a pipeline for the tier this machine has.</td></tr>
+  <tr><td><code>--hooks</code></td><td>Install a pre-commit hook that formats and checks staged diagrams.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>In a terminal, on an empty folder with no <code>--engine</code>, init asks which engine with a numbered choice. Anywhere else it guesses from the diagrams. <code>--example</code> writes a small runnable project into an <em>empty</em> folder: see <a href="../guide/example-project.html">The example project</a>. <code>--ci</code> also writes a pipeline for the licence on this machine, and <code>forgejo</code> is accepted too although the help does not list it: see <a href="ci.html">Pipelines, reports and the bot</a>. <code>--hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours, and deleting the file stops it. It runs <code>check --baseline</code>, which needs Pro.</p>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock init --engine camunda-8</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The file was written.</td></tr>
+  <tr><td><code>1</code></td><td>The folder could not be written, or the file is already there.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
   </tbody>
 </table></div></div>
 
 <h2 id="doctor"><a href="#doctor">doctor</a></h2>
 
-<p><strong>Find out why something does not work.</strong> <code>penstock doctor [path]</code></p>
+<p><strong>Check the setup: which configuration layers are in force, which profiles, rules, element templates and engine.</strong></p>
+
+<pre><code>penstock doctor [folder] [--format json]</code></pre>
 
 <pre><code>$ penstock doctor
 node        v26.10.0
@@ -163,11 +206,35 @@ engine      camunda-8
 profiles    (none)
 deployment  http://localhost:8080/v2 - answered 404</code></pre>
 
-<p>It prints the Node version, the project root, which configuration files apply, the engine, the profiles (a star marks the one in force), the rules file and element template paths (marked <em>missing</em> when they are not there), and whether the deployment address answers (with a 4 second timeout). Exit code 1 when something is missing. <code>--format json</code> prints all the settings that apply after every layer.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;text|json&gt;</code></td><td>json prints the configuration as it resolved, for a tool to read.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>It prints the Node version, the project root, the configuration files that apply, any problem in them, the engine, the profiles (a star marks the one in force), the rules file and the element template paths (marked <em>missing</em> when they are not there), and whether the deployment address answers, with a 4 second timeout. It also says when the deployment credentials are incomplete. <code>--format json</code> prints the settings as they resolve after every layer.</p>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock doctor --format json</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The setup was read.</td></tr>
+  <tr><td><code>1</code></td><td>Something in it could not be read, and the answer says what.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="check"><a href="#check">check</a></h2>
 
-<p><strong>Everything wrong with the diagrams.</strong> <code>penstock check [paths]</code></p>
+<p><strong>Everything wrong with the diagrams, in sections: the drawing itself, the bpmnlint rules and, on Pro, how the processes, decisions and forms actually run.</strong></p>
+
+<pre><code>penstock check [paths...] [--only drawing,rules,flow] [--format text|json|sarif|github] [--baseline] [--update-baseline]</code></pre>
 
 <pre><code>$ penstock check .
 ok    src/main/resources/approve-order.form
@@ -176,123 +243,567 @@ fail  src/main/resources/order-process.bpmn
         note bpmnlint/no-overlapping-elements: Element overlaps with other element (approve_order)
 ok    src/main/resources/shipping-method.dmn</code></pre>
 
-<p>Checks <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> files in three sections: <em>drawing</em>, <em>rules</em> (bpmnlint, and the engine compatibility rules) and <em>flow</em> (Pro). Only errors fail the command. The form check is lint and is free; flow analysis of processes and decision analysis are Pro.</p>
+<p>Checks <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> files in three sections: <em>drawing</em>, <em>rules</em> (bpmnlint, and the engine compatibility rules) and <em>flow</em> (how the processes, decisions and forms run). Only errors fail the command. The form check is lint and is free. Flow analysis of processes and decisions is paid. <code>--update-baseline</code> writes the findings to <code>penstock-baseline.json</code>: commit it, and refresh it after an upgrade. <code>--trust-project</code> lets this project's hooks run for this one run, without recording anything. Hooks: <code>preCheck</code> and <code>postCheck</code>. See <a href="../guide/diagram-check.html">Diagram check</a>, <a href="../guide/validation.html">Validation</a> and <a href="../guide/flow-analysis.html">Flow analysis</a>.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--only drawing,rules,flow</code></td><td>Run part of it. <code>--only flow</code> needs Pro.</td></tr>
-  <tr><td><code>--format json|sarif|github</code></td><td>Machine output with rule ids and their page. SARIF and GitHub annotations need Pro, and Team in a pipeline.</td></tr>
-  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not accept. Needs Pro.</td></tr>
-  <tr><td><code>--update-baseline</code></td><td>Write the current findings to <code>penstock-baseline.json</code>. Commit it. After an upgrade, refresh it.</td></tr>
+  <tr><td><code>--only &lt;sections&gt;</code></td><td>which parts to run: drawing, rules, flow.</td></tr>
+  <tr><td><code>--format &lt;format&gt;</code></td><td>text, json, sarif or github; sarif and github are for a code review.</td></tr>
+  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not already accept.</td></tr>
+  <tr><td><code>--update-baseline</code></td><td>Write the current findings as the baseline.</td></tr>
+  <tr><td><code>--trust-project</code></td><td>Let this project's penstock.yaml run its hooks for this run, without writing anything down.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>See <a href="../guide/diagram-check.html">Diagram check</a>, <a href="../guide/validation.html">Validation</a> and <a href="../guide/flow-analysis.html">Flow analysis</a>. Hooks: <code>preCheck</code> and <code>postCheck</code>.</p>
+<p><strong>Example</strong></p>
+<pre><code>$ penstock check --only rules src/orders</code></pre>
 
-<h2 id="migrate"><a href="#migrate">migrate</a></h2>
+<p><strong>Needs:</strong> <span class="tag free">Free</span> With <code>--only flow</code>, <code>--baseline</code> or <code>--format sarif|github</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
-<p><strong>Camunda 7 to Camunda 8.</strong> <code>penstock migrate [analyze|convert|report] [paths]</code></p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Nothing was found, or everything found is in the baseline.</td></tr>
+  <tr><td><code>1</code></td><td>Something was found that a person can act on.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
-<p>Full description on <a href="../guide/migration.html">Camunda 7 to 8</a>. Options: <code>--target 8.5..8.9</code>, <code>--dry-run</code>, <code>--out &lt;dir&gt;</code>, <code>--fail-on error|warning</code>, <code>--verbose</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>. <code>convert</code> needs Pro, and Team in a pipeline. <code>convert</code> writes over your files unless you give <code>--out</code>.</p>
+<h2 id="migrate"><a href="#migrate">migrate analyze</a></h2>
+
+<p><strong>Read the Camunda 7 diagrams and say what does not carry over to Camunda 8, and why.</strong></p>
+
+<pre><code>penstock migrate analyze [paths...] [--format text|json|sarif|github] [--baseline] [--update-baseline]</code></pre>
+
+<p><code>penstock migrate [analyze|convert|report] [paths]</code>. Without a word it runs <code>analyze</code>. The full description is on <a href="../guide/migration.html">Camunda 7 to 8</a>. All three take the options below; <code>--target</code> takes a version from 8.5 to 8.9, and the help names 8.8 as the default.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;format&gt;</code></td><td>text, json, sarif or github.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the report, or the converted files, are written.</td></tr>
+  <tr><td><code>--dry-run</code></td><td>Say what would be written and write nothing.</td></tr>
+  <tr><td><code>--target &lt;version&gt;</code></td><td>The Camunda 8 version to convert for, 8.8 by default.</td></tr>
+  <tr><td><code>--fail-on &lt;error|warning&gt;</code></td><td>What makes the exit code 1: error, or warning.</td></tr>
+  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not already accept.</td></tr>
+  <tr><td><code>--update-baseline</code></td><td>Write the current findings as the baseline.</td></tr>
+  <tr><td><code>--verbose</code></td><td>List and annotate what only carries over as it is.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock migrate analyze src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> With <code>--baseline</code> or <code>--format sarif|github</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Nothing would be lost, or everything lost is in the baseline.</td></tr>
+  <tr><td><code>1</code></td><td>Something would be lost.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="migrate-convert"><a href="#migrate-convert">migrate convert</a></h3>
+
+<p><strong>Write the Camunda 8 files into a camunda-8 folder next to the one given, with a penstock.yaml of their own. Nothing else in the project is touched.</strong></p>
+
+<pre><code>penstock migrate convert [paths...] [--target 8.5..8.9] [--out &lt;dir&gt;] [--dry-run]</code></pre>
+
+<p>Writes the Camunda 8 files into a <code>camunda-8</code> folder next to the one given, with a <code>penstock.yaml</code> of their own that says <code>engine: camunda-8</code>. Nothing else in the project is touched, so the Camunda 7 files stay as they are. <code>--out</code> chooses another folder. <code>--dry-run</code> says what would be written and writes nothing.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;format&gt;</code></td><td>text, json, sarif or github.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the report, or the converted files, are written.</td></tr>
+  <tr><td><code>--dry-run</code></td><td>Say what would be written and write nothing.</td></tr>
+  <tr><td><code>--target &lt;version&gt;</code></td><td>The Camunda 8 version to convert for, 8.8 by default.</td></tr>
+  <tr><td><code>--fail-on &lt;error|warning&gt;</code></td><td>What makes the exit code 1: error, or warning.</td></tr>
+  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not already accept.</td></tr>
+  <tr><td><code>--update-baseline</code></td><td>Write the current findings as the baseline.</td></tr>
+  <tr><td><code>--verbose</code></td><td>List and annotate what only carries over as it is.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock migrate convert --target 8.8 --dry-run src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span> Analysis and the report are free.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The files were written, or --dry-run found nothing to write.</td></tr>
+  <tr><td><code>1</code></td><td>Something could not be converted, and the answer says which.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="migrate-report"><a href="#migrate-report">migrate report</a></h3>
+
+<p><strong>Write the migration report to hand on: what each diagram became, and what did not come across.</strong></p>
+
+<pre><code>penstock migrate report [paths...] [--out &lt;dir&gt;]</code></pre>
+
+<p>Writes the migration report, Markdown and one self-contained HTML page: what each diagram became and what did not come across.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;format&gt;</code></td><td>text, json, sarif or github.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the report, or the converted files, are written.</td></tr>
+  <tr><td><code>--dry-run</code></td><td>Say what would be written and write nothing.</td></tr>
+  <tr><td><code>--target &lt;version&gt;</code></td><td>The Camunda 8 version to convert for, 8.8 by default.</td></tr>
+  <tr><td><code>--fail-on &lt;error|warning&gt;</code></td><td>What makes the exit code 1: error, or warning.</td></tr>
+  <tr><td><code>--baseline</code></td><td>Fail only on findings the baseline does not already accept.</td></tr>
+  <tr><td><code>--update-baseline</code></td><td>Write the current findings as the baseline.</td></tr>
+  <tr><td><code>--verbose</code></td><td>List and annotate what only carries over as it is.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock migrate report --out docs</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The report was written.</td></tr>
+  <tr><td><code>1</code></td><td>It could not be written, and the answer says where it tried.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="code"><a href="#code">code</a></h2>
 
-<p><strong>Compare diagrams with code.</strong> <code>penstock code [paths]</code> <span class="tag pro">Pro</span></p>
+<p><strong>Check the diagrams against the code: job types, topics, classes and beans with nothing to run them, and workers no diagram uses.</strong></p>
 
-<p>Reports a job type, topic, class or bean that nothing runs, a called process no diagram defines, and a worker no diagram uses, each with file and line. Reads the repositories in <code>linked</code>. <code>--format json</code> for a tool. See <a href="../guide/code-links.html">Code links</a>.</p>
+<pre><code>penstock code [paths...] [--format text|json]</code></pre>
 
-<h2 id="scenarios-list"><a href="#scenarios-list">scenarios list</a></h2>
-
-<p><strong>List every way through each process.</strong> <code>penstock scenarios list [paths]</code> <span class="tag pro">Pro</span></p>
-
-<p>A test plan, in words: the path and the conditions that decide it. <code>--format md</code> writes a checklist a person can work through. <code>--format json</code> is for tools. See <a href="../guide/process-tests.html">Process tests and coverage</a>.</p>
-
-<h2 id="junit"><a href="#junit">junit</a></h2>
-
-<p><strong>Write a JUnit test for every way through each process.</strong> <code>penstock junit [paths]</code> <span class="tag pro">Pro</span></p>
-
-<p><code>--out &lt;dir&gt;</code> the source folder. <code>--package &lt;name&gt;</code> the package. The command names the test dependencies your build lacks, using each engine's own Java packages: <code>org.camunda</code> for Camunda 7, <code>org.operaton</code> for Operaton, <code>org.cibseven</code> for CIB seven. See <a href="../guide/process-tests.html">Process tests and coverage</a>.</p>
-
-<h2 id="scenarios-run"><a href="#scenarios-run">scenarios run</a></h2>
-
-<p><strong>Run the test-case files of the diagrams against their engine, step by step, with mocks.</strong> <code>penstock scenarios run [paths]</code> <span class="tag pro">Pro</span></p>
+<p>Reports a job type, topic, class or bean that nothing runs, a called process no diagram defines, and a worker no diagram uses, each with file and line. Reads the repositories in <code>linked</code>. See <a href="../guide/code-links.html">Code links</a>.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--junit</code></td><td>Write a Camunda Process Test class that runs the same files under JUnit.</td></tr>
-  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Write a JUnit XML report.</td></tr>
-  <tr><td><code>--teamcity</code></td><td>Print TeamCity service messages, as the IDE reads them.</td></tr>
-  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take. Default 30.</td></tr>
+  <tr><td><code>--format &lt;text|json&gt;</code></td><td>How the findings are reported.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>Every case is checked against the Camunda test-case schema before the run, and a run deploys a test build of its own, prefixed <code>penstock.&lt;run&gt;.</code>, so the definitions you deployed are not touched. In a pipeline the engine needs <code>deployment.forTests: true</code>. See <a href="../guide/scenarios.html">Scenarios</a>.</p>
+<p><strong>Example</strong></p>
+<pre><code>$ penstock code src/orders</code></pre>
 
-<h2 id="scenarios-generate"><a href="#scenarios-generate">scenarios generate</a></h2>
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
-<p><strong>Write the test-case files from the ways through each process.</strong> <code>penstock scenarios generate [paths]</code> <span class="tag pro">Pro</span></p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Every worker and every reference lines up.</td></tr>
+  <tr><td><code>1</code></td><td>Something does not, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
-<p>One scenario for every way through, with example variables and a completing mock for each task. A process that starts on a message, a timer or a signal is planned from that start event, and a start kind that cannot be expressed as a scenario is said in the review rather than left out quietly. Cases already in a file are kept.</p>
+<h2 id="templates"><a href="#templates">templates generate</a></h2>
 
-<p>See <a href="../guide/scenarios.html">Scenarios</a>.</p>
+<p><strong>Write an element template for every job worker the project has, into .camunda/element-templates, so the Camunda palette fills itself in.</strong></p>
 
-<h2 id="the-old-names"><a href="#the-old-names">The old names</a></h2>
+<pre><code>penstock templates generate [folder]</code></pre>
 
-<p>The scenario commands used to be <code>paths</code>, <code>tests</code> and <code>test-cases</code>. They still work and are left out of the help: <code>paths</code> is <code>scenarios list</code>, <code>test-cases</code> is <code>scenarios run</code>, <code>test-cases --generate</code> is <code>scenarios generate</code>, and <code>tests</code> is <code>junit</code>.</p>
+<p>Reads the Java, Kotlin, Groovy and Scala sources under the folder, finds every job worker, and writes an element template for each into <code>.camunda/element-templates</code>. A template that exists is updated, not replaced. It lists each template with its worker, file and line, the number of inputs, and what it did. With no worker in the project it exits with 1. <code>--check</code> writes nothing and does what <code>templates check</code> does. The editors do the same for one worker with <span class="ui">Create element template</span>. See <a href="../guide/element-templates.html">Element templates</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--check</code></td><td>Check instead of write: the same as templates check, and writes nothing.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock templates generate</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Every worker has a template.</td></tr>
+  <tr><td><code>1</code></td><td>A worker could not be written, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="templates-check"><a href="#templates-check">templates check</a></h3>
+
+<p><strong>Check that every element template still says what its job worker asks for, and that every worker has one. Writes nothing.</strong></p>
+
+<pre><code>penstock templates check [folder]</code></pre>
+
+<p>Checks that every element template still asks for what its worker reads, and that every worker has one. A template that has drifted is listed with what it is missing, what it has extra and what has another type, and the exit code is 1, so it works in a pipeline. With no templates in <code>.camunda/element-templates</code> it says so and exits with 0. It writes nothing.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--check</code></td><td>What templates generate takes to do this instead of writing.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock templates check</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Every template still matches its worker.</td></tr>
+  <tr><td><code>1</code></td><td>A template has drifted, and the answer says how.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="scenarios-list"><a href="#scenarios-list">scenarios list</a></h2>
+
+<p><strong>List every distinct way through each process, with the conditions it takes. This is a test plan.</strong></p>
+
+<pre><code>penstock scenarios list [paths...] [--format text|json|md]</code></pre>
+
+<p>A test plan, in words: the path and the conditions that decide it. <code>--format md</code> writes a checklist a person can work through. <code>--format json</code> is for tools. See <a href="../guide/process-tests.html">Process tests and coverage</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;text|json|md&gt;</code></td><td>How the scenarios are listed; md is a page a person reads.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock scenarios list --format md</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The scenarios were listed.</td></tr>
+  <tr><td><code>1</code></td><td>A process could not be read, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="scenarios-run"><a href="#scenarios-run">scenarios run</a></h3>
+
+<p><strong>Run the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for.</strong></p>
+
+<pre><code>penstock scenarios run [paths...] [--timeout &lt;seconds&gt;] [--junit-xml &lt;file&gt;] [--junit] [--teamcity]</code></pre>
+
+<p>Runs the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for. Every case is checked against the Camunda test-case schema before the run, and a run deploys a test build of its own, prefixed <code>penstock.&lt;run&gt;.</code>, so the definitions you deployed are not touched. In a pipeline the engine needs <code>deployment.forTests: true</code>. Press Ctrl and C once to ask the engine to stop and keep going, and twice to cancel the running case and remove its build. See <a href="../guide/scenarios.html">Scenarios</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take, 30 by default.</td></tr>
+  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Where a JUnit XML report is written.</td></tr>
+  <tr><td><code>--junit</code></td><td>Write a Camunda Process Test class that runs them instead.</td></tr>
+  <tr><td><code>--teamcity</code></td><td>Report as TeamCity service messages, as the IDE reads them.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock scenarios run --junit-xml target/scenarios.xml</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The run finished with no failing case.</td></tr>
+  <tr><td><code>1</code></td><td>A case failed, or the engine could not be reached.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  <tr><td><code>130</code></td><td>Ctrl-C twice: the case is cancelled, its build removed, and the run stops.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="scenarios-generate"><a href="#scenarios-generate">scenarios generate</a></h3>
+
+<p><strong>Write the Camunda test-case files from the ways through each process, which scenarios run then plays back against an engine.</strong></p>
+
+<pre><code>penstock scenarios generate [paths...]</code></pre>
+
+<p>Writes the Camunda test-case files from the ways through each process: one scenario for every way through, with example variables and a completing mock for each task. A process that starts on a message, a timer or a signal is planned from that start event, and a start kind that cannot be expressed as a scenario is said in the review rather than left out quietly. Cases already in a file are kept. See <a href="../guide/scenarios.html">Scenarios</a>.</p>
+<p>The old names still work and are left out of the help: <code>paths</code> is <code>scenarios list</code>, <code>test-cases</code> is <code>scenarios run</code>, <code>test-cases --generate</code> is <code>scenarios generate</code>, and <code>tests</code> is <code>junit</code>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take, 30 by default.</td></tr>
+  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Where a JUnit XML report is written.</td></tr>
+  <tr><td><code>--teamcity</code></td><td>Report as TeamCity service messages, as the IDE reads them.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock scenarios generate src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The run finished with no failing case.</td></tr>
+  <tr><td><code>1</code></td><td>A case failed, or the engine could not be reached.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  <tr><td><code>130</code></td><td>Ctrl-C twice: the case is cancelled, its build removed, and the run stops.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="junit"><a href="#junit">junit</a></h2>
+
+<p><strong>Write a JUnit test for every way through each process, with the variables that take it there, for Camunda Process Test or camunda-bpm-assert.</strong></p>
+
+<pre><code>penstock junit [paths...] [--out &lt;dir&gt;] [--package &lt;name&gt;]</code></pre>
+
+<p>Writes a JUnit test for every way through each process, with the variables that take it there, for Camunda Process Test or camunda-bpm-assert. The command names the test dependencies your build lacks, using each engine's own Java packages: <code>org.camunda</code> for Camunda 7, <code>org.operaton</code> for Operaton, <code>org.cibseven</code> for CIB seven. See <a href="../guide/process-tests.html">Process tests and coverage</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the tests are written.</td></tr>
+  <tr><td><code>--package &lt;name&gt;</code></td><td>The package the tests are written in.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock junit --out src/test/java --package com.acme.orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The tests were written.</td></tr>
+  <tr><td><code>1</code></td><td>A test could not be written, and the answer names the process.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="layout"><a href="#layout">layout</a></h2>
 
-<p><strong>Lay the diagrams out.</strong> <code>penstock layout [paths]</code> <span class="tag pro">Pro</span></p>
+<p><strong>Lay the diagrams out as a readable left-to-right flow, whatever they were drawn like.</strong></p>
+
+<pre><code>penstock layout [paths...] [--write]</code></pre>
 
 <pre><code>$ penstock layout .
 would change src/main/resources/order-process.bpmn
 
 Auto layout always reflows, so a difference here is expected; pass --write to take it.</code></pre>
+<p>Lays the diagrams out as a readable left-to-right flow, whatever they were drawn like. Without <code>--write</code> the answer is the plan and nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="../guide/auto-layout.html">Auto layout</a>.</p>
 
-<p><code>--write</code> saves the result. Without it nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="../guide/auto-layout.html">Auto layout</a>.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--write</code></td><td>Save what was laid out; without it the answer is the plan and the file is untouched.</td></tr>
+  <tr><td><code>--trust-project</code></td><td>Let this project's penstock.yaml run its hooks for this run, without writing anything down.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock layout --write src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The diagrams do not overlap and nothing runs through a shape.</td></tr>
+  <tr><td><code>1</code></td><td>A diagram could not be laid out, and the answer says which.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="fmt"><a href="#fmt">fmt</a></h2>
 
-<p><strong>Format the XML the way the editor saves it</strong>, so a renamed task is a one-line diff. <code>penstock fmt [paths]</code></p>
+<p><strong>Rewrite the XML the way the editor saves it, so a diff of a diagram stays readable.</strong></p>
 
-<p><code>--write</code> saves. Without it, it lists each file as <em>same</em> or <em>would rewrite</em>, and exits with 1 if any file would change. So it also works as a check in a pipeline.</p>
+<pre><code>penstock fmt [paths...] [--write]</code></pre>
+
+<p>Rewrites the XML the way the editor saves it, so a renamed task is a one-line diff. Without <code>--write</code> it lists each file as <em>same</em> or <em>would rewrite</em> and leaves the files alone, and it exits with 1 if any file would change, so it also works as a check in a pipeline.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--write</code></td><td>Save the result; without it the answer is the diff and the file is untouched.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock fmt --write src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Every file is already formatted, or was.</td></tr>
+  <tr><td><code>1</code></td><td>A file could not be parsed, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="diff"><a href="#diff">diff</a></h2>
 
-<p><strong>What changed.</strong></p>
+<p><strong>What changed between two versions of a process: two files, or what the working tree changed since a commit, a branch or a tag.</strong></p>
+
+<pre><code>penstock diff &lt;before&gt; &lt;after&gt; | penstock diff [&lt;ref&gt;] [paths...] [--images]</code></pre>
 
 <pre><code>penstock diff before.bpmn after.bpmn     # two files
 penstock diff main                       # working tree against a branch, tag or commit
 penstock diff HEAD~3 src/orders          # limit to some paths
-penstock diff main --images              # pictures with changes coloured (Pro)</code></pre>
+penstock diff main --images              # pictures with changes coloured</code></pre>
 
 <pre><code>$ penstock diff HEAD
 src/main/resources/order-process.bpmn
   changed  ServiceTask "Charge the card" charge_card (name)</code></pre>
 
-<p>It lists added, removed and changed elements by name, and says <em>only the drawing moved</em> when that is all. Without a reference it compares against <code>HEAD~1</code>. <code>--images-dir</code> and <code>--out</code> choose where the pictures go (default <code>.penstock/images</code>).</p>
+<p>Lists added, removed and changed elements by name, and says <em>only the drawing moved</em> when that is all. Without a reference it compares against <code>HEAD~1</code>. <code>--out</code> chooses where the pictures go, <code>.penstock/images</code> by default. It needs a Git repository for a reference.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--images</code></td><td>Render before and after, with the changes coloured.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the pictures are written.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock diff HEAD~1 --images</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> With <code>--images</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Nothing changed.</td></tr>
+  <tr><td><code>1</code></td><td>Something did, and the answer lists it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="export"><a href="#export">export</a></h2>
 
-<p><strong>Pictures of the diagrams.</strong> <code>penstock export [paths] --out &lt;dir&gt;</code></p>
+<p><strong>Render the diagrams as pictures, one file per diagram.</strong></p>
 
-<p>SVG, drawn by Penstock from the coordinates. No browser needed. <code>--format png</code> needs <code>puppeteer</code> in the project. See <a href="../guide/export.html">Export</a>.</p>
+<pre><code>penstock export [paths...] [--format svg|png] [--out &lt;dir&gt;]</code></pre>
+
+<p>Renders the diagrams as pictures, one file per diagram. SVG is drawn by Penstock from the coordinates and needs no browser. <code>--format png</code> needs <code>puppeteer</code> installed in the project. See <a href="../guide/export.html">Export</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;svg|png&gt;</code></td><td>svg or png; the format the export is asked for.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the pictures are written.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock export --format png --out docs/diagrams</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Every diagram was written.</td></tr>
+  <tr><td><code>1</code></td><td>A diagram could not be rendered, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="share"><a href="#share">share</a></h2>
 
-<p><strong>One HTML file to send.</strong> <code>penstock share &lt;file&gt; [-o out.html]</code></p>
+<p><strong>One HTML file to send: a read-only viewer with zoom, pan and the documentation of each element. It opens offline, with nothing else on the page.</strong></p>
 
-<p>Takes one <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. Opens offline in any browser. See <a href="../guide/share-html.html">Share as HTML</a>.</p>
+<pre><code>penstock share &lt;file&gt; [--out &lt;file.html&gt;]</code></pre>
+
+<p>Takes one <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file and writes one HTML file: a read-only viewer with zoom, pan and the documentation of each element. It opens offline in any browser and loads nothing else. <code>-o</code> is the same as <code>--out</code>. See <a href="../guide/share-html.html">Share as HTML</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--out &lt;file.html&gt;</code></td><td>The file to write; -o is the same.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock share src/orders/order.bpmn -o order.html</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The file was written.</td></tr>
+  <tr><td><code>1</code></td><td>It could not be written, and the answer says where it tried.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="import"><a href="#import">import</a></h2>
 
-<p><strong>Turn a draw.io, Visio, Signavio or Bizagi diagram into BPMN 2.0.</strong> <code>penstock import &lt;file&gt; [-o out.bpmn] [--force]</code></p>
+<p><strong>Turn a draw.io, Visio, Signavio or Bizagi diagram into BPMN 2.0, and list what could not be mapped.</strong></p>
 
-<p>Prints what was not imported, what was guessed and what was not carried over. <code>--format json</code> for a tool. See <a href="../guide/import.html">Import a diagram</a>.</p>
+<pre><code>penstock import &lt;file&gt; [--out &lt;file.bpmn&gt;] [--force] [--format text|json]</code></pre>
+
+<p>Turns a draw.io, Visio, Signavio or Bizagi diagram into BPMN 2.0 and prints what was not imported, what was guessed and what was not carried over. <code>-o</code> is the same as <code>--out</code>. See <a href="../guide/import.html">Import a diagram</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--out &lt;file.bpmn&gt;</code></td><td>The file to write; -o is the same.</td></tr>
+  <tr><td><code>--force</code></td><td>Replace a file that is already there.</td></tr>
+  <tr><td><code>--format &lt;text|json&gt;</code></td><td>json reports what could not be mapped as a document a tool can read.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock import legacy.drawio -o order.bpmn</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The diagram was written.</td></tr>
+  <tr><td><code>1</code></td><td>Something could not be mapped, and the answer says what.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="docs"><a href="#docs">docs</a></h2>
 
-<p><strong>Write documentation for every process, decision file and form.</strong> <code>penstock docs [paths] --out &lt;dir&gt;</code> <span class="tag pro">Pro</span></p>
+<p><strong>Write documentation for every process, decision file and form: a page each, with the picture, the steps, the decisions, the events and the data.</strong></p>
+
+<pre><code>penstock docs [paths...] [--format html|md] [--out &lt;dir&gt;]</code></pre>
 
 <pre><code>$ penstock docs . --out docs-out
 wrote docs-out/approve-order.html
@@ -301,59 +812,138 @@ wrote docs-out/shipping-method.html
 wrote docs-out/index.html
 
 3 diagram(s) documented.</code></pre>
-
 <p>A page for each process: its picture, steps with what runs them and who, decisions and conditions, events, the data each step sets and reads, and whether it runs to its end. A page for each <code>.dmn</code> file with every decision's rules as a table, its hit policy in words and the table check. A page for each form with the variable every field writes. HTML by default, <code>--format md</code> for a wiki.</p>
 
-<h2 id="report"><a href="#report">report</a></h2>
-
-<p><strong>One Markdown comment for a pull request.</strong> <code>penstock report [path] --base origin/main</code> <span class="tag pro">Pro</span></p>
-
-<pre><code>$ penstock report . --base HEAD
-wrote penstock-report.md</code></pre>
-
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--base &lt;ref&gt;</code></td><td>What to compare against. Default <code>origin/main</code>.</td></tr>
-  <tr><td><code>--out &lt;file&gt;</code></td><td>The Markdown file. Default <code>penstock-report.md</code>.</td></tr>
-  <tr><td><code>--images-dir &lt;dir&gt;</code></td><td>Where the pictures go. Default <code>.penstock/images</code>.</td></tr>
-  <tr><td><code>--image-base &lt;url&gt;</code></td><td>Where the pictures will be served from, so the comment shows them.</td></tr>
-  <tr><td><code>--images-link &lt;url&gt;</code></td><td>Where to find them instead, when they cannot be shown inline.</td></tr>
+  <tr><td><code>--format &lt;html|md&gt;</code></td><td>html or md.</td></tr>
+  <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the pages are written.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>The report holds the check, what changed and pictures with the changes outlined. It needs a Git repository. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<p><strong>Example</strong></p>
+<pre><code>$ penstock docs --format md --out docs/processes</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The pages were written.</td></tr>
+  <tr><td><code>1</code></td><td>A page could not be written, and the answer names it.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="report"><a href="#report">report</a></h2>
+
+<p><strong>One markdown comment for a pull request: the check, the diff and a picture of every diagram that changed.</strong></p>
+
+<pre><code>penstock report [folder] [--base &lt;ref&gt;] [--out &lt;file.md&gt;] [--images-dir &lt;dir&gt;]</code></pre>
+
+<p>Writes one Markdown comment for a pull request: the check, what changed and a picture of every diagram that changed, with the changes outlined. The defaults are <code>origin/main</code> for <code>--base</code>, <code>penstock-report.md</code> for <code>--out</code> and <code>.penstock/images</code> for <code>--images-dir</code>. <code>--image-base</code> is where the pictures will be served from, so the comment shows them, and <code>--images-link</code> is where to find them instead when they cannot be shown inline. It needs a Git repository. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--base &lt;ref&gt;</code></td><td>What the report compares against, origin/main by default.</td></tr>
+  <tr><td><code>--out &lt;file&gt;</code></td><td>Where the markdown is written.</td></tr>
+  <tr><td><code>--images-dir &lt;dir&gt;</code></td><td>Where the pictures are written.</td></tr>
+  <tr><td><code>--image-base &lt;url&gt;</code></td><td>Where the pictures will be served from, for a comment that shows them.</td></tr>
+  <tr><td><code>--images-link &lt;url&gt;</code></td><td>Where to find them instead, when they cannot be shown inline.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock report --base origin/main --out penstock-report.md</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The report was written.</td></tr>
+  <tr><td><code>1</code></td><td>It could not be written, and the answer says where it tried.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="bot"><a href="#bot">bot</a></h2>
 
-<p><strong>Answer in a pull or merge request</strong>, from the CI run it is in. <code>penstock bot [path]</code> <span class="tag team">Team in a pipeline</span></p>
+<p><strong>Answer in a pull or merge request, from the CI run it is in. penstock init --ci sets the pipeline up.</strong></p>
 
-<p><code>--stage draw|post</code> draws the pictures now and posts later, when the pictures are uploaded between. <code>init --ci</code> writes the pipeline. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<pre><code>penstock bot [folder] [--stage draw|post]</code></pre>
+
+<p>Answers in a pull or merge request, from the CI run it is in. <code>--stage draw</code> draws the pictures now and <code>--stage post</code> posts later, when the pictures are uploaded between. <code>penstock init --ci</code> writes the pipeline. See <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--stage &lt;draw|post&gt;</code></td><td>Draw the pictures now and post later, when they are uploaded between.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock bot --stage draw</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The answer was posted, or the pictures were drawn.</td></tr>
+  <tr><td><code>1</code></td><td>It could not be, and the answer says why.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="deploy"><a href="#deploy">deploy</a></h2>
 
-<p><strong>Send processes, decisions and forms to the engine.</strong> <code>penstock deploy [paths]</code></p>
+<p><strong>Deploy the processes, decisions and forms to the engine the configuration names.</strong></p>
+
+<pre><code>penstock deploy [paths...] [--dry-run] [--wait]</code></pre>
 
 <pre><code>$ penstock deploy . --dry-run
 would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
       src/main/resources/approve-order.form
       src/main/resources/order-process.bpmn
       src/main/resources/shipping-method.dmn</code></pre>
+<p>Deploys the processes, decisions and forms to the engine the configuration names. Files are grouped by the target each folder asks for, and a file with no <code>deployment.url</code> is skipped. <code>--wait</code> asks the engine until it shows the definitions: &ldquo;deployed&rdquo; and &ldquo;running&rdquo; are not the same claim, and it prints <code>live order-process v3</code>. Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="../guide/deployment.html">Deployment</a>.</p>
+<p>Before anything is sent, deploy says so when <code>deployment.auth.type</code> is <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the engine refuse it. An answer of 401 or 403 says which of <code>deployment.auth</code> in <code>penstock.local.yaml</code>, <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code> to set. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--dry-run</code></td><td>Say where, and send nothing. Try it first in a new pipeline.</td></tr>
-  <tr><td><code>--wait</code></td><td>Ask the engine until it shows the definitions. "Deployed" and "running" are not the same claim. Prints <code>live order-process v3</code>.</td></tr>
-  <tr><td><code>--profile &lt;name&gt;</code></td><td>Choose the environment.</td></tr>
+  <tr><td><code>--dry-run</code></td><td>Say what would be sent, and send nothing.</td></tr>
+  <tr><td><code>--wait</code></td><td>Confirm with the engine that the definitions are live.</td></tr>
+  <tr><td><code>--trust-project</code></td><td>Let this project's penstock.yaml run its hooks for this run, without writing anything down.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>Files are grouped by the target each folder asks for. A file with no <code>deployment.url</code> is skipped. Secrets: <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code>, <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="../guide/deployment.html">Deployment</a>.</p>
+<p><strong>Example</strong></p>
+<pre><code>$ penstock deploy --dry-run src/orders</code></pre>
 
-<p>Before anything is sent, deploy says so when <code>deployment.auth.type</code> is <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the engine refuse it. An answer of 401 or 403 says which of <code>deployment.auth</code> in <code>penstock.local.yaml</code>, <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code> to set. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read.</p>
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The engine took the deployment.</td></tr>
+  <tr><td><code>1</code></td><td>It did not, and the answer says what it said.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="show"><a href="#show">show</a></h2>
 
-<p><strong>List a diagram's elements, flows and properties.</strong> <code>penstock show &lt;file&gt;</code></p>
+<p><strong>List a diagram's elements, flows and properties, for a person or for a tool to read.</strong></p>
+
+<pre><code>penstock show &lt;file&gt; [--format text|json]</code></pre>
 
 <pre><code>$ penstock show order-process.bpmn
 order-process.bpmn  (camunda-8)
@@ -362,82 +952,429 @@ StartEvent             order_received "Order received"
 ServiceTask            charge_card "Charge card"
                          jobType = charge-card
 SequenceFlow           Flow_2  approve_order -&gt; charge_card</code></pre>
+<p>Lists a diagram's elements, flows and properties, for a person or for a tool to read. The ids it prints are the ones <code>edit</code> refers to.</p>
 
-<p><code>--format json</code> is for tools. The ids it prints are the ones <code>edit</code> refers to.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--format &lt;text|json&gt;</code></td><td>json is the same document a tool reads.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock show src/orders/order.bpmn --format json</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The diagram was read.</td></tr>
+  <tr><td><code>1</code></td><td>It is not a diagram, or not there, and the answer says which.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="edit"><a href="#edit">edit</a></h2>
 
-<p><strong>Change a diagram the way the editor would.</strong> <code>penstock edit &lt;file&gt; &lt;change&gt;</code> <span class="tag pro">Pro</span></p>
+<p><strong>Add, connect, set or remove in a diagram the way the editor would, and refuse an edit that would break it.</strong></p>
+
+<pre><code>penstock edit &lt;file&gt; &lt;add|connect|set|remove&gt; ... [--ops &lt;json&gt;] [--ops-file &lt;file|-&gt;] [--schema]</code></pre>
 
 <pre><code>penstock edit orders.bpmn add service-task --after Task_check --name "Reserve stock" --set jobType=reserve-stock
 penstock edit orders.bpmn connect Gateway_stock Task_notify --condition "=not(inStock)"
 penstock edit orders.bpmn set Task_notify --set assignee=support --input customer==order.customer
 penstock edit orders.bpmn remove Task_legacy</code></pre>
-
-<p>A new element is placed and connected by the editor's own modelling, gets an id from your conventions, and carries only properties your engine knows. After an edit the diagram is read back and checked. An edit that would break the drawing (shapes on top of each other, a flow through a shape, a flow torn from its element) is not written. A crossing is reported but allowed.</p>
+<p>Adds, connects, sets or removes in a diagram the way the editor would. A new element is placed and connected by the editor's own modelling, gets an id from your conventions, and carries only properties your engine knows. After an edit the diagram is read back and checked. An edit that would break the drawing (shapes on top of each other, a flow through a shape, a flow torn from its element) is not written, and nothing is written when the operations cannot be read. A crossing is reported but allowed. <code>--ops</code> and <code>--ops-file</code> take the same changes as JSON, which is the contract: several operations apply together or not at all. <code>--schema</code> prints the contract for the file's engine, and an unknown operation, field or property is refused.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--dry-run</code></td><td>Show the result without writing.</td></tr>
-  <tr><td><code>--ops '&lt;json&gt;'</code>, <code>--ops-file &lt;file&gt;</code></td><td>The same changes as JSON. This is the contract. Several operations apply together or not at all.</td></tr>
-  <tr><td><code>--schema</code></td><td>Print the JSON contract for the file's engine. Free. An unknown operation, field or property is refused.</td></tr>
-  <tr><td><code>--force</code></td><td>Write even when the edit would break the drawing.</td></tr>
+  <tr><td><code>--ops &lt;json&gt;</code></td><td>The operations as JSON on one line.</td></tr>
+  <tr><td><code>--ops-file &lt;file&gt;</code></td><td>The operations as JSON in a file, or - to read them from standard input.</td></tr>
+  <tr><td><code>--schema</code></td><td>Print the contract the operations follow, and change nothing.</td></tr>
+  <tr><td><code>--after &lt;id&gt;</code></td><td>Add after this element, the way the editor places a new one.</td></tr>
+  <tr><td><code>--event &lt;type&gt;</code></td><td>The event type to add.</td></tr>
+  <tr><td><code>--name &lt;text&gt;</code></td><td>The name of the element that is added, connected or set.</td></tr>
+  <tr><td><code>--id &lt;id&gt;</code></td><td>The id of the element to set or remove.</td></tr>
+  <tr><td><code>--condition &lt;text&gt;</code></td><td>The condition of a sequence flow that is connected.</td></tr>
+  <tr><td><code>--set &lt;name=value&gt;</code></td><td>An attribute to set, more than once.</td></tr>
+  <tr><td><code>--input &lt;name&gt;=&lt;value&gt;</code></td><td>An input mapping, more than once.</td></tr>
+  <tr><td><code>--output &lt;name&gt;=&lt;value&gt;</code></td><td>An output mapping, more than once.</td></tr>
+  <tr><td><code>--dry-run</code></td><td>Say what would change and write nothing.</td></tr>
+  <tr><td><code>--force</code></td><td>Write even when the edit would break the diagram.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div></div>
 
-<h2 id="license"><a href="#license">license</a></h2>
+<p><strong>Example</strong></p>
+<pre><code>$ penstock edit src/orders/order.bpmn add service-task --after Task_check --name Ship</code></pre>
 
-<p><strong>Buy, sign in, status.</strong> Nobody copies a key: buying opens Polar's checkout and signing in is an e-mail code, and both end with the licence on this machine, in <code>~/.penstock/license.json</code>. A key covers three machines.</p>
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span> <code>--schema</code> is free.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table>
-  <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
   <tbody>
-  <tr><td><code>penstock license [status]</code></td><td>Which licence this machine has and why. During the trial, when it ends.</td></tr>
-  <tr><td><code>penstock license buy [pro|team]</code></td><td>Opens the checkout, waits up to an hour for the payment, then asks for the e-mail code. Needs a terminal.</td></tr>
-  <tr><td><code>penstock license login [email]</code></td><td>Signs in with the e-mail you bought with. Lists the machines when every place is taken, so you can free one.</td></tr>
-  <tr><td><code>penstock license activate &lt;key&gt;</code></td><td>Activates a key typed by hand.</td></tr>
-  <tr><td><code>penstock license key [email]</code></td><td>Prints the Team key for <code>PENSTOCK_LICENSE</code>, after the e-mail sign-in.</td></tr>
-  <tr><td><code>penstock license logout</code></td><td>Releases this machine. <code>license deactivate</code> does the same.</td></tr>
+  <tr><td><code>0</code></td><td>The diagram was changed, or --dry-run found nothing to change.</td></tr>
+  <tr><td><code>1</code></td><td>The edit would break the diagram, or could not be read, and nothing was written.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
   </tbody>
 </table></div></div>
 
-<p>In a pipeline set <code>PENSTOCK_LICENSE</code> to a Team key. It only counts when <code>CI</code> is set. See <a href="ci.html">Pipelines, reports and the bot</a> and <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
+<h2 id="license"><a href="#license">license status</a></h2>
+
+<p><strong>Which licence this machine has, and why it is that one.</strong></p>
+
+<pre><code>penstock license [status]</code></pre>
+
+<p>Nobody copies a key: buying opens Polar's checkout and signing in is an e-mail code, and both end with the licence on this machine, in <code>~/.penstock/license.json</code>, which the editors share. A key covers three machines. <code>license</code> alone is <code>license status</code>: which licence this machine has and why, and during the trial, when it ends. Without a licence it also says how to buy or sign in, and shows the education offer for Free Pro when one is set up. The other commands are below. In a pipeline set <code>PENSTOCK_LICENSE</code> to a Team key. It only counts when <code>CI</code> is set. See <a href="ci.html">Pipelines, reports and the bot</a> and <a href="../guide/sign-in.html">Buying and signing in</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license status</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The answer was read.</td></tr>
+  <tr><td><code>1</code></td><td>The licence service could not be reached, and the machine stays as it was.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="license-buy"><a href="#license-buy">license buy</a></h3>
+
+<p><strong>Buy Penstock. The checkout opens in a browser and the licence reaches this machine by itself once you have paid.</strong></p>
+
+<pre><code>penstock license buy [pro|team]</code></pre>
+
+<p>Opens the checkout in a browser and waits up to an hour for the payment, then asks for the e-mail code. It needs a terminal.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license buy pro</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The licence is on this machine.</td></tr>
+  <tr><td><code>1</code></td><td>The payment did not go through, or nothing was charged.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="license-login"><a href="#license-login">license login</a></h3>
+
+<p><strong>Sign in with the e-mail you bought Penstock with. There is no key to copy.</strong></p>
+
+<pre><code>penstock license login [email]</code></pre>
+
+<p>Signs in with the e-mail you bought Penstock with. When every place is taken it lists the machines, so you can free one.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license login you@example.com</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The licence is on this machine.</td></tr>
+  <tr><td><code>1</code></td><td>There is no licence bought with that address.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="license-activate"><a href="#license-activate">license activate</a></h3>
+
+<p><strong>Use a key you already have.</strong></p>
+
+<pre><code>penstock license activate &lt;key&gt;</code></pre>
+
+<p>Activates a key you already have, typed by hand.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license activate PENSTOCK-PRO-...</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The licence is on this machine.</td></tr>
+  <tr><td><code>1</code></td><td>The key was not accepted, and the answer says why.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="license-key"><a href="#license-key">license key</a></h3>
+
+<p><strong>The key for PENSTOCK_LICENSE in a pipeline, found again by the e-mail you bought with, because the machine no longer keeps it.</strong></p>
+
+<pre><code>penstock license key [email]</code></pre>
+
+<p>Prints the Team key for <code>PENSTOCK_LICENSE</code> in a pipeline, found again by the e-mail you bought with, because the machine no longer keeps the key. It needs a licence activated on this machine and a terminal, because it signs in with an e-mail code. Only a Team key is printed: keep it secret.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license key you@example.com</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The key was found.</td></tr>
+  <tr><td><code>1</code></td><td>There is no Team key bought with that address, or there is no terminal to ask on.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="license-logout"><a href="#license-logout">license logout</a></h3>
+
+<p><strong>Release this machine's licence so another machine can use it. The same as license deactivate.</strong></p>
+
+<pre><code>penstock license logout</code></pre>
+
+<p>Releases this machine's licence so another machine can use it. <code>license deactivate</code> does the same.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock license logout</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The licence was released, or there was no seat to release.</td></tr>
+  <tr><td><code>1</code></td><td>The licence service could not be reached.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="trust"><a href="#trust">trust</a></h2>
+
+<p><strong>Let this project's penstock.yaml run shell commands here. A hook of check, layout or deploy asks for this first, and a project with no penstock.yaml is not trusted at all.</strong></p>
+
+<pre><code>penstock trust [path] [--list] [--forget] [--yes]</code></pre>
+
+<p>Lets a project's <code>penstock.yaml</code> run shell commands on this machine. A hook of <code>check</code>, <code>layout</code> or <code>deploy</code> asks for this first, and a project with no <code>penstock.yaml</code> is not trusted at all. In a terminal, <code>penstock trust</code> asks once for the project the path is in, which is the current folder by default, and records it in <code>~/.penstock/trusted-projects.json</code>, keyed by its real path. The IDE plugin reads and writes the same file on IDE 2024.2 and 2025.1, so a project trusted in one is trusted in both there.</p>
+<ul>
+  <li><code>--list</code> prints every trusted project with the date.</li>
+  <li><code>--forget</code> takes the project back.</li>
+  <li><code>--yes</code> does not ask. It is what a script wants. With no terminal the question is not asked either.</li>
+</ul>
+<p>With no trust, a hook does not run. The message names the stage and the exact command that was refused, and says to run <code>penstock trust</code>, or to use <code>--trust-project</code> on <code>check</code>, <code>layout</code> or <code>deploy</code> to allow it for that one run. Inside a pipeline, where <code>CI</code> is set, hooks run without a question, because there the pipeline is the repository's own. A hook gets only four <code>PENSTOCK_*</code> variables: <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>. The licence key, the password and the tokens never reach it.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--list</code></td><td>Print what is trusted on this machine.</td></tr>
+  <tr><td><code>--forget</code></td><td>Take one project back.</td></tr>
+  <tr><td><code>--yes</code></td><td>Do not ask, which is what a pipeline wants.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock trust --list</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The project is trusted, forgotten, or the list was printed.</td></tr>
+  <tr><td><code>1</code></td><td>There is no penstock.yaml there to trust, or the path is not there.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="mcp"><a href="#mcp">mcp</a></h2>
 
-<p><strong>Serve the project's diagrams to an AI agent</strong> over MCP. <code>penstock mcp</code>, <code>penstock mcp --config</code>. See <a href="mcp.html">The MCP server</a>.</p>
+<p><strong>Serve BPMN diagrams to an AI agent over MCP. Reading a diagram and checking it are free; flow analysis, scenarios, code links and editing need a licence.</strong></p>
+
+<pre><code>penstock mcp [--config]</code></pre>
+
+<p>Serves BPMN diagrams to an AI agent over MCP. <code>--config</code> prints the entry to paste into the agent's settings and stops. The entry goes to standard output and a hint goes to standard error. See <a href="mcp.html">The MCP server</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--config</code></td><td>Print the client entry to paste into the agent, and stop.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock mcp --config</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code> are free; the other tools are <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The server stopped, or the client entry was printed.</td></tr>
+  <tr><td><code>1</code></td><td>A tool was asked for something this machine does not have.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="connectors"><a href="#connectors">connectors</a></h2>
 
-<p><strong>List Camunda's connector templates, or print one.</strong></p>
+<p><strong>List Camunda's connector templates, or where they are cached on this machine. Downloaded from GitHub at most once a day.</strong></p>
+
+<pre><code>penstock connectors [--refresh]</code></pre>
 
 <pre><code>penstock connectors                              # list the current templates
 penstock connectors resolve &lt;id&gt; [version]      # print one template as JSON
 penstock connectors --refresh                    # ask GitHub for a newer release now</code></pre>
+<p>Lists Camunda's connector templates, or where they are cached on this machine. They are downloaded from GitHub at most once a day and cached in <code>~/.penstock/connectors/</code>. See <a href="../guide/element-templates.html">Element templates</a>.</p>
 
-<p>The templates are downloaded from GitHub at most once a day and cached in <code>~/.penstock/connectors/</code>. See <a href="../guide/element-templates.html">Element templates</a>.</p>
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--refresh</code></td><td>Check GitHub for a newer release now.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock connectors --refresh</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The list was printed.</td></tr>
+  <tr><td><code>1</code></td><td>The release list could not be downloaded, and the answer says when it will try again.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="connectors-resolve"><a href="#connectors-resolve">connectors resolve</a></h3>
+
+<p><strong>Print one connector template, resolved to the version asked for or to the newest one in the cache.</strong></p>
+
+<pre><code>penstock connectors resolve &lt;id&gt; [version]</code></pre>
+
+<p>Prints one connector template, resolved to the version asked for or to the newest one in the cache.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--refresh</code></td><td>Check GitHub for a newer release first.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock connectors resolve http-json</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The template was printed.</td></tr>
+  <tr><td><code>1</code></td><td>There is no template with that id, and the answer says what there is.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="update"><a href="#update">update</a></h2>
 
-<p><strong>Move the project's wrapper to a version.</strong> <code>penstock update [version]</code></p>
+<p><strong>Move the project's wrapper to a version, the latest by default.</strong></p>
 
-<p>The latest version by default. <code>--distribution &lt;spec&gt;</code> chooses where to get Penstock from: a tarball or a registry spec. See <a href="index.html">Command line</a>.</p>
+<pre><code>penstock update [version] [--distribution &lt;spec&gt;]</code></pre>
+
+<p>Moves the project's wrapper to a version, the latest by default. It downloads the version into <code>~/.penstock/wrapper/dists</code>, replaces <code>penstockw</code> and <code>penstockw.cmd</code> with the scripts that version ships, and writes the version into <code>penstock/wrapper/penstock-wrapper.properties</code>. Commit those files. It needs a wrapper in the project: run <code>penstock init</code> first. <code>--distribution</code> says where to get Penstock from, a tarball or a registry spec, and is kept in the properties file. <code>penstock wrapper</code> was the old name and still works. See <a href="index.html#wrapper">The wrapper</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--distribution &lt;spec&gt;</code></td><td>Where to get Penstock from: a tarball or a registry spec.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock update 26.10.0</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The wrapper was moved.</td></tr>
+  <tr><td><code>1</code></td><td>It could not be, and the answer says which step refused.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>same</code>, <code>would change</code> or <code>sent</code>.</li>
+  <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>kept</code>, <code>same</code>, <code>would change</code> or <code>sent</code>.</li>
   <li>Findings are indented under their file.</li>
-  <li>The exit code says the outcome. See <a href="index.html#exit-codes">Command line</a>.</li>
+  <li>The exit code says the outcome. See the exit codes above.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
   <dt>An option is ignored.</dt>
-  <dd>Check that it belongs to that command. For example <code>--write</code> is for <code>layout</code> and <code>fmt</code>, and <code>--wait</code> for <code>deploy</code>.</dd>
+  <dd>Check that it belongs to that command. For example <code>--write</code> is for <code>layout</code> and <code>fmt</code>, and <code>--wait</code> for <code>deploy</code>. <code>penstock &lt;command&gt; --help</code> lists what the command reads.</dd>
   <dt>"Unknown command".</dt>
-  <dd>Run <code>penstock help</code>. The old scenario names are still accepted and say what replaces them.</dd>
+  <dd>Run <code>penstock help</code>. The old names are still accepted and say what replaces them.</dd>
+  <dt>The command says a feature is part of Pro.</dt>
+  <dd>Run <code>penstock license</code> to see the licence. In a pipeline the feature needs Team. See <a href="../guide/sign-in.html">Buying and signing in</a>.</dd>
+  <dt>A hook does not run and the message names <code>penstock trust</code>.</dt>
+  <dd>The project is not trusted. Run <code>penstock trust</code> in it, or pass <code>--trust-project</code> for one run.</dd>
   <dt>The engine refuses a run as not a test engine.</dt>
   <dd>Set <code>deployment.forTests: true</code> on the profile, or run against an engine on this machine and confirm it once.</dd>
   <dt>The command says the project is not a Git repository.</dt>
