@@ -25,13 +25,14 @@ export function readDate(readAt) {
 
 export const checkoutUrl = (prices, plan) => `${prices.api.replace(/\/$/, '')}/v1/checkout-links/${encodeURIComponent(plan.checkoutLink)}/redirect`;
 
-function buyLink(prices, plan, embed) {
+function buyLink(prices, plan, embed, quiet) {
   const label = `Buy ${escapeHtml(plan.name)}`;
   const href = checkoutUrl(prices, plan);
-  if (!embed) return `<a class="btn" href="${href}" rel="noopener">${label}</a>`;
+  const look = quiet ? 'btn quiet' : 'btn';
+  if (!embed) return `<a class="${look}" href="${href}" rel="noopener">${label}</a>`;
   return [
-    `<a class="btn buy buy-light" href="${href}" rel="noopener" data-polar-checkout data-polar-checkout-theme="light">${label}</a>`,
-    `<a class="btn buy buy-dark" href="${href}" rel="noopener" data-polar-checkout data-polar-checkout-theme="dark">${label}</a>`,
+    `<a class="${look} buy buy-light" href="${href}" rel="noopener" data-polar-checkout data-polar-checkout-theme="light">${label}</a>`,
+    `<a class="${look} buy buy-dark" href="${href}" rel="noopener" data-polar-checkout data-polar-checkout-theme="dark">${label}</a>`,
   ].join('\n      ');
 }
 
@@ -43,13 +44,13 @@ const ABOUT = {
 export function plansHtml({ prices = readPrices(), checkout = checkoutSettings() } = {}) {
   const embed = checkout.embed === true;
   const cards = Object.entries(prices.plans)
-    .map(([tier, plan]) => {
+    .map(([tier, plan], index) => {
       const lines = plan.prices.map((price, index) => `<p class="${index === 0 ? 'price' : 'price alt'}">${money(price.amount, price.currency)} <span>${plan.seat ? 'per seat ' : ''}${every(price)}</span></p>`).join('\n      ');
       return `  <div class="plan" id="buy-${tier}">
       <p class="name"><span class="tag ${tier === 'team' ? 'team' : 'pro'}">${escapeHtml(plan.name)}</span></p>
       ${lines}
       <p class="about">${ABOUT[tier] ?? ''}</p>
-      ${buyLink(prices, plan, embed)}
+      ${buyLink(prices, plan, embed, index > 0)}
     </div>`;
     })
     .join('\n');
@@ -95,8 +96,8 @@ export function priceSummaryHtml({ prices = readPrices() } = {}) {
   </table></div>`;
 }
 
-export function buyLinksHtml({ prices = readPrices(), quiet = false } = {}) {
+export function buyLinksHtml({ prices = readPrices(), primary = true } = {}) {
   return Object.values(prices.plans)
-    .map((plan, index) => `<a class="btn${quiet && index > 0 ? ' quiet' : ''}" href="${checkoutUrl(prices, plan)}" rel="noopener">Buy ${escapeHtml(plan.name)}</a>`)
+    .map((plan, index) => `<a class="btn${primary && index === 0 ? '' : ' quiet'}" href="${checkoutUrl(prices, plan)}" rel="noopener">Buy ${escapeHtml(plan.name)}</a>`)
     .join('\n    ');
 }

@@ -81,8 +81,8 @@ export function toolsRow(base) {
 
 const EMBED = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'checkout.json'), 'utf8')).embed === true;
 
-export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false }) {
-  const base = '../'.repeat(depth);
+export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false, base: absoluteBase }) {
+  const base = absoluteBase ?? '../'.repeat(depth);
   const links = [
     ...SECTIONS.map((entry) => ({ href: `${entry.id}/`, label: entry.title, key: entry.id })),
     { href: 'guide/plans.html', label: 'Plans', key: 'plans' },
@@ -109,6 +109,20 @@ export function shell({ depth, title, description, canonical, body, key = '', wi
 <title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}">
 <link rel="icon" href="${base}icon.svg" type="image/svg+xml">
+<link rel="icon" href="${base}favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="${base}favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="${base}favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="${base}favicon.ico">
+<link rel="apple-touch-icon" href="${base}apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/og-image.png">
 <link rel="canonical" href="${SITE}/${canonical}">
 <link rel="preload" href="${base}fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${base}style.css">

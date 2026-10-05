@@ -3,6 +3,7 @@ import path from 'node:path';
 import { root } from './site.mjs';
 import { checkoutSettings } from './plans.mjs';
 import { readPrices } from './fetch-prices.mjs';
+import { contrastFailures } from './check-contrast.mjs';
 
 const docs = path.join(root, 'docs');
 const pages = [];
@@ -83,6 +84,9 @@ for (const page of pages) {
   const found = core.match(HOST_WORDS);
   if (found) problems.push(`${relative}: host-specific wording in the core guide: "${found[0]}" near "${core.slice(Math.max(0, found.index - 40), found.index + 60).replace(/\s+/g, ' ')}"`);
 }
+
+const contrast = contrastFailures();
+for (const failure of contrast.failures) problems.push(`docs/style.css: ${failure}`);
 
 const warnings = [];
 const prices = readPrices();
