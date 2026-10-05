@@ -80,6 +80,21 @@ It reports:
   </tbody>
 </table></div>
 
+<h2>The debugger position on the diagram</h2>
+
+<p>When a debugger stops in the code of a step, the diagram shows where the process is. The step that the code belongs to is outlined and carries a badge, <em>Paused here</em>, and the canvas scrolls to it, into the sub-process if that is where it is. When the debugger runs on or stops, the marks go.</p>
+
+<p>Penstock finds the step in two ways:</p>
+
+<ul>
+  <li><strong>From the method.</strong> The method you are stopped in is linked to a step by what the code links already know: its job type, topic, class or bean. That step is marked.</li>
+  <li><strong>From the live instance.</strong> When the method has a parameter that is an <code>ActivatedJob</code> (Camunda 8), a <code>DelegateExecution</code> or a <code>DelegateTask</code> (Camunda 7, Operaton, CIB seven) or an <code>ExternalTask</code>, Penstock asks the paused program for the process id, the id of the element it is in and the instance, and marks that exact step of that exact instance. The badge's tooltip names the instance. With a <code>DelegateExecution</code> it also marks the other steps the instance has active.</li>
+</ul>
+
+<p>It is a Pro part of the code links, and it needs the diagram and the code to be indexed. Nothing is written to a file and nothing is changed in the program being debugged: the questions it asks are reads of the values in the paused frame.</p>
+
+{{host:debug-position|The debugger position in your tool}}
+
 <h2>Rename a name the diagram and the code share</h2>
 
 <p>A job type, a topic, a Camunda 7 bean or class, and a process, decision or form id are written in the diagram and in the code. Renaming one from either side opens a preview that lists every diagram, decision, form and source file that writes the name, in the project and in a linked repository, and one command writes them all. Going the other way, changing such a value in the properties panel offers to rename the places that still hold the old one. It never edits code on its own. A process id, a job type and a message name are what a deployed engine knows, so the preview says that instances already running keep the old name, and offers to ask the engine, only when you ask, how many are active. Variables are left out, because the analysis reports the uses it saw, not that it saw them all. See <a href="@jetbrains/rename.html">Rename</a>.</p>

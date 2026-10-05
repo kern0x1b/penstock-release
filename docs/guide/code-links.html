@@ -130,6 +130,7 @@
 <li><a href="#the-code-tab">The Code tab</a></li>
 <li><a href="#what-is-linked">What is linked</a></li>
 <li><a href="#check-the-diagram-against-the-code">Check the diagram against the code</a></li>
+<li><a href="#the-debugger-position-on-the-diagram">The debugger position on the diagram</a></li>
 <li><a href="#rename-a-name-the-diagram-and-the-code-share">Rename a name the diagram and the code share</a></li>
 <li><a href="#element-templates-from-worker-code">Element templates from worker code</a></li>
 <li><a href="#other-repositories">Other repositories</a></li>
@@ -247,6 +248,37 @@ It reports:
   <tr><td>A job worker takes its job type from its method name, so a rename breaks the diagram silently</td><td><code>code/implicit-job-type</code></td></tr>
   </tbody>
 </table></div></div>
+
+<h2 id="the-debugger-position-on-the-diagram"><a href="#the-debugger-position-on-the-diagram">The debugger position on the diagram</a></h2>
+
+<p>When a debugger stops in the code of a step, the diagram shows where the process is. The step that the code belongs to is outlined and carries a badge, <em>Paused here</em>, and the canvas scrolls to it, into the sub-process if that is where it is. When the debugger runs on or stops, the marks go.</p>
+
+<p>Penstock finds the step in two ways:</p>
+
+<ul>
+  <li><strong>From the method.</strong> The method you are stopped in is linked to a step by what the code links already know: its job type, topic, class or bean. That step is marked.</li>
+  <li><strong>From the live instance.</strong> When the method has a parameter that is an <code>ActivatedJob</code> (Camunda 8), a <code>DelegateExecution</code> or a <code>DelegateTask</code> (Camunda 7, Operaton, CIB seven) or an <code>ExternalTask</code>, Penstock asks the paused program for the process id, the id of the element it is in and the instance, and marks that exact step of that exact instance. The badge's tooltip names the instance. With a <code>DelegateExecution</code> it also marks the other steps the instance has active.</li>
+</ul>
+
+<p>It is a Pro part of the code links, and it needs the diagram and the code to be indexed. Nothing is written to a file and nothing is changed in the program being debugged: the questions it asks are reads of the values in the paused frame.</p>
+
+<div class="hosts">
+<p class="hosts-title">The debugger position in your tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<p class="host-name">JetBrains</p>
+<p>Debug your application as you do now and stop in a worker, a delegate or a listener. The step is marked in the editor of the diagram that holds it. It reads Java and Kotlin code, and needs Pro. While the IDE is still indexing, nothing is marked. See <a href="../jetbrains/code-links.html">Code links in the IDE</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p class="unavailable">Not available on the command line. A debugger position needs an editor with a diagram open.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p class="unavailable">Not available in VS Code. There is no debugger position on the diagram yet.</p>
+</section>
+</div>
+</div>
 
 <h2 id="rename-a-name-the-diagram-and-the-code-share"><a href="#rename-a-name-the-diagram-and-the-code-share">Rename a name the diagram and the code share</a></h2>
 

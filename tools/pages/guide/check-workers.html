@@ -29,6 +29,22 @@ related: code-links, monitor, project-model
   </tbody>
 </table></div>
 
+<h2>Exactly what it asks</h2>
+
+<p>The check only reads. It sends these requests to the engine address of the profile, and changes nothing there:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Engine</th><th>Request</th><th>What it is used for</th></tr></thead>
+  <tbody>
+  <tr><td>Camunda 8</td><td><code>POST /jobs/statistics/by-types</code>, one request for all job types of the project, for the last 24 hours</td><td>Per job type, the number of jobs created and the number of workers that took them</td></tr>
+  <tr><td>Camunda 7, Operaton, CIB seven</td><td><code>GET /external-task/topic-names?withUnlockedTasks=true</code> and <code>GET /external-task/topic-names?withLockedTasks=true</code></td><td>The topics that have open tasks, and the topics that have a task a worker has locked</td></tr>
+  </tbody>
+</table></div>
+
+<p>The names it looks up are the job types and topics of the service tasks and similar steps in your diagrams. A step with a delegate class, an expression or a bean has no worker to ask for, and is not part of it.</p>
+
+<p>The result is shown on the worker, in the workers node of your tool's project view. It is not written to a file. A request the engine answers with an error stops the check and says why: for Camunda 8 a 404 means the engine has no job statistics, and a 401 or 403 means the profile's user may not read them.</p>
+
 <h2>When the engine is asked</h2>
 
 <p>Only when you run it, with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
