@@ -171,18 +171,18 @@
 <p class="hosts-title">Run only the flow check</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Right-click a file or folder in the <a href="../jetbrains/tool-window.html">Penstock tool window</a> and choose <span class="ui">Run Penstock | Check</span>. The flow section is part of the report. In the editor, the section <strong>How it runs</strong> of the check card shows it.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <pre><code>$ penstock check . --only flow
 fail  stuck.bpmn
         DEADLOCK: "Join" waits for "Task B", which never arrives. "Which way" sent this run down another branch. Path: Start → Which way → Task A</code></pre>
 <p>Run <code>penstock check .</code> without <code>--only</code> to get all sections at once. The JSON, SARIF and GitHub output carry the same rule ids.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>In the editor, the section <strong>How it runs</strong> of the check card shows it. Flow analysis needs Pro. There is no whole-project action in VS Code. Run <code>penstock check .</code> on the command line, and the flow section is part of the report.</p>
 </section>
 </div>

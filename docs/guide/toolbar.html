@@ -162,15 +162,15 @@
 <p class="hosts-title">The command palette in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>The palette's shortcut is <kbd>Ctrl+Alt+,</kbd>, or <kbd>&#8984;&#8997;,</kbd> on a Mac. The same actions are in the IDE's own <strong>Find Action</strong> and <strong>Keymap</strong> under <span class="mono">Tools | Penstock</span>, so a shortcut can be bound to any of them the way the IDE binds its own. The palette is the action <span class="ui">Find action</span> in the keymap. The actions work while a Penstock editor has the focus, and there they take the keys before the IDE's own actions. Export keeps <kbd>Cmd/Ctrl+Shift+C</kbd>. See <a href="../jetbrains/shortcuts.html">Shortcuts</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p class="unavailable">Not available on the command line. The command line has no editor and so no palette. The help of each command lists what it does, and the actions that need a licence say so when you run them.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>The palette's shortcut is <kbd>Ctrl+Alt+,</kbd>, or <kbd>Cmd+Alt+,</kbd> on a Mac, and the command is <span class="ui">Penstock: Find action</span>. The same actions are in VS Code's own Command Palette under <em>Penstock</em>, with the names they have in the editor, so a key can be bound to any of them in Keyboard Shortcuts. An action the diagram does not offer is not listed, and one it has switched off is greyed out. See <a href="../vscode/shortcuts.html">Shortcuts</a>.</p>
 </section>
 </div>
@@ -184,7 +184,6 @@
   <li>Click the pin, or press <kbd>Shift</kbd>+<kbd>Enter</kbd> on the row. The action moves onto the bar. Do it again and it goes back into the menu only.</li>
 </ol>
 
-<!-- image: toolbar-pin.png, the More list with the pointer on the Minimap row so its pin shows, and Check and Auto layout already pinned with the grey pin -->
 
 <p>Penstock remembers your choice in <code>~/.penstock/preferences.json</code>, the same file that keeps the width of the sidebar and whether you have seen the tour. It is the same in every tool on your machine and survives a restart. It is never stored in <code>penstock.yaml</code>, so your toolbar never lands in a teammate's checkout. If a later version adds a new action, you still get it, even if you rearranged the bar.</p>
 
@@ -227,7 +226,7 @@
 
 <figure class="shot">
   <img src="../img/editor-overview.png" alt="A diagram open in the editor with the toolbar on top, the palette at the left of the canvas, a user task selected and the Properties tab of the sidebar on the right">
-  <figcaption>The bar: undo and redo on the left, the actions you use most, the More menu, Deploy as the primary action and the sidebar toggle at the right edge. The badge on a sidebar tab is the count of findings.</figcaption>
+  <figcaption>The bar: undo and redo on the left, the actions you use most, the More menu, Deploy as the primary action and the sidebar toggle at the right edge.</figcaption>
 </figure>
 
 <h2 id="the-decision-and-form-editors"><a href="#the-decision-and-form-editors">The decision and form editors</a></h2>

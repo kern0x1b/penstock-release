@@ -142,18 +142,18 @@
 <p class="hosts-title">Get Penstock</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Open <span class="ui">Settings | Plugins | Marketplace</span> in any JetBrains IDE from 2024.2, search for <strong>Penstock</strong> and press <span class="ui">Install</span>. Or open the <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace page</a>. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p>Install it once, or run it without installing. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. The package is on <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>.</p>
 <pre><code>npm install -g @kern0x1b/penstock-cli
 npx @kern0x1b/penstock-cli</code></pre>
 <p>A project can also pin a version with a wrapper script. See <a href="../cli/">Command line</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>Install the extension from the Visual Studio Marketplace, in VS Code 1.88 or later. See <a href="../vscode/installing.html">Installing in VS Code</a>.</p>
 </section>
 </div>
@@ -192,16 +192,16 @@ npx @kern0x1b/penstock-cli</code></pre>
 <p class="hosts-title">Write the example</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Open an empty project and open the <span class="ui">Penstock</span> tool window. It offers <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one and confirm the dialog <em>Start from an example</em> with <span class="ui">Create</span>. A notification says where the example is.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
 <pre><code>penstock init --example camunda-8</code></pre>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p class="unavailable">Not available in VS Code. VS Code cannot write the example, because the project tree that offers it is not part of the extension. Run penstock init --example camunda-8 (or camunda-7) in an empty folder, then open the folder in VS Code.</p>
 </section>
 </div>
@@ -225,18 +225,18 @@ npx @kern0x1b/penstock-cli</code></pre>
 <p class="hosts-title">Do it in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Open the file from the Project view or the Penstock tool window. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the editor's toolbar.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p>There is no editor, so use the commands:</p>
 <pre><code>penstock check .
 penstock deploy . --dry-run
 penstock deploy .</code></pre>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>Open the file from the Explorer. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the toolbar of the editor.</p>
 </section>
 </div>
@@ -256,15 +256,15 @@ penstock deploy .</code></pre>
 <p class="hosts-title">Open a diagram</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Double-click a <code>.bpmn</code> file in the Project view or in the Penstock tool window. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs at the foot of the editor switch between the picture and the XML. See <a href="../jetbrains/editor.html">The editor in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram and penstock edit to change it.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>Double-click a <code>.bpmn</code> file in the Explorer. It opens in the Penstock editor. <span class="ui">Penstock: Open as text</span> opens the XML beside it. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
 </section>
 </div>
@@ -281,7 +281,7 @@ penstock deploy .</code></pre>
   <li><strong>Toolbar</strong> along the top. Undo and Redo are on the left. Deploy is on the right. Everything else is in the <span class="ui">More</span> menu. See <a href="toolbar.html">The toolbar and the More menu</a>.</li>
   <li><strong>Palette</strong> beside the canvas, with the elements you can draw.</li>
   <li><strong>Canvas</strong> in the middle. It takes the theme of your tool, and the diagram opens fitted into it.</li>
-  <li><strong>Sidebar</strong> on the right, with a row of tabs: Properties, Scenarios, Problems, Monitor and Code. See <a href="sidebar.html">The sidebar</a>.</li>
+  <li><strong>Sidebar</strong> on the right, with a row of tabs: Properties, Scenarios, Problems, Comments, Monitor and Code. See <a href="sidebar.html">The sidebar</a>.</li>
   <li><strong>Editor tabs</strong> below: the diagram, and <span class="ui">Text</span> for the raw XML of the same file.</li>
 </ul>
 
@@ -291,15 +291,15 @@ penstock deploy .</code></pre>
 <p class="hosts-title">The first-run tour in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>The first time the editor opens it walks you through six things in a few words each: the palette, the properties panel, Check, the tool window, which it points out is on the stripe at the side of the IDE, Deploy and the More menu. It is shown once, and the fact that it has been seen is kept in <code>~/.penstock/preferences.json</code> beside the toolbar choices. <span class="ui">Show the tour again</span> is in the More menu, under Help.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p class="unavailable">Not available on the command line. There is no editor and so no tour. penstock doctor prints the setup it would point at.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>The first time the editor opens, it shows a short tour. It is shown once. <span class="ui">Penstock: Show the tour again</span> in the Command Palette, or <span class="ui">Show the tour again</span> in the More menu, plays it again.</p>
 </section>
 </div>

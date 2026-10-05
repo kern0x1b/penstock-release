@@ -190,7 +190,6 @@
 
 <p>The Example data group is the one Camunda Modeler has. On a step that a worker runs, Penstock fills it from what it knows: the variables that reach the step, and the ones the worker's code reads, with the types the code gives them. <span class="ui">Write example output</span> writes that into the step, where Camunda Modeler reads example data back from, and the panel says <em>Example output written</em>. When nothing reaches the step, it says <em>Nothing reaches this step, so there is no example output to write.</em> See <a href="code-links.html">Code links</a>.</p>
 
-<!-- image: example-data.png, a service task selected with the Example data group open, showing the names and the Write example output button -->
 
 <h2 id="templates"><a href="#templates">Templates</a></h2>
 
@@ -210,7 +209,6 @@
   &lt;/bpmn:ioSpecification&gt;
 &lt;/bpmn:serviceTask&gt;</code></pre>
 
-<!-- image: classic-io.png, a Classic BPMN task selected with the Inputs and Outputs groups open in the sidebar -->
 
 <p>Remove the last input and the last output and the whole specification goes with them, so a file never has an empty one. Camunda 7 and Camunda 8 keep their own input and output editors, because those write <code>camunda:inputOutput</code> and <code>zeebe:ioMapping</code>, which is what those engines read.</p>
 

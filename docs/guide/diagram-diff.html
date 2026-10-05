@@ -136,11 +136,11 @@
 <p class="hosts-title">Compare in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>Penstock registers a diff tool with the IDE. Any comparison where one side is a BPMN file shows two diagrams: <span class="ui">Compare with Revision</span>, a commit in the Git log, or a shelved change.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <ul>
   <li><code>penstock diff before.bpmn after.bpmn</code> lists added, removed and changed elements by name. It says <em>only the drawing moved</em> when that is all.</li>
   <li><code>penstock diff main</code> compares the working tree against a commit, branch or tag.</li>
@@ -148,7 +148,7 @@
 </ul>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>Right-click a <code>.bpmn</code> file in the Explorer or in Source Control and choose <span class="ui">Compare with…</span>, or run <span class="ui">Penstock: Compare with…</span>. Pick the older version: the committed one, a branch, or another file. Both drawings open side by side in a <em>Penstock Diagram Diff</em> tab, with what was added, removed, changed and moved picked out. Pro. The git side goes through VS Code's own git extension.</p>
 </section>
 </div>

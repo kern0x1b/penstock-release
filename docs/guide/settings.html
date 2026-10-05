@@ -160,15 +160,15 @@
 <p class="hosts-title">Open or create it in your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>In the <a href="../jetbrains/tool-window.html">Penstock tool window</a> press <span class="ui">Open penstock.yaml</span>. It opens the file, or creates it when there is none. When a project still has settings in <code>.idea/bpmn-project.xml</code> and no <code>penstock.yaml</code>, a notification offers to write one from them. The page <span class="mono">Settings | Tools | Penstock</span> holds no project settings: it shows the version, the open-source licences and the projects Penstock trusts. See <a href="../jetbrains/settings.html">Settings in the IDE</a>.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p>Run <code>penstock init</code>. To see which files and settings apply, run <code>penstock doctor</code>, or <code>penstock doctor --format json</code> for the result after all layers.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p>Open <code>penstock.yaml</code> like any other file. There is no Penstock action that opens or creates it. Choosing an engine in the editor writes it for you: it creates the file, or adds the engine to the one that is there and touches nothing else. A saved connection goes to <code>penstock.local.yaml</code>. Penstock has no page in VS Code's Settings.</p>
 </section>
 </div>
@@ -309,15 +309,15 @@ profiles:
 <p class="hosts-title">In your tool</p>
 <div class="host-grid">
 <section class="host" aria-label="JetBrains">
-<h4>JetBrains</h4>
+<p class="host-name">JetBrains</p>
 <p>The plugin registers the schema for <code>penstock.yaml</code>, <code>penstock.yml</code>, <code>penstock.json</code> and the <code>.local</code> versions. Completion, validation and hover help work with no setup and no network.</p>
 </section>
 <section class="host" aria-label="Command line">
-<h4>Command line</h4>
+<p class="host-name">Command line</p>
 <p class="unavailable">Not available on the command line. The command line does not edit files. penstock doctor reports a file it cannot read.</p>
 </section>
 <section class="host" aria-label="VS Code">
-<h4>VS Code</h4>
+<p class="host-name">VS Code</p>
 <p class="unavailable">Not available in VS Code. The extension does not register a schema for penstock.yaml, so VS Code gives no completion or hover help for it from Penstock.</p>
 </section>
 </div>

@@ -408,11 +408,14 @@ strong, b { font-weight: var(--type-weight-semibold); }
 
 .tag::before {
   content: "";
+  flex: none;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--theme-icon-default);
 }
+
+td .tag { height: auto; min-height: 20px; padding-top: 2px; padding-bottom: 2px; white-space: normal; text-align: left; }
 
 .tag.free { background: var(--theme-success-subtle); }
 .tag.free::before { background: var(--theme-success); }
@@ -590,6 +593,22 @@ figure.shot img {
   background: var(--theme-shot-surface);
   box-shadow: var(--theme-shadow-float);
 }
+
+figure.shot img[src$="/check-card.png"] { max-width: min(100%, 480px); }
+figure.shot img[src$="/toolbar-palette-find.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/toolbar-palette-search.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/dmn-spreadsheet-menu.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/import-menu.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/share-menu.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-bpmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-dmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/sidebar-tabs-form.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/toolbar-form.png"] { max-width: min(100%, 420px); }
+figure.shot img[src$="/toolbar-dmn.png"] { max-width: min(100%, 520px); }
+figure.shot img[src$="/toolbar-bar.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/settings-init-terminal.png"] { max-width: min(100%, 560px); }
+figure.shot img[src$="/gs-example-folder.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/workers-check-terminal.png"] { max-width: min(100%, 600px); }
 
 figure.shot figcaption {
   margin-top: var(--space-3);
@@ -848,7 +867,7 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
   min-width: 0;
 }
 
-.host h4 {
+.host .host-name {
   margin: 0 0 var(--space-1);
   font-size: var(--type-size-tiny);
   font-weight: var(--type-weight-semibold);
@@ -860,6 +879,7 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
 
 .host p, .host ul, .host ol { margin: var(--space-1) 0; }
 .host pre { margin: var(--space-2) 0; background: var(--theme-bg-tertiary); }
+.host pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .host code, .host kbd { background: var(--theme-bg-selected-inactive); }
 .host .unavailable { color: var(--theme-fg-secondary); }
 

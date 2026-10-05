@@ -67,7 +67,7 @@ function contents(sectionId) {
 const SECTION_TOKEN = /@(guide|jetbrains|cli|vscode|desktop|rules)\//g;
 
 export function resolveTokens(body) {
-  return body.replaceAll('@img/', '../img/').replace(SECTION_TOKEN, '../$1/');
+  return body.replaceAll('@img/', '../img/').replace(SECTION_TOKEN, '../$1/').replace(/<!-- image:[^>]*-->\n?/g, '');
 }
 
 const pageOf = (from, ref) => {
