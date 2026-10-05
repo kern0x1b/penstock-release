@@ -174,11 +174,11 @@ ready       src/main/resources/shipping-method.dmn  1 convert
 Job workers to write: 2</code></pre>
 <ul>
   <li><code>migrate</code>, <code>migrate analyze</code>: list what does not carry over. Exit code 1 if there is an error, or a warning with <code>--fail-on warning</code>. Free.</li>
-  <li><code>migrate convert</code>: convert the files. It writes over the originals unless you give <code>--out &lt;dir&gt;</code>. Use <code>--dry-run</code> first. Pro, and Team in a pipeline.</li>
+  <li><code>migrate convert</code>: convert the files. It writes the Camunda 8 files into a <code>camunda-8</code> folder next to the one given, or into <code>--out &lt;dir&gt;</code>, and leaves the originals as they are. Use <code>--dry-run</code> first. Pro, and Team in a pipeline.</li>
   <li><code>migrate report</code>: write the report. Free.</li>
   <li><code>--target 8.5</code> to <code>8.9</code>, <code>--format text|json|sarif|github</code>, <code>--baseline</code>, <code>--update-baseline</code>, <code>--verbose</code>.</li>
 </ul>
-<p>After <code>convert</code>, <code>penstock.yaml</code> still says <code>engine: camunda-7</code>. Set <code>engine: camunda-8</code> when you move. See <a href="../cli/commands.html#migrate">Every command</a>.</p>
+<p>The converted folder gets a <code>penstock.yaml</code> of its own that says <code>engine: camunda-8</code>, and the <code>penstock.yaml</code> of the Camunda 7 files is not touched. See <a href="../cli/commands.html#migrate">Every command</a>.</p>
 </section>
 <section class="host" aria-label="VS Code">
 <h4>VS Code</h4>

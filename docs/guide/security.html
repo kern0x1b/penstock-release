@@ -261,7 +261,7 @@
 <h4>JetBrains</h4>
 <ul>
   <li>Secrets are kept in the <strong>IDE password safe</strong>, once for each profile.</li>
-  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a project marked as trusted. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
+  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a trusted project. From IDE 2025.2 the IDE's own <span class="ui">Trust Project</span> decides, and Penstock never overrides it. On 2024.2 and 2025.1 Penstock asks itself, in a dialog that names the command, and keeps the answer in <code>~/.penstock/trusted-projects.json</code>. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
   <li>A private certificate must be trusted by the Java runtime of the IDE. Penstock never skips the check.</li>
   <li>The connector download uses the IDE proxy settings.</li>
 </ul>
@@ -270,6 +270,7 @@
 <h4>Command line</h4>
 <ul>
   <li>Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Set them in the environment of the command, never in a file.</li>
+  <li>A <code>hooks:</code> command from <code>penstock.yaml</code> runs for <code>check</code>, <code>layout</code> and <code>deploy</code> only in a project you have trusted with <code>penstock trust</code>, or for one run with <code>--trust-project</code>. Inside a pipeline, where <code>CI</code> is set, hooks run without a question. A hook sees only <code>PENSTOCK_FILES</code>, <code>PENSTOCK_ROOT</code>, <code>PENSTOCK_STAGE</code> and <code>PENSTOCK_PROFILE</code>, never the licence key, a password or a token.</li>
   <li>The wrapper downloads the pinned version from npm once, into <code>~/.penstock/wrapper</code>. After that it runs offline.</li>
   <li>The connector download uses <code>HTTPS_PROXY</code> and <code>HTTP_PROXY</code> when they are set.</li>
 </ul>
