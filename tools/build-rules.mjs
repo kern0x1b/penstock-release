@@ -157,7 +157,8 @@ const slugOf = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 const familyOfSection = (section) => FAMILIES[section.ids[0].split('/')[0]];
 const groupLink = (section) => `<a href="#${slugOf(section.title)}">${escapeHtml(section.title.toLowerCase())}</a>`;
 const paidGroups = sections.filter((section) => familyOfSection(section).pro);
-const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: ${sections.map(groupLink).join(', ')}. ${paidGroups.map((section) => escapeHtml(section.title.toLowerCase())).join(', ')} are part of Pro. The rest is free.</p>`;
+const paidNames = paidGroups.map((section) => escapeHtml(section.title.toLowerCase()));
+const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: ${sections.map(groupLink).join(', ')}. The groups ${paidNames.length > 1 ? `${paidNames.slice(0, -1).join(', ')}, and ${paidNames.at(-1)}` : paidNames.join('')} are part of Pro. The rest is free.</p>`;
 
 const indexBody = `<h2>How to read a rule page</h2>
 
