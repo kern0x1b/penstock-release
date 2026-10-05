@@ -15,7 +15,7 @@ export function readPrices() {
 function licensingPath() {
   return (
     process.env.PENSTOCK_LICENSING ??
-    path.resolve(root, '..', 'jetbrains-bpmn-editor', 'webview', 'cli', 'licensing.json')
+    path.resolve(root, '..', 'jetbrains-bpmn-editor', 'libs', 'core', 'src', 'node', 'licensing.json')
   );
 }
 

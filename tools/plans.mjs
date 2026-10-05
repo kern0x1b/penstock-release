@@ -44,7 +44,7 @@ export function plansHtml({ prices = readPrices(), checkout = checkoutSettings()
   const embed = checkout.embed === true;
   const cards = Object.entries(prices.plans)
     .map(([tier, plan]) => {
-      const lines = plan.prices.map((price, index) => `<p class="${index === 0 ? 'price' : 'price alt'}">${money(price.amount, price.currency)} <span>${every(price)}</span></p>`).join('\n      ');
+      const lines = plan.prices.map((price, index) => `<p class="${index === 0 ? 'price' : 'price alt'}">${money(price.amount, price.currency)} <span>${plan.seat ? 'per seat ' : ''}${every(price)}</span></p>`).join('\n      ');
       return `  <div class="plan" id="buy-${tier}">
       <p class="name"><span class="tag ${tier === 'team' ? 'team' : 'pro'}">${escapeHtml(plan.name)}</span></p>
       ${lines}
