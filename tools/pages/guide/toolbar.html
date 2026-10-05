@@ -10,9 +10,24 @@ related: bpmn-editor, sidebar, diagram-check, deployment, editing
 
 <p>Some actions are pinned to the bar to start with. You can change that.</p>
 
+<figure class="shot">
+  <img src="@img/toolbar-bar.png" alt="The left end of the toolbar of a diagram: undo and redo, then the words Auto layout, Check, Simulate, Monitor and Scenarios, then the More button">
+  <figcaption>The left end of the bar of a diagram editor, with nothing pressed.</figcaption>
+</figure>
+
 <h2>The command palette</h2>
 
 <p><span class="ui">More</span> opens a searchable list of every action, in sections, with the five you used last first under <em>Recent</em>. It is also the <strong>command palette</strong>, and the first-run tour names it. Type to filter: the letters you matched are marked in each row, and an action answers to keywords as well as to its name, so <code>png</code> finds Export, <code>c8</code> finds what is Camunda 8 and <code>bpmnlint</code> finds Check. Each row has a pin, and the list says how many actions match. With the keyboard, the arrow keys move, <kbd>Enter</kbd> runs the action, <kbd>Shift</kbd>+<kbd>Enter</kbd> pins or unpins it and <kbd>Esc</kbd> closes the list.</p>
+
+<figure class="shot">
+  <img src="@img/toolbar-palette-find.png" alt="The command palette with an empty field that says Find an action. It lists Check, Simulate, Monitor and Scenarios under Check &amp; run, Auto layout under Layout &amp; convert, marked Pro, and Deploy and Share as HTML under Deploy &amp; share. Each row has a pin at its right">
+  <figcaption>The palette before you type: the actions in sections, each with a pin.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/toolbar-palette-search.png" alt="The command palette with tr typed in the field. The first row is Trace paths, in the View section, with its shortcut, and the second is Scenarios. The letters that matched are marked">
+  <figcaption>Typing filters the list and marks the letters that matched.</figcaption>
+</figure>
 
 {{host:command-palette|The command palette in your tool}}
 
@@ -82,13 +97,21 @@ related: bpmn-editor, sidebar, diagram-check, deployment, editing
   </tbody>
 </table></div>
 
+<figure class="shot">
+  <img src="@img/toolbar-form.png" alt="The left end of the toolbar of a form: undo and redo, then the words Preview and Check and the More button">
+  <figcaption>The bar of a form editor.</figcaption>
+</figure>
+
 <p>Deploy is shown when the engine is known. Check on a form is free. The form's Check is off while the file cannot be read, and its tooltip says so. See <a href="dmn-editor.html">The DMN editor</a>, <a href="form-editor.html">The form editor</a> and <a href="sidebar.html">The sidebar</a>.</p>
 
 <h2>Keyboard shortcuts</h2>
 
 <p>The <strong>Keyboard shortcuts</strong> action, in the BPMN, DMN and form editors, opens a sheet with every shortcut of the editor you are in, in groups: Canvas, Edit, Modeling and Penstock. It has a search field, <em>Search actions and keys</em>. The sheet is built from what the editor really binds, so it cannot drift from the editor. Press <kbd>?</kbd> to open it, or choose it from the <span class="ui">More</span> list. Where an action has a shortcut, its tooltip on the bar says so.</p>
 
-<!-- image: keyboard-shortcuts.png, the Keyboard shortcuts sheet open over a diagram with the groups and the search field -->
+<figure class="shot">
+  <img src="@img/keyboard-shortcuts.png" alt="The Keyboard shortcuts sheet open over a diagram. A search field that says Search actions and keys is at the top, and the shortcuts are in four groups: Canvas, Edit, Modeling and Penstock. A Close button is at the bottom right">
+  <figcaption>The sheet in the diagram editor, on macOS: Canvas and Modeling on the left, Edit and Penstock on the right.</figcaption>
+</figure>
 
 <h2>What you see</h2>
 
