@@ -35,6 +35,7 @@
       <a href="../guide/" aria-current="true">Guide</a>
       <a href="../jetbrains/">JetBrains</a>
       <a href="../cli/">Command line</a>
+      <a href="../vscode/">VS Code</a>
       <a href="../guide/plans.html">Plans</a>
       <a href="../license/">Licence</a>
       <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
@@ -61,6 +62,8 @@
       <li><a href="../guide/properties-panel.html">Properties panel</a></li>
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -144,7 +147,7 @@
   </tbody>
 </table></div></div>
 
-<p>145 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. process flow, decision tables, diagrams and code, modelling conventions are part of Pro. The rest is free.</p>
+<p>152 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. process flow, decision tables, diagrams and code, modelling conventions are part of Pro. The rest is free.</p>
 
 <h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
 <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
@@ -332,6 +335,13 @@
   <tr><td><a href="code-missing-implementation"><code>code/missing-implementation</code></a></td><td>Nothing in the code runs a step</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="code-never-thrown"><code>code/never-thrown</code></a></td><td>Nothing in the code throws the error a step catches</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="code-variable-typo"><code>code/variable-typo</code></a></td><td>A variable is read, but only a similar one is set</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-worker-fetch"><code>code/worker-fetch</code></a></td><td>A worker reads a variable it does not fetch</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-writer-unread"><code>code/writer-unread</code></a></td><td>A worker sets a variable no step after it reads</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-lost-update"><code>code/lost-update</code></a></td><td>Every parallel instance writes the same result collection</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-late-read"><code>code/late-read</code></a></td><td>A worker reads a variable no step before it sets</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-near-name"><code>code/near-name</code></a></td><td>A job type, topic, bean, message or error code is one letter off the code</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-mapping-order"><code>code/mapping-order</code></a></td><td>A mapping line reads a value an earlier line was meant to set</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-implicit-job-type"><code>code/implicit-job-type</code></a></td><td>A job worker takes its job type from the method name</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="code-no-worker"><code>code/no-worker</code></a></td><td>No worker handles a job type</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="code-no-topic-worker"><code>code/no-topic-worker</code></a></td><td>No external task worker subscribes to a topic</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="code-class-missing"><code>code/class-missing</code></a></td><td>A class named in the diagram is not in the project</td><td><span class="tag error">Error</span></td></tr>
@@ -374,6 +384,7 @@
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../cli/">Command line</a>
+    <a href="../vscode/">VS Code</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
