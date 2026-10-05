@@ -79,3 +79,24 @@ ${cards}
 ${testMode}
 <p class="note">${facts.join(' ')}</p>`;
 }
+
+export function priceSummaryHtml({ prices = readPrices() } = {}) {
+  const rows = Object.values(prices.plans)
+    .map((plan) => {
+      const costs = plan.prices.map((price) => `${money(price.amount, price.currency)} ${every(price)}`).join(' or ');
+      return `<tr><td>${escapeHtml(plan.name)}</td><td>${costs}${plan.seat ? ' for each seat' : ''}</td></tr>`;
+    })
+    .join('\n    ');
+  return `<div class="table-wrap"><table class="facts">
+    <tbody>
+    <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
+    ${rows}
+    </tbody>
+  </table></div>`;
+}
+
+export function buyLinksHtml({ prices = readPrices(), quiet = false } = {}) {
+  return Object.values(prices.plans)
+    .map((plan, index) => `<a class="btn${quiet && index > 0 ? ' quiet' : ''}" href="${checkoutUrl(prices, plan)}" rel="noopener">Buy ${escapeHtml(plan.name)}</a>`)
+    .join('\n    ');
+}

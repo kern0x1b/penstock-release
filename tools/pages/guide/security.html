@@ -51,7 +51,7 @@ related: sign-in, files, deployment, scenarios
   <tr>
     <td>The command line download</td>
     <td>The first time a project needs a version of the <code>penstock</code> command that is not on the machine. That includes the commands a tool runs for you when the project has no <code>penstockw</code>.</td>
-    <td>The npm registry, package <code>@penstock/cli</code>.</td>
+    <td>The npm registry, package <code>@kern0x1b/penstock-cli</code>.</td>
     <td>A normal npm install request.</td>
   </tr>
   <tr>
@@ -144,7 +144,7 @@ related: sign-in, files, deployment, scenarios
   <dt>My firewall shows a request to GitHub from my tool.</dt>
   <dd>You opened the connector browser, or pressed <span class="ui">Download</span> on a missing template. That is the only GitHub request. It is at most once a day.</dd>
   <dt>My firewall shows a request to npm.</dt>
-  <dd>A command line action needed a version of <code>@penstock/cli</code> that was not on the machine. <code>penstock init</code> adds a wrapper that pins the version and keeps the download in <code>~/.penstock/wrapper</code>.</dd>
+  <dd>A command line action needed a version of <code>@kern0x1b/penstock-cli</code> that was not on the machine. <code>penstock init</code> adds a wrapper that pins the version and keeps the download in <code>~/.penstock/wrapper</code>.</dd>
   <dt>I work offline.</dt>
   <dd>Everything works offline except deploy, engine questions, the connector download and the licence check. An active licence works 30 days without a connection.</dd>
 </dl>

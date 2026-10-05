@@ -87,7 +87,7 @@
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td>Run Penstock</td><td>A menu of command-line actions: Check, Scenarios, JUnit, Code, Docs, Format, Diff Since…, Export… and Doctor. Each runs <code>penstock</code> on the selected file or folder and shows the output in the Run window. It uses the project's <code>penstockw</code> when there is one, and <code>npx @penstock/cli</code> when there is none, which downloads the command the first time. It runs only in a trusted project. Scenarios, JUnit, Code and Docs need Pro.</td></tr>
+  <tr><td>Run Penstock</td><td>A menu of command-line actions: Check, Scenarios, JUnit, Code, Docs, Format, Diff Since…, Export… and Doctor. Each runs <code>penstock</code> on the selected file or folder and shows the output in the Run window. It uses the project's <code>penstockw</code> when there is one, and <code>npx @kern0x1b/penstock-cli</code> when there is none, which downloads the command the first time. It runs only in a trusted project. Scenarios, JUnit, Code and Docs need Pro.</td></tr>
   <tr><td>Reload from Disk</td><td>Re-reads the project from disk. The tree also refreshes by itself when a file changes.</td></tr>
   <tr><td>Run All Process Tests</td><td>Runs every process test. Shown when process tests exist. Pro.</td></tr>
   <tr><td>Group by Files</td><td>Turns the tree round: file by file, with each process's elements and what runs them.</td></tr>
@@ -127,7 +127,7 @@
   <dt>The Run Penstock actions do nothing, or an error says the project is not trusted.</dt>
   <dd>Trust the project. See <a href="troubleshooting.html">Troubleshooting in the IDE</a>.</dd>
   <dt>The first command is slow.</dt>
-  <dd>Without a <code>penstockw</code> in the project, Penstock runs <code>npx @penstock/cli</code> and downloads the command line the first time. <code>penstock init</code> adds the wrapper, which pins a version.</dd>
+  <dd>Without a <code>penstockw</code> in the project, Penstock runs <code>npx @kern0x1b/penstock-cli</code> and downloads the command line the first time. <code>penstock init</code> adds the wrapper, which pins a version.</dd>
   <dt>There is no Go to Implementation.</dt>
   <dd>Code links are a Pro feature, and nothing in the project implements this worker.</dd>
 </dl>

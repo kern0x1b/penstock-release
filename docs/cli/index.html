@@ -67,8 +67,8 @@
 
 <h3 id="1-once-with-npx"><a href="#1-once-with-npx">1. Once, with npx</a></h3>
 
-<pre><code>npx @penstock/cli check .
-npx @penstock/cli doctor</code></pre>
+<pre><code>npx @kern0x1b/penstock-cli check .
+npx @kern0x1b/penstock-cli doctor</code></pre>
 
 <p>It downloads the command the first time and asks the npm registry each time you do not pin a version.</p>
 
@@ -77,7 +77,7 @@ npx @penstock/cli doctor</code></pre>
 <p>The wrapper is a small script, like <code>gradlew</code>, that runs the version your project chooses. Everyone, and your pipeline, runs the same version.</p>
 
 <ol class="steps">
-  <li>In your project run <code>npx @penstock/cli init</code>.</li>
+  <li>In your project run <code>npx @kern0x1b/penstock-cli init</code>.</li>
   <li>Penstock writes three files: <code>penstockw</code>, <code>penstockw.cmd</code> (for Windows) and <code>penstock/wrapper/penstock-wrapper.properties</code>. It also writes <code>penstock.yaml</code> if you have none. See <a href="../guide/settings.html">penstock.yaml</a>.</li>
   <li>Commit all three wrapper files.</li>
   <li>From now on run <code>./penstockw check .</code>. The first run downloads the pinned version into <code>~/.penstock/wrapper/dists</code>. Every later run starts from there, offline.</li>
@@ -147,7 +147,7 @@ npx @penstock/cli doctor</code></pre>
   <dd>The path has no diagram. Check the path, or run from your project folder.</dd>
   <dt>"penstockw needs Node.js 22.22 or later".</dt>
   <dd>Install Node.js 22.22 or later, and make sure <code>node</code> and <code>npm</code> are on the PATH of the shell or the CI job.</dd>
-  <dt>"penstockw could not find the latest @penstock/cli".</dt>
+  <dt>"penstockw could not find the latest @kern0x1b/penstock-cli".</dt>
   <dd>The npm registry could not be reached. Pin a version in <code>penstock-wrapper.properties</code>.</dd>
   <dt>The command says a feature is part of Pro, in a pipeline.</dt>
   <dd>A pipeline needs Team. Give the pipeline a Team key in <code>PENSTOCK_LICENSE</code>. See <a href="../guide/sign-in.html">Buying and signing in</a>.</dd>
