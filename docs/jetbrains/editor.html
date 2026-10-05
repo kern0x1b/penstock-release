@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -64,11 +65,13 @@
 <ul>
 <li><a href="#which-files-open-in-the-editor">Which files open in the editor</a></li>
 <li><a href="#the-two-tabs">The two tabs</a></li>
+<li><a href="#test-case-files">Test-case files</a></li>
 <li><a href="#saving">Saving</a></li>
 <li><a href="#when-the-file-changes-outside-the-editor">When the file changes outside the editor</a></li>
 <li><a href="#themes">Themes</a></li>
 <li><a href="#clipboard">Clipboard</a></li>
 <li><a href="#the-context-menu">The context menu</a></li>
+<li><a href="#the-ide-s-own-features-that-work-on-the-file">The IDE's own features that work on the file</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
@@ -96,7 +99,11 @@
   <li><span class="ui">Text</span> shows the raw XML or JSON in the IDE's own text editor.</li>
 </ul>
 
-<p>Both edit the same file. A change on the canvas shows in the <span class="ui">Text</span> tab at once.</p>
+<p>Both edit the same file. A change on the canvas shows in the <span class="ui">Text</span> tab at once, and the other way round. The editor tab comes first.</p>
+
+<h2 id="test-case-files"><a href="#test-case-files">Test-case files</a></h2>
+
+<p>A Camunda test-case file is a <code>.json</code> file in a folder called <code>test-cases</code>, or any <code>.json</code> file under 1 MB that names the <code>cpt-test-cases</code> schema. When the diagram it belongs to is found, the file gets a second tab called <span class="ui">Scenarios</span>, after the IDE's text editor. The diagram has the same name with a diagram extension, and is in the same folder, in the folder above <code>test-cases</code>, or, for a file under <code>src/test/resources</code>, anywhere under <code>src/main/resources</code>. The tab shows that diagram with its Scenarios panel open. See <a href="test-runner.html">Tests in the IDE</a>.</p>
 
 <h2 id="saving"><a href="#saving">Saving</a></h2>
 
@@ -104,7 +111,7 @@
 
 <h2 id="when-the-file-changes-outside-the-editor"><a href="#when-the-file-changes-outside-the-editor">When the file changes outside the editor</a></h2>
 
-<p>The IDE tells Penstock when a file changes on disk. A dialog called <em>File Changed on Disk</em> asks <span class="ui">Reload</span> or <span class="ui">Keep Editing</span>. Renaming or moving the open file is followed without asking. The editor's own saves are never mistaken for outside changes.</p>
+<p>The IDE tells Penstock when a file changes on disk. A dialog called <em>File Changed on Disk</em> says that the diagram was changed outside the editor, that reloading loads those changes and drops what you have not saved, and that keeping it means your next save overwrites them. The buttons are <span class="ui">Reload</span> and <span class="ui">Keep Editing</span>. Renaming or moving the open file is followed without asking. The editor's own saves are never mistaken for outside changes, even with the same file open in two tabs.</p>
 
 <h2 id="themes"><a href="#themes">Themes</a></h2>
 
@@ -116,7 +123,17 @@
 
 <h2 id="the-context-menu"><a href="#the-context-menu">The context menu</a></h2>
 
-<p>Right-click an element for the editing actions, and, when they apply, <span class="ui">Go to</span> the Java class a task names, and the Pro actions that link to your code. See <a href="code-links.html">Code links in the IDE</a>.</p>
+<p>Right-click an element for the editing actions, and, when they apply, <span class="ui">Go to</span> the Java class a task names, and the Pro actions that link to your code. See <a href="code-links.html">Code links in the IDE</a>. Right-click a Java or Kotlin worker method and <span class="ui">Create element template</span> writes the element template of its job type into <code>.camunda/element-templates</code>. It is part of the code links, so it is Pro.</p>
+
+<h2 id="the-ide-s-own-features-that-work-on-the-file"><a href="#the-ide-s-own-features-that-work-on-the-file">The IDE's own features that work on the file</a></h2>
+
+<ul>
+  <li><strong>Find Action</strong> and the <strong>Keymap</strong> list every action of the editor under <span class="ui">Tools | Penstock</span>. See <a href="settings.html">Settings in the IDE</a> and <a href="shortcuts.html">Shortcuts</a>.</li>
+  <li><strong>Version control</strong> shows two diagrams instead of two blocks of XML when you compare a <code>.bpmn</code> file. See <a href="../guide/diagram-diff.html">Diagram diff</a>.</li>
+  <li><strong>Problems</strong> lists the findings of the check, and <span class="ui">Code | Inspect Code</span> runs it. See <a href="settings.html">Settings in the IDE</a>.</li>
+  <li><strong>Scripts</strong> open in their own editor tab with the IDE's colours and completion. See <a href="../guide/scripts.html">Scripts in their own tab</a>.</li>
+  <li>The files <code>penstock.yaml</code> and <code>.bpmnlintrc</code> have their own icons in the Project view.</li>
+</ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 

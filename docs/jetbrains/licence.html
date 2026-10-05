@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -80,19 +81,19 @@
 
 <h2 id="the-licence-dialog"><a href="#the-licence-dialog">The licence dialog</a></h2>
 
-<p>Open it by clicking the status bar, or with <span class="ui">Tools | Penstock Licence…</span>.</p>
+<p>Open it by clicking the status bar, or with <span class="ui">Tools | Penstock licence…</span>.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td>Without a licence</td><td>One field, <em>E-mail or licence key</em>. Type the address you bought with, and a code is sent. A key works too. <span class="ui">Sign In</span> continues. <span class="ui">Buy Pro</span> opens the checkout. The link <em>Buy Team, for pipelines and the review bot</em> opens the Team checkout.</td></tr>
-  <tr><td>With a licence</td><td>The plan and the address it belongs to, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy Key for CI</span>, <span class="ui">Release This Machine</span> and <span class="ui">Close</span>.</td></tr>
-  <tr><td>When every machine is in use</td><td>A list of the machines and when each was activated. Pick one to free with <span class="ui">Free It for This Machine</span>.</td></tr>
+  <tr><td>Without a licence</td><td>One field, <em>E-mail or licence key</em>. Type the address you bought with, and a code is sent. A key works too. <span class="ui">Sign in</span> continues. <span class="ui">Buy Pro</span> opens the checkout. The link <em>Buy Team, for pipelines and the review bot</em> opens the Team checkout.</td></tr>
+  <tr><td>With a licence</td><td>The plan and the address it belongs to, and the buttons <span class="ui">Buy Team</span> (from Pro), <span class="ui">Copy key for CI</span>, <span class="ui">Release this machine</span> and <span class="ui">Close</span>. <span class="ui">Copy key for CI</span> puts the key on the clipboard, to set as <code>PENSTOCK_LICENSE</code> in a pipeline. Only a Team key works there.</td></tr>
+  <tr><td>When every machine is in use</td><td>A list of the machines and when each was activated. Pick one to free with <span class="ui">Free it for this machine</span>. A machine you free still counts against the limit for up to 30 days, so the licence may not activate on this one yet.</td></tr>
   </tbody>
 </table></div></div>
 
 <h2 id="the-message-that-explains-a-paid-feature"><a href="#the-message-that-explains-a-paid-feature">The message that explains a paid feature</a></h2>
 
-<p>When you use a paid feature without the licence, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and what the feature does. Its buttons are <span class="ui">Buy Pro</span> (or Team), <span class="ui">I Already Bought It</span> and <span class="ui">Not Now</span>. If your trial has ended it says so. When the education offer is set up, a button <span class="ui">Apply for Free Pro</span> is there too.</p>
+<p>When you use a paid feature without the licence, a dialog says, for example, <em>Auto layout is part of Penstock Pro.</em> and what the feature does. Its buttons are <span class="ui">Buy Pro</span> (or <span class="ui">Buy Team</span>), <span class="ui">I already bought it</span> and <span class="ui">Not now</span>. If your trial has ended it says <em>Your 30-day trial has ended</em>. When the education offer for students, teachers and open-source maintainers is set up, a button <span class="ui">Apply for Free Pro</span> is there too, and the licence dialog has an <em>apply</em> link for it.</p>
 
 <h2 id="buy-and-activate"><a href="#buy-and-activate">Buy and activate</a></h2>
 
@@ -103,13 +104,13 @@
   <li>Type the code in. The status bar changes to <em>Penstock Pro</em> or <em>Penstock Team</em>.</li>
 </ol>
 
-<p>On another machine, open the dialog, type the address you bought with in <em>E-mail or licence key</em> and press <span class="ui">Sign In</span>.</p>
+<p>On another machine, open the dialog, type the address you bought with in <em>E-mail or licence key</em> and press <span class="ui">Sign in</span>.</p>
 
 <p>The licence is kept in <code>~/.penstock/license.json</code>, shared with the command line and VS Code. One key covers three machines. Team seats are given out in Polar's customer portal. See <a href="../guide/sign-in.html#team-seats">Buying and signing in</a>.</p>
 
 <h2 id="move-to-another-machine"><a href="#move-to-another-machine">Move to another machine</a></h2>
 
-<p>Open the dialog on the machine you are leaving and press <span class="ui">Release This Machine</span>. Then sign in on the new one. If you cannot reach the old machine, sign in on the new one, and when the dialog lists the machines, press <span class="ui">Free It for This Machine</span> on the one to drop. See <a href="../guide/sign-in.html#move-a-machine">Move a machine</a> for what a release costs.</p>
+<p>Open the dialog on the machine you are leaving and press <span class="ui">Release this machine</span>. Then sign in on the new one. If you cannot reach the old machine, sign in on the new one, and when the dialog lists the machines, press <span class="ui">Free it for this machine</span> on the one to drop. See <a href="../guide/sign-in.html#move-a-machine">Move a machine</a> for what a release costs.</p>
 
 <h2 id="offline-and-cancelling"><a href="#offline-and-cancelling">Offline and cancelling</a></h2>
 
@@ -139,7 +140,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../jetbrains/shortcuts.html"><span>Previous</span>Shortcuts</a>
+<a class="prev" href="../jetbrains/settings.html"><span>Previous</span>Settings in the IDE</a>
 <a class="next" href="../jetbrains/troubleshooting.html"><span>Next</span>Troubleshooting</a>
 </nav>
 </main>

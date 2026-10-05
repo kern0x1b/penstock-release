@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -58,14 +59,14 @@
 <p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Start here</p>
 <h1>Installing</h1>
 <p class="lede">How to put Penstock into your JetBrains IDE, and how to check that it works.</p>
-<p class="meta"><span class="tag free">Free</span> <span>Any JetBrains IDE from 2025.2</span></p>
+<p class="meta"><span class="tag free">Free</span> <span>Any JetBrains IDE from 2024.2</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
 <li><a href="#what-you-need">What you need</a></li>
 <li><a href="#install-the-plugin">Install the plugin</a></li>
 <li><a href="#what-you-see">What you see</a></li>
-<li><a href="#two-builds-one-plugin">Two builds, one plugin</a></li>
+<li><a href="#three-builds-one-plugin">Three builds, one plugin</a></li>
 <li><a href="#update">Update</a></li>
 <li><a href="#uninstall">Uninstall</a></li>
 <li><a href="#the-command-line-is-separate">The command line is separate</a></li>
@@ -75,7 +76,7 @@
 <h2 id="what-you-need"><a href="#what-you-need">What you need</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
-  <tr><td>An IDE</td><td>Any JetBrains IDE from version 2025.2. IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the others all work.</td></tr>
+  <tr><td>An IDE</td><td>Any JetBrains IDE from version 2024.2, with JCEF. The editors, the check, the tool window and deployment need nothing else. The links between diagrams and Java or Kotlin code need the IDE's Java support, which IntelliJ IDEA has.</td></tr>
   <tr><td>JCEF</td><td>The web view the editor is drawn in. The normal IDE downloads have it. If you use a custom runtime without it, see <a href="troubleshooting.html">Troubleshooting</a>.</td></tr>
   <tr><td>The Marketplace name</td><td>Penstock, plugin id 25710. Until 2026 it was called Camunda BPMN Editor. It is the same plugin, so an old install updates in place.</td></tr>
   <tr><td>The price</td><td>Free. Every new machine also gets 30 days of Pro. See <a href="../guide/plans.html">Plans and licence</a>.</td></tr>
@@ -99,14 +100,25 @@
   <li>The file opens as a picture of the process, with a toolbar on top and a properties panel on the right.</li>
   <li>Two tabs sit at the bottom of the editor: <span class="ui">BPMN Editor</span> and <span class="ui">Text</span>. The second one is the raw XML. Both edit the same file.</li>
   <li>A new tool window called <span class="ui">Penstock</span> appears on the left. It lists every diagram, decision and form in the project.</li>
+  <li>The licence is in the status bar: <em>Penstock Pro trial: 30d</em> on a new machine.</li>
+  <li>A <span class="ui">Penstock</span> entry under <span class="ui">Tools</span>, a <span class="ui">Penstock licence…</span> entry there, and a page under <span class="ui">Settings | Tools | Penstock</span>. See <a href="settings.html">Settings in the IDE</a>.</li>
   <li>The first time you open the editor, a short tour of six steps points out the palette, the properties panel, Check, the tool window, Deploy and the More menu. It is shown once. To see it again, open <span class="ui">More</span> and choose <span class="ui">Show the tour again</span>.</li>
 </ul>
 
-<h2 id="two-builds-one-plugin"><a href="#two-builds-one-plugin">Two builds, one plugin</a></h2>
+<h2 id="three-builds-one-plugin"><a href="#three-builds-one-plugin">Three builds, one plugin</a></h2>
 
-<p>Every release ships two builds from the same source. One is for IDEs 2025.2 to 2026.1. The other is for 2026.2 and later. The Marketplace serves the right one for your IDE. You do nothing.</p>
+<p>Every release ships three builds from the same source, because the IDE moved its embedded browser and its test runner into separate modules in 2026.2, and one build cannot cover both. The Marketplace serves the right one for your IDE from one listing. You do nothing.</p>
 
-<p>Versions are numbered by the calendar: <code>26.9.0</code> means year 26, month 9, release 0. The build for the older IDEs has <code>-252</code> after the number and the other has <code>-262</code>. The command line has the bare number.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Build</th><th>IDEs</th></tr></thead>
+  <tbody>
+  <tr><td><code>-242</code></td><td>2024.2 to 2025.1</td></tr>
+  <tr><td><code>-252</code></td><td>2025.2 to 2026.1</td></tr>
+  <tr><td><code>-262</code></td><td>2026.2 and later</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Versions are numbered by the calendar: <code>26.10.0</code> means year 26, month 10, release 0. The build has the suffix after the number, so <code>26.10.0-242</code> is the build for 2024.2 to 2025.1. The command line has the bare number. The features are the same in all three. The one difference is trust: from 2025.2 the IDE's own <span class="ui">Trust Project</span> decides whether a project may run a deploy hook or the command line, and on 2024.2 and 2025.1, which have no such API for plugins, Penstock asks you itself. See <a href="settings.html">Settings in the IDE</a>.</p>
 
 <h2 id="update"><a href="#update">Update</a></h2>
 
@@ -132,11 +144,11 @@
 
 <dl class="problems">
   <dt>The editor is blank or shows only the XML.</dt>
-  <dd>Check that the IDE is 2025.2 or newer and that it has JCEF. Then read <a href="troubleshooting.html">Troubleshooting</a>.</dd>
+  <dd>Check that the IDE is 2024.2 or newer and that it has JCEF. Then read <a href="troubleshooting.html">Troubleshooting</a>.</dd>
   <dt>I cannot find Penstock in the Marketplace.</dt>
   <dd>Search for "Penstock". If you still have "Camunda BPMN Editor" installed, it is the same plugin. Update it and it becomes Penstock.</dd>
   <dt>The IDE says the plugin is not compatible.</dt>
-  <dd>Your IDE is older than 2025.2. Update the IDE first.</dd>
+  <dd>Your IDE is older than 2024.2. Update the IDE first.</dd>
   <dt>A <code>.bpmn</code> file opens as plain XML only.</dt>
   <dd>Use the tabs at the bottom of the editor to switch to <span class="ui">BPMN Editor</span>. If there is no such tab, the plugin is disabled. Turn it on in <span class="ui">Settings | Plugins</span>.</dd>
 </dl>

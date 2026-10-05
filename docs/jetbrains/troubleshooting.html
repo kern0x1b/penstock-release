@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -65,6 +66,8 @@
 <li><a href="#the-editor-area-is-blank">The editor area is blank</a></li>
 <li><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></li>
 <li><a href="#a-command-from-the-tool-window-does-nothing">A command from the tool window does nothing</a></li>
+<li><a href="#the-bpmnlint-rules-of-my-own-plugin-are-not-applied">The bpmnlint rules of my own plugin are not applied</a></li>
+<li><a href="#problems-appear-in-the-ide-that-i-did-not-open">Problems appear in the IDE that I did not open</a></li>
 <li><a href="#deployment-to-a-private-certificate-fails">Deployment to a private certificate fails</a></li>
 <li><a href="#where-else-to-look">Where else to look</a></li>
 <li><a href="#still-stuck">Still stuck</a></li>
@@ -75,8 +78,8 @@
 <h2 id="the-editor-area-is-blank"><a href="#the-editor-area-is-blank">The editor area is blank</a></h2>
 
 <ol class="steps">
-  <li>Check that your IDE is version 2025.2 or newer.</li>
-  <li>The diagram editor is a browser view (JCEF) inside the IDE. An IDE that cannot supply JCEF cannot show a diagram. JetBrains' own downloads run on the JetBrains Runtime, which has it. If you pointed the IDE at another Java runtime, point it back.</li>
+  <li>Check that your IDE is version 2024.2 or newer.</li>
+  <li>The diagram editor is a browser view (JCEF) inside the IDE. An IDE that cannot supply JCEF cannot show a diagram, and the editor area says <em>The editor needs the embedded browser, which this IDE does not have.</em> JetBrains' own downloads run on the JetBrains Runtime, which has it. If you pointed the IDE at another Java runtime, point it back.</li>
   <li>Right-click inside the blank area. If there is an <span class="ui">Open DevTools</span> entry, use it to see the error.</li>
   <li>Use the <span class="ui">Text</span> tab. The XML is never locked away.</li>
 </ol>
@@ -95,10 +98,18 @@
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td>"Running Penstock requires trusting this project first"</td><td>The Run Penstock actions start an external process, which the IDE allows only in a trusted project. Trust the project and run it again. Deployment hooks need trust too.</td></tr>
+  <tr><td>"Running Penstock requires trusting this project first"</td><td>The Run Penstock actions start an external process, which Penstock allows only in a trusted project. From IDE 2025.2 the message adds <em>with the IDE's Trust Project action</em>: use that, and run it again. On 2024.2 and 2025.1 Penstock asks itself, in a dialog called <em>Trust this project?</em> that names the exact command, with <span class="ui">Trust project</span> as the answer that goes ahead. Deployment hooks need trust too. <span class="ui">Settings | Tools | Penstock</span> lists what Penstock itself recorded.</td></tr>
   <tr><td>"Penstock could not start"</td><td>The actions run the project's <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited. Start the IDE from a terminal to test.</td></tr>
   </tbody>
 </table></div></div>
+
+<h2 id="the-bpmnlint-rules-of-my-own-plugin-are-not-applied"><a href="#the-bpmnlint-rules-of-my-own-plugin-are-not-applied">The bpmnlint rules of my own plugin are not applied</a></h2>
+
+<p>A bundle named in <code>lint.clientBundlePath</code> is loaded only from a trusted project, and only if the file is inside the project. Until you trust the project, a notification says the lint rules are not loaded, and the editors reload when you do. See <a href="settings.html">Settings in the IDE</a>.</p>
+
+<h2 id="problems-appear-in-the-ide-that-i-did-not-open"><a href="#problems-appear-in-the-ide-that-i-did-not-open">Problems appear in the IDE that I did not open</a></h2>
+
+<p>The check runs in the background on every <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> file, so its findings are in the IDE's Problems window and the file is marked in the Project view. To stop that, switch off <em>Diagram findings from the check</em> in <span class="ui">Settings | Editor | Inspections | Penstock</span>. The editor keeps its own findings.</p>
 
 <h2 id="deployment-to-a-private-certificate-fails"><a href="#deployment-to-a-private-certificate-fails">Deployment to a private certificate fails</a></h2>
 

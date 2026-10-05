@@ -1,6 +1,6 @@
 <ul>
   <li>Secrets are kept in the <strong>IDE password safe</strong>, once for each profile.</li>
-  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a project marked as trusted. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
+  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a trusted project. From IDE 2025.2 the IDE's own <span class="ui">Trust Project</span> decides, and Penstock never overrides it. On 2024.2 and 2025.1 Penstock asks itself, in a dialog that names the command, and keeps the answer in <code>~/.penstock/trusted-projects.json</code>. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
   <li>A private certificate must be trusted by the Java runtime of the IDE. Penstock never skips the check.</li>
   <li>The connector download uses the IDE proxy settings.</li>
 </ul>

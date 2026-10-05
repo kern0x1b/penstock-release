@@ -330,6 +330,11 @@
               "slug": "shortcuts",
               "title": "Shortcuts",
               "about": "Keys that work in the editor and in the code."
+            },
+            {
+              "slug": "settings",
+              "title": "Settings in the IDE",
+              "about": "The Penstock settings page, inspections, keymap, run configuration and notifications."
             }
           ]
         },

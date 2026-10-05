@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -64,6 +65,9 @@
 <ul>
 <li><a href="#from-code-to-diagram">From code to diagram</a></li>
 <li><a href="#from-diagram-to-code">From diagram to code</a></li>
+<li><a href="#element-references-in-comments-and-strings">Element references in comments and strings</a></li>
+<li><a href="#inspections-and-quick-fixes">Inspections and quick fixes</a></li>
+<li><a href="#element-templates-from-a-worker">Element templates from a worker</a></li>
 <li><a href="#the-debugger">The debugger</a></li>
 <li><a href="#other-repositories-and-other-languages">Other repositories and other languages</a></li>
 <li><a href="#what-you-see">What you see</a></li>
@@ -99,9 +103,21 @@
   <li>The <a href="tool-window.html">tool window</a> shows, under each job type, topic, class and bean, the code that implements it. A worker nothing implements is marked, once the project implements any of them.</li>
 </ul>
 
+<h2 id="element-references-in-comments-and-strings"><a href="#element-references-in-comments-and-strings">Element references in comments and strings</a></h2>
+
+<p>A reference to an element can be written in a comment or a string, in any language: the file name or path of the diagram, then <code>#</code> and the element id, as in <code>order.bpmn#ServiceTask_charge</code>, or a process id then <code>#</code> and the element id. Ctrl or Cmd and click opens the diagram with that element selected. Completion after <code>#</code> offers the ids of the diagram that is named. An id that no diagram has is marked, and a quick fix offers the near ones.</p>
+
+<h2 id="inspections-and-quick-fixes"><a href="#inspections-and-quick-fixes">Inspections and quick fixes</a></h2>
+
+<p>The marks above come from inspections in the group <em>Penstock</em> of <span class="ui">Settings | Editor | Inspections</span>, so each can be switched off. They are listed in <a href="settings.html">Settings in the IDE</a>. The quick fixes are <span class="ui">Change to</span> a near name, <span class="ui">Name the job type</span> in an annotation, and <span class="ui">Use an element id from the diagrams</span>.</p>
+
+<h2 id="element-templates-from-a-worker"><a href="#element-templates-from-a-worker">Element templates from a worker</a></h2>
+
+<p>Right-click a <code>@JobWorker</code> method, a <code>newWorker().jobType(...)</code> registration or a Camunda 7 external task subscription and choose <span class="ui">Create element template</span>. It writes the template of the job type or topic into <code>.camunda/element-templates</code>, with one field for each variable the worker reads, and the variables it sets as output mappings. A template that exists for that job type is updated, and the labels and descriptions you wrote are kept. The tool window shows which worker a template came from. See <a href="../guide/element-templates.html">Element templates</a>.</p>
+
 <h2 id="the-debugger"><a href="#the-debugger">The debugger</a></h2>
 
-<p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. On Camunda 7, Operaton and CIB seven it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
+<p>When the debugger stops in a job worker, an external task handler, a <code>JavaDelegate</code> or a task listener, the diagram marks the task it is running for, with the process instance. The position is read while the debugger is paused, and again when you pick another stack frame, so it follows the frame you are looking at. On Camunda 7, Operaton and CIB seven it marks the other active elements of that instance too. The tool window lists the same under <strong>Debug</strong>. The marks go when the program resumes.</p>
 
 <h2 id="other-repositories-and-other-languages"><a href="#other-repositories-and-other-languages">Other repositories and other languages</a></h2>
 
@@ -111,7 +127,7 @@
 
 <ul>
   <li>Underlined strings you can click, and small gutter icons beside them.</li>
-  <li>Grey lines above workers and tests (Code Vision).</li>
+  <li>Grey lines above workers and tests (Code Vision). The Code Vision provider is named <em>Diagrams that use the code</em>.</li>
   <li>Marks on the diagram while the debugger is stopped in a worker.</li>
 </ul>
 

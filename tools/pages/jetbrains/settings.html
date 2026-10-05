@@ -1,0 +1,84 @@
+<!--
+title: Settings in the IDE
+lede: What Penstock adds to the IDE's Settings, which inspections it brings, how to bind a shortcut to its actions, and the notifications it shows.
+tags: free
+related: where-things-are, shortcuts, guide/settings, guide/security
+-->
+<p>The settings of a project are in <code>penstock.yaml</code>, so they travel with the repository and the command line reads them too. They are described once in <a href="@guide/settings.html">penstock.yaml</a>. This page is about the places in the IDE's own Settings where Penstock appears.</p>
+
+<h2>Settings | Tools | Penstock</h2>
+
+<p>The page has two groups. It holds no project settings, and there is nothing to apply.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>About: Version</td><td>The version of the plugin that is running. A build that is not a release says <em>development</em>.</td></tr>
+  <tr><td>About: Open source licenses</td><td>A link that opens the notices of the bundled open-source components in an editor tab. The same text is on the <a href="../notices/">third-party notices</a> page.</td></tr>
+  <tr><td>Trusted projects</td><td>The projects Penstock has been told to trust, each with a <span class="ui">Remove</span> button. On IDE 2025.2 and later the list is empty by design: the page says the IDE decides, with its own <span class="ui">Trust Project</span> action, so Penstock keeps no list of its own. On 2024.2 and 2025.1 the list is Penstock's own record, kept in <code>~/.penstock/trusted-projects.json</code>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Three things run code that a project supplies, so each asks for trust first: a deploy hook from <code>penstock.yaml</code>, the project's Penstock command line, and the project's own bpmnlint bundle. The question is described in <a href="@guide/security.html">Security and privacy</a>. The command line keeps the same record, and <a href="@cli/commands.html#trust"><code>penstock trust</code></a> reads and changes it.</p>
+
+<h2>Settings | Editor | Inspections | Penstock</h2>
+
+<p>Penstock adds five inspections in one group. Each can be switched off, and each has a quick fix where one makes sense.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Inspection</th><th>Default level</th><th>What it reports</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td>Diagram findings from the check</td><td>Error</td><td>What the <a href="@guide/diagram-check.html">check</a> found in a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file: shapes drawn on top of each other, a connection through a shape, the bpmnlint rules, a decision table with no rule for some input, two form fields writing one variable. It runs in the background on the file as it is on disk, so no diagram has to be open. The file is marked in the Project view, and the findings are in the IDE's Problems window and in <span class="ui">Code | Inspect Code</span>. Turning it off hides the findings from the IDE and leaves them in the editor.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Unknown process, element, job type, message, decision or error code</td><td>Weak warning</td><td>A name in code that no diagram in the project has, where the code hands it to Camunda: starting a process, asserting in a test, a <code>@JobWorker</code> or external task subscription, correlating a message, evaluating a decision, throwing a BPMN error. A name that differs only in case is pointed out, with a fix.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Diagram element a comment or a string names, and the project does not have</td><td>Weak warning</td><td>A reference such as <code>order.bpmn#ServiceTask_charge</code> in a comment or a string, whose element is not there. A near id is offered as a fix.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Variable the worker's code reads or writes</td><td>Weak warning</td><td>A variable that a worker reads and no step before it sets, one it does not fetch and so gets as null, and one it writes that no later step reads, on the line that reads or writes it. Works in any language.</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>Job type taken from the method name</td><td>Weak warning</td><td>A <code>@JobWorker</code> without a <code>type</code> whose method name is a job type the diagrams use, so renaming the method silently stops the worker. The fix writes the job type into the annotation.</td><td><span class="tag pro">Pro</span></td></tr>
+  </tbody>
+</table></div>
+
+<p>The unknown name, the variable and the job type inspections need the IDE's Java support to read code. See <a href="code-links.html">Code links in the IDE</a>.</p>
+
+<h2>Settings | Keymap</h2>
+
+<p>Every action of the editor is an IDE action under <span class="ui">Tools | Penstock</span>, in the groups <em>Check &amp; run</em>, <em>Layout &amp; convert</em>, <em>Deploy &amp; share</em>, <em>View</em>, <em>File</em>, <em>Edit</em> and <em>Help</em>. Search the keymap for the name, or press the key you want, to bind it. The same actions are in <span class="ui">Find Action</span>. They work while a Penstock editor has the focus, and there they come before the IDE's own actions that use the same keys. The four that have a default key are in <a href="shortcuts.html">Shortcuts</a>.</p>
+
+<h2>Settings | Editor | File Types</h2>
+
+<p>Penstock registers three file types: BPMN (<code>bpmn</code>, <code>bpmn.xml</code>, <code>bpmn20.xml</code>), DMN (<code>dmn</code>) and Camunda Form (a <code>.form</code> file that is a Camunda Form). If a file opens as plain XML, check that its pattern is still under the right type. See <a href="editor.html">The editor in the IDE</a>.</p>
+
+<h2>Run | Edit Configurations</h2>
+
+<p>The configuration type <span class="ui">Penstock test cases</span> runs Camunda test-case files against an engine. It is created for you when you run a test-case file, and it has three fields: the test-case file or folder, the name of one test case to run, and the engine profile. See <a href="test-runner.html">Tests in the IDE</a>.</p>
+
+<h2>Notifications</h2>
+
+<p>Penstock shows balloon notifications, all in one group. These are the ones it can show.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Notification</th><th>When</th></tr></thead>
+  <tbody>
+  <tr><td><em>Penstock updated to</em> the new version, with <span class="ui">What's new</span></td><td>The first time the IDE starts after an update. Never after a fresh install. The button opens the changelog in an editor tab.</td></tr>
+  <tr><td><em>Penstock settings can live in the project</em>, with <span class="ui">Create penstock.yaml</span></td><td>Once for a project that still keeps its engine in the IDE's own project settings and has no <code>penstock.yaml</code>.</td></tr>
+  <tr><td><em>penstock.yaml could not be read</em></td><td>When the file has a syntax error or a setting of the wrong type. Until it is fixed, Penstock uses the IDE's settings, and the notification says why.</td></tr>
+  <tr><td><em>This project's lint rules are not loaded until you trust the project</em>, with <span class="ui">Trust project...</span></td><td>When <code>lint.clientBundlePath</code> names a bundle and the project is not trusted. The editors reload when you trust it. On IDE 2025.2 and later the message tells you to use the IDE's <span class="ui">Trust Project</span> action instead.</td></tr>
+  <tr><td><em>Running Penstock requires trusting this project first</em></td><td>When a Run Penstock action is started in a project that is not trusted.</td></tr>
+  <tr><td><em>Penstock could not start</em></td><td>When the command line cannot be started. It needs Node.js on the PATH, the same as the command line itself.</td></tr>
+  <tr><td>The result of a deployment</td><td>After <span class="ui">Deploy</span>, whether the engine took it or not.</td></tr>
+  <tr><td>An offer to rename the places that still hold an old name</td><td>After you change a job type, topic, class, bean, message or process id in the properties panel. See <a href="rename.html">Rename in the IDE</a>.</td></tr>
+  <tr><td>An offer to buy Penstock</td><td>When a paid feature is used without the licence, and when the trial ends. See <a href="licence.html">Licence in the IDE</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>The schema for penstock.yaml</h2>
+
+<p>The plugin registers a schema for <code>penstock.yaml</code>, <code>penstock.yml</code>, <code>penstock.json</code> and their <code>.local</code> versions, so completion, validation and hover help work with no setup and no network. The files have their own icons in the Project view, and so has <code>.bpmnlintrc</code>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The Trusted projects group is empty.</dt>
+  <dd>On IDE 2025.2 and later it always is. Use the IDE's own <span class="ui">Trust Project</span> action.</dd>
+  <dt>I turned the check inspection off and still see findings.</dt>
+  <dd>That is meant. The editor keeps showing its own findings. Only the IDE's Problems window and <span class="ui">Inspect Code</span> stop listing them.</dd>
+  <dt>An inspection of the group is missing from the list.</dt>
+  <dd>Three of them, unknown name, variable and job type from the method name, need the IDE's Java support to read code, which IntelliJ IDEA has and some other IDEs do not.</dd>
+</dl>

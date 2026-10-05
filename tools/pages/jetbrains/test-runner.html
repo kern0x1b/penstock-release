@@ -11,7 +11,7 @@ related: guide/scenarios, guide/process-tests, tool-window, code-links
 
 <ol class="steps">
   <li>Open a test case file, for example <code>orders.json</code>.</li>
-  <li>Click the green triangle in the gutter next to a test case. Or right-click the file or a folder and run it.</li>
+  <li>Click the green triangle in the gutter next to a test case. Or right-click the file, or a folder called <code>test-cases</code>, and run it.</li>
   <li>The IDE's Run window shows a test tree, pass or fail, and the log. Double-click a test to open it in the file.</li>
 </ol>
 
@@ -30,7 +30,19 @@ related: guide/scenarios, guide/process-tests, tool-window, code-links
 
 <h2>The run configuration</h2>
 
-<p>Running a test-case file creates a run configuration called <em>Penstock test cases</em>. It takes a file or a folder of test cases and a profile. You can run it again from the run widget at the top right of the IDE, like any other run configuration.</p>
+<p>Running a test-case file creates a run configuration of the type <em>Penstock test cases</em>, named after what it runs. It has three fields:</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Test-case file or folder</td><td>One file, or a folder, in which every test-case file under it runs.</td></tr>
+  <tr><td>Only the test case named</td><td>Empty to run all of them. The gutter triangle of one test case fills it in.</td></tr>
+  <tr><td>Engine profile</td><td><em>The profile in force</em>, or a profile of <code>penstock.yaml</code>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>You can run it again from the run widget at the top right of the IDE, like any other run configuration. It is in <span class="ui">Run | Edit Configurations</span> too. The test tree is the IDE's own test runner. <code>penstock scenarios run</code> runs the same files in a terminal.</p>
+
+<p>The run happens in Penstock's project core, which needs JCEF. In an IDE without it the Run window says so and points at <code>penstock scenarios run</code>. If the core does not answer within 20 seconds, or does not start within two minutes, the run is stopped and the Run window says which.</p>
 
 <h2>Run and debug process tests from the diagram</h2>
 
@@ -59,5 +71,7 @@ related: guide/scenarios, guide/process-tests, tool-window, code-links
   <dt>There is no Coverage button.</dt>
   <dd>No test report was found yet. Run the process tests first.</dd>
   <dt>There is no green triangle in the gutter.</dt>
-  <dd>The file is not a Camunda Process Test JSON test-case file, or Pro is not active.</dd>
+  <dd>The file is not a Camunda test-case file: a <code>.json</code> file in a folder called <code>test-cases</code>, or one that names the <code>cpt-test-cases</code> schema. The IDE's JSON support must also be on.</dd>
+  <dt>A run says it needs Pro.</dt>
+  <dd>Running a process against an engine is part of Penstock Pro. See <a href="licence.html">Licence in the IDE</a>.</dd>
 </dl>

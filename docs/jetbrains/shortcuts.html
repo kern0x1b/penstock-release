@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Shortcuts - Penstock</title>
-<meta name="description" content="The keys that work in the Penstock editor and in your code inside a JetBrains IDE.">
+<meta name="description" content="The keys that work in the Penstock editor and in your code inside a JetBrains IDE, with the default of each, and how to bind your own.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/jetbrains/shortcuts.html">
 <link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -47,6 +47,7 @@
       <li><a href="../jetbrains/rename.html">Rename in the IDE</a></li>
       <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a></li>
       <li><a href="../jetbrains/shortcuts.html" aria-current="page">Shortcuts</a></li>
+      <li><a href="../jetbrains/settings.html">Settings in the IDE</a></li>
     </ul>
     <h2>Licence and help</h2>
     <ul>
@@ -57,21 +58,57 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../jetbrains/">JetBrains</a> / Using it</p>
 <h1>Shortcuts</h1>
-<p class="lede">The keys that work in the Penstock editor and in your code inside a JetBrains IDE.</p>
+<p class="lede">The keys that work in the Penstock editor and in your code inside a JetBrains IDE, with the default of each, and how to bind your own.</p>
 <p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#keys-penstock-adds-to-the-ide-s-keymap">Keys Penstock adds to the IDE's keymap</a></li>
+<li><a href="#in-the-diagram-editor">In the diagram editor</a></li>
+<li><a href="#in-your-code-and-in-the-tool-window">In your code and in the tool window</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<p>Cmd is the key on a Mac, and Ctrl is the key on Windows and Linux. Alt is Option on a Mac.</p>
+
+<h2 id="keys-penstock-adds-to-the-ide-s-keymap"><a href="#keys-penstock-adds-to-the-ide-s-keymap">Keys Penstock adds to the IDE's keymap</a></h2>
+
+<p>Four actions have a default key. They are IDE actions, so you can change them in <span class="ui">Settings | Keymap</span>, under <span class="ui">Tools | Penstock</span>. They work while a Penstock editor has the focus, and there they come before the IDE's own actions that use the same keys.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Action</th><th>Mac</th><th>Windows and Linux</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td>Find action</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd></td><td>Opens the searchable list of every action of the editor, the same as the <span class="ui">…</span> button in the toolbar.</td></tr>
+  <tr><td>Sidebar</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td>Shows or hides the sidebar.</td></tr>
+  <tr><td>Trace paths</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd></td><td>Traces the paths through the selected step. Press it again, press <kbd>Esc</kbd> or click the empty canvas to end it. See <a href="../guide/trace-paths.html">Trace paths</a>.</td></tr>
+  <tr><td>Export…</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td>Opens the export dialog: save the diagram as SVG, PNG or PDF, or copy it as a picture. See <a href="../guide/export.html">Export</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Every other action of the editor is in the keymap without a key. Look for it under <span class="ui">Tools | Penstock</span>, in one of seven groups: <em>Check &amp; run</em>, <em>Layout &amp; convert</em>, <em>Deploy &amp; share</em>, <em>View</em>, <em>File</em>, <em>Edit</em> and <em>Help</em>. The same actions are in <span class="ui">Find Action</span>. To bind one, search the keymap for its name and add a shortcut.</p>
+
 <h2 id="in-the-diagram-editor"><a href="#in-the-diagram-editor">In the diagram editor</a></h2>
+
+<p>These are keys of the editor itself. The list is for a process. The decision diagram has fewer, and the form editor has only undo and redo. The IDE does not know them, so they cannot be changed in the keymap. The editor's own <span class="ui">Keyboard shortcuts</span> sheet lists every one for the editor you have open, with a search field. Open it with <kbd>?</kbd>, or from <span class="ui">Find action</span>.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>What it does</th></tr></thead>
   <tbody>
   <tr><td><kbd>Cmd</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo.</td></tr>
-  <tr><td><kbd>Cmd</kbd>+<kbd>Y</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Redo.</td></tr>
-  <tr><td><kbd>Cmd</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>Copy the selection.</td></tr>
-  <tr><td><kbd>Cmd</kbd>+<kbd>V</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Paste.</td></tr>
-  <tr><td><kbd>Del</kbd></td><td>Delete the selection.</td></tr>
-  <tr><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td>Copy as image: the selection, or the whole diagram when nothing is selected, as a PNG on the clipboard.</td></tr>
-  <tr><td>Mouse wheel with <kbd>Cmd</kbd> or <kbd>Ctrl</kbd></td><td>Zoom the canvas.</td></tr>
-  <tr><td><kbd>Esc</kbd></td><td>Close a dialog.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>Y</kbd>, <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd> or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>, and the same with <kbd>Ctrl</kbd></td><td>Redo.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>X</kbd>, <kbd>C</kbd>, <kbd>V</kbd> / <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>C</kbd>, <kbd>V</kbd></td><td>Cut, copy and paste the selection.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>D</kbd> / <kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>Duplicate the selection.</td></tr>
+  <tr><td><kbd>Backspace</kbd> or <kbd>Delete</kbd></td><td>Delete the selection.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>Select all elements.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>F</kbd> / <kbd>Ctrl</kbd>+<kbd>F</kbd></td><td>Find in the diagram.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>=</kbd> and <kbd>Cmd</kbd>+<kbd>-</kbd> / <kbd>Ctrl</kbd>+<kbd>=</kbd> and <kbd>Ctrl</kbd>+<kbd>-</kbd></td><td>Zoom in and out.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>0</kbd> / <kbd>Ctrl</kbd>+<kbd>0</kbd></td><td>Fit the diagram in the canvas.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+arrow / <kbd>Ctrl</kbd>+arrow</td><td>Pan the canvas.</td></tr>
+  <tr><td>Arrow</td><td>Move the selection.</td></tr>
+  <tr><td><kbd>S</kbd>, <kbd>L</kbd>, <kbd>H</kbd>, <kbd>C</kbd></td><td>Space tool, lasso select, hand tool, connect. In a decision requirements diagram only the lasso and the hand are there.</td></tr>
+  <tr><td><kbd>E</kbd> and <kbd>R</kbd></td><td>Edit a label, and replace an element (<kbd>R</kbd> in a process only).</td></tr>
+  <tr><td><kbd>Esc</kbd></td><td>Ends a trace of paths.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -80,7 +117,8 @@
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><kbd>Cmd</kbd>+click / <kbd>Ctrl</kbd>+click on a string</td><td>Go to the diagram element it names. Same as <span class="ui">Go to Declaration</span>. Pro. See <a href="code-links.html">Code links in the IDE</a>.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+click / <kbd>Ctrl</kbd>+click on a string or a comment</td><td>Go to the diagram element it names. Same as <span class="ui">Go to Declaration</span>. Pro. See <a href="code-links.html">Code links in the IDE</a>.</td></tr>
+  <tr><td><kbd>Shift</kbd>+<kbd>F6</kbd> on a name that diagrams and code share</td><td>Rename it in both. Pro. See <a href="rename.html">Rename in the IDE</a>.</td></tr>
   <tr><td>The IDE's own shortcut for <span class="ui">Find Usages</span></td><td>In the tool window, on a node: find the code that names it.</td></tr>
   <tr><td>The IDE's own shortcut for <span class="ui">Go to Implementation</span></td><td>In the tool window, on a worker: open its implementation.</td></tr>
   <tr><td>The IDE's own shortcut for <span class="ui">Copy</span></td><td>In the tool window: copy the id of the node.</td></tr>
@@ -88,31 +126,36 @@
   </tbody>
 </table></div></div>
 
-<p>The IDE's own shortcuts depend on the keymap you chose. Look them up in <span class="ui">Settings | Keymap</span>. Penstock does not define shortcuts of its own for them.</p>
+<p>The IDE's own shortcuts depend on the keymap you chose. Look them up in <span class="ui">Settings | Keymap</span>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
-<p>The keys above show next to their entries in the context menu of the editor and of the tool window.</p>
+<p>The keys show next to their entries in the editor's toolbar tooltips, in the <span class="ui">Find action</span> list and in the <span class="ui">Keyboard shortcuts</span> sheet. In the IDE, the keymap shows the same four.</p>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
   <dt>A key does nothing in the diagram.</dt>
   <dd>The canvas must have focus. Click an empty spot on it. During a token simulation, keys that edit the diagram are switched off.</dd>
+  <dt>A Penstock key does nothing outside the editor.</dt>
+  <dd>The four actions are active only while a Penstock editor has the focus. In another tab the IDE's own action with that key runs.</dd>
   <dt>Cmd/Ctrl+click does nothing on a string.</dt>
   <dd>Code links need Pro, and the string must be a name a diagram uses.</dd>
+  <dt>Cmd/Ctrl+Shift+C does not copy a picture.</dt>
+  <dd>It opens the export dialog. Copying the diagram as a picture is a choice in that dialog.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
 <li><a href="../jetbrains/where-things-are.html">Where things are in the IDE</a> - Every place Penstock shows up: toolbar, tool window, menus, gutter.</li>
+<li><a href="../jetbrains/settings.html">Settings in the IDE</a> - The Penstock settings page, inspections, keymap, run configuration and notifications.</li>
 <li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
 <li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../jetbrains/test-runner.html"><span>Previous</span>Tests in the IDE</a>
-<a class="next" href="../jetbrains/licence.html"><span>Next</span>Licence in the IDE</a>
+<a class="next" href="../jetbrains/settings.html"><span>Next</span>Settings in the IDE</a>
 </nav>
 </main>
 </div>
