@@ -26,6 +26,11 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
   </tbody>
 </table></div>
 
+<figure class="shot">
+  <img src="@img/sidebar-tabs-bpmn.png" alt="The tab row of a diagram: an icon for Properties, an icon for Scenarios, the open tab Problems with a badge of 5, and icons for Comments, Monitor and Code">
+  <figcaption>The tab row of a diagram with Problems open. The count of findings is the badge.</figcaption>
+</figure>
+
 <p>The tab that is open shows an icon and its name. Every other tab is an icon, and resting the pointer on it names it. A count badge sits on Problems, and on Comments in a diagram. A tab with nothing to show says what it is for and what to do next, rather than staying blank. The arrow keys move between the tabs.</p>
 
 <h2>What each tab is for</h2>
@@ -50,6 +55,11 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
 
 <p>The sidebar toggle is the last thing on the toolbar, at the right edge, and it stays pressed while the sidebar is open. It is the <strong>Sidebar</strong> action, so it is also in the <span class="ui">More</span> menu and the command palette.</p>
 
+<figure class="shot">
+  <img src="@img/sidebar-toggle-off.png" alt="The diagram editor with the sidebar hidden. The canvas fills the window, and the sidebar toggle at the right end of the toolbar, beside Deploy, is not pressed">
+  <figcaption>The sidebar hidden: the canvas takes the whole width.</figcaption>
+</figure>
+
 {{host:sidebar-toggle|Open the sidebar}}
 
 <h2>How wide, and what it remembers</h2>
@@ -57,6 +67,11 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
 <p>The sidebar takes about a third of the width of the editor, between 320 and 480 pixels. The dividing line can be dragged from 280 pixels to half the editor, and a double click on it brings back the default width. With the keyboard, focus the dividing line and use the left and right arrow keys.</p>
 
 <p>Below about 960 pixels of editor width the sidebar is a drawer over the canvas rather than a column beside it, so the canvas keeps room for the toolbar. A drawer has a close button at the end of the tab row. Closed that way it leaves a slim bar with the name of the tab, and for Scenarios the step you are on, and a button that opens it again.</p>
+
+<figure class="shot">
+  <img src="@img/sidebar-drawer.png" alt="A narrow editor with the sidebar as a drawer over the right of the canvas, showing Properties for the process Order to cash. A close button is at the end of the tab row">
+  <figcaption>At a narrow width the sidebar is a drawer over the canvas, with a close button at the end of the tab row.</figcaption>
+</figure>
 
 <p>The width is kept in <code>~/.penstock/preferences.json</code>, so it is the same in every tool on the machine. The tab you left selected, and whether the sidebar was hidden, are kept for each editor separately: a diagram, a decision and a form each come back on the tab you left in that kind of file.</p>
 
