@@ -84,7 +84,7 @@
 
 <h2 id="connect-an-ai-assistant"><a href="#connect-an-ai-assistant">Connect an AI assistant</a></h2>
 
-<p>The CLI needs Node.js. Node.js 22.22 or later should be on the PATH of your assistant. <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code> are free. The other tools are part of Penstock Pro, and Team in a pipeline, as <code>penstock mcp --help</code> states.</p>
+<p>The CLI needs Node.js. Node.js 22.22 or later must be on the PATH of your assistant. <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code> are free. The other tools are part of Penstock Pro, and Team in a pipeline, as <code>penstock mcp --help</code> states.</p>
 
 <p>Running <code>penstock mcp --config</code> prints the standard client configuration. There is no project folder in the entry: you configure it once, and the server finds each project from the files the assistant asks about.</p>
 
@@ -213,7 +213,7 @@
 
 <dl class="problems">
   <dt>The assistant does not see the tools.</dt>
-  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 22.22 or later should be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
+  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 22.22 or later must be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
   <dt>"must be an absolute path to a diagram" or "\"project\" must be an absolute path".</dt>
   <dd>The tools take absolute paths. Ask the assistant to pass the full path, as <code>list_diagrams</code> prints it.</dd>
   <dt>"is outside the workspace roots".</dt>
