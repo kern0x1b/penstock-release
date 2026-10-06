@@ -1,10 +1,10 @@
 <!--
 title: Shortcuts in VS Code
-lede: The four keys Penstock binds in VS Code, and how undo and redo work in a diagram.
+lede: The keys Penstock binds in the editor and the project tree, and how undo, redo and rename work.
 tags: free
 related: where-things-are, code-links, guide/editing
 -->
-<h2>The keys Penstock binds</h2>
+<h2>In the editor</h2>
 
 <div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>Command</th><th>What it does</th></tr></thead>
@@ -18,17 +18,31 @@ related: where-things-are, code-links, guide/editing
 
 <p>Every one of these is bound only while a Penstock editor has the focus. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> is also the terminal's copy key on Windows and Linux, and this keeps it that way. Outside a Penstock editor, VS Code's own key applies.</p>
 
+<h2>In the Penstock view</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>Command</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F12</kbd></td><td>Find usages</td><td>Find usages of the selected node in code. Pro.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd><br><kbd>Cmd</kbd>+<kbd>C</kbd> on a Mac</td><td>Copy</td><td>Copy the ID of the selected node to the clipboard.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>F12</kbd><br><kbd>Cmd</kbd>+<kbd>F12</kbd> on a Mac</td><td>Go to implementation</td><td>Open the code that implements the selected task. Pro.</td></tr>
+  <tr><td><kbd>Enter</kbd></td><td>Open</td><td>Open the diagram or code file for the node.</td></tr>
+  </tbody>
+</table></div>
+
+<p>These keys are bound while the Penstock view in the Activity Bar has focus.</p>
+
 <h2>Undo and redo</h2>
 
 <p>The text document is the only history of a diagram, and the diagram's own undo and redo keys and buttons ask VS Code to undo and redo. So VS Code's keys for Undo and Redo move the diagram, and so does <span class="ui">Edit | Undo</span>.</p>
 
 <h2>Any other action</h2>
 
-<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the four keys above do.</p>
+<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the four editor keys above do.</p>
 
 <h2>In your code</h2>
 
-<p>Penstock defines no keys for the code links. They use VS Code's own: <span class="ui">Go to Definition</span> and <span class="ui">Find All References</span> reach the diagrams, and a click on a code lens opens the diagram. See <a href="code-links.html">Code links in VS Code</a>.</p>
+<p>Press <kbd>F2</kbd> on a name that diagrams and code share (a job type, topic, bean, message, signal, process, decision, form or error) to rename it in both. Pro. Navigation commands use VS Code's standard keys: <span class="ui">Go to Definition</span> (<kbd>F12</kbd>) and <span class="ui">Find All References</span> (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F12</kbd>) reach the diagrams, and a click on a code lens opens the diagram. See <a href="code-links.html">Code links in VS Code</a>.</p>
 
 <h2>Common problems</h2>
 

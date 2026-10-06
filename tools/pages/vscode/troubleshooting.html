@@ -9,7 +9,7 @@ related: guide/troubleshooting, where-things-are, installing, licence
 <h2>A file opens as text, not in the editor</h2>
 
 <ul>
-  <li>The Penstock editors claim <code>*.bpmn</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
+  <li>The Penstock editors claim <code>*.bpmn</code>, <code>*.bpmn.xml</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
   <li>A file that you opened with <span class="ui">Penstock: Open as text</span> stays text, and Penstock remembers that. To get the diagram back, use <span class="ui">Reopen Editor With…</span> and choose the Penstock editor.</li>
   <li>A file that was already open as text when VS Code started is switched to the editor once the extension is active, unless you opened it as text on purpose.</li>
   <li>The extension needs the files on the local disk. In a virtual workspace it does not work.</li>
@@ -22,7 +22,7 @@ related: guide/troubleshooting, where-things-are, installing, licence
   <tr><td>The command is greyed out in the palette</td><td>The Penstock commands are enabled while a Penstock editor has focus. Click the diagram first. An action the open diagram has switched off is greyed out too.</td></tr>
   <tr><td>"Penstock: open a Penstock editor to use …"</td><td>The command ran with no Penstock editor open. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file.</td></tr>
   <tr><td>"Penstock: … is not available for this diagram."</td><td>The open diagram does not offer that action.</td></tr>
-  <tr><td>A key does nothing</td><td>The four Penstock keys are bound only while a Penstock editor has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
+  <tr><td>A key does nothing</td><td>The Penstock editor keys are bound only while a Penstock editor has focus, and the project tree keys are bound while the Penstock view has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
   </tbody>
 </table></div>
 
@@ -32,13 +32,13 @@ related: guide/troubleshooting, where-things-are, installing, licence
 
 <ul>
   <li>the Camunda 7 to Camunda 8 conversion and its preview;</li>
-  <li>running the tests a diagram is linked to, from the diagram;</li>
-  <li>the debugger's position on the diagram;</li>
-  <li>renaming what a diagram links to, in diagrams and code together;</li>
+  <li>the Camunda 8 migration skeleton;</li>
+  <li>debugger blocks for languages other than Java;</li>
+  <li>double-click opening in the project tree;</li>
   <li>putting a picture on the clipboard. Export it to a file instead.</li>
 </ul>
 
-<p>Running a test from the project tree opens the file at the test and goes through VS Code's testing commands at the cursor. The debugger position node in the tree stays empty.</p>
+<p>Running a test or debugging it from the project tree opens the file at the test and goes through VS Code's testing commands at the cursor. The debugger section in the project tree stays empty.</p>
 
 <h2>Code links show nothing</h2>
 
