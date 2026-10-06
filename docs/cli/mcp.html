@@ -70,7 +70,7 @@
 <h2>On this page</h2>
 <ul>
 <li><a href="#what-it-is">What it is</a></li>
-<li><a href="#connect-an-assistant">Connect an assistant</a></li>
+<li><a href="#connect-an-ai-assistant">Connect an AI assistant</a></li>
 <li><a href="#how-the-server-finds-your-project">How the server finds your project</a></li>
 <li><a href="#the-tools">The tools</a></li>
 <li><a href="#safety">Safety</a></li>
@@ -82,16 +82,23 @@
 
 <p><strong>MCP</strong> (Model Context Protocol) is a way for an AI assistant to use a program's tools. <code>penstock mcp</code> starts a small server on your machine that talks to the assistant over standard input and output. It offers a few tools. An assistant that edits a diagram can check straight away that it still runs to its end.</p>
 
-<h2 id="connect-an-assistant"><a href="#connect-an-assistant">Connect an assistant</a></h2>
+<h2 id="connect-an-ai-assistant"><a href="#connect-an-ai-assistant">Connect an AI assistant</a></h2>
 
-<ol class="steps">
-  <li>Run <code>penstock mcp --config</code>. It prints the entry for your assistant's configuration. It prints the command only.</li>
-  <li>Paste the entry into the assistant's MCP settings, for example Claude Desktop or Cursor.</li>
-  <li>Start the assistant. It lists the tools.</li>
-</ol>
+<p>The CLI needs Node.js. Node.js 22.22 or later should be on the PATH of your assistant. <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code> are free. The other tools are part of Penstock Pro, and Team in a pipeline, as <code>penstock mcp --help</code> states.</p>
 
-<pre><code>$ penstock mcp --config
-{
+<p>Running <code>penstock mcp --config</code> prints the standard client configuration. There is no project folder in the entry: you configure it once, and the server finds each project from the files the assistant asks about.</p>
+
+<h3 id="claude-code"><a href="#claude-code">Claude Code</a></h3>
+
+<p>Run this command in your terminal:</p>
+
+<pre><code>claude mcp add penstock -- npx --yes @kern0x1b/penstock-cli mcp</code></pre>
+
+<h3 id="claude-desktop"><a href="#claude-desktop">Claude Desktop</a></h3>
+
+<p>In <code>claude_desktop_config.json</code> (under <code>~/Library/Application Support/Claude/</code> on macOS or <code>%APPDATA%\Claude\</code> on Windows), add <code>penstock</code> under <code>mcpServers</code>:</p>
+
+<pre><code>{
   "mcpServers": {
     "penstock": {
       "command": "npx",
@@ -100,7 +107,49 @@
   }
 }</code></pre>
 
-<p>There is no folder in the entry. You set it up once, and it works for every project. The server finds the project itself, as described next.</p>
+<h3 id="cursor"><a href="#cursor">Cursor</a></h3>
+
+<p>In <code>.cursor/mcp.json</code> in your project, or in <code>~/.cursor/mcp.json</code> for all projects, add the server under <code>mcpServers</code>:</p>
+
+<pre><code>{
+  "mcpServers": {
+    "penstock": {
+      "command": "npx",
+      "args": ["--yes", "@kern0x1b/penstock-cli", "mcp"]
+    }
+  }
+}</code></pre>
+
+<h3 id="vs-code"><a href="#vs-code">VS Code</a></h3>
+
+<p>In VS Code 1.101 or later with GitHub Copilot agent mode, the Penstock extension registers the MCP server automatically in trusted workspaces when Node.js and npm are on the PATH. The extension launches <code>./penstockw mcp</code> if the project has the wrapper, or <code>npx @kern0x1b/penstock-cli mcp</code> if not.</p>
+
+<p>For manual setup in <code>.vscode/mcp.json</code>, VS Code uses the <code>servers</code> key and requires <code>type: "stdio"</code> rather than <code>mcpServers</code>:</p>
+
+<pre><code>{
+  "servers": {
+    "penstock": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["--yes", "@kern0x1b/penstock-cli", "mcp"]
+    }
+  }
+}</code></pre>
+
+<h3 id="jetbrains-ai-assistant-and-junie"><a href="#jetbrains-ai-assistant-and-junie">JetBrains AI Assistant and Junie</a></h3>
+
+<p>For JetBrains AI Assistant, go to <span class="mono">Settings | Tools | AI Assistant | Model Context Protocol (MCP)</span>, click <span class="ui">Add</span>, choose <span class="ui">STDIO</span>, and supply this JSON configuration:</p>
+
+<pre><code>{
+  "mcpServers": {
+    "penstock": {
+      "command": "npx",
+      "args": ["--yes", "@kern0x1b/penstock-cli", "mcp"]
+    }
+  }
+}</code></pre>
+
+<p>For JetBrains Junie, add the entry under <code>mcpServers</code> in <code>~/.junie/mcp/mcp.json</code> (global) or <code>.junie/mcp/mcp.json</code> (project root), or configure it in <span class="mono">Settings | Tools | Junie | MCP Settings</span>.</p>
 
 <h2 id="how-the-server-finds-your-project"><a href="#how-the-server-finds-your-project">How the server finds your project</a></h2>
 
@@ -164,7 +213,7 @@
 
 <dl class="problems">
   <dt>The assistant does not see the tools.</dt>
-  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 22.22 or later must be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
+  <dd>Check the <code>command</code> and <code>args</code> in the entry. Node.js 22.22 or later should be on the PATH of the assistant. Run <code>penstock mcp</code> by hand: it should wait silently for input.</dd>
   <dt>"must be an absolute path to a diagram" or "\"project\" must be an absolute path".</dt>
   <dd>The tools take absolute paths. Ask the assistant to pass the full path, as <code>list_diagrams</code> prints it.</dd>
   <dt>"is outside the workspace roots".</dt>
