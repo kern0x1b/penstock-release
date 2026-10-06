@@ -59,6 +59,7 @@ for (const page of pages) {
   const scripts = [...html.matchAll(/<script\b[^>]*>/gi)].map((match) => match[0]);
   const allowed = relative === path.join('guide', 'plans.html') && checkoutSettings().embed === true;
   for (const script of scripts) {
+    if (/type=["']application\/ld\+json["']/i.test(script)) continue;
     if (!(allowed && /src="\.\.\/vendor\/polar-checkout\/embed\.global\.js"/.test(script))) problems.push(`${relative}: has a script that is not the vendored checkout: ${script}`);
   }
   if (html.includes('data-polar-checkout') && !allowed) problems.push(`${relative}: has a checkout button but no checkout script, or the embed is off`);

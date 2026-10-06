@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { REPO, STORES, root, shell, toolsRow } from './site.mjs';
 import { buyLinksHtml, priceSummaryHtml } from './plans.mjs';
+import { readPrices } from './fetch-prices.mjs';
 
 const NODE = 'Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later';
 
@@ -103,6 +104,38 @@ const body = `<main id="content">
 </div>
 </main>`;
 
+const prices = readPrices();
+const offers = [
+  {
+    '@type': 'Offer',
+    name: 'Free',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+];
+for (const plan of Object.values(prices.plans ?? {})) {
+  for (const price of plan.prices ?? []) {
+    const val = (price.amount / 100).toFixed(2);
+    const intervalLabel = price.interval === 'month' ? 'Monthly' : price.interval === 'year' ? 'Yearly' : price.interval;
+    offers.push({
+      '@type': 'Offer',
+      name: intervalLabel ? `${plan.name} (${intervalLabel})` : plan.name,
+      price: val,
+      priceCurrency: price.currency.toUpperCase(),
+      ...(price.interval === 'month' ? { billingDuration: 'P1M' } : price.interval === 'year' ? { billingDuration: 'P1Y' } : {}),
+    });
+  }
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Penstock',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Windows, macOS, Linux',
+  offers,
+};
+
 const html = shell({
   depth: 0,
   title: 'Penstock - BPMN editor for Camunda in JetBrains IDEs',
@@ -111,6 +144,7 @@ const html = shell({
   body,
   wrap: 'bare',
   section: 'home',
+  jsonLd,
 });
 
 fs.writeFileSync(path.join(root, 'docs', 'index.html'), html);

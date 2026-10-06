@@ -303,7 +303,7 @@
             },
             {
               "slug": "installing",
-              "title": "Installing",
+              "title": "Installing in JetBrains",
               "about": "Put Penstock into your IDE and check that it works."
             },
             {
@@ -343,7 +343,7 @@
             },
             {
               "slug": "shortcuts",
-              "title": "Shortcuts",
+              "title": "Shortcuts in JetBrains",
               "about": "Keys that work in the editor and in the code."
             },
             {
@@ -433,7 +433,7 @@
             },
             {
               "slug": "installing",
-              "title": "Installing",
+              "title": "Installing in VS Code",
               "about": "Put Penstock into VS Code and check that it works."
             },
             {
@@ -448,7 +448,7 @@
           "pages": [
             {
               "slug": "shortcuts",
-              "title": "Shortcuts",
+              "title": "Shortcuts in VS Code",
               "about": "The four keys Penstock binds, and how undo works."
             },
             {
