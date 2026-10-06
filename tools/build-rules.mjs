@@ -32,13 +32,16 @@ const inline = (text) => escapeHtml(text).replace(/`([^`]+)`/g, '<code>$1</code>
 
 function parseRule(file) {
   const text = fs.readFileSync(path.join(source, file), 'utf8');
-  const title = /^# (.+)$/m.exec(text)[1];
+  let title = /^# (.+)$/m.exec(text)[1];
   const [, id, family, level] = /^`([^`]+)` · (.+?) · (.+)$/m.exec(text);
   const why = /^\*\*Why it matters\.\*\* (.+)$/m.exec(text)[1];
   const fix = /^\*\*How to fix it\.\*\* (.+)$/m.exec(text)[1];
   const shown = /^In `penstock check` and in the editor the rule is called `([^`]+)`\.$/m.exec(text)?.[1] ?? null;
   const severity = Object.keys(LEVELS).find((key) => LEVELS[key] === level);
   if (!severity) throw new Error(`${file}: unknown level "${level}"`);
+  if (id === 'compat/no-multiple-none-start-events') {
+    title = 'More than one blank start event in Camunda 8';
+  }
   return { file, title, id, family, why, fix, shown, severity, slug: file.replace(/\.md$/, '') };
 }
 

@@ -196,7 +196,7 @@
 <pre><code>$ penstock init --engine camunda-8</code></pre>
 
 <figure class="shot">
-  <img src="../img/settings-init-terminal.png" alt="A terminal running penstock init --engine camunda-8. The output lists wrote penstock.yaml with engine camunda-8, updated .gitignore with penstock.local.yaml, and wrote penstockw, penstockw.cmd and penstock/wrapper/penstock-wrapper.properties">
+  <img src="../img/settings-init-terminal.png" alt="A terminal running penstock init --engine camunda-8. The output lists wrote penstock.yaml with engine camunda-8, updated .gitignore with penstock.local.yaml, and wrote penstockw, penstockw.cmd and penstock/wrapper/penstock-wrapper.properties" width="922" height="252">
   <figcaption>What init writes into a folder: the file, the .gitignore line and the wrapper.</figcaption>
 </figure>
 
@@ -239,7 +239,7 @@ deployment  http://localhost:8080/v2 - answered 404</code></pre>
 <pre><code>$ penstock doctor --format json</code></pre>
 
 <figure class="shot">
-  <img src="../img/profiles-show.png" alt="A terminal running penstock doctor. It prints node, root, config penstock.yaml, engine camunda-8, profiles prod, test, and deployment http://localhost:8090/v2 as unreachable with the reason fetch failed">
+  <img src="../img/profiles-show.png" alt="A terminal running penstock doctor. It prints node, root, config penstock.yaml, engine camunda-8, profiles prod, test, and deployment http://localhost:8090/v2 as unreachable with the reason fetch failed" width="1578" height="286" loading="lazy" decoding="async">
   <figcaption>The doctor of a project with two profiles, run when no engine answers at the address.</figcaption>
 </figure>
 
@@ -285,7 +285,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>$ penstock check --only rules src/orders</code></pre>
 
 <figure class="shot">
-  <img src="../img/check-project.png" alt="A terminal running penstock check. diagrams/credit-hold.bpmn fails with three errors and two warnings, each with its rule id and the element id. invoice-approval.form, order-to-cash.bpmn and shipping-decision.dmn are ok. A line points to the page of the rules">
+  <img src="../img/check-project.png" alt="A terminal running penstock check. diagrams/credit-hold.bpmn fails with three errors and two warnings, each with its rule id and the element id. invoice-approval.form, order-to-cash.bpmn and shipping-decision.dmn are ok. A line points to the page of the rules" width="1532" height="694" loading="lazy" decoding="async">
   <figcaption>penstock check over a project. A file with findings says fail and lists them; the others say ok.</figcaption>
 </figure>
 
@@ -431,7 +431,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>$ penstock code src/orders</code></pre>
 
 <figure class="shot">
-  <img src="../img/workers-check-terminal.png" alt="A terminal running penstock code. It prints 1 source file, 2 diagrams, 12 references from diagrams to code, and the line Every task the diagrams hand to code has something in the code to run it">
+  <img src="../img/workers-check-terminal.png" alt="A terminal running penstock code. It prints 1 source file, 2 diagrams, 12 references from diagrams to code, and the line Every task the diagrams hand to code has something in the code to run it" width="1188" height="218" loading="lazy" decoding="async">
   <figcaption>penstock code on a project where every task has code to run it.</figcaption>
 </figure>
 
@@ -466,7 +466,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>$ penstock templates generate</code></pre>
 
 <figure class="shot">
-  <img src="../img/templates-check.png" alt="A terminal running penstock templates generate, then penstock templates generate --check. The first lists nine templates, each with its worker, the file and line, and the number of inputs, all written, and ends 9 templates written, 0 updated. The second says Every element template still matches the worker it was written from">
+  <img src="../img/templates-check.png" alt="A terminal running penstock templates generate, then penstock templates generate --check. The first lists nine templates, each with its worker, the file and line, and the number of inputs, all written, and ends 9 templates written, 0 updated. The second says Every element template still matches the worker it was written from" width="1600" height="493" loading="lazy" decoding="async">
   <figcaption>Generate writes one template per worker. The check says whether they still match.</figcaption>
 </figure>
 
@@ -564,7 +564,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>$ penstock scenarios run --junit-xml target/scenarios.xml</code></pre>
 
 <figure class="shot">
-  <img src="../img/plans-paid-terminal.png" alt="A terminal running penstock scenarios run on a machine without a licence. It says Process test runs are part of Penstock Pro, and gives two commands: penstock license buy and penstock license login">
+  <img src="../img/plans-paid-terminal.png" alt="A terminal running penstock scenarios run on a machine without a licence. It says Process test runs are part of Penstock Pro, and gives two commands: penstock license buy and penstock license login" width="1562" height="218" loading="lazy" decoding="async">
   <figcaption>What a paid command prints without a licence.</figcaption>
 </figure>
 
@@ -833,7 +833,7 @@ src/main/resources/order-process.bpmn
 <pre><code>$ penstock import legacy.drawio -o order.bpmn</code></pre>
 
 <figure class="shot">
-  <img src="../img/import-terminal.png" alt="A terminal running penstock import drawio-sample.drawio. It wrote drawio-sample.bpmn, says Imported from draw.io: 4 elements, 3 flows, lists two guesses where a circle became a start event and an end event, and a line about the routes of the connectors">
+  <img src="../img/import-terminal.png" alt="A terminal running penstock import drawio-sample.drawio. It wrote drawio-sample.bpmn, says Imported from draw.io: 4 elements, 3 flows, lists two guesses where a circle became a start event and an end event, and a line about the routes of the connectors" width="1468" height="422" loading="lazy" decoding="async">
   <figcaption>The report of an import: what was written, what was counted and what was guessed.</figcaption>
 </figure>
 
@@ -1015,7 +1015,7 @@ SequenceFlow           Flow_2  approve_order -&gt; charge_card</code></pre>
 <pre><code>$ penstock show src/orders/order.bpmn --format json</code></pre>
 
 <figure class="shot">
-  <img src="../img/model-diagram.png" alt="A terminal running penstock show diagrams/order-to-cash.bpmn. A table with the columns TYPE, ID, NAME and FLOW lists the start event, the gateways, the tasks, the intermediate catch event, the end event and the sequence flows with the elements they join">
+  <img src="../img/model-diagram.png" alt="A terminal running penstock show diagrams/order-to-cash.bpmn. A table with the columns TYPE, ID, NAME and FLOW lists the start event, the gateways, the tasks, the intermediate catch event, the end event and the sequence flows with the elements they join" width="1600" height="883" loading="lazy" decoding="async">
   <figcaption>show prints every element and flow with its id.</figcaption>
 </figure>
 
@@ -1278,7 +1278,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 <pre><code>$ penstock trust --list</code></pre>
 
 <figure class="shot">
-  <img src="../img/security-trust.png" alt="A terminal running penstock check in a project that is not trusted. A hook line says preCheck was not run, because the project is not a trusted project, and tells you to run penstock trust or pass --trust-project. The next line says the Check stage was stopped by its pre hook. Then penstock trust --list says No project is trusted on this machine">
+  <img src="../img/security-trust.png" alt="A terminal running penstock check in a project that is not trusted. A hook line says preCheck was not run, because the project is not a trusted project, and tells you to run penstock trust or pass --trust-project. The next line says the Check stage was stopped by its pre hook. Then penstock trust --list says No project is trusted on this machine" width="1562" height="354" loading="lazy" decoding="async">
   <figcaption>A hook that does not run in a project nobody has trusted, and the list of trusted projects.</figcaption>
 </figure>
 

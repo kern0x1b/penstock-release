@@ -50,12 +50,12 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../vscode/" aria-current="page">VS Code</a></li>
-      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/installing.html">Installing in VS Code</a></li>
       <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
     </ul>
     <h2>Using it</h2>
     <ul>
-      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/shortcuts.html">Shortcuts in VS Code</a></li>
       <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
     </ul>
     <h2>Licence and help</h2>
@@ -83,7 +83,7 @@
 <p>Every feature of Penstock is described once, for every tool, in <a href="../guide/">the Guide</a>. This section only says what is special about VS Code: how to install it, where things are, and what is not there yet.</p>
 
 <figure class="shot">
-  <img src="../img/vscode-editor.png" alt="A VS Code window with order-to-cash.bpmn open in the Penstock editor: the toolbar on top, the palette on the left, the diagram, and the Properties tab of the sidebar for a selected user task called Approve order. The status bar reads Penstock Pro trial: 30d.">
+  <img src="../img/vscode-editor.png" alt="A VS Code window with order-to-cash.bpmn open in the Penstock editor: the toolbar on top, the palette on the left, the diagram, and the Properties tab of the sidebar for a selected user task called Approve order. The status bar reads Penstock Pro trial: 30d." width="1600" height="1000">
   <figcaption>order-to-cash.bpmn in the Penstock editor. The user task Approve order is selected and its properties are on the right. The status bar at the bottom right reads <em>Penstock Pro trial: 30d</em>.</figcaption>
 </figure>
 
@@ -98,12 +98,12 @@
 
 <h2 id="start-here"><a href="#start-here">Start here</a></h2>
 <div class="cards">
-<a class="card" href="../vscode/installing.html"><strong>Installing</strong><span>Put Penstock into VS Code and check that it works.</span></a>
+<a class="card" href="../vscode/installing.html"><strong>Installing in VS Code</strong><span>Put Penstock into VS Code and check that it works.</span></a>
 <a class="card" href="../vscode/where-things-are.html"><strong>Where things are in VS Code</strong><span>The editor, the sidebar, the command palette, the status bar and Problems.</span></a>
 </div>
 <h2 id="using-it"><a href="#using-it">Using it</a></h2>
 <div class="cards">
-<a class="card" href="../vscode/shortcuts.html"><strong>Shortcuts</strong><span>The four keys Penstock binds, and how undo works.</span></a>
+<a class="card" href="../vscode/shortcuts.html"><strong>Shortcuts in VS Code</strong><span>The four keys Penstock binds, and how undo works.</span></a>
 <a class="card" href="../vscode/code-links.html"><strong>Code links in VS Code</strong><span>Code lenses, go to definition, references, the Code view and Problems.</span></a>
 </div>
 <h2 id="licence-and-help"><a href="#licence-and-help">Licence and help</a></h2>
@@ -115,13 +115,15 @@
 <h2 id="what-works"><a href="#what-works">What works</a></h2>
 
 <ul>
-  <li>The BPMN, DMN and form editors, with the toolbar, the palette, the properties panel and the sidebar. The text document is the only history, so VS Code's own Undo, Redo, Revert and git all work on a diagram.</li>
-  <li><code>penstock.yaml</code>, its layers per folder, <code>penstock.local.yaml</code>, profiles and <code>${VAR}</code> references.</li>
+  <li>The BPMN, DMN and form editors, with the toolbar, the palette, the properties panel and the sidebar. The text document is the only history, so VS Code's own Undo, Redo, Revert and git all work on a diagram. Dedicated file icons for <code>.bpmn</code>, <code>.bpmn.xml</code>, <code>.bpmn20.xml</code>, <code>.dmn</code> and <code>.form</code>.</li>
+  <li><code>penstock.yaml</code>, its layers per folder, <code>penstock.local.yaml</code>, profiles and <code>${VAR}</code> references. Schema validation runs for <code>penstock.yaml</code>, <code>penstock.yml</code> and <code>penstock.json</code>, with configuration problems reported in the Problems view.</li>
   <li>Deployment to Camunda 7 and Camunda 8, with passwords and client secrets kept in VS Code's secret storage.</li>
-  <li>Scripts in their own tab, element templates, and the Check, Simulate, Monitor and Scenarios actions of the editor.</li>
-  <li>Test-case files in the Test Explorer, with a Pro licence.</li>
+  <li>Scripts in their own tab, element templates, and the Check, Simulate, Monitor and Scenarios actions of the editor. Create element template at the caret in worker code.</li>
+  <li>Test-case files in the Test Explorer, with a Pro licence. Running tests from a diagram opens the test at the cursor and starts VS Code's testing commands.</li>
   <li>The visual <a href="../guide/diagram-diff.html">diagram diff</a>, from the Explorer and Source Control menus, with a Pro licence.</li>
-  <li><a href="code-links.html">Code links</a>: code lenses, go to definition and references between diagrams and code, a Code view and Problems, with a Pro licence.</li>
+  <li><a href="code-links.html">Code links</a>: code lenses, go to definition, references between diagrams and code, linked rename (<kbd>F2</kbd> in code and rename offers in the editor; Pro), the Java debugger position on the diagram, and diagram and code problems in the Problems view with quick fixes.</li>
+  <li>The Penstock tool window in the Activity Bar: a project tree with nodes for processes, workers, variables, messages, errors, decisions, forms, templates, deployment, files, and Migrate to Camunda 8. Its toolbar includes Run all, reload from disk, group by file, folders, Open penstock.yaml (creates the file if missing), and a Run Penstock menu with 9 CLI commands: <code>check</code>, <code>scenarios</code>, <code>junit</code>, <code>code</code>, <code>docs</code>, <code>format</code>, <code>change</code>, <code>export</code>, <code>doctor</code>. Row menus offer Open, Find usages in code, Copy ID, Go to implementation, Deploy, test actions, and CLI commands on the row's file. Pro.</li>
+  <li>What's new notifications after an extension update.</li>
   <li>The licence, shared with the plugin and the command line. See <a href="licence.html">Licence in VS Code</a>.</li>
   <li>Every action of the editor as a command in the Command Palette, under <em>Penstock</em>.</li>
   <li>Your VS Code theme: the editor keeps its own layout and type and takes only its colour from the theme.</li>
@@ -130,11 +132,12 @@
 <h2 id="what-is-not-there-yet"><a href="#what-is-not-there-yet">What is not there yet</a></h2>
 
 <ul>
-  <li>The Camunda 7 to Camunda 8 conversion preview, and the conversion itself.</li>
-  <li>Running the tests a diagram is linked to, from the diagram, and the debugger's position on the diagram.</li>
-  <li>Renaming a job type, topic, class or message in diagrams and code in one step.</li>
-  <li>Putting a picture on the clipboard. A picture can still be exported to a file.</li>
-  <li>The project tree of the JetBrains tool window and its Run Penstock actions. The Code view in the Explorer holds the code sections of that tree. Whole-project commands are in the <a href="../cli/">command line</a>.</li>
+  <li>The Camunda 7 to Camunda 8 conversion preview, and the conversion itself in VS Code.</li>
+  <li>The Camunda 8 migration skeleton.</li>
+  <li>Regex-based JVM analysis may differ from the IDE on unusual code.</li>
+  <li>Debugger blocks for languages other than Java are not covered.</li>
+  <li>Opening a node in the project tree happens on a click or Enter, without double-click opening.</li>
+  <li>Running a test or debugging it from the project tree is best effort: the file opens at the test and runs through VS Code's testing commands at the cursor. The debugger section in the project tree stays empty.</li>
   <li>A pipeline. There is no pipeline in VS Code, so there is no Team tier here. The <a href="../cli/ci.html">command line</a> runs in a pipeline.</li>
 </ul>
 
@@ -152,7 +155,7 @@
 </div>
 <nav class="pager" aria-label="Previous and next">
 <span></span>
-<a class="next" href="../vscode/installing.html"><span>Next</span>Installing</a>
+<a class="next" href="../vscode/installing.html"><span>Next</span>Installing in VS Code</a>
 </nav>
 </main>
 </div>

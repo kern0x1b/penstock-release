@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kern0x1b.github.io/penstock-release/sitemap.xml

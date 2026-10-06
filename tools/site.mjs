@@ -81,7 +81,50 @@ export function toolsRow(base) {
 
 const EMBED = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'checkout.json'), 'utf8')).embed === true;
 
-export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false, base: absoluteBase }) {
+export function pngDimensions(filePath) {
+  try {
+    const fd = fs.openSync(filePath, 'r');
+    const buffer = Buffer.alloc(24);
+    fs.readSync(fd, buffer, 0, 24, 0);
+    fs.closeSync(fd);
+    if (buffer.toString('ascii', 12, 16) === 'IHDR') {
+      const width = buffer.readUInt32BE(16);
+      const height = buffer.readUInt32BE(20);
+      return { width, height };
+    }
+  } catch {}
+  return null;
+}
+
+export function optimizeImages(html) {
+  let screenshotIndex = 0;
+  return html.replace(/<img\b([^>]*)>/gi, (imgTag, attrs) => {
+    const srcMatch = attrs.match(/\bsrc="([^"]+)"/i);
+    if (!srcMatch) return imgTag;
+    const src = srcMatch[1];
+    if (!src.endsWith('.png')) return imgTag;
+
+    const isFirst = screenshotIndex === 0;
+    screenshotIndex++;
+
+    const imgName = path.basename(src);
+    const imgPath = path.join(root, 'docs', 'img', imgName);
+    const dimensions = pngDimensions(imgPath);
+
+    let newAttrs = attrs;
+    if (dimensions) {
+      if (!/\bwidth=/i.test(newAttrs)) newAttrs += ` width="${dimensions.width}"`;
+      if (!/\bheight=/i.test(newAttrs)) newAttrs += ` height="${dimensions.height}"`;
+    }
+    if (!isFirst) {
+      if (!/\bloading=/i.test(newAttrs)) newAttrs += ' loading="lazy"';
+      if (!/\bdecoding=/i.test(newAttrs)) newAttrs += ' decoding="async"';
+    }
+    return `<img${newAttrs}>`;
+  });
+}
+
+export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false, base: absoluteBase, jsonLd }) {
   const base = absoluteBase ?? '../'.repeat(depth);
   const links = [
     ...SECTIONS.map((entry) => ({ href: `${entry.id}/`, label: entry.title, key: entry.id })),
@@ -95,10 +138,11 @@ export function shell({ depth, title, description, canonical, body, key = '', wi
       return `      <a href="${url}"${mark}>${label}</a>`;
     })
     .join('\n');
+  const optimizedBody = optimizeImages(body);
   const inner =
     wrap === 'layout'
-      ? `<div class="layout">\n${withSidebar ? sidebar({ base, section, key }) : ''}\n${body}\n</div>`
-      : body;
+      ? `<div class="layout">\n${withSidebar ? sidebar({ base, section, key }) : ''}\n${optimizedBody}\n</div>`
+      : optimizedBody;
   const hostLinks = HOSTS.map((host) => `<a href="${sectionUrl(host, base)}">${escapeHtml(host.title)}</a>`).join('\n    ');
   return `<!doctype html>
 <html lang="en">
@@ -126,7 +170,7 @@ export function shell({ depth, title, description, canonical, body, key = '', wi
 <link rel="canonical" href="${SITE}/${canonical}">
 <link rel="preload" href="${base}fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${base}style.css">
-</head>
+${jsonLd ? `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>\n` : ''}</head>
 <body>
 <a class="skip" href="#content">Skip to the content</a>
 

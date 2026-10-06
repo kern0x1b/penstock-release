@@ -50,12 +50,12 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../vscode/">VS Code</a></li>
-      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/installing.html">Installing in VS Code</a></li>
       <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
     </ul>
     <h2>Using it</h2>
     <ul>
-      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/shortcuts.html">Shortcuts in VS Code</a></li>
       <li><a href="../vscode/code-links.html">Code links in VS Code</a></li>
     </ul>
     <h2>Licence and help</h2>
@@ -88,7 +88,7 @@
 <h2 id="a-file-opens-as-text-not-in-the-editor"><a href="#a-file-opens-as-text-not-in-the-editor">A file opens as text, not in the editor</a></h2>
 
 <ul>
-  <li>The Penstock editors claim <code>*.bpmn</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
+  <li>The Penstock editors claim <code>*.bpmn</code>, <code>*.bpmn.xml</code> and <code>*.bpmn20.xml</code> for BPMN, <code>*.dmn</code> for DMN and <code>*.form</code> for forms. A file with another name opens as text.</li>
   <li>A file that you opened with <span class="ui">Penstock: Open as text</span> stays text, and Penstock remembers that. To get the diagram back, use <span class="ui">Reopen Editor With…</span> and choose the Penstock editor.</li>
   <li>A file that was already open as text when VS Code started is switched to the editor once the extension is active, unless you opened it as text on purpose.</li>
   <li>The extension needs the files on the local disk. In a virtual workspace it does not work.</li>
@@ -101,7 +101,7 @@
   <tr><td>The command is greyed out in the palette</td><td>The Penstock commands are enabled while a Penstock editor has focus. Click the diagram first. An action the open diagram has switched off is greyed out too.</td></tr>
   <tr><td>"Penstock: open a Penstock editor to use …"</td><td>The command ran with no Penstock editor open. Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file.</td></tr>
   <tr><td>"Penstock: … is not available for this diagram."</td><td>The open diagram does not offer that action.</td></tr>
-  <tr><td>A key does nothing</td><td>The four Penstock keys are bound only while a Penstock editor has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
+  <tr><td>A key does nothing</td><td>The Penstock editor keys are bound only while a Penstock editor has focus, and the project tree keys are bound while the Penstock view has focus. See <a href="shortcuts.html">Shortcuts</a>.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -111,17 +111,16 @@
 
 <ul>
   <li>the Camunda 7 to Camunda 8 conversion and its preview;</li>
-  <li>running the tests a diagram is linked to, from the diagram;</li>
-  <li>renaming what a diagram links to, in diagrams and code together;</li>
-  <li>putting a picture on the clipboard. Export it to a file instead;</li>
-  <li>the project tree of the JetBrains tool window. The Code view in the Explorer holds the code sections.</li>
+  <li>the Camunda 8 migration skeleton;</li>
+  <li>debugger blocks for languages other than Java;</li>
+  <li>double-click opening in the project tree.</li>
 </ul>
 
-<p>The debugger's position on the diagram is not there either, and nothing is drawn.</p>
+<p>Running a test or debugging it from the project tree opens the file at the test and goes through VS Code's testing commands at the cursor. The debugger section in the project tree stays empty.</p>
 
 <h2 id="code-links-show-nothing"><a href="#code-links-show-nothing">Code links show nothing</a></h2>
 
-<p>They need Pro. Open the <strong>Code</strong> view in the Explorer. Without Pro it says what the feature gives and offers to buy or sign in. The Problems view stays empty too. With Pro, press the refresh button in the title bar of the Code view, and check that the code is in the workspace folder or under <code>linked</code> in <code>penstock.yaml</code>. See <a href="code-links.html">Code links in VS Code</a>.</p>
+<p>They need Pro. Open the <strong>Penstock</strong> view in the Activity Bar. Without Pro it says what the feature gives and offers to buy or sign in. The Problems view stays empty too. With Pro, press the reload button in the toolbar of the Penstock view, and check that the code is in the workspace folder or under <code>linked</code> in <code>penstock.yaml</code>. See <a href="code-links.html">Code links in VS Code</a>.</p>
 
 <h2 id="test-cases"><a href="#test-cases">Test cases</a></h2>
 
@@ -168,7 +167,7 @@
 <ul>
 <li><a href="../guide/troubleshooting.html">Troubleshooting</a> - Fixes for the problems people meet most.</li>
 <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a> - The editor, the sidebar, the command palette, the status bar and Problems.</li>
-<li><a href="../vscode/installing.html">Installing</a> - Put Penstock into VS Code and check that it works.</li>
+<li><a href="../vscode/installing.html">Installing in VS Code</a> - Put Penstock into VS Code and check that it works.</li>
 <li><a href="../vscode/licence.html">Licence in VS Code</a> - The status bar, the account dialog, signing in and machines.</li>
 </ul>
 </div>

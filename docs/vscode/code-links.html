@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Code links in VS Code - Penstock</title>
-<meta name="description" content="In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, a Code view and Problems.">
+<meta name="description" content="In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, the Penstock view and Problems.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Penstock">
 <meta property="og:title" content="Code links in VS Code - Penstock">
-<meta property="og:description" content="In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, a Code view and Problems.">
+<meta property="og:description" content="In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, the Penstock view and Problems.">
 <meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -50,12 +50,12 @@
     <h2>Start here</h2>
     <ul>
       <li><a href="../vscode/">VS Code</a></li>
-      <li><a href="../vscode/installing.html">Installing</a></li>
+      <li><a href="../vscode/installing.html">Installing in VS Code</a></li>
       <li><a href="../vscode/where-things-are.html">Where things are in VS Code</a></li>
     </ul>
     <h2>Using it</h2>
     <ul>
-      <li><a href="../vscode/shortcuts.html">Shortcuts</a></li>
+      <li><a href="../vscode/shortcuts.html">Shortcuts in VS Code</a></li>
       <li><a href="../vscode/code-links.html" aria-current="page">Code links in VS Code</a></li>
     </ul>
     <h2>Licence and help</h2>
@@ -67,7 +67,7 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../vscode/">VS Code</a> / Using it</p>
 <h1>Code links in VS Code</h1>
-<p class="lede">In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, a Code view and Problems.</p>
+<p class="lede">In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, the Penstock view and Problems.</p>
 <p class="meta"><span class="tag pro">Pro</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
@@ -75,14 +75,17 @@
 <li><a href="#what-is-read">What is read</a></li>
 <li><a href="#from-a-diagram-to-the-code">From a diagram to the code</a></li>
 <li><a href="#from-the-code-to-a-diagram">From the code to a diagram</a></li>
-<li><a href="#the-code-view">The Code view</a></li>
-<li><a href="#problems">Problems</a></li>
+<li><a href="#the-debugger-position-on-the-diagram">The debugger position on the diagram</a></li>
+<li><a href="#running-tests-from-a-diagram">Running tests from a diagram</a></li>
+<li><a href="#create-element-template">Create element template</a></li>
+<li><a href="#the-penstock-view">The Penstock view</a></li>
+<li><a href="#problems-and-quick-fixes">Problems and quick fixes</a></li>
 <li><a href="#tests">Tests</a></li>
 <li><a href="#what-is-not-in-vs-code">What is not in VS Code</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
 </nav>
-<p>What code links are, and what they check, is described once in <a href="../guide/code-links.html">Code links</a>. This page is about what works in VS Code. The code links need a Pro licence on this machine. Without one, the Code view says what the feature gives and offers to buy or sign in, no code lens or definition is offered, and the Problems view stays empty. Going from a Camunda 7 task to its Java class or Spring bean needs no licence: it is a file search by package path and name.</p>
+<p>What code links are, and what they check, is described once in <a href="../guide/code-links.html">Code links</a>. This page is about what works in VS Code. The code links need a Pro licence on this machine. Without one, the Penstock view says what the feature gives and offers to buy or sign in, no code lens or definition is offered, and the Problems view stays empty. Going from a Camunda 7 task to its Java class or Spring bean needs no licence: it is a file search by package path and name.</p>
 
 <h2 id="what-is-read"><a href="#what-is-read">What is read</a></h2>
 
@@ -104,26 +107,36 @@
   <li>A <strong>code lens</strong> above a worker, a delegate, a subscription, an error throw, a variable or a started process names the diagram and the element that use it. Click it and the diagram opens with the element selected. When several diagrams use it, VS Code asks which.</li>
   <li><span class="ui">Go to Definition</span> on a job type in a diagram goes to the worker. On a process, element, message, decision or error code in the code, it goes to the diagram.</li>
   <li><span class="ui">Find All References</span> reaches the diagrams as well as the other files.</li>
+  <li>Pressing <kbd>F2</kbd> on a name that diagrams and code share (a job type, topic, bean, message, signal, process, decision, form or error) renames it across both code and diagrams. Changing a value in the diagram editor offers to rename the places in code as well. Renaming a diagram file also offers to rename its scenario file. Pro.</li>
 </ul>
 
 <p>Go to Definition and Find All References answer in the code files and in a diagram file opened as text. See <span class="ui">Penstock: Open as text</span> in <a href="where-things-are.html">Where things are in VS Code</a>.</p>
 
-<h2 id="the-code-view"><a href="#the-code-view">The Code view</a></h2>
+<h2 id="the-debugger-position-on-the-diagram"><a href="#the-debugger-position-on-the-diagram">The debugger position on the diagram</a></h2>
 
-<p>The Explorer has a view called <strong>Code</strong>. It holds the sections the JetBrains tool window has for the code: code links, processes, workers, variables, messages and errors, with the workers the code implements under each task. A node opens the diagram or the code. A node has the inline actions <span class="ui">Penstock: Find usages in code</span> and <span class="ui">Penstock: Copy ID</span>. The refresh button in the title bar, <span class="ui">Penstock: Refresh the code links</span>, reads the project again.</p>
+<p>When a debugger pauses in Java worker code (such as an <code>ActivatedJob</code>, <code>DelegateExecution</code>, <code>DelegateTask</code> or <code>ExternalTask</code>), the diagram marks the paused task and active elements of the process instance. Pro.</p>
 
-<h2 id="problems"><a href="#problems">Problems</a></h2>
+<h2 id="running-tests-from-a-diagram"><a href="#running-tests-from-a-diagram">Running tests from a diagram</a></h2>
 
-<p>The Problems view carries what <code>penstock code</code> reports, under the source <em>penstock</em>:</p>
+<p>Running the tests a diagram is linked to opens the test file at the cursor and starts VS Code's testing commands (<code>testing.runAtCursor</code> or <code>testing.debugAtCursor</code>). Pro. Test-case files also run in the Test Explorer under the <em>Penstock scenarios</em> controller.</p>
+
+<h2 id="create-element-template"><a href="#create-element-template">Create element template</a></h2>
+
+<p>Put the caret in a worker method or class and run <span class="ui">Penstock: Create element template</span> in the Command Palette or context menu to write the element template file. Pro.</p>
+
+<h2 id="the-penstock-view"><a href="#the-penstock-view">The Penstock view</a></h2>
+
+<p>The Activity Bar has a view called <strong>Penstock</strong>. It holds the sections the JetBrains tool window has: processes, workers, variables, messages, errors, decisions, forms, templates, deployment, files and migration, with the workers the code implements under each task. A node opens the diagram or the code. A row menu offers <span class="ui">Find usages in code</span>, <span class="ui">Copy ID</span> and <span class="ui">Go to implementation</span>. The toolbar button <span class="ui">Reload from disk</span> (and the command <span class="ui">Penstock: Refresh the code links</span>) reads the project again.</p>
+
+<h2 id="problems-and-quick-fixes"><a href="#problems-and-quick-fixes">Problems and quick fixes</a></h2>
+
+<p>The Problems view reports diagnostics under three sources:</p>
 
 <ul>
-  <li>a step nothing runs;</li>
-  <li>a worker no diagram uses;</li>
-  <li>a called process, decision or form that nothing defines;</li>
-  <li>a name that is a letter or a case away from one the project knows, with a hint such as <em>Did you mean</em>.</li>
+  <li><strong>penstock</strong>: code link diagnostics, including steps nothing runs, workers no diagram uses, called processes or decisions nothing defines, and unknown names with a quick fix to change to the closest known name;</li>
+  <li><strong>penstock-diagram</strong>: diagram check findings and linter rules, with quick fixes for diagram issues;</li>
+  <li><strong>penstock-config</strong>: configuration errors in <code>penstock.yaml</code>.</li>
 </ul>
-
-<p>The findings of the Check card of a diagram are not in the Problems view. They stay in the editor.</p>
 
 <h2 id="tests"><a href="#tests">Tests</a></h2>
 
@@ -132,20 +145,21 @@
 <h2 id="what-is-not-in-vs-code"><a href="#what-is-not-in-vs-code">What is not in VS Code</a></h2>
 
 <ul>
-  <li>The debugger's position on the diagram, and starting a debug session from a diagram.</li>
-  <li>Running the tests a diagram is linked to, from the diagram. Test-case files run in the Test Explorer instead. See <a href="../guide/scenarios.html">Scenarios</a>.</li>
-  <li>Renaming what a diagram links to, in diagrams and code together.</li>
+  <li>Debugger blocks for languages other than Java are not covered.</li>
+  <li>Regex-based JVM analysis may differ from the IDE on unusual code.</li>
+  <li>Starting a debug session directly from a diagram node (debugging from a diagram opens the test file at the cursor instead).</li>
+  <li>Gutter icons (VS Code uses code lenses rather than gutter icons).</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
 
 <dl class="problems">
   <dt>No code lenses, no definitions.</dt>
-  <dd>Code links need Pro. Open the <strong>Code</strong> view: it offers to buy or sign in.</dd>
+  <dd>Code links need Pro. Open the <strong>Penstock</strong> view: it offers to buy or sign in.</dd>
   <dt>A worker in another repository is reported as missing.</dt>
   <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
   <dt>A change is not reflected.</dt>
-  <dd>Save the file, or press the refresh button in the title bar of the Code view.</dd>
+  <dd>Save the file, or press the reload button in the toolbar of the Penstock view.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
@@ -156,7 +170,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../vscode/shortcuts.html"><span>Previous</span>Shortcuts</a>
+<a class="prev" href="../vscode/shortcuts.html"><span>Previous</span>Shortcuts in VS Code</a>
 <a class="next" href="../vscode/licence.html"><span>Next</span>Licence in VS Code</a>
 </nav>
 </main>
