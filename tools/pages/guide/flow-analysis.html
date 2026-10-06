@@ -65,6 +65,16 @@ related: diagram-check, scenarios, cli/ci
   <li>Read the <strong>Why</strong> and <strong>Fix</strong> lines under it.</li>
 </ol>
 
+<figure class="shot">
+  <img src="@img/flow-how-it-runs.png" alt="A diagram with two exclusive gateways and a parallel join. The Check button is pressed. The Problems tab reads 2 errors, under the group How it runs: The process can get stuck, and The process may never finish, each with its path in words">
+  <figcaption>The How it runs group with two findings.</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="@img/flow-path-outline.png" alt="The second finding, The process may never finish, is selected. The path to it is outlined on the canvas: the start event Order packed, the first gateway and the looping gateway are in red. Under the finding are Why and Fix lines and the rule id flow/never-finishes">
+  <figcaption>A finding selected: the elements on the path are outlined, and the Why and Fix lines open under it.</figcaption>
+</figure>
+
 <h2>Without the editor</h2>
 
 <p>The flow section also runs when you check a whole project. Its findings carry the same rule ids.</p>

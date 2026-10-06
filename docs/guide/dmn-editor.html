@@ -256,9 +256,19 @@
   </tbody>
 </table></div></div>
 
+<figure class="shot">
+  <img src="../img/dmn-hit-policy.png" alt="The table Loyalty points with the hit policy Collect (Sum) and rules 1 to 5. The Try tab has Order total 600 and Customer tier Gold. Rules 2, 3 and 5 are marked, and the sentence reads Rules 2, 3, 5 match: Order total 600 fits &gt;= 100; it returns points = 80. The output points 80 is below">
+  <figcaption>A Collect (Sum) table. Every matching rule is marked and the output is the sum of their points.</figcaption>
+</figure>
+
 <h3 id="a-decision-that-other-decisions-feed"><a href="#a-decision-that-other-decisions-feed">A decision that other decisions feed</a></h3>
 
 <p>When a decision needs the result of another decision, the Try tab runs that one first, in order, and shows it above. Its result is the input of the decision that uses it, so you are not asked for it. You type only the values that come from outside.</p>
+
+<figure class="shot">
+  <img src="../img/dmn-upstream.png" alt="The table Dispatch priority open, with the Try tab listing three decisions one under the other: Customer discount with Customer tier Gold and discount 0.2, then Order handling with Order total 6000, then Dispatch priority. Each has its own table and its own sentence">
+  <figcaption>Try for a decision that other decisions feed: the upstream decisions come first, each with its result.</figcaption>
+</figure>
 
 <h3 id="what-it-remembers-and-what-it-will-not-guess"><a href="#what-it-remembers-and-what-it-will-not-guess">What it remembers, and what it will not guess</a></h3>
 

@@ -175,9 +175,19 @@
   <figcaption>Follow message flows ticked: the trace crosses into the other pool.</figcaption>
 </figure>
 
+<figure class="shot">
+  <img src="../img/trace-boundary.png" alt="The user task Review credit hold selected, with a timer boundary event named Escalation timer on its edge. The path before it is blue and the paths after it, including the one from the boundary event, are green. The card reads Tracing "Review credit hold" - 2 before, 9 after">
+  <figcaption>Tracing a task that has a boundary event. The path that leaves through Escalation timer is in colour with the rest.</figcaption>
+</figure>
+
 <h2 id="in-a-decision"><a href="#in-a-decision">In a decision</a></h2>
 
 <p>The decision editor has the same action. In the requirements diagram, select a decision and run <span class="ui">Trace paths</span>. It shows every decision and input the selected decision needs, and everything that depends on it. Its tooltip, with nothing selected, says <em>Select a decision in the requirements diagram to trace what it needs</em>. See <a href="dmn-editor.html">The DMN editor</a>.</p>
+
+<figure class="shot">
+  <img src="../img/trace-dmn.png" alt="The requirements diagram with the decision Order handling selected. The card reads Tracing "Order handling" - 3 before, 1 after. Customer discount, Customer tier and Order total are drawn in blue, Dispatch priority in green">
+  <figcaption>A decision traced in the requirements diagram: what it needs in blue and what depends on it in green.</figcaption>
+</figure>
 
 <h2 id="what-it-does-not-change"><a href="#what-it-does-not-change">What it does not change</a></h2>
 

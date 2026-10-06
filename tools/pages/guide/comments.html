@@ -73,6 +73,11 @@ related: sidebar, bpmn-editor, editing, files
 
 <p><span class="ui">Show comment badges</span> in the <span class="ui">More</span> menu, under View, turns the numbers on the canvas off and on. It changes only what you see. The comments stay in the file. Comments are not drawn on a picture from <a href="export.html">Export</a>.</p>
 
+<figure class="shot">
+  <img src="@img/comments-badges-off.png" alt="The command palette with comment badges typed in the field. One action is listed, Show comment badges, in the section View, with a tick and a pin at its right">
+  <figcaption>Show comment badges found in the palette, under View. The tick means the badges are on.</figcaption>
+</figure>
+
 <h2>Where they are kept</h2>
 
 <p>A comment is written into a <code>penstock</code> extension element inside the element it belongs to. Camunda Modeler and both engines ignore that element, so nothing a comment says changes how the process runs. Because it is part of the file, a comment is part of the diff in a pull request. See <a href="files.html">Files Penstock reads and writes</a>.</p>
