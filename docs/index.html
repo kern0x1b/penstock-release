@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Penstock - BPMN editor for Camunda in JetBrains IDEs</title>
-<meta name="description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, with checks, deployment, tests, auto layout and a command line.">
+<title>Penstock - BPMN, DMN and form editor for Camunda in JetBrains IDEs and VS Code</title>
+<meta name="description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs and VS Code, with checks, deployment, tests, auto layout and a command line.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
@@ -14,15 +14,16 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Penstock">
-<meta property="og:title" content="Penstock - BPMN editor for Camunda in JetBrains IDEs">
-<meta property="og:description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs, with checks, deployment, tests, auto layout and a command line.">
+<meta property="og:title" content="Penstock - BPMN, DMN and form editor for Camunda in JetBrains IDEs and VS Code">
+<meta property="og:description" content="Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs and VS Code, with checks, deployment, tests, auto layout and a command line.">
 <meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/">
-<link rel="preload" href="fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
@@ -77,14 +78,18 @@
   <div class="bar">
     <a class="brand" href=""><img src="icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="guide/">Guide</a>
-      <a href="jetbrains/">JetBrains</a>
-      <a href="cli/">Command line</a>
-      <a href="vscode/">VS Code</a>
+      <a href="guide/getting-started.html" class="keep">Get started</a>
+      <a href="guide/" class="keep">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
       <a href="guide/plans.html">Plans</a>
-      <a href="license/">Licence</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
-
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
 </header>
@@ -93,16 +98,13 @@
 <div class="wide">
 
 <section class="hero">
-  <img class="mark" src="icon.svg" alt="" width="48" height="48">
-  <h1>BPMN diagrams, in the tools you already use.</h1>
-  <p class="lede">Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven, next to the raw XML. Diagrams stay in your project and in version control, so they are reviewed like code. It runs inside JetBrains IDEs, and a <code>penstock</code> command does the same checks in a pipeline.</p>
+  <h1>Edit, check and deploy BPMN diagrams where you already work.</h1>
+  <p class="lede">Penstock is a visual editor for BPMN, DMN and Camunda forms, for Camunda 7, Camunda 8, Operaton and CIB seven. It runs in JetBrains IDEs and in VS Code, and a command line runs the same checks in your pipeline. Diagrams stay in your project, next to the code.</p>
   <div class="cta">
-    <a class="btn" href="guide/">Read the guide</a>
-    <a class="btn quiet" href="#install">Install</a>
-    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
-    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
-    <span class="note">Any JetBrains IDE from 2024.2. Free, with 30 days of Pro on every new machine.</span>
+    <a class="btn" href="guide/getting-started.html">Get started</a>
+    <a class="btn quiet" href="guide/">Read the guide</a>
   </div>
+  <p class="tools-line">Free. Every new machine gets 30 days of Pro, with nothing to sign up for.</p>
 </section>
 
 <figure class="shot">
@@ -110,61 +112,36 @@
   <figcaption>A diagram open in the editor: the toolbar on top, the palette beside the canvas, the properties of the selected task in the sidebar, and the XML one tab away.</figcaption>
 </figure>
 
-<section class="band" id="features">
-  <h2>What it does</h2>
-  <p class="prose-note">One guide, written once. It works the same in every tool.</p>
-  <div class="cards">
-    <a class="card" href="guide/bpmn-editor.html"><strong>Edit BPMN, DMN and forms</strong><span>Visual editors with a properties panel. Every change is written to the file at once.</span></a>
-    <a class="card" href="guide/engine-profiles.html"><strong>Five engines</strong><span>Camunda 7, Camunda 8, Operaton and CIB seven, plus Classic BPMN 2.0.</span></a>
-    <a class="card" href="guide/sidebar.html"><strong>One sidebar</strong><span>Properties, scenarios, problems, comments, Monitor and code, beside the canvas in every editor.</span></a>
-    <a class="card" href="guide/toolbar.html"><strong>A toolbar you arrange</strong><span>Every action in one searchable palette, with a pin that puts it on the bar or takes it off.</span></a>
-    <a class="card" href="guide/diagram-check.html"><strong>Check every diagram</strong><span>Drawing problems, bpmnlint rules and, with Pro, how the process runs. Every check has a page.</span></a>
-    <a class="card" href="guide/deployment.html"><strong>Deploy in one click</strong><span>One popover, then one click, to the engine your <code>penstock.yaml</code> names. Secrets stay in the secret store of your tool.</span></a>
-    <a class="card" href="guide/auto-layout.html"><strong>Auto layout</strong><span>Draw a messy diagram again, left to right, in one click. Undo takes it back.</span></a>
-    <a class="card" href="guide/scenarios.html"><strong>Scenarios</strong><span>Plan every way through a process, then run the test cases on a local engine and see every step.</span></a>
-    <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to its worker and back. Find tasks nothing implements.</span></a>
-    <a class="card" href="guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report to hand on.</span></a>
-    <a class="card" href="guide/share-html.html"><strong>Share and import</strong><span>One offline HTML file to send. Bring in draw.io, Visio, Signavio and Bizagi files.</span></a>
-    <a class="card" href="cli/"><strong>A command line</strong><span>The same checks in a terminal, a pull request comment and an MCP server for AI assistants.</span></a>
-  </div>
-</section>
-
 <section class="band" id="install">
-  <h2>Install Penstock</h2>
-  <p class="prose-note">Pick the tool you use. All three share one licence and one trial.</p>
+  <h2>Install it in your tool</h2>
+  <p class="prose-note">The features, the licence and the trial are the same in all three.</p>
   <div class="cards install">
-    <div class="card"><strong><a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2024.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">Installing</a>.</span></div>
-    <div class="card"><strong><a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or install it from the <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">Marketplace page</a>.</span></div>
-    <div class="card"><strong><a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. <a href="cli/">Command line</a>.</span></div>
+    <div class="card"><strong><a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2024.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">More on installing</a>.</span></div>
+    <div class="card"><strong><a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or press Install on the <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">Marketplace page</a>. <a href="vscode/installing.html">More on installing</a>.</span></div>
+    <div class="card"><strong><a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. <a href="cli/">More on the command line</a>.</span></div>
   </div>
-  <p class="prose-note">Then <a href="guide/getting-started.html">get started</a>. Every new machine has 30 days of Pro, so you can try everything before you buy.</p>
+  <p class="prose-note">Then follow <a href="guide/getting-started.html">Get started</a>: from nothing installed to a checked, deployed process in about ten minutes.</p>
 </section>
 
-<section class="band" id="tools">
-  <h2>Pick your tool</h2>
-  <div class="cards tools">
-<a class="card" href="jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
-<a class="card" href="cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
-<a class="card" href="vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
-<div class="card soon"><strong>Desktop <span class="tag off">Coming</span></strong><span>A desktop app is planned.</span></div>
-</div>
-</section>
-
-<section class="band" id="start">
-  <h2>Start in five minutes</h2>
-  <ol class="steps prose">
-    <li><strong>Get Penstock.</strong> In a JetBrains IDE, install the plugin from the Marketplace (<a href="jetbrains/installing.html">Installing</a>). On the command line, run <code>npx @kern0x1b/penstock-cli</code> (<a href="cli/">Command line</a>). In VS Code, run <code>code --install-extension penstock.penstock</code>.</li>
-    <li><strong>Open a <code>.bpmn</code> file.</strong> It opens in the diagram editor, and the XML is one tab away. Only an empty new diagram asks which engine it is for.</li>
-    <li><strong>Or try the example.</strong> Write it into an empty folder. See <a href="guide/example-project.html">The example project</a>.</li>
-    <li><strong>Press Check.</strong> It lists what is wrong and how to fix it.</li>
-    <li><strong>Press Deploy.</strong> Read the popover, give it your engine address once, and press Deploy in it.</li>
-  </ol>
+<section class="band" id="features">
+  <h2>From drawing to running</h2>
+  <p class="prose-note">One guide, written once. It describes the same editor in every tool.</p>
+  <div class="cards">
+    <a class="card" href="guide/bpmn-editor.html"><strong>Draw and edit</strong><span>Visual editors for BPMN, DMN and forms, with a properties panel for each engine. Every change is written to the file at once.</span></a>
+    <a class="card" href="guide/diagram-check.html"><strong>Check your work</strong><span>Drawing problems, bpmnlint rules and, with Pro, how the process runs and where it can get stuck.</span></a>
+    <a class="card" href="guide/scenarios.html"><strong>Test and run</strong><span>Plan every way through a process, run the test cases on a local engine, deploy in one click and watch the instances.</span></a>
+    <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to the worker that runs it, and back. Find the tasks nothing implements.</span></a>
+    <a class="card" href="guide/migration.html"><strong>Share and move</strong><span>One offline HTML file to send. Import from draw.io, Visio, Signavio and Bizagi. Convert Camunda 7 to Camunda 8.</span></a>
+    <a class="card" href="cli/"><strong>In your pipeline</strong><span>The same checks from a terminal or a pull request, and an MCP server for AI assistants.</span></a>
+  </div>
 </section>
 
 <section class="band" id="plans">
   <h2>Free, Pro and Team</h2>
   <div class="prose">
-    <p>Everything a modeller needs is free: the editors, the properties panels, the command palette, the sidebar, templates, token simulation, the check and its lint, deploy, Monitor, export, share and import. <strong>Pro</strong> adds what only Penstock does: auto layout, flow analysis, code links, scenarios, the visual diagram diff, converting Camunda 7 to Camunda 8 and more. One rule decides which plan a feature needs: Pro on your machine, Team in a pipeline. Every machine starts with 30 days of Pro, and the licence is a signed token the plugin, the command line and the editor check offline.</p>
+    <p>Everything a modeller needs is free: the editors, the properties panels, the command palette, the sidebar, templates, token simulation, the check and its lint, deploy, Monitor, export, share and import.</p>
+    <p><strong>Pro</strong> adds what only Penstock does: auto layout, flow analysis, code links, scenarios, the visual diagram diff, converting Camunda 7 to Camunda 8 and more. One rule decides which plan a feature needs: Pro on your machine, Team in a pipeline.</p>
+    <p>Every machine starts with 30 days of Pro. The licence is a signed token that the plugin, the extension and the command line check offline.</p>
     <div class="table-wrap"><table class="facts">
     <tbody>
     <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
@@ -203,12 +180,14 @@
 <footer>
   <div class="links">
     <a href="">Home</a>
+    <a href="guide/getting-started.html">Get started</a>
     <a href="guide/">Guide</a>
     <a href="jetbrains/">JetBrains</a>
-    <a href="cli/">Command line</a>
     <a href="vscode/">VS Code</a>
+    <a href="cli/">Command line</a>
+    <a href="guide/plans.html">Plans</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
     <a href="license/">Licence</a>
     <a href="notices/">Third-party notices</a>
@@ -216,7 +195,7 @@
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="fonts/OFL-Inter.txt">Inter</a>, <a href="fonts/OFL.txt">JetBrains Mono</a>).</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 

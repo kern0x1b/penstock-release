@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { root } from './site.mjs';
+import { root, THEME_SCRIPT } from './site.mjs';
 import { checkoutSettings } from './plans.mjs';
 import { readPrices } from './fetch-prices.mjs';
 import { contrastFailures } from './check-contrast.mjs';
@@ -60,6 +60,7 @@ for (const page of pages) {
   const allowed = relative === path.join('guide', 'plans.html') && checkoutSettings().embed === true;
   for (const script of scripts) {
     if (/type=["']application\/ld\+json["']/i.test(script)) continue;
+    if (script === '<script>' && html.includes(`<script>${THEME_SCRIPT}</script>`)) continue;
     if (!(allowed && /src="\.\.\/vendor\/polar-checkout\/embed\.global\.js"/.test(script))) problems.push(`${relative}: has a script that is not the vendored checkout: ${script}`);
   }
   if (html.includes('data-polar-checkout') && !allowed) problems.push(`${relative}: has a checkout button but no checkout script, or the embed is off`);

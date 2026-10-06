@@ -30,10 +30,12 @@ repository exists so that the things users need are public and permanent:
 The pages under `docs/` are served by GitHub Pages at
 <https://kern0x1b.github.io/penstock-release/>. Plain HTML and one stylesheet. There is no build
 step on the server: no scripts, no fonts or code from other sites, nothing that tracks visitors.
-The font, JetBrains Mono, is in `docs/fonts` with its SIL Open Font License.
+The fonts are in `docs/fonts` with their SIL Open Font Licences: Inter for text and headings,
+JetBrains Mono for code and the keys and menus the guide names.
 
-The look follows the product: its own colours for light and dark, JetBrains Mono, a 4px grid and no
-frames. `docs/style.css` is the only stylesheet.
+The colours follow the product, in light and dark by the visitor's system. Text is set for reading:
+Inter at 17px with a 62 character measure, a 4px grid and no frames. `docs/style.css` is the only
+stylesheet.
 
 ### How the documentation is organised
 

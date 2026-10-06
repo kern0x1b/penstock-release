@@ -22,7 +22,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/getting-started.html">
-<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -32,29 +33,35 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/" aria-current="true">Guide</a>
-      <a href="../jetbrains/">JetBrains</a>
-      <a href="../cli/">Command line</a>
-      <a href="../vscode/">VS Code</a>
+      <a href="../guide/getting-started.html" class="keep" aria-current="true">Get started</a>
+      <a href="../guide/" class="keep">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../license/">Licence</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
-      <a class="menu-link" href="#menu">Menu</a>
-
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
 </header>
 
 <div class="layout">
   <nav class="side" id="menu" aria-label="Guide">
-    <h2>Start here</h2>
+    <details open>
+    <summary>Start here</summary>
     <ul>
-      <li><a href="../guide/">Contents</a></li>
+      <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html" aria-current="page">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
-    <h2>Editors</h2>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
     <ul>
       <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
       <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
@@ -63,17 +70,39 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
-      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
-      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
-      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
-      <li><a href="../guide/export.html">Export</a></li>
-      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
-    <h2>Project setup</h2>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
@@ -81,42 +110,28 @@
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
-    <h2>Checking</h2>
+    </details>
+    <details>
+    <summary>Share and move</summary>
     <ul>
-      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
-      <li><a href="../rules/">Every rule</a></li>
-      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
-      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
-      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
-    </ul>
-    <h2>Running</h2>
-    <ul>
-      <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/monitor.html">Monitor</a></li>
-      <li><a href="../guide/scenarios.html">Scenarios</a></li>
-      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
-      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
-      <li><a href="../guide/check-workers.html">Check Workers</a></li>
-      <li><a href="../guide/code-links.html">Code links</a></li>
-    </ul>
-    <h2>Moving and sharing</h2>
-    <ul>
-      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
-    <h2>Licence and privacy</h2>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
     <ul>
       <li><a href="../guide/plans.html">Plans and licence</a></li>
       <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
       <li><a href="../guide/security.html">Security and privacy</a></li>
-    </ul>
-    <h2>Help</h2>
-    <ul>
       <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
       <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
+    </details>
   </nav>
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Start here</p>
@@ -135,6 +150,7 @@
 <li><a href="#which-files-open-in-the-editor">Which files open in the editor</a></li>
 <li><a href="#where-to-go-next">Where to go next</a></li>
 <li><a href="#common-problems">Common problems</a></li>
+<li><a href="#try-it-and-buy-it">The trial, and buying</a></li>
 </ul>
 </nav>
 <h2 id="1-get-penstock"><a href="#1-get-penstock">1. Get Penstock</a></h2>
@@ -148,6 +164,10 @@
 <p class="host-name">JetBrains</p>
 <p>Open <span class="ui">Settings | Plugins | Marketplace</span> in any JetBrains IDE from 2024.2, search for <strong>Penstock</strong> and press <span class="ui">Install</span>. Or open the <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace page</a>. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a>.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>Install the extension from the Visual Studio Marketplace, in VS Code 1.88 or later. See <a href="../vscode/installing.html">Installing in VS Code</a>.</p>
+</section>
 <section class="host" aria-label="Command line">
 <p class="host-name">Command line</p>
 <p>Install it once, or run it without installing. It needs Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. The package is on <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>.</p>
@@ -155,37 +175,12 @@
 npx @kern0x1b/penstock-cli</code></pre>
 <p>A project can also pin a version with a wrapper script. See <a href="../cli/">Command line</a>.</p>
 </section>
-<section class="host" aria-label="VS Code">
-<p class="host-name">VS Code</p>
-<p>Install the extension from the Visual Studio Marketplace, in VS Code 1.88 or later. See <a href="../vscode/installing.html">Installing in VS Code</a>.</p>
-</section>
 </div>
 </div>
 
 <p>In VS Code, run this in a terminal, or open <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">the extension's page</a> and press Install:</p>
 
 <pre><code>code --install-extension penstock.penstock</code></pre>
-
-<h3 id="try-it-and-buy-it"><a href="#try-it-and-buy-it">Try it, then buy it</a></h3>
-
-<p>Every machine starts with 30 days of Pro. You do not sign in or enter a card for the trial. When it ends, the machine is on the Free plan, and the editors, checks and deploy keep working.</p>
-
-<p>To buy, use one of these links. Polar's checkout opens in your browser, and when you have paid, Penstock notices and asks for the code sent to your e-mail. There is no key to copy. The same licence works in every tool on the machine.</p>
-
-<div class="cta">
-    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
-    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
-</div>
-
-<div class="table-wrap"><div class="table-wrap"><table class="facts">
-    <tbody>
-    <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
-    <tr><td>Pro</td><td>USD 9.00 per month or USD 90.00 per year</td></tr>
-    <tr><td>Team</td><td>USD 29.00 per month or USD 290.00 per year for each seat</td></tr>
-    </tbody>
-  </table></div></div>
-
-<p>How to activate it, what a licence covers, Team seats, pipelines, working offline, moving a machine and cancelling are on <a href="sign-in.html">Buying and signing in</a>. What each plan includes is on <a href="plans.html">Plans and licence</a>.</p>
 
 <h2 id="2-try-the-example"><a href="#2-try-the-example">2. Try the example</a></h2>
 
@@ -198,14 +193,14 @@ npx @kern0x1b/penstock-cli</code></pre>
 <p class="host-name">JetBrains</p>
 <p>Open an empty project and open the <span class="ui">Penstock</span> tool window. It offers <span class="ui">Camunda 8 order process</span> and <span class="ui">Camunda 7 order process</span>. Press one and confirm the dialog <em>Start from an example</em> with <span class="ui">Create</span>. A notification says where the example is.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>Open an empty folder in VS Code and open the <span class="ui">Penstock</span> view in the Activity Bar. A project with no diagrams offers the examples. Choose <span class="ui">Camunda 8 order process</span> or <span class="ui">Camunda 7 order process</span> to create it.</p>
+</section>
 <section class="host" aria-label="Command line">
 <p class="host-name">Command line</p>
 <p>In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</p>
 <pre><code>penstock init --example camunda-8</code></pre>
-</section>
-<section class="host" aria-label="VS Code">
-<p class="host-name">VS Code</p>
-<p>Open an empty folder in VS Code and open the <span class="ui">Penstock</span> view in the Activity Bar. A project with no diagrams offers the examples. Choose <span class="ui">Camunda 8 order process</span> or <span class="ui">Camunda 7 order process</span> to create it.</p>
 </section>
 </div>
 </div>
@@ -231,16 +226,16 @@ npx @kern0x1b/penstock-cli</code></pre>
 <p class="host-name">JetBrains</p>
 <p>Open the file from the Project view or the Penstock tool window. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the editor's toolbar.</p>
 </section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>Open the file from the Explorer. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the toolbar of the editor.</p>
+</section>
 <section class="host" aria-label="Command line">
 <p class="host-name">Command line</p>
 <p>There is no editor, so use the commands:</p>
 <pre><code>penstock check .
 penstock deploy . --dry-run
 penstock deploy .</code></pre>
-</section>
-<section class="host" aria-label="VS Code">
-<p class="host-name">VS Code</p>
-<p>Open the file from the Explorer. <span class="ui">Check</span> and <span class="ui">Deploy</span> are on the toolbar of the editor.</p>
 </section>
 </div>
 </div>
@@ -262,13 +257,13 @@ penstock deploy .</code></pre>
 <p class="host-name">JetBrains</p>
 <p>Double-click a <code>.bpmn</code> file in the Project view or in the Penstock tool window. The <span class="ui">BPMN Editor</span> and <span class="ui">Text</span> tabs at the foot of the editor switch between the picture and the XML. See <a href="../jetbrains/editor.html">The editor in the IDE</a>.</p>
 </section>
-<section class="host" aria-label="Command line">
-<p class="host-name">Command line</p>
-<p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram and penstock edit to change it.</p>
-</section>
 <section class="host" aria-label="VS Code">
 <p class="host-name">VS Code</p>
 <p>Double-click a <code>.bpmn</code> file in the Explorer. It opens in the Penstock editor. <span class="ui">Penstock: Open as text</span> opens the XML beside it. See <a href="../vscode/where-things-are.html">Where things are in VS Code</a>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p class="unavailable">Not available on the command line. The command line has no editor. Use penstock show to list a diagram and penstock edit to change it.</p>
 </section>
 </div>
 </div>
@@ -297,13 +292,13 @@ penstock deploy .</code></pre>
 <p class="host-name">JetBrains</p>
 <p>The first time the editor opens it walks you through six things in a few words each: the palette, the properties panel, Check, the tool window, which it points out is on the stripe at the side of the IDE, Deploy and the More menu. It is shown once, and the fact that it has been seen is kept in <code>~/.penstock/preferences.json</code> beside the toolbar choices. <span class="ui">Show the tour again</span> is in the More menu, under Help.</p>
 </section>
-<section class="host" aria-label="Command line">
-<p class="host-name">Command line</p>
-<p class="unavailable">Not available on the command line. There is no editor and so no tour. penstock doctor prints the setup it would point at.</p>
-</section>
 <section class="host" aria-label="VS Code">
 <p class="host-name">VS Code</p>
 <p>The first time the editor opens, it shows a short tour. It is shown once. <span class="ui">Penstock: Show the tour again</span> in the Command Palette, or <span class="ui">Show the tour again</span> in the More menu, plays it again.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p class="unavailable">Not available on the command line. There is no editor and so no tour. penstock doctor prints the setup it would point at.</p>
 </section>
 </div>
 </div>
@@ -340,6 +335,27 @@ penstock deploy .</code></pre>
   <dt>The example was not written.</dt>
   <dd>An example is written only into an empty folder, so it never overwrites your files.</dd>
 </dl>
+
+<h2 id="try-it-and-buy-it"><a href="#try-it-and-buy-it">The trial, and buying</a></h2>
+
+<p>Every machine starts with 30 days of Pro. You do not sign in or enter a card for the trial. When it ends, the machine is on the Free plan, and the editors, checks and deploy keep working.</p>
+
+<p>To buy, use one of these links. Polar's checkout opens in your browser, and when you have paid, Penstock notices and asks for the code sent to your e-mail. There is no key to copy. The same licence works in every tool on the machine.</p>
+
+<div class="cta">
+    <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_xi35yAnnm0WCMw1y3D56h3mCsgAox6wtLfOTx2yyBHF/redirect" rel="noopener">Buy Pro</a>
+    <a class="btn quiet" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+</div>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+    <tbody>
+    <tr><td>Free</td><td>No charge, and every new machine starts with 30 days of Pro.</td></tr>
+    <tr><td>Pro</td><td>USD 9.00 per month or USD 90.00 per year</td></tr>
+    <tr><td>Team</td><td>USD 29.00 per month or USD 290.00 per year for each seat</td></tr>
+    </tbody>
+  </table></div></div>
+
+<p>How to activate it, what a licence covers, Team seats, pipelines, working offline, moving a machine and cancelling are on <a href="sign-in.html">Buying and signing in</a>. What each plan includes is on <a href="plans.html">Plans and licence</a>.</p>
 <div class="related">
 <h2>See also</h2>
 <ul>
@@ -350,7 +366,7 @@ penstock deploy .</code></pre>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/"><span>Previous</span>Contents</a>
+<a class="prev" href="../guide/"><span>Previous</span>Overview</a>
 <a class="next" href="../guide/example-project.html"><span>Next</span>The example project</a>
 </nav>
 </main>
@@ -359,12 +375,14 @@ penstock deploy .</code></pre>
 <footer>
   <div class="links">
     <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
-    <a href="../cli/">Command line</a>
     <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
     <a href="../license/">Licence</a>
     <a href="../notices/">Third-party notices</a>
@@ -372,7 +390,7 @@ penstock deploy .</code></pre>
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 

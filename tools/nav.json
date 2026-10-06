@@ -18,7 +18,7 @@
           "pages": [
             {
               "slug": "index",
-              "title": "Contents",
+              "title": "Overview",
               "about": "Every page of this guide, by what you want to do."
             },
             {
@@ -39,7 +39,7 @@
           ]
         },
         {
-          "title": "Editors",
+          "title": "Draw and edit",
           "pages": [
             {
               "slug": "bpmn-editor",
@@ -77,16 +77,6 @@
               "about": "Notes on elements, kept in the file."
             },
             {
-              "slug": "trace-paths",
-              "title": "Trace paths",
-              "about": "Every path that runs through a step, with the rest dimmed."
-            },
-            {
-              "slug": "transaction-boundaries",
-              "title": "Transaction boundaries",
-              "about": "Where the engine commits a transaction, drawn on the canvas."
-            },
-            {
               "slug": "scripts",
               "title": "Scripts in their own tab",
               "about": "Edit an inline script as a real file in your code editor."
@@ -97,21 +87,6 @@
               "about": "Ready-made tasks and connectors."
             },
             {
-              "slug": "token-simulation",
-              "title": "Token simulation",
-              "about": "Watch a token walk through the process."
-            },
-            {
-              "slug": "export",
-              "title": "Export",
-              "about": "Save the diagram as SVG, PNG or PDF."
-            },
-            {
-              "slug": "diagram-diff",
-              "title": "Diagram diff",
-              "about": "Compare two versions of a diagram, side by side."
-            },
-            {
               "slug": "dmn-editor",
               "title": "The DMN editor",
               "about": "Decision tables, trying a table with values, spreadsheets and the requirements diagram."
@@ -120,11 +95,97 @@
               "slug": "form-editor",
               "title": "The form editor",
               "about": "Camunda Forms, drawn, previewed and checked."
+            },
+            {
+              "slug": "auto-layout",
+              "title": "Auto layout",
+              "about": "Tidy a diagram in one click."
             }
           ]
         },
         {
-          "title": "Project setup",
+          "title": "Check your work",
+          "pages": [
+            {
+              "slug": "diagram-check",
+              "title": "Diagram check",
+              "about": "The card that lists what is wrong."
+            },
+            {
+              "slug": "rules/index",
+              "title": "Every rule",
+              "about": "One page for each check: why it matters and how to fix it.",
+              "href": "rules/"
+            },
+            {
+              "slug": "validation",
+              "title": "Validation with bpmnlint",
+              "about": "The modelling rules, and how to change them."
+            },
+            {
+              "slug": "flow-analysis",
+              "title": "Flow analysis",
+              "about": "Deadlocks, dead steps and loops, found before you run anything."
+            },
+            {
+              "slug": "token-simulation",
+              "title": "Token simulation",
+              "about": "Watch a token walk through the process."
+            },
+            {
+              "slug": "trace-paths",
+              "title": "Trace paths",
+              "about": "Every path that runs through a step, with the rest dimmed."
+            },
+            {
+              "slug": "transaction-boundaries",
+              "title": "Transaction boundaries",
+              "about": "Where the engine commits a transaction, drawn on the canvas."
+            }
+          ]
+        },
+        {
+          "title": "Test and run",
+          "pages": [
+            {
+              "slug": "scenarios",
+              "title": "Scenarios",
+              "about": "Run the diagram's scenarios on a local engine and see every step."
+            },
+            {
+              "slug": "scenario-file",
+              "title": "The scenario file",
+              "about": "The test-case format, the instructions Penstock runs and refuses, and x-penstock."
+            },
+            {
+              "slug": "process-tests",
+              "title": "Process tests and coverage",
+              "about": "A JUnit test for every way through a process."
+            },
+            {
+              "slug": "deployment",
+              "title": "Deployment",
+              "about": "Send diagrams to your engine."
+            },
+            {
+              "slug": "monitor",
+              "title": "Monitor",
+              "about": "See what waits at each step, and where the incidents are, right now."
+            },
+            {
+              "slug": "check-workers",
+              "title": "Check Workers",
+              "about": "Ask the engine whether anything picks up your tasks."
+            },
+            {
+              "slug": "code-links",
+              "title": "Code links",
+              "about": "Jump between a task and the code that runs it, and find where they disagree."
+            }
+          ]
+        },
+        {
+          "title": "Set up a project",
           "pages": [
             {
               "slug": "engine-profiles",
@@ -154,83 +215,17 @@
           ]
         },
         {
-          "title": "Checking",
+          "title": "Share and move",
           "pages": [
             {
-              "slug": "diagram-check",
-              "title": "Diagram check",
-              "about": "The card that lists what is wrong."
+              "slug": "export",
+              "title": "Export",
+              "about": "Save the diagram as SVG, PNG or PDF."
             },
             {
-              "slug": "rules/index",
-              "title": "Every rule",
-              "about": "One page for each check: why it matters and how to fix it.",
-              "href": "rules/"
-            },
-            {
-              "slug": "validation",
-              "title": "Validation with bpmnlint",
-              "about": "The modelling rules, and how to change them."
-            },
-            {
-              "slug": "flow-analysis",
-              "title": "Flow analysis",
-              "about": "Deadlocks, dead steps and loops, found before you run anything."
-            },
-            {
-              "slug": "auto-layout",
-              "title": "Auto layout",
-              "about": "Tidy a diagram in one click."
-            }
-          ]
-        },
-        {
-          "title": "Running",
-          "pages": [
-            {
-              "slug": "deployment",
-              "title": "Deployment",
-              "about": "Send diagrams to your engine."
-            },
-            {
-              "slug": "monitor",
-              "title": "Monitor",
-              "about": "See what waits at each step, and where the incidents are, right now."
-            },
-            {
-              "slug": "scenarios",
-              "title": "Scenarios",
-              "about": "Run the diagram's scenarios on a local engine and see every step."
-            },
-            {
-              "slug": "scenario-file",
-              "title": "The scenario file",
-              "about": "The test-case format, the instructions Penstock runs and refuses, and x-penstock."
-            },
-            {
-              "slug": "process-tests",
-              "title": "Process tests and coverage",
-              "about": "A JUnit test for every way through a process."
-            },
-            {
-              "slug": "check-workers",
-              "title": "Check Workers",
-              "about": "Ask the engine whether anything picks up your tasks."
-            },
-            {
-              "slug": "code-links",
-              "title": "Code links",
-              "about": "Jump between a task and the code that runs it, and find where they disagree."
-            }
-          ]
-        },
-        {
-          "title": "Moving and sharing",
-          "pages": [
-            {
-              "slug": "migration",
-              "title": "Camunda 7 to 8",
-              "about": "See what does not carry over, convert, and write a report."
+              "slug": "diagram-diff",
+              "title": "Diagram diff",
+              "about": "Compare two versions of a diagram, side by side."
             },
             {
               "slug": "share-html",
@@ -243,6 +238,11 @@
               "about": "Bring in draw.io, Visio, Signavio and Bizagi files."
             },
             {
+              "slug": "migration",
+              "title": "Camunda 7 to 8",
+              "about": "See what does not carry over, convert, and write a report."
+            },
+            {
               "slug": "edit-diagrams",
               "title": "Edit from the command line",
               "about": "Change a diagram from a script or an assistant, with the editor's own modelling."
@@ -250,7 +250,7 @@
           ]
         },
         {
-          "title": "Licence and privacy",
+          "title": "Plans, privacy and help",
           "pages": [
             {
               "slug": "plans",
@@ -266,12 +266,7 @@
               "slug": "security",
               "title": "Security and privacy",
               "about": "What leaves your machine, and when."
-            }
-          ]
-        },
-        {
-          "title": "Help",
-          "pages": [
+            },
             {
               "slug": "troubleshooting",
               "title": "Troubleshooting",
@@ -372,51 +367,6 @@
       "where": "in a JetBrains IDE"
     },
     {
-      "id": "cli",
-      "title": "Command line",
-      "kind": "host",
-      "enabled": true,
-      "summary": "The penstock command: every command, pipelines and the MCP server.",
-      "groups": [
-        {
-          "title": "Start here",
-          "pages": [
-            {
-              "slug": "index",
-              "title": "Command line",
-              "about": "Install, run, and use it in a script."
-            }
-          ]
-        },
-        {
-          "title": "Reference",
-          "pages": [
-            {
-              "slug": "commands",
-              "title": "Every command",
-              "about": "Each command with every option and an example."
-            }
-          ]
-        },
-        {
-          "title": "Automation",
-          "pages": [
-            {
-              "slug": "ci",
-              "title": "Pipelines, reports and the bot",
-              "about": "Checks on every push, and a review comment on pull requests."
-            },
-            {
-              "slug": "mcp",
-              "title": "The MCP server",
-              "about": "Let an AI assistant read, check and edit your diagrams."
-            }
-          ]
-        }
-      ],
-      "where": "on the command line"
-    },
-    {
       "id": "vscode",
       "title": "VS Code",
       "kind": "host",
@@ -475,6 +425,51 @@
         }
       ],
       "where": "in VS Code"
+    },
+    {
+      "id": "cli",
+      "title": "Command line",
+      "kind": "host",
+      "enabled": true,
+      "summary": "The penstock command: every command, pipelines and the MCP server.",
+      "groups": [
+        {
+          "title": "Start here",
+          "pages": [
+            {
+              "slug": "index",
+              "title": "Command line",
+              "about": "Install, run, and use it in a script."
+            }
+          ]
+        },
+        {
+          "title": "Reference",
+          "pages": [
+            {
+              "slug": "commands",
+              "title": "Every command",
+              "about": "Each command with every option and an example."
+            }
+          ]
+        },
+        {
+          "title": "Automation",
+          "pages": [
+            {
+              "slug": "ci",
+              "title": "Pipelines, reports and the bot",
+              "about": "Checks on every push, and a review comment on pull requests."
+            },
+            {
+              "slug": "mcp",
+              "title": "The MCP server",
+              "about": "Let an AI assistant read, check and edit your diagrams."
+            }
+          ]
+        }
+      ],
+      "where": "on the command line"
     },
     {
       "id": "desktop",

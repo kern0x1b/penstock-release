@@ -13,6 +13,12 @@ function tokensIn(block) {
 const darkStart = css.indexOf('@media screen and (prefers-color-scheme: dark)');
 const lightBlock = css.slice(css.indexOf(':root'), darkStart);
 const darkBlock = css.slice(darkStart, css.indexOf('\n}\n', darkStart));
+const forcedStart = css.indexOf(':root[data-theme="dark"] {');
+const forcedBlock = css.slice(forcedStart, css.indexOf('\n}\n', forcedStart));
+if (JSON.stringify(tokensIn(forcedBlock)) !== JSON.stringify(tokensIn(darkBlock))) {
+  console.error('the dark tokens of the system theme and of the chosen dark theme differ in docs/style.css');
+  process.exit(1);
+}
 const light = tokensIn(lightBlock);
 const dark = { ...light, ...tokensIn(darkBlock) };
 

@@ -55,7 +55,9 @@ export function sectionUrl(section, base) {
 export function sidebar({ base, section, key }) {
   const own = sectionOf(section);
   const items = own.groups
-    .map((group) => {
+    .map((group, index) => {
+      const holdsCurrent = group.pages.some((page) => `${section}/${page.slug}` === key || (page.slug === 'rules/index' && key.startsWith(`${section}/rules/`)));
+      const open = holdsCurrent || (index === 0 && !own.groups.some((other) => other.pages.some((page) => `${section}/${page.slug}` === key || (page.slug === 'rules/index' && key.startsWith(`${section}/rules/`)))));
       const links = group.pages
         .map((page) => {
           const pageKey = `${section}/${page.slug}`;
@@ -65,7 +67,7 @@ export function sidebar({ base, section, key }) {
           return `      <li><a href="${urlOf({ ...page, section }, base)}"${attributes}>${escapeHtml(page.title)}</a></li>`;
         })
         .join('\n');
-      return `    <h2>${escapeHtml(group.title)}</h2>\n    <ul>\n${links}\n    </ul>`;
+      return `    <details${open ? ' open' : ''}>\n    <summary>${escapeHtml(group.title)}</summary>\n    <ul>\n${links}\n    </ul>\n    </details>`;
     })
     .join('\n');
   return `  <nav class="side" id="menu" aria-label="${escapeHtml(own.title)}">\n${items}\n  </nav>`;
@@ -124,20 +126,32 @@ export function optimizeImages(html) {
   });
 }
 
+export const THEME_SCRIPT = `(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();`;
+
 export function shell({ depth, title, description, canonical, body, key = '', withSidebar = true, section = 'guide', wrap = 'layout', checkout = false, base: absoluteBase, jsonLd }) {
   const base = absoluteBase ?? '../'.repeat(depth);
+  const link = (href, label, { keep = false, current = false } = {}) => {
+    const url = /^https?:/.test(href) ? href : base + href;
+    return `      <a href="${url}"${keep ? ' class="keep"' : ''}${current ? ' aria-current="true"' : ''}>${label}</a>`;
+  };
+  const inProducts = HOSTS.some((entry) => entry.id === section);
+  const products = [
+    `      <details class="products"${inProducts ? ' data-current="true"' : ''}>`,
+    '        <summary>Products</summary>',
+    '        <div class="drop">',
+    ...HOSTS.map((entry) => {
+      const mark = entry.id === section ? ' aria-current="true"' : '';
+      return `          <a href="${base}${entry.id}/"${mark}><strong>${escapeHtml(entry.title)}</strong><span>${escapeHtml(entry.summary ?? '')}</span></a>`;
+    }),
+    '        </div>',
+    '      </details>',
+  ].join('\n');
   const links = [
-    ...SECTIONS.map((entry) => ({ href: `${entry.id}/`, label: entry.title, key: entry.id })),
-    { href: 'guide/plans.html', label: 'Plans', key: 'plans' },
-    { href: 'license/', label: 'Licence', key: 'license' },
-    { href: `${REPO}/issues`, label: 'Support', key: 'support' },
-  ]
-    .map(({ href: target, label, key: linkKey }) => {
-      const mark = linkKey === section ? ' aria-current="true"' : '';
-      const url = /^https?:/.test(target) ? target : base + target;
-      return `      <a href="${url}"${mark}>${label}</a>`;
-    })
-    .join('\n');
+    link('guide/getting-started.html', 'Get started', { keep: true, current: key === 'guide/getting-started' }),
+    link('guide/', 'Guide', { keep: true, current: section === 'guide' && key !== 'guide/getting-started' && key !== 'guide/plans' }),
+    products,
+    link('guide/plans.html', 'Plans', { current: key === 'guide/plans' }),
+  ].join('\n');
   const optimizedBody = optimizeImages(body);
   const inner =
     wrap === 'layout'
@@ -168,7 +182,8 @@ export function shell({ depth, title, description, canonical, body, key = '', wi
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${SITE}/og-image.png">
 <link rel="canonical" href="${SITE}/${canonical}">
-<link rel="preload" href="${base}fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${base}fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>${THEME_SCRIPT}</script>
 <link rel="stylesheet" href="${base}style.css">
 ${jsonLd ? `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>\n` : ''}</head>
 <body>
@@ -179,7 +194,7 @@ ${jsonLd ? `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 
     <a class="brand" href="${base}"><img src="${base}icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
 ${links}
-${wrap === 'layout' && withSidebar ? '      <a class="menu-link" href="#menu">Menu</a>\n' : ''}
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
 </header>
@@ -189,10 +204,12 @@ ${inner}
 <footer>
   <div class="links">
     <a href="${base}">Home</a>
+    <a href="${base}guide/getting-started.html">Get started</a>
     <a href="${base}guide/">Guide</a>
     ${hostLinks}
+    <a href="${base}guide/plans.html">Plans</a>
     <a href="${MARKETPLACE}">Marketplace</a>
-    <a href="${REPO}/issues">Issues</a>
+    <a href="${REPO}/issues">Support</a>
     <a href="${REPO}/blob/main/CHANGELOG.md">Changelog</a>
     <a href="${base}license/">Licence</a>
     <a href="${base}notices/">Third-party notices</a>
@@ -200,7 +217,7 @@ ${inner}
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. ${EMBED ? 'Its one script, on the Plans page, opens the checkout, and it is served from this site.' : 'It runs no scripts.'} It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="${base}fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. ${EMBED ? 'Its one script, on the Plans page, opens the checkout, and it is served from this site.' : 'It runs no scripts.'} It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="${base}fonts/OFL-Inter.txt">Inter</a>, <a href="${base}fonts/OFL.txt">JetBrains Mono</a>).</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 ${checkout && EMBED ? `\n<script src="${base}vendor/polar-checkout/embed.global.js" data-auto-init defer></script>\n` : ''}

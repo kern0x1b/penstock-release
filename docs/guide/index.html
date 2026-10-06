@@ -22,7 +22,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/">
-<link rel="preload" href="../fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -32,29 +33,35 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/" aria-current="true">Guide</a>
-      <a href="../jetbrains/">JetBrains</a>
-      <a href="../cli/">Command line</a>
-      <a href="../vscode/">VS Code</a>
+      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
       <a href="../guide/plans.html">Plans</a>
-      <a href="../license/">Licence</a>
-      <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
-      <a class="menu-link" href="#menu">Menu</a>
-
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
 </header>
 
 <div class="layout">
   <nav class="side" id="menu" aria-label="Guide">
-    <h2>Start here</h2>
+    <details open>
+    <summary>Start here</summary>
     <ul>
-      <li><a href="../guide/" aria-current="page">Contents</a></li>
+      <li><a href="../guide/" aria-current="page">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
-    <h2>Editors</h2>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
     <ul>
       <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
       <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
@@ -63,17 +70,39 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
-      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
-      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
-      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
-      <li><a href="../guide/export.html">Export</a></li>
-      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
-    <h2>Project setup</h2>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
@@ -81,42 +110,28 @@
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
     </ul>
-    <h2>Checking</h2>
+    </details>
+    <details>
+    <summary>Share and move</summary>
     <ul>
-      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
-      <li><a href="../rules/">Every rule</a></li>
-      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
-      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
-      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
-    </ul>
-    <h2>Running</h2>
-    <ul>
-      <li><a href="../guide/deployment.html">Deployment</a></li>
-      <li><a href="../guide/monitor.html">Monitor</a></li>
-      <li><a href="../guide/scenarios.html">Scenarios</a></li>
-      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
-      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
-      <li><a href="../guide/check-workers.html">Check Workers</a></li>
-      <li><a href="../guide/code-links.html">Code links</a></li>
-    </ul>
-    <h2>Moving and sharing</h2>
-    <ul>
-      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
-    <h2>Licence and privacy</h2>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
     <ul>
       <li><a href="../guide/plans.html">Plans and licence</a></li>
       <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
       <li><a href="../guide/security.html">Security and privacy</a></li>
-    </ul>
-    <h2>Help</h2>
-    <ul>
       <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
       <li><a href="../guide/faq.html">Questions and answers</a></li>
     </ul>
+    </details>
   </nav>
 <main class="doc" id="content">
 <h1>Penstock guide</h1>
@@ -127,13 +142,12 @@
 <li><a href="#start-with-what-you-want-to-do">Start with what you want to do</a></li>
 <li><a href="#how-the-documentation-is-organised">How the documentation is organised</a></li>
 <li><a href="#start-here">Start here</a></li>
-<li><a href="#editors">Editors</a></li>
-<li><a href="#project-setup">Project setup</a></li>
-<li><a href="#checking">Checking</a></li>
-<li><a href="#running">Running</a></li>
-<li><a href="#moving-and-sharing">Moving and sharing</a></li>
-<li><a href="#licence-and-privacy">Licence and privacy</a></li>
-<li><a href="#help">Help</a></li>
+<li><a href="#draw-and-edit">Draw and edit</a></li>
+<li><a href="#check-your-work">Check your work</a></li>
+<li><a href="#test-and-run">Test and run</a></li>
+<li><a href="#set-up-a-project">Set up a project</a></li>
+<li><a href="#share-and-move">Share and move</a></li>
+<li><a href="#plans-privacy-and-help">Plans, privacy and help</a></li>
 <li><a href="#pick-your-tool">Pick your tool</a></li>
 <li><a href="#if-a-page-does-not-answer-your-question">If a page does not answer your question</a></li>
 </ul>
@@ -178,7 +192,7 @@
 <a class="card" href="../guide/example-project.html"><strong>The example project</strong><span>A small order process that runs from the first minute.</span></a>
 <a class="card" href="../guide/glossary.html"><strong>Words used in this guide</strong><span>Every technical word, explained once.</span></a>
 </div>
-<h2 id="editors"><a href="#editors">Editors</a></h2>
+<h2 id="draw-and-edit"><a href="#draw-and-edit">Draw and edit</a></h2>
 <div class="cards">
 <a class="card" href="../guide/bpmn-editor.html"><strong>The BPMN editor</strong><span>The window, the tabs and how saving works.</span></a>
 <a class="card" href="../guide/toolbar.html"><strong>Toolbar and More menu</strong><span>Every action, and how to pin it to the toolbar.</span></a>
@@ -187,17 +201,33 @@
 <a class="card" href="../guide/elements.html"><strong>BPMN elements</strong><span>Every element you can draw, and what it is for.</span></a>
 <a class="card" href="../guide/editing.html"><strong>Editing a diagram</strong><span>The canvas, the palette, copy and paste, undo, the minimap.</span></a>
 <a class="card" href="../guide/comments.html"><strong>Comments</strong><span>Notes on elements, kept in the file.</span></a>
-<a class="card" href="../guide/trace-paths.html"><strong>Trace paths</strong><span>Every path that runs through a step, with the rest dimmed.</span></a>
-<a class="card" href="../guide/transaction-boundaries.html"><strong>Transaction boundaries</strong><span>Where the engine commits a transaction, drawn on the canvas.</span></a>
 <a class="card" href="../guide/scripts.html"><strong>Scripts in their own tab</strong><span>Edit an inline script as a real file in your code editor.</span></a>
 <a class="card" href="../guide/element-templates.html"><strong>Element templates</strong><span>Ready-made tasks and connectors.</span></a>
-<a class="card" href="../guide/token-simulation.html"><strong>Token simulation</strong><span>Watch a token walk through the process.</span></a>
-<a class="card" href="../guide/export.html"><strong>Export</strong><span>Save the diagram as SVG, PNG or PDF.</span></a>
-<a class="card" href="../guide/diagram-diff.html"><strong>Diagram diff</strong><span>Compare two versions of a diagram, side by side.</span></a>
 <a class="card" href="../guide/dmn-editor.html"><strong>The DMN editor</strong><span>Decision tables, trying a table with values, spreadsheets and the requirements diagram.</span></a>
 <a class="card" href="../guide/form-editor.html"><strong>The form editor</strong><span>Camunda Forms, drawn, previewed and checked.</span></a>
+<a class="card" href="../guide/auto-layout.html"><strong>Auto layout</strong><span>Tidy a diagram in one click.</span></a>
 </div>
-<h2 id="project-setup"><a href="#project-setup">Project setup</a></h2>
+<h2 id="check-your-work"><a href="#check-your-work">Check your work</a></h2>
+<div class="cards">
+<a class="card" href="../guide/diagram-check.html"><strong>Diagram check</strong><span>The card that lists what is wrong.</span></a>
+<a class="card" href="../rules/"><strong>Every rule</strong><span>One page for each check: why it matters and how to fix it.</span></a>
+<a class="card" href="../guide/validation.html"><strong>Validation with bpmnlint</strong><span>The modelling rules, and how to change them.</span></a>
+<a class="card" href="../guide/flow-analysis.html"><strong>Flow analysis</strong><span>Deadlocks, dead steps and loops, found before you run anything.</span></a>
+<a class="card" href="../guide/token-simulation.html"><strong>Token simulation</strong><span>Watch a token walk through the process.</span></a>
+<a class="card" href="../guide/trace-paths.html"><strong>Trace paths</strong><span>Every path that runs through a step, with the rest dimmed.</span></a>
+<a class="card" href="../guide/transaction-boundaries.html"><strong>Transaction boundaries</strong><span>Where the engine commits a transaction, drawn on the canvas.</span></a>
+</div>
+<h2 id="test-and-run"><a href="#test-and-run">Test and run</a></h2>
+<div class="cards">
+<a class="card" href="../guide/scenarios.html"><strong>Scenarios</strong><span>Run the diagram's scenarios on a local engine and see every step.</span></a>
+<a class="card" href="../guide/scenario-file.html"><strong>The scenario file</strong><span>The test-case format, the instructions Penstock runs and refuses, and x-penstock.</span></a>
+<a class="card" href="../guide/process-tests.html"><strong>Process tests and coverage</strong><span>A JUnit test for every way through a process.</span></a>
+<a class="card" href="../guide/deployment.html"><strong>Deployment</strong><span>Send diagrams to your engine.</span></a>
+<a class="card" href="../guide/monitor.html"><strong>Monitor</strong><span>See what waits at each step, and where the incidents are, right now.</span></a>
+<a class="card" href="../guide/check-workers.html"><strong>Check Workers</strong><span>Ask the engine whether anything picks up your tasks.</span></a>
+<a class="card" href="../guide/code-links.html"><strong>Code links</strong><span>Jump between a task and the code that runs it, and find where they disagree.</span></a>
+</div>
+<h2 id="set-up-a-project"><a href="#set-up-a-project">Set up a project</a></h2>
 <div class="cards">
 <a class="card" href="../guide/engine-profiles.html"><strong>Engines</strong><span>Camunda 7, Camunda 8, Operaton and CIB seven.</span></a>
 <a class="card" href="../guide/settings.html"><strong>penstock.yaml</strong><span>The one file that describes your project, and every key in it.</span></a>
@@ -205,39 +235,20 @@
 <a class="card" href="../guide/project-model.html"><strong>Your project as a model</strong><span>Processes, workers, variables, messages, decisions and forms, and how they connect.</span></a>
 <a class="card" href="../guide/files.html"><strong>Files Penstock reads and writes</strong><span>Every file, and where it lives.</span></a>
 </div>
-<h2 id="checking"><a href="#checking">Checking</a></h2>
+<h2 id="share-and-move"><a href="#share-and-move">Share and move</a></h2>
 <div class="cards">
-<a class="card" href="../guide/diagram-check.html"><strong>Diagram check</strong><span>The card that lists what is wrong.</span></a>
-<a class="card" href="../rules/"><strong>Every rule</strong><span>One page for each check: why it matters and how to fix it.</span></a>
-<a class="card" href="../guide/validation.html"><strong>Validation with bpmnlint</strong><span>The modelling rules, and how to change them.</span></a>
-<a class="card" href="../guide/flow-analysis.html"><strong>Flow analysis</strong><span>Deadlocks, dead steps and loops, found before you run anything.</span></a>
-<a class="card" href="../guide/auto-layout.html"><strong>Auto layout</strong><span>Tidy a diagram in one click.</span></a>
-</div>
-<h2 id="running"><a href="#running">Running</a></h2>
-<div class="cards">
-<a class="card" href="../guide/deployment.html"><strong>Deployment</strong><span>Send diagrams to your engine.</span></a>
-<a class="card" href="../guide/monitor.html"><strong>Monitor</strong><span>See what waits at each step, and where the incidents are, right now.</span></a>
-<a class="card" href="../guide/scenarios.html"><strong>Scenarios</strong><span>Run the diagram's scenarios on a local engine and see every step.</span></a>
-<a class="card" href="../guide/scenario-file.html"><strong>The scenario file</strong><span>The test-case format, the instructions Penstock runs and refuses, and x-penstock.</span></a>
-<a class="card" href="../guide/process-tests.html"><strong>Process tests and coverage</strong><span>A JUnit test for every way through a process.</span></a>
-<a class="card" href="../guide/check-workers.html"><strong>Check Workers</strong><span>Ask the engine whether anything picks up your tasks.</span></a>
-<a class="card" href="../guide/code-links.html"><strong>Code links</strong><span>Jump between a task and the code that runs it, and find where they disagree.</span></a>
-</div>
-<h2 id="moving-and-sharing"><a href="#moving-and-sharing">Moving and sharing</a></h2>
-<div class="cards">
-<a class="card" href="../guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report.</span></a>
+<a class="card" href="../guide/export.html"><strong>Export</strong><span>Save the diagram as SVG, PNG or PDF.</span></a>
+<a class="card" href="../guide/diagram-diff.html"><strong>Diagram diff</strong><span>Compare two versions of a diagram, side by side.</span></a>
 <a class="card" href="../guide/share-html.html"><strong>Share as HTML</strong><span>One offline file anyone can open.</span></a>
 <a class="card" href="../guide/import.html"><strong>Import a diagram</strong><span>Bring in draw.io, Visio, Signavio and Bizagi files.</span></a>
+<a class="card" href="../guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report.</span></a>
 <a class="card" href="../guide/edit-diagrams.html"><strong>Edit from the command line</strong><span>Change a diagram from a script or an assistant, with the editor's own modelling.</span></a>
 </div>
-<h2 id="licence-and-privacy"><a href="#licence-and-privacy">Licence and privacy</a></h2>
+<h2 id="plans-privacy-and-help"><a href="#plans-privacy-and-help">Plans, privacy and help</a></h2>
 <div class="cards">
 <a class="card" href="../guide/plans.html"><strong>Plans and licence</strong><span>What is free, what is Pro, what is Team.</span></a>
 <a class="card" href="../guide/sign-in.html"><strong>Buying and signing in</strong><span>Trial, checkout, sign in, education, pipelines.</span></a>
 <a class="card" href="../guide/security.html"><strong>Security and privacy</strong><span>What leaves your machine, and when.</span></a>
-</div>
-<h2 id="help"><a href="#help">Help</a></h2>
-<div class="cards">
 <a class="card" href="../guide/troubleshooting.html"><strong>Troubleshooting</strong><span>Fixes for the problems people meet most.</span></a>
 <a class="card" href="../guide/faq.html"><strong>Questions and answers</strong><span>Short answers to common questions.</span></a>
 </div>
@@ -248,8 +259,8 @@
 
 <div class="cards tools">
 <a class="card" href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
-<a class="card" href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
 <a class="card" href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+<a class="card" href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
 <div class="card soon"><strong>Desktop <span class="tag off">Coming</span></strong><span>A desktop app is planned.</span></div>
 </div>
 
@@ -266,12 +277,14 @@
 <footer>
   <div class="links">
     <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
-    <a href="../cli/">Command line</a>
     <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
     <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
-    <a href="https://github.com/kern0x1b/penstock-release/issues">Issues</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
     <a href="../license/">Licence</a>
     <a href="../notices/">Third-party notices</a>
@@ -279,7 +292,7 @@
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the <a href="../fonts/OFL.txt">SIL Open Font License 1.1</a>.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
   <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
 </footer>
 
