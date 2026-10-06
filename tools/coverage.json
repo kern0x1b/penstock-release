@@ -4069,7 +4069,7 @@
   "tier": "free",
   "terms": [
    "T:penstock:comments",
-   "T:penstock.dev/schema"
+   "T:ns/comments/1.0"
   ],
   "page": "guide/comments.html",
   "depth": "explained"

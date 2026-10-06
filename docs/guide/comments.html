@@ -214,7 +214,7 @@
 
 <p>A comment is written into a <code>penstock</code> extension element inside the element it belongs to. Camunda Modeler and both engines ignore that element, so nothing a comment says changes how the process runs. Because it is part of the file, a comment is part of the diff in a pull request. See <a href="files.html">Files Penstock reads and writes</a>.</p>
 
-<p>The element lives in its own namespace, <code>https://penstock.dev/schema/1.0/bpmn</code>, with the prefix <code>penstock</code>. It sits in the <code>extensionElements</code> of the element that is commented, next to whatever else is there, for example <code>zeebe:</code> or <code>camunda:</code> content. For a task that carries one open and one resolved comment the file holds this:</p>
+<p>The element lives in its own namespace, <code>https://github.com/kern0x1b/penstock-release/ns/comments/1.0</code>, with the prefix <code>penstock</code>. It sits in the <code>extensionElements</code> of the element that is commented, next to whatever else is there, for example <code>zeebe:</code> or <code>camunda:</code> content. For a task that carries one open and one resolved comment the file holds this:</p>
 
 <pre><code>&lt;bpmn:userTask id="Activity_review" name="Review order"&gt;
   &lt;bpmn:extensionElements&gt;

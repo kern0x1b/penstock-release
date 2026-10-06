@@ -145,7 +145,7 @@ const CURATED = [
   ['user-file', '~/.penstock/pipeline.json', 'libs/core/src/node/license.ts', 'pipeline.json', ['T:pipeline.json']],
   ['user-file', '~/.penstock/test-builds.json', 'libs/core/src/node/testCases.ts', 'test-builds.json', ['T:test-builds.json']],
   ['user-file', '~/.penstock/wrapper/dists', 'apps/cli/src/wrapper/penstockw', 'wrapper/dists', ['T:wrapper/dists']],
-  ['bpmn-extension', 'penstock:Comments namespace in the BPMN file', 'libs/webview/src/features/comments/penstockModdle.ts', 'https://penstock.dev/schema/1.0/bpmn', ['T:penstock:comments', 'T:penstock.dev/schema']],
+  ['bpmn-extension', 'penstock:Comments namespace in the BPMN file', 'libs/webview/src/features/comments/penstockModdle.ts', 'https://github.com/kern0x1b/penstock-release/ns/comments/1.0', ['T:penstock:comments', 'T:ns/comments/1.0']],
   ['import-format', 'draw.io', 'libs/core/src/import/drawio.ts', 'fromDrawio', ['T:draw.io']],
   ['import-format', 'Visio', 'libs/core/src/import/visio.ts', 'fromVisio', ['T:Visio']],
   ['import-format', 'Signavio', 'libs/core/src/import/dialect.ts', 'Signavio', ['T:Signavio']],
