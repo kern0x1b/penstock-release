@@ -121,7 +121,8 @@
   <li>Scripts in their own tab, element templates, and the Check, Simulate, Monitor and Scenarios actions of the editor.</li>
   <li>Test-case files in the Test Explorer, with a Pro licence.</li>
   <li>The visual <a href="../guide/diagram-diff.html">diagram diff</a>, from the Explorer and Source Control menus, with a Pro licence.</li>
-  <li><a href="code-links.html">Code links</a>: code lenses, go to definition and references between diagrams and code, a Code view and Problems, with a Pro licence.</li>
+  <li><a href="code-links.html">Code links</a>: code lenses, go to definition and references between diagrams and code, the Penstock view and Problems, with a Pro licence.</li>
+  <li>The Penstock tool window in the Activity Bar: a project tree with nodes for processes, workers, variables, messages, errors, decisions, forms, templates, deployment, files, and Migrate to Camunda 8. Its toolbar includes Run all, reload from disk, group by file, folders, Open penstock.yaml, and a Run Penstock menu with 9 CLI commands. Row menus offer Open, Find usages in code, Copy ID, Go to implementation, Deploy, test actions, and CLI commands on the row's file. Pro.</li>
   <li>The licence, shared with the plugin and the command line. See <a href="licence.html">Licence in VS Code</a>.</li>
   <li>Every action of the editor as a command in the Command Palette, under <em>Penstock</em>.</li>
   <li>Your VS Code theme: the editor keeps its own layout and type and takes only its colour from the theme.</li>
@@ -131,10 +132,11 @@
 
 <ul>
   <li>The Camunda 7 to Camunda 8 conversion preview, and the conversion itself.</li>
-  <li>Running the tests a diagram is linked to, from the diagram, and the debugger's position on the diagram.</li>
+  <li>Running the tests a diagram is linked to, from the diagram, and the debugger's position on the diagram. In the project tree, the debugger position node has no counterpart and stays empty.</li>
+  <li>Running a test or debugging it from the project tree is best effort: the file opens at the test and runs through VS Code's testing commands at the cursor.</li>
+  <li>Opening a node in the project tree happens on a click or Enter, without double-click opening.</li>
   <li>Renaming a job type, topic, class or message in diagrams and code in one step.</li>
   <li>Putting a picture on the clipboard. A picture can still be exported to a file.</li>
-  <li>The project tree of the JetBrains tool window and its Run Penstock actions. The Code view in the Explorer holds the code sections of that tree. Whole-project commands are in the <a href="../cli/">command line</a>.</li>
   <li>A pipeline. There is no pipeline in VS Code, so there is no Team tier here. The <a href="../cli/ci.html">command line</a> runs in a pipeline.</li>
 </ul>
 

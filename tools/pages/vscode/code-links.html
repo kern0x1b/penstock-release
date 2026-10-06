@@ -1,10 +1,10 @@
 <!--
 title: Code links in VS Code
-lede: In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, a Code view and Problems.
+lede: In VS Code, code links connect a diagram to the code that runs it and back: code lenses, go to definition, references, the Penstock view and Problems.
 tags: pro
 related: guide/code-links, where-things-are, guide/check-workers
 -->
-<p>What code links are, and what they check, is described once in <a href="@guide/code-links.html">Code links</a>. This page is about what works in VS Code. The code links need a Pro licence on this machine. Without one, the Code view says what the feature gives and offers to buy or sign in, no code lens or definition is offered, and the Problems view stays empty. Going from a Camunda 7 task to its Java class or Spring bean needs no licence: it is a file search by package path and name.</p>
+<p>What code links are, and what they check, is described once in <a href="@guide/code-links.html">Code links</a>. This page is about what works in VS Code. The code links need a Pro licence on this machine. Without one, the Penstock view says what the feature gives and offers to buy or sign in, no code lens or definition is offered, and the Problems view stays empty. Going from a Camunda 7 task to its Java class or Spring bean needs no licence: it is a file search by package path and name.</p>
 
 <h2>What is read</h2>
 
@@ -30,9 +30,9 @@ related: guide/code-links, where-things-are, guide/check-workers
 
 <p>Go to Definition and Find All References answer in the code files and in a diagram file opened as text. See <span class="ui">Penstock: Open as text</span> in <a href="where-things-are.html">Where things are in VS Code</a>.</p>
 
-<h2>The Code view</h2>
+<h2>The Penstock view</h2>
 
-<p>The Explorer has a view called <strong>Code</strong>. It holds the sections the JetBrains tool window has for the code: code links, processes, workers, variables, messages and errors, with the workers the code implements under each task. A node opens the diagram or the code. A node has the inline actions <span class="ui">Penstock: Find usages in code</span> and <span class="ui">Penstock: Copy ID</span>. The refresh button in the title bar, <span class="ui">Penstock: Refresh the code links</span>, reads the project again.</p>
+<p>The Activity Bar has a view called <strong>Penstock</strong>. It holds the sections the JetBrains tool window has: processes, workers, variables, messages, errors, decisions, forms, templates, deployment, files and migration, with the workers the code implements under each task. A node opens the diagram or the code. A row menu offers <span class="ui">Find usages in code</span>, <span class="ui">Copy ID</span> and <span class="ui">Go to implementation</span>. The toolbar button <span class="ui">Reload from disk</span> (and the command <span class="ui">Penstock: Refresh the code links</span>) reads the project again.</p>
 
 <h2>Problems</h2>
 
@@ -63,9 +63,9 @@ related: guide/code-links, where-things-are, guide/check-workers
 
 <dl class="problems">
   <dt>No code lenses, no definitions.</dt>
-  <dd>Code links need Pro. Open the <strong>Code</strong> view: it offers to buy or sign in.</dd>
+  <dd>Code links need Pro. Open the <strong>Penstock</strong> view: it offers to buy or sign in.</dd>
   <dt>A worker in another repository is reported as missing.</dt>
   <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
   <dt>A change is not reflected.</dt>
-  <dd>Save the file, or press the refresh button in the title bar of the Code view.</dd>
+  <dd>Save the file, or press the reload button in the toolbar of the Penstock view.</dd>
 </dl>
