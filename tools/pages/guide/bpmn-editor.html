@@ -27,12 +27,13 @@ related: toolbar, properties-panel, editing, engine-profiles, project-model
   <thead><tr><th>Part</th><th>What it does</th></tr></thead>
   <tbody>
   <tr><td>Toolbar</td><td>Actions along the top. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
-  <tr><td>Palette</td><td>The floating island beside the canvas. Drag elements from it. See <a href="elements.html">BPMN elements</a>.</td></tr>
-  <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool.</td></tr>
-  <tr><td>Sidebar</td><td>The column on the right, with a tab for the properties, scenarios, problems, comments, Monitor and code. See <a href="sidebar.html">The sidebar</a>.</td></tr>
+  <tr><td>Palette</td><td>The floating island beside the canvas. Drag elements from it. It folds to a small handle at the left edge, and folds by itself on a small canvas until you open it. See <a href="elements.html">BPMN elements</a>.</td></tr>
+  <tr><td>Canvas</td><td>The drawing. Zoom and move it with the mouse or the trackpad. The keys are in the shortcuts of your tool. <span class="ui">Focus canvas</span> in the <span class="ui">More</span> menu hides the sidebar so only the canvas is left.</td></tr>
+  <tr><td>AI chat input</td><td>A short input at the foot of the canvas, when the AI chat is on. See <a href="ai-chat.html">AI chat</a>.</td></tr>
+  <tr><td>Sidebar</td><td>The column on the right, with a tab for the properties, the AI chat, problems, scenarios, comments, code, Monitor and debug. See <a href="sidebar.html">The sidebar</a>.</td></tr>
   <tr><td>Properties panel</td><td>The first tab of the sidebar: the settings of the selected element. See <a href="properties-panel.html">The properties panel</a>.</td></tr>
-  <tr><td>Problems pill</td><td>A small pill at the bottom of the canvas that counts the findings of the check, or says <em>No problems found.</em> See <a href="diagram-check.html">Diagram check</a>.</td></tr>
-  <tr><td>Check card</td><td>A card at the bottom right that lists the first problems, while Check is on. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Problems pill</td><td>A small pill at the bottom left of the canvas that counts the findings of the check, or says <em>No problems found.</em> See <a href="diagram-check.html">Diagram check</a>.</td></tr>
+  <tr><td>Check card</td><td>A card above the pill at the bottom left of the canvas that lists the first problems, while Check is on. See <a href="diagram-check.html">Diagram check</a>.</td></tr>
   <tr><td>Text tab</td><td>The raw XML of the same file, one tab away. See <a href="editing.html">Editing a diagram</a>.</td></tr>
   </tbody>
 </table></div>
@@ -41,7 +42,7 @@ related: toolbar, properties-panel, editing, engine-profiles, project-model
 
 <p>There is no save button. Every change is written to the file at once. The new content goes to a temporary file next to it, which then replaces the real file in one step, so a crash cannot leave half a file. Other views of the same file, and version control, see the change immediately.</p>
 
-<p>A saved diagram says <code>exporter="Penstock"</code> and the version of Penstock that wrote it, the way a file from Camunda Modeler says which tool and version wrote it. Opening a file changes nothing in it.</p>
+<p>A saved diagram says <code>exporter="Penstock"</code> and the version of Penstock that wrote it, the way a file from Camunda Modeler says which tool and version wrote it. Opening a file changes nothing in it. That holds for a diagram that has no layout, too: it opens laid out in memory, and the file is written only once you edit it.</p>
 
 <h3>When the file changes outside the editor</h3>
 
@@ -52,7 +53,7 @@ related: toolbar, properties-panel, editing, engine-profiles, project-model
   <li><strong>Keep Editing</strong> keeps your version. Your next change then overwrites the outside change.</li>
 </ul>
 
-<p>Renaming or moving the file needs no answer.</p>
+<p>Renaming or moving the file needs no answer. The same diagram can be open in two editors: they do not overwrite each other's changes, because a save made in one reaches the other as a change made outside it.</p>
 
 <h2>Themes</h2>
 

@@ -14,7 +14,7 @@ related: profiles, settings, security, cli/commands, monitor
   <li>Press <span class="ui">Deploy</span>. A notification says where the file went, or what the engine answered.</li>
 </ol>
 
-<p>Deploy sends the state of the canvas, including edits that have not reached the disk yet. The DMN and form editors have the same button, and the result is still a notification. Under the Classic BPMN profile there is no deployment target, so there is no button. See <a href="engine-profiles.html">Engines</a>.</p>
+<p>Deploy sends the state of the canvas, including edits that have not reached the disk yet. It is on the toolbar of every editor: the BPMN, DMN and form editors have the same button, the primary action on the right, and the result is still a notification. When no engine is set, the button is there but disabled, and its tooltip says why: <em>Add an engine to penstock.yaml to deploy</em>. Under the Classic BPMN profile there is no deployment target, so the button is disabled. With an engine set, the tooltip names the address the file will go to, once one is known. See <a href="engine-profiles.html">Engines</a>.</p>
 
 <figure class="shot">
   <img src="@img/deploy-popover.png" alt="The Deploy popover open under the Deploy button. The field Profile is set to default, the Engine address is http://localhost:8090/v2, What will be sent lists order-to-cash.bpmn, shipping-decision.dmn and invoice-approval.form, and Edit connection and Deploy are at the foot">
@@ -149,8 +149,8 @@ hooks:
 <h2>Common problems</h2>
 
 <dl class="problems">
-  <dt>Deploy is not on the toolbar.</dt>
-  <dd>The engine is Classic, or not set. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
+  <dt>Deploy is greyed out.</dt>
+  <dd>The engine is Classic, or not set. Hover the button: it says <em>Add an engine to penstock.yaml to deploy</em>. Set <code>engine</code> in <code>penstock.yaml</code>. See <a href="engine-profiles.html">Engines</a>.</dd>
   <dt>Every deploy is a new version.</dt>
   <dd>The engine's duplicate check matches by name. Keep <code>deployment.name</code> the same, and leave <code>changedOnly</code> on.</dd>
   <dt>The editor says 404 or the wrong path on Camunda 8.</dt>
@@ -159,8 +159,8 @@ hooks:
   <dd>Penstock does not skip certificate checks. Trust the certificate in the runtime of your tool. See the troubleshooting page of your tool.</dd>
   <dt>A wrong password is saved.</dt>
   <dd>Press <span class="ui">Deploy</span>, then <span class="ui">Edit connection&hellip;</span>, type the right one and save.</dd>
-  <dt>There is no Deploy button.</dt>
-  <dd>The profile is Classic BPMN, which has no engine behind it. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
+  <dt>Deploy is disabled in a decision or a form.</dt>
+  <dd>No engine is set for the project. Set <code>engine</code> in <code>penstock.yaml</code>.</dd>
   <dt>Nothing is deployed when I press Deploy.</dt>
   <dd>It opens the popover on purpose. Press <span class="ui">Deploy</span> in the popover to send.</dd>
 </dl>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Timeline - Penstock</title>
+<meta name="description" content="The timeline puts one run on a time axis under the canvas: a lane for each element, a bar for each visit. Move the playhead and the tokens on the diagram go back to where they were at that moment.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Timeline - Penstock">
+<meta property="og:description" content="The timeline puts one run on a time axis under the canvas: a lane for each element, a bar for each visit. Move the playhead and the tokens on the diagram go back to where they were at that moment.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/timeline.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../guide/plans.html">Plans</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html" aria-current="page">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Test and run</p>
+<h1>Timeline</h1>
+<p class="lede">The timeline puts one run on a time axis under the canvas: a lane for each element, a bar for each visit. Move the playhead and the tokens on the diagram go back to where they were at that moment.</p>
+<p class="meta"><span class="tag free">Free</span> <span>An instance picked in Monitor, or a scenario run (Pro). Camunda 7, Camunda 8, Operaton or CIB seven</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#open-it">Open it</a></li>
+<li><a href="#read-the-chart">Read the chart</a></li>
+<li><a href="#move-through-the-run">Move through the run</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>The <a href="monitor.html">Monitor</a> tells you what the engine is doing now, and a <a href="scenarios.html">scenario run</a> tells you what happened in a test. The timeline tells you <em>when</em>. It reads one run, either an instance of the process or a scenario run, and draws it as a chart under the diagram: time runs to the right, each element of the run has a lane, and each time the process was in that element is a bar. A wait shows as a long bar, a loop as many bars in one lane, a parallel branch as two lanes that overlap.</p>
+
+<p>Unlike <a href="token-simulation.html">Token simulation</a>, which is a picture of what could happen, the timeline replays a run that did. Picking an instance only reads it from the engine. Nothing is written to the engine, and moving the playhead never changes the diagram.</p>
+
+<h2 id="open-it"><a href="#open-it">Open it</a></h2>
+
+<ol class="steps">
+  <li>Choose a run. Either press <span class="ui">Use</span> on an instance in the <strong>Monitor</strong> tab, or pick a finished instance from its <strong>History</strong>, or run a scenario in the <strong>Scenarios</strong> tab.</li>
+  <li>Choose <span class="ui">Timeline</span> in the <span class="ui">More</span> menu or the command palette. It is a toggle, so the same action closes it. It is not pinned to the toolbar by default.</li>
+  <li>The timeline opens under the canvas. With nothing picked it says <em>No run to show.</em> and <em>Pick an instance in Monitor, or run a scenario, and its steps appear here.</em></li>
+</ol>
+
+<p>When both an instance and a scenario run are available, <span class="ui">Instance</span> and <span class="ui">Scenario run</span> in the header choose which one is drawn. A newly run scenario takes over, and so does an instance you pick. While it reads the run it says <em>Reading the run&hellip;</em>. For an instance that is still running, bars end at the moment it was read, and <span class="ui">Refresh</span> reads it again.</p>
+
+<p>Drag the grip on the top edge to make the timeline taller or shorter, or focus the grip and press the up or down arrow key.</p>
+
+<h2 id="read-the-chart"><a href="#read-the-chart">Read the chart</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Lanes</td><td>One for each element the run reached. A sub-process is indented over what is inside it. A number on a lane is how many times the run visited it, when it was more than once.</td></tr>
+  <tr><td>Bars</td><td>One for each visit, from the moment the element was entered to the moment it was left. A step that took no time is a thin mark. Short bars that lie close together are drawn as one and say <em>3 short steps</em>. Zoom in to see them apart.</td></tr>
+  <tr><td>Folded waits</td><td>A long wait with nothing happening is folded to a short stretch labelled <em>folded</em> with its length, so the steps on either side stay readable.</td></tr>
+  <tr><td>Ruler</td><td>The time since the run started, along the top.</td></tr>
+  <tr><td>Playhead</td><td>A line at the moment you are looking at. The readout in the header gives the time at it, the length of the run and the step, as in <em>3/8</em>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3 id="colour-the-bars"><a href="#colour-the-bars">Colour the bars</a></h3>
+
+<p>The header has three channels. A bar reads the same way as the badges on the canvas.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Channel</th><th>What the colour means</th></tr></thead>
+  <tbody>
+  <tr><td>Status</td><td>Completed, Active, Failed or Terminated, in the colours of the status badges. The legend is under the chart.</td></tr>
+  <tr><td>Duration</td><td>The longer the visit, the stronger the colour. The legend gives the range, from 0 to the longest visit.</td></tr>
+  <tr><td>Coverage</td><td>The more often a lane was visited, the stronger the colour. Elements of the diagram that the run never reached are added as lanes marked <em>Not reached</em>, and the legend says <em>5 of 9 elements reached</em>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="move-through-the-run"><a href="#move-through-the-run">Move through the run</a></h2>
+
+<p>Press play, or drag the playhead along the chart. The tokens on the canvas move along the sequence flows to where they were at that moment, and the elements are marked as they were then. The transport buttons are, in order, <span class="ui">To the start</span>, <span class="ui">Previous step</span>, <span class="ui">Play</span>, <span class="ui">Next step</span> and <span class="ui">To the end</span>. The number beside them, <span class="ui">1x</span>, <span class="ui">2x</span> or <span class="ui">4x</span>, is the playback speed. <span class="ui">Zoom out</span>, <span class="ui">Zoom in</span> and <span class="ui">Fit to width</span> change the scale of the time axis.</p>
+
+<p>Click a bar to select its element on the canvas and see the step under the chart: the element, its state, which visit it was, when it started and ended, how long it took, the activity instance, an incident if it had one, and whether a scenario answered it (<em>Answered by the scenario</em>). <em>Changed variables</em> lists the variables the step changed, as a name and its value, and its value before when the engine says it. How exact that is depends on the engine: see <a href="scenarios.html#running-scenarios">Running scenarios</a>.</p>
+
+<h3 id="keyboard"><a href="#keyboard">Keyboard</a></h3>
+
+<p>The chart is a single stop on the Tab key. With the focus on it, the keys are:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><kbd>Left</kbd>, <kbd>Right</kbd></td><td>Go to the previous or the next step of the run.</td></tr>
+  <tr><td><kbd>Shift</kbd>+<kbd>Left</kbd>, <kbd>Shift</kbd>+<kbd>Right</kbd></td><td>Go to the previous or the next visit of the element in the row you are on.</td></tr>
+  <tr><td><kbd>Shift</kbd>+<kbd>Up</kbd>, <kbd>Shift</kbd>+<kbd>Down</kbd></td><td>Change the row. The element of the row is selected on the canvas.</td></tr>
+  <tr><td><kbd>Home</kbd>, <kbd>End</kbd></td><td>Jump to the start or the end of the run.</td></tr>
+  <tr><td><kbd>Space</kbd></td><td>Play or pause.</td></tr>
+  <tr><td><kbd>+</kbd>, <kbd>-</kbd>, <kbd>0</kbd></td><td>Zoom in, zoom out, fit the run to the width.</td></tr>
+  <tr><td><kbd>Enter</kbd></td><td>Select the element of the row on the canvas.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>While the run is paused, a screen reader hears each step as <em>Step 3 of 8: Check stock</em>, or <em>Before the first step</em>. While it plays, the status line stays quiet, so it does not talk over itself.</p>
+
+<p>With reduced motion on in your system, the timeline does not animate: pressing play jumps to the end of the run, and the keys and the buttons still step through it.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A chart under the canvas with a lane for each element and a bar for each visit.</li>
+  <li>The tokens on the diagram at the moment of the playhead.</li>
+  <li>The step under the chart, with the variables it changed.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"No run to show."</dt>
+  <dd>Nothing is picked. Press <span class="ui">Use</span> on an instance in Monitor, or run a scenario.</dd>
+  <dt>"This run has no steps yet."</dt>
+  <dd>The engine has not recorded a step for the instance. Press <span class="ui">Refresh</span> in a moment.</dd>
+  <dt>"Unable to read the run".</dt>
+  <dd>The engine did not answer, or refused the question. The message gives the reason. Check the profile in force and press <span class="ui">Refresh</span>. See <a href="monitor.html">Monitor</a>.</dd>
+  <dt>There is no Timeline action.</dt>
+  <dd>The timeline is for Camunda 7, Camunda 8, Operaton and CIB seven diagrams. A decision and a form have none.</dd>
+  <dt>The bars of a running instance stop at the edge.</dt>
+  <dd>Bars of an instance that is still running end at the moment it was read. Press <span class="ui">Refresh</span> to read it again.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/debug-process.html">Debug a process</a> - Stop a running copy of the process at breakpoints.</li>
+<li><a href="../guide/token-simulation.html">Token simulation</a> - Watch a token walk through the process.</li>
+<li><a href="../guide/trace-paths.html">Trace paths</a> - Every path that runs through a step, with the rest dimmed.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/debug-process.html"><span>Previous</span>Debug a process</a>
+<a class="next" href="../guide/scenario-file.html"><span>Next</span>The scenario file</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

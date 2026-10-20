@@ -1,0 +1,113 @@
+<!--
+title: The script tab
+lede: A script or an expression of an element opens in a tab of its own, beside the diagram. The tab offers the variables of the process, says which step writes each one, checks FEEL as you type, and runs a FEEL expression on sample values.
+tags: free
+needs: The findings about variables need Pro, and Team in a pipeline
+related: scripts, properties-panel, code-links, suggestions, monitor, settings, jetbrains/code-links, vscode/code-links
+-->
+<h2>What it is</h2>
+
+<p>A task, a flow, a listener or a mapping can hold a small program: a Groovy or JavaScript script on Camunda 7, a FEEL expression on Camunda 8. A short one is fine in the <a href="properties-panel.html">properties panel</a>. For anything longer, you want a real editor, and you want to know what the variables are. The script tab is that editor. It knows where in the process the script sits, so it can say which variables reach it and which step wrote each one.</p>
+
+<p>Your changes go back into the diagram as you type. Nothing else is written to disk. How a script is handed to your tool's code editor is described in <a href="scripts.html">Scripts in their own tab</a>. This page is about what the tab knows.</p>
+
+<h2>What opens in a tab</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>Camunda 7, Operaton, CIB seven</th><th>Camunda 8</th></tr></thead>
+  <tbody>
+  <tr><td>A script task</td><td>The script, in Groovy or JavaScript</td><td>Not offered</td></tr>
+  <tr><td>A condition on a flow</td><td>A script condition</td><td>A FEEL condition, an expression that starts with <code>=</code></td></tr>
+  <tr><td>A listener</td><td>The script of an execution listener or a task listener</td><td>Not offered</td></tr>
+  <tr><td>An input or output parameter</td><td>A parameter that holds a script</td><td>Not offered</td></tr>
+  <tr><td>An input or output mapping</td><td>Not offered</td><td>A source that is a FEEL expression, starting with <code>=</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>A script that lives in a separate file (a script resource) is not opened. The file is the place to edit it.</p>
+
+<h2>Open it</h2>
+
+<ol class="steps">
+  <li>Select the element, or the flow, that holds the script or the expression.</li>
+  <li>In the properties panel, find the field. Under it is the button <span class="ui">Edit in new tab</span>. Press it.</li>
+  <li>The tab opens and is named after what it holds: the element and then the kind, as in <em>Check stock - script</em>, <em>Approved - condition</em>, <em>Charge card - input amount</em> or <em>start listener</em>. When two elements have the same name, the tab adds the id in brackets.</li>
+  <li>While the tab is open, the button says <span class="ui">Show tab</span> and brings it to the front. The panel says <em>This script is open in a tab</em>.</li>
+</ol>
+
+<p>The project view lists the same scripts in a <strong>Scripts</strong> branch under each process, in the order the process reaches them, and a click opens the tab.</p>
+
+<h2>The variables of the process</h2>
+
+<p>The tab shows the variables that exist at that step. Penstock works them out from the whole process: input and output mappings, result variables, conditions, form fields, message correlation keys, called processes and, when it can read them, the workers behind the tasks. For each variable you see:</p>
+
+<ul>
+  <li>the <strong>name</strong>;</li>
+  <li>its <strong>type</strong>, when the code or a schema says what it is;</li>
+  <li>the <strong>step that writes it</strong>, as <em>Set by</em> and the name of the element or the line of code, or <em>No place in the process sets it</em> when the script reads a name that nothing sets.</li>
+</ul>
+
+<p>A summary above the editor starts with <em>Context</em> and names the variables, and <span class="ui">Show all</span> lists them with their types and the steps that set them. In the editor, completion offers them as you type, hovering a name shows its type and who sets it, and where your tool can jump, the name leads to the element or the line of code that writes it.</p>
+
+<h2>Variables typed from the code</h2>
+
+<p>When a task is run by a worker or a delegate, the variables its code reads and sets are part of the answer, with their types and their fields. So a completion after <code>order.</code> offers the fields of the order the worker really returns.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Java, Kotlin, Groovy, JavaScript, TypeScript</td><td>Read by the code model of the tool where it has one, and otherwise by the reader of the command line. VS Code and Penstock Web and Desktop use the reader of the command line for every language.</td></tr>
+  <tr><td>Python, Go, C#, Scala</td><td>Read through the <code>penstock</code> command line. A tool that has no reader of its own for them finds the command line on the <code>PATH</code> or in the project's <code>node_modules</code>, or at a path you set.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Typed completion and the variables of the whole process are free. The findings that compare the diagram with the code are Pro, and Team in a pipeline:</p>
+
+<ul>
+  <li>a variable written and never read, and a variable read before any step writes it;</li>
+  <li>a field a worker uses but does not fetch;</li>
+  <li>the two checks of <code>variables.check</code> in <code>penstock.yaml</code>: <code>fields</code>, a field the type of a variable does not have, and <code>names</code>, which also reports a name nothing sets and that is not listed in <code>variables.inputs</code>. See <a href="settings.html">penstock.yaml</a>.</li>
+</ul>
+
+<p>The findings are in the Code group of the Problems tab. See <a href="code-links.html">Code links</a>.</p>
+
+<h2>FEEL in the tab</h2>
+
+<p>A FEEL expression, such as a condition or a mapping on Camunda 8, gets four things that a plain text field does not.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Syntax check</td><td>A mistake is underlined with a sentence about it: <em>FEEL compares with =, not ==</em>, <em>A name with spaces needs backticks</em>, <em>An if needs an else</em>, <em>This bracket is never closed</em>. Some come with a fix, <em>Replace with =</em>.</td></tr>
+  <tr><td>Completion</td><td>The variables of the process, and the FEEL built-in functions with their signature.</td></tr>
+  <tr><td>Documentation</td><td>A built-in function is explained next to its name.</td></tr>
+  <tr><td>Run</td><td>Press <span class="ui">Run</span> or <span class="ui">Run expression</span>. Penstock asks for a sample value for each variable the expression reads: JSON, or a FEEL expression such as <code>order.total * 2</code> for a value you have to compute. A variable left empty is not set. The result appears under the expression. With a Camunda 8 engine connected, the engine evaluates it and the result says <em>Result from engine</em>. Without one the expression is evaluated in the editor and the result says <em>Result from preview</em>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>In VS Code, and in the tools that have a debugger of their own, a FEEL expression can also be debugged step by step through its sub-expressions, with the value of each one shown beside it. Every FEEL field keeps its own undo and redo. The FEEL fields of scenario conditions, Camunda 8 conditions and the output cells of a decision table offer the project's variables.</p>
+
+<p>Only FEEL runs in a tab of Penstock Web: for a Groovy or JavaScript script the tab says <em>Only a FEEL expression runs here. Groovy and JavaScript scripts run in the engine, as part of the process.</em> A tool that has a Groovy runtime and a debugger of its own can run and debug a Groovy script on sample values too. What each tool gives is on its own page, linked at the foot.</p>
+
+<h2>Go to code, Runs in and usages</h2>
+
+<p>The same reader powers the links between a step and its code. Go to code, <strong>Runs in</strong> and the usages of a job type, a topic or an error code, at each line that raises it, work for Python, Go, C# and Scala workers through the command line, and, in tools that read code with a code model of their own, for Java, Kotlin, Groovy and JavaScript code. These links are Pro, and Team in a pipeline. Going from a Camunda 7 delegate to its class or bean stays free. See <a href="code-links.html">Code links</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A tab named after the element and the kind of script it holds.</li>
+  <li>A summary of the variables at that step, and a list that says what each is and who sets it.</li>
+  <li>Underlined mistakes in a FEEL expression, and a result for the sample values you give it.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>There is no <span class="ui">Edit in new tab</span> button.</dt>
+  <dd>The field holds a plain value, not a script or a FEEL expression. A FEEL expression starts with <code>=</code>. </dd>
+  <dt>A variable is missing from the list.</dt>
+  <dd>Nothing before this step sets it, or the code that sets it is in a language or a place Penstock does not read. Name the other repository under <code>linked</code> in <code>penstock.yaml</code>, and see <a href="code-links.html">Code links</a>.</dd>
+  <dt>The variables of a Python, Go, C# or Scala worker are missing.</dt>
+  <dd>The tool could not run the <code>penstock</code> command line. Install it with npm, or set its path in the tool's Penstock settings. A command line that is only in the project's <code>node_modules</code> runs only when you have trusted the project.</dd>
+  <dt>Run says the expression could not be run.</dt>
+  <dd>A sample value is neither JSON nor a valid FEEL expression, or it reads a name that has no value. The message names the variable.</dd>
+</dl>

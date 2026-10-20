@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AI chat - Penstock</title>
+<meta name="description" content="Ask an AI agent about the diagram you have open, or give it a task, from an input at the foot of the editor. The agent runs on your own account, reads your project through Penstock, and every change it wants to make is shown to you before it happens.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="AI chat - Penstock">
+<meta property="og:description" content="Ask an AI agent about the diagram you have open, or give it a task, from an input at the foot of the editor. The agent runs on your own account, reads your project through Penstock, and every change it wants to make is shown to you before it happens.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/ai-chat.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../guide/plans.html">Plans</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html" aria-current="page">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Draw and edit</p>
+<h1>AI chat</h1>
+<p class="lede">Ask an AI agent about the diagram you have open, or give it a task, from an input at the foot of the editor. The agent runs on your own account, reads your project through Penstock, and every change it wants to make is shown to you before it happens.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>An AI agent signed in to your own account. Team in a pipeline.</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#ask-a-question">Ask a question</a></li>
+<li><a href="#where-the-chat-lives">Where the chat lives</a></li>
+<li><a href="#the-input">The input</a></li>
+<li><a href="#agent-model-thought-level-and-mode">Agent, model, thought level and mode</a></li>
+<li><a href="#the-card-and-the-chat-tab">The card and the Chat tab</a></li>
+<li><a href="#questions">Questions</a></li>
+<li><a href="#the-ai-chat-button-and-the-shortcut">The AI chat button and the shortcut</a></li>
+<li><a href="#chats-belong-to-the-project">Chats belong to the project</a></li>
+<li><a href="#failed">When the agent cannot answer</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>The AI chat is a conversation with an agent, inside the BPMN, DMN and form editors. Penstock does not bring a model of its own. It starts the agent you choose, such as Claude Code, Codex, Gemini CLI or OpenCode, and talks to it over the <strong>Agent Client Protocol</strong>. The agent runs on your machine and on your own account. Penstock gives it its MCP server, <code>penstock mcp</code>, so the agent can read diagrams, the rules that check them, the scenarios and the links to your code, the way the command line does. See <a href="../cli/mcp.html">The MCP server</a>.</p>
+
+<p>The agent does not write to your project behind your back. When it wants to change a file, it asks. A change to a diagram is drawn on the canvas first, and you accept or reject it. See <a href="review-agent-changes.html">Review the changes an agent proposes</a>. Which agents there are, and how to install and turn them on, is on <a href="agents.html">AI agents</a>.</p>
+
+<p>The chat is part of Penstock Pro, and Team in a pipeline. The input and the chats are shown to everyone. When you send a message without the licence, you get the usual offer at that moment: what the AI chat does, and the choice to buy Pro or to enter a licence key. Nothing is added to the chat. See <a href="plans.html">Plans and licence</a>.</p>
+
+<h2 id="ask-a-question"><a href="#ask-a-question">Ask a question</a></h2>
+
+<ol class="steps">
+  <li>Open a diagram, a decision or a form. The input is at the foot of the editor, in the middle of the canvas.</li>
+  <li>Click it and write what you want to know or have done: <em>Ask about this or give the agent a task.</em> Select an element first if the question is about one.</li>
+  <li>Press <kbd>Enter</kbd>. <kbd>Shift</kbd>+<kbd>Enter</kbd> starts a new line.</li>
+  <li>The answer appears in a card just above the input, with the agent's work folded into one row while it runs. When the agent has something to change, it asks you first.</li>
+  <li>Write the next message in the same input. The conversation goes on in the same chat.</li>
+</ol>
+
+<p>If the agent is not signed in or not installed yet, the card says so and offers the next step. See <a href="#failed">When the agent cannot answer</a>.</p>
+
+<h2 id="where-the-chat-lives"><a href="#where-the-chat-lives">Where the chat lives</a></h2>
+
+<p>One preference, <span class="ui">AI chat</span>, decides where the conversation is shown. It is in the agents screen, under <span class="ui">General</span>, and is the same in every tool. See <a href="agents.html#general">AI agents</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Setting</th><th>What you get</th></tr></thead>
+  <tbody>
+  <tr><td><span class="ui">At the bottom of the editor</span></td><td>The default. The input sits at the foot of every editor, with the conversation in a card above it. The sidebar has a Chat tab as well.</td></tr>
+  <tr><td><span class="ui">In the sidebar</span></td><td>The conversation lives in the <strong>Chat</strong> tab of the sidebar, and no input sits at the foot of the editor.</td></tr>
+  <tr><td><span class="ui">Off</span></td><td>No input, no chats and no agent process. The agent is not started, and the Chat tab and the toolbar button are gone.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The choice is kept in <code>~/.penstock/preferences.json</code> as <code>aiChat</code>, with the values <code>off</code>, <code>bottom</code> and <code>sidebar</code>. A value Penstock does not know is read as <code>bottom</code>.</p>
+
+<h2 id="the-input"><a href="#the-input">The input</a></h2>
+
+<p>The input is the same in the three editors. From top to bottom it holds the messages that wait, what the message is about, the text, and a row of controls.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>The text</td><td>One line to six, then it scrolls. <kbd>Enter</kbd> sends. <kbd>Shift</kbd>+<kbd>Enter</kbd> is a new line.</td></tr>
+  <tr><td>Chips</td><td>What the message is about. The file you are in is always there. The elements you have selected on the canvas are added by themselves, and each has an <strong>x</strong> that takes it out of the message. Past four elements the row says how many more there are. The agent is told the file and the selected elements.</td></tr>
+  <tr><td><strong>+</strong></td><td><span class="ui">Attach a file or mention an element</span>. Opens a list of the elements of the diagram and the files of the project, with a search field. A pick becomes a chip.</td></tr>
+  <tr><td>The chat title</td><td>A button at the left of the row. It lists the chats of the project to switch to, and <span class="ui">New chat</span> at its top.</td></tr>
+  <tr><td>The settings button</td><td>Shows the agent's logo and what is set, such as the model and its level. It opens the settings of the next message. See below.</td></tr>
+  <tr><td>Send, or Stop</td><td>Send is in the accent colour and disabled while the text is empty. While the agent works it becomes <span class="ui">Stop</span>, a neutral square.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>An input that is empty and not in use rests as one line, with the placeholder and the send button. Clicking it or typing in it opens the full row, and clearing it and leaving it rests it again. When the row is short, the chat title becomes an icon first, then the key hints go. On a canvas too narrow for the input, it is one button, <span class="ui">Ask the agent</span>, at the foot. It shows a spinner while the agent works and a hand while a question waits, and opens the whole input over the canvas.</p>
+
+<h3 id="while-the-agent-is-working"><a href="#while-the-agent-is-working">While the agent is working</a></h3>
+
+<ul>
+  <li><strong>Queue.</strong> Press <kbd>Enter</kbd> and the message is queued instead of sent. It appears as a row above the chips, <em>Queued: &hellip;</em>, and goes out when the turn ends. The <strong>x</strong> on the row takes it back.</li>
+  <li><strong>Stop.</strong> <span class="ui">Stop</span> cancels the turn. A question that is open is answered as cancelled. If the agent has not ended the turn ten seconds later, Penstock stops the agent process, and the turn ends as stopped.</li>
+  <li><kbd>Esc</kbd> never stops the agent. It folds the card and leaves the input.</li>
+</ul>
+
+<h2 id="agent-model-thought-level-and-mode"><a href="#agent-model-thought-level-and-mode">Agent, model, thought level and mode</a></h2>
+
+<p>The settings button shows the agent's logo, the model's name and the level, such as <em>Opus 5.5 High</em>, and the mode after a dot only when it is not the agent's default. Pressing it opens a small form above the button.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Agent</td><td>The agent for this chat. Pick one from the list.</td></tr>
+  <tr><td>Model</td><td>The model the agent offers.</td></tr>
+  <tr><td>Thought level, Mode</td><td>Shown when the agent offers them. A few short values appear side by side. A longer list opens inside the same form, with a description under each value and a <strong>&#8249;</strong> to go back.</td></tr>
+  <tr><td><span class="ui">Manage agents&hellip;</span></td><td>At the foot. Opens the agents screen.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The arrow keys move, <kbd>Enter</kbd> picks, and <kbd>Esc</kbd> goes back from a list, or closes the form from the rows. A change made while the agent works applies from the next message. The model and the level are remembered for each agent. Changing the agent of a chat that already has messages starts a new chat, and the list says so.</p>
+
+<h2 id="the-card-and-the-chat-tab"><a href="#the-card-and-the-chat-tab">The card and the Chat tab</a></h2>
+
+<p>The card is the conversation, right above the input. It scrolls inside and opens at the latest message. Its header has the chat's title and three buttons: <span class="ui">New chat</span>, which is off while the agent works or a question waits, <span class="ui">Open the chat in the sidebar</span>, and <span class="ui">Fold the chat</span>.</p>
+
+<ul>
+  <li><strong>Your messages and the agent's answers.</strong> Names in an answer are chips: an element, a file, a class or a scenario. Hover a chip and the element is lit on the canvas. Press it and the element is selected, or the file opens.</li>
+  <li><strong>The agent's work</strong> is folded into one row for each stretch, in words, not in raw output: <em>Read order-process.bpmn</em>, <em>Checked order-process.bpmn - 2 problems</em>, <em>Analysed the flow - 1 dead end</em>, <em>Ran 3 scenarios - 3 passed</em>. A spinner and the current step show while it runs, and a disclosure opens the steps after.</li>
+  <li><strong>The card stays out of the way.</strong> While you work on the canvas, with a press, a drag or a selection, the card shrinks to its header and the last lines. Hovering it, or focusing the input, brings it back. A question that waits never shrinks.</li>
+  <li><strong>Fold.</strong> The fold button, or <kbd>Esc</kbd>, leaves the input alone with one line that says what goes on: <em>Agent working&hellip;</em> or <em>Waiting for you</em>. Pressing the line brings the card back. Folding never stops the agent and never answers its question.</li>
+  <li><strong>Expand.</strong> When a chat gets long, or an answer carries a file, a quiet <span class="ui">Expand the chat</span> line appears under the header. The card never expands by itself.</li>
+</ul>
+
+<p>The <strong>Chat</strong> tab of the <a href="sidebar.html">sidebar</a> holds the same conversation, with the same chips, work rows and questions, and an input of its own at its foot. The expand button and the AI chat button on the toolbar open it. While it is shown, the input at the foot of the editor is hidden. Leave the tab and the card comes back, with the same chat. A question that waits opens the Chat tab when the chat is in the sidebar.</p>
+
+<h2 id="questions"><a href="#questions">Questions</a></h2>
+
+<p>When the agent wants to write to a file, it stops and asks. The card shows one sentence, <em>Apply 3 changes to order-process.bpmn?</em>, the changes as a list (<code>+</code> added, <code>~</code> changed, <code>-</code> removed), and, for a diagram, what Penstock checked: <em>Check is clean</em>, or how many problems to look at. Then you choose.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><span class="ui">Deny</span></td><td>Refuses the write. It holds the focus, and <kbd>Enter</kbd> does not press it.</td></tr>
+  <tr><td><span class="ui">Allow</span></td><td>Lets the agent write. The note beside it says that undo takes it back.</td></tr>
+  <tr><td><span class="ui">Show on canvas</span></td><td>Folds the card and shows the proposal on the diagram, where each change can be accepted or rejected. See <a href="review-agent-changes.html">Review the changes an agent proposes</a>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>A write is never remembered: the answer holds for that one question, and there is no <em>Always</em>. A question that waits sets a warning dot on the toolbar button and, with the chat in the sidebar, opens the Chat tab. A question nobody answers is cancelled after a while, and the turn is stopped.</p>
+
+<h2 id="the-ai-chat-button-and-the-shortcut"><a href="#the-ai-chat-button-and-the-shortcut">The AI chat button and the shortcut</a></h2>
+
+<p>The toolbar has an <strong>AI chat</strong> button, an icon with a tooltip, pinned by default. It opens the Chat tab, stays pressed while the tab is shown, and a second press returns to the tab you had before. It is also in the <span class="ui">More</span> menu and the command palette. Its shortcut is in the sheet of keyboard shortcuts and on the shortcuts page of your tool. See <a href="toolbar.html">The toolbar and the More menu</a>.</p>
+
+<h2 id="chats-belong-to-the-project"><a href="#chats-belong-to-the-project">Chats belong to the project</a></h2>
+
+<p>A task often spans a process, a decision and the code of its workers, so chats belong to the project and not to a file. Each editor has its own current chat. It opens on the latest chat its file took part in. With none, your first message starts a new one, so two diagrams never mix their conversations. The title of a chat is the first line of its first message until you rename it.</p>
+
+<p>The chats are listed with their state, in the place each tool has for them:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Tool</th><th>Where the chats are</th></tr></thead>
+  <tbody>
+  <tr><td>The side panel of your tool</td><td>A <strong>Chats</strong> section under the project tree. <a href="../jetbrains/tool-window.html">Where it is, by tool</a>.</td></tr>
+  <tr><td>VS Code</td><td>The <strong>Chats</strong> view of Penstock.</td></tr>
+  <tr><td>Penstock Web</td><td>The <strong>Chats</strong> section of the sidebar, under the project tree.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Each row has the title, on at most two lines, and one word of state: a spinner and <em>working</em>, a warning dot and <em>waiting for you</em>, the time when it is idle, or the reason when it stopped with an error. The <strong>+</strong> in the heading starts a new chat, and the gear opens the agents screen. A right click, or the menu key, offers <span class="ui">Rename</span> and <span class="ui">Delete</span>. <kbd>F2</kbd> renames and <kbd>Delete</kbd> deletes. Deleting asks first, and removes the chat and its messages from the project. Choosing a chat opens it in the Chat tab of the active editor.</p>
+
+<p>There is one agent session per project, for every window and every tool. A chat that works in one window shows as busy in the others, and a message typed there queues behind it. A chat made or changed in one tool appears in the others within a second. Only the text you have not sent yet belongs to one editor.</p>
+
+<h2 id="failed"><a href="#failed">When the agent cannot answer</a></h2>
+
+<p>The card says what is wrong in a sentence, with at most two buttons.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>You see</th><th>What it means</th></tr></thead>
+  <tbody>
+  <tr><td><em>No agent found.</em> <em>No agent is installed on this machine.</em> with an install command and a copy button</td><td>Install an agent with the command, or press <span class="ui">Choose another agent</span> or <span class="ui">Agent settings</span>. See <a href="agents.html">AI agents</a>.</td></tr>
+  <tr><td><em>The agent is not signed in</em></td><td>Sign in to the agent in its own app, then press <span class="ui">Try again</span>. When the agent offers a sign-in, a <span class="ui">Sign in</span> button starts it.</td></tr>
+  <tr><td><em>The agent has ended</em></td><td>The agent stopped without an answer. The reason from the agent is shown. Press <span class="ui">Try again</span>.</td></tr>
+  <tr><td><em>Unable to reach the agent service</em></td><td>The editor could not reach the part of Penstock that runs the agents. Press <span class="ui">Try again</span>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>An input at the foot of every editor, a card above it, and a Chat tab in the sidebar.</li>
+  <li>A chip for every element, file, class or scenario the agent names.</li>
+  <li>The agent's work as short sentences, and its questions as a list of changes with Deny, Allow and Show on canvas.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>Sending asks me to buy Pro.</dt>
+  <dd>The AI chat is part of Pro on your machine and Team in a pipeline. The offer shows what it does and lets you buy Pro or enter a licence key. See <a href="plans.html">Plans and licence</a>.</dd>
+  <dt>There is no input at the foot of the editor.</dt>
+  <dd><span class="ui">AI chat</span> is set to <span class="ui">Off</span> or <span class="ui">In the sidebar</span>. Change it under <span class="ui">General</span> in the agents screen. See <a href="agents.html#general">AI agents</a>.</dd>
+  <dt>It says Penstock needs Node.js with npm to start the agent service.</dt>
+  <dd>The chats of a project are served by <code>penstock agent serve</code> from the command line, one for every window. Install Node.js with npm, and try again.</dd>
+  <dt>The agent answers, but I cannot find where it changed the diagram.</dt>
+  <dd>A change waits for your answer. Press <span class="ui">Show on canvas</span> in the question, or open the Chat tab. See <a href="review-agent-changes.html">Review the changes an agent proposes</a>.</dd>
+  <dt>I cannot start a new chat.</dt>
+  <dd><span class="ui">New chat</span> is off while the agent works or a question waits, because it would drop the question. Answer it, or press <span class="ui">Stop</span>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/agents.html">AI agents</a> - Install, turn on and choose the agent that answers the chat.</li>
+<li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a> - See a proposed change on the canvas, and accept or reject it.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
+<li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
+<li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
+<li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/suggestions.html"><span>Previous</span>Suggestions</a>
+<a class="next" href="../guide/review-agent-changes.html"><span>Next</span>Review the changes an agent proposes</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

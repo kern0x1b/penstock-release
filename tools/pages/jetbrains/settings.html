@@ -1,6 +1,6 @@
 <!--
 title: Settings in the IDE
-lede: What Penstock adds to the IDE's Settings, which inspections it brings, how to bind a shortcut to its actions, and the notifications it shows.
+lede: What Penstock adds to the IDE's Settings, including the AI agents page, which inspections it brings, how to bind a shortcut to its actions, and the notifications it shows.
 tags: free
 related: where-things-are, shortcuts, guide/settings, guide/security
 -->
@@ -8,17 +8,35 @@ related: where-things-are, shortcuts, guide/settings, guide/security
 
 <h2>Settings | Tools | Penstock</h2>
 
-<p>The page has two groups. It holds no project settings, and there is nothing to apply.</p>
+<p>The page has four groups. It holds no project settings: those are in <code>penstock.yaml</code>. What it does hold is yours, and is kept in <code>~/.penstock/preferences.json</code>.</p>
 
 <div class="table-wrap"><table class="facts">
   <tbody>
   <tr><td>About: Version</td><td>The version of the plugin that is running. A build that is not a release says <em>development</em>.</td></tr>
+  <tr><td>About: Documentation</td><td>A link that opens this guide in your browser.</td></tr>
   <tr><td>About: Open source licenses</td><td>A link that opens the notices of the bundled open-source components in an editor tab. The same text is on the <a href="../notices/">third-party notices</a> page.</td></tr>
+  <tr><td>Editor: Suggest the next element at dead ends</td><td>On by default. Draws the element most likely to come next as a faint ghost beside a dead end of a flow. <kbd>Tab</kbd> adds it, <kbd>Esc</kbd> dismisses it. It is free. See <a href="@guide/suggestions.html">Suggestions</a>.</td></tr>
+  <tr><td>Editor: Suggest names, sources and expressions for fields</td><td>On by default. Shows the name, source or expression most likely for a field of the properties panel as faint text after the caret. <kbd>Tab</kbd> accepts it, <kbd>Esc</kbd> dismisses it and <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> explains it. It speaks only when it is confident, and it is free.</td></tr>
+  <tr><td>Command line: Penstock command line</td><td>The <code>penstock</code> command that reads the Python, Go, C# and Scala workers. Empty finds it on the <code>PATH</code>, then in the project's <code>node_modules</code> once the project is trusted, then in the plugin.</td></tr>
   <tr><td>Trusted projects</td><td>The projects Penstock has been told to trust, each with a <span class="ui">Remove</span> button. On IDE 2025.2 and later the list is empty by design: the page says the IDE decides, with its own <span class="ui">Trust Project</span> action, so Penstock keeps no list of its own. On 2024.2 and 2025.1 the list is Penstock's own record, kept in <code>~/.penstock/trusted-projects.json</code>.</td></tr>
   </tbody>
 </table></div>
 
 <p>Three things run code that a project supplies, so each asks for trust first: a deploy hook from <code>penstock.yaml</code>, the project's Penstock command line, and the project's own bpmnlint bundle. The question is described in <a href="@guide/security.html">Security and privacy</a>. The command line keeps the same record, and <a href="@cli/commands.html#trust"><code>penstock trust</code></a> reads and changes it.</p>
+
+<h2>Settings | Tools | Penstock | AI agents</h2>
+
+<p>A page of its own under the Penstock page. It is the agents screen, one screen in every tool, drawn by the editor's page inside the IDE: a search field, <span class="ui">General</span>, <span class="ui">On</span> and <span class="ui">All agents</span> (the ACP Registry) on the left, and the agent you select on the right with its version, description, licence and website, and the actions <span class="ui">Install</span>, <span class="ui">Turn on</span>, <span class="ui">Update</span> and <span class="ui">Uninstall</span>, and the models it offers with <span class="ui">Refresh models</span>. It has nothing to apply: a change is kept as you make it.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>General: AI chat</td><td>One control with three choices: <span class="ui">Off</span>, <span class="ui">At the bottom of the editor</span> and <span class="ui">In the sidebar</span>. It applies to every editor and every tool at once, and <em>Off</em> removes the input, the chats, the Chat tab, the toolbar button and the agent process.</td></tr>
+  <tr><td>Other ways in</td><td><span class="ui">Manage agents&hellip;</span> in the settings form of the chat input, and the gear in the heading of the Chats section of the <a href="tool-window.html">tool window</a>, open the same page.</td></tr>
+  <tr><td>Where it is kept</td><td>In <code>~/.penstock/preferences.json</code> (<code>aiChat</code>, <code>agentsEnabled</code>, <code>agentSelected</code>, <code>agentOptions</code>), so it holds across IDEs and restarts and is never in <code>penstock.yaml</code>.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The page needs the IDE's embedded browser; without it the page says so. What an agent is, how to install one and how the registry works is in <a href="@guide/agents.html">AI agents</a>, and what you do with the chat is in <a href="@guide/ai-chat.html">AI chat</a>. Sending a message needs Pro.</p>
 
 <h2>Settings | Editor | Inspections | Penstock</h2>
 
@@ -48,6 +66,16 @@ related: where-things-are, shortcuts, guide/settings, guide/security
 <h2>Run | Edit Configurations</h2>
 
 <p>The configuration type <span class="ui">Penstock test cases</span> runs Camunda test-case files against an engine. It is created for you when you run a test-case file, and it has three fields: the test-case file or folder, the name of one test case to run, and the engine profile. See <a href="test-runner.html">Tests in the IDE</a>.</p>
+
+<p>Three more configuration types are created for you from a script or an expression tab, and are run from the <span class="ui">Run</span> menu or the right-click menu of that tab:</p>
+
+<ul>
+  <li><span class="ui">Penstock script</span> runs a Camunda script of a diagram in its own process, with the variables it reads set to the values you give. <span class="ui">Run script</span> and <span class="ui">Debug script</span> start it under the IDE's own debugger.</li>
+  <li><span class="ui">FEEL expression</span> evaluates a FEEL expression of a diagram on the sample values you give. <span class="ui">Run expression</span> starts it, and a marker in the gutter of the expression does the same.</li>
+  <li><span class="ui">FEEL expression debug</span> steps through a FEEL expression sub-expression by sub-expression, with the value of each one shown beside it, and stops at a <em>FEEL breakpoint</em>. <span class="ui">Debug expression</span> starts it.</li>
+</ul>
+
+<p>See <a href="@guide/scripts.html">Scripts in their own tab</a>.</p>
 
 <h2>Notifications</h2>
 

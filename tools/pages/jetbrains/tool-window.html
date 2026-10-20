@@ -1,6 +1,6 @@
 <!--
 title: The Penstock tool window
-lede: The Penstock tool window shows your project as a tree of processes, workers, messages, decisions and forms, and runs the command line for you.
+lede: The Penstock tool window shows your project as a tree of processes, workers, messages, decisions and forms, lists the chats of the AI agent under it, and runs the command line for you.
 tags: free
 needs: Some parts need Pro
 related: guide/project-model, code-links, guide/check-workers, guide/migration
@@ -18,7 +18,7 @@ related: guide/project-model, code-links, guide/check-workers, guide/migration
 
 <p>When the project has no diagrams the tree says <em>No diagrams in this project</em> and offers <span class="ui">Start from an example</span>. See <a href="@guide/example-project.html">The example project</a>.</p>
 
-<p>The window is anchored to the left stripe of the IDE. The first-run tour points it out.</p>
+<p>The window is anchored to the left stripe of the IDE. The first-run tour points it out. Its icon is a rounded diamond with a plus, drawn at the stroke of the IDE's own tool window icons in both the compact and the standard mode, light and dark.</p>
 
 <h2>What the tree holds</h2>
 
@@ -30,7 +30,7 @@ related: guide/project-model, code-links, guide/check-workers, guide/migration
   <tr><td>Debug</td><td>While the debugger is stopped in a worker, a delegate or a listener: <em>Paused at</em> the task, and <em>Active</em> for the other active elements of that instance. It empties when the program resumes. Pro.</td></tr>
   <tr><td>Code</td><td>With Pro, what the code links give. Without it, a line that offers <span class="ui">Buy or Sign In…</span>.</td></tr>
   <tr><td>Migrate to Camunda 8</td><td>Every file with its status (ready, converts, needs work, blocked), its findings, and the Java code with what each class becomes. It comes first when the project has Camunda 7 files to migrate.</td></tr>
-  <tr><td>Processes</td><td>Each process with its elements, the processes it calls and the ones that call it, and its tests with how much of it they cover.</td></tr>
+  <tr><td>Processes</td><td>Each process with its elements, the processes it calls and the ones that call it, and its tests with how much of it they cover. A process that has scripts or expressions in its elements has a <strong>Scripts</strong> branch, with a count: each script or expression by the element that holds it. Opening one opens it in its own tab. See <a href="@guide/scripts.html">Scripts in their own tab</a>.</td></tr>
   <tr><td>Tests</td><td>Every process test, by class. Run or debug any of them, a class or all.</td></tr>
   <tr><td>Workers</td><td>Each job type, topic, class and bean, with the code that implements it. A worker nothing implements is marked, once the project implements any of them. <span class="ui">Check Workers on…</span> is on this node.</td></tr>
   <tr><td>Element Templates</td><td>The element templates of the project, with the worker each came from. A template whose variables no longer match its worker is marked. Each offers <span class="ui">Create Job Worker…</span> (Spring), <span class="ui">Create Node Worker…</span> and <span class="ui">Create Python Worker…</span>.</td></tr>
@@ -60,6 +60,20 @@ related: guide/project-model, code-links, guide/check-workers, guide/migration
 </table></div>
 
 <p>Whether the view is grouped by files, and whether it shows folders, are kept in <code>~/.penstock/preferences.json</code>.</p>
+
+<h2>Chats</h2>
+
+<p>When the AI chat is on, a <strong>Chats</strong> section sits under the tree. It lists the chats of the project, the same ones in every editor, and each row shows the title and one word of state: <em>working</em> while the agent runs, <em>waiting for you</em> while it asks a question, the time when it is idle, or the reason when it failed. Clicking a row, or pressing <kbd>Enter</kbd> on it, opens the chat in the Chat tab of the Penstock editor you have open. With none open, Penstock opens the last diagram the chat took part in, and when there is none a notification says to open a diagram to continue the chat in its editor. The divider between the tree and the section can be dragged, and the IDE remembers where you left it.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>New chat</td><td>The <strong>+</strong> in the heading of the section starts an empty chat.</td></tr>
+  <tr><td>AI agents</td><td>The gear beside it opens <span class="ui">Settings | Tools | Penstock | AI agents</span>. See <a href="settings.html">Settings in the IDE</a>.</td></tr>
+  <tr><td>Rename, Delete</td><td>In the right-click menu of a chat. Delete asks first and removes the chat with everything in it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>With <span class="ui">AI chat</span> set to <em>Off</em> the section is gone. What a chat is, and what the agent can do, is described once in <a href="@guide/ai-chat.html">AI chat</a>.</p>
 
 <h2>Right-click actions</h2>
 
@@ -92,6 +106,8 @@ related: guide/project-model, code-links, guide/check-workers, guide/migration
   <dd>Trust the project. See <a href="troubleshooting.html">Troubleshooting in the IDE</a>.</dd>
   <dt>The first command is slow.</dt>
   <dd>Without a <code>penstockw</code> in the project, Penstock runs <code>npx @kern0x1b/penstock-cli</code> and downloads the command line the first time. <code>penstock init</code> adds the wrapper, which pins a version.</dd>
+  <dt>There is no Chats section.</dt>
+  <dd>The AI chat is off. Turn it on under <span class="ui">General</span> in <span class="ui">Settings | Tools | Penstock | AI agents</span>.</dd>
   <dt>There is no Go to Implementation.</dt>
   <dd>Code links are a Pro feature, and nothing in the project implements this worker.</dd>
 </dl>

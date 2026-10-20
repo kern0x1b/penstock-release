@@ -1,0 +1,107 @@
+<!--
+title: Review the changes an agent proposes
+lede: When an AI agent wants to change a diagram, the change is drawn on the canvas as ghost elements, checked, and waits for you to accept or reject it. You can look at the picture, or at the file's own diff, before you decide.
+tags: pro
+needs: The AI chat needs Pro, and Team in a pipeline. Editing from the command line or MCP needs the same plan.
+related: ai-chat, agents, edit-diagrams, diagram-check, cli/mcp
+-->
+<h2>What it is</h2>
+
+<p>An agent in the <a href="ai-chat.html">AI chat</a> never writes to your project without asking. It stops with a question, <em>Apply 3 changes to order-process.bpmn?</em>, and waits. For a diagram, that question comes with the change drawn in terms of the diagram, not as XML: a list of the changes, a small picture of the part it touches, and the proposal on the canvas as ghosts. You decide on the card or on the canvas. Either answers the same question.</p>
+
+<p>Raw XML never stands in the conversation as an answer's text. The source of every change is one press away, for the cases a picture cannot show.</p>
+
+<h2>Review a proposal</h2>
+
+<ol class="steps">
+  <li>Ask the agent for a change in the chat. When it is ready, the card shows a question with the changes as a list: <code>+</code> for what is added, <code>~</code> for what is changed and <code>-</code> for what is removed. Each name in it is a chip. Hover a chip to light the element on the canvas.</li>
+  <li>Read what Penstock checked. For a diagram, a line says <em>Check is clean</em> or <em>N problems to look at</em>. It is the <a href="diagram-check.html">diagram check</a> run on the changed diagram.</li>
+  <li>Press <span class="ui">Show on canvas</span> to see the proposal on the diagram. The card folds to give the canvas room.</li>
+  <li>Press <span class="ui">Allow</span> to apply the change, or <span class="ui">Deny</span> to refuse it. <span class="ui">Deny</span> holds the focus, and <kbd>Enter</kbd> does not press it.</li>
+</ol>
+
+<p>The note next to the buttons says that undo takes an allowed change back. An answer to a write holds for that one question and is not remembered: there is no <em>Always</em>.</p>
+
+<h2>The picture and the source</h2>
+
+<p>Each change has a small switch, <span class="ui">Picture</span> and <span class="ui">Source</span>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><span class="ui">Picture</span></td><td>A small drawing of the part of the diagram the change touches. What is added is in the success colour, what is removed in the error colour, and the rest is muted. There is at most one picture to an answer. Anything that is a name is a chip instead.</td></tr>
+  <tr><td><span class="ui">Source</span></td><td>The file's own diff, drawn by Penstock: changed lines tinted and marked with <code>+</code> and <code>-</code>, line numbers, three lines of context, and the unchanged stretches folded. A folded stretch opens when you press it. It scrolls inside the card.</td></tr>
+  <tr><td><span class="ui">Open diff</span></td><td>Opens the diff in the tool's own diff viewer where it has one, such as the diff window of a code editor. Otherwise a dialog shows the same diff.</td></tr>
+  </tbody>
+</table></div>
+
+<p>A change that has no picture opens on Source. That is a code file, or a change that no element shows: a listener, an input mapping, a script, the Java of a worker. The Chat tab may show more than the card does, but the card keeps the agent's work folded.</p>
+
+<p>A change that was applied leaves one row, <em>Changed 3 elements</em>, whose chips flash the elements on the canvas.</p>
+
+<h2>The proposal on the canvas</h2>
+
+<p>While the question waits, the diagram you have open shows the proposal as ghosts: new elements and flows drawn as ghosts where they would go, and what would be removed or moved marked as such. A bar on the canvas, <em>Proposed changes</em>, holds the decision. Penstock checks the proposal first, and the bar says <em>Checking the proposed changes&hellip;</em> until the result is in.</p>
+
+<ul>
+  <li><strong>A file the agent writes whole.</strong> The bar offers <span class="ui">Accept change</span> and <span class="ui">Reject change</span>, because the agent writes the whole file and the change is accepted or rejected as one. This is the same answer as <span class="ui">Allow</span> and <span class="ui">Deny</span> on the card.</li>
+  <li><strong>A list of separate changes.</strong> The bar says how many of them are left to review, and shows one at a time, with a chip for its kind (<em>Add</em>, <em>Connect</em>, <em>Delete</em>, <em>Rename</em>, <em>Move</em>, <em>Condition</em>, <em>Reference</em>, <em>Worker</em> or <em>Change</em>) and its result: <em>Passed</em>, <em>Warning</em>, <em>Error</em> or <em>Cannot be applied</em>. <span class="ui">Accept</span> and <span class="ui">Reject</span> decide this one. <span class="ui">Accept all</span> and <span class="ui">Reject all</span> decide the rest. Each accepted change is one step you can undo. <span class="ui">Show all changes</span> opens the whole list.</li>
+</ul>
+
+<p>With separate changes, <kbd>J</kbd> goes to the next change and <kbd>K</kbd> to the previous one, as long as the focus is not in a text field. There is also a field, <span class="ui">Comment for the agent</span>, to send a note about the change in view. Some changes cannot be drawn as ghosts, such as an element type that changes or a flow that is reconnected. The bar lists them as not shown as ghosts, and Source shows them.</p>
+
+<h3>What undo covers</h3>
+
+<p>Penstock keeps a checkpoint of the diagram before each accepted step, in memory. When the review is finished the bar says how many changes were accepted and rejected, and what undo does not cover:</p>
+
+<ul>
+  <li>Comments you sent to the agent stay sent.</li>
+  <li>Only this diagram is covered. Forms, decision tables and code the agent changed are not.</li>
+  <li>A deployment made after accepting is not withdrawn.</li>
+  <li>The checkpoint is gone when the editor is closed or reloaded.</li>
+</ul>
+
+<h2>What Penstock checks before it allows</h2>
+
+<p>A change an agent makes through Penstock's own tools goes through the same editing as <a href="edit-diagrams.html"><code>penstock edit</code></a>. The editor's modelling places and connects each new element, so the picture stays right. The diagram is read back and checked, on the old version and on the new one, so a problem that was already there is not blamed on the agent. An edit that would break the drawing is not written. The result is what the card shows as <em>Check is clean</em> or a count of problems, and what the bar shows for each change.</p>
+
+<p>The agent can ask for an edit to be previewed first. The chat then reads <em>Previewed an edit of order-process.bpmn</em> and changes nothing.</p>
+
+<h2>The typed operations</h2>
+
+<p>An agent proposes a change as a short list of operations, the same vocabulary as <code>penstock edit --ops</code> and the MCP tool <code>edit_diagram</code>. Several operations apply together or not at all.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Operation</th><th>What it does</th><th>Needs</th></tr></thead>
+  <tbody>
+  <tr><td><code>add</code></td><td>Adds an element after an existing one, placed and connected as the editor does it, with an optional name, id, event type and properties.</td><td><code>element</code> and <code>after</code></td></tr>
+  <tr><td><code>connect</code></td><td>Draws a sequence flow between two elements, with an optional name and condition.</td><td><code>from</code> and <code>to</code></td></tr>
+  <tr><td><code>set</code></td><td>Changes properties of an element or a flow. On a business rule task that includes the decision it calls: <code>decisionRef</code> on Camunda 7, <code>decisionId</code> on Camunda 8.</td><td><code>id</code> and <code>properties</code></td></tr>
+  <tr><td><code>remove</code></td><td>Removes an element or a flow, with the flows attached to it.</td><td><code>id</code></td></tr>
+  <tr><td><code>move</code></td><td>Moves an element by <code>dx</code> and <code>dy</code>, in diagram units.</td><td><code>id</code>, <code>dx</code> and <code>dy</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>Only properties the engine of the diagram knows are accepted. <code>penstock edit &lt;file&gt; --schema</code> prints the contract for the file's engine, and it is free. In the command line, <code>add</code>, <code>connect</code>, <code>set</code> and <code>remove</code> can be spelled out in words, and <code>move</code> is given in the JSON of <code>--ops</code>. See <a href="edit-diagrams.html">Edit a diagram from the command line</a> for the elements, event types and properties.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A question in the card or the Chat tab with a list of changes, a result of the check, and Deny, Allow and Show on canvas.</li>
+  <li>Ghost elements on the canvas and a bar to accept or reject them.</li>
+  <li>A Picture and Source switch and an Open diff link on each change.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Show on canvas is not there.</dt>
+  <dd>It is shown for a change to a BPMN file. A change to a code file, a form or a decision opens on Source instead. When the diagram of the change is not the one in this editor, the button opens that file.</dd>
+  <dt>The change shows no picture.</dt>
+  <dd>Nothing in it can be drawn. Press <span class="ui">Source</span>.</dd>
+  <dt>The Accept button is disabled.</dt>
+  <dd>The change cannot be applied: it needs a change that was rejected, or it no longer fits the diagram. The bar says why.</dd>
+  <dt>The diff is too large to show.</dt>
+  <dd>The card says the change is too large to show there. <span class="ui">Open diff</span> opens it in the tool's diff viewer.</dd>
+  <dt>I allowed a change and want it back.</dt>
+  <dd>Undo. For a diagram, one undo takes back one accepted step. Forms, decisions and code are not covered.</dd>
+</dl>

@@ -90,6 +90,7 @@
 <li><a href="#the-editor-area-is-blank">The editor area is blank</a></li>
 <li><a href="#a-file-does-not-open-in-its-editor">A file does not open in its editor</a></li>
 <li><a href="#a-command-from-the-tool-window-does-nothing">A command from the tool window does nothing</a></li>
+<li><a href="#the-ai-chat">The AI chat</a></li>
 <li><a href="#the-bpmnlint-rules-of-my-own-plugin-are-not-applied">The bpmnlint rules of my own plugin are not applied</a></li>
 <li><a href="#problems-appear-in-the-ide-that-i-did-not-open">Problems appear in the IDE that I did not open</a></li>
 <li><a href="#deployment-to-a-private-certificate-fails">Deployment to a private certificate fails</a></li>
@@ -126,6 +127,19 @@
   <tr><td>"Penstock could not start"</td><td>The actions run the project's <code>penstockw</code>, or <code>npx</code> when there is none. <code>node</code> and <code>npx</code> must be on the PATH the IDE inherited. Start the IDE from a terminal to test.</td></tr>
   </tbody>
 </table></div></div>
+
+<h2 id="the-ai-chat"><a href="#the-ai-chat">The AI chat</a></h2>
+
+<dl class="problems">
+  <dt>There is no Chats section, no input and no Chat tab.</dt>
+  <dd>The AI chat is off. Choose <em>At the bottom of the editor</em> or <em>In the sidebar</em> under <span class="ui">General</span> in <span class="ui">Settings | Tools | Penstock | AI agents</span>.</dd>
+  <dt>The AI agents page says it needs the embedded browser.</dt>
+  <dd>The page is drawn by the same JCEF view as the editor. See above for an IDE without JCEF.</dd>
+  <dt>The agent is not found, is not signed in, or ended.</dt>
+  <dd>The card says which, with the install command, the sign-in button or the reason and <span class="ui">Try again</span>. See <a href="../guide/ai-chat.html#failed">AI chat</a>.</dd>
+  <dt>Sending a message offers to buy Pro.</dt>
+  <dd>The AI chat is a Pro feature. The input and the chats are shown to everyone, and the offer comes when you send.</dd>
+</dl>
 
 <h2 id="the-bpmnlint-rules-of-my-own-plugin-are-not-applied"><a href="#the-bpmnlint-rules-of-my-own-plugin-are-not-applied">The bpmnlint rules of my own plugin are not applied</a></h2>
 

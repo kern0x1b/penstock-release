@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/" aria-current="page">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -189,6 +198,8 @@
 <h2 id="start-here"><a href="#start-here">Start here</a></h2>
 <div class="cards">
 <a class="card" href="../guide/getting-started.html"><strong>Getting started</strong><span>Get Penstock, open a diagram, deploy it.</span></a>
+<a class="card" href="../guide/penstock-web.html"><strong>Penstock Web</strong><span>The editors in a browser tab, on your machine.</span></a>
+<a class="card" href="../guide/penstock-desktop.html"><strong>Penstock Desktop</strong><span>The same editor in its own application window.</span></a>
 <a class="card" href="../guide/example-project.html"><strong>The example project</strong><span>A small order process that runs from the first minute.</span></a>
 <a class="card" href="../guide/glossary.html"><strong>Words used in this guide</strong><span>Every technical word, explained once.</span></a>
 </div>
@@ -201,6 +212,10 @@
 <a class="card" href="../guide/elements.html"><strong>BPMN elements</strong><span>Every element you can draw, and what it is for.</span></a>
 <a class="card" href="../guide/editing.html"><strong>Editing a diagram</strong><span>The canvas, the palette, copy and paste, undo, the minimap.</span></a>
 <a class="card" href="../guide/comments.html"><strong>Comments</strong><span>Notes on elements, kept in the file.</span></a>
+<a class="card" href="../guide/script-tab.html"><strong>The script tab</strong><span>Scripts and expressions in their own tab, with the variables the process has.</span></a>
+<a class="card" href="../guide/suggestions.html"><strong>Suggestions</strong><span>The next element and the next value, offered when Penstock is sure.</span></a>
+<a class="card" href="../guide/ai-chat.html"><strong>AI chat</strong><span>Ask or steer an AI agent from the foot of the editor.</span></a>
+<a class="card" href="../guide/review-agent-changes.html"><strong>Review the changes an agent proposes</strong><span>See a proposed change on the canvas, and accept or reject it.</span></a>
 <a class="card" href="../guide/scripts.html"><strong>Scripts in their own tab</strong><span>Edit an inline script as a real file in your code editor.</span></a>
 <a class="card" href="../guide/element-templates.html"><strong>Element templates</strong><span>Ready-made tasks and connectors.</span></a>
 <a class="card" href="../guide/dmn-editor.html"><strong>The DMN editor</strong><span>Decision tables, trying a table with values, spreadsheets and the requirements diagram.</span></a>
@@ -220,6 +235,8 @@
 <h2 id="test-and-run"><a href="#test-and-run">Test and run</a></h2>
 <div class="cards">
 <a class="card" href="../guide/scenarios.html"><strong>Scenarios</strong><span>Run the diagram's scenarios on a local engine and see every step.</span></a>
+<a class="card" href="../guide/debug-process.html"><strong>Debug a process</strong><span>Stop a running copy of the process at breakpoints.</span></a>
+<a class="card" href="../guide/timeline.html"><strong>Timeline</strong><span>One run as a lane per element against time.</span></a>
 <a class="card" href="../guide/scenario-file.html"><strong>The scenario file</strong><span>The test-case format, the instructions Penstock runs and refuses, and x-penstock.</span></a>
 <a class="card" href="../guide/process-tests.html"><strong>Process tests and coverage</strong><span>A JUnit test for every way through a process.</span></a>
 <a class="card" href="../guide/deployment.html"><strong>Deployment</strong><span>Send diagrams to your engine.</span></a>
@@ -231,6 +248,7 @@
 <div class="cards">
 <a class="card" href="../guide/engine-profiles.html"><strong>Engines</strong><span>Camunda 7, Camunda 8, Operaton and CIB seven.</span></a>
 <a class="card" href="../guide/settings.html"><strong>penstock.yaml</strong><span>The one file that describes your project, and every key in it.</span></a>
+<a class="card" href="../guide/agents.html"><strong>AI agents</strong><span>Install, turn on and choose the agent that answers the chat.</span></a>
 <a class="card" href="../guide/profiles.html"><strong>Profiles</strong><span>Named settings for dev, test and prod.</span></a>
 <a class="card" href="../guide/project-model.html"><strong>Your project as a model</strong><span>Processes, workers, variables, messages, decisions and forms, and how they connect.</span></a>
 <a class="card" href="../guide/files.html"><strong>Files Penstock reads and writes</strong><span>Every file, and where it lives.</span></a>

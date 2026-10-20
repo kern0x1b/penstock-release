@@ -1,0 +1,160 @@
+<!--
+title: AI agents
+lede: The agents screen lists the AI agents Penstock can talk to, installs them, turns them on, and decides where the AI chat is shown. From a terminal, penstock agent starts an agent's own command line with Penstock's tools already set up.
+tags: free
+needs: Sending a message in the AI chat needs Pro. Installing an agent from the registry may need Node.js or uv.
+related: ai-chat, review-agent-changes, cli/mcp, cli/commands, plans
+-->
+<h2>What an agent is here</h2>
+
+<p>An agent is a program that speaks the <strong>Agent Client Protocol</strong>. Penstock is its client: it starts the agent on your machine, sends it your messages and shows what it does. The agent brings its own model and signs in to your own account. Penstock does not run a model and does not sell one. See <a href="ai-chat.html">AI chat</a> for what you do with it.</p>
+
+<p>Four agents are built in, and Penstock finds them when their command is on your <code>PATH</code>: Claude Code, Codex, Gemini CLI and OpenCode. Beyond those, the screen lists the agents of the <strong>ACP Registry</strong>, alphabetically, and you can add a command of your own.</p>
+
+<h2>Open the agents screen</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Tool</th><th>Where it is</th></tr></thead>
+  <tbody>
+  <tr><td>The settings page of your tool</td><td>Open the page for AI agents in the settings of the tool. <a href="../jetbrains/settings.html">Where it is, by tool</a>.</td></tr>
+  <tr><td>VS Code</td><td>The command <span class="ui">Penstock: AI agents</span>, in the command palette of VS Code. The gear in the heading of the <strong>Chats</strong> view opens it too.</td></tr>
+  <tr><td>Penstock Web</td><td>A dialog. <span class="ui">Settings</span>, in the title bar, leads to it, and so does the gear in the heading of the Chats section of the sidebar.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Everywhere, <span class="ui">Manage agents&hellip;</span> at the foot of the settings form of the AI chat input opens the same screen. It is one screen in every tool, so it looks and works the same.</p>
+
+<h2>The screen</h2>
+
+<p>On the left there is a search field, then <span class="ui">General</span>, then <span class="ui">On</span> and <span class="ui">All agents</span>. Each agent has its logo, its name, and one word of state: <em>Installed</em>, <em>On</em> or <em>Update available</em>. At the foot of the list, <span class="ui">Refresh the list</span> asks the registry for a newer list, and a line says when it was last updated. Without a connection the list that came with Penstock is used.</p>
+
+<p>On the right is the agent you selected: its logo, version, description, licence and website, how it is installed, and the actions below. The arrow keys, <kbd>Home</kbd> and <kbd>End</kbd> move through the list.</p>
+
+<h2>Install and turn on an agent</h2>
+
+<ol class="steps">
+  <li>Select the agent in the list. If it is already on your machine, the status says <em>Found on your PATH</em> and there is nothing to install.</li>
+  <li>Press <span class="ui">Install</span>. A progress bar shows while it runs. The status line says how: Penstock downloads a program for this computer and checks it against the checksum of the registry, or runs the agent through <code>npx</code> or <code>uvx</code>, which fetch it the first time you use it.</li>
+  <li>Press <span class="ui">Turn on</span>. The agent now appears in the <span class="ui">On</span> section, and in the list of agents in the settings form of the AI chat input.</li>
+</ol>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Button</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><span class="ui">Install</span></td><td>Installs the agent. After a failure it reads <span class="ui">Try again</span>, with the reason under it.</td></tr>
+  <tr><td><span class="ui">Turn on</span>, <span class="ui">Turn off</span></td><td>Puts the agent in the list the chat offers, or takes it out. It does not uninstall anything.</td></tr>
+  <tr><td><span class="ui">Update</span></td><td>Shown when the registry has a newer version of an agent that Penstock installed.</td></tr>
+  <tr><td><span class="ui">Uninstall</span></td><td>Removes an agent that Penstock installed. An agent found on your <code>PATH</code> is yours, and Penstock leaves it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Until you turn an agent on or off yourself, the four built-in agents and the ones you added count as on, and the chat uses the ones it finds on the machine. Penstock does not install an agent it cannot check: when the registry gives no checksum for a download, the screen says so and asks you to install it yourself, and Penstock finds the agent on your <code>PATH</code> afterwards. An agent that needs Node.js or uv says so, with a link to get it.</p>
+
+<h3>Models and options</h3>
+
+<p>An installed agent has a <span class="ui">Models and options</span> section. <span class="ui">Refresh models</span> starts the agent, asks which models and other options it offers, and closes it again. The agent has to be signed in to answer: sign in with its own tool, for example by running it once in a terminal, then refresh again. The values you pick there are remembered for that agent. The settings button in the AI chat input picks the same ones.</p>
+
+<h2 id="general">General: where the AI chat is shown</h2>
+
+<p><span class="ui">General</span> holds <span class="ui">AI chat</span> as one control with three choices, each with a hint:</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><span class="ui">Off</span></td><td>No input, no chats and no agent process: the agent is not started.</td></tr>
+  <tr><td><span class="ui">At the bottom of the editor</span></td><td>The input sits at the foot of the editor, with the conversation card above it.</td></tr>
+  <tr><td><span class="ui">In the sidebar</span></td><td>The conversation lives in the Chat tab of the sidebar, and no input sits at the foot.</td></tr>
+  </tbody>
+</table></div>
+
+<p>It applies to every editor and every tool at once.</p>
+
+<h2>Where it is kept</h2>
+
+<p>Everything on this screen is global, not per project, and is kept in <code>~/.penstock/preferences.json</code>. It is never written to <code>penstock.yaml</code>, so it does not land in a teammate's checkout.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>aiChat</code></td><td><code>off</code>, <code>bottom</code> or <code>sidebar</code>.</td></tr>
+  <tr><td><code>agentsEnabled</code></td><td>The ids of the agents that are on.</td></tr>
+  <tr><td><code>agentSelected</code></td><td>The agent new chats start with.</td></tr>
+  <tr><td><code>agentOptions</code></td><td>The model, level and mode remembered for each agent.</td></tr>
+  <tr><td><code>agents</code></td><td>Agents you added. See below.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>An agent of your own</h3>
+
+<p>An agent that is not in the registry can be added to <code>agents</code> in <code>~/.penstock/preferences.json</code>. Each entry has an <code>id</code>, a <code>name</code> and a <code>command</code>, and can have <code>args</code> and <code>env</code>. The command must speak the Agent Client Protocol.</p>
+
+<pre><code>{
+  "agents": [
+    {
+      "id": "my-agent",
+      "name": "My agent",
+      "command": "my-agent",
+      "args": ["--acp"]
+    }
+  ]
+}</code></pre>
+
+<p>It appears in the list as <em>Your own command</em>, with the command shown. If the command is not on the machine, the agent is not offered in the chat.</p>
+
+<h2>Start an agent from a terminal</h2>
+
+<p><code>penstock agent</code> starts an agent's own command line, in your terminal, with the <code>penstock</code> MCP server already set up for that one run. You get the agent's own interface, and it can read your diagrams, check them, and, with Pro, edit them. See <a href="@cli/mcp.html">The MCP server</a>.</p>
+
+<pre><code>penstock agent [claude|codex|gemini|opencode|&lt;id&gt;] [--project &lt;dir&gt;] [-- &lt;arguments&gt;]</code></pre>
+
+<ol class="steps">
+  <li>Run <code>penstock agent</code> with no name. It lists the agents it can start, and which of them are installed.</li>
+  <li>Run <code>penstock agent claude</code>, or the name of another one. The agent starts in the project folder.</li>
+  <li>To pass something to the agent, put it after <code>--</code>: <code>penstock agent claude -- -p "list the diagrams"</code>. Everything after <code>--</code> goes to the agent as it is.</li>
+</ol>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Name</th><th>Agent</th><th>Install it with</th></tr></thead>
+  <tbody>
+  <tr><td><code>claude</code></td><td>Claude Code</td><td><code>npm install -g @anthropic-ai/claude-code</code></td></tr>
+  <tr><td><code>codex</code></td><td>Codex</td><td><code>npm install -g @openai/codex</code></td></tr>
+  <tr><td><code>gemini</code></td><td>Gemini CLI</td><td><code>npm install -g @google/gemini-cli</code></td></tr>
+  <tr><td><code>opencode</code></td><td>OpenCode</td><td><code>npm install -g opencode-ai</code></td></tr>
+  <tr><td>the id of an agent you added</td><td>Your own command</td><td>Started with its own command and arguments.</td></tr>
+  </tbody>
+</table></div>
+
+<ul>
+  <li><code>--project &lt;dir&gt;</code> is the project the Penstock tools work on, and the folder the agent starts in. Without it, the current project.</li>
+  <li>Nothing is written to the agent's own configuration or to your project. The tools are given to the agent for this run only.</li>
+  <li>An agent you added gets the server as JSON in the environment variable <code>PENSTOCK_MCP_CONFIG</code>.</li>
+  <li>The command is free. The tools the agent gets keep their own plan: reading and checking are free, and flow analysis, scenarios, code links and editing are Pro. See <a href="plans.html">Plans and licence</a>.</li>
+  <li>It ends with the agent's own exit code. It exits with 1 when the agent is not installed or not known, or cannot be started.</li>
+</ul>
+
+<p>The agents of the AI chat do not use this command. The editors start them themselves. See <a href="@cli/commands.html">Every command</a>.</p>
+
+<h2>One agent session per project</h2>
+
+<p>All the windows of a project, in every tool, share one agent server, so a chat streams, asks and queues the same way in all of them. The editors start it with <code>penstock agent serve --project &lt;dir&gt;</code>. It listens on <code>127.0.0.1</code> only, and leaves a few seconds after no window is attached and no turn is running.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A list of agents with a logo and one word of state, and the selected one on the right.</li>
+  <li>The three choices for where the AI chat is shown, under General.</li>
+  <li>The agents you turned on in the settings form of the chat input.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The list says no agent is on.</dt>
+  <dd>Install one and press <span class="ui">Turn on</span>. The chat offers only agents that are on and found on the machine.</dd>
+  <dt>The agent needs Node.js, or uv, which is not on this computer.</dt>
+  <dd>The screen links to where to get it. Install it, then press <span class="ui">Install</span> again.</dd>
+  <dt>The registry list did not load.</dt>
+  <dd>Penstock shows the list that came with it. Press <span class="ui">Refresh the list</span> when you are connected.</dd>
+  <dt>Refresh models says nothing came back.</dt>
+  <dd>The agent has to be signed in. Sign in with its own tool, then refresh again.</dd>
+  <dt>penstock agent says an agent is not installed.</dt>
+  <dd>The message gives the command that installs it. Install it and run again.</dd>
+</dl>

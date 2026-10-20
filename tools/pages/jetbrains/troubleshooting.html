@@ -34,6 +34,19 @@ related: guide/troubleshooting, editor, tool-window, installing
   </tbody>
 </table></div>
 
+<h2>The AI chat</h2>
+
+<dl class="problems">
+  <dt>There is no Chats section, no input and no Chat tab.</dt>
+  <dd>The AI chat is off. Choose <em>At the bottom of the editor</em> or <em>In the sidebar</em> under <span class="ui">General</span> in <span class="ui">Settings | Tools | Penstock | AI agents</span>.</dd>
+  <dt>The AI agents page says it needs the embedded browser.</dt>
+  <dd>The page is drawn by the same JCEF view as the editor. See above for an IDE without JCEF.</dd>
+  <dt>The agent is not found, is not signed in, or ended.</dt>
+  <dd>The card says which, with the install command, the sign-in button or the reason and <span class="ui">Try again</span>. See <a href="@guide/ai-chat.html#failed">AI chat</a>.</dd>
+  <dt>Sending a message offers to buy Pro.</dt>
+  <dd>The AI chat is a Pro feature. The input and the chats are shown to everyone, and the offer comes when you send.</dd>
+</dl>
+
 <h2>The bpmnlint rules of my own plugin are not applied</h2>
 
 <p>A bundle named in <code>lint.clientBundlePath</code> is loaded only from a trusted project, and only if the file is inside the project. Until you trust the project, a notification says the lint rules are not loaded, and the editors reload when you do. See <a href="settings.html">Settings in the IDE</a>.</p>

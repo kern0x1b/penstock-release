@@ -55,6 +55,7 @@
     <summary>Start here</summary>
     <ul>
       <li><a href="../cli/" aria-current="page">Command line</a></li>
+      <li><a href="../cli/web.html">penstock web</a></li>
     </ul>
     </details>
     <details>
@@ -82,6 +83,7 @@
 <li><a href="#two-ways-to-run-it">Two ways to run it</a></li>
 <li><a href="#paths-and-configuration">Paths and configuration</a></li>
 <li><a href="#what-you-get">What you get</a></li>
+<li><a href="#the-editors-in-a-browser">The editors in a browser</a></li>
 <li><a href="#paid-commands">Paid commands</a></li>
 <li><a href="#exit-codes">Exit codes</a></li>
 <li><a href="#output-and-streams">Output and streams</a></li>
@@ -130,6 +132,8 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 
 <p>A path defaults to the current folder. Penstock reads <code>penstock.yaml</code> from there upward, so it does not matter which folder you run it in. Like Maven with a <code>pom.xml</code>.</p>
 
+<p>The command line will not take a filesystem root or your home folder for a project, unless that folder holds a <code>penstock.yaml</code> or a <code>.git</code>, and neither will it walk a folder of more than 100,000 entries. It says <em>This folder is too large to be a project; give the folder of the diagrams</em> and exits with 1. A folder it is not allowed to read is passed over.</p>
+
 <h2 id="what-you-get"><a href="#what-you-get">What you get</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table>
@@ -148,14 +152,24 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td>Import from draw.io or Visio</td><td><code>penstock import diagram.drawio</code></td></tr>
   <tr><td>Plan the move to Camunda 8</td><td><code>penstock migrate .</code></td></tr>
   <tr><td>Run scenarios</td><td><code>penstock scenarios run .</code></td></tr>
+  <tr><td>Open the editors in a browser</td><td><code>penstock web ./processes</code></td></tr>
   <tr><td>Let an AI assistant use the diagrams</td><td><code>penstock mcp --config</code></td></tr>
+  <tr><td>Start an AI agent with the Penstock tools</td><td><code>penstock agent claude</code></td></tr>
   <tr><td>Set up a pipeline</td><td><code>penstock init --ci github</code></td></tr>
   <tr><td>See which licence this machine has</td><td><code>penstock license</code></td></tr>
   <tr><td>Pin the version for the project</td><td><code>./penstockw update</code></td></tr>
   </tbody>
 </table></div></div>
 
-<p>Every command, with every option, an example, what it needs and its exit codes, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>.</p>
+<p>Every command, with every option, an example, what it needs and its exit codes, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>. <code>penstock web</code> is described on <a href="web.html">its own page</a>, and the tools an AI assistant gets are on <a href="mcp.html">The MCP server</a>.</p>
+
+<h2 id="the-editors-in-a-browser"><a href="#the-editors-in-a-browser">The editors in a browser</a></h2>
+
+<p><code>penstock web</code> serves the BPMN, DMN and form editors, with a project tree and tabs, on this machine. It prints a link and opens it in a browser. The link carries a key that is new on every run, and the server listens on 127.0.0.1 only.</p>
+
+<pre><code>penstock web ./processes</code></pre>
+
+<p>See <a href="web.html">penstock web</a> for the options and what it remembers, and <a href="../guide/penstock-web.html">Penstock Web</a> for the window.</p>
 
 <h2 id="paid-commands"><a href="#paid-commands">Paid commands</a></h2>
 
@@ -172,7 +186,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td><code>0</code></td><td>All is well.</td></tr>
   <tr><td><code>1</code></td><td>The command found errors, was refused for want of a licence, or failed at what it was asked to do.</td></tr>
   <tr><td><code>2</code></td><td>The command itself crashed. The message goes to the error output.</td></tr>
-  <tr><td><code>130</code></td><td>You pressed <kbd>Ctrl</kbd>+<kbd>C</kbd> twice while <code>scenarios run</code> was running. Once asks the engine to stop and keeps going.</td></tr>
+  <tr><td><code>130</code></td><td>You pressed <kbd>Ctrl</kbd>+<kbd>C</kbd> twice while <code>scenarios run</code>, <code>scenarios generate</code> or <code>test-cases</code> was running. Once asks the engine to stop and keeps going.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -199,6 +213,8 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <dd>The npm registry could not be reached. Pin a version in <code>penstock-wrapper.properties</code>.</dd>
   <dt>The command says a feature is part of Pro, in a pipeline.</dt>
   <dd>A pipeline needs Team. Give the pipeline a Team key in <code>PENSTOCK_LICENSE</code>. See <a href="../guide/sign-in.html">Buying and signing in</a>.</dd>
+  <dt>"This folder is too large to be a project; give the folder of the diagrams".</dt>
+  <dd>The path is a filesystem root or your home folder with no <code>penstock.yaml</code> or <code>.git</code> in it, or a folder with more than 100,000 entries. Give the folder of the project.</dd>
   <dt>Unknown command.</dt>
   <dd>Run <code>penstock help</code> for the list.</dd>
 </dl>
@@ -206,6 +222,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 <h2>See also</h2>
 <ul>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/web.html">penstock web</a> - The editors in a browser, served from your machine.</li>
 <li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
 <li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
@@ -213,7 +230,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <span></span>
-<a class="next" href="../cli/commands.html"><span>Next</span>Every command</a>
+<a class="next" href="../cli/web.html"><span>Next</span>penstock web</a>
 </nav>
 </main>
 </div>

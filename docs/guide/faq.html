@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -143,6 +152,7 @@
 <ul>
 <li><a href="#basics">Basics</a></li>
 <li><a href="#money-and-licence">Money and licence</a></li>
+<li><a href="#the-ai-chat">The AI chat</a></li>
 <li><a href="#privacy-and-safety">Privacy and safety</a></li>
 <li><a href="#editing">Editing</a></li>
 <li><a href="#command-line">Command line</a></li>
@@ -152,10 +162,10 @@
 <h2 id="basics"><a href="#basics">Basics</a></h2>
 
 <details class="faq"><summary>What is Penstock?</summary>
-<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven, with checks, deployment, tests and more. It comes as a plugin for JetBrains IDEs, as an extension for VS Code and as a <code>penstock</code> command line. A desktop app is planned. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
+<p>A BPMN, DMN and form editor for Camunda 7, Camunda 8, Operaton and CIB seven, with checks, deployment, tests and more. It comes as a plugin for JetBrains IDEs, as an extension for VS Code, as a <code>penstock</code> command line with an MCP server, and, with <code>penstock web</code>, as an editor in a plain browser (<a href="penstock-web.html">Penstock Web</a>). A desktop app is built from the same editor and is not part of a release yet. Diagrams stay in your project and in version control. See <a href="getting-started.html">Getting started</a>.</p></details>
 
 <details class="faq"><summary>Which tools can I use?</summary>
-<p>Any JetBrains IDE from 2024.2 that has JCEF, which the standard downloads do, VS Code 1.88 or later and the editors built on it, and the <code>penstock</code> command line, which needs Node.js 22.22 or later. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a> and <a href="../cli/">Command line</a>.</p></details>
+<p>Any JetBrains IDE from 2024.2 that has JCEF, which the standard downloads do, VS Code 1.88 or later and the editors built on it (Cursor, Windsurf and VSCodium), and the <code>penstock</code> command line, which needs Node.js 22.22 or later. See <a href="../jetbrains/installing.html">Installing in a JetBrains IDE</a> and <a href="../cli/">Command line</a>.</p></details>
 
 <details class="faq"><summary>What happened to "Camunda BPMN Editor"?</summary>
 <p>It was renamed Penstock in 2026. It is the same plugin with the same id, so it updates in place. Nothing needs to be reinstalled.</p></details>
@@ -183,10 +193,24 @@
 <details class="faq"><summary>Can students and open-source maintainers get Pro?</summary>
 <p>Penstock offers Free Pro for students, teachers and open-source maintainers. See <a href="sign-in.html#education">Buying and signing in</a>.</p></details>
 
+<h2 id="the-ai-chat"><a href="#the-ai-chat">The AI chat</a></h2>
+
+<details class="faq"><summary>Does Penstock include an AI model?</summary>
+<p>No. The AI chat starts an agent of your choice, such as Claude Code, Codex, Gemini CLI or OpenCode, or any agent of the ACP Registry, on your machine and on your own account. Penstock gives it its MCP server so it can read your diagrams, rules, scenarios and code links. See <a href="ai-chat.html">AI chat</a> and <a href="agents.html">AI agents</a>.</p></details>
+
+<details class="faq"><summary>Can the agent change my files without asking?</summary>
+<p>No. Every write is asked before it happens, and the answer holds for that one question. A change to a diagram is drawn on the canvas first, and you accept or reject each change. See <a href="ai-chat.html">AI chat</a>.</p></details>
+
+<details class="faq"><summary>How do I turn the AI chat off?</summary>
+<p>Set <span class="ui">AI chat</span> to <em>Off</em> in the agents screen. The input, the chats, the Chat tab, the toolbar button and the agent process are gone. Another choice there puts the conversation in the sidebar instead. It is kept in <code>~/.penstock/preferences.json</code> for every tool. See <a href="agents.html">AI agents</a>.</p></details>
+
+<details class="faq"><summary>Is the AI chat free?</summary>
+<p>The input and the chats are shown to everyone. Sending a message needs Pro, and in a pipeline Team. The suggestions that Penstock makes without a model, the next element at a dead end and the name, source or expression for a field, are free. See <a href="plans.html">Plans and licence</a>.</p></details>
+
 <h2 id="privacy-and-safety"><a href="#privacy-and-safety">Privacy and safety</a></h2>
 
 <details class="faq"><summary>Does the plugin send my diagrams anywhere?</summary>
-<p>Only to the engine you configure, when you deploy. There is no telemetry. The full list of network use is in <a href="security.html">Security and privacy</a>.</p></details>
+<p>Only to the engine you configure, when you deploy, and to the agent you chose, when you use the AI chat. There is no telemetry. The full list of network use is in <a href="security.html">Security and privacy</a>.</p></details>
 
 <details class="faq"><summary>Where do my passwords go?</summary>
 <p>To the secret store of your tool, once for each profile. Never to a project file, and never to the web page in the editor.</p></details>
@@ -206,10 +230,16 @@
 <p>Yes. The Try tab of the decision editor runs the table against values you type and says which rules match. See <a href="dmn-editor.html#try">The DMN editor</a>.</p></details>
 
 <details class="faq"><summary>Where is the Comments tab, or the Try tab?</summary>
-<p>Each editor has its own tabs in the sidebar. A diagram has Properties, Scenarios, Problems, Comments, Monitor and Code. A decision has Properties, Problems and Try. A form has Properties, Preview and Problems. See <a href="sidebar.html">The sidebar</a>.</p></details>
+<p>Each editor has its own tabs in the sidebar. A diagram has Properties, Chat, Problems, Scenarios, Comments, Code, Monitor and Debug. A decision has Properties, Chat, Problems and Try. A form has Properties, Chat, Preview and Problems. The Chat tab is there while the AI chat is on. See <a href="sidebar.html">The sidebar</a>.</p></details>
 
 <details class="faq"><summary>Where is the save button?</summary>
-<p>There is none. Every change is written to the file at once. See <a href="bpmn-editor.html">The BPMN editor</a>.</p></details>
+<p>There is none. Every change is written to the file at once. A file with no layout is laid out in memory when it opens and is written only once you edit it. See <a href="bpmn-editor.html">The BPMN editor</a>.</p></details>
+
+<details class="faq"><summary>Why did the view not move when I opened the sidebar?</summary>
+<p>The first view of a diagram fits the canvas, and after that the view is yours: resizing the window, showing a sidebar or folding the chat never re-fits or re-zooms it. <span class="ui">Fit diagram</span> does it on demand. See <a href="editing.html">Editing a diagram</a>.</p></details>
+
+<details class="faq"><summary>Can I hide the sidebar to see more of the diagram?</summary>
+<p>Yes. <span class="ui">Focus canvas</span> in the <span class="ui">More</span> menu hides the sidebar, and a second use brings it back. See <a href="editing.html">Editing a diagram</a>.</p></details>
 
 <details class="faq"><summary>Can I see the raw XML?</summary>
 <p>Yes. The <span class="ui">Text</span> tab at the bottom of the editor. Both tabs edit the same file.</p></details>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Scripts in their own tab - Penstock</title>
-<meta name="description" content="Edit a script from a task as a real file in your tool's own code editor, with its colours, completion and checks.">
+<meta name="description" content="Edit a script or an expression from an element as a real file in your tool's own code editor, with its colours, completion and checks. The script tab page says what the tab knows about your variables.">
 <link rel="icon" href="../icon.svg" type="image/svg+xml">
 <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Penstock">
 <meta property="og:title" content="Scripts in their own tab - Penstock">
-<meta property="og:description" content="Edit a script from a task as a real file in your tool's own code editor, with its colours, completion and checks.">
+<meta property="og:description" content="Edit a script or an expression from an element as a real file in your tool's own code editor, with its colours, completion and checks. The script tab page says what the tab knows about your variables.">
 <meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html" aria-current="page">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -136,8 +145,8 @@
 <main class="doc" id="content">
 <p class="crumbs"><a href="../guide/">Guide</a> / Draw and edit</p>
 <h1>Scripts in their own tab</h1>
-<p class="lede">Edit a script from a task as a real file in your tool's own code editor, with its colours, completion and checks.</p>
-<p class="meta"><span class="tag free">Free</span> <span>Camunda 7, Operaton and CIB seven</span></p>
+<p class="lede">Edit a script or an expression from an element as a real file in your tool's own code editor, with its colours, completion and checks. The script tab page says what the tab knows about your variables.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Camunda 7, Operaton and CIB seven for scripts; Camunda 8 for FEEL expressions</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
@@ -152,12 +161,14 @@
 
 <p>The small editor in the properties panel is fine for one line. For a longer script you want a full code editor. Penstock hands the script to your tool as a file and writes every keystroke back into the diagram.</p>
 
+<p>It is a tab that knows where in the process the script sits: which variables reach it, which step writes each one, and, for a FEEL expression, a syntax check, documentation and a Run with sample values. That part is on <a href="script-tab.html">The script tab</a>. This page is about opening and closing it.</p>
+
 <h2 id="steps"><a href="#steps">Steps</a></h2>
 
 <ol class="steps">
-  <li>Select a script task, or any element that holds a script: a condition, an input or output mapping, an execution listener or a task listener.</li>
+  <li>Select a script task, or any element that holds a script or an expression: a condition, an input or output mapping, an execution listener or a task listener. On Camunda 8 that is a FEEL expression, one that starts with <code>=</code>, in a condition or a mapping.</li>
   <li>In the properties panel, find the script field. Under it is a button <span class="ui">Edit in new tab</span>. Press it.</li>
-  <li>A code editor opens with the script as a file: <code>.groovy</code> for Groovy or <code>.js</code> for JavaScript.</li>
+  <li>A code editor opens with the script as a file: <code>.groovy</code> for Groovy or <code>.js</code> for JavaScript. A FEEL expression opens in the same way, with FEEL colours and checks.</li>
   <li>Type. Your changes go back into the diagram about 100 milliseconds after each keystroke, and reach the diagram model 400 milliseconds after you stop.</li>
   <li>Close the editor when you are done.</li>
 </ol>
@@ -186,7 +197,7 @@
   <li>While the script is open, the field in the properties panel is read-only. There is exactly one place to type.</li>
   <li>The script is a temporary file kept in memory. Nothing is written to your disk.</li>
   <li>When you close it, the field in the panel becomes editable again.</li>
-  <li>If you press the button again while the script is open, that editor comes to the front. It does not open a second one.</li>
+  <li>If you press the button again while the script is open, it says <span class="ui">Show tab</span>, and that editor comes to the front. It does not open a second one.</li>
 </ul>
 
 <h2 id="the-default-language"><a href="#the-default-language">The default language</a></h2>
@@ -197,7 +208,7 @@
 
 <dl class="problems">
   <dt>There is no <span class="ui">Edit in new tab</span> button.</dt>
-  <dd>The button exists for Camunda 7, Operaton and CIB seven. In Camunda 8 a script is a FEEL expression and is edited in the panel.</dd>
+  <dd>The field holds a plain value, not a script or a FEEL expression. On Camunda 8 only a FEEL expression, one that starts with <code>=</code>, has the button, and a script resource that lives in a separate file is edited in that file.</dd>
   <dt>The code is coloured as the wrong language.</dt>
   <dd>The script format is JavaScript or Groovy as set on the element. Change the script format in the panel and open the script again.</dd>
   <dt>I closed the script and lost text.</dt>
@@ -206,13 +217,14 @@
 <div class="related">
 <h2>See also</h2>
 <ul>
+<li><a href="../guide/script-tab.html">The script tab</a> - Scripts and expressions in their own tab, with the variables the process has.</li>
 <li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
 <li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/comments.html"><span>Previous</span>Comments</a>
+<a class="prev" href="../guide/review-agent-changes.html"><span>Previous</span>Review the changes an agent proposes</a>
 <a class="next" href="../guide/element-templates.html"><span>Next</span>Element templates</a>
 </nav>
 </main>

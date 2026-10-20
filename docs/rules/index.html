@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -165,7 +174,7 @@
   </tbody>
 </table></div></div>
 
-<p>152 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free.</p>
+<p>155 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free.</p>
 
 <h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
 <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
@@ -268,6 +277,7 @@
   <tr><td><a href="compat-task-listener"><code>compat/task-listener</code></a></td><td>Task listener without an event type or a job type</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="compat-task-schedule"><code>compat/task-schedule</code></a></td><td>Task schedule that is not a date</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="compat-timer"><code>compat/timer</code></a></td><td>Timer that is not valid</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="compat-timer-past-date"><code>compat/timer-past-date</code></a></td><td>Start timer set in the past</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="compat-unresolvable-secret-reference"><code>compat/unresolvable-secret-reference</code></a></td><td>Secret used in a way the engine cannot resolve</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="compat-user-task-definition"><code>compat/user-task-definition</code></a></td><td>User task without a form</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="compat-user-task-form"><code>compat/user-task-form</code></a></td><td>User task form that is not filled in</td><td><span class="tag error">Error</span></td></tr>
@@ -370,6 +380,8 @@
   <tr><td><a href="code-unknown-embedded-form"><code>code/unknown-embedded-form</code></a></td><td>A user task shows an embedded form the diagram does not contain</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="code-unused-worker"><code>code/unused-worker</code></a></td><td>A worker for a job type no diagram uses</td><td><span class="tag warning">Advice</span></td></tr>
   <tr><td><a href="code-unused-subscription"><code>code/unused-subscription</code></a></td><td>A subscription to a topic no diagram uses</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-variable-field"><code>code/variable-field</code></a></td><td>A step reads a field the variable does not have</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="code-variable-unknown"><code>code/variable-unknown</code></a></td><td>A step reads a variable nothing sets</td><td><span class="tag warning">Advice</span></td></tr>
   </tbody>
 </table></div></div>
 

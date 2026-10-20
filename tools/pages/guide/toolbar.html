@@ -2,7 +2,7 @@
 title: The toolbar and the More menu
 lede: The toolbar holds the actions you use most, the More menu holds all of them in sections, and you choose which ones sit on the bar.
 tags: free
-related: bpmn-editor, sidebar, diagram-check, deployment, editing
+related: bpmn-editor, sidebar, ai-chat, diagram-check, deployment, editing
 -->
 <h2>How it works</h2>
 
@@ -43,7 +43,7 @@ related: bpmn-editor, sidebar, diagram-check, deployment, editing
 
 <p>Penstock remembers your choice in <code>~/.penstock/preferences.json</code>, the same file that keeps the width of the sidebar and whether you have seen the tour. It is the same in every tool on your machine and survives a restart. It is never stored in <code>penstock.yaml</code>, so your toolbar never lands in a teammate's checkout. If a later version adds a new action, you still get it, even if you rearranged the bar.</p>
 
-<p>On the bar, an action only a well known icon can name is an icon with a tooltip: undo, redo and the sidebar toggle. Everything else is a word. A toggle stays pressed while what it shows is open, and its label never changes with the state.</p>
+<p>On the bar, an action only a well known icon can name is an icon with a tooltip: undo, redo, the AI chat and the sidebar toggle. Everything else is a word. A toggle stays pressed while what it shows is open, and its label never changes with the state.</p>
 
 <h2>Every action in the diagram editor</h2>
 
@@ -61,6 +61,7 @@ related: bpmn-editor, sidebar, diagram-check, deployment, editing
   <tr><td>Coverage <span class="tag pro">Pro</span></td><td>Colours what your process tests reached. <a href="process-tests.html">Process tests and coverage</a></td><td>Yes</td><td>Once test reports exist</td></tr>
   <tr><td>Migrate to Camunda 8</td><td>What does not carry over, and converting it. <a href="migration.html">Camunda 7 to 8</a></td><td>Yes</td><td>Camunda 7, Operaton, CIB seven</td></tr>
   <tr><td>Deploy</td><td>Opens the Deploy popover, which sends the diagram. <a href="deployment.html">Deployment</a></td><td>Yes, on the right</td><td>Camunda 7, Camunda 8, Operaton, CIB seven</td></tr>
+  <tr><td>AI chat</td><td>Opens the Chat tab of the sidebar. An icon, pressed while the Chat tab is shown, with a warning dot while the agent waits for your answer. A second press returns to the tab you had. <a href="ai-chat.html">AI chat</a></td><td>Yes</td><td>All, unless the AI chat is off</td></tr>
   <tr><td>Sidebar</td><td>Shows or hides the sidebar. An icon at the right edge, pressed while it is open. <a href="sidebar.html">The sidebar</a></td><td>Always on the bar</td><td>All</td></tr>
   <tr><td>Fit diagram, Zoom in, Zoom out</td><td>The view. Each has a shortcut in the tools that have one.</td><td>No</td><td>All</td></tr>
   <tr><td>Transaction boundaries</td><td>Draws a bar where the engine commits a transaction: before a user task, a receive task, an event-based gateway, an external task and a message, timer, signal or conditional catch event, and before or after an activity with an asynchronous continuation. The bars follow the diagram as you edit.</td><td>No</td><td>Camunda 7, Operaton, CIB seven</td></tr>

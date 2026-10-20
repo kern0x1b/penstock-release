@@ -1,0 +1,80 @@
+<!--
+title: Suggestions
+lede: Penstock suggests the element that most likely comes next, as a ghost beside a dead end, and a name, a source or an expression for a field of the properties panel, as faint text after the caret. It works from your diagram and your project, and it keeps quiet when it is not sure.
+tags: free
+related: editing, properties-panel, script-tab, ai-chat, settings
+-->
+<h2>What it is</h2>
+
+<p>Two small helpers sit in the editor. Both are suggestions, never changes: nothing happens to the diagram until you press <kbd>Tab</kbd>, and <kbd>Esc</kbd> sends the suggestion away.</p>
+
+<ul>
+  <li><strong>The next element.</strong> When you stop on an element that leads nowhere yet, Penstock draws the element it expects next as a ghost beside it.</li>
+  <li><strong>Ghost text in a field.</strong> In some fields of the <a href="properties-panel.html">properties panel</a>, Penstock shows the name, the source or the expression it expects, in faint text after the caret.</li>
+</ul>
+
+<p>Neither one asks a language model. The answer is worked out from the open diagram, the elements around the place you are at and the names used in the other files of the project, and a small ranker that ships with Penstock puts the candidates in order. When no candidate is good enough, nothing is shown. A quiet editor is the normal case, not a fault. Both are free.</p>
+
+<p>These are not the <a href="ai-chat.html">AI chat</a>. The chat talks to an agent you chose. The suggestions are part of the editor and work without an agent.</p>
+
+<h2>The next element</h2>
+
+<ol class="steps">
+  <li>Select one element that has no way out yet: a task, a gateway or an event that is not an end event, with nothing leaving it.</li>
+  <li>Wait a moment, without typing, dragging or moving the canvas. If Penstock is confident, a ghost of the next element appears beside the one you selected, with a label such as <em>Next: &hellip; &middot; Tab to add</em>, naming the kind of element.</li>
+  <li>Press <kbd>Tab</kbd> to add it. The element and its flow are added in one step, so one undo takes them back, and the new element is selected.</li>
+  <li>Press <kbd>Esc</kbd> to dismiss it. Penstock does not offer it again for that element.</li>
+</ol>
+
+<p>Typing in a field, a drag, a zoom or a pan puts the ghost away, and a selection of more than one element, or of a flow, shows none. The suggestion follows the engine of the folder, so a Camunda 8 diagram gets Camunda 8 elements, and it follows the modelling conventions of the project. A screen reader hears <em>Suggested next: &hellip;. Press Tab to add it, Escape to dismiss.</em></p>
+
+<h2>Ghost text in a field</h2>
+
+<p>Click into one of these fields of the properties panel. After a moment a faint suggestion appears after the caret.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Field</th><th>What is suggested</th></tr></thead>
+  <tbody>
+  <tr><td>A result variable, an output mapping target, an output parameter name, a data output name</td><td>A name for the variable the step writes.</td></tr>
+  <tr><td>The source of an input mapping on Camunda 8, or of a call activity's in-mapping</td><td>A variable that the step can read. On Camunda 8 it can also be an expression, when the names point to a conversion.</td></tr>
+  <tr><td>The source expression of a call activity's in-mapping</td><td>An expression for the value that the target name asks for.</td></tr>
+  </tbody>
+</table></div>
+
+<p>Press <kbd>Tab</kbd> to take it and <kbd>Esc</kbd> to leave it. Keep typing and it adjusts or goes away.</p>
+
+<p>Press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> to see <em>Why this suggestion</em>: the value, where it came from, its likelihood in percent, and the reasons in words, such as <em>shares its words with the name</em> or <em>read by a later element</em>. Where it comes from is one of:</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>A fact of the code</td><td>A name or a type the code of a worker or a delegate tells. See <a href="code-links.html">Code links</a>.</td></tr>
+  <tr><td>Found in the project</td><td>A name another diagram or file of the project already uses.</td></tr>
+  <tr><td>Composed from the names of the diagram</td><td>Built from the words of the element and its neighbours.</td></tr>
+  <tr><td>An expression, checked on the sample values</td><td>A conversion the names point to: a unit change such as dollars to cents, a whole number of minor units, an ISO 8601 duration, a number read from text or a text written from a value. It is tried on sample values before it is offered.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Turn them off</h2>
+
+<p>Each helper has its own switch in the editor's settings: <span class="ui">Suggest the next element</span> and <span class="ui">Suggest names, sources and expressions</span>. Some tools add <em>at dead ends</em> and <em>for fields</em> to the labels. They are kept in <code>~/.penstock/preferences.json</code> as <code>suggestNextBlock</code> and <code>suggestions</code>, which are on unless set to <code>false</code>. With the first off, Penstock draws nothing and does not read the other diagrams of the project to find a next element. With the second off, nothing is asked for a field. In VS Code each one is also a command in the command palette, <span class="ui">Stop suggesting the next element at dead ends</span> and <span class="ui">Stop suggesting names, sources and expressions for fields</span>. The switches belong to you, not to the project.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A ghost element and a one-line label beside a dead end, when Penstock is confident.</li>
+  <li>Faint text after the caret in a name, source or expression field.</li>
+  <li>Nothing at all when Penstock is not sure. The editor does not guess.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>No ghost appears beside a dead end.</dt>
+  <dd>Penstock is not sure enough, or the element is an end event, already has a flow out, or you are still moving. A diagram with few elements and a project with no similar diagrams gives it little to go on. It also needs the helper to be on, in the settings.</dd>
+  <dt>No text appears in a field.</dt>
+  <dd>The field is not one of those in the table, Penstock has nothing it is sure of, or the suggestions are off.</dd>
+  <dt>I pressed <kbd>Tab</kbd> and the focus moved on.</dt>
+  <dd>There was no suggestion to take. <kbd>Tab</kbd> adds a suggestion only while one is shown. On the canvas it needs the canvas to have the focus, not a field.</dd>
+  <dt>I want a bigger change than one element.</dt>
+  <dd>Ask the <a href="ai-chat.html">AI chat</a>. Its proposed changes are drawn on the canvas as ghosts that you accept or reject.</dd>
+</dl>

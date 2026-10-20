@@ -131,11 +131,11 @@
 
 <h2 id="saving"><a href="#saving">Saving</a></h2>
 
-<p>The editor writes the file on every change. The content goes to a temporary file that replaces the real one, and the IDE refreshes the file, so the <span class="ui">Text</span> tab and version control see it immediately.</p>
+<p>The editor writes the file on every change. The content goes to a temporary file that replaces the real one, and the IDE refreshes the file, so the <span class="ui">Text</span> tab and version control see it immediately. A <code>.bpmn</code> file that has no layout opens laid out in memory and is written only once you edit it, so opening a file never changes it on disk.</p>
 
 <h2 id="when-the-file-changes-outside-the-editor"><a href="#when-the-file-changes-outside-the-editor">When the file changes outside the editor</a></h2>
 
-<p>The IDE tells Penstock when a file changes on disk. A dialog called <em>File Changed on Disk</em> says that the diagram was changed outside the editor, that reloading loads those changes and drops what you have not saved, and that keeping it means your next save overwrites them. The buttons are <span class="ui">Reload</span> and <span class="ui">Keep Editing</span>. Renaming or moving the open file is followed without asking. The editor's own saves are never mistaken for outside changes, even with the same file open in two tabs.</p>
+<p>The IDE tells Penstock when a file changes on disk. A dialog called <em>File Changed on Disk</em> says that the diagram was changed outside the editor, that reloading loads those changes and drops what you have not saved, and that keeping it means your next save overwrites them. The buttons are <span class="ui">Reload</span> and <span class="ui">Keep Editing</span>. Renaming or moving the open file is followed without asking. The editor's own saves are never mistaken for outside changes. When the same diagram is open in two editors, a change saved in one reaches the other as a change on disk, and it asks the same question.</p>
 
 <h2 id="themes"><a href="#themes">Themes</a></h2>
 

@@ -27,6 +27,16 @@
               "about": "Get Penstock, open a diagram, deploy it."
             },
             {
+              "slug": "penstock-web",
+              "title": "Penstock Web",
+              "about": "The editors in a browser tab, on your machine."
+            },
+            {
+              "slug": "penstock-desktop",
+              "title": "Penstock Desktop",
+              "about": "The same editor in its own application window."
+            },
+            {
               "slug": "example-project",
               "title": "The example project",
               "about": "A small order process that runs from the first minute."
@@ -75,6 +85,26 @@
               "slug": "comments",
               "title": "Comments",
               "about": "Notes on elements, kept in the file."
+            },
+            {
+              "slug": "script-tab",
+              "title": "The script tab",
+              "about": "Scripts and expressions in their own tab, with the variables the process has."
+            },
+            {
+              "slug": "suggestions",
+              "title": "Suggestions",
+              "about": "The next element and the next value, offered when Penstock is sure."
+            },
+            {
+              "slug": "ai-chat",
+              "title": "AI chat",
+              "about": "Ask or steer an AI agent from the foot of the editor."
+            },
+            {
+              "slug": "review-agent-changes",
+              "title": "Review the changes an agent proposes",
+              "about": "See a proposed change on the canvas, and accept or reject it."
             },
             {
               "slug": "scripts",
@@ -153,6 +183,16 @@
               "about": "Run the diagram's scenarios on a local engine and see every step."
             },
             {
+              "slug": "debug-process",
+              "title": "Debug a process",
+              "about": "Stop a running copy of the process at breakpoints."
+            },
+            {
+              "slug": "timeline",
+              "title": "Timeline",
+              "about": "One run as a lane per element against time."
+            },
+            {
               "slug": "scenario-file",
               "title": "The scenario file",
               "about": "The test-case format, the instructions Penstock runs and refuses, and x-penstock."
@@ -196,6 +236,11 @@
               "slug": "settings",
               "title": "penstock.yaml",
               "about": "The one file that describes your project, and every key in it."
+            },
+            {
+              "slug": "agents",
+              "title": "AI agents",
+              "about": "Install, turn on and choose the agent that answers the chat."
             },
             {
               "slug": "profiles",
@@ -440,6 +485,11 @@
               "slug": "index",
               "title": "Command line",
               "about": "Install, run, and use it in a script."
+            },
+            {
+              "slug": "web",
+              "title": "penstock web",
+              "about": "The editors in a browser, served from your machine."
             }
           ]
         },

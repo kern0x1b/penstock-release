@@ -145,7 +145,11 @@
 
 <h2 id="other-repositories-and-other-languages"><a href="#other-repositories-and-other-languages">Other repositories and other languages</a></h2>
 
-<p>Name other repositories under <code>linked</code> in <code>penstock.yaml</code>. Workers in Java, Kotlin, JavaScript, TypeScript, Python, Go or C# are found by reading their text, so a worker in another repository, or in a language the IDE does not know, still counts as a task's implementation.</p>
+<p>Name other repositories under <code>linked</code> in <code>penstock.yaml</code>. Their workers count as a task's implementation like your own.</p>
+
+<p>Java and Kotlin code is read through the IDE's own syntax tree, and so are Groovy and JavaScript or TypeScript where the IDE has the Groovy or the JavaScript plugin. A link is found by what the code means, not by a text pattern. Workers in Python, Go, C# and Scala are read by the <code>penstock</code> command line, which the plugin starts for you: <span class="ui">Settings | Tools | Penstock</span> has a <em>Penstock command line</em> field for its path, and empty finds it on the <code>PATH</code>, then in the project's <code>node_modules</code> once the project is trusted, then in the plugin. Go to code, Runs in and the usages of a job type, a topic or an error code, at each line that raises it, work in all of these languages. They need Pro, and going from a Camunda 7 delegate to its class or bean stays free.</p>
+
+<p>The variables a step reads and writes are typed from that code too, so completion offers every variable of the whole process, with its fields, in every expression. The inspections that report them are listed in <a href="settings.html">Settings in the IDE</a>.</p>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 

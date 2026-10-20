@@ -1,6 +1,6 @@
 <!--
 title: Shortcuts in VS Code
-lede: The keys Penstock binds in the editor and the project tree, and how undo, redo and rename work.
+lede: The keys Penstock binds in the editor and the project tree, including the AI chat and Focus canvas, and how undo, redo and rename work.
 tags: free
 related: where-things-are, code-links, guide/editing
 -->
@@ -11,12 +11,18 @@ related: where-things-are, code-links, guide/editing
   <tbody>
   <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd> on a Mac</td><td>Penstock: Find action</td><td>Open the editor's searchable list of every action.</td></tr>
   <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd> on a Mac</td><td>Sidebar</td><td>Show or hide the sidebar of the editor.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>\</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>\</kbd> on a Mac</td><td>AI chat</td><td>Open the Chat tab of the sidebar, or return to the tab you had before. Only there while the AI chat is on. See <a href="@guide/ai-chat.html">AI chat</a>.</td></tr>
+  <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd><br><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac</td><td>Focus canvas</td><td>Hide the sidebar of the editor and show only the canvas. Press it again to bring it back. Never saved: a new window shows the sidebar as you left it.</td></tr>
   <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd> on a Mac</td><td>Trace paths</td><td>The Trace paths action of the editor.</td></tr>
   <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd><br><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> on a Mac</td><td>Export…</td><td>Export the diagram as a picture.</td></tr>
   </tbody>
 </table></div>
 
 <p>Every one of these is bound only while a Penstock editor has the focus. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> is also the terminal's copy key on Windows and Linux, and this keeps it that way. Outside a Penstock editor, VS Code's own key applies.</p>
+
+<h2>In the diagram</h2>
+
+<p>The keys of the canvas itself are the editor's own, the same in every tool: undo and redo, cut, copy and paste, <kbd>Ctrl</kbd>+<kbd>D</kbd> (<kbd>Cmd</kbd>+<kbd>D</kbd> on a Mac) to duplicate the selection, select all, find, zoom, <kbd>Ctrl</kbd>+<kbd>0</kbd> to fit the diagram, and <kbd>?</kbd> for the sheet that lists them all. <kbd>Tab</kbd> accepts and <kbd>Esc</kbd> dismisses a suggestion. See <a href="@guide/editing.html">Editing a diagram</a>.</p>
 
 <h2>In the Penstock view</h2>
 
@@ -38,7 +44,7 @@ related: where-things-are, code-links, guide/editing
 
 <h2>Any other action</h2>
 
-<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the four editor keys above do.</p>
+<p>Every action of the editor is a command named <code>penstock.action.</code> followed by the action, for example <code>penstock.action.deploy</code>. Bind a key to one in <span class="ui">Keyboard Shortcuts</span>: search for <em>Penstock</em>, or for the name the action has in the editor, such as <em>Auto layout</em>. Use the <code>penstockEditorFocused</code> condition to bind it only in the editor, as the editor keys above do.</p>
 
 <h2>In your code</h2>
 

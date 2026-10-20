@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -153,6 +162,8 @@
 <h2 id="what-is-a-worker"><a href="#what-is-a-worker">What is a worker</a></h2>
 
 <p>A service task does not do the work itself. A <strong>worker</strong>, a program of yours, does. On Camunda 8 the task names a <em>job type</em>. On Camunda 7 it names a <em>topic</em>. If no worker is running for that name, the task waits forever. Check Workers finds that out.</p>
+
+<p>The workers it asks about are the ones <a href="code-links.html">Code links</a> finds in your code, in Java, Kotlin, Groovy, Scala, JavaScript, TypeScript, Python, Go and C#. For Python, Go, C# and Scala they are read through the <code>penstock</code> command line. Once a worker is listed, its job type or topic has <span class="ui">Go to code</span>, <strong>Runs in</strong> and usages at each line that raises it.</p>
 
 <h2 id="steps"><a href="#steps">Steps</a></h2>
 

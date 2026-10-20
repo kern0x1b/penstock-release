@@ -14,7 +14,7 @@ description: Penstock in VS Code: install from the Marketplace, where things are
 <h2>First steps</h2>
 
 <ol class="steps">
-  <li><a href="installing.html">Install the extension</a> from the Visual Studio Marketplace. It needs VS Code 1.88 or later.</li>
+  <li><a href="installing.html">Install the extension</a> from the Visual Studio Marketplace. It needs VS Code 1.88 or later, and runs in the editors built on it: Cursor, Windsurf and VSCodium.</li>
   <li>Open a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file. It opens in the Penstock editor.</li>
   <li>Read <a href="where-things-are.html">Where things are in VS Code</a>.</li>
   <li>Then follow <a href="@guide/getting-started.html">Getting started</a> in the Guide.</li>
@@ -29,10 +29,14 @@ description: Penstock in VS Code: install from the Marketplace, where things are
   <li><code>penstock.yaml</code>, its layers per folder, <code>penstock.local.yaml</code>, profiles and <code>${VAR}</code> references. Schema validation runs for <code>penstock.yaml</code>, <code>penstock.yml</code> and <code>penstock.json</code>, with configuration problems reported in the Problems view.</li>
   <li>Deployment to Camunda 7 and Camunda 8, with passwords and client secrets kept in VS Code's secret storage.</li>
   <li>Scripts in their own tab, element templates, and the Check, Simulate, Monitor and Scenarios actions of the editor. Create element template at the caret in worker code.</li>
+  <li>FEEL expressions with a syntax check, completion, documentation and a Run that evaluates them on sample values, and a step-by-step debugger that shows the value of each sub-expression.</li>
+  <li>The AI chat: an input at the foot of the BPMN, DMN and form editors, or a Chat tab in the sidebar, that talks to the AI agent of your choice (Claude Code, Codex, Gemini CLI, OpenCode, any agent of the ACP Registry or your own command) on your own account. The chats are listed in the <strong>Chats</strong> view of the Penstock container, and <span class="ui">Penstock: AI agents</span> installs and turns on agents. Sending a message needs Pro. See <a href="@guide/ai-chat.html">AI chat</a>.</li>
+  <li><code>penstock mcp</code> registered as an MCP server called <em>Penstock</em>, so GitHub Copilot's agent mode and any other MCP-capable chat in VS Code 1.101 or later list the Penstock tools with no configuration.</li>
+  <li>The Camunda 7 to Camunda 8 conversion, the migration report and the job worker skeletons, from the <em>Migrate to Camunda 8</em> node of the Penstock view. Conversion asks one question, <em>Convert &hellip; to Camunda 8 into &hellip;? The original file stays as it is.</em>, rather than showing a preview.</li>
   <li>Test-case files in the Test Explorer, with a Pro licence. Running tests from a diagram opens the test at the cursor and starts VS Code's testing commands.</li>
   <li>The visual <a href="@guide/diagram-diff.html">diagram diff</a>, from the Explorer and Source Control menus, with a Pro licence.</li>
   <li><a href="code-links.html">Code links</a>: code lenses, go to definition, references between diagrams and code, linked rename (<kbd>F2</kbd> in code and rename offers in the editor; Pro), the Java debugger position on the diagram, and diagram and code problems in the Problems view with quick fixes.</li>
-  <li>The Penstock tool window in the Activity Bar: a project tree with nodes for processes, workers, variables, messages, errors, decisions, forms, templates, deployment, files, and Migrate to Camunda 8. Its toolbar includes Run all, reload from disk, group by file, folders, Open penstock.yaml (creates the file if missing), and a Run Penstock menu with 9 CLI commands: <code>check</code>, <code>scenarios</code>, <code>junit</code>, <code>code</code>, <code>docs</code>, <code>format</code>, <code>change</code>, <code>export</code>, <code>doctor</code>. Row menus offer Open, Find usages in code, Copy ID, Go to implementation, Deploy, test actions, and CLI commands on the row's file. Pro.</li>
+  <li>The Penstock tool window in the Activity Bar: a project tree with nodes for processes (with their scripts), workers, variables, messages, errors, decisions, forms, templates, deployment, files, and Migrate to Camunda 8. Its toolbar includes Run all, reload from disk, group by file, folders, Open penstock.yaml (creates the file if missing), and a Run Penstock menu with 9 CLI commands: <code>check</code>, <code>scenarios</code>, <code>junit</code>, <code>code</code>, <code>docs</code>, <code>format</code>, <code>change</code>, <code>export</code>, <code>doctor</code>. Row menus offer Open, Find usages in code, Copy ID, Go to implementation, Deploy, test actions, and CLI commands on the row's file. Pro.</li>
   <li>What's new notifications after an extension update.</li>
   <li>The licence, shared with the plugin and the command line. See <a href="licence.html">Licence in VS Code</a>.</li>
   <li>Every action of the editor as a command in the Command Palette, under <em>Penstock</em>.</li>
@@ -42,9 +46,6 @@ description: Penstock in VS Code: install from the Marketplace, where things are
 <h2>What is not there yet</h2>
 
 <ul>
-  <li>The Camunda 7 to Camunda 8 conversion preview, and the conversion itself in VS Code.</li>
-  <li>The Camunda 8 migration skeleton.</li>
-  <li>Regex-based JVM analysis may differ from the IDE on unusual code.</li>
   <li>Debugger blocks for languages other than Java are not covered.</li>
   <li>Opening a node in the project tree happens on a click or Enter, without double-click opening.</li>
   <li>Running a test or debugging it from the project tree is best effort: the file opens at the test and runs through VS Code's testing commands at the cursor. The debugger section in the project tree stays empty.</li>

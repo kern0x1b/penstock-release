@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -147,7 +156,9 @@
 <li><a href="#deployment-fails">Deployment fails</a></li>
 <li><a href="#element-templates-do-not-appear">Element templates do not appear</a></li>
 <li><a href="#the-connector-browser-is-empty-or-cannot-download">The connector browser is empty or cannot download</a></li>
+<li><a href="#a-diagram-or-a-form-does-not-open-as-a-picture">A diagram or a form does not open as a picture</a></li>
 <li><a href="#the-diagram-was-changed-on-disk">The diagram was changed on disk</a></li>
+<li><a href="#the-ai-chat-does-not-answer">The AI chat does not answer</a></li>
 <li><a href="#a-paid-feature-asks-me-to-buy-pro">A paid feature asks me to buy Pro</a></li>
 <li><a href="#test-cases-will-not-run">Test cases will not run</a></li>
 <li><a href="#where-else-to-look">Where else to look</a></li>
@@ -231,7 +242,7 @@
 
 <h2 id="element-templates-do-not-appear"><a href="#element-templates-do-not-appear">Element templates do not appear</a></h2>
 
-<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic BPMN editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the log of your tool. See <a href="element-templates.html">Element templates</a>.</p>
+<p>Templates come from <code>.camunda/element-templates</code> folders next to the diagram or above it, and from <code>elementTemplates</code> in <code>penstock.yaml</code>. The Classic BPMN editor ignores them, so check the engine first. A listed path that does not exist adds nothing and says nothing in the editor. <code>penstock doctor</code> reports it as missing. A file over 10 MB is skipped, and a file that is not valid JSON is skipped with a line in the log of your tool. A bad template never stops a diagram from opening: it is listed in the <strong>Problems</strong> tab with its reason. See <a href="element-templates.html">Element templates</a>.</p>
 
 <h2 id="the-connector-browser-is-empty-or-cannot-download"><a href="#the-connector-browser-is-empty-or-cannot-download">The connector browser is empty or cannot download</a></h2>
 
@@ -242,9 +253,22 @@
   <li>From a terminal: <code>penstock connectors --refresh</code>.</li>
 </ul>
 
+<h2 id="a-diagram-or-a-form-does-not-open-as-a-picture"><a href="#a-diagram-or-a-form-does-not-open-as-a-picture">A diagram or a form does not open as a picture</a></h2>
+
+<p>An empty or broken diagram or form still opens, and says what is wrong with it. For a diagram the screen names the line the reader objected to and says that the file was not changed. A form that the editor cannot read is listed in the project tree rather than hidden. Fix what it names, or restore the file from version control, and reload. See <a href="editing.html">Editing a diagram</a>.</p>
+
 <h2 id="the-diagram-was-changed-on-disk"><a href="#the-diagram-was-changed-on-disk">The diagram was changed on disk</a></h2>
 
 <p>The editor asks whether to reload or to keep editing. See <a href="bpmn-editor.html">The BPMN editor</a>.</p>
+
+<h2 id="the-ai-chat-does-not-answer"><a href="#the-ai-chat-does-not-answer">The AI chat does not answer</a></h2>
+
+<ul>
+  <li>No input, no Chat tab and no chats: the AI chat is <em>Off</em>. Turn it on in the agents screen, under <span class="ui">General</span>. See <a href="agents.html">AI agents</a>.</li>
+  <li>The card says what is wrong in a sentence: no agent on this machine, the agent is not signed in, or the agent ended, with the reason it gave and <span class="ui">Try again</span>. See <a href="ai-chat.html#failed">AI chat</a>.</li>
+  <li>An agent that Penstock installs for you may need Node.js or uv on the machine. The agents screen says which, and does not install an agent whose download it cannot check against the registry's checksum.</li>
+  <li>Sending a message needs Pro. The input and the chats are shown to everyone, and the offer to buy or sign in comes when you send.</li>
+</ul>
 
 <h2 id="a-paid-feature-asks-me-to-buy-pro"><a href="#a-paid-feature-asks-me-to-buy-pro">A paid feature asks me to buy Pro</a></h2>
 

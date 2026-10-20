@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Debug a process - Penstock</title>
+<meta name="description" content="Debug runs a copy of the open process on a local or test engine, stops at the breakpoints you set on the canvas, and lets you read and change the variables before it goes on. The copy and its instances are removed when the session ends.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Debug a process - Penstock">
+<meta property="og:description" content="Debug runs a copy of the open process on a local or test engine, stops at the breakpoints you set on the canvas, and lets you read and change the variables before it goes on. The copy and its instances are removed when the session ends.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/debug-process.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../guide/plans.html">Plans</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html" aria-current="page">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Test and run</p>
+<h1>Debug a process</h1>
+<p class="lede">Debug runs a copy of the open process on a local or test engine, stops at the breakpoints you set on the canvas, and lets you read and change the variables before it goes on. The copy and its instances are removed when the session ends.</p>
+<p class="meta"><span class="tag pro">Pro</span> <span>An engine on this machine, or one marked deployment.forTests: true</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#before-you-begin">Before you begin</a></li>
+<li><a href="#set-breakpoints">Set breakpoints</a></li>
+<li><a href="#run-it">Run it</a></li>
+<li><a href="#when-it-stops">When it stops</a></li>
+<li><a href="#the-copy">The copy</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>A breakpoint on the diagram, as in a debugger for code: the process runs, stops before the step you marked, shows you the variables, and waits. You change a value if you want, then continue, or step to the next element. It works on Camunda 7, Camunda 8, Operaton and CIB seven.</p>
+
+<p>It is not the other tools that look similar:</p>
+
+<ul>
+  <li><a href="token-simulation.html">Token simulation</a> is a picture. Nothing runs.</li>
+  <li><a href="scenarios.html">Scenarios</a> run the process with mocks that you chose, and check what it did.</li>
+  <li><a href="monitor.html">Monitor</a> looks at instances that run on their own.</li>
+  <li>The debugger of your code, whose position <a href="code-links.html">Code links</a> draws on the diagram, stops a worker. Debug stops the process.</li>
+</ul>
+
+<div class="callout warn">
+  <span class="label">Real work</span>
+  <p>The copy runs the real tasks of your process. A worker or a delegate on the engine that picks up one of its jobs does real work. So use an engine you can break.</p>
+</div>
+
+<h2 id="before-you-begin"><a href="#before-you-begin">Before you begin</a></h2>
+
+<ol class="steps">
+  <li>Connect an engine. Debug uses the engine of the profile in force. See <a href="engine-profiles.html">Engines</a>.</li>
+  <li>The engine has to be one Penstock may run tests on: <code>deployment.forTests: true</code> in <code>penstock.yaml</code>, or an engine on this machine that you confirm once. Every other engine is refused. See <a href="security.html">Security and privacy</a>.</li>
+  <li>Without an engine, the Debug tab says <em>No engine to debug on.</em> and offers <span class="ui">Set up connection&hellip;</span>.</li>
+</ol>
+
+<h2 id="set-breakpoints"><a href="#set-breakpoints">Set breakpoints</a></h2>
+
+<ol class="steps">
+  <li>Select a step.</li>
+  <li>Press <span class="ui">Toggle breakpoint on selection</span> in the Debug tab, or choose <span class="ui">Toggle breakpoint</span> in the <span class="ui">More</span> menu. A dot appears on the corner of the step.</li>
+  <li>To remove one, click its dot, or press <span class="ui">Remove</span> in the list of breakpoints in the Debug tab. A click on a row of the list selects the step.</li>
+</ol>
+
+<p>A breakpoint can sit on a task, a sub-process, a transaction, a call activity, a gateway and an intermediate catch or throw event. A start event, an end event and a boundary event cannot have one. Breakpoints are kept for the file, so they are there when you open it again. A breakpoint on a step that is gone is dropped when you start.</p>
+
+<h2 id="run-it"><a href="#run-it">Run it</a></h2>
+
+<ol class="steps">
+  <li>Open the <strong>Debug</strong> tab of the <a href="sidebar.html">sidebar</a>, or choose <span class="ui">Debug process</span> in the <span class="ui">More</span> menu.</li>
+  <li>If the file has several processes, choose one under <span class="ui">Process</span>.</li>
+  <li>Type the <strong>Start variables (JSON)</strong>: an object such as <code>{"amount": 5}</code>. Leave <code>{}</code> to start with none.</li>
+  <li>Press <span class="ui">Start debugging</span> to run to the first breakpoint, or <span class="ui">Start and step</span> to stop before the first step.</li>
+  <li>If the engine is not marked for tests, Penstock asks <em>Debug on this engine?</em> first and says what it will do: deploy the copy as <code>&lt;process id&gt;__debug</code>, start an instance of it, and remove the copy when you stop. Press <span class="ui">Debug</span>.</li>
+</ol>
+
+<p>The tab says what goes on: <em>Deploying the copy</em>, <em>Running</em>, <em>Paused</em>, <em>Finished</em>, <em>Failed</em> or <em>Stopped</em>, and the address of the engine.</p>
+
+<h2 id="when-it-stops"><a href="#when-it-stops">When it stops</a></h2>
+
+<p>The tab says <em>Paused at a breakpoint</em>, or <em>Paused by a step</em> when you stepped, and names the step. The step on the canvas carries a <em>Paused here</em> badge, and the canvas scrolls to it, into a sub-process if that is where it is. A click on the name in the tab selects it.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Variables</td><td>Every variable of the instance, as a name and a JSON value. Change a value, add a variable with <span class="ui">Add variable</span>, and the change is set before the process goes on. A value should be valid JSON, so text needs quotes.</td></tr>
+  <tr><td>Continue</td><td>Runs on to the next breakpoint, or to the end.</td></tr>
+  <tr><td>Step</td><td>Runs to the next element and stops there.</td></tr>
+  <tr><td>Stop</td><td>Ends the session: the instance is cancelled and the copy is removed.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>While the process runs, the tab counts <em>Steps passed so far</em>. When it reaches a task that something outside the debugger has to do, a worker, a timer, a message or a user task, it says <em>Waiting for something outside the debugger</em> and goes on when that happens. If the instance gets an incident the session ends with <em>The instance has an incident</em> and the reason.</p>
+
+<h2 id="the-copy"><a href="#the-copy">The copy</a></h2>
+
+<p>The debug copy is a separate definition named <code>&lt;process id&gt;__debug</code>. Your deployed process is never touched, so what runs on the engine is not changed by a debug session. Penstock puts a small pause of its own in front of each step that has a breakpoint and answers it itself, so the pause is not a task for your workers. The copy starts at one plain start event: the other start events, the ones with a message, a timer or another trigger, are left out of the copy. If every start event has a trigger, the first loses its trigger.</p>
+
+<p>When the session ends, Penstock cancels the instance and removes the copy, and the tab says <em>The debug copy &hellip; was removed from the engine.</em> If the engine cannot do it, the tab says <em>The debug copy could not be removed</em>, names what was left on the engine and why, and tries again when you open the tab or when you press <span class="ui">Try again</span>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>Dots on the canvas for the breakpoints, and a badge on the step where the process is paused.</li>
+  <li>The Debug tab, with the state, the variables while paused, the list of breakpoints and, at the end, the clean-up.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>"No engine to debug on."</dt>
+  <dd>The profile in force has no address, or the engine is neither on this machine nor marked <code>deployment.forTests: true</code>. See <a href="settings.html">penstock.yaml</a>.</dd>
+  <dt>The process does not stop.</dt>
+  <dd>The breakpoint is on a step the process does not reach, or on one that cannot have a breakpoint. Look at the dots on the canvas, or start with <span class="ui">Start and step</span>.</dd>
+  <dt>It stops at a task and says <em>Waiting for something outside the debugger</em>.</dt>
+  <dd>The task needs a worker, a timer, a message or a person, as it does when the process runs for real. Start the worker, or give the process what it waits for.</dd>
+  <dt>"The engine did not report the debug copy after deploying it."</dt>
+  <dd>The deployment did not arrive. Check the address and the user of the profile, then start again.</dd>
+  <dt>A debug copy is left on my engine.</dt>
+  <dd>Open the Debug tab. Penstock tries again to remove it, and <span class="ui">Try again</span> asks at once.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/timeline.html">Timeline</a> - One run as a lane per element against time.</li>
+<li><a href="../guide/token-simulation.html">Token simulation</a> - Watch a token walk through the process.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton and CIB seven.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/scenarios.html"><span>Previous</span>Scenarios</a>
+<a class="next" href="../guide/timeline.html"><span>Next</span>Timeline</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

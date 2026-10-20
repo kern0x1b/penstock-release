@@ -1,20 +1,22 @@
 <!--
 title: Scripts in their own tab
-lede: Edit a script from a task as a real file in your tool's own code editor, with its colours, completion and checks.
+lede: Edit a script or an expression from an element as a real file in your tool's own code editor, with its colours, completion and checks. The script tab page says what the tab knows about your variables.
 tags: free
-needs: Camunda 7, Operaton and CIB seven
-related: properties-panel, engine-profiles, settings
+needs: Camunda 7, Operaton and CIB seven for scripts; Camunda 8 for FEEL expressions
+related: script-tab, properties-panel, engine-profiles, settings
 -->
 <h2>Why</h2>
 
 <p>The small editor in the properties panel is fine for one line. For a longer script you want a full code editor. Penstock hands the script to your tool as a file and writes every keystroke back into the diagram.</p>
 
+<p>It is a tab that knows where in the process the script sits: which variables reach it, which step writes each one, and, for a FEEL expression, a syntax check, documentation and a Run with sample values. That part is on <a href="script-tab.html">The script tab</a>. This page is about opening and closing it.</p>
+
 <h2>Steps</h2>
 
 <ol class="steps">
-  <li>Select a script task, or any element that holds a script: a condition, an input or output mapping, an execution listener or a task listener.</li>
+  <li>Select a script task, or any element that holds a script or an expression: a condition, an input or output mapping, an execution listener or a task listener. On Camunda 8 that is a FEEL expression, one that starts with <code>=</code>, in a condition or a mapping.</li>
   <li>In the properties panel, find the script field. Under it is a button <span class="ui">Edit in new tab</span>. Press it.</li>
-  <li>A code editor opens with the script as a file: <code>.groovy</code> for Groovy or <code>.js</code> for JavaScript.</li>
+  <li>A code editor opens with the script as a file: <code>.groovy</code> for Groovy or <code>.js</code> for JavaScript. A FEEL expression opens in the same way, with FEEL colours and checks.</li>
   <li>Type. Your changes go back into the diagram about 100 milliseconds after each keystroke, and reach the diagram model 400 milliseconds after you stop.</li>
   <li>Close the editor when you are done.</li>
 </ol>
@@ -27,7 +29,7 @@ related: properties-panel, engine-profiles, settings
   <li>While the script is open, the field in the properties panel is read-only. There is exactly one place to type.</li>
   <li>The script is a temporary file kept in memory. Nothing is written to your disk.</li>
   <li>When you close it, the field in the panel becomes editable again.</li>
-  <li>If you press the button again while the script is open, that editor comes to the front. It does not open a second one.</li>
+  <li>If you press the button again while the script is open, it says <span class="ui">Show tab</span>, and that editor comes to the front. It does not open a second one.</li>
 </ul>
 
 <h2>The default language</h2>
@@ -38,7 +40,7 @@ related: properties-panel, engine-profiles, settings
 
 <dl class="problems">
   <dt>There is no <span class="ui">Edit in new tab</span> button.</dt>
-  <dd>The button exists for Camunda 7, Operaton and CIB seven. In Camunda 8 a script is a FEEL expression and is edited in the panel.</dd>
+  <dd>The field holds a plain value, not a script or a FEEL expression. On Camunda 8 only a FEEL expression, one that starts with <code>=</code>, has the button, and a script resource that lives in a separate file is edited in that file.</dd>
   <dt>The code is coloured as the wrong language.</dt>
   <dd>The script format is JavaScript or Groovy as set on the element. Change the script format in the panel and open the script again.</dd>
   <dt>I closed the script and lost text.</dt>

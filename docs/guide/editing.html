@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html" aria-current="page">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -146,6 +155,7 @@
 <li><a href="#change-an-element-into-another">Change an element into another</a></li>
 <li><a href="#the-tools-at-the-top-of-the-palette">The tools at the top of the palette</a></li>
 <li><a href="#the-canvas-and-the-palette">The canvas and the palette</a></li>
+<li><a href="#let-penstock-suggest-the-next-element">Let Penstock suggest the next element</a></li>
 <li><a href="#undo-and-redo">Undo and redo</a></li>
 <li><a href="#copy-and-paste">Copy and paste</a></li>
 <li><a href="#scripts-and-conditions">Scripts and conditions</a></li>
@@ -165,7 +175,7 @@
 </nav>
 <h2 id="what-the-editor-is"><a href="#what-the-editor-is">What the editor is</a></h2>
 
-<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar with tabs for the properties, scenarios, problems, comments, Monitor and code, and the raw XML never more than one click away.</p>
+<p>Penstock draws your diagram with bpmn-js in a browser built into your tool. The modelling surface is the familiar one. What Penstock adds is the tool around it: a toolbar you arrange, a command palette over every action, a sidebar with tabs for the properties, the AI chat, problems, scenarios, comments, code, Monitor and debug, and the raw XML never more than one click away.</p>
 
 <h2 id="add-an-element"><a href="#add-an-element">Add an element</a></h2>
 
@@ -208,9 +218,19 @@
 
 <p>Which modeller is built depends on the engine profile: Camunda 7, Camunda 8, Operaton and CIB seven get the matching Camunda modeler, which carries that platform's own extensions, properties and element templates, and Classic BPMN gets plain bpmn-js with the standard ones. All of them load task resizing, token simulation and the minimap, the colour picker in the context pad, and the grid with snapping. See <a href="engine-profiles.html">Engines</a>.</p>
 
-<p>The palette is a floating island beside the canvas, not a strip of the window: sixteen pixels from the left edge, vertically centred, rounded, and never more than three quarters of the height of the canvas, so a palette with more entries scrolls inside it. A canvas with a palette beside it is inset, so nothing sits under it, and a diagram is fitted into that inset when it opens.</p>
+<p>The palette is a floating island beside the canvas, not a strip of the window: sixteen pixels from the left edge, vertically centred, rounded, and never more than three quarters of the height of the canvas, so a palette with more entries scrolls inside it. In a tall canvas it is one column of entries, and in a short one the library's own two columns. A canvas with a palette beside it is inset, so nothing sits under it, and a diagram is fitted into that inset when it opens.</p>
 
-<p>A diagram opens fitted into the canvas at 100% at most, rather than cut off at the edge. Opening a panel over a fitted diagram fits it again, unless you have moved or zoomed it yourself. The <span class="ui">Fit diagram</span> action does it on demand, and it has a shortcut in every tool that has one. Switching your tool's theme keeps your zoom, your pan and your selection.</p>
+<p>The toggle at the top of the island folds it to a small handle at the left edge of the canvas. The choice is yours, and is kept for every tool you use. On a canvas under 560 pixels high or 720 pixels wide the palette folds by itself until you open it, and opening it there keeps it open for that canvas.</p>
+
+<h3 id="where-the-diagram-opens"><a href="#where-the-diagram-opens">Where the diagram opens</a></h3>
+
+<p>The first view of a diagram fits it into the canvas, less only the islands it would sit under (the palette and the AI chat input), and never larger than 100%. It never opens smaller than 85%: a diagram that would fit only smaller opens at 85%, anchored so that its first start event is in view, and you pan from there.</p>
+
+<p>After that the view is yours. Resizing the window, showing or hiding the sidebar, folding the chat, switching tabs and switching your tool's theme never re-fit, re-centre or change the zoom, and keep your pan and your selection. Only the first view and an explicit <span class="ui">Fit diagram</span> do, from the toolbar, the <span class="ui">More</span> menu or its shortcut.</p>
+
+<h3 id="focus-canvas"><a href="#focus-canvas">Focus canvas</a></h3>
+
+<p><span class="ui">Focus canvas</span>, in the <span class="ui">More</span> menu, hides the sidebar so that only the canvas is left, and brings it back when you use it again. It has a shortcut, listed in the shortcuts of your tool. It is yours for the window you are in and is never saved: the next window shows the sidebar as you left it.</p>
 
 <figure class="shot">
   <img src="../img/edit-replace.png" alt="A Change element menu open beside the selected service task Confirm order, with a search field and a list that starts with Task, User task, Send task and Receive task, each with a line of description" width="1600" height="921" loading="lazy" decoding="async">
@@ -222,13 +242,19 @@
   <figcaption>The canvas with its palette island, a user task selected, and the properties of that task in the sidebar.</figcaption>
 </figure>
 
+<h2 id="let-penstock-suggest-the-next-element"><a href="#let-penstock-suggest-the-next-element">Let Penstock suggest the next element</a></h2>
+
+<p>When a flow ends at an element with nothing after it and Penstock is confident of what comes next, it draws that element as a faint ghost beside the dead end. It works that out from the diagram, the elements around it and the names in your project. Press <kbd>Tab</kbd> to add it, already connected, as one undo step, or <kbd>Esc</kbd> to dismiss it. Penstock speaks only when it is confident. Free. The switch is in the preferences of your tool, and is kept as <code>suggestNextBlock</code> in <code>~/.penstock/preferences.json</code>. See <a href="suggestions.html">Suggestions</a>.</p>
+
 <h2 id="undo-and-redo"><a href="#undo-and-redo">Undo and redo</a></h2>
 
 <p>Undo and Redo are the first two buttons on the toolbar. They step through every change in the order you made it, through the modeller's own command stack. While a token simulation runs they refuse to run, so a preview cannot change your file.</p>
 
 <h2 id="copy-and-paste"><a href="#copy-and-paste">Copy and paste</a></h2>
 
-<p>Copy and paste use the clipboard of your system or tool, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another open diagram. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view.</p>
+<p>Copy and paste use the clipboard of your system or tool, not a clipboard private to one diagram. So you can copy a pool from one diagram and paste it into another open diagram. Copy and Paste are in the <span class="ui">More</span> menu. Pasting from the toolbar has no mouse position, so the elements land in the middle of the view. It reads the clipboard as it is, and says when there is nothing to paste.</p>
+
+<p>Duplicate puts a copy of the selection next to it, in place, without touching the clipboard. Its key is in the <span class="ui">Keyboard shortcuts</span> sheet. The requirements diagram of a decision takes cut, copy, paste and duplicate through the same keys and menu entries.</p>
 
 <p>To get the diagram itself as a picture, use <span class="ui">Copy</span> in the export dialog. It is free. See <a href="export.html">Export</a>.</p>
 
@@ -246,7 +272,9 @@
 
 <p>Edits round-trip in both directions. Every change on the canvas re-serialises the diagram and writes the whole file: the content goes to a temporary file beside the target, which is moved over it atomically and refreshed, so the Text tab and version control see the new content at once and a folder that does not exist yet is created.</p>
 
-<p>The other direction is watched rather than merged. Penstock tracks the file's modification stamp and ignores its own writes. When something else changes the file, the Text tab, a Git checkout or a formatter, the editor asks whether to reload. Reloading takes the external content and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites the external one. Renames are handled silently.</p>
+<p>The other direction is watched rather than merged. Penstock tracks the file's modification stamp and ignores its own writes. When something else changes the file, the Text tab, a Git checkout or a formatter, the editor asks whether to reload. Reloading takes the external content and discards unsaved canvas edits; declining keeps you editing, and your next change overwrites the external one. Renames are handled silently. The same diagram open in two editors does not overwrite itself: a save made in one reaches the other as a change made outside it.</p>
+
+<p>A diagram that has no layout, with no coordinates for its shapes, opens laid out in memory and is written only once you edit it, so opening a file never changes it on disk.</p>
 
 <div class="hosts">
 <p class="hosts-title">The Text tab in your tool</p>

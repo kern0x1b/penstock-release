@@ -16,7 +16,16 @@
     <loc>https://kern0x1b.github.io/penstock-release/cli/mcp.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/cli/web.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/agents.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/ai-chat.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/auto-layout.html</loc>
@@ -32,6 +41,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/comments.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/debug-process.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/deployment.html</loc>
@@ -94,6 +106,12 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/monitor.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-desktop.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-web.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/plans.html</loc>
   </url>
   <url>
@@ -109,10 +127,16 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/properties-panel.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/review-agent-changes.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/scenario-file.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/scenarios.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/script-tab.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/scripts.html</loc>
@@ -131,6 +155,12 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/sign-in.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/suggestions.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/timeline.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/token-simulation.html</loc>
@@ -331,7 +361,13 @@
     <loc>https://kern0x1b.github.io/penstock-release/rules/code-unused-worker</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/code-variable-field</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/code-variable-typo</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/code-variable-unknown</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/code-worker-fetch</loc>
@@ -515,6 +551,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/compat-timer</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/compat-timer-past-date</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/compat-unresolvable-secret-reference</loc>

@@ -9,6 +9,8 @@ related: code-links, monitor, project-model
 
 <p>A service task does not do the work itself. A <strong>worker</strong>, a program of yours, does. On Camunda 8 the task names a <em>job type</em>. On Camunda 7 it names a <em>topic</em>. If no worker is running for that name, the task waits forever. Check Workers finds that out.</p>
 
+<p>The workers it asks about are the ones <a href="code-links.html">Code links</a> finds in your code, in Java, Kotlin, Groovy, Scala, JavaScript, TypeScript, Python, Go and C#. For Python, Go, C# and Scala they are read through the <code>penstock</code> command line. Once a worker is listed, its job type or topic has <span class="ui">Go to code</span>, <strong>Runs in</strong> and usages at each line that raises it.</p>
+
 <h2>Steps</h2>
 
 <p>Run Check Workers on the workers of your project. Penstock asks each diagram's engine, using the profile in force for that diagram's folder. A project with a Camunda 7 folder and a Camunda 8 folder asks both. Each worker then says what the engine said, and the workers node shows when the check ran, for example <em>checked at 14:02</em>.</p>

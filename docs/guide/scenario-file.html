@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html" aria-current="page">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -209,7 +218,7 @@
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
-  <tr><td><code>$schema</code></td><td>Added on save when the file has none: the Camunda test-case schema, version 8.9.</td></tr>
+  <tr><td><code>$schema</code></td><td>Added on save when the file has none: the Camunda test-case schema, version 8.9. A file that names the 8.10 schema is checked against that one.</td></tr>
   <tr><td><code>testCases</code></td><td>The list of cases. Required.</td></tr>
   <tr><td><code>name</code></td><td>Required, and not empty. The name identifies the case: generating never replaces a case with the same name.</td></tr>
   <tr><td><code>description</code></td><td>Optional text.</td></tr>
@@ -218,7 +227,7 @@
   </tbody>
 </table></div></div>
 
-<p>Every case is checked against the schema before it runs. An instruction that lacks a required property, or has a property the schema does not allow for its type, is reported by case and instruction number and the case does not run.</p>
+<p>Every case is checked against the Camunda Process Test schema, versions 8.9 and 8.10, before it runs. Together the two schemas have 28 instructions: fifteen run and are written back to the file unchanged, and the other thirteen are named in a message. An instruction that lacks a required property, or has a property the schema does not allow for its type, is reported by case and instruction number and the case does not run.</p>
 
 <h2 id="selectors"><a href="#selectors">Selectors</a></h2>
 
@@ -235,7 +244,7 @@
 
 <h2 id="the-instructions-penstock-runs"><a href="#the-instructions-penstock-runs">The instructions Penstock runs</a></h2>
 
-<p>Fifteen of the Camunda instructions run, and two more are known and refused, below. The first instruction that is not a mock must be <code>CREATE_PROCESS_INSTANCE</code>.</p>
+<p>Fifteen of the Camunda instructions run, and the other thirteen are known and refused, below. The first instruction that is not a mock must be <code>CREATE_PROCESS_INSTANCE</code>.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>Instruction</th><th>What Penstock does with it</th></tr></thead>
@@ -263,7 +272,7 @@
 <p>A case that Penstock cannot run fails at once with a message that names the instruction, before anything is deployed. It does not run half of it. The first instruction that cannot run gives the message.</p>
 
 <ul>
-  <li><strong>Instructions it does not know.</strong> Besides the two mocks above, the schema allows nine more: <code>ASSERT_DECISION</code>, <code>ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION</code>, <code>COMPLETE_JOB_AD_HOC_SUB_PROCESS</code>, <code>COMPLETE_JOB_USER_TASK_LISTENER</code>, <code>EVALUATE_CONDITIONAL_START_EVENT</code>, <code>EVALUATE_DECISION</code>, <code>INCREASE_TIME</code>, <code>RESOLVE_INCIDENT</code> and <code>SET_TIME</code>. They are valid in the file and Camunda Process Test can run them, but Penstock says <em>is not something Penstock can run</em>.</li>
+  <li><strong>Instructions it does not know.</strong> Besides the two mocks above, the schemas allow eleven more: <code>ASSERT_DECISION</code>, <code>ASSERT_PROCESS_INSTANCE_MESSAGE_SUBSCRIPTION</code>, <code>COMPLETE_JOB_AD_HOC_SUB_PROCESS</code>, <code>COMPLETE_JOB_USER_TASK_LISTENER</code>, <code>EVALUATE_CONDITIONAL_START_EVENT</code>, <code>EVALUATE_DECISION</code>, <code>INCREASE_TIME</code>, <code>RESOLVE_INCIDENT</code> and <code>SET_TIME</code> from 8.9, and <code>ASSERT_VARIABLE</code> and <code>CONDITIONAL_BEHAVIOR</code> from 8.10. They are valid in the file and Camunda Process Test can run them, but Penstock says <em>is not something Penstock can run</em>.</li>
   <li><strong>More than one <code>CREATE_PROCESS_INSTANCE</code>.</strong> Penstock runs one instance per case.</li>
   <li><strong>A selector for another process.</strong> Penstock follows only the instance of the process the case started. An instruction whose selector names another <code>processDefinitionId</code> is refused.</li>
   <li><strong><code>useExampleData: true</code></strong> on a job or user task instruction.</li>
@@ -306,7 +315,23 @@
 
 <p><code>fail</code> is a number. The step fails that many times, on purpose and with a message that says so, before it does what <code>then</code> says. It is how a scenario checks a retry.</p>
 
-<p>A case with at least one behaviour is shown with the tag <span class="tag">Penstock only</span>: Camunda Process Test would run it differently, because it does not know the block. A block that is not an object, an <code>engines</code> list with an unknown engine, or a behaviour without a valid <code>then</code> is reported as a problem of the case.</p>
+<p>A case with at least one behaviour carries the note <em>Penstock only: Camunda Process Test would run it differently</em>, because Camunda's tools do not know the block. A block that is not an object, an <code>engines</code> list with an unknown engine, or a behaviour without a valid <code>then</code> is reported as a problem of the case.</p>
+
+<h3 id="what-the-scenarios-tab-writes"><a href="#what-the-scenarios-tab-writes">What the Scenarios tab writes</a></h3>
+
+<p>When you answer a step in the <a href="scenarios.html#answer-a-timer-or-mock-a-worker">Scenarios</a> tab, the answer goes into the file like this:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Answer</th><th>Written as</th></tr></thead>
+  <tbody>
+  <tr><td>Answer timer</td><td>An <code>INCREASE_TIME</code> instruction with the <code>duration</code>, before the assertions.</td></tr>
+  <tr><td>Mock worker, Complete job</td><td><code>MOCK_JOB_WORKER_COMPLETE_JOB</code> for the job type of the step, or a behaviour with <code>then: complete</code> when the step has no job type.</td></tr>
+  <tr><td>Mock worker, Throw BPMN error</td><td><code>MOCK_JOB_WORKER_THROW_BPMN_ERROR</code>, or a behaviour with <code>then: error</code>.</td></tr>
+  <tr><td>Mock worker, Fail job</td><td>A behaviour with <code>fail</code> and <code>then: complete</code>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Removing the answer takes the instruction or the behaviour out again.</p>
 
 <h2 id="what-a-run-does-with-the-file"><a href="#what-a-run-does-with-the-file">What a run does with the file</a></h2>
 
@@ -352,7 +377,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/scenarios.html"><span>Previous</span>Scenarios</a>
+<a class="prev" href="../guide/timeline.html"><span>Previous</span>Timeline</a>
 <a class="next" href="../guide/process-tests.html"><span>Next</span>Process tests and coverage</a>
 </nav>
 </main>

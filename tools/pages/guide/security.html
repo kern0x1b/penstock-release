@@ -10,6 +10,7 @@ related: sign-in, files, deployment, scenarios
   <li>Penstock has <strong>no telemetry</strong>. It does not report what you do, what you open or what your diagrams contain.</li>
   <li>Your diagrams leave your machine only when <strong>you</strong> deploy them, to the engine <strong>you</strong> configured.</li>
   <li>Passwords and secrets go to the secret store of your tool, never to a project file, and never to the web page inside the editor.</li>
+  <li>The AI chat is optional and starts an agent only when you turn it on. The agent runs on your own account, and every change it wants to make to your project is asked before it happens. See <a href="#the-ai-chat">The AI chat</a>.</li>
   <li>This website sets no cookies and loads nothing from other sites. Opening the checkout is the one time a visitor's browser talks to a third party, and only after pressing a Buy button. See <a href="#checkout">Opening the checkout</a>.</li>
 </ul>
 
@@ -47,6 +48,18 @@ related: sign-in, files, deployment, scenarios
     <td>Once a day, in the background. When you buy or sign in.</td>
     <td>The licence service, Polar.</td>
     <td>The licence, and the machine it is for: a one-way hash of the machine's own id, and the host name as a label so you can recognise it. When you sign in: your e-mail address and the code. Never a diagram. Nobody copies a key: buying opens Polar's checkout and Penstock polls it, and signing in is an e-mail code. See <a href="sign-in.html">Buying and signing in</a>.</td>
+  </tr>
+  <tr>
+    <td>The AI agent</td>
+    <td>Only when you use the AI chat and have turned an agent on. Never when the AI chat is off: then no agent is started.</td>
+    <td>The agent you chose, which runs on your machine and talks to its own provider on your own account.</td>
+    <td>Penstock sends the agent your messages, what you attach and its own tools, which read your diagrams, rules, scenarios and code links from the project. What the agent then sends to its provider is the agent's business and its provider's, as with the agent's own command line. Penstock has no model and no account of its own for this. See <a href="ai-chat.html">AI chat</a>.</td>
+  </tr>
+  <tr>
+    <td>The agent list and an agent's installation</td>
+    <td>When you open the agents screen and its list is more than a day old, when you press <span class="ui">Refresh the list</span>, and when you press <span class="ui">Install</span> or <span class="ui">Update</span>.</td>
+    <td><code>cdn.agentclientprotocol.com</code> for the registry and its icons. For an agent Penstock installs: the download address the registry gives, or the package source that <code>npm</code> or <code>uvx</code> uses on your machine.</td>
+    <td>A plain request. No credentials, no cookies, no project data. A download is checked against the checksum the registry gives and thrown away if it differs, and an agent with no checksum is not installed by Penstock. Without a connection the list that came with Penstock is used. See <a href="agents.html">AI agents</a>.</td>
   </tr>
   <tr>
     <td>The command line download</td>
@@ -116,6 +129,34 @@ related: sign-in, files, deployment, scenarios
   <img src="@img/security-trust.png" alt="A terminal running penstock check in a project that is not trusted. A hook line says preCheck was not run because the project is not a trusted project, and tells you to run penstock trust or pass --trust-project. The next line says the Check stage was stopped by its pre hook. Then penstock trust --list says No project is trusted on this machine">
   <figcaption>A hook that does not run in a project nobody has trusted, and the list of trusted projects.</figcaption>
 </figure>
+
+<h2 id="the-ai-chat">The AI chat</h2>
+
+<ul>
+  <li>The agent is a program of your choice that runs on your machine and on your own account. Penstock starts it only when the AI chat is on and an agent is turned on. Setting <span class="ui">AI chat</span> to <em>Off</em> stops the agent process.</li>
+  <li>The agent does not write to your project behind your back. Every write is asked before it happens, and a write is never remembered: there is no <em>Always</em>, and a question nobody answers is cancelled after a while. A change to a diagram is first drawn on the canvas and checked. See <a href="ai-chat.html">AI chat</a>.</li>
+  <li>The agent gets Penstock's own MCP server, <code>penstock mcp</code>, to read diagrams, rules, scenarios and code links. What the server returns is bounded, and when the client tells it which folders are open, it refuses everything outside them. See <a href="@cli/mcp.html">The MCP server</a>.</li>
+  <li>The chats are kept on your machine, one file for each, readable only by you, in <code>~/.penstock/chats</code>. Deleting a chat removes its file.</li>
+  <li>The agent session a project shares between windows and tools is reached on <code>127.0.0.1</code> only, with a token that lives in a file only you can read. <code>penstock agent serve</code>, which serves a project's chats to a plugin of your tool, listens on <code>127.0.0.1</code> too.</li>
+</ul>
+
+<h2>Packages that are not pinned never run</h2>
+
+<p>Nothing the command line writes, and nothing an editor starts, runs an npm package whose version is not pinned. There is no <code>latest</code> fallback. A development build of the command line, or of an editor, runs only a local command, and a published version runs exactly its own version. The hook that <code>penstock init --hooks</code> writes runs the Penstock command line that is on the <code>PATH</code>, or the one in the project's <code>node_modules</code>, before it asks npm for anything. With none installed it prints one line saying where to install it and lets the commit through. The MCP entry that <code>penstock mcp --config</code> prints names the exact version of the command line that printed it.</p>
+
+<h2>Penstock Web</h2>
+
+<p><code>penstock web</code>, which serves the editors to a plain browser, listens on <code>127.0.0.1</code> unless you ask for another address, in which case it warns you on the terminal, and its page needs a random token, which is part of the address it prints when it starts. A request from another origin is refused. See <a href="penstock-web.html">Penstock Web</a>.</p>
+
+<h2>Files Penstock writes</h2>
+
+<ul>
+  <li><code>~/.penstock/preferences.json</code> is readable by its owner only.</li>
+  <li>The licence, the preferences, the trusted projects, the editor's configuration, templates and the files you save are replaced whole through a temporary file next to them, never half written. A licence file that another program is writing is read again instead of being taken for a missing licence, and a damaged one is kept beside the trial.</li>
+  <li>A stuck lookup of the machine's id, an unreachable token endpoint, the connector catalogue or a slow engine no longer holds the editor or a deployment for minutes.</li>
+  <li>The command line refuses to treat a filesystem root or a home folder as a project, and carries on past folders it cannot read.</li>
+  <li><code>penstock edit</code> refuses to overwrite a diagram that changed while it was open, and <code>fmt</code>, <code>layout</code> and <code>import</code> write their files whole.</li>
+</ul>
 
 <h2>The shared HTML file</h2>
 

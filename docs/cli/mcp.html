@@ -55,6 +55,7 @@
     <summary>Start here</summary>
     <ul>
       <li><a href="../cli/">Command line</a></li>
+      <li><a href="../cli/web.html">penstock web</a></li>
     </ul>
     </details>
     <details>
@@ -96,7 +97,11 @@
 
 <p>The CLI needs Node.js. Node.js 22.22 or later must be on the PATH of your assistant. <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code> are free. The other tools are part of Penstock Pro, and Team in a pipeline, as <code>penstock mcp --help</code> states.</p>
 
-<p>Running <code>penstock mcp --config</code> prints the standard client configuration. There is no project folder in the entry: you configure it once, and the server finds each project from the files the assistant asks about.</p>
+<p>Running <code>penstock mcp --config</code> prints the standard client configuration. There is no project folder in the entry: you configure it once, and the server finds each project from the files the assistant asks about. The entry names the exact version of the command line that printed it, as <code>npx --yes @kern0x1b/penstock-cli@&lt;version&gt; mcp</code>, so the assistant runs the version you have. A development build of the command line has no published version, and prints <code>penstock mcp</code> instead. The entries below, written by hand, run whatever version npm serves; paste the printed one to pin it. With the command line installed (<code>npm install -g @kern0x1b/penstock-cli</code>), <code>claude mcp add penstock -- penstock mcp</code> adds it to Claude Code.</p>
+
+<p>Two other ways to give an agent the tools need no entry in its settings. <code>penstock agent claude</code>, <code>codex</code>, <code>gemini</code> or <code>opencode</code> starts that agent in your terminal with the server set up for that one run and nothing written to the agent's configuration. See <a href="commands.html#agent"><code>agent</code></a>. And the AI chat in the Penstock editors starts your agent with the same server, so it reads diagrams, rules, scenarios and code links as the command line does.</p>
+
+<p><code>penstock mcp --project &lt;dir&gt;</code> fixes the project: every tool works on that folder, the assistant does not have to name it, and nothing outside it is read.</p>
 
 <h3 id="claude-code"><a href="#claude-code">Claude Code</a></h3>
 
@@ -196,20 +201,22 @@
   <tr><td><code>analyze_flow</code></td><td>Finds deadlocks, branches that run twice, elements that never run and loops with no way out, with the path of ids that leads there. Run it after <code>edit_diagram</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><code>list_scenarios</code></td><td>Lists every distinct way through a diagram: the decisions taken, their conditions, the steps and where it ends.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><code>check_code_links</code></td><td>Checks every diagram against the code, with file and line.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
-  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused, and so is a write over a diagram that changed on disk while the edit was made. <code>dryRun</code> shows the result without writing.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   </tbody>
 </table></div></div>
 
-<p><code>edit_diagram</code> takes <code>file</code>, <code>operations</code> and the optional <code>dryRun</code>. The operations are the same contract as <a href="commands.html#edit"><code>penstock edit --ops</code></a>, and <code>penstock edit &lt;file&gt; --schema</code> prints it for the file's engine. The whole-project tools take <code>project</code>. The others take <code>file</code>.</p>
+<p><code>edit_diagram</code> takes <code>file</code>, <code>operations</code> and the optional <code>dryRun</code>. The operations are the same contract as <a href="commands.html#edit"><code>penstock edit --ops</code></a>: <code>add</code>, <code>connect</code>, <code>set</code>, <code>remove</code> and <code>move</code>, which shifts an element by <code>dx</code> and <code>dy</code>. A business rule task names its decision with <code>decisionRef</code> on Camunda 7, Operaton and CIB seven, and with <code>decisionId</code> on Camunda 8. <code>penstock edit &lt;file&gt; --schema</code> prints the contract for the file's engine. The whole-project tools take <code>project</code>. The others take <code>file</code>.</p>
 
 <p>A tool that needs a licence you do not have appears in the tool list with a note on what it needs. Called without the licence, it says so in its error result, with how to buy or sign in. In a pipeline the paid tools need Team. See <a href="../guide/plans.html">Plans and licence</a>.</p>
+
+<p>A result is bounded. When it is longer than 100,000 characters it is cut and says <em>The result was cut at 100000 of &hellip; characters. Ask for less: one process, or a smaller diagram.</em></p>
 
 <h2 id="safety"><a href="#safety">Safety</a></h2>
 
 <ul>
   <li>The server runs on your machine. Nothing is sent anywhere by it. See <a href="../guide/security.html">Security and privacy</a>.</li>
   <li>When the client gives roots, paths outside them are refused. Files that are not <code>.bpmn</code> or <code>.bpmn20.xml</code> diagrams are refused too.</li>
-  <li>An assistant can change your files only with <code>edit_diagram</code>. Ask the assistant to use <code>dryRun</code> first, and keep your diagrams in Git so you can review the diff.</li>
+  <li>An assistant can change your files only with <code>edit_diagram</code>. Ask the assistant to use <code>dryRun</code> first, and keep your diagrams in Git so you can review the diff. A diagram that changed on disk while an edit was being made is never overwritten: the tool answers <em>The diagram changed while the edit was being made, so it was not written over.</em></li>
 </ul>
 
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
@@ -237,6 +244,7 @@
 <h2>See also</h2>
 <ul>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/web.html">penstock web</a> - The editors in a browser, served from your machine.</li>
 <li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
 </ul>

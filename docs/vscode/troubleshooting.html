@@ -85,6 +85,7 @@
 <li><a href="#a-file-opens-as-text-not-in-the-editor">A file opens as text, not in the editor</a></li>
 <li><a href="#a-command-is-greyed-out-or-does-nothing">A command is greyed out, or does nothing</a></li>
 <li><a href="#is-not-available-in-vs-code-yet">"… is not available in VS Code yet"</a></li>
+<li><a href="#the-ai-chat">The AI chat</a></li>
 <li><a href="#code-links-show-nothing">Code links show nothing</a></li>
 <li><a href="#test-cases">Test cases</a></li>
 <li><a href="#compare-with">Compare with…</a></li>
@@ -120,13 +121,24 @@
 <p>The editor asked for something the extension does not do yet, and said so rather than pretending. These are:</p>
 
 <ul>
-  <li>the Camunda 7 to Camunda 8 conversion and its preview;</li>
-  <li>the Camunda 8 migration skeleton;</li>
   <li>debugger blocks for languages other than Java;</li>
   <li>double-click opening in the project tree.</li>
 </ul>
 
 <p>Running a test or debugging it from the project tree opens the file at the test and goes through VS Code's testing commands at the cursor. The debugger section in the project tree stays empty.</p>
+
+<h2 id="the-ai-chat"><a href="#the-ai-chat">The AI chat</a></h2>
+
+<dl class="problems">
+  <dt>There is no Chats view, no input and no Chat tab.</dt>
+  <dd>The AI chat is off. Run <span class="ui">Penstock: AI agents</span> and choose <em>At the bottom of the editor</em> or <em>In the sidebar</em> under <span class="ui">General</span>.</dd>
+  <dt>The agent is not found, is not signed in, or ended.</dt>
+  <dd>The card says which, with the install command, the sign-in button or the reason and <span class="ui">Try again</span>. See <a href="../guide/ai-chat.html#failed">AI chat</a>.</dd>
+  <dt>Sending a message offers to buy Pro.</dt>
+  <dd>The AI chat is a Pro feature. The input and the chats are shown to everyone, and the offer comes when you send.</dd>
+  <dt>Copilot or another chat does not list the Penstock tools.</dt>
+  <dd>Listing an MCP server needs VS Code 1.101 or later. The server runs the project's <code>penstockw</code> when there is one and the command line of the extension's own version otherwise, and needs Node.js with npm on the PATH. See <a href="../cli/mcp.html">The MCP server</a>.</dd>
+</dl>
 
 <h2 id="code-links-show-nothing"><a href="#code-links-show-nothing">Code links show nothing</a></h2>
 

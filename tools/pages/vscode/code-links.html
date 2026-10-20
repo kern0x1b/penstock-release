@@ -10,7 +10,7 @@ related: guide/code-links, where-things-are, guide/check-workers
 
 <p>The index is the one <code>penstock code</code> builds. Penstock reads the source files of the workspace once and after that only the file that a save, a create or a delete touched. A workspace with no diagram is not read at all. These are never read: <code>node_modules</code>, <code>target</code>, <code>out</code>, <code>dist</code>, folders that start with a dot, and a repository the project does not name under <code>linked</code> in <code>penstock.yaml</code>.</p>
 
-<p>The languages are the nine the command line reads: Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#. A process, element, message, decision, variable or error code that the code names in a call, a field or a <code>BpmnError</code> is found. A job type stays a worker. Only a string literal counts as a reference.</p>
+<p>The languages are the nine the command line reads: Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C#. The code is read through its syntax tree, not by text patterns, so a link is found by what the code means. A process, element, message, decision, variable or error code that the code names in a call, a field or a <code>BpmnError</code> is found. A job type stays a worker. Only a string literal counts as a reference.</p>
 
 <h2>From a diagram to the code</h2>
 
@@ -65,7 +65,6 @@ related: guide/code-links, where-things-are, guide/check-workers
 
 <ul>
   <li>Debugger blocks for languages other than Java are not covered.</li>
-  <li>Regex-based JVM analysis may differ from the IDE on unusual code.</li>
   <li>Starting a debug session directly from a diagram node (debugging from a diagram opens the test file at the cursor instead).</li>
   <li>Gutter icons (VS Code uses code lenses rather than gutter icons).</li>
 </ul>

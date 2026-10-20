@@ -8,13 +8,15 @@ related: where-things-are, settings, code-links, guide/editing
 
 <h2>Keys Penstock adds to the IDE's keymap</h2>
 
-<p>Four actions have a default key. They are IDE actions, so you can change them in <span class="ui">Settings | Keymap</span>, under <span class="ui">Tools | Penstock</span>. They work while a Penstock editor has the focus, and there they come before the IDE's own actions that use the same keys.</p>
+<p>Six actions have a default key. They are IDE actions, so you can change them in <span class="ui">Settings | Keymap</span>, under <span class="ui">Tools | Penstock</span>. They work while a Penstock editor has the focus, and there they come before the IDE's own actions that use the same keys.</p>
 
 <div class="table-wrap"><table>
   <thead><tr><th>Action</th><th>Mac</th><th>Windows and Linux</th><th>What it does</th></tr></thead>
   <tbody>
   <tr><td>Find action</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>,</kbd></td><td>Opens the searchable list of every action of the editor, the same as the <span class="ui">…</span> button in the toolbar.</td></tr>
-  <tr><td>Sidebar</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td>Shows or hides the sidebar.</td></tr>
+  <tr><td>Sidebar</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>'</kbd></td><td>Shows or hides the sidebar of the editor.</td></tr>
+  <tr><td>AI chat</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>\</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>\</kbd></td><td>Opens the Chat tab of the sidebar, or returns to the tab you had before. Only there while the AI chat is on. See <a href="@guide/ai-chat.html">AI chat</a>.</td></tr>
+  <tr><td>Focus canvas</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td><td>Hides the sidebar of the editor and shows only the canvas. Press it again to bring the sidebar back. It is in the <span class="ui">More</span> menu, not on the toolbar, and it is never saved: a new window shows the sidebar as you left it.</td></tr>
   <tr><td>Trace paths</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd></td><td>Traces the paths through the selected step. Press it again, press <kbd>Esc</kbd> or click the empty canvas to end it. See <a href="@guide/trace-paths.html">Trace paths</a>.</td></tr>
   <tr><td>Export…</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd></td><td>Opens the export dialog: save the diagram as SVG, PNG or PDF, or copy it as a picture. See <a href="@guide/export.html">Export</a>.</td></tr>
   </tbody>
@@ -37,12 +39,13 @@ related: where-things-are, settings, code-links, guide/editing
   <tr><td><kbd>Cmd</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>A</kbd></td><td>Select all elements.</td></tr>
   <tr><td><kbd>Cmd</kbd>+<kbd>F</kbd> / <kbd>Ctrl</kbd>+<kbd>F</kbd></td><td>Find in the diagram.</td></tr>
   <tr><td><kbd>Cmd</kbd>+<kbd>=</kbd> and <kbd>Cmd</kbd>+<kbd>-</kbd> / <kbd>Ctrl</kbd>+<kbd>=</kbd> and <kbd>Ctrl</kbd>+<kbd>-</kbd></td><td>Zoom in and out.</td></tr>
-  <tr><td><kbd>Cmd</kbd>+<kbd>0</kbd> / <kbd>Ctrl</kbd>+<kbd>0</kbd></td><td>Fit the diagram in the canvas.</td></tr>
+  <tr><td><kbd>Cmd</kbd>+<kbd>0</kbd> / <kbd>Ctrl</kbd>+<kbd>0</kbd></td><td>Fit the diagram in the canvas. This and the Fit diagram action are the only things that re-fit the view after it first opens.</td></tr>
   <tr><td><kbd>Cmd</kbd>+arrow / <kbd>Ctrl</kbd>+arrow</td><td>Pan the canvas.</td></tr>
   <tr><td>Arrow</td><td>Move the selection.</td></tr>
   <tr><td><kbd>S</kbd>, <kbd>L</kbd>, <kbd>H</kbd>, <kbd>C</kbd></td><td>Space tool, lasso select, hand tool, connect. In a decision requirements diagram only the lasso and the hand are there.</td></tr>
   <tr><td><kbd>E</kbd> and <kbd>R</kbd></td><td>Edit a label, and replace an element (<kbd>R</kbd> in a process only).</td></tr>
-  <tr><td><kbd>Esc</kbd></td><td>Ends a trace of paths.</td></tr>
+  <tr><td><kbd>Tab</kbd> and <kbd>Esc</kbd></td><td>Accept and dismiss a suggestion: the ghost element drawn beside a dead end, or the ghost text after the caret in a field of the properties panel. In a field, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> explains it. Both can be switched off in <span class="ui">Settings | Tools | Penstock</span>.</td></tr>
+  <tr><td><kbd>Esc</kbd></td><td>Ends a trace of paths, and folds the AI chat card without stopping the agent.</td></tr>
   </tbody>
 </table></div>
 
@@ -64,7 +67,7 @@ related: where-things-are, settings, code-links, guide/editing
 
 <h2>What you see</h2>
 
-<p>The keys show next to their entries in the editor's toolbar tooltips, in the <span class="ui">Find action</span> list and in the <span class="ui">Keyboard shortcuts</span> sheet. In the IDE, the keymap shows the same four.</p>
+<p>The keys show next to their entries in the editor's toolbar tooltips, in the <span class="ui">Find action</span> list and in the <span class="ui">Keyboard shortcuts</span> sheet. In the IDE, the keymap shows the same six.</p>
 
 <h2>Common problems</h2>
 
@@ -72,7 +75,7 @@ related: where-things-are, settings, code-links, guide/editing
   <dt>A key does nothing in the diagram.</dt>
   <dd>The canvas must have focus. Click an empty spot on it. During a token simulation, keys that edit the diagram are switched off.</dd>
   <dt>A Penstock key does nothing outside the editor.</dt>
-  <dd>The four actions are active only while a Penstock editor has the focus. In another tab the IDE's own action with that key runs.</dd>
+  <dd>The six actions are active only while a Penstock editor has the focus. In another tab the IDE's own action with that key runs.</dd>
   <dt>Cmd/Ctrl+click does nothing on a string.</dt>
   <dd>Code links need Pro, and the string must be a name a diagram uses.</dd>
   <dt>Cmd/Ctrl+Shift+C does not copy a picture.</dt>

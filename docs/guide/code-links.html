@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -156,7 +165,7 @@
 </nav>
 <h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, Groovy, Scala, JavaScript, TypeScript, Python, Go and C# by reading the text, so a worker in another language or another repository still counts.</p>
+<p>A diagram says "this task needs the job type <code>charge-card</code>". Your code has a worker for <code>charge-card</code>. Code links know both, and connect them. They read Java, Kotlin, Groovy, Scala, JavaScript, TypeScript, Python, Go and C#, so a worker in another language or another repository still counts. Java, Kotlin, Groovy and JavaScript code is read through the code's syntax tree where your tool has one, and not by text patterns. Python, Go, C# and Scala workers are read through the <code>penstock</code> command line.</p>
 
 <h2 id="free-and-pro"><a href="#free-and-pro">Free and Pro</a></h2>
 
@@ -192,6 +201,7 @@
 <h2 id="what-is-linked"><a href="#what-is-linked">What is linked</a></h2>
 
 <ul>
+  <li><strong>Go to code, Runs in and usages.</strong> For a job type, a topic or an error code, <span class="ui">Go to code</span>, the <strong>Runs in</strong> list and the usages are found at each line that raises it. They work for Python, Go, C# and Scala workers through the command line, and for Java, Kotlin, Groovy and JavaScript code in tools that read it with a code model of their own. A tool that has no reader of its own for a language finds the command line on the <code>PATH</code> or in the project's <code>node_modules</code>, or at a path you set; a command line that is only in <code>node_modules</code> runs only when you have trusted the project.</li>
   <li><strong>From code to diagram.</strong> A process id, element id, job type, topic, message name or decision id in a Java or Kotlin string is a link to the diagram element. An id that no diagram has is marked. A <code>@JobWorker</code> without a <code>type</code> takes the method name as the job type. That is marked, because renaming the method stops the worker.</li>
   <li><strong>An element named in any file.</strong> <code>order.bpmn#ServiceTask_charge</code>, a path to the file, or a process id and the element's id after <code>#</code>, is a link from any language. Completion after <code>#</code> offers the ids of the diagram that is named, and an id no diagram in the project has is marked with a quick fix offering the near ones.</li>
   <li><strong>From diagram to code.</strong> Hover an element to see what runs it, the tests that name it, how often the rest of the code does, the variables it sets and reads, and whether tests reach it. The element's menu goes to the implementation, and finds the code that names the element, its process, the job type, class or bean it runs, its message or its decision: the worker, the tests, and the code that starts it.</li>
@@ -336,12 +346,13 @@ It reports:
   <dt>A worker in another repository is reported as missing.</dt>
   <dd>Add that repository to <code>linked</code> in <code>penstock.yaml</code>.</dd>
   <dt>A worker I know exists is not found.</dt>
-  <dd>Penstock reads the text of Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C# files. It skips <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code>, <code>dist</code> and <code>.git</code>. Generated code in those folders is not read.</dd>
+  <dd>Penstock reads Java, Kotlin, Groovy, Scala, Python, JavaScript, TypeScript, Go and C# files. For Python, Go, C# and Scala the tool has to be able to run the <code>penstock</code> command line. Install it with npm, or set its path in the tool's Penstock settings. Penstock skips <code>node_modules</code>, <code>build</code>, <code>target</code>, <code>out</code>, <code>dist</code> and <code>.git</code>. Generated code in those folders is not read.</dd>
 </dl>
 <div class="related">
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
+<li><a href="../guide/script-tab.html">The script tab</a> - Scripts and expressions in their own tab, with the variables the process has.</li>
 <li><a href="../guide/check-workers.html">Check Workers</a> - Ask the engine whether anything picks up your tasks.</li>
 <li><a href="../guide/project-model.html">Your project as a model</a> - Processes, workers, variables, messages, decisions and forms, and how they connect.</li>
 <li><a href="../guide/process-tests.html">Process tests and coverage</a> - A JUnit test for every way through a process.</li>

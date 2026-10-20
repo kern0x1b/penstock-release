@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html" aria-current="page">Files Penstock reads and writes</a></li>
@@ -175,7 +184,10 @@
 <div class="table-wrap"><div class="table-wrap"><table>
   <thead><tr><th>File</th><th>What it is</th></tr></thead>
   <tbody>
-  <tr><td><code>preferences.json</code></td><td>Your toolbar choices, whether the tour was seen, the width of the sidebar and the tab you left selected, Sketchy drawing, tree or flat view of the project model, and the last export format.</td></tr>
+  <tr><td><code>preferences.json</code></td><td>Your toolbar choices, whether the tour was seen, the editor theme, the width of the sidebar and the tab you left selected in each editor, whether the palette is folded, Sketchy drawing, tree or flat view of the project model, the last export format, the suggestion switches, and the AI chat: where it is shown, which agents are on and the model of each. Readable only by you, and replaced whole, never half written. A file that cannot be read is kept as <code>preferences.json.bak</code> before a new one is written. See <a href="settings.html">penstock.yaml</a>.</td></tr>
+  <tr><td><code>chats/&lt;project&gt;/</code></td><td>The chats of the AI agent, one file for each chat with its title, its messages and the files it touched, in a folder for each project. Readable only by you. Deleting a chat in the editor removes its file. See <a href="ai-chat.html">AI chat</a>.</td></tr>
+  <tr><td><code>agents/</code></td><td>The list of agents from the ACP Registry as last fetched, with its icons; the agents Penstock installed for you; and the models each agent offered the last time they were read. See <a href="agents.html">AI agents</a>.</td></tr>
+  <tr><td><code>agent-hub/</code></td><td>A small record for each project, so every window and tool finds the one agent session the project shares: a port on this machine (<code>127.0.0.1</code>) and a token. Readable only by you, and removed when the session ends.</td></tr>
   <tr><td><code>license.json</code></td><td>The signed licence token and a clock mark, never a key, a tier or a date you could edit. Readable only by you. See <a href="sign-in.html">Buying and signing in</a>.</td></tr>
   <tr><td><code>clock.json</code>, <code>pipeline.json</code></td><td>The latest time the machine has seen, kept beside the licence so a clock set back is noticed, and the short-lived token of a pipeline run.</td></tr>
   <tr><td><code>trusted-projects.json</code></td><td>The projects you have trusted to run a deploy hook, the project's command line and its lint rules. Trusting in one tool trusts in the others. Settings in your tool list them, and <code>penstock trust --list</code> prints them.</td></tr>
@@ -236,7 +248,7 @@
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>After a few days of use, <code>~/.penstock</code> holds <code>preferences.json</code> and <code>license.json</code>, and maybe <code>connectors</code> and <code>trusted-projects.json</code>.</li>
+  <li>After a few days of use, <code>~/.penstock</code> holds <code>preferences.json</code> and <code>license.json</code>, and maybe <code>connectors</code>, <code>trusted-projects.json</code> and, if you used the AI chat, <code>chats</code> and <code>agents</code>.</li>
   <li>Your projects hold <code>penstock.yaml</code> and, if you ran <code>init</code>, the wrapper files.</li>
 </ul>
 

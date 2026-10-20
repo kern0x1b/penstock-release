@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The script tab - Penstock</title>
+<meta name="description" content="A script or an expression of an element opens in a tab of its own, beside the diagram. The tab offers the variables of the process, says which step writes each one, checks FEEL as you type, and runs a FEEL expression on sample values.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="The script tab - Penstock">
+<meta property="og:description" content="A script or an expression of an element opens in a tab of its own, beside the diagram. The tab offers the variables of the process, says which step writes each one, checks FEEL as you type, and runs a FEEL expression on sample values.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/script-tab.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../guide/plans.html">Plans</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html" aria-current="page">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Draw and edit</p>
+<h1>The script tab</h1>
+<p class="lede">A script or an expression of an element opens in a tab of its own, beside the diagram. The tab offers the variables of the process, says which step writes each one, checks FEEL as you type, and runs a FEEL expression on sample values.</p>
+<p class="meta"><span class="tag free">Free</span> <span>The findings about variables need Pro, and Team in a pipeline</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#what-opens-in-a-tab">What opens in a tab</a></li>
+<li><a href="#open-it">Open it</a></li>
+<li><a href="#the-variables-of-the-process">The variables of the process</a></li>
+<li><a href="#variables-typed-from-the-code">Variables typed from the code</a></li>
+<li><a href="#feel-in-the-tab">FEEL in the tab</a></li>
+<li><a href="#go-to-code-runs-in-and-usages">Go to code, Runs in and usages</a></li>
+<li><a href="#what-you-see">What you see</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>A task, a flow, a listener or a mapping can hold a small program: a Groovy or JavaScript script on Camunda 7, a FEEL expression on Camunda 8. A short one is fine in the <a href="properties-panel.html">properties panel</a>. For anything longer, you want a real editor, and you want to know what the variables are. The script tab is that editor. It knows where in the process the script sits, so it can say which variables reach it and which step wrote each one.</p>
+
+<p>Your changes go back into the diagram as you type. Nothing else is written to disk. How a script is handed to your tool's code editor is described in <a href="scripts.html">Scripts in their own tab</a>. This page is about what the tab knows.</p>
+
+<h2 id="what-opens-in-a-tab"><a href="#what-opens-in-a-tab">What opens in a tab</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Where</th><th>Camunda 7, Operaton, CIB seven</th><th>Camunda 8</th></tr></thead>
+  <tbody>
+  <tr><td>A script task</td><td>The script, in Groovy or JavaScript</td><td>Not offered</td></tr>
+  <tr><td>A condition on a flow</td><td>A script condition</td><td>A FEEL condition, an expression that starts with <code>=</code></td></tr>
+  <tr><td>A listener</td><td>The script of an execution listener or a task listener</td><td>Not offered</td></tr>
+  <tr><td>An input or output parameter</td><td>A parameter that holds a script</td><td>Not offered</td></tr>
+  <tr><td>An input or output mapping</td><td>Not offered</td><td>A source that is a FEEL expression, starting with <code>=</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<p>A script that lives in a separate file (a script resource) is not opened. The file is the place to edit it.</p>
+
+<h2 id="open-it"><a href="#open-it">Open it</a></h2>
+
+<ol class="steps">
+  <li>Select the element, or the flow, that holds the script or the expression.</li>
+  <li>In the properties panel, find the field. Under it is the button <span class="ui">Edit in new tab</span>. Press it.</li>
+  <li>The tab opens and is named after what it holds: the element and then the kind, as in <em>Check stock - script</em>, <em>Approved - condition</em>, <em>Charge card - input amount</em> or <em>start listener</em>. When two elements have the same name, the tab adds the id in brackets.</li>
+  <li>While the tab is open, the button says <span class="ui">Show tab</span> and brings it to the front. The panel says <em>This script is open in a tab</em>.</li>
+</ol>
+
+<p>The project view lists the same scripts in a <strong>Scripts</strong> branch under each process, in the order the process reaches them, and a click opens the tab.</p>
+
+<h2 id="the-variables-of-the-process"><a href="#the-variables-of-the-process">The variables of the process</a></h2>
+
+<p>The tab shows the variables that exist at that step. Penstock works them out from the whole process: input and output mappings, result variables, conditions, form fields, message correlation keys, called processes and, when it can read them, the workers behind the tasks. For each variable you see:</p>
+
+<ul>
+  <li>the <strong>name</strong>;</li>
+  <li>its <strong>type</strong>, when the code or a schema says what it is;</li>
+  <li>the <strong>step that writes it</strong>, as <em>Set by</em> and the name of the element or the line of code, or <em>No place in the process sets it</em> when the script reads a name that nothing sets.</li>
+</ul>
+
+<p>A summary above the editor starts with <em>Context</em> and names the variables, and <span class="ui">Show all</span> lists them with their types and the steps that set them. In the editor, completion offers them as you type, hovering a name shows its type and who sets it, and where your tool can jump, the name leads to the element or the line of code that writes it.</p>
+
+<h2 id="variables-typed-from-the-code"><a href="#variables-typed-from-the-code">Variables typed from the code</a></h2>
+
+<p>When a task is run by a worker or a delegate, the variables its code reads and sets are part of the answer, with their types and their fields. So a completion after <code>order.</code> offers the fields of the order the worker really returns.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Java, Kotlin, Groovy, JavaScript, TypeScript</td><td>Read by the code model of the tool where it has one, and otherwise by the reader of the command line. VS Code and Penstock Web and Desktop use the reader of the command line for every language.</td></tr>
+  <tr><td>Python, Go, C#, Scala</td><td>Read through the <code>penstock</code> command line. A tool that has no reader of its own for them finds the command line on the <code>PATH</code> or in the project's <code>node_modules</code>, or at a path you set.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Typed completion and the variables of the whole process are free. The findings that compare the diagram with the code are Pro, and Team in a pipeline:</p>
+
+<ul>
+  <li>a variable written and never read, and a variable read before any step writes it;</li>
+  <li>a field a worker uses but does not fetch;</li>
+  <li>the two checks of <code>variables.check</code> in <code>penstock.yaml</code>: <code>fields</code>, a field the type of a variable does not have, and <code>names</code>, which also reports a name nothing sets and that is not listed in <code>variables.inputs</code>. See <a href="settings.html">penstock.yaml</a>.</li>
+</ul>
+
+<p>The findings are in the Code group of the Problems tab. See <a href="code-links.html">Code links</a>.</p>
+
+<h2 id="feel-in-the-tab"><a href="#feel-in-the-tab">FEEL in the tab</a></h2>
+
+<p>A FEEL expression, such as a condition or a mapping on Camunda 8, gets four things that a plain text field does not.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Syntax check</td><td>A mistake is underlined with a sentence about it: <em>FEEL compares with =, not ==</em>, <em>A name with spaces needs backticks</em>, <em>An if needs an else</em>, <em>This bracket is never closed</em>. Some come with a fix, <em>Replace with =</em>.</td></tr>
+  <tr><td>Completion</td><td>The variables of the process, and the FEEL built-in functions with their signature.</td></tr>
+  <tr><td>Documentation</td><td>A built-in function is explained next to its name.</td></tr>
+  <tr><td>Run</td><td>Press <span class="ui">Run</span> or <span class="ui">Run expression</span>. Penstock asks for a sample value for each variable the expression reads: JSON, or a FEEL expression such as <code>order.total * 2</code> for a value you have to compute. A variable left empty is not set. The result appears under the expression. With a Camunda 8 engine connected, the engine evaluates it and the result says <em>Result from engine</em>. Without one the expression is evaluated in the editor and the result says <em>Result from preview</em>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>In VS Code, and in the tools that have a debugger of their own, a FEEL expression can also be debugged step by step through its sub-expressions, with the value of each one shown beside it. Every FEEL field keeps its own undo and redo. The FEEL fields of scenario conditions, Camunda 8 conditions and the output cells of a decision table offer the project's variables.</p>
+
+<p>Only FEEL runs in a tab of Penstock Web: for a Groovy or JavaScript script the tab says <em>Only a FEEL expression runs here. Groovy and JavaScript scripts run in the engine, as part of the process.</em> A tool that has a Groovy runtime and a debugger of its own can run and debug a Groovy script on sample values too. What each tool gives is on its own page, linked at the foot.</p>
+
+<h2 id="go-to-code-runs-in-and-usages"><a href="#go-to-code-runs-in-and-usages">Go to code, Runs in and usages</a></h2>
+
+<p>The same reader powers the links between a step and its code. Go to code, <strong>Runs in</strong> and the usages of a job type, a topic or an error code, at each line that raises it, work for Python, Go, C# and Scala workers through the command line, and, in tools that read code with a code model of their own, for Java, Kotlin, Groovy and JavaScript code. These links are Pro, and Team in a pipeline. Going from a Camunda 7 delegate to its class or bean stays free. See <a href="code-links.html">Code links</a>.</p>
+
+<h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
+
+<ul>
+  <li>A tab named after the element and the kind of script it holds.</li>
+  <li>A summary of the variables at that step, and a list that says what each is and who sets it.</li>
+  <li>Underlined mistakes in a FEEL expression, and a result for the sample values you give it.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>There is no <span class="ui">Edit in new tab</span> button.</dt>
+  <dd>The field holds a plain value, not a script or a FEEL expression. A FEEL expression starts with <code>=</code>. </dd>
+  <dt>A variable is missing from the list.</dt>
+  <dd>Nothing before this step sets it, or the code that sets it is in a language or a place Penstock does not read. Name the other repository under <code>linked</code> in <code>penstock.yaml</code>, and see <a href="code-links.html">Code links</a>.</dd>
+  <dt>The variables of a Python, Go, C# or Scala worker are missing.</dt>
+  <dd>The tool could not run the <code>penstock</code> command line. Install it with npm, or set its path in the tool's Penstock settings. A command line that is only in the project's <code>node_modules</code> runs only when you have trusted the project.</dd>
+  <dt>Run says the expression could not be run.</dt>
+  <dd>A sample value is neither JSON nor a valid FEEL expression, or it reads a name that has no value. The message names the variable.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/scripts.html">Scripts in their own tab</a> - Edit an inline script as a real file in your code editor.</li>
+<li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
+<li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/suggestions.html">Suggestions</a> - The next element and the next value, offered when Penstock is sure.</li>
+<li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
+<li><a href="../jetbrains/code-links.html">Code links in the IDE</a> - Click through, completion, gutter icons, Code Vision, Find Usages, the debugger.</li>
+<li><a href="../vscode/code-links.html">Code links in VS Code</a> - Code lenses, go to definition, references, the Code view and Problems.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/comments.html"><span>Previous</span>Comments</a>
+<a class="next" href="../guide/suggestions.html"><span>Next</span>Suggestions</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../guide/plans.html">Plans</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

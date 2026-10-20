@@ -1,9 +1,9 @@
 <!--
 title: Monitor
-lede: Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, where the incidents are, what an expression gives on a real instance, and which variable names the model and the engine disagree on.
+lede: Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, where the incidents are, what an expression gives on a real instance, and which variable names the model and the engine disagree on. It also looks back at finished instances, and starts, cancels, retries and messages instances when you ask.
 tags: free
 needs: A deployment profile with an address
-related: sidebar, check-workers, deployment, scenarios
+related: sidebar, timeline, check-workers, deployment, scenarios, debug-process
 -->
 <h2>Read it</h2>
 
@@ -28,12 +28,63 @@ related: sidebar, check-workers, deployment, scenarios
   <tbody>
   <tr><td>Incidents</td><td>Each incident with the step and the message the engine gave. Click one to select the step. <span class="ui">Go to code</span> opens the worker that runs the task, when Pro links code to the diagram.</td></tr>
   <tr><td>Waiting</td><td>Each step with instances waiting on it, and how many.</td></tr>
+  <tr><td>Instance</td><td>The running instances of the process, each with its business key or its id, the time it started and its state. <span class="ui">Use</span> picks one for the sections below, <span class="ui">Cancel instance</span> ends it and <span class="ui">Open in Tasklist</span> shows it there.</td></tr>
+  <tr><td>User tasks</td><td>With an instance picked: the user tasks waiting on it, each with its form. See <a href="#complete-a-waiting-user-task">Complete a waiting user task</a>.</td></tr>
+  <tr><td>History</td><td>The last finished and cancelled instances. See <a href="#instances-that-are-over">Instances that are over</a>.</td></tr>
   <tr><td>Badges</td><td>On the canvas: how many wait at each step, and how many have an incident, so a busy step is visible without opening the tab.</td></tr>
   <tr><td>Hover</td><td>The hover card of an element says what waits on it.</td></tr>
   </tbody>
 </table></div>
 
 <p>Other messages: <em>No instance of order-process is running on prod.</em>, <em>Nothing is waiting or has an incident on prod.</em> and <em>order-process is not deployed.</em> followed by <em>It is not on prod yet. Deploy the diagram to see its instances.</em> The tab says which address was asked and when, and <em>The engine could not be read.</em> when it got no answer.</p>
+
+<h2>Instances that are over</h2>
+
+<p>The <strong>History</strong> section lists the last ten instances of the process that finished or were cancelled, newest first. Each row gives the business key or the id, the time it started and the time it ended, how long it took and its state, <em>completed</em> or <em>canceled</em>. It works on Camunda 7 and Camunda 8.</p>
+
+<ol class="steps">
+  <li>Click a row. The path that instance took is drawn on the diagram: the steps it passed, coloured by how they ended, and the flows between them.</li>
+  <li>Click the row again to clear the path.</li>
+  <li>Open the <a href="timeline.html">Timeline</a> to see the same instance against time. A row picked here is the run the timeline shows.</li>
+</ol>
+
+<p>With nothing to show, the section says <em>No finished instances found.</em> and <em>Instances that completed or were cancelled will appear here.</em> The instances are read from the history of the engine, and an engine that keeps no history has none to list.</p>
+
+<h2 id="complete-a-waiting-user-task">Complete a waiting user task</h2>
+
+<p>Pick a running instance with <span class="ui">Use</span>. The <strong>User tasks</strong> section lists the user tasks that wait on it, with the task id and the assignee. Select one and its form appears in the tab, as the engine has it deployed. Fill it in and press <span class="ui">Complete</span>. What you type becomes the variables of the task. A task with no form has a <span class="ui">Complete</span> button alone. The tab says <em>Task completed.</em>, or why it could not, as in <em>Unable to complete user task.</em></p>
+
+<p>This works on Camunda 7 and Camunda 8, on the engine of the profile in force. It is an action you ask for: the engine is changed when you press <span class="ui">Complete</span> and not before.</p>
+
+<h2>Start an instance</h2>
+
+<ol class="steps">
+  <li>Press <span class="ui">Start instance&hellip;</span> at the top of the tab, or choose it in the <span class="ui">More</span> menu or the command palette.</li>
+  <li>The <strong>Process ID</strong> is filled in with the process of the diagram. Change it to start another one.</li>
+  <li>Type the <strong>Variables (JSON)</strong>, a JSON object such as <code>{"orderId": "A-1001"}</code>. The field says <em>Variables should be valid JSON</em> or <em>Variables should be a JSON object</em> until it is.</li>
+  <li>Press <span class="ui">Start instance</span>. Penstock says <em>Started instance</em> with its id, and the tab reads the engine again.</li>
+</ol>
+
+<p>It works on Camunda 7 and Camunda 8. The process has to be deployed first. See <a href="deployment.html">Deployment</a>.</p>
+
+<h2>Act on an instance</h2>
+
+<p>Beside the instances and the incidents there are buttons for what you would otherwise do in the engine's own web app. Each one asks the engine of the profile in force, and each one changes something there, so each one runs only when you press it.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><span class="ui">Retry</span></td><td>On an incident: tries the failed step again. Camunda 8 only. The button is on the incident row.</td></tr>
+  <tr><td><span class="ui">Cancel instance</span></td><td>On an instance, or on an incident's instance. Asks <em>Cancel process instance &hellip;?</em> first, and does nothing if you decline. Camunda 7 and Camunda 8.</td></tr>
+  <tr><td><span class="ui">Send message</span></td><td>Publishes a message. Give the <strong>Message name</strong>, a <strong>Correlation key</strong> if the receiver has one, and <strong>Variables (JSON)</strong> if it should carry any, then press <span class="ui">Send</span>. Camunda 7 and Camunda 8.</td></tr>
+  <tr><td><span class="ui">Broadcast signal</span></td><td>Broadcasts a signal to everything that waits for it. Give the <strong>Signal name</strong> and optional <strong>Variables (JSON)</strong>, then press <span class="ui">Broadcast</span>. Camunda 7 and Camunda 8.</td></tr>
+  </tbody>
+</table></div>
+
+<p>If the engine refuses, the reason is written under the button, as in <em>Unable to retry incident</em>, <em>Unable to cancel instance</em>, <em>Unable to send message</em> or <em>Unable to broadcast signal</em>. After an action that worked, the tab reads the engine again.</p>
+
+<h2>Open in Tasklist</h2>
+
+<p><span class="ui">Open in Tasklist</span> opens the engine's Tasklist in your browser. At the top of the tab it opens Tasklist itself. On an instance it opens that instance, and on a waiting user task, a link to that task. It is also in the <span class="ui">More</span> menu and the command palette. It works on Camunda 7 and Camunda 8 when the profile has an address. On Camunda 8 SaaS the link is the Tasklist address of the cluster's region, and for a Camunda 8 you run yourself it is the <code>/tasklist</code> of the engine's address.</p>
 
 <h2>Try an expression on a real instance</h2>
 
@@ -69,7 +120,7 @@ related: sidebar, check-workers, deployment, scenarios
 
 <h2>When the engine is asked</h2>
 
-<p>Only when you open Monitor, press <span class="ui">Refresh</span> or ask for a result. Never in the background. Every question is a read. It works on Camunda 7, Operaton and CIB seven, and on Camunda 8.8 and later. The request is made with the profile's credentials. See <a href="security.html">Security and privacy</a>.</p>
+<p>Only when you open Monitor, press <span class="ui">Refresh</span> or ask for a result. Never in the background. Every question is a read, apart from the actions you press yourself: <span class="ui">Start instance</span>, <span class="ui">Cancel instance</span>, <span class="ui">Retry</span>, <span class="ui">Send message</span>, <span class="ui">Broadcast signal</span> and <span class="ui">Complete</span> on a user task. Those change the engine, and only when you press them. It works on Camunda 7, Operaton and CIB seven, and on Camunda 8.8 and later. The request is made with the profile's credentials, so the user of the profile has to be allowed to do what you ask. See <a href="security.html">Security and privacy</a>.</p>
 
 <h2>Common problems</h2>
 
@@ -77,7 +128,11 @@ related: sidebar, check-workers, deployment, scenarios
   <dt>The tab says no engine is connected.</dt>
   <dd>The profile in force has no address. Press the arrow next to Deploy and choose <span class="ui">Edit connection&hellip;</span>. Or set <code>deployment.url</code>. See <a href="deployment.html">Deployment</a>.</dd>
   <dt>"The engine refused the question (403)".</dt>
-  <dd>The profile's user may not read process instances. Use a user that may.</dd>
+  <dd>The profile's user may not read process instances. Use a user that may. The same goes for an action: a user who may read may still not be allowed to cancel, retry or start.</dd>
+  <dt>There is no <span class="ui">Retry</span> on an incident.</dt>
+  <dd>Retrying an incident is a Camunda 8 action. On Camunda 7, fix the cause and cancel the instance, or use the engine's own web app.</dd>
+  <dt>There is no <span class="ui">Send message</span> or <span class="ui">Broadcast signal</span>.</dt>
+  <dd>The process is not deployed on the engine of the profile in force. Deploy it first.</dd>
   <dt>"is not deployed on &hellip;".</dt>
   <dd>Deploy the process to that profile first.</dd>
   <dt>The numbers look old.</dt>

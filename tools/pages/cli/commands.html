@@ -19,6 +19,7 @@ related: index, ci, mcp, guide/settings
   <tr><td><a href="#scenarios-list"><code>scenarios list</code></a></td><td>Every way through each process.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#scenarios-run"><code>scenarios run</code></a></td><td>Run the test-case files on an engine.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#scenarios-generate"><code>scenarios generate</code></a></td><td>Write the test-case files from the ways through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#test-cases"><code>test-cases</code></a></td><td>The command behind <code>scenarios run</code> and <code>scenarios generate</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#junit"><code>junit</code></a></td><td>Write a JUnit test for every way through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#layout"><code>layout</code></a></td><td>Auto layout.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#fmt"><code>fmt</code></a></td><td>Format the XML.</td><td><span class="tag free">Free</span></td></tr>
@@ -37,6 +38,9 @@ related: index, ci, mcp, guide/settings
   <tr><td><a href="#mcp"><code>mcp</code></a></td><td>Serve diagrams to an AI agent.</td><td>Free to read. Other tools: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#connectors"><code>connectors</code></a></td><td>Camunda connector templates.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#update"><code>update</code></a></td><td>Move the wrapper to a version.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#web"><code>web</code></a></td><td>The editors in a browser, on this machine.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#agent"><code>agent</code></a></td><td>Start an AI agent with the Penstock tools.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td><a href="#agent-serve"><code>agent serve</code></a></td><td>Serve the AI chat of a project to an editor.</td><td><span class="tag free">Free</span> to start. Sending a message: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   </tbody>
 </table></div>
 
@@ -64,7 +68,7 @@ related: index, ci, mcp, guide/settings
   <tr><td><code>0</code></td><td>The command did what it was asked, and there was nothing to act on.</td></tr>
   <tr><td><code>1</code></td><td>Something a person can act on: findings, a path that is not there, a file that is not a diagram, a value an option does not take, a licence this machine does not have.</td></tr>
   <tr><td><code>2</code></td><td>The command line itself failed, not the command. The message says what.</td></tr>
-  <tr><td><code>130</code></td><td>Only <code>scenarios run</code> and <code>scenarios generate</code>: Ctrl and C twice.</td></tr>
+  <tr><td><code>130</code></td><td>Only <code>scenarios run</code>, <code>scenarios generate</code> and <code>test-cases</code>: Ctrl and C twice.</td></tr>
   </tbody>
 </table></div>
 
@@ -93,7 +97,9 @@ related: index, ci, mcp, guide/settings
   </tbody>
 </table></div>
 
-<p>In a terminal, on an empty folder with no <code>--engine</code>, init asks which engine with a numbered choice. Anywhere else it guesses from the diagrams. <code>--example</code> writes a small runnable project into an <em>empty</em> folder: see <a href="@guide/example-project.html">The example project</a>. <code>--ci</code> also writes a pipeline for the licence on this machine, and <code>forgejo</code> is accepted too although the help does not list it: see <a href="ci.html">Pipelines, reports and the bot</a>. <code>--hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours, and deleting the file stops it. It runs <code>check --baseline</code>, which needs Pro.</p>
+<p>In a terminal, on an empty folder with no <code>--engine</code>, init asks which engine with a numbered choice. Anywhere else it guesses from the diagrams. <code>--example</code> writes a small runnable project into an <em>empty</em> folder: see <a href="@guide/example-project.html">The example project</a>. <code>--ci</code> also writes a pipeline for the licence on this machine, and <code>forgejo</code> is accepted too although the help does not list it: see <a href="ci.html">Pipelines, reports and the bot</a>. <code>--hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours, and deleting the file stops it. It runs <code>fmt --write</code> on the staged diagrams, stages the result, and then <code>check --baseline</code>, which needs Pro. Outside a Git repository it says <em>hooks - this is not a git repository</em> and skips the hook, and a pre-commit hook that is not Penstock's is kept as it is.</p>
+
+<p>The hook runs the Penstock command line it finds, in this order: the project's <code>penstockw</code>, <code>penstock</code> on the PATH, then the one in the project's <code>node_modules</code>. Only when none of them is there, and the command line that wrote the hook is a published release, does it ask npm, and then for that exact version. With none installed it prints one line on standard error that says where to install the command line, and lets the commit through.</p>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock init --engine camunda-8</code></pre>
@@ -450,7 +456,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 
 <pre><code>penstock scenarios run [paths...] [--timeout &lt;seconds&gt;] [--junit-xml &lt;file&gt;] [--junit] [--teamcity]</code></pre>
 
-<p>Runs the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for. Every case is checked against the Camunda test-case schema before the run, and a run deploys a test build of its own, prefixed <code>penstock.&lt;run&gt;.</code>, so the definitions you deployed are not touched. In a pipeline the engine needs <code>deployment.forTests: true</code>. Press Ctrl and C once to ask the engine to stop and keep going, and twice to cancel the running case and remove its build. See <a href="@guide/scenarios.html">Scenarios</a>.</p>
+<p>Runs the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for. Every case is checked against the Camunda Process Test schema (8.9 and 8.10) before the run: fifteen instructions run and are written back unchanged, and the thirteen Penstock cannot run yet are named in a message instead of being dropped. A run deploys a test build of its own, prefixed <code>penstock.&lt;run&gt;.</code>, so the definitions you deployed are not touched. In a pipeline the engine needs <code>deployment.forTests: true</code>. Press Ctrl and C once to ask the engine to stop and keep going, and twice to cancel the running case and remove its build. See <a href="@guide/scenarios.html">Scenarios</a>.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -490,7 +496,7 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>penstock scenarios generate [paths...]</code></pre>
 
 <p>Writes the Camunda test-case files from the ways through each process: one scenario for every way through, with example variables and a completing mock for each task. A process that starts on a message, a timer or a signal is planned from that start event, and a start kind that cannot be expressed as a scenario is said in the review rather than left out quietly. Cases already in a file are kept. See <a href="@guide/scenarios.html">Scenarios</a>.</p>
-<p>The old names still work and are left out of the help: <code>paths</code> is <code>scenarios list</code>, <code>test-cases</code> is <code>scenarios run</code>, <code>test-cases --generate</code> is <code>scenarios generate</code>, and <code>tests</code> is <code>junit</code>.</p>
+<p><code>scenarios generate</code> is <a href="#test-cases"><code>test-cases --generate</code></a>. Two old names still work and are left out of the help: <code>paths</code> is <code>scenarios list</code>, and <code>tests</code> is <code>junit</code>.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -504,6 +510,41 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock scenarios generate src/orders</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The run finished with no failing case.</td></tr>
+  <tr><td><code>1</code></td><td>A case failed, or the engine could not be reached.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  <tr><td><code>130</code></td><td>Ctrl-C twice: the case is cancelled, its build removed, and the run stops.</td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="test-cases">test-cases</h3>
+
+<p><strong>The command behind scenarios run and scenarios generate: run the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for. --generate writes those files from the ways through each process instead.</strong></p>
+
+<pre><code>penstock test-cases [paths...] [--generate] [--junit] [--junit-xml &lt;file&gt;] [--timeout &lt;seconds&gt;] [--teamcity]</code></pre>
+
+<p><code>penstock test-cases</code> is <a href="#scenarios-run"><code>scenarios run</code></a>, and <code>penstock test-cases --generate</code> is <a href="#scenarios-generate"><code>scenarios generate</code></a>. Both names run the same code, so a script that already says <code>test-cases</code> keeps working. A value of <code>--timeout</code> that is not a number of seconds is refused before any case runs: <em>The timeout should be a number of seconds.</em></p>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--generate</code></td><td>Write the test-case files from the ways through each process, instead of running them.</td></tr>
+  <tr><td><code>--junit</code></td><td>Write a Camunda Process Test class that runs them instead.</td></tr>
+  <tr><td><code>--junit-xml &lt;file&gt;</code></td><td>Where a JUnit XML report is written.</td></tr>
+  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take, 30 by default.</td></tr>
+  <tr><td><code>--teamcity</code></td><td>Report as TeamCity service messages, as the IDE reads them.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock test-cases --junit-xml target/scenarios.xml</code></pre>
 
 <p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 
@@ -555,10 +596,11 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
 <pre><code>penstock layout [paths...] [--write]</code></pre>
 
 <pre><code>$ penstock layout .
-would change src/main/resources/order-process.bpmn
+STATUS  FILE                DETAILS
+change  order-process.bpmn  would reflow layout (pass --write to save)
 
 Auto layout always reflows, so a difference here is expected; pass --write to take it.</code></pre>
-<p>Lays the diagrams out as a readable left-to-right flow, whatever they were drawn like. Without <code>--write</code> the answer is the plan and nothing is changed. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="@guide/auto-layout.html">Auto layout</a>.</p>
+<p>Lays the diagrams out as a readable left-to-right flow, whatever they were drawn like, including long chains of elements. Without <code>--write</code> the answer is the plan, and nothing is changed or written beside the diagram. With it the file is written whole, never half-written. Hooks: <code>preLayout</code>, <code>postLayout</code>. See <a href="@guide/auto-layout.html">Auto layout</a>.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -589,7 +631,11 @@ Auto layout always reflows, so a difference here is expected; pass --write to ta
 
 <pre><code>penstock fmt [paths...] [--write]</code></pre>
 
-<p>Rewrites the XML the way the editor saves it, so a renamed task is a one-line diff. Without <code>--write</code> it lists each file as <em>same</em> or <em>would rewrite</em> and leaves the files alone, and it exits with 1 if any file would change, so it also works as a check in a pipeline.</p>
+<pre><code>$ penstock fmt src/orders
+STATUS  FILE                DETAILS
+same    order-process.bpmn  already formatted</code></pre>
+
+<p>Rewrites the XML the way the editor saves it, so a renamed task is a one-line diff. Without <code>--write</code> it lists each file as <em>same</em> or <em>change</em> and leaves the files alone, and it exits with 1 if any file would change, so it also works as a check in a pipeline. With <code>--write</code> a file is written whole, never half-written. It formats a decision file (<code>.dmn</code>) you name as well as a diagram. A form is JSON, not XML, so it is listed as <em>skip</em> and left as it is.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -860,11 +906,10 @@ wrote docs-out/index.html
 <pre><code>penstock deploy [paths...] [--dry-run] [--wait]</code></pre>
 
 <pre><code>$ penstock deploy . --dry-run
-would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
-      src/main/resources/approve-order.form
-      src/main/resources/order-process.bpmn
-      src/main/resources/shipping-method.dmn</code></pre>
+STATUS      ENDPOINT                              FILES    TARGET         DETAILS
+would send  http://localhost:8080/v2/deployments  3 files  order-example  src/main/resources/approve-order.form, src/main/resources/order-process.bpmn, src/main/resources/shipping-method.dmn</code></pre>
 <p>Deploys the processes, decisions and forms to the engine the configuration names. Files are grouped by the target each folder asks for, and a file with no <code>deployment.url</code> is skipped. <code>--wait</code> asks the engine until it shows the definitions: &ldquo;deployed&rdquo; and &ldquo;running&rdquo; are not the same claim, and it prints <code>live order-process v3</code>. Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="@guide/deployment.html">Deployment</a>.</p>
+<p>The answer is one table with the columns <code>STATUS</code>, <code>ENDPOINT</code>, <code>FILES</code>, <code>TARGET</code> and <code>DETAILS</code>. There is a row for each engine the files go to, and a row for each file that is skipped. The status is <em>would send</em> for a dry run, <em>sent</em> when the engine took the files, <em>fail</em> when it did not, <em>skip</em> for a file with no <code>deployment.url</code>, and <em>note</em> for a warning. What the engine said, and the lines <code>--wait</code> adds, such as <code>live order-process v3</code>, follow in <code>DETAILS</code>. In a terminal the table is aligned and has its header. When the output is piped it is tab-separated and has no header, for a script to cut. When no file has a <code>deployment.url</code>, deploy says <em>Nothing to deploy: no file has a deployment.url.</em> and exits with 1.</p>
 <p>Before anything is sent, deploy says so when <code>deployment.auth.type</code> is <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the engine refuse it. An answer of 401 or 403 says which of <code>deployment.auth</code> in <code>penstock.local.yaml</code>, <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code> to set. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read.</p>
 
 <div class="table-wrap"><table class="facts">
@@ -944,6 +989,10 @@ penstock edit orders.bpmn connect Gateway_stock Task_notify --condition "=not(in
 penstock edit orders.bpmn set Task_notify --set assignee=support --input customer==order.customer
 penstock edit orders.bpmn remove Task_legacy</code></pre>
 <p>Adds, connects, sets or removes in a diagram the way the editor would. A new element is placed and connected by the editor's own modelling, gets an id from your conventions, and carries only properties your engine knows. After an edit the diagram is read back and checked. An edit that would break the drawing (shapes on top of each other, a flow through a shape, a flow torn from its element) is not written, and nothing is written when the operations cannot be read. A crossing is reported but allowed. <code>--ops</code> and <code>--ops-file</code> take the same changes as JSON, which is the contract: several operations apply together or not at all. <code>--schema</code> prints the contract for the file's engine, and an unknown operation, field or property is refused.</p>
+
+<p>The operations are <code>add</code>, <code>connect</code>, <code>set</code>, <code>remove</code> and <code>move</code>. <code>move</code> is only in the JSON form: it shifts an element by <code>dx</code> and <code>dy</code>, in diagram units. A business rule task names its decision with <code>decisionRef</code> on Camunda 7, Operaton and CIB seven, and with <code>decisionId</code> on Camunda 8. These are the operations an AI agent proposes in the editor, where each is drawn on the canvas before it is accepted.</p>
+
+<p>The file is read once, and the edit is made on that copy. If the diagram changed on disk while the edit was being made, because an editor saved it or another command wrote it, nothing is written over it. The command says <em>The diagram changed while the edit was being made, so it was not written over.</em> and exits with 1. Run it again on the new file. The result is written whole.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -1200,13 +1249,14 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <p><strong>Serve BPMN diagrams to an AI agent over MCP. Reading a diagram and checking it are free; flow analysis, scenarios, code links and editing need a licence.</strong></p>
 
-<pre><code>penstock mcp [--config]</code></pre>
+<pre><code>penstock mcp [--project &lt;dir&gt;] [--config]</code></pre>
 
-<p>Serves BPMN diagrams to an AI agent over MCP. <code>--config</code> prints the entry to paste into the agent's settings and stops. The entry goes to standard output and a hint goes to standard error. See <a href="mcp.html">The MCP server</a>.</p>
+<p>Serves BPMN diagrams to an AI agent over MCP. <code>--config</code> prints the entry to paste into the agent's settings and stops. The entry goes to standard output and a hint goes to standard error. The entry names the exact version of the command line that printed it, as <code>npx --yes @kern0x1b/penstock-cli@&lt;version&gt; mcp</code>, so the agent runs that same version. A development build, which has no published version, prints <code>penstock mcp</code> instead. <code>--project</code> fixes the project every tool works on, so the agent does not have to name it, and nothing outside it is read. Without it the server finds each project from the files the agent asks about. To start an agent with the server already set up for one run, see <a href="#agent"><code>agent</code></a>. See <a href="mcp.html">The MCP server</a>.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
+  <tr><td><code>--project &lt;dir&gt;</code></td><td>The project every tool works on, without the agent naming it; nothing outside it is read.</td></tr>
   <tr><td><code>--config</code></td><td>Print the client entry to paste into the agent, and stop.</td></tr>
   </tbody>
 </table></div>
@@ -1318,10 +1368,112 @@ penstock connectors --refresh                    # ask GitHub for a newer releas
   </tbody>
 </table></div>
 
+<h2 id="web">web</h2>
+
+<p><strong>Serve the editor in a browser, on this machine only. With a folder it opens that project; without one it starts on a welcome page where you choose the project in the browser. A key in the link keeps other pages and other users out, and nothing is sent anywhere.</strong></p>
+
+<pre><code>penstock web [folder] [--port &lt;port&gt;] [--host &lt;address&gt;] [--no-open]</code></pre>
+
+<p>Starts a server for the BPMN, DMN and form editors, the project tree and the tabs of <a href="@guide/penstock-web.html">Penstock Web</a>. It listens on 127.0.0.1 and prints a link that carries a key that is new on every run. It opens a browser on that link, and stops on Ctrl and C. The recent projects are kept in <code>~/.penstock/preferences.json</code>. The safety rules, the preferences it keeps and the language servers are on <a href="web.html">penstock web</a>.</p>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--port &lt;port&gt;</code></td><td>The port to listen on, 8765 by default; the next free one is used when it is busy.</td></tr>
+  <tr><td><code>--host &lt;address&gt;</code></td><td>The address to listen on, 127.0.0.1 by default; any other makes the folder reachable from the network.</td></tr>
+  <tr><td><code>--no-open</code></td><td>Print the link and do not open a browser.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock web ./processes --port 9000</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> What needs Pro in an IDE needs it here too.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The server was stopped with Ctrl-C.</td></tr>
+  <tr><td><code>1</code></td><td>The folder is not there, the port or address is not usable, or no port was free.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="agent">agent</h2>
+
+<p><strong>Start an AI agent's own command line in this terminal with the penstock MCP server already set up for this one run. Nothing is written to the agent's own configuration or to the project.</strong></p>
+
+<pre><code>penstock agent [claude|codex|gemini|opencode|&lt;id&gt;] [--project &lt;dir&gt;] [-- &lt;arguments&gt;]</code></pre>
+
+<p>Without a name it lists the agents and which of them are installed. With a name it starts that agent's own command in this terminal, in the current folder or the one <code>--project</code> names, and gives it the <code>penstock mcp</code> server through the agent's own command-line settings or environment, for this run only. What follows <code>--</code> goes to the agent as it is. The exit code is the agent's own. An agent you added in the settings of the AI chat is started with its own command and arguments, and gets the server as JSON in the environment variable <code>PENSTOCK_MCP_CONFIG</code>. The tools the agent gets keep their own licence: see <a href="mcp.html">The MCP server</a>.</p>
+
+<pre><code>$ penstock agent
+Agents that penstock agent &lt;name&gt; can start:
+  claude    Claude Code: installed
+  codex     Codex: installed
+  gemini    Gemini CLI: not installed - npm install -g @google/gemini-cli
+  opencode  OpenCode: not installed - npm install -g opencode-ai
+
+Start one with: penstock agent &lt;name&gt; [-- &lt;arguments for the agent&gt;]</code></pre>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--project &lt;dir&gt;</code></td><td>The project the penstock tools work on, and the folder the agent starts in; the current project by default.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock agent claude -- -p "list the diagrams"</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> The tools the agent gets keep their own licence: see <a href="#mcp"><code>mcp</code></a>.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The agent ended normally, or the list was printed.</td></tr>
+  <tr><td><code>1</code></td><td>The agent is not installed or not known, or could not be started. Any other code is the agent's own.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="agent-serve">agent serve</h3>
+
+<p><strong>Serve the AI chat of one project to the IDEs and editors that show it: its chats, their history and the agent behind them, over HTTP on 127.0.0.1 and nothing else.</strong></p>
+
+<pre><code>penstock agent serve --project &lt;dir&gt; [--detach]</code></pre>
+
+<p>One server for a project serves every window and every tool that shows its chats, so a chat that is running in one window shows as busy in the others. The server prints one line of JSON with its port and a key, <code>{"port":...,"token":"..."}</code>. Every request must carry the key as a Bearer token. A second <code>agent serve</code> for a project that already has a server prints the line of the running one. The server leaves a few seconds after no window is attached to it and no turn is running. An IDE starts it itself, so you rarely run it by hand.</p>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--project &lt;dir&gt;</code></td><td>The project folder the chats belong to.</td></tr>
+  <tr><td><code>--detach</code></td><td>Start the server in its own session, print its line once it answers, and return. An IDE starts it this way so that a signal to its terminal does not stop the server for every window.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock agent serve --project ./processes</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag free">Free</span> to start. Sending a message needs <span class="tag pro">Pro</span> on a developer machine, and <span class="tag team">Team in a pipeline</span>.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>Stopped by a signal, or left a few seconds after no window was attached to it and no turn was running.</td></tr>
+  <tr><td><code>1</code></td><td>No project was given, the folder is not there, or the server could not listen.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div>
+
 <h2>What you see</h2>
 
 <ul>
-  <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>kept</code>, <code>same</code>, <code>would change</code> or <code>sent</code>.</li>
+  <li>Most commands print one line for each file. A line starts with a word: <code>ok</code>, <code>fail</code>, <code>wrote</code>, <code>kept</code>, <code>same</code>, <code>change</code>, <code>skip</code>, <code>would send</code> or <code>sent</code>. A command that prints a table aligns it in a terminal, with its header. When the output is piped, the table is tab-separated, with no header.</li>
   <li>Findings are indented under their file.</li>
   <li>The exit code says the outcome. See the exit codes above.</li>
 </ul>
@@ -1339,6 +1491,14 @@ penstock connectors --refresh                    # ask GitHub for a newer releas
   <dd>The project is not trusted. Run <code>penstock trust</code> in it, or pass <code>--trust-project</code> for one run.</dd>
   <dt>The engine refuses a run as not a test engine.</dt>
   <dd>Set <code>deployment.forTests: true</code> on the profile, or run against an engine on this machine and confirm it once.</dd>
+  <dt>"This folder is too large to be a project; give the folder of the diagrams".</dt>
+  <dd>The command was pointed at a filesystem root or at your home folder, and neither holds a <code>penstock.yaml</code> or a <code>.git</code>, or at a folder with more than 100,000 entries. Give the folder of the project. Folders the command cannot read are passed over.</dd>
+  <dt>"The timeout should be a number of seconds."</dt>
+  <dd>Give <code>--timeout</code> to <code>scenarios run</code> or <code>test-cases</code> a number above zero.</dd>
+  <dt>"order.bpmn is a folder, not a file."</dt>
+  <dd>A folder carries the name of a diagram. Give the file, or the folder under another name.</dd>
+  <dt>"... is a file, not a commit, branch or tag."</dt>
+  <dd>The first argument of <code>diff</code> is the base to compare against. To compare two files, give both as files: <code>penstock diff &lt;before&gt; &lt;after&gt;</code>.</dd>
   <dt>The command says the project is not a Git repository.</dt>
   <dd><code>diff &lt;ref&gt;</code> and <code>report</code> compare against Git history. Run them inside a checkout.</dd>
 </dl>

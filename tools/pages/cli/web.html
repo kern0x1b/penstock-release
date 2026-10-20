@@ -1,0 +1,153 @@
+<!--
+title: penstock web
+lede: penstock web serves the Penstock editors in a browser tab on your own machine, for the folder you give it. It listens on 127.0.0.1 behind a key that is different on every run, so only the page it opens can talk to it.
+tags: free
+needs: Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later. What needs Pro in an editor needs Pro here too.
+related: commands, index, guide/penstock-web, guide/penstock-desktop, mcp
+-->
+<h2>Start it</h2>
+
+<pre><code>penstock web ./processes
+penstock web
+penstock web ./processes --port 9000 --no-open</code></pre>
+
+<ol class="steps">
+  <li>Run <code>penstock web [folder]</code>. With a folder it opens that project. Without one it starts on a welcome page where you choose the project in the browser, and the recent ones are one click away.</li>
+  <li>The command prints what it serves, the link, and how to stop it:
+<pre><code>Serving /home/me/processes
+  http://127.0.0.1:8765/?token=...
+Press Ctrl+C to stop.</code></pre>
+With no folder the first line is <em>No project is open yet. Choose one in the browser.</em></li>
+  <li>A browser opens on the link by itself. With <code>--no-open</code> you open the link yourself.</li>
+  <li>Work in the page. See <a href="@guide/penstock-web.html">Penstock Web</a> for the window.</li>
+  <li>Press <kbd>Ctrl</kbd>+<kbd>C</kbd> in the terminal to stop the server. It says <em>Stopping.</em> and exits with 0. A second press leaves at once.</li>
+</ol>
+
+<p>The server starts on port 8765. When that port is busy it tries the next one, up to 99 higher, and says <em>Port 8765 is in use, so Penstock uses 8766.</em> If none of them is free it stops with <em>No port from 8765 to 8864 is free.</em></p>
+
+<h2>Options</h2>
+
+<div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--port &lt;port&gt;</code></td><td>The port to listen on, 8765 by default. The next free one is used when it is busy. <code>0</code> takes any free port. The value should be a number from 0 to 65535.</td></tr>
+  <tr><td><code>--host &lt;address&gt;</code></td><td>The address to listen on, 127.0.0.1 by default. Any other makes the folder reachable from the network, and the command prints a warning. See <a href="#safety">Who can reach it</a>.</td></tr>
+  <tr><td><code>--no-open</code></td><td>Print the link and do not open a browser.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The folder you give should exist and be a folder. The command refuses a filesystem root or a home folder that holds no <code>penstock.yaml</code> and no <code>.git</code>. It says <em>This folder is too large to be a project; give the folder of the diagrams</em>. See <a href="commands.html#web">Every command</a> for the exit codes.</p>
+
+<h2 id="safety">Who can reach it</h2>
+
+<p>The server is made for one person on one machine, and nothing is sent anywhere.</p>
+
+<ul>
+  <li><strong>Only this machine.</strong> It listens on 127.0.0.1. With <code>--host</code> set to an address that is not the machine's own loopback, anyone who can reach the machine and holds the link can read and change the diagrams of the open project, and see folder names on the machine. The command prints that warning.</li>
+  <li><strong>A key on every request.</strong> Every request needs the key of this run. The link carries it once. The page that answers the link keeps it in a cookie the page's own scripts cannot read, then reloads without it. When the browser is opened by the command, the link holds a code that works once and expires after a minute, so the key is not in the process list. The key is never logged.</li>
+  <li><strong>Only its own page.</strong> A request whose <code>Host</code> is not the server's own, or that comes from another web page, is refused before anything else.</li>
+  <li><strong>Only the project folder.</strong> Paths are resolved inside the folder, and anything that leaves it, contains <code>..</code> or points into <code>.git</code> is refused. The server writes only diagrams, decisions, forms, test cases, element templates and <code>penstock.yaml</code>.</li>
+  <li><strong>Bounded.</strong> A request has two minutes, bodies are limited to 1 MB (24 MB for a file), and a file over 64 MB is not read.</li>
+  <li><strong>Hooks need trust.</strong> The deployment hooks of <code>penstock.yaml</code> run only in a project that <a href="commands.html#trust"><code>penstock trust</code></a> knows. Passwords are kept in memory for the run.</li>
+</ul>
+
+<p>A link never picks a folder. A project is opened by the folder argument or by the folder browser, which lists folder names only, never a file's contents. Opening, closing or switching a project moves everything with it: a request made for the previous project is answered with an error instead of being served from the wrong folder, and a switch is refused while a deploy runs.</p>
+
+<h2>What it remembers</h2>
+
+<p>Your choices live in <code>~/.penstock/preferences.json</code>, the file the other tools use, or under <code>PENSTOCK_HOME</code> when that is set. It is readable by its owner only.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>recentProjects</code></td><td>The projects on the welcome page and in the project switcher.</td></tr>
+  <tr><td><code>webSessions</code></td><td>What was open, one entry for each project folder: the tabs, the groups and how they are split, and the tree.</td></tr>
+  <tr><td><code>projectTreeWidth</code>, <code>projectTreeHidden</code></td><td>The width of the sidebar, between 240 and 400 pixels, and whether it is shown.</td></tr>
+  <tr><td><code>webAutosaveSeconds</code></td><td>The seconds without an edit after which a file is written. Absent means no autosave.</td></tr>
+  <tr><td><code>theme</code></td><td>Follow the system, light, dark or Dracula.</td></tr>
+  <tr><td><code>suggestNextBlock</code>, <code>suggestions</code></td><td>Whether the editor suggests the next element and names, sources and expressions. Both are on unless set to <code>false</code>.</td></tr>
+  <tr><td><code>showCodeBadges</code></td><td>Whether the small marks that say whether the code behind a task was found are drawn.</td></tr>
+  <tr><td><code>aiChat</code></td><td><code>off</code>, <code>bottom</code> or <code>sidebar</code>: where the AI chat is.</td></tr>
+  <tr><td><code>languageServers</code></td><td>Your own language servers. See below.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>Code in the page</h2>
+
+<p>A class or a bean that a diagram names opens in a read-only code tab. Code tabs and the XML text of a file are highlighted for Java, Kotlin, Scala, C#, Python, Go, Groovy, JavaScript, TypeScript, JSON, YAML, XML, SQL, Markdown and properties files, in the colours of the editor's theme.</p>
+
+<p>For completion, hover, diagnostics and go to definition, the page talks to a language server that is installed on the machine that runs <code>penstock web</code>. Penstock looks for these on the PATH:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Language</th><th>Command</th></tr></thead>
+  <tbody>
+  <tr><td>Java</td><td><code>jdtls</code></td></tr>
+  <tr><td>Kotlin</td><td><code>kotlin-language-server</code></td></tr>
+  <tr><td>TypeScript and JavaScript</td><td><code>typescript-language-server --stdio</code></td></tr>
+  <tr><td>JSON</td><td><code>vscode-json-language-server --stdio</code>, or <code>vscode-json-languageserver --stdio</code></td></tr>
+  <tr><td>YAML</td><td><code>yaml-language-server --stdio</code></td></tr>
+  <tr><td>XML</td><td><code>lemminx</code></td></tr>
+  <tr><td>Markdown</td><td><code>marksman server</code></td></tr>
+  <tr><td>Python</td><td><code>pyright-langserver --stdio</code></td></tr>
+  <tr><td>Go</td><td><code>gopls</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>Without a server the tab still highlights, and says <em>Highlighting only. Install the server to get completion, hover and go to definition here.</em> with the name of the server. To use another server, or another command line, add it under <code>languageServers</code> in <code>~/.penstock/preferences.json</code>. An entry of yours with the same <code>id</code> as a preset replaces the preset.</p>
+
+<pre><code>{
+  "languageServers": [
+    {
+      "id": "my-java",
+      "languages": ["java"],
+      "command": "/opt/jdtls/bin/jdtls",
+      "args": ["-data", "/tmp/jdtls-workspace"],
+      "env": { "JAVA_HOME": "/opt/jdk" }
+    }
+  ]
+}</code></pre>
+
+<p>A line of code that a diagram element names, such as a job type, a topic, a class, a bean or a message, gets a marker beside its line number and a hover that names the diagram and the element. A click opens the diagram on that element. In the XML text of a file, completion offers the job types, topics, classes, beans and message names that the project shares with its code. Links between diagrams and code are part of Pro, as in every tool.</p>
+
+<h2 id="shortcuts">Keyboard shortcuts</h2>
+
+<p>The page binds these keys. Press <kbd>Ctrl</kbd>+<kbd>/</kbd> (<kbd>Cmd</kbd>+<kbd>/</kbd> on a Mac) in the page to see them, or choose <span class="ui">Keyboard shortcuts</span> from the command list. The editors have their own keys. Press <kbd>?</kbd> inside an editor to see them.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Action</th><th>Windows and Linux</th><th>macOS</th></tr></thead>
+  <tbody>
+  <tr><td>Open file</td><td><kbd>Ctrl+P</kbd></td><td><kbd>Cmd+P</kbd></td></tr>
+  <tr><td>Find action</td><td><kbd>Ctrl+Shift+P</kbd></td><td><kbd>Cmd+Shift+P</kbd></td></tr>
+  <tr><td>New file</td><td><kbd>Ctrl+Alt+N</kbd></td><td><kbd>Cmd+Alt+N</kbd></td></tr>
+  <tr><td>Save</td><td><kbd>Ctrl+S</kbd></td><td><kbd>Cmd+S</kbd></td></tr>
+  <tr><td>Save all</td><td><kbd>Ctrl+Shift+S</kbd></td><td><kbd>Cmd+Shift+S</kbd></td></tr>
+  <tr><td>Close tab</td><td><kbd>Ctrl+W</kbd> or <kbd>Ctrl+Alt+W</kbd></td><td><kbd>Cmd+W</kbd> or <kbd>Cmd+Alt+W</kbd></td></tr>
+  <tr><td>Next and previous tab</td><td><kbd>Ctrl+Tab</kbd>, <kbd>Ctrl+Shift+Tab</kbd>, <kbd>Ctrl+Alt+PageDown</kbd>, <kbd>Ctrl+Alt+PageUp</kbd></td><td><kbd>Ctrl+Tab</kbd>, <kbd>Ctrl+Shift+Tab</kbd>, <kbd>Cmd+Alt+PageDown</kbd>, <kbd>Cmd+Alt+PageUp</kbd></td></tr>
+  <tr><td>Jump to tab 1 to 9, the last for 9</td><td><kbd>Ctrl+1</kbd> to <kbd>Ctrl+9</kbd></td><td><kbd>Cmd+1</kbd> to <kbd>Cmd+9</kbd></td></tr>
+  <tr><td>Split view, or close the split</td><td><kbd>Ctrl+\</kbd></td><td><kbd>Cmd+\</kbd></td></tr>
+  <tr><td>Show or hide the sidebar</td><td><kbd>Ctrl+B</kbd></td><td><kbd>Cmd+B</kbd></td></tr>
+  <tr><td>Ask the agent, when the AI chat is on</td><td><kbd>Ctrl+Alt+A</kbd></td><td><kbd>Cmd+Alt+A</kbd></td></tr>
+  <tr><td>Keyboard shortcuts</td><td><kbd>Ctrl+/</kbd></td><td><kbd>Cmd+/</kbd></td></tr>
+  </tbody>
+</table></div>
+
+<p>Focus canvas hides the sidebars so the canvas has the whole window. It is in the More menu of an editor, with the shortcut <kbd>Ctrl+Alt+Shift+M</kbd> (<kbd>Cmd+Alt+Shift+M</kbd> on a Mac). A second press shows them again. It is not remembered.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"This page has lost its link to Penstock."</dt>
+  <dd>The key belongs to one run. After <code>penstock web</code> was restarted, use the link it printed in the terminal. Unsaved changes stay in the browser and come back when you open the project again.</dd>
+  <dt>"The port should be a number from 0 to 65535".</dt>
+  <dd>Give <code>--port</code> a whole number, or leave it out.</dd>
+  <dt>"The address should be an IP address or a host name".</dt>
+  <dd>Check <code>--host</code>. Leave it out to listen on this machine only.</dd>
+  <dt>"The editor page is not part of this build, so only the API answers."</dt>
+  <dd>The installation lacks the editor page. Install the command line again with <code>npm install -g @kern0x1b/penstock-cli</code>. Setting <code>PENSTOCK_WEB_ROOT</code> to a built page serves that page instead.</dd>
+  <dt>"Penstock is unable to open a browser."</dt>
+  <dd>Open the link above the message yourself.</dd>
+  <dt>"The server is serving another project now."</dt>
+  <dd>The project was changed in another tab. Reload the page to follow it.</dd>
+  <dt>"Running tests from code needs an IDE."</dt>
+  <dd>The page does not run the tests of a worker. Run <code>penstock scenarios run</code> in a terminal. See <a href="commands.html#scenarios-run">scenarios run</a>.</dd>
+</dl>

@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html" aria-current="page">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -220,7 +229,10 @@
   <tr><td>Go to the worker</td><td>A step that a worker runs</td><td>Opens the code that runs it. See <a href="code-links.html">Code links</a>.</td></tr>
   <tr><td>Show the decision rule</td><td>A business rule task</td><td>Opens a view of the rule that matches, one level deeper in the tab, with <strong>&#8249;</strong> back to the steps.</td></tr>
   <tr><td>Open the decision</td><td>A business rule task</td><td>Opens the decision file at that decision. If the project has no decision with that id, it says so.</td></tr>
+  <tr><td>Fill the form</td><td>A user task with a form</td><td>Shows the form of the task, as a person sees it, one level deeper in the tab. Type the values: they become the variables of the step. If the project has no form with that id, it says so. While a run waits at that task, the form has a <span class="ui">Complete</span> button that answers it with what you typed.</td></tr>
   <tr><td>Go to the form</td><td>A user task with a form</td><td>Opens the form file. If the project has no form with that id, it says so.</td></tr>
+  <tr><td>Answer timer</td><td>A timer</td><td>Says how far time moves at that timer. See <a href="#answer-a-timer-or-mock-a-worker">Answer a timer or mock a worker</a>.</td></tr>
+  <tr><td>Mock worker</td><td>A step that a worker runs</td><td>Says how the worker answers the job. See <a href="#answer-a-timer-or-mock-a-worker">Answer a timer or mock a worker</a>.</td></tr>
   <tr><td>Wrong way? Fix the conditions</td><td>A gateway</td><td>Shows the conditions on the way out. When the values of the scenario would take another way than the scenario says, they are shown at once.</td></tr>
   </tbody>
 </table></div></div>
@@ -228,6 +240,32 @@
 <h3 id="change-a-scenario"><a href="#change-a-scenario">Change a scenario</a></h3>
 
 <p>The values under a step can be edited: add or remove a variable, change a value. Editing a scenario is part of Pro. Without it the values are read-only and say so. A gateway condition that is wrong is fixed from the step that holds it. That change is made in the diagram, it can be undone there, and every scenario is planned again. A change to a scenario that is in the file is kept in the tab until you press <span class="ui">Save changes</span>, which writes it to the file.</p>
+
+<h3 id="answer-a-timer-or-mock-a-worker"><a href="#answer-a-timer-or-mock-a-worker">Answer a timer or mock a worker</a></h3>
+
+<p>A scenario can say what happens at a timer and what a worker does, without a real worker or a real wait. The two views open from the links under the step, and they are part of editing a scenario, so they are Pro. Like any change to a scenario, the answer is kept in the tab until you press <span class="ui">Save changes</span>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Answer timer</td><td>Type <strong>Advance time by</strong> as an ISO 8601 duration such as <code>PT2H</code> or <code>P1D</code>, and press <span class="ui">Fire timer</span>. A duration that is not one says <em>Write the time as an ISO 8601 duration</em>. A timer that is answered says <em>Timer is set to fire</em>, and <span class="ui">Do not fire</span> takes the answer back. It is saved as an <code>INCREASE_TIME</code> instruction.</td></tr>
+  <tr><td>Mock worker</td><td>Choose the <strong>Outcome</strong>: <span class="ui">Complete job</span> with the <strong>Variables (JSON)</strong> it returns, <span class="ui">Throw BPMN error</span> with an <strong>Error code</strong>, an optional <strong>Error message</strong> and variables, or <span class="ui">Fail job</span> with an <strong>Error message</strong>. Press <span class="ui">Save mock</span>. <span class="ui">Remove mock</span> takes it back. Variables should be a JSON object, such as <code>{"amount": 150}</code>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The answers are written into the test case. Complete and Throw BPMN error become <code>MOCK_JOB_WORKER_COMPLETE_JOB</code> and <code>MOCK_JOB_WORKER_THROW_BPMN_ERROR</code> for the job type of the step, which Camunda Process Test runs as they are. A step with no job type gets a behaviour in the <code>x-penstock</code> block instead. Fail job, which fails the job as many times as you say and then completes it, has no instruction of its own in Camunda's format and is written in the <code>x-penstock</code> block, so the scenario carries the note <em>Penstock only: Camunda Process Test would run it differently</em>. See <a href="scenario-file.html">The scenario file</a>.</p>
+
+<h3 id="rename-duplicate-and-delete-a-scenario"><a href="#rename-duplicate-and-delete-a-scenario">Rename, duplicate and delete a scenario</a></h3>
+
+<p>A scenario that is in the file can be renamed, copied and removed from the Scenarios tab.</p>
+
+<ol class="steps">
+  <li>Open the scenario, or right-click its row in the list. The row under the tabs has a <span class="ui">Scenario actions</span> button.</li>
+  <li>Choose <span class="ui">Rename</span> and type the new name in the row under the tabs, or choose <span class="ui">Duplicate</span> to add a copy, or <span class="ui">Delete scenario</span>.</li>
+  <li>A rename says <em>Renamed to &hellip;</em>. A duplicate says <em>Duplicated as &hellip;</em> and opens the copy. A name that the file already has is refused: <em>already has a scenario named &hellip;: choose another name</em>.</li>
+  <li>Delete asks first: <em>Delete scenario &hellip;?</em> and <em>&hellip; is removed from &hellip;. This cannot be undone.</em> Pressing <span class="ui">Delete scenario</span> removes it from the file. Cancel leaves it.</li>
+</ol>
+
+<p>These write the scenario file at once. The scenarios you did not touch stay as they are. Editing is part of Pro, so without it the actions are not offered.</p>
 
 <h3 id="after-a-run"><a href="#after-a-run">After a run</a></h3>
 
@@ -270,7 +308,7 @@
 
 <p>A step can be answered by the real worker, or by a mock: complete it, throw a BPMN error, fail a number of times and then complete, or ask. A timer can be made to fire at once. Each step a mock answered carries a Mocked badge on the canvas, and the table under the run says what each step received, sent and changed, and where each value came from.</p>
 
-<p>Every test case is checked against the Camunda test-case schema before the run starts. A case that lacks what the schema requires, such as an assertion with no <code>processInstanceSelector</code> or an instruction with a property the schema does not allow, is not run and says what it lacks.</p>
+<p>Every test case is checked against the Camunda Process Test schema, versions 8.9 and 8.10, before the run starts. A case that lacks what the schema requires, such as an assertion with no <code>processInstanceSelector</code> or an instruction with a property the schema does not allow, is not run and says what it lacks. Of the 28 instructions of the two schemas, fifteen run and are written back unchanged. The thirteen that Penstock cannot run yet are named in a message, <em>is not something Penstock can run</em>, instead of being dropped or half run. The list is in <a href="scenario-file.html">The scenario file</a>.</p>
 
 <p>A run never touches the definitions you deployed. It builds a copy whose ids are prefixed with <code>penstock.&lt;run&gt;.</code>, every process, decision, form and the calls between them, deploys that, and removes it afterwards, so what is left on the engine is what you deployed and the process id you start is the one you deployed.</p>
 
@@ -313,7 +351,7 @@
   }
 }</code></pre>
 
-<p>A scenario that needs a behaviour is tagged <span class="tag">Penstock only</span>, because Camunda Process Test would run it differently.</p>
+<p>A scenario that needs a behaviour carries the note <em>Penstock only: Camunda Process Test would run it differently</em>.</p>
 
 <h2 id="run-many-scenarios-at-once"><a href="#run-many-scenarios-at-once">Run many scenarios at once</a></h2>
 
@@ -380,7 +418,7 @@ penstock scenarios run . --teamcity</code></pre>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/transaction-boundaries.html"><span>Previous</span>Transaction boundaries</a>
-<a class="next" href="../guide/scenario-file.html"><span>Next</span>The scenario file</a>
+<a class="next" href="../guide/debug-process.html"><span>Next</span>Debug a process</a>
 </nav>
 </main>
 </div>

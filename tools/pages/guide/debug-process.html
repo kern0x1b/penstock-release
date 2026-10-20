@@ -1,0 +1,97 @@
+<!--
+title: Debug a process
+lede: Debug runs a copy of the open process on a local or test engine, stops at the breakpoints you set on the canvas, and lets you read and change the variables before it goes on. The copy and its instances are removed when the session ends.
+tags: pro
+needs: An engine on this machine, or one marked deployment.forTests: true
+related: scenarios, monitor, timeline, token-simulation, code-links, engine-profiles, security
+-->
+<h2>What it is</h2>
+
+<p>A breakpoint on the diagram, as in a debugger for code: the process runs, stops before the step you marked, shows you the variables, and waits. You change a value if you want, then continue, or step to the next element. It works on Camunda 7, Camunda 8, Operaton and CIB seven.</p>
+
+<p>It is not the other tools that look similar:</p>
+
+<ul>
+  <li><a href="token-simulation.html">Token simulation</a> is a picture. Nothing runs.</li>
+  <li><a href="scenarios.html">Scenarios</a> run the process with mocks that you chose, and check what it did.</li>
+  <li><a href="monitor.html">Monitor</a> looks at instances that run on their own.</li>
+  <li>The debugger of your code, whose position <a href="code-links.html">Code links</a> draws on the diagram, stops a worker. Debug stops the process.</li>
+</ul>
+
+<div class="callout warn">
+  <span class="label">Real work</span>
+  <p>The copy runs the real tasks of your process. A worker or a delegate on the engine that picks up one of its jobs does real work. So use an engine you can break.</p>
+</div>
+
+<h2>Before you begin</h2>
+
+<ol class="steps">
+  <li>Connect an engine. Debug uses the engine of the profile in force. See <a href="engine-profiles.html">Engines</a>.</li>
+  <li>The engine has to be one Penstock may run tests on: <code>deployment.forTests: true</code> in <code>penstock.yaml</code>, or an engine on this machine that you confirm once. Every other engine is refused. See <a href="security.html">Security and privacy</a>.</li>
+  <li>Without an engine, the Debug tab says <em>No engine to debug on.</em> and offers <span class="ui">Set up connection&hellip;</span>.</li>
+</ol>
+
+<h2>Set breakpoints</h2>
+
+<ol class="steps">
+  <li>Select a step.</li>
+  <li>Press <span class="ui">Toggle breakpoint on selection</span> in the Debug tab, or choose <span class="ui">Toggle breakpoint</span> in the <span class="ui">More</span> menu. A dot appears on the corner of the step.</li>
+  <li>To remove one, click its dot, or press <span class="ui">Remove</span> in the list of breakpoints in the Debug tab. A click on a row of the list selects the step.</li>
+</ol>
+
+<p>A breakpoint can sit on a task, a sub-process, a transaction, a call activity, a gateway and an intermediate catch or throw event. A start event, an end event and a boundary event cannot have one. Breakpoints are kept for the file, so they are there when you open it again. A breakpoint on a step that is gone is dropped when you start.</p>
+
+<h2>Run it</h2>
+
+<ol class="steps">
+  <li>Open the <strong>Debug</strong> tab of the <a href="sidebar.html">sidebar</a>, or choose <span class="ui">Debug process</span> in the <span class="ui">More</span> menu.</li>
+  <li>If the file has several processes, choose one under <span class="ui">Process</span>.</li>
+  <li>Type the <strong>Start variables (JSON)</strong>: an object such as <code>{"amount": 5}</code>. Leave <code>{}</code> to start with none.</li>
+  <li>Press <span class="ui">Start debugging</span> to run to the first breakpoint, or <span class="ui">Start and step</span> to stop before the first step.</li>
+  <li>If the engine is not marked for tests, Penstock asks <em>Debug on this engine?</em> first and says what it will do: deploy the copy as <code>&lt;process id&gt;__debug</code>, start an instance of it, and remove the copy when you stop. Press <span class="ui">Debug</span>.</li>
+</ol>
+
+<p>The tab says what goes on: <em>Deploying the copy</em>, <em>Running</em>, <em>Paused</em>, <em>Finished</em>, <em>Failed</em> or <em>Stopped</em>, and the address of the engine.</p>
+
+<h2>When it stops</h2>
+
+<p>The tab says <em>Paused at a breakpoint</em>, or <em>Paused by a step</em> when you stepped, and names the step. The step on the canvas carries a <em>Paused here</em> badge, and the canvas scrolls to it, into a sub-process if that is where it is. A click on the name in the tab selects it.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Variables</td><td>Every variable of the instance, as a name and a JSON value. Change a value, add a variable with <span class="ui">Add variable</span>, and the change is set before the process goes on. A value should be valid JSON, so text needs quotes.</td></tr>
+  <tr><td>Continue</td><td>Runs on to the next breakpoint, or to the end.</td></tr>
+  <tr><td>Step</td><td>Runs to the next element and stops there.</td></tr>
+  <tr><td>Stop</td><td>Ends the session: the instance is cancelled and the copy is removed.</td></tr>
+  </tbody>
+</table></div>
+
+<p>While the process runs, the tab counts <em>Steps passed so far</em>. When it reaches a task that something outside the debugger has to do, a worker, a timer, a message or a user task, it says <em>Waiting for something outside the debugger</em> and goes on when that happens. If the instance gets an incident the session ends with <em>The instance has an incident</em> and the reason.</p>
+
+<h2>The copy</h2>
+
+<p>The debug copy is a separate definition named <code>&lt;process id&gt;__debug</code>. Your deployed process is never touched, so what runs on the engine is not changed by a debug session. Penstock puts a small pause of its own in front of each step that has a breakpoint and answers it itself, so the pause is not a task for your workers. The copy starts at one plain start event: the other start events, the ones with a message, a timer or another trigger, are left out of the copy. If every start event has a trigger, the first loses its trigger.</p>
+
+<p>When the session ends, Penstock cancels the instance and removes the copy, and the tab says <em>The debug copy &hellip; was removed from the engine.</em> If the engine cannot do it, the tab says <em>The debug copy could not be removed</em>, names what was left on the engine and why, and tries again when you open the tab or when you press <span class="ui">Try again</span>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>Dots on the canvas for the breakpoints, and a badge on the step where the process is paused.</li>
+  <li>The Debug tab, with the state, the variables while paused, the list of breakpoints and, at the end, the clean-up.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>"No engine to debug on."</dt>
+  <dd>The profile in force has no address, or the engine is neither on this machine nor marked <code>deployment.forTests: true</code>. See <a href="settings.html">penstock.yaml</a>.</dd>
+  <dt>The process does not stop.</dt>
+  <dd>The breakpoint is on a step the process does not reach, or on one that cannot have a breakpoint. Look at the dots on the canvas, or start with <span class="ui">Start and step</span>.</dd>
+  <dt>It stops at a task and says <em>Waiting for something outside the debugger</em>.</dt>
+  <dd>The task needs a worker, a timer, a message or a person, as it does when the process runs for real. Start the worker, or give the process what it waits for.</dd>
+  <dt>"The engine did not report the debug copy after deploying it."</dt>
+  <dd>The deployment did not arrive. Check the address and the user of the profile, then start again.</dd>
+  <dt>A debug copy is left on my engine.</dt>
+  <dd>Open the Debug tab. Penstock tries again to remove it, and <span class="ui">Try again</span> asks at once.</dd>
+</dl>

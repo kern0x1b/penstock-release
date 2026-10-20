@@ -3,7 +3,7 @@ title: Process tests and coverage
 lede: Penstock lists every way through a process, writes a JUnit test for each, and shows on the diagram what your tests reach.
 tags: pro
 needs: Team in a pipeline
-related: scenarios, code-links, cli/commands, jetbrains/test-runner
+related: scenarios, scenario-file, debug-process, code-links, cli/commands, jetbrains/test-runner
 -->
 <h2>Three tools, one idea</h2>
 
@@ -16,6 +16,8 @@ related: scenarios, code-links, cli/commands, jetbrains/test-runner
 </ul>
 
 <p>Running the scenarios against an engine, without JUnit, is <a href="scenarios.html">Scenarios</a>. The older command names <code>paths</code> and <code>tests</code> still work and are left out of the help.</p>
+
+<p>A scenario saved as a test case, in the JSON format of Camunda Process Test, is checked against that format's schema, versions 8.9 and 8.10, before it runs. Of the 28 instructions of the two schemas, fifteen run and are written back unchanged, and the thirteen Penstock cannot run yet are named in a message instead of being dropped. See <a href="scenario-file.html">The scenario file</a>. To stop a running process at a step and look at its variables, see <a href="debug-process.html">Debug a process</a>.</p>
 
 <h2>List the ways through</h2>
 

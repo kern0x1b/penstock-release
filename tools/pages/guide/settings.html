@@ -149,9 +149,27 @@ profiles:
 
 <h2>What is not in the file</h2>
 
-<p>Anything about how your editor looks: which toolbar actions are pinned, whether the tour has been seen, the editor theme, Sketchy drawing, the width of the sidebar and the tab you left selected, tree or flat view of the project model, the last export format. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
+<p>Anything about how your editor looks or behaves: which toolbar actions are pinned, whether the tour has been seen, the editor theme, Sketchy drawing, the width of the sidebar and the tab you left selected in each editor, whether the palette is folded, tree or flat view of the project model, the last export format, and the AI chat. That is yours, not the project's. It lives in <code>~/.penstock/preferences.json</code>, or under <code>PENSTOCK_HOME</code> when that is set. See <a href="files.html">Files Penstock reads and writes</a>.</p>
 
-<h2>Language</h2>
+<h2>Your preferences</h2>
+
+<p>The file is written by Penstock when you change something, from any tool, and is shared by all of them. You do not need to edit it, but you can. A value that Penstock does not understand is read as its default.</p>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>theme</code></td><td>The editor theme: <code>ide</code> to follow your tool, or <code>light</code>, <code>dark</code> or <code>dracula</code>. Chosen with <span class="ui">Editor theme</span> in the <span class="ui">More</span> menu. A theme that an earlier release saved in a project is taken over once.</td></tr>
+  <tr><td><code>aiChat</code></td><td>Where the AI chat is shown: <code>off</code>, <code>bottom</code> (the default) or <code>sidebar</code>. One control, <span class="ui">AI chat</span>, in the agents screen. <code>off</code> removes the input, the chats, the Chat tab, the toolbar button and the agent process. A value Penstock does not know is read as <code>bottom</code>.</td></tr>
+  <tr><td><code>agentsEnabled</code>, <code>agentSelected</code>, <code>agentOptions</code>, <code>agents</code></td><td>The agents that are on, the one new chats start with, the model, level and mode remembered for each agent, and agents you added. All set in the agents screen. See <a href="agents.html">AI agents</a>.</td></tr>
+  <tr><td><code>suggestNextBlock</code>, <code>suggestions</code></td><td>On unless <code>false</code>. The first draws the element most likely to come next as a ghost beside a dead end; the second offers a name, a source or an expression as ghost text in a field of the properties panel. <kbd>Tab</kbd> accepts, <kbd>Esc</kbd> dismisses. Both are free.</td></tr>
+  <tr><td><code>toolbarPinned</code>, <code>toolbarUnpinned</code></td><td>Your toolbar choices, kept as the difference from the defaults, so an action added later still shows up. See <a href="toolbar.html">The toolbar and the More menu</a>.</td></tr>
+  <tr><td><code>sidebarWidth</code>, <code>sidebarByEditor</code>, <code>paletteCollapsed</code></td><td>The width of the sidebar, the tab and the state of the sidebar in each of the three editors, and whether the palette is folded to its handle. A palette on a small canvas folds by itself until you open it.</td></tr>
+  <tr><td><code>locale</code></td><td>The language of the editors. See <a href="#language">Language</a> below.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The file is readable by its owner only: Penstock creates it with owner-only permissions, and writes it as a whole, never half. It holds no secret.</p>
+
+<h2 id="language">Language</h2>
 
 <p>The editors, the messages and the command line are in English, German, Spanish, French, Japanese, Korean, Portuguese (Brazil), Russian and simplified Chinese. The pages of this guide and the rule pages are in English.</p>
 

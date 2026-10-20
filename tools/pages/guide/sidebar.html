@@ -2,7 +2,7 @@
 title: The sidebar
 lede: The sidebar runs the full height of the editor beside the canvas, with a row of tabs along its top: the properties of what is selected, the scenarios of a process, what the check found, the comments, what the engine is doing and the code behind a step.
 tags: free
-related: properties-panel, scenarios, diagram-check, comments, monitor, code-links, dmn-editor, form-editor, toolbar
+related: properties-panel, ai-chat, scenarios, diagram-check, comments, monitor, code-links, dmn-editor, form-editor, toolbar
 -->
 <h2>What it is</h2>
 
@@ -20,9 +20,9 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
 <div class="table-wrap"><table>
   <thead><tr><th>Editor</th><th>Tabs, in order</th></tr></thead>
   <tbody>
-  <tr><td>A diagram</td><td>Properties, Scenarios, Problems, Comments, Monitor, Code</td></tr>
-  <tr><td>A decision</td><td>Properties, Problems, Try</td></tr>
-  <tr><td>A form</td><td>Properties, Preview, Problems</td></tr>
+  <tr><td>A diagram</td><td>Properties, Chat, Problems, Scenarios, Comments, Code, Monitor, Debug</td></tr>
+  <tr><td>A decision</td><td>Properties, Chat, Problems, Try</td></tr>
+  <tr><td>A form</td><td>Properties, Chat, Preview, Problems</td></tr>
   </tbody>
 </table></div>
 
@@ -39,6 +39,7 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
   <thead><tr><th>Tab</th><th>Editor</th><th>What it holds</th></tr></thead>
   <tbody>
   <tr><td>Properties</td><td>All three</td><td>The settings of the selected element, in the groups the engine defines. In a decision, the id, name and documentation of the selected decision. <a href="properties-panel.html">The properties panel</a>.</td></tr>
+  <tr><td>Chat</td><td>All three</td><td>The conversation with the AI agent about the file you have open, with its own input at the foot. Present whenever the AI chat is on. <a href="ai-chat.html">AI chat</a>.</td></tr>
   <tr><td>Scenarios</td><td>Diagram</td><td>The ways through this process, generated from the diagram or written by hand, and run against an engine. Open a scenario to read it step by step. <a href="scenarios.html">Scenarios</a>.</td></tr>
   <tr><td>Problems</td><td>All three</td><td>Everything the check found, in groups. The diagram's list has a group for each kind of finding. The decision's and the form's is one list. <a href="diagram-check.html">Diagram check</a>.</td></tr>
   <tr><td>Comments</td><td>Diagram</td><td>The comments on the elements of the diagram, and the thread of the selected element. <a href="comments.html">Comments</a>.</td></tr>
@@ -98,6 +99,8 @@ related: properties-panel, scenarios, diagram-check, comments, monitor, code-lin
   <dd>The editor is narrow, so the sidebar is a drawer. Press the button on the bar to open it again, or make the editor wider.</dd>
   <dt>Monitor says there is no engine.</dt>
   <dd>It asks for the address of the profile in force. <a href="monitor.html">Monitor</a> has what to set.</dd>
+  <dt>There is no Chat tab.</dt>
+  <dd>The AI chat is off. Choose where it is shown under <span class="ui">General</span> in the agents screen. See <a href="agents.html#general">AI agents</a>.</dd>
   <dt>Scenarios says it needs Pro.</dt>
   <dd>Scenarios is Pro on your machine and Team in a pipeline. <a href="plans.html">Plans and licence</a>.</dd>
   <dt>A tab is missing.</dt>

@@ -56,6 +56,8 @@
     <ul>
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -70,6 +72,10 @@
       <li><a href="../guide/elements.html">BPMN elements</a></li>
       <li><a href="../guide/editing.html">Editing a diagram</a></li>
       <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
@@ -93,6 +99,8 @@
     <summary>Test and run</summary>
     <ul>
       <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html" aria-current="page">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
@@ -106,6 +114,7 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
       <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
@@ -161,6 +170,8 @@
 </ul>
 
 <p>Running the scenarios against an engine, without JUnit, is <a href="scenarios.html">Scenarios</a>. The older command names <code>paths</code> and <code>tests</code> still work and are left out of the help.</p>
+
+<p>A scenario saved as a test case, in the JSON format of Camunda Process Test, is checked against that format's schema, versions 8.9 and 8.10, before it runs. Of the 28 instructions of the two schemas, fifteen run and are written back unchanged, and the thirteen Penstock cannot run yet are named in a message instead of being dropped. See <a href="scenario-file.html">The scenario file</a>. To stop a running process at a step and look at its variables, see <a href="debug-process.html">Debug a process</a>.</p>
 
 <h2 id="list-the-ways-through"><a href="#list-the-ways-through">List the ways through</a></h2>
 
@@ -297,6 +308,8 @@ The tests need these test dependencies in pom.xml:
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/scenario-file.html">The scenario file</a> - The test-case format, the instructions Penstock runs and refuses, and x-penstock.</li>
+<li><a href="../guide/debug-process.html">Debug a process</a> - Stop a running copy of the process at breakpoints.</li>
 <li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 <li><a href="../jetbrains/test-runner.html">Tests in the IDE</a> - Test-case files in the test runner, gutter icons, process tests, coverage.</li>
