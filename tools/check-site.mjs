@@ -60,12 +60,12 @@ for (const page of pages) {
     if (/\.(css|js|woff2?|png|svg)(\?|$)/.test(url) || /fonts\.(googleapis|gstatic)/.test(url)) problems.push(`${relative}: loads ${url} from another site`);
   }
   const scripts = [...html.matchAll(/<script\b[^>]*>/gi)].map((match) => match[0]);
-  const allowed = relative === path.join('guide', 'plans.html') && checkoutSettings().embed === true;
+  const allowed = [path.join('guide', 'plans.html'), path.join('pricing', 'index.html')].includes(relative) && checkoutSettings().embed === true;
   for (const script of scripts) {
     if (/type=["']application\/ld\+json["']/i.test(script)) continue;
     if (script === '<script>' && html.includes(`<script>${THEME_SCRIPT}</script>`)) continue;
     if (ANALYTICS_TOKEN && script.startsWith(`<script defer src="${BEACON}" data-cf-beacon=`)) continue;
-    if (!(allowed && /src="\.\.\/vendor\/polar-checkout\/embed\.global\.js"/.test(script))) problems.push(`${relative}: has a script that is not the vendored checkout: ${script}`);
+    if (!(allowed && /src="(\.\.\/)+vendor\/polar-checkout\/embed\.global\.js"/.test(script))) problems.push(`${relative}: has a script that is not the vendored checkout: ${script}`);
   }
   if (html.includes('data-polar-checkout') && !allowed) problems.push(`${relative}: has a checkout button but no checkout script, or the embed is off`);
   const legal = /^(license|notices)\//.test(relative);

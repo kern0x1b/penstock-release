@@ -167,6 +167,7 @@ ${rendered}</main>
       withSidebar: false,
       wrap: 'bare',
       section: 'site',
+      checkout: meta.checkout === 'true',
       jsonLd: graph(meta, slug, rendered, title, description),
     });
     const out = path.join(root, 'docs', slug);
