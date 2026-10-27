@@ -37,7 +37,7 @@ function buyLink(prices, plan, embed, quiet) {
 }
 
 const ABOUT = {
-  pro: 'For your own machine. Adds what only Penstock does: auto layout, flow analysis, code links, test-case runs, the visual diagram diff and more.',
+  pro: 'For your own machine. Adds what only Penstock does: auto layout, flow analysis, code links, test-case runs and more.',
   team: 'Everything in Pro, inside a pipeline as well: the review bot, pull request reports, baselines and SARIF.',
 };
 

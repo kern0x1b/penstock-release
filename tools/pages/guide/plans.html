@@ -27,11 +27,11 @@ related: sign-in, security, faq
   <tr>
     <td><span class="tag free">Free</span></td>
     <td>
-      <p>In the editors: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in a code editor of your tool, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Monitor, export, the hand-drawn look, opening a run that already exists, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
+      <p>In the editors: the BPMN, DMN and form editors, the properties panels, element templates and the connector browser, scripts in a code editor of your tool, token simulation, the diagram check with the drawing and the bpmnlint rules, deploy, Monitor, export, the hand-drawn look, opening a run that already exists, the visual <a href="diagram-diff.html">diagram diff</a> in version control, going from a Camunda 7 delegate to its class or bean, sharing a diagram as one HTML file, and importing from draw.io, Visio, Signavio and Bizagi.</p>
       <p>The Camunda 7 to Camunda 8 analysis and its report are free too.</p>
       <p>The command palette and every action in it, the sidebar, the check card and the Problems tab, transaction boundaries, the first-run tour, and the findings in your tool's own Problems window.</p>
       <p>On the command line: <code>init</code>, <code>doctor</code>, <code>check</code> (the drawing, rules and form sections), <code>migrate analyze</code> and <code>migrate report</code>, <code>fmt</code>, <code>diff</code>, <code>export</code>, <code>show</code>, <code>deploy</code>, <code>share</code>, <code>import</code>, <code>connectors</code>, <code>license</code>, <code>trust</code>, <code>templates check</code>, <code>update</code>, <code>mcp</code> (the server itself), and <code>edit --schema</code>.</p>
-      <p>The MCP tools <code>list_diagrams</code>, <code>show_diagram</code> and <code>check_diagram</code>, which only read and explain.</p>
+      <p>The MCP tools <code>list_diagrams</code>, <code>show_diagram</code>, <code>element_context</code>, <code>check_diagram</code>, <code>search_elements</code>, <code>diff_diagrams</code> and <code>export_image</code>, which only read, explain and draw, on BPMN, DMN and form files.</p>
     </td>
   </tr>
   <tr>
@@ -40,7 +40,7 @@ related: sign-in, security, faq
       <ul>
         <li><a href="auto-layout.html">Auto layout</a>.</li>
         <li><a href="flow-analysis.html">Flow analysis</a>, and the decision table check. The form check is lint, so it is free.</li>
-        <li>The visual <a href="diagram-diff.html">diagram diff</a>, and pictures of what changed.</li>
+        <li>Pictures of what changed in the visual <a href="diagram-diff.html">diagram diff</a>, from <code>penstock diff --images</code>.</li>
         <li>Modelling conventions from <code>penstock.yaml</code>.</li>
         <li><a href="migration.html">Converting Camunda 7 to Camunda 8</a>: the preview, <code>penstock migrate convert</code> and the job worker skeletons.</li>
         <li><a href="scenarios.html">Scenarios</a>: test cases on a local engine, step by step.</li>
@@ -49,7 +49,7 @@ related: sign-in, security, faq
         <li>The link between diagrams and code: <a href="code-links.html">code links</a>. From a step to its worker and back, usages, hints above the code, variables and error codes across both, tests run from the diagram, <a href="process-tests.html">coverage</a> on it, the debugger's position on the diagram, linked repositories, and <a href="check-workers.html">Check Workers</a>.</li>
         <li>In the command line: <code>layout</code>, <code>check --only flow</code>, <code>scenarios list</code>, <code>junit</code>, <code>scenarios run</code>, <code>scenarios generate</code>, <code>code</code>, <code>templates generate</code>, <code>docs</code>, <code>diff --images</code>, <code>edit</code>, <code>report</code>, check baselines, and findings as SARIF or GitHub annotations.</li>
         <li>The review bot, when you run it on your machine.</li>
-        <li>The MCP tools <code>analyze_flow</code>, <code>list_scenarios</code>, <code>check_code_links</code> and <code>edit_diagram</code>. Each needs the same plan as its command line twin.</li>
+        <li>The MCP tools <code>analyze_flow</code>, <code>list_scenarios</code>, <code>check_code_links</code>, <code>edit_diagram</code>, <code>layout_diagram</code> and <code>run_scenarios</code>, and the gap and overlap check of <code>check_diagram</code> on a DMN decision table. Each needs the same plan as its command line twin.</li>
       </ul>
     </td>
   </tr>

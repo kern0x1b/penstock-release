@@ -801,7 +801,7 @@ src/main/resources/order-process.bpmn
 
 <p><strong>Write documentation for every process, decision file and form: a page each, with the picture, the steps, the decisions, the events and the data.</strong></p>
 
-<pre><code>penstock docs [paths...] [--format html|md] [--out &lt;dir&gt;]</code></pre>
+<pre><code>penstock docs [paths...] [--format html|md|docx|pdf] [--out &lt;dir&gt;]</code></pre>
 
 <pre><code>$ penstock docs . --out docs-out
 wrote docs-out/approve-order.html
@@ -810,19 +810,22 @@ wrote docs-out/shipping-method.html
 wrote docs-out/index.html
 
 3 diagram(s) documented.</code></pre>
-<p>A page for each process: its picture, steps with what runs them and who, decisions and conditions, events, the data each step sets and reads, and whether it runs to its end. A page for each <code>.dmn</code> file with every decision's rules as a table, its hit policy in words and the table check. A page for each form with the variable every field writes. HTML by default, <code>--format md</code> for a wiki.</p>
+<p>A page for each process: its picture, steps with what runs them and who, decisions and conditions, events, the data each step sets and reads, and whether it runs to its end. A page for each <code>.dmn</code> file with every decision's rules as a table, its hit policy in words and the table check. A page for each form with the variable every field writes. HTML by default, <code>--format md</code> for a wiki, <code>--format docx</code> for a Word file and <code>--format pdf</code> for a PDF. Word and PDF hold the same content as the HTML page, one file for each diagram, with the picture drawn as a vector, so it stays sharp at any zoom. They have no index page. A PDF uses a font the machine already has when a name or a note holds characters outside Western European languages (Cyrillic, Greek, Chinese, Japanese, Korean), and says which characters it could not show when none has them; the Word file leaves the font to Word.</p>
 
 <div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--format &lt;html|md&gt;</code></td><td>html or md.</td></tr>
+  <tr><td><code>--format &lt;html|md|docx|pdf&gt;</code></td><td>html, md, docx or pdf.</td></tr>
   <tr><td><code>--out &lt;dir&gt;</code></td><td>Where the pages are written.</td></tr>
   <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
   </tbody>
 </table></div>
 
 <p><strong>Example</strong></p>
-<pre><code>$ penstock docs --format md --out docs/processes</code></pre>
+<pre><code>$ penstock docs --format docx --out docs/processes
+wrote docs/processes/order-process.docx
+
+1 page written (1 process)</code></pre>
 
 <p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
 

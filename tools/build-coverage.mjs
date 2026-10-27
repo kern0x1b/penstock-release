@@ -62,7 +62,7 @@ const { FEATURES, featureTitle } = await load('libs/core/src/node/features.ts');
 const GATED = { 'auto-layout': 'Auto layout', 'flow-analysis': 'Flow analysis', docs: 'docs', paths: 'scenarios list', tests: 'junit', 'code-links': 'code links', 'element-templates': 'templates generate', 'changes-pictures': 'diff --images', edit: 'edit', 'pr-report': 'report', bot: 'review bot', baseline: 'baseline', 'ci-annotations': 'SARIF', 'test-runs': 'scenarios run', 'test-case-generation': 'scenarios generate', migration: 'migrate convert' };
 for (const feature of FEATURES) add('tier-gate', `${feature}: ${featureTitle(feature)}`, 'libs/core/src/node/features.ts', [`T:${GATED[feature]}`], { tier: 'Pro', only: ['guide/plans.html'] });
 
-const EDITOR_GATES = { AUTO_LAYOUT: 'Auto layout', CODE_LINKS: 'code links', VISUAL_DIFF: 'diagram diff', CONVENTIONS: 'Modelling conventions', FLOW_ANALYSIS: 'Flow analysis', MIGRATION: 'Converting Camunda 7', TEST_RUNS: 'Scenarios' };
+const EDITOR_GATES = { AUTO_LAYOUT: 'Auto layout', CODE_LINKS: 'code links', CONVENTIONS: 'Modelling conventions', FLOW_ANALYSIS: 'Flow analysis', MIGRATION: 'Converting Camunda 7', TEST_RUNS: 'Scenarios' };
 const gates = read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/license/PenstockLicenseService.kt');
 for (const [, name] of gates.matchAll(/^\s+([A-Z_]+)\(Tier\.PRO,/gm)) add('tier-gate', `editor: ${name}`, 'apps/jetbrains/.../PenstockLicenseService.kt', [`T:${EDITOR_GATES[name] ?? name}`], { tier: 'Pro', only: ['guide/plans.html'] });
 

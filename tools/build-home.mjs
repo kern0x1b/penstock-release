@@ -34,8 +34,8 @@ const body = `<main id="content">
   <h2>Free, with no time limit. Pro when you want more.</h2>
   <p class="prose-note">Everything you need to model, check and deploy is free. Pro adds what only Penstock does.</p>
   <div class="cards">
-    <div class="card"><strong>Free</strong><span>Visual BPMN, DMN and form editors. Properties panels for each engine. Check and bpmnlint. Deploy and Monitor. Token simulation. Export, share and import. Camunda 7 to 8 analysis. MCP tools that list, show and check.</span></div>
-    <div class="card"><strong>Pro, ${price('pro', 'month')} a month or ${price('pro', 'year')} a year</strong><span>Auto layout. Flow analysis. Code links. Scenarios and test-case runs. Visual diagram diff. Camunda 7 to 8 conversion. Sending messages in the AI chat. MCP tools that analyse and edit.</span></div>
+    <div class="card"><strong>Free</strong><span>Visual BPMN, DMN and form editors. Properties panels for each engine. Check and bpmnlint. Deploy and Monitor. Token simulation. Visual diagram diff. Export, share and import. Camunda 7 to 8 analysis. MCP tools that list, show and check.</span></div>
+    <div class="card"><strong>Pro, ${price('pro', 'month')} a month or ${price('pro', 'year')} a year</strong><span>Auto layout. Flow analysis. Code links. Scenarios and test-case runs. Camunda 7 to 8 conversion. Sending messages in the AI chat. MCP tools that analyse and edit.</span></div>
     <div class="card"><strong>Team, ${price('team', 'month')} per seat a month</strong><span>Everything in Pro, inside your pipeline as well: the review bot on pull requests, reports, baselines and SARIF.</span></div>
   </div>
   <p class="prose-note">Every new machine starts with 30 days of Pro. No sign-up, no card. <a href="pricing/">See the full comparison, refunds and VAT</a>. <a href="pricing/#if-you-used-the-old-plugin">Used Camunda BPMN Editor before?</a></p>
