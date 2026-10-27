@@ -1,0 +1,90 @@
+<!--
+title: Penstock FAQ: free vs Pro, trial, rename, data, support
+description: Answers before you install or buy: what is free, how the 30-day trial works, what happened to Camunda BPMN Editor, and what leaves your machine.
+h1: Frequently asked questions
+lede: The questions people ask before they install or buy. The guide has its own FAQ for using the editor.
+jsonld: faq
+crumb: FAQ
+-->
+<p>Looking for how to use the editor? See the <a href="@guide/faq.html">guide FAQ</a>.</p>
+
+<h2 id="basics">Basics</h2>
+
+<details class="faq" id="what-is-penstock"><summary>What is Penstock?</summary>
+<p>A visual editor for BPMN, DMN and Camunda forms that runs inside JetBrains IDEs and VS Code, with a command line that runs the same checks in your pipeline. It works with Camunda 7, Camunda 8, Operaton and CIB seven.</p></details>
+
+<details class="faq" id="formerly-camunda-bpmn-editor"><summary>What happened to Camunda BPMN Editor?</summary>
+<p>It was renamed Penstock in 2026. It is the same plugin from the same author, with the same plugin ID, so it updates in place and nothing needs to be reinstalled.</p></details>
+
+<details class="faq" id="version-numbers"><summary>Why did the version number jump from 2.4.1 to 26.9?</summary>
+<p>Since September 2026 releases are numbered by the calendar: YY.M.N. Version 26.10.2 is the second release of October 2026.</p></details>
+
+<details class="faq"><summary>Is Penstock affiliated with Camunda?</summary>
+<p>No. It is an independent product. Camunda is a trademark of Camunda Services GmbH, and the name is used only to say which engines Penstock works with.</p></details>
+
+<h2 id="plans">Free, Pro and Team</h2>
+
+<details class="faq"><summary>Is it really free?</summary>
+<p>Yes, with no time limit. The editors, properties panels, check and bpmnlint, deploy, Monitor, token simulation, export, share and import are free. See the <a href="../pricing/#compare">comparison</a>.</p></details>
+
+<details class="faq"><summary>What do I get with Pro?</summary>
+<p>What only Penstock does: auto layout, flow analysis, code links, scenarios and test-case runs, the visual diagram diff, converting Camunda 7 to Camunda 8, and sending messages in the AI chat. Pro is {{price:pro:month}} a month or {{price:pro:year}} a year. Team adds the same inside a pipeline, at {{price:team:month}} per seat a month.</p></details>
+
+<details class="faq"><summary>Do I have to sign up for the trial?</summary>
+<p>No. Every new machine starts with 30 days of Pro, with no sign-up and no card.</p></details>
+
+<details class="faq"><summary>What happens when the 30-day trial ends?</summary>
+<p>The machine goes back to Free. The editors and everything on the Free list keep working, and a Pro feature asks you to buy when you reach it. Nothing is deleted. See <a href="../pricing/#after-the-trial">what happens when the trial ends</a>.</p></details>
+
+<details class="faq"><summary>Can I restart the trial by reinstalling?</summary>
+<p>No. The trial is per machine and its start date is kept by the licence service, so a reinstall does not give a new one.</p></details>
+
+<details class="faq"><summary>Can I get a refund?</summary>
+<p>Yes. Your first payment is refunded in full on request within {{config:refund.firstPaymentDays}} days, and a renewal within {{config:refund.renewalDays}} days. Write to {{contact}}. Polar processes the refund.</p></details>
+
+<details class="faq"><summary>Do students, teachers and open-source maintainers pay?</summary>
+<p>They can get Pro for free. Write to {{contact}} and say which group you are in. See <a href="@guide/sign-in.html#education">Buying and signing in</a>.</p></details>
+
+<details class="faq"><summary>I used Camunda BPMN Editor. Did I lose anything?</summary>
+<p>Almost nothing. One feature moved: the side-by-side diagram view in the IDE's compare window is part of Pro now. See <a href="../pricing/#if-you-used-the-old-plugin">the details</a>.</p></details>
+
+<h2 id="data">Data and safety</h2>
+
+<details class="faq"><summary>Does Penstock send my diagrams anywhere?</summary>
+<p>No. A diagram goes only to the engine you configure when you deploy, and to the AI agent you choose if you use the AI chat. There is no telemetry. See <a href="@guide/security.html">Security and privacy</a>.</p></details>
+
+<details class="faq"><summary>What does the licence service receive?</summary>
+<p>The licence, a one-way hash of the machine's id and the host name as a label, plus the address a request comes from. Never a diagram. See the <a href="../privacy/#licence-service">privacy policy</a>.</p></details>
+
+<details class="faq"><summary>Does it work offline?</summary>
+<p>Mostly. Deploying, engine questions, connector downloads and licence checks need a connection. A valid licence token keeps working for up to 30 days offline.</p></details>
+
+<details class="faq"><summary>Where do my passwords go?</summary>
+<p>To the secret store of your tool, once for each profile. Never to a project file.</p></details>
+
+<h2 id="tools">Tools and engines</h2>
+
+<details class="faq"><summary>Which tools can I use?</summary>
+<p>JetBrains IDEs from 2023.1, VS Code 1.88 or later, and a command line that needs {{node}}. See <a href="../install/">Install</a>.</p></details>
+
+<details class="faq"><summary>Which engines work?</summary>
+<p>Camunda 7, Camunda 8, Operaton, CIB seven and plain BPMN 2.0.</p></details>
+
+<details class="faq"><summary>Can I keep using Camunda Modeler?</summary>
+<p>Yes. Both edit the same files.</p></details>
+
+<details class="faq"><summary>Does Penstock include an AI model?</summary>
+<p>No. The AI chat starts the agent you choose, on your own account.</p></details>
+
+<h2 id="company">Company and support</h2>
+
+<details class="faq"><summary>Who makes Penstock?</summary>
+<p>{{vendor}}, an individual. See <a href="../about/">About and contact</a>.</p></details>
+
+<details class="faq"><summary>How do I get help?</summary>
+<p>Open an issue on <a href="{{issues}}">GitHub</a> with a sample <code>.bpmn</code> file, or write to {{contact}}.</p></details>
+
+<details class="faq"><summary>How do I report a security problem?</summary>
+<p>Privately. Read the <a href="{{repo}}/blob/main/SECURITY.md">security policy</a>, and do not open a public issue.</p></details>
+
+<div class="cta"><a class="btn" href="../install/">Install free</a><a class="btn quiet" href="../pricing/">See pricing</a></div>

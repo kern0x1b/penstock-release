@@ -1,0 +1,115 @@
+<!--
+title: Penstock pricing: free, Pro {{price:pro:month}}/mo, Team {{price:team:month}}/seat
+description: Penstock is free, with no time limit. Pro is {{price:pro:month}}/mo or {{price:pro:year}}/yr, Team {{price:team:month}}/seat/mo. 30-day Pro trial, no sign-up. Refunds and VAT explained.
+h1: Free, with no time limit. Pro when you want more.
+lede: Penstock is a full BPMN, DMN and forms editor you can use every day without paying. Pro and Team add what only Penstock does. Every new machine starts with 30 days of Pro, with no sign-up and no card.
+jsonld: product-pricing, faq
+crumb: Pricing
+wide: true
+-->
+<h2 id="plans">Choose a plan</h2>
+
+{{plans}}
+
+<p>Yearly costs the same as ten months: Pro is {{price:pro:year}} a year instead of 12 times {{price:pro:month}}, and Team is {{price:team:year}} a seat instead of 12 times {{price:team:month}}. Prices are in US dollars. The price you pay is the one shown at checkout.</p>
+
+<p>One rule decides which plan a feature needs: <strong>Pro on your own machine, Team inside a pipeline</strong>. A pipeline is any run where the environment variable <code>CI</code> is set. Individuals do not need Team.</p>
+
+<h2 id="if-you-used-the-old-plugin">If you used Camunda BPMN Editor before</h2>
+
+<p>Penstock is the same plugin under a new name. It updated in place, so nothing needed to be reinstalled. The version number jumped from 2.4.1 to 26.9.0 because releases are now numbered by the calendar: <code>26.10.2</code> is the second release of October 2026.</p>
+
+<p>What the plugin did then is still free: the BPMN, DMN and form editors, the properties panels, element templates, token simulation, bpmnlint, the check, deploy, Monitor, export and the tool window. Everything new since 2.4.1 that only Penstock does, such as flow analysis, code links, scenarios and the AI chat, is Pro.</p>
+
+<p>One thing did move. Release 2.4.1 showed the two versions of a diagram side by side in the IDE's compare window for free. That visual diagram diff is part of Pro now. The text diff of the XML is the IDE's own and is not affected.</p>
+
+<h2 id="after-the-trial">What happens when the trial ends</h2>
+
+<ul>
+  <li>The machine goes back to Free. The editors and everything on the Free list keep working.</li>
+  <li>A Pro feature shows a short message that says what it does and offers to buy or to sign in. Nothing is deleted and no file is changed.</li>
+  <li>The trial is per machine. The licence service keeps its start date, so reinstalling does not start a second one.</li>
+  <li>A pipeline gets no trial: a run where <code>CI</code> is set is Free unless it has a Team key.</li>
+</ul>
+
+<h2 id="compare">Compare plans</h2>
+
+<div class="table-wrap"><table class="compare">
+  <thead><tr><th>What</th><th>Free</th><th>Pro, on your machine</th><th>Team, in a pipeline</th></tr></thead>
+  <tbody>
+  <tr class="group"><th colspan="4">Draw and edit</th></tr>
+  <tr><td>BPMN, DMN and form editors, properties panels, element templates, command palette</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Auto layout</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>AI chat with the agent of your choice</td><td>You can see the input. Sending a message needs Pro.</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr class="group"><th colspan="4">Check</th></tr>
+  <tr><td>The check: drawing problems and bpmnlint rules, token simulation</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Flow analysis, decision table check, modelling conventions</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr class="group"><th colspan="4">Test and run</th></tr>
+  <tr><td>Deploy and Monitor</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Scenarios (test-case runs on a local engine), debug a process</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Code links between tasks and workers, Check Workers, coverage on the diagram</td><td>Not included. Going from a Camunda 7 delegate to its class is free.</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr class="group"><th colspan="4">Share and move</th></tr>
+  <tr><td>Export, share as one HTML file, import from draw.io, Visio, Signavio and Bizagi</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Camunda 7 to 8 analysis and report</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Camunda 7 to 8 conversion</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Visual diagram diff</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr class="group"><th colspan="4">AI assistants and MCP</th></tr>
+  <tr><td>MCP tools that only read: list, show and check diagrams</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>MCP tools that analyse flow, list scenarios, check code links and edit diagrams</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr class="group"><th colspan="4">In your pipeline</th></tr>
+  <tr><td>The free check and lint on the command line</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Review bot, pull request reports, baselines, SARIF and annotations</td><td>Not included</td><td>On your own machine only</td><td class="yes">Included</td></tr>
+  </tbody>
+</table></div>
+
+<p>The list that decides every case is on <a href="@guide/plans.html">Plans and licence</a> in the guide. <a href="../for-teams/">Read about Team</a>.</p>
+
+<h2 id="refunds">Refunds</h2>
+
+<p>If Pro or Team does not work for you, write to {{contact}} and ask. Your <strong>first payment is refunded in full within {{config:refund.firstPaymentDays}} days</strong>. A renewal can be refunded in full within {{config:refund.renewalDays}} days of the charge. Refunds are processed through Polar, the merchant of record, to the payment method you used.</p>
+
+<h2 id="faq">Questions</h2>
+
+<details class="faq"><summary>How does the trial work?</summary>
+<p>Every machine starts with 30 days of Pro. There is nothing to sign up for and no card is asked. The licence status of your tool shows how many days are left. After day 30 the machine is on Free, and a Pro feature asks you to buy when you reach it.</p></details>
+
+<details class="faq"><summary>What happens to my work after the trial?</summary>
+<p>Nothing. Diagrams are your own files in your project. Pro features stop running, and the files stay as they are.</p></details>
+
+<details class="faq"><summary>Can I get a refund?</summary>
+<p>Yes. Write to {{contact}} within {{config:refund.firstPaymentDays}} days of your first payment and it is refunded in full. A renewal can be refunded within {{config:refund.renewalDays}} days of the charge. Polar processes the refund.</p></details>
+
+<details class="faq"><summary>Can I cancel at any time?</summary>
+<p>Yes. Use the link in the receipt Polar sent you, or sign in to Polar's customer portal with the e-mail you bought with. You keep the paid features until the end of the period you paid for.</p></details>
+
+<details class="faq"><summary>What about VAT and sales tax?</summary>
+<p>Polar is the merchant of record. It calculates and collects VAT or sales tax where it applies, and the checkout shows what you pay before you pay it.</p></details>
+
+<details class="faq"><summary>Do I get an invoice?</summary>
+<p>Yes. Polar issues the receipt and the invoice, and handles them for you. They are available through the link in the receipt and Polar's customer portal.</p></details>
+
+<details class="faq"><summary>How do Team seats work?</summary>
+<p>Team is priced per seat, and you choose the number of seats at checkout. You then give the seats to people in Polar's customer portal, by e-mail. Each person who accepts a seat gets a key of their own for three machines. A pipeline uses a Team key stored as a secret and takes no machine's place.</p></details>
+
+<details class="faq"><summary>How many machines does one licence cover?</summary>
+<p>One key covers three machines at once, for Pro and for each Team seat. It works in the JetBrains plugin, the VS Code extension and the command line. You can free a place by signing in on the machine list.</p></details>
+
+<details class="faq"><summary>Do students, teachers and open-source maintainers pay?</summary>
+<p>They can get Pro for free. The application link is not published on the site yet, so write to {{contact}} and say which group you are in, or open an issue on the <a href="{{issues}}">support tracker</a>.</p></details>
+
+<details class="faq"><summary>Does the licence need an internet connection?</summary>
+<p>The licence is a signed token that Penstock checks offline. It is renewed once a day when the machine is online, and a valid token keeps working for up to 30 days without a connection. Buying, signing in and starting a trial need the licence service once.</p></details>
+
+<details class="faq"><summary>What does the licence service receive?</summary>
+<p>The licence, a one-way hash of the machine's id and the host name as a label. It also sees the address a request comes from. Never a diagram. The full list is in the <a href="../privacy/">privacy policy</a>.</p></details>
+
+<details class="faq"><summary>Which currency do you charge in?</summary>
+<p>Prices are in US dollars. Your bank converts them if your card is in another currency.</p></details>
+
+<h2>Start free, upgrade when it earns its keep</h2>
+
+<div class="cta">
+  <a class="btn" href="../install/">Install free</a>
+  <a class="btn quiet" href="{{buy:pro}}" rel="noopener">Buy Pro</a>
+</div>
+<p>Questions? Write to {{contact}}. See also the <a href="../faq/">FAQ</a>, the <a href="../terms/">terms</a> and the <a href="../privacy/">privacy policy</a>.</p>

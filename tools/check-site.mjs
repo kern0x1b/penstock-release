@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { root, THEME_SCRIPT } from './site.mjs';
+import { ANALYTICS_TOKEN, root, THEME_SCRIPT } from './site.mjs';
+
+const BEACON = 'https://static.cloudflareinsights.com/beacon.min.js';
 import { checkoutSettings } from './plans.mjs';
 import { readPrices } from './fetch-prices.mjs';
 import { contrastFailures } from './check-contrast.mjs';
@@ -54,6 +56,7 @@ for (const page of pages) {
   }
   const external = [...html.matchAll(/(?:href|src)="(https?:\/\/[^"]+)"/g)].map((match) => match[1]);
   for (const url of external) {
+    if (ANALYTICS_TOKEN && url === BEACON) continue;
     if (/\.(css|js|woff2?|png|svg)(\?|$)/.test(url) || /fonts\.(googleapis|gstatic)/.test(url)) problems.push(`${relative}: loads ${url} from another site`);
   }
   const scripts = [...html.matchAll(/<script\b[^>]*>/gi)].map((match) => match[0]);
@@ -61,6 +64,7 @@ for (const page of pages) {
   for (const script of scripts) {
     if (/type=["']application\/ld\+json["']/i.test(script)) continue;
     if (script === '<script>' && html.includes(`<script>${THEME_SCRIPT}</script>`)) continue;
+    if (ANALYTICS_TOKEN && script.startsWith(`<script defer src="${BEACON}" data-cf-beacon=`)) continue;
     if (!(allowed && /src="\.\.\/vendor\/polar-checkout\/embed\.global\.js"/.test(script))) problems.push(`${relative}: has a script that is not the vendored checkout: ${script}`);
   }
   if (html.includes('data-polar-checkout') && !allowed) problems.push(`${relative}: has a checkout button but no checkout script, or the embed is off`);

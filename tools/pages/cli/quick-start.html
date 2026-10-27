@@ -1,0 +1,35 @@
+<!--
+title: Quick start on the command line
+description: Install the penstock command, write the example, check it and deploy it, in a terminal.
+lede: From nothing installed to a checked, deployed process in a terminal, on one screen.
+tags: free
+needs: Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later
+related: index, commands, ci, guide/getting-started
+-->
+<ol class="steps">
+  <li><strong>Install.</strong> Run <code>npm install -g @kern0x1b/penstock-cli</code>, or prefix every command below with <code>npx @kern0x1b/penstock-cli</code> to run it once. The package is on <a href="{{store:npm}}">npm</a>.</li>
+  <li><strong>Write the example.</strong> In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</li>
+  <li><strong>Check it.</strong> Run <code>penstock check .</code>. It lists what is wrong. A fresh example has nothing wrong.</li>
+  <li><strong>See what a deploy would do.</strong> Run <code>penstock deploy . --dry-run</code>. It prints a table with a row for each engine and file.</li>
+  <li><strong>Deploy it.</strong> Run <code>penstock deploy .</code> with an engine running.</li>
+</ol>
+
+<pre><code>penstock init --example camunda-8
+penstock check .
+penstock deploy . --dry-run
+penstock deploy .</code></pre>
+
+<h2>What you should see</h2>
+
+<ul>
+  <li><code>penstock doctor</code> says which settings apply, and what is wrong with the project.</li>
+  <li><code>penstock license</code> says which licence the machine has. Every new machine starts with 30 days of Pro.</li>
+</ul>
+
+<h2>Next</h2>
+
+<ul>
+  <li><a href="commands.html">Every command</a>, and <a href="ci.html">pipelines, reports and the bot</a>.</li>
+  <li><a href="@guide/getting-started.html">Getting started</a>, with the same steps for every tool.</li>
+  <li><a href="@guide/plans.html">What is free and what is Pro</a>.</li>
+</ul>

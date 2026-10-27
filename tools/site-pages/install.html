@@ -1,0 +1,91 @@
+<!--
+title: Install Penstock: BPMN editor for IntelliJ, VS Code, CLI
+description: Install the Penstock BPMN and DMN editor for JetBrains IDEs, VS Code and the command line. Same licence and 30-day Pro trial in all.
+h1: Install Penstock
+lede: Pick your tool. It is the same editor, the same licence and the same 30-day Pro trial in all of them, with nothing to sign up for.
+jsonld: software
+crumb: Install
+-->
+<p>Penstock was published as Camunda BPMN Editor until 2026. It is the same plugin, and it updates in place, so nothing needs to be reinstalled.</p>
+
+<p><a href="#jetbrains">JetBrains</a> | <a href="#vscode">VS Code</a> | <a href="#cli">Command line</a></p>
+
+<h2 id="jetbrains">JetBrains IDEs</h2>
+
+<p>Any JetBrains IDE from 2023.1 with JCEF, which the standard downloads include: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</p>
+
+<div class="cta"><a class="btn" href="{{store:jetbrains}}">Install from the JetBrains Marketplace</a></div>
+
+<ol class="steps">
+  <li>Open <span class="ui">Settings | Plugins | Marketplace</span>.</li>
+  <li>Search for <code>Penstock</code> and press <span class="ui">Install</span>.</li>
+  <li>Open any <code>.bpmn</code> file. It opens in the visual editor, with the XML one tab away.</li>
+  <li>The status bar shows the trial and the days left.</li>
+</ol>
+
+<p>The Marketplace picks the build that fits your IDE. If you used to search for Camunda BPMN Editor, this is the same plugin. More in <a href="@jetbrains/installing.html">Installing in JetBrains</a> and the <a href="@jetbrains/quick-start.html">quick start</a>.</p>
+
+<h2 id="vscode">VS Code</h2>
+
+<p>VS Code 1.88 or later.</p>
+
+<div class="cta"><a class="btn" href="{{store:vscode}}">Install from the Visual Studio Marketplace</a></div>
+
+<pre><code>code --install-extension penstock.penstock</code></pre>
+
+<ul>
+  <li>Open a <code>.bpmn</code> file. It opens in the Penstock editor.</li>
+  <li>The Penstock view in the Activity Bar shows the project as a tree.</li>
+</ul>
+
+<h3 id="forks">Cursor, Windsurf, VSCodium and other forks, or no access to the Marketplace</h3>
+
+<p>Editors built on VS Code take extensions from their own registry, usually Open VSX, and not from Microsoft's Marketplace.{{openvsx}} Where the extension cannot be found, install it from a <code>.vsix</code> file: <span class="ui">Install from VSIX...</span> in the Extensions view, or <code>code --install-extension penstock.vsix</code>. See <a href="@vscode/installing.html#install-from-a-vsix-file">Install from a VSIX file</a>.</p>
+
+<p>More in <a href="@vscode/installing.html">Installing in VS Code</a> and the <a href="@vscode/quick-start.html">quick start</a>.</p>
+
+<h2 id="cli">Command line</h2>
+
+<p>{{node}}.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Way</th><th>Command</th><th>When</th></tr></thead>
+  <tbody>
+  <tr><td>Try it without installing</td><td><code>npx @kern0x1b/penstock-cli check .</code></td><td>A one-off check</td></tr>
+  <tr><td>Install it</td><td><code>npm install -g @kern0x1b/penstock-cli</code></td><td>Your own machine</td></tr>
+  <tr><td>Let the project pin the version</td><td><code>npx @kern0x1b/penstock-cli init</code>, then <code>./penstockw check .</code></td><td>A team and its pipeline, like <code>gradlew</code></td></tr>
+  </tbody>
+</table></div>
+
+<p>The package is on <a href="{{store:npm}}">npm</a>. <code>penstock doctor</code> says what is wrong with a project. The command line is separate from the editors, and it shares their licence: one licence covers the JetBrains plugin, the VS Code extension and the command line. More in <a href="@cli/">Command line</a> and the <a href="@cli/quick-start.html">quick start</a>.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2023.1 with JCEF.</td></tr>
+  <tr><td>VS Code</td><td>VS Code 1.88 or later.</td></tr>
+  <tr><td>Command line</td><td>{{node}}.</td></tr>
+  <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven and plain BPMN 2.0.</td></tr>
+  <tr><td>Systems</td><td>Windows, macOS and Linux.</td></tr>
+  <tr><td>Having trouble?</td><td><a href="@guide/troubleshooting.html">Troubleshooting</a>, <a href="@guide/licence-troubleshooting.html">licence troubleshooting</a>, {{contact}} or <a href="{{issues}}">GitHub issues</a>.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="first-ten-minutes">Your first ten minutes</h2>
+
+<ol class="steps">
+  <li>Write the example project into an empty folder. In a terminal: <code>penstock init --example camunda-8</code> (or <code>camunda-7</code>). The editors offer it too, in the Penstock view.</li>
+  <li>Open <code>order-process.bpmn</code> and press <span class="ui">Check</span>.</li>
+  <li>Press <span class="ui">Deploy</span> to deploy it to an engine.</li>
+</ol>
+
+<p><a href="@guide/getting-started.html">Getting started</a> takes you from nothing installed to a checked, deployed process in about ten minutes.</p>
+
+<h2 id="free">What is free</h2>
+
+<p>The editors, the check and lint, deploy, Monitor, token simulation, export, share and import are free, with no time limit. Every new machine also starts with 30 days of Pro. See <a href="../pricing/">pricing</a>.</p>
+
+<h2 id="uninstall">Uninstall and your data</h2>
+
+<p>Uninstalling removes the plugin or extension. Your diagrams are your own files and stay in your project. Penstock keeps its preferences and licence in <code>~/.penstock</code> and secrets in your tool's secret store. See <a href="@guide/security.html#files-penstock-writes">Files Penstock writes</a>.</p>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Penstock for Teams: review BPMN in pull requests and CI</title>
+<meta name="description" content="Review BPMN diagrams in pull requests, gate CI with SARIF and baselines, and keep data on your own machines. Team is $29 per seat a month.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Penstock for Teams: review BPMN in pull requests and CI">
+<meta property="og:description" content="Review BPMN diagrams in pull requests, gate CI with SARIF and baselines, and keep data on your own machines. Team is $29 per seat a month.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/for-teams/">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "Penstock Team",
+      "description": "Review BPMN diagrams in pull requests, gate CI with SARIF and baselines, and keep data on your own machines. Team is $29 per seat a month.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Penstock"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Team, monthly, per seat",
+          "price": "29.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect"
+        },
+        {
+          "@type": "Offer",
+          "name": "Team, yearly, per seat",
+          "price": "290.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do we need a Team key for every developer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A developer needs a seat only to run Pro features on their own machine. The pipeline uses one Team key that takes no seat's place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can we use Pro on laptops and Team in the pipeline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. That is the rule: Pro on your own machine, Team inside a pipeline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the bot send our diagrams anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The bot is your own pipeline running penstock bot. There is no service behind it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can we try it first?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every machine starts with 30 days of Pro. A pipeline gets no trial, so Team features in a pipeline need a Team key."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Penstock",
+          "item": "https://kern0x1b.github.io/penstock-release/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "For teams",
+          "item": "https://kern0x1b.github.io/penstock-release/for-teams/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../install/" class="keep">Install</a>
+      <a href="../guide/" class="keep">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/" aria-current="true">For teams</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout single">
+<main class="doc" id="content">
+<h1>Review diagrams like you review code</h1>
+<p class="lede">Penstock Team adds a review bot to your pull requests, reports with the changes outlined, baselines so the first run is not red, and SARIF for code scanning. It runs in your own pipeline, and there is no service to register with.</p>
+<div class="cta">
+  <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+  <a class="btn quiet" href="mailto:oleksandr.havrysh5@gmail.com">Talk to us</a>
+</div>
+<p>Team costs $29 per seat a month or $290 per seat a year. Individuals do not need Team: Pro covers your own machine. Team is for pipelines.</p>
+
+<h2 id="what-you-get">What a team gets</h2>
+
+<div class="cards">
+  <div class="card"><strong>Review bot</strong><span>One comment on each pull request, edited on every push. Ask it in a comment, for example <code>/penstock full review</code>.</span></div>
+  <div class="card"><strong>Pull request report</strong><span>The check against the baseline, what changed by element, and pictures with the changes outlined.</span></div>
+  <div class="card"><strong>Baselines</strong><span>Fail only on what is new, not on years of old findings.</span></div>
+  <div class="card"><strong>SARIF and annotations</strong><span>Findings on the changed lines in your code review and in code scanning.</span></div>
+</div>
+
+<p>The bot is your own pipeline running <code>penstock bot</code>. It supports GitHub, Gitea, Forgejo, GitLab, Azure DevOps and Bitbucket. Azure DevOps and Bitbucket get the review only, without answers to comments. See <a href="../cli/ci.html">Pipelines, reports and the bot</a> for each.</p>
+
+<h2 id="set-up">How to set it up</h2>
+
+<ol class="steps">
+  <li>Buy Team, then give the seats to people in Polar's customer portal.</li>
+  <li>Run <code>penstock init --ci github</code> on a machine that has Team. It writes the bot and SARIF workflows. The other choices are <code>gitea</code>, <code>forgejo</code>, <code>gitlab</code>, <code>bitbucket</code> and <code>azure</code>.</li>
+  <li>Store the key that <code>penstock license key</code> prints as the secret <code>PENSTOCK_LICENSE</code>.</li>
+</ol>
+
+<h2 id="seats">Seats and cost</h2>
+
+<p>A seat is for a person who runs Pro features on their own machine. A pipeline uses a Team key and takes no machine's place, and the key only counts when <code>CI</code> is set. Five people who work on diagrams are five seats: five times $29 a month, or five times $290 a year. How seats are given out is on <a href="../guide/sign-in.html#team-seats">Buying and signing in</a>.</p>
+
+<h2 id="trust">Trust and procurement</h2>
+
+<h3 id="data">What leaves your machine</h3>
+<ul>
+  <li>Deploy sends the file you deploy, with the profile's credentials, to the engine address you configured. Nothing else.</li>
+  <li>The licence check sends the licence, a one-way hash of the machine's id and the host name as a label. Never a diagram.</li>
+  <li>There is no telemetry and no crash reporter. Credentials stay in your tool's secret store, never in project files.</li>
+  <li>The review bot never runs hooks that a pull request's configuration declares, answers only people who own, belong to or collaborate on the repository, and never on a pull request from a fork.</li>
+</ul>
+<p>The complete list is on <a href="../guide/security.html">Security and privacy</a>.</p>
+
+<h3 id="licence-server">The licence service</h3>
+<p>What it receives, what it keeps and for how long is set out in the <a href="../privacy/#licence-service">privacy policy</a>. The licence is a signed token that tools check offline. It lasts 30 days and is renewed once a day when the machine is online. If the service cannot be reached, a valid token keeps working, and a pipeline runs as Free.</p>
+
+<h3 id="security">Security reports</h3>
+<p>Report a vulnerability privately, as the <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">security policy</a> describes. Penstock has no third-party security audit or certification.</p>
+
+<h3 id="components">Third-party components and licence</h3>
+<p>The open-source components Penstock bundles keep their own licences: <a href="../notices/">third-party notices</a>. Penstock itself is under the <a href="../license/">end user licence</a>.</p>
+
+<h3 id="continuity">If the vendor stops</h3>
+<p>Penstock is made by one person. In practice that means: your diagrams are plain <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> files in your repository that open in any other editor, and a licence token that has been issued keeps working offline for up to 30 days.</p>
+
+<h3 id="invoices">Invoices and purchasing</h3>
+<p>Polar is the merchant of record. It collects VAT or sales tax where it applies, and issues receipts and invoices. Vendor details are on <a href="../about/">About and contact</a>. For anything else about buying, write to <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+
+<h2 id="faq">Questions</h2>
+
+<details class="faq"><summary>Do we need a Team key for every developer?</summary>
+<p>No. A developer needs a seat only to run Pro features on their own machine. The pipeline uses one Team key that takes no seat's place.</p></details>
+
+<details class="faq"><summary>Can we use Pro on laptops and Team in the pipeline?</summary>
+<p>Yes. That is the rule: Pro on your own machine, Team inside a pipeline.</p></details>
+
+<details class="faq"><summary>Does the bot send our diagrams anywhere?</summary>
+<p>No. The bot is your own pipeline running <code>penstock bot</code>. There is no service behind it.</p></details>
+
+<details class="faq"><summary>Can we try it first?</summary>
+<p>Every machine starts with 30 days of Pro. A pipeline gets no trial, so Team features in a pipeline need a Team key.</p></details>
+
+<div class="cta">
+  <a class="btn" href="https://api.polar.sh/v1/checkout-links/polar_cl_EwTKhTp5f9TEtXFhQvH7KqtoeIwSMQu4ihijX48sVjG/redirect" rel="noopener">Buy Team</a>
+  <a class="btn quiet" href="../pricing/">See pricing</a>
+</div>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+</footer>
+
+</body>
+</html>

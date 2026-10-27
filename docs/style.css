@@ -802,6 +802,9 @@ figure.shot img[src$="/sidebar-tabs-bpmn.png"] { max-width: min(100%, 520px); }
 figure.shot img[src$="/sidebar-tabs-dmn.png"] { max-width: min(100%, 520px); }
 figure.shot img[src$="/sidebar-tabs-form.png"] { max-width: min(100%, 520px); }
 figure.shot img[src$="/toolbar-form.png"] { max-width: min(100%, 420px); }
+figure.shot img[src$="/ai-chat-input.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/ai-chat-settings.png"] { max-width: min(100%, 640px); }
+figure.shot img[src$="/ai-chat-agents.png"] { max-width: min(100%, 640px); }
 figure.shot img[src$="/toolbar-dmn.png"] { max-width: min(100%, 520px); }
 figure.shot img[src$="/toolbar-bar.png"] { max-width: min(100%, 640px); }
 figure.shot img[src$="/settings-init-terminal.png"] { max-width: min(100%, 560px); }
@@ -1110,6 +1113,15 @@ footer p { margin: 0 0 var(--space-2); max-width: 84ch; }
   code, kbd { white-space: normal; overflow-wrap: anywhere; }
   pre.legal { padding: var(--space-4); }
 }
+
+/* Pages outside the guide: one column, no sidebar */
+.layout.single { grid-template-columns: minmax(0, 1fr); }
+.doc.wide-doc { max-width: 920px; }
+.doc .eyebrow { margin: 0 0 var(--space-2); font-size: var(--type-size-small); color: var(--theme-fg-secondary); }
+.doc .updated { color: var(--theme-fg-secondary); font-size: var(--type-size-small); margin: 0 0 var(--space-4); }
+.compare th, .compare td { vertical-align: top; }
+.compare td.yes { font-weight: var(--type-weight-medium); }
+.compare tr.group th { background: var(--theme-bg-secondary); text-align: left; }
 
 @media print {
   .top, .side, .pager, .skip { display: none; }

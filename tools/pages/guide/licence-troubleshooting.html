@@ -1,0 +1,76 @@
+<!--
+title: Licence troubleshooting
+description: Bought Pro but it is not active, no sign-in code in the mail, a proxy or firewall in the way, working offline, a machine you can no longer reach, and what to send to support.
+lede: When Pro does not switch on, a sign-in fails or the licence service cannot be reached: what to check, in the order that finds it fastest.
+tags: free
+related: sign-in, plans, security, faq
+-->
+<h2>I bought Pro but it is not active</h2>
+
+<ol class="steps">
+  <li>Give it a minute. After checkout your tool notices the payment by itself and asks for the code sent to the address that paid. If you closed that dialog, start signing in again from the licence screen of your tool.</li>
+  <li>Sign in with the <strong>exact e-mail address you paid with</strong>. It is the address on Polar's receipt, which can differ from your Git or work address.</li>
+  <li>Ask the machine what it thinks. Run <code>penstock license</code>. It says which licence this machine has and why, and during the trial it says when the trial ends.</li>
+  <li>Check the machines. One key covers three machines. When every place is taken, signing in lists the machines so you can free one. See <a href="sign-in.html#how-many-machines">How many machines</a>.</li>
+  <li>Check the subscription. If it ended, or was refunded or cancelled, a machine falls back to the trial, or to Free when the trial is over. Polar's customer portal, which you can sign in to with the same e-mail, shows its state.</li>
+  <li>Check the clock. A machine whose clock was set back below a time it has already seen is refused, and the message says so.</li>
+  <li>Restart your tool and run <code>penstock license</code> again.</li>
+</ol>
+
+<p>A Pro key does not work in a pipeline. A pipeline needs a Team key. See <a href="sign-in.html#in-a-pipeline">In a pipeline</a>.</p>
+
+<h2>No code arrived in the mail</h2>
+
+<ul>
+  <li>The code is sent by Polar, to the address you typed. Look in the spam folder, and check the address for typing mistakes.</li>
+  <li>If you never bought with that address, there is no licence for it. The message says <em>There is no Penstock licence bought with that address</em>.</li>
+  <li>A code expires, and you have three tries for each. Ask for a new one.</li>
+  <li>In a terminal that is not interactive, for example a CI job, signing in cannot ask for the code. Use <code>PENSTOCK_LICENSE</code> there.</li>
+</ul>
+
+<h2>A proxy or a firewall is in the way</h2>
+
+<p>Buying, signing in, activating, starting a trial and the daily renewal need HTTPS to two places. Allow them on port 443:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Address</th><th>What it is for</th></tr></thead>
+  <tbody>
+  <tr><td><code>licence.penstock.dalyone.com</code></td><td>The licence service: the trial, activation, the daily renewal and releasing a machine. This is its address today. It can change with a release, and then the new address is in the changelog.</td></tr>
+  <tr><td><code>api.polar.sh</code></td><td>Polar, for signing in with an e-mail code, and for the checkout link.</td></tr>
+  <tr><td><code>polar.sh</code> pages</td><td>The checkout, which opens in your browser and not in your tool.</td></tr>
+  </tbody>
+</table></div>
+
+<p>The message <em>The licence service could not be reached</em> means one of these did not answer. A licence you already have keeps working: a valid token is used without a connection for up to 30 days. Everything else in the editors works without a licence service at all. See <a href="security.html">Security and privacy</a> for the complete list of what talks to the network.</p>
+
+<h2>I work offline or on an isolated network</h2>
+
+<ul>
+  <li>A token belongs to one machine, lasts 30 days, and is renewed once a day when the machine is online. Offline, it keeps working until it runs out, and the status shows how many days are left.</li>
+  <li>After 30 days without a check, the machine is on Free until it connects once. Then it is renewed, and nothing is lost.</li>
+  <li>A new machine needs the network once to start its trial or to activate a licence.</li>
+  <li>A pipeline that cannot reach the licence service runs as Free.</li>
+</ul>
+
+<h2>I cannot reach the machine that holds a place</h2>
+
+<p>Sign in on the new machine with the same e-mail. When every place is taken, the sign-in lists the machines and when each was activated. Pick the one you no longer have, and this machine takes its place. A token cannot be taken back from a machine that is offline, so each key has one free move per place in any 30 days. A further release keeps counting until 30 days after it was noticed, and the message says the date. See <a href="sign-in.html#move-a-machine">Move a machine</a>.</p>
+
+<h2>The key for my pipeline</h2>
+
+<p>Run <code>penstock license key</code> on a machine with Team and store what it prints as the secret <code>PENSTOCK_LICENSE</code> in your CI system: a repository secret on GitHub, a masked variable on GitLab, a secret variable or a library variable group on Azure DevOps. The key only counts where <code>CI</code> is set. See <a href="sign-in.html#in-a-pipeline">In a pipeline</a>.</p>
+
+<h2>Still stuck</h2>
+
+<p>Open an issue on the <a href="{{issues}}">support tracker</a>, or write to {{contact}}. Say what your tool and its version are, what you did, and the exact message. Add the output of <code>penstock license</code> and <code>penstock doctor</code>. <strong>Never send or post a licence key.</strong></p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>It says the machine's clock is wrong.</dt>
+  <dd>Set the clock to the real time. The clock had been set back below a time this machine already saw.</dd>
+  <dt>It says every machine is in use.</dt>
+  <dd>Pick a machine to free when signing in, or sign out on one you no longer use.</dd>
+  <dt>The licence status says trial, but I paid.</dt>
+  <dd>Sign in. Paying does not switch the machine on by itself until your tool has noticed the payment, or you have signed in with the e-mail that paid.</dd>
+</dl>

@@ -3,14 +3,13 @@
 <img src="docs/icon.svg" alt="Penstock" width="64" height="64">
 
 **Penstock** is a BPMN 2.0, DMN and form editor for Camunda 7 and Camunda 8 that runs inside JetBrains IDEs
-and in VS Code, in a plain browser (`penstock web`) and, as a build that is not part of a release yet,
-as a desktop app. A `penstock` command line and an MCP server work on the same engine and the same licence.
+and in VS Code, and in a plain browser (`penstock web`). A `penstock` command line and an MCP server work on the same engine and the same licence.
 Files with the `.bpmn`, `.bpmn.xml` and `.bpmn20.xml` extensions open in a visual modeler next to the raw XML, and
 `.dmn` and `.form` files open in the decision and form editors, so process models live in the project and are
 reviewed the same way as code. An AI agent of your choice can be asked about a diagram or given a task from an input
 in every editor, on your own account, with every change shown before it happens.
 
-Install it from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor), the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=penstock.penstock) or [npm](https://www.npmjs.com/package/@kern0x1b/penstock-cli) (`npm install -g @kern0x1b/penstock-cli`).
+Install it from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/25710-penstock), the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=penstock.penstock) or [npm](https://www.npmjs.com/package/@kern0x1b/penstock-cli) (`npm install -g @kern0x1b/penstock-cli`).
 
 Penstock was published as **Camunda BPMN Editor** until 2026. Same plugin, same vendor, new name.
 It updates in place and nothing needs to be reinstalled.
@@ -98,6 +97,7 @@ The HTML is generated and committed, so the site can be served as it is. After c
 ```bash
 node tools/build-pages.mjs        # every section: docs/guide, docs/jetbrains, docs/vscode, docs/cli (and later docs/desktop)
 node tools/build-home.mjs         # docs/index.html and docs/404.html
+node tools/build-site-pages.mjs   # docs/pricing, install, faq, about, privacy, terms, for-teams, from tools/site-pages/
 node tools/build-legal-pages.mjs  # docs/license and docs/notices, from LICENSE and THIRD-PARTY-NOTICES.md
 node tools/build-rules.mjs [path to the product repository]   # docs/rules: every rule page and the index
 node tools/list-blocks.mjs [tool] # which per-tool blocks exist, and which a tool still needs
@@ -122,6 +122,26 @@ and builds the index, then removes the folder. The product keeps no pages. The p
 those addresses must keep working.
 
 `tools/screenshot-plan.md` lists every picture the guide still needs, with the fixture and the UI state for each.
+
+### Pages outside the guide, and the site configuration
+
+`tools/site-pages/<slug>.html` holds the pages that are not documentation: pricing, install, faq, about,
+privacy, terms and for-teams. The front matter has `title` (60 characters at most), `description` (155),
+`h1`, `lede` and `jsonld` (`faq`, `product-pricing`, `product-team`, `software`, `about`, `webpage`; a
+BreadcrumbList is always added, and FAQPage is made from the `details class="faq"` blocks of the page).
+Each page is written to `docs/<slug>/index.html`.
+
+Facts that appear on many pages live in `tools/site.config.json`: the contact e-mail (`contact.email`, the one
+place to change it), the vendor, the refund periods, the trial IP retention, the date the legal pages were last
+updated, the Open VSX address (empty until the extension is published there, which also hides its footer link),
+and `analytics.cloudflareToken`. Pages read them with `{{config:path}}`, `{{contact}}`, `{{vendor}}`, `{{issues}}` and
+`{{price:pro:month}}`. The top bar and the footer are `site` in `tools/nav.json`.
+
+Cloudflare Web Analytics is off while `analytics.cloudflareToken` is empty. With a token (or the environment
+variable `CF_BEACON_TOKEN`) every page loads Cloudflare's beacon, and the footer, the privacy policy and
+the security page say so. `SITE_URL` sets the address of the site, for canonical links and the sitemap.
+
+A page in `nav.json` with `"draft": true` is neither built nor linked.
 
 ### Prices and the Buy buttons
 

@@ -13,6 +13,8 @@ related: agents, review-agent-changes, sidebar, toolbar, cli/mcp, plans
 
 <p>The chat is part of Penstock Pro, and Team in a pipeline. The input and the chats are shown to everyone. When you send a message without the licence, you get the usual offer at that moment: what the AI chat does, and the choice to buy Pro or to enter a licence key. Nothing is added to the chat. See <a href="plans.html">Plans and licence</a>.</p>
 
+{{host:ai-chat-where|Where the AI chat is, by tool}}
+
 <h2>Ask a question</h2>
 
 <ol class="steps">
@@ -22,6 +24,11 @@ related: agents, review-agent-changes, sidebar, toolbar, cli/mcp, plans
   <li>The answer appears in a card just above the input, with the agent's work folded into one row while it runs. When the agent has something to change, it asks you first.</li>
   <li>Write the next message in the same input. The conversation goes on in the same chat.</li>
 </ol>
+
+<figure class="shot">
+  <img src="@img/ai-chat-answer.png" alt="The BPMN editor with the user task Approve order selected. Above the input at the foot of the canvas an answer card is open. It is headed with the chat title, What happens if the credit check fails?, and the agent name, with three buttons at the right. It holds the question and an answer that names Order received, Check customer credit and Set credit limit as chips. Below it the input shows two chips, Approve order and order-to-cash.bpmn, the placeholder text and the settings button">
+  <figcaption>A question asked about the selected task. The answer card sits right above the input, and the names in the answer are chips.</figcaption>
+</figure>
 
 <p>If the agent is not signed in or not installed yet, the card says so and offers the next step. See <a href="#failed">When the agent cannot answer</a>.</p>
 
@@ -55,6 +62,11 @@ related: agents, review-agent-changes, sidebar, toolbar, cli/mcp, plans
   </tbody>
 </table></div>
 
+<figure class="shot">
+  <img src="@img/ai-chat-input.png" alt="The input of the AI chat, opened. Two chips at the top name what the message is about, the selected task Approve order with an x, and the file order-to-cash.bpmn. Below them the text of the message, then a row with the chat button, a plus, the settings button with the agent logo and the model Opus 5.5 High, the key hints Enter send and Shift Enter newline, and the round Send button in the accent colour">
+  <figcaption>The input with a message typed. The chips say what the message is about, and the row below holds the controls.</figcaption>
+</figure>
+
 <p>An input that is empty and not in use rests as one line, with the placeholder and the send button. Clicking it or typing in it opens the full row, and clearing it and leaving it rests it again. When the row is short, the chat title becomes an icon first, then the key hints go. On a canvas too narrow for the input, it is one button, <span class="ui">Ask the agent</span>, at the foot. It shows a spinner while the agent works and a hand while a question waits, and opens the whole input over the canvas.</p>
 
 <h3>While the agent is working</h3>
@@ -68,6 +80,11 @@ related: agents, review-agent-changes, sidebar, toolbar, cli/mcp, plans
 <h2>Agent, model, thought level and mode</h2>
 
 <p>The settings button shows the agent's logo, the model's name and the level, such as <em>Opus 5.5 High</em>, and the mode after a dot only when it is not the agent's default. Pressing it opens a small form above the button.</p>
+
+<figure class="shot">
+  <img src="@img/ai-chat-settings.png" alt="The settings form of the AI chat, open above the settings button. It has one row each for Agent, Model and Thought level, with the current values, and Manage agents at the foot. The input with its chips and text is just below it">
+  <figcaption>The settings form opens above its button. Agent and Model are lists, and the thought level is a short row of values.</figcaption>
+</figure>
 
 <div class="table-wrap"><table class="facts">
   <tbody>
@@ -115,6 +132,11 @@ related: agents, review-agent-changes, sidebar, toolbar, cli/mcp, plans
 <h2>Chats belong to the project</h2>
 
 <p>A task often spans a process, a decision and the code of its workers, so chats belong to the project and not to a file. Each editor has its own current chat. It opens on the latest chat its file took part in. With none, your first message starts a new one, so two diagrams never mix their conversations. The title of a chat is the first line of its first message until you rename it.</p>
+
+<figure class="shot">
+  <img src="@img/shell-window.png" alt="The window of Penstock Web. The title bar has the Penstock name, the project switcher and the open file. The sidebar island at the left has the Actions Check, Scenarios, Monitor, Debug and Auto layout, the Project tree and, below it, the Chats section with one chat, working or idle. The BPMN editor with the AI chat at the foot is at the right">
+  <figcaption>The sidebar of Penstock Web: the actions, the project tree and the Chats section under it, with the editor and its AI chat at the right.</figcaption>
+</figure>
 
 <p>The chats are listed with their state, in the place each tool has for them:</p>
 

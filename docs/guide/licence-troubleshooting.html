@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Licence troubleshooting - Penstock</title>
+<meta name="description" content="Bought Pro but it is not active, no sign-in code in the mail, a proxy or firewall in the way, working offline, a machine you can no longer reach, and what to send to support.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Licence troubleshooting - Penstock">
+<meta property="og:description" content="Bought Pro but it is not active, no sign-in code in the mail, a proxy or firewall in the way, working offline, a machine you can no longer reach, and what to send to support.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/licence-troubleshooting.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../install/" class="keep">Install</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/licence-troubleshooting.html" aria-current="page">Licence troubleshooting</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Plans, privacy and help</p>
+<h1>Licence troubleshooting</h1>
+<p class="lede">When Pro does not switch on, a sign-in fails or the licence service cannot be reached: what to check, in the order that finds it fastest.</p>
+<p class="meta"><span class="tag free">Free</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#i-bought-pro-but-it-is-not-active">I bought Pro but it is not active</a></li>
+<li><a href="#no-code-arrived-in-the-mail">No code arrived in the mail</a></li>
+<li><a href="#a-proxy-or-a-firewall-is-in-the-way">A proxy or a firewall is in the way</a></li>
+<li><a href="#i-work-offline-or-on-an-isolated-network">I work offline or on an isolated network</a></li>
+<li><a href="#i-cannot-reach-the-machine-that-holds-a-place">I cannot reach the machine that holds a place</a></li>
+<li><a href="#the-key-for-my-pipeline">The key for my pipeline</a></li>
+<li><a href="#still-stuck">Still stuck</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="i-bought-pro-but-it-is-not-active"><a href="#i-bought-pro-but-it-is-not-active">I bought Pro but it is not active</a></h2>
+
+<ol class="steps">
+  <li>Give it a minute. After checkout your tool notices the payment by itself and asks for the code sent to the address that paid. If you closed that dialog, start signing in again from the licence screen of your tool.</li>
+  <li>Sign in with the <strong>exact e-mail address you paid with</strong>. It is the address on Polar's receipt, which can differ from your Git or work address.</li>
+  <li>Ask the machine what it thinks. Run <code>penstock license</code>. It says which licence this machine has and why, and during the trial it says when the trial ends.</li>
+  <li>Check the machines. One key covers three machines. When every place is taken, signing in lists the machines so you can free one. See <a href="sign-in.html#how-many-machines">How many machines</a>.</li>
+  <li>Check the subscription. If it ended, or was refunded or cancelled, a machine falls back to the trial, or to Free when the trial is over. Polar's customer portal, which you can sign in to with the same e-mail, shows its state.</li>
+  <li>Check the clock. A machine whose clock was set back below a time it has already seen is refused, and the message says so.</li>
+  <li>Restart your tool and run <code>penstock license</code> again.</li>
+</ol>
+
+<p>A Pro key does not work in a pipeline. A pipeline needs a Team key. See <a href="sign-in.html#in-a-pipeline">In a pipeline</a>.</p>
+
+<h2 id="no-code-arrived-in-the-mail"><a href="#no-code-arrived-in-the-mail">No code arrived in the mail</a></h2>
+
+<ul>
+  <li>The code is sent by Polar, to the address you typed. Look in the spam folder, and check the address for typing mistakes.</li>
+  <li>If you never bought with that address, there is no licence for it. The message says <em>There is no Penstock licence bought with that address</em>.</li>
+  <li>A code expires, and you have three tries for each. Ask for a new one.</li>
+  <li>In a terminal that is not interactive, for example a CI job, signing in cannot ask for the code. Use <code>PENSTOCK_LICENSE</code> there.</li>
+</ul>
+
+<h2 id="a-proxy-or-a-firewall-is-in-the-way"><a href="#a-proxy-or-a-firewall-is-in-the-way">A proxy or a firewall is in the way</a></h2>
+
+<p>Buying, signing in, activating, starting a trial and the daily renewal need HTTPS to two places. Allow them on port 443:</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Address</th><th>What it is for</th></tr></thead>
+  <tbody>
+  <tr><td><code>licence.penstock.dalyone.com</code></td><td>The licence service: the trial, activation, the daily renewal and releasing a machine. This is its address today. It can change with a release, and then the new address is in the changelog.</td></tr>
+  <tr><td><code>api.polar.sh</code></td><td>Polar, for signing in with an e-mail code, and for the checkout link.</td></tr>
+  <tr><td><code>polar.sh</code> pages</td><td>The checkout, which opens in your browser and not in your tool.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The message <em>The licence service could not be reached</em> means one of these did not answer. A licence you already have keeps working: a valid token is used without a connection for up to 30 days. Everything else in the editors works without a licence service at all. See <a href="security.html">Security and privacy</a> for the complete list of what talks to the network.</p>
+
+<h2 id="i-work-offline-or-on-an-isolated-network"><a href="#i-work-offline-or-on-an-isolated-network">I work offline or on an isolated network</a></h2>
+
+<ul>
+  <li>A token belongs to one machine, lasts 30 days, and is renewed once a day when the machine is online. Offline, it keeps working until it runs out, and the status shows how many days are left.</li>
+  <li>After 30 days without a check, the machine is on Free until it connects once. Then it is renewed, and nothing is lost.</li>
+  <li>A new machine needs the network once to start its trial or to activate a licence.</li>
+  <li>A pipeline that cannot reach the licence service runs as Free.</li>
+</ul>
+
+<h2 id="i-cannot-reach-the-machine-that-holds-a-place"><a href="#i-cannot-reach-the-machine-that-holds-a-place">I cannot reach the machine that holds a place</a></h2>
+
+<p>Sign in on the new machine with the same e-mail. When every place is taken, the sign-in lists the machines and when each was activated. Pick the one you no longer have, and this machine takes its place. A token cannot be taken back from a machine that is offline, so each key has one free move per place in any 30 days. A further release keeps counting until 30 days after it was noticed, and the message says the date. See <a href="sign-in.html#move-a-machine">Move a machine</a>.</p>
+
+<h2 id="the-key-for-my-pipeline"><a href="#the-key-for-my-pipeline">The key for my pipeline</a></h2>
+
+<p>Run <code>penstock license key</code> on a machine with Team and store what it prints as the secret <code>PENSTOCK_LICENSE</code> in your CI system: a repository secret on GitHub, a masked variable on GitLab, a secret variable or a library variable group on Azure DevOps. The key only counts where <code>CI</code> is set. See <a href="sign-in.html#in-a-pipeline">In a pipeline</a>.</p>
+
+<h2 id="still-stuck"><a href="#still-stuck">Still stuck</a></h2>
+
+<p>Open an issue on the <a href="https://github.com/kern0x1b/penstock-release/issues">support tracker</a>, or write to <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>. Say what your tool and its version are, what you did, and the exact message. Add the output of <code>penstock license</code> and <code>penstock doctor</code>. <strong>Never send or post a licence key.</strong></p>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>It says the machine's clock is wrong.</dt>
+  <dd>Set the clock to the real time. The clock had been set back below a time this machine already saw.</dd>
+  <dt>It says every machine is in use.</dt>
+  <dd>Pick a machine to free when signing in, or sign out on one you no longer use.</dd>
+  <dt>The licence status says trial, but I paid.</dt>
+  <dd>Sign in. Paying does not switch the machine on by itself until your tool has noticed the payment, or you have signed in with the e-mail that paid.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/sign-in.html">Buying and signing in</a> - Trial, checkout, sign in, education, pipelines.</li>
+<li><a href="../guide/plans.html">Plans and licence</a> - What is free, what is Pro, what is Team.</li>
+<li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
+<li><a href="../guide/faq.html">Questions and answers</a> - Short answers to common questions.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/sign-in.html"><span>Previous</span>Buying and signing in</a>
+<a class="next" href="../guide/security.html"><span>Next</span>Security and privacy</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+</footer>
+
+</body>
+</html>

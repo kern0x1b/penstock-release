@@ -41,7 +41,7 @@ const ABOUT = {
   team: 'Everything in Pro, inside a pipeline as well: the review bot, pull request reports, baselines and SARIF.',
 };
 
-export function plansHtml({ prices = readPrices(), checkout = checkoutSettings() } = {}) {
+export function plansHtml({ prices = readPrices(), checkout = checkoutSettings(), freeHref = 'getting-started.html', securityHref = 'security.html#checkout', freeLabel = 'Get Penstock' } = {}) {
   const embed = checkout.embed === true;
   const cards = Object.entries(prices.plans)
     .map(([tier, plan], index) => {
@@ -60,7 +60,7 @@ export function plansHtml({ prices = readPrices(), checkout = checkoutSettings()
       ? `Prices read from Polar on ${readDate(prices.readAt)}. The price you pay is the one shown at checkout.`
       : 'The price you pay is the one shown at checkout.',
     intervals.size > 1 ? 'You choose monthly or yearly at checkout.' : '',
-    'A Buy button opens the checkout on Polar\'s own page. See <a href="security.html#checkout">Security and privacy</a>.',
+    `A Buy button opens the checkout on Polar's own page. See <a href="${securityHref}">Security and privacy</a>.`,
   ].filter(Boolean);
   const testMode = prices.sandbox
     ? `\n<div class="callout warn">
@@ -73,7 +73,7 @@ export function plansHtml({ prices = readPrices(), checkout = checkoutSettings()
       <p class="name"><span class="tag free">Free</span></p>
       <p class="price">No charge</p>
       <p class="about">The editors, checks, deploy, Monitor, export, share and import. Every new machine also starts with 30 days of Pro.</p>
-      <a class="btn quiet" href="getting-started.html">Get Penstock</a>
+      <a class="btn quiet" href="${freeHref}">${freeLabel}</a>
     </div>
 ${cards}
 </div>

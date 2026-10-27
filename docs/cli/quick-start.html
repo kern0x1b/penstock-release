@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Quick start on the command line - Penstock</title>
+<meta name="description" content="Install the penstock command, write the example, check it and deploy it, in a terminal.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Quick start on the command line - Penstock">
+<meta property="og:description" content="Install the penstock command, write the example, check it and deploy it, in a terminal.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/cli/quick-start.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../install/" class="keep">Install</a>
+      <a href="../guide/" class="keep">Guide</a>
+      <details class="products" data-current="true">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/" aria-current="true"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Command line">
+    <details open>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../cli/">Command line</a></li>
+      <li><a href="../cli/quick-start.html" aria-current="page">Quick start on the command line</a></li>
+      <li><a href="../cli/web.html">penstock web</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Reference</summary>
+    <ul>
+      <li><a href="../cli/commands.html">Every command</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Automation</summary>
+    <ul>
+      <li><a href="../cli/ci.html">Pipelines, reports and the bot</a></li>
+      <li><a href="../cli/mcp.html">The MCP server</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../cli/">Command line</a> / Start here</p>
+<h1>Quick start on the command line</h1>
+<p class="lede">From nothing installed to a checked, deployed process in a terminal, on one screen.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later</span></p>
+<ol class="steps">
+  <li><strong>Install.</strong> Run <code>npm install -g @kern0x1b/penstock-cli</code>, or prefix every command below with <code>npx @kern0x1b/penstock-cli</code> to run it once. The package is on <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>.</li>
+  <li><strong>Write the example.</strong> In an empty folder run <code>penstock init --example camunda-8</code>, or <code>--example camunda-7</code>. It writes the files and the <code>penstockw</code> wrapper.</li>
+  <li><strong>Check it.</strong> Run <code>penstock check .</code>. It lists what is wrong. A fresh example has nothing wrong.</li>
+  <li><strong>See what a deploy would do.</strong> Run <code>penstock deploy . --dry-run</code>. It prints a table with a row for each engine and file.</li>
+  <li><strong>Deploy it.</strong> Run <code>penstock deploy .</code> with an engine running.</li>
+</ol>
+
+<pre><code>penstock init --example camunda-8
+penstock check .
+penstock deploy . --dry-run
+penstock deploy .</code></pre>
+
+<h2 id="what-you-should-see"><a href="#what-you-should-see">What you should see</a></h2>
+
+<ul>
+  <li><code>penstock doctor</code> says which settings apply, and what is wrong with the project.</li>
+  <li><code>penstock license</code> says which licence the machine has. Every new machine starts with 30 days of Pro.</li>
+</ul>
+
+<h2 id="next"><a href="#next">Next</a></h2>
+
+<ul>
+  <li><a href="commands.html">Every command</a>, and <a href="ci.html">pipelines, reports and the bot</a>.</li>
+  <li><a href="../guide/getting-started.html">Getting started</a>, with the same steps for every tool.</li>
+  <li><a href="../guide/plans.html">What is free and what is Pro</a>.</li>
+</ul>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../cli/">Command line</a> - Install, run, and use it in a script.</li>
+<li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
+<li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
+<li><a href="../guide/getting-started.html">Getting started</a> - Get Penstock, open a diagram, deploy it.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../cli/"><span>Previous</span>Command line</a>
+<a class="next" href="../cli/web.html"><span>Next</span>penstock web</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies and loads nothing from other sites. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+</footer>
+
+</body>
+</html>

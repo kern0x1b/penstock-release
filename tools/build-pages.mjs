@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { PAGES, REDIRECTS, SECTIONS, SITE, STORES, escapeHtml, pagesDir, root, sectionOf, shell, toolsRow, urlOf } from './site.mjs';
+import { CONTACT, DRAFTS, analyticsNote, PAGES, REDIRECTS, SECTIONS, SITE, STORES, escapeHtml, pagesDir, root, sectionOf, shell, toolsRow, urlOf } from './site.mjs';
 import { buyLinksHtml, plansHtml, priceSummaryHtml } from './plans.mjs';
 import { refreshPrices } from './fetch-prices.mjs';
 import { missingBlocks, renderHostBlocks, unusedBlocks } from './blocks.mjs';
@@ -57,7 +57,7 @@ function contents(sectionId) {
     .map(
       (group) =>
         `<h2>${escapeHtml(group.title)}</h2>\n<div class="cards">\n${group.pages
-          .filter((page) => page.slug !== 'index')
+          .filter((page) => page.slug !== 'index' && !page.unlisted)
           .map((page) => `<a class="card" href="${urlOf({ ...page, section: sectionId }, '../')}"><strong>${escapeHtml(page.title)}</strong><span>${escapeHtml(page.about ?? '')}</span></a>`)
           .join('\n')}\n</div>`,
     )
@@ -83,7 +83,7 @@ export function pageHtml({ section, slug, meta, body }) {
     headings.length >= 5
       ? `<nav class="toc" aria-label="On this page">\n<h2>On this page</h2>\n<ul>\n${headings.map(({ id, text }) => `<li><a href="#${id}">${text}</a></li>`).join('\n')}\n</ul>\n</nav>\n`
       : '';
-  const siblings = PAGES.filter((page) => page.section === section);
+  const siblings = PAGES.filter((page) => page.section === section && (!page.unlisted || page.key === key));
   const index = siblings.findIndex((page) => page.key === key);
   const previous = index > 0 ? siblings[index - 1] : null;
   const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : null;
@@ -150,10 +150,11 @@ export function buildAll() {
     fs.mkdirSync(out, { recursive: true });
     for (const stale of fs.readdirSync(out)) if (stale.endsWith('.html')) fs.rmSync(path.join(out, stale));
     const dir = path.join(pagesDir, section.id);
-    const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((file) => file.endsWith('.html')) : [];
+    const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((file) => file.endsWith('.html') && !DRAFTS.has(`${section.id}/${file.replace(/\.html$/, '')}`)) : [];
     const known = new Set(PAGES.filter((page) => page.section === section.id).map((page) => page.slug));
     for (const file of files) {
       const slug = file.replace(/\.html$/, '');
+      if (DRAFTS.has(`${section.id}/${slug}`)) continue;
       if (!known.has(slug)) throw new Error(`tools/pages/${section.id}/${file} is not listed in tools/nav.json`);
       const parsed = parse(fs.readFileSync(path.join(dir, file), 'utf8'));
       const { meta } = parsed;
@@ -161,6 +162,10 @@ export function buildAll() {
       const body = renderHostBlocks(parsed.body, `${section.id}/${slug}`)
         .replace('{{contents}}', contents(section.id))
         .replace('{{tools}}', toolsRow('../'))
+        .replaceAll('{{analytics-note}}', analyticsNote())
+        .replaceAll('{{contact-email}}', CONTACT.email)
+        .replaceAll('{{contact}}', `<a href="mailto:${CONTACT.email}">${CONTACT.email}</a>`)
+        .replaceAll('{{issues}}', CONTACT.issues)
         .replace('{{plans}}', plansHtml())
         .replace('{{prices}}', priceSummaryHtml())
         .replace('{{buy}}', buyLinksHtml())

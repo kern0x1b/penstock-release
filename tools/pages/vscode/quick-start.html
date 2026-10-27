@@ -1,0 +1,32 @@
+<!--
+title: Quick start in VS Code
+description: Install the Penstock extension in VS Code, write the example, check it and deploy it, in five steps.
+lede: From nothing installed to a checked, deployed process in VS Code, on one screen.
+tags: free
+needs: VS Code 1.88 or later
+related: installing, where-things-are, guide/getting-started, guide/example-project
+-->
+<ol class="steps">
+  <li><strong>Install.</strong> Run <code>code --install-extension penstock.penstock</code> in a terminal, or open <a href="{{store:vscode}}">the Marketplace page</a> and press <span class="ui">Install</span>. In Cursor, Windsurf and VSCodium, <a href="installing.html#install-from-a-vsix-file">install from a VSIX file</a> if the extension is not in their registry.</li>
+  <li><strong>Write the example.</strong> Open an empty folder and open the <span class="ui">Penstock</span> view in the Activity Bar. Choose <span class="ui">Camunda 8 order process</span> or <span class="ui">Camunda 7 order process</span>. Or open a <code>.bpmn</code> file of your own.</li>
+  <li><strong>Open the diagram.</strong> Double-click <code>order-process.bpmn</code> in the Explorer. It opens in the Penstock editor. <span class="ui">Penstock: Open as text</span> opens the XML beside it.</li>
+  <li><strong>Check it.</strong> Press <span class="ui">Check</span> on the editor's toolbar. A card lists what is wrong. A fresh example has nothing wrong.</li>
+  <li><strong>Deploy it.</strong> Press <span class="ui">Deploy</span>. The first time, it asks for the engine address. Enter it, save, and deploy again.</li>
+</ol>
+
+<h2>What you should see</h2>
+
+<ul>
+  <li>The diagram in the editor, with the palette on the left and the properties of the selected element on the right.</li>
+  <li>The licence status in the status bar: every new machine starts with 30 days of Pro. <span class="ui">Penstock: Licence and account</span> in the Command Palette shows it.</li>
+  <li>After Deploy, the process on your engine. The Monitor tab shows its instances.</li>
+</ul>
+
+<h2>Next</h2>
+
+<ul>
+  <li><a href="where-things-are.html">Where things are in VS Code</a></li>
+  <li><a href="@guide/getting-started.html">Getting started</a>, with the same steps for every tool, and your own diagram.</li>
+  <li><a href="@guide/plans.html">What is free and what is Pro</a>, and <a href="installing.html">more on installing</a>.</li>
+  <li>If something does not work: <a href="troubleshooting.html">Troubleshooting</a>.</li>
+</ul>

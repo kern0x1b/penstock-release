@@ -2,14 +2,21 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export const root = path.resolve(import.meta.dirname, '..');
-export const SITE = 'https://kern0x1b.github.io/penstock-release';
+export const SITE = (process.env.SITE_URL ?? 'https://kern0x1b.github.io/penstock-release').replace(/\/$/, '');
 export const REPO = 'https://github.com/kern0x1b/penstock-release';
 export const STORES = {
-  jetbrains: 'https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor',
+  jetbrains: 'https://plugins.jetbrains.com/plugin/25710-penstock',
   vscode: 'https://marketplace.visualstudio.com/items?itemName=penstock.penstock',
   npm: 'https://www.npmjs.com/package/@kern0x1b/penstock-cli',
 };
 export const MARKETPLACE = STORES.jetbrains;
+
+// One place for the facts that appear on many pages. Edit tools/site.config.json, not the pages.
+export const CONFIG = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'site.config.json'), 'utf8'));
+export const CONTACT = CONFIG.contact;
+export const VENDOR = CONFIG.vendor;
+STORES.openvsx = CONFIG.stores?.openVsx || '';
+export const ANALYTICS_TOKEN = (process.env.CF_BEACON_TOKEN ?? CONFIG.analytics?.cloudflareToken ?? '').trim();
 
 export const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -19,6 +26,9 @@ export const blocksDir = path.join(import.meta.dirname, 'blocks');
 const config = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'nav.json'), 'utf8'));
 
 export const REDIRECTS = config.redirects ?? [];
+export const SITE_NAV = config.site;
+
+export const DRAFTS = new Set(config.sections.flatMap((section) => section.groups.flatMap((group) => group.pages.filter((page) => page.draft).map((page) => `${section.id}/${page.slug}`))));
 
 const sourceExists = (section, slug) => slug.startsWith('rules/') || fs.existsSync(path.join(pagesDir, section, `${slug}.html`));
 
@@ -29,7 +39,7 @@ export const SECTIONS = config.sections
   .map((section) => ({
     ...section,
     groups: section.groups
-      .map((group) => ({ ...group, pages: group.pages.filter((page) => sourceExists(section.id, page.slug)) }))
+      .map((group) => ({ ...group, pages: group.pages.filter((page) => !page.draft && sourceExists(section.id, page.slug)) }))
       .filter((group) => group.pages.length > 0),
   }));
 
@@ -55,6 +65,8 @@ export function sectionUrl(section, base) {
 export function sidebar({ base, section, key }) {
   const own = sectionOf(section);
   const items = own.groups
+    .map((group) => ({ ...group, pages: group.pages.filter((page) => !page.unlisted || `${section}/${page.slug}` === key) }))
+    .filter((group) => group.pages.length > 0)
     .map((group, index) => {
       const holdsCurrent = group.pages.some((page) => `${section}/${page.slug}` === key || (page.slug === 'rules/index' && key.startsWith(`${section}/rules/`)));
       const open = holdsCurrent || (index === 0 && !own.groups.some((other) => other.pages.some((page) => `${section}/${page.slug}` === key || (page.slug === 'rules/index' && key.startsWith(`${section}/rules/`)))));
@@ -146,18 +158,30 @@ export function shell({ depth, title, description, canonical, body, key = '', wi
     '        </div>',
     '      </details>',
   ].join('\n');
-  const links = [
-    link('guide/getting-started.html', 'Get started', { keep: true, current: key === 'guide/getting-started' }),
-    link('guide/', 'Guide', { keep: true, current: section === 'guide' && key !== 'guide/getting-started' && key !== 'guide/plans' }),
-    products,
-    link('guide/plans.html', 'Plans', { current: key === 'guide/plans' }),
-  ].join('\n');
+  const siteTop = SITE_NAV?.top ?? [];
+  const links = siteTop
+    .map((entry) => {
+      if (entry.products) return products;
+      const current = (entry.key && entry.key === key) || (entry.section && entry.section === section && !(SITE_NAV.top.some((other) => other.key === key)));
+      return link(entry.href, entry.label, { keep: entry.keep, current: Boolean(current) });
+    })
+    .join('\n');
   const optimizedBody = optimizeImages(body);
   const inner =
     wrap === 'layout'
       ? `<div class="layout">\n${withSidebar ? sidebar({ base, section, key }) : ''}\n${optimizedBody}\n</div>`
       : optimizedBody;
-  const hostLinks = HOSTS.map((host) => `<a href="${sectionUrl(host, base)}">${escapeHtml(host.title)}</a>`).join('\n    ');
+  const footerLinks = (SITE_NAV?.footer ?? [])
+    .flatMap((entry) => {
+      if (entry.hosts) return HOSTS.map((host) => `<a href="${sectionUrl(host, base)}">${escapeHtml(host.title)}</a>`);
+      if (entry.store) return STORES[entry.store] ? [`<a href="${STORES[entry.store]}">${escapeHtml(entry.label)}</a>`] : [];
+      if (entry.issues) return [`<a href="${CONTACT.issues}">${escapeHtml(entry.label)}</a>`];
+      return [`<a href="${/^https?:/.test(entry.href) ? entry.href : base + entry.href}">${escapeHtml(entry.label)}</a>`];
+    })
+    .join('\n    ');
+  const analytics = ANALYTICS_TOKEN
+    ? `\n<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify({ token: ANALYTICS_TOKEN })}'></script>\n`
+    : '';
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -203,25 +227,21 @@ ${inner}
 
 <footer>
   <div class="links">
-    <a href="${base}">Home</a>
-    <a href="${base}guide/getting-started.html">Get started</a>
-    <a href="${base}guide/">Guide</a>
-    ${hostLinks}
-    <a href="${base}guide/plans.html">Plans</a>
-    <a href="${MARKETPLACE}">Marketplace</a>
-    <a href="${REPO}/issues">Support</a>
-    <a href="${REPO}/blob/main/CHANGELOG.md">Changelog</a>
-    <a href="${base}license/">Licence</a>
-    <a href="${base}notices/">Third-party notices</a>
-    <a href="${REPO}/blob/main/SECURITY.md">Security policy</a>
+    ${footerLinks}
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. ${EMBED ? 'Its one script, on the Plans page, opens the checkout, and it is served from this site.' : 'It runs no scripts.'} It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="${base}fonts/OFL-Inter.txt">Inter</a>, <a href="${base}fonts/OFL.txt">JetBrains Mono</a>).</p>
-  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+  <p>${ANALYTICS_TOKEN ? 'This site sets no cookies. It counts page views with Cloudflare Web Analytics, which uses no cookies and does not follow you across sites, and loads nothing else from other sites.' : 'This site sets no cookies and loads nothing from other sites.'} ${EMBED ? 'Its checkout script, on the Plans page, is served from this site. ' : ''}<a href="${base}privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="${base}fonts/OFL-Inter.txt">Inter</a>, <a href="${base}fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 ${escapeHtml(VENDOR.name)}. All rights reserved. Contact: <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>.</p>
 </footer>
-${checkout && EMBED ? `\n<script src="${base}vendor/polar-checkout/embed.global.js" data-auto-init defer></script>\n` : ''}
+${checkout && EMBED ? `\n<script src="${base}vendor/polar-checkout/embed.global.js" data-auto-init defer></script>\n` : ''}${analytics}
 </body>
 </html>
 `;
 }
+
+// What the site says about its own scripts. Used by the privacy policy and the security page.
+export const analyticsNote = () =>
+  ANALYTICS_TOKEN
+    ? 'It counts page views with Cloudflare Web Analytics, which uses no cookies, does not fingerprint visitors and does not follow them across sites. That script is the only thing the site loads from another address.'
+    : 'It runs no analytics and loads nothing from other addresses.';

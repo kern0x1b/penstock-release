@@ -1,0 +1,81 @@
+<!--
+title: Penstock for Teams: review BPMN in pull requests and CI
+description: Review BPMN diagrams in pull requests, gate CI with SARIF and baselines, and keep data on your own machines. Team is {{price:team:month}} per seat a month.
+h1: Review diagrams like you review code
+lede: Penstock Team adds a review bot to your pull requests, reports with the changes outlined, baselines so the first run is not red, and SARIF for code scanning. It runs in your own pipeline, and there is no service to register with.
+jsonld: product-team, faq
+crumb: For teams
+-->
+<div class="cta">
+  <a class="btn" href="{{buy:team}}" rel="noopener">Buy Team</a>
+  <a class="btn quiet" href="mailto:{{contact-email}}">Talk to us</a>
+</div>
+<p>Team costs {{price:team:month}} per seat a month or {{price:team:year}} per seat a year. Individuals do not need Team: Pro covers your own machine. Team is for pipelines.</p>
+
+<h2 id="what-you-get">What a team gets</h2>
+
+<div class="cards">
+  <div class="card"><strong>Review bot</strong><span>One comment on each pull request, edited on every push. Ask it in a comment, for example <code>/penstock full review</code>.</span></div>
+  <div class="card"><strong>Pull request report</strong><span>The check against the baseline, what changed by element, and pictures with the changes outlined.</span></div>
+  <div class="card"><strong>Baselines</strong><span>Fail only on what is new, not on years of old findings.</span></div>
+  <div class="card"><strong>SARIF and annotations</strong><span>Findings on the changed lines in your code review and in code scanning.</span></div>
+</div>
+
+<p>The bot is your own pipeline running <code>penstock bot</code>. It supports GitHub, Gitea, Forgejo, GitLab, Azure DevOps and Bitbucket. Azure DevOps and Bitbucket get the review only, without answers to comments. See <a href="@cli/ci.html">Pipelines, reports and the bot</a> for each.</p>
+
+<h2 id="set-up">How to set it up</h2>
+
+<ol class="steps">
+  <li>Buy Team, then give the seats to people in Polar's customer portal.</li>
+  <li>Run <code>penstock init --ci github</code> on a machine that has Team. It writes the bot and SARIF workflows. The other choices are <code>gitea</code>, <code>forgejo</code>, <code>gitlab</code>, <code>bitbucket</code> and <code>azure</code>.</li>
+  <li>Store the key that <code>penstock license key</code> prints as the secret <code>PENSTOCK_LICENSE</code>.</li>
+</ol>
+
+<h2 id="seats">Seats and cost</h2>
+
+<p>A seat is for a person who runs Pro features on their own machine. A pipeline uses a Team key and takes no machine's place, and the key only counts when <code>CI</code> is set. Five people who work on diagrams are five seats: five times {{price:team:month}} a month, or five times {{price:team:year}} a year. How seats are given out is on <a href="@guide/sign-in.html#team-seats">Buying and signing in</a>.</p>
+
+<h2 id="trust">Trust and procurement</h2>
+
+<h3 id="data">What leaves your machine</h3>
+<ul>
+  <li>Deploy sends the file you deploy, with the profile's credentials, to the engine address you configured. Nothing else.</li>
+  <li>The licence check sends the licence, a one-way hash of the machine's id and the host name as a label. Never a diagram.</li>
+  <li>There is no telemetry and no crash reporter. Credentials stay in your tool's secret store, never in project files.</li>
+  <li>The review bot never runs hooks that a pull request's configuration declares, answers only people who own, belong to or collaborate on the repository, and never on a pull request from a fork.</li>
+</ul>
+<p>The complete list is on <a href="@guide/security.html">Security and privacy</a>.</p>
+
+<h3 id="licence-server">The licence service</h3>
+<p>What it receives, what it keeps and for how long is set out in the <a href="../privacy/#licence-service">privacy policy</a>. The licence is a signed token that tools check offline. It lasts 30 days and is renewed once a day when the machine is online. If the service cannot be reached, a valid token keeps working, and a pipeline runs as Free.</p>
+
+<h3 id="security">Security reports</h3>
+<p>Report a vulnerability privately, as the <a href="{{repo}}/blob/main/SECURITY.md">security policy</a> describes. Penstock has no third-party security audit or certification.</p>
+
+<h3 id="components">Third-party components and licence</h3>
+<p>The open-source components Penstock bundles keep their own licences: <a href="../notices/">third-party notices</a>. Penstock itself is under the <a href="../license/">end user licence</a>.</p>
+
+<h3 id="continuity">If the vendor stops</h3>
+<p>Penstock is made by one person. In practice that means: your diagrams are plain <code>.bpmn</code>, <code>.dmn</code> and <code>.form</code> files in your repository that open in any other editor, and a licence token that has been issued keeps working offline for up to 30 days.</p>
+
+<h3 id="invoices">Invoices and purchasing</h3>
+<p>Polar is the merchant of record. It collects VAT or sales tax where it applies, and issues receipts and invoices. Vendor details are on <a href="../about/">About and contact</a>. For anything else about buying, write to {{contact}}.</p>
+
+<h2 id="faq">Questions</h2>
+
+<details class="faq"><summary>Do we need a Team key for every developer?</summary>
+<p>No. A developer needs a seat only to run Pro features on their own machine. The pipeline uses one Team key that takes no seat's place.</p></details>
+
+<details class="faq"><summary>Can we use Pro on laptops and Team in the pipeline?</summary>
+<p>Yes. That is the rule: Pro on your own machine, Team inside a pipeline.</p></details>
+
+<details class="faq"><summary>Does the bot send our diagrams anywhere?</summary>
+<p>No. The bot is your own pipeline running <code>penstock bot</code>. There is no service behind it.</p></details>
+
+<details class="faq"><summary>Can we try it first?</summary>
+<p>Every machine starts with 30 days of Pro. A pipeline gets no trial, so Team features in a pipeline need a Team key.</p></details>
+
+<div class="cta">
+  <a class="btn" href="{{buy:team}}" rel="noopener">Buy Team</a>
+  <a class="btn quiet" href="../pricing/">See pricing</a>
+</div>

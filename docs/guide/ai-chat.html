@@ -33,7 +33,7 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../install/" class="keep">Install</a>
       <a href="../guide/" class="keep" aria-current="true">Guide</a>
       <details class="products">
         <summary>Products</summary>
@@ -43,7 +43,8 @@
           <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
         </div>
       </details>
-      <a href="../guide/plans.html">Plans</a>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
@@ -57,7 +58,6 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
-      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -136,6 +136,7 @@
     <ul>
       <li><a href="../guide/plans.html">Plans and licence</a></li>
       <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/licence-troubleshooting.html">Licence troubleshooting</a></li>
       <li><a href="../guide/security.html">Security and privacy</a></li>
       <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
       <li><a href="../guide/faq.html">Questions and answers</a></li>
@@ -172,6 +173,24 @@
 
 <p>The chat is part of Penstock Pro, and Team in a pipeline. The input and the chats are shown to everyone. When you send a message without the licence, you get the usual offer at that moment: what the AI chat does, and the choice to buy Pro or to enter a licence key. Nothing is added to the chat. See <a href="plans.html">Plans and licence</a>.</p>
 
+<div class="hosts">
+<p class="hosts-title">Where the AI chat is, by tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<p class="host-name">JetBrains</p>
+<p>In a JetBrains IDE from 2023.1 the input is at the foot of every BPMN, DMN and form editor, and the chats are listed in a <strong>Chats</strong> section under the tree of the Penstock tool window. The agents screen is the page <span class="ui">Settings | Tools | Penstock | AI agents</span>. Sending a message needs Pro. See <a href="../jetbrains/tool-window.html">The Penstock tool window</a>.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>The input is at the foot of every BPMN, DMN and form editor, and the chats are in the <strong>Chats</strong> view of Penstock. The agents screen is the command <span class="ui">Penstock: AI agents</span>. Sending a message needs Pro.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p class="unavailable">Not available on the command line. The command line has no editor to hold the input. An agent you run yourself can still read the project through penstock mcp. See the MCP server page.</p>
+</section>
+</div>
+</div>
+
 <h2 id="ask-a-question"><a href="#ask-a-question">Ask a question</a></h2>
 
 <ol class="steps">
@@ -181,6 +200,11 @@
   <li>The answer appears in a card just above the input, with the agent's work folded into one row while it runs. When the agent has something to change, it asks you first.</li>
   <li>Write the next message in the same input. The conversation goes on in the same chat.</li>
 </ol>
+
+<figure class="shot">
+  <img src="../img/ai-chat-answer.png" alt="The BPMN editor with the user task Approve order selected. Above the input at the foot of the canvas an answer card is open. It is headed with the chat title, What happens if the credit check fails?, and the agent name, with three buttons at the right. It holds the question and an answer that names Order received, Check customer credit and Set credit limit as chips. Below it the input shows two chips, Approve order and order-to-cash.bpmn, the placeholder text and the settings button" width="1600" height="921">
+  <figcaption>A question asked about the selected task. The answer card sits right above the input, and the names in the answer are chips.</figcaption>
+</figure>
 
 <p>If the agent is not signed in or not installed yet, the card says so and offers the next step. See <a href="#failed">When the agent cannot answer</a>.</p>
 
@@ -214,6 +238,11 @@
   </tbody>
 </table></div></div>
 
+<figure class="shot">
+  <img src="../img/ai-chat-input.png" alt="The input of the AI chat, opened. Two chips at the top name what the message is about, the selected task Approve order with an x, and the file order-to-cash.bpmn. Below them the text of the message, then a row with the chat button, a plus, the settings button with the agent logo and the model Opus 5.5 High, the key hints Enter send and Shift Enter newline, and the round Send button in the accent colour" width="800" height="173" loading="lazy" decoding="async">
+  <figcaption>The input with a message typed. The chips say what the message is about, and the row below holds the controls.</figcaption>
+</figure>
+
 <p>An input that is empty and not in use rests as one line, with the placeholder and the send button. Clicking it or typing in it opens the full row, and clearing it and leaving it rests it again. When the row is short, the chat title becomes an icon first, then the key hints go. On a canvas too narrow for the input, it is one button, <span class="ui">Ask the agent</span>, at the foot. It shows a spinner while the agent works and a hand while a question waits, and opens the whole input over the canvas.</p>
 
 <h3 id="while-the-agent-is-working"><a href="#while-the-agent-is-working">While the agent is working</a></h3>
@@ -227,6 +256,11 @@
 <h2 id="agent-model-thought-level-and-mode"><a href="#agent-model-thought-level-and-mode">Agent, model, thought level and mode</a></h2>
 
 <p>The settings button shows the agent's logo, the model's name and the level, such as <em>Opus 5.5 High</em>, and the mode after a dot only when it is not the agent's default. Pressing it opens a small form above the button.</p>
+
+<figure class="shot">
+  <img src="../img/ai-chat-settings.png" alt="The settings form of the AI chat, open above the settings button. It has one row each for Agent, Model and Thought level, with the current values, and Manage agents at the foot. The input with its chips and text is just below it" width="999" height="229" loading="lazy" decoding="async">
+  <figcaption>The settings form opens above its button. Agent and Model are lists, and the thought level is a short row of values.</figcaption>
+</figure>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <tbody>
@@ -274,6 +308,11 @@
 <h2 id="chats-belong-to-the-project"><a href="#chats-belong-to-the-project">Chats belong to the project</a></h2>
 
 <p>A task often spans a process, a decision and the code of its workers, so chats belong to the project and not to a file. Each editor has its own current chat. It opens on the latest chat its file took part in. With none, your first message starts a new one, so two diagrams never mix their conversations. The title of a chat is the first line of its first message until you rename it.</p>
+
+<figure class="shot">
+  <img src="../img/shell-window.png" alt="The window of Penstock Web. The title bar has the Penstock name, the project switcher and the open file. The sidebar island at the left has the Actions Check, Scenarios, Monitor, Debug and Auto layout, the Project tree and, below it, the Chats section with one chat, working or idle. The BPMN editor with the AI chat at the foot is at the right" width="1600" height="1000" loading="lazy" decoding="async">
+  <figcaption>The sidebar of Penstock Web: the actions, the project tree and the Chats section under it, with the editor and its AI chat at the right.</figcaption>
+</figure>
 
 <p>The chats are listed with their state, in the place each tool has for them:</p>
 
@@ -347,23 +386,30 @@
 <footer>
   <div class="links">
     <a href="../">Home</a>
-    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../vscode/">VS Code</a>
     <a href="../cli/">Command line</a>
-    <a href="../guide/plans.html">Plans</a>
-    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
     <a href="../license/">Licence</a>
     <a href="../notices/">Third-party notices</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
-  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+  <p>This site sets no cookies and loads nothing from other sites. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
 </footer>
 
 </body>

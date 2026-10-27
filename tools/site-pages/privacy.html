@@ -1,0 +1,107 @@
+<!--
+title: Privacy Policy - Penstock
+description: What Penstock collects and what it does not: no telemetry in the editor, a minimal licence service, no tracking cookies, and your GDPR rights.
+h1: Privacy Policy
+lede: What Penstock collects, why, for how long, and what you can ask of us. This page is a description of what the software does today.
+jsonld: webpage
+crumb: Privacy Policy
+-->
+<p class="updated">Last updated: {{updated}}</p>
+
+<h2 id="short-version">Short version</h2>
+
+<ul>
+  <li>The editors and the command line have <strong>no telemetry</strong>. They do not report what you do, what you open or what your diagrams contain.</li>
+  <li>Your diagrams stay on your machine. They go only to the process engine you configure, when you deploy, and to the AI agent you choose, if you use the AI chat.</li>
+  <li>The licence service sees a licence key or token, a one-way hash of your machine's id, the host name as a label, and the network address a request comes from. It never sees a diagram.</li>
+  <li>Payments are handled by Polar, the merchant of record. We never see your card.</li>
+  <li>The website sets no cookies and has no advertising or social trackers.</li>
+  <li>We do not sell your data.</li>
+</ul>
+
+<h2 id="controller">1. Who is responsible</h2>
+
+<p>The controller of the personal data described here is {{vendor}}, an individual in {{config:vendor.country}} ({{config:vendor.countryNote}}). Write to {{contact}} for anything about this policy or your data.</p>
+
+<h2 id="software">2. The software: plugin, extension and command line</h2>
+
+<p>Penstock sends something over the network only when you act, apart from the daily licence renewal. The complete list, with when, where to and what is sent, is the table on <a href="@guide/security.html#everything-that-talks-to-the-network">Security and privacy</a>. In short:</p>
+
+<ul>
+  <li>Deploy sends the file you deploy and the profile's credentials to the engine address you configured, and nothing else.</li>
+  <li>Opening the connector browser asks <code>api.github.com</code> and <code>codeload.github.com</code> for public connector templates, at most once a day. No credentials and no project data go with it.</li>
+  <li>The licence service is described below.</li>
+  <li>The AI chat starts an agent of your choice on your machine. What that agent sends to its provider is between you and that provider.</li>
+</ul>
+
+<p>There is no update polling, no crash reporting and no usage statistics. Passwords and secrets go to the secret store of your tool, never to a project file.</p>
+
+<h2 id="licence-service">3. The licence service</h2>
+
+<p>The licence service is a small program (a Cloudflare Worker) that turns a trial, a licence key or a Team key into a signed token. This is everything it receives and keeps.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>When</th><th>What it receives</th><th>What it keeps</th></tr></thead>
+  <tbody>
+  <tr><td>A machine starts its 30-day trial</td><td>A one-way hash of the machine's id, and the network address of the request.</td><td>The machine hash, the start of the trial, and a shortened one-way hash of the network address. The address itself is not stored.</td></tr>
+  <tr><td>You activate a licence on a machine</td><td>The licence key, the machine hash and the host name as a label.</td><td>The id of the key, the id of the activation, the machine hash and the time. The key and the label are passed to Polar, which holds the activation.</td></tr>
+  <tr><td>The daily renewal, and releasing a machine</td><td>The signed token it issued before.</td><td>Nothing new, except the release of a machine's place.</td></tr>
+  <tr><td>A pipeline asks for a token</td><td>A Team key and the runner's machine hash.</td><td>The id of the key, the runner's machine hash and the time, to cap the number of runners.</td></tr>
+  </tbody>
+</table></div>
+
+<p>It does not receive your e-mail address. When you sign in, the code is requested from Polar directly. It does not receive diagrams, file names or project names. The host name is sent as a label so that you can recognise a machine, and it can contain a name if you gave your computer one. The network address of a request is visible to the service and to Cloudflare, which runs it, as it is to any web server, and is used to limit abuse: at most five new trials a day from one address, and a rate limit on requests.</p>
+
+<h3 id="retention">How long it is kept</h3>
+
+<ul>
+  <li><strong>The shortened hash of the network address of a trial</strong> is kept for {{config:retention.trialIpDays}} days after the trial starts, and then deleted.</li>
+  <li>The machine hash and the start of a trial are kept so that reinstalling does not start a second trial. They are not linked to your name or e-mail address by the licence service.</li>
+  <li>Activation records are kept while the licence they belong to exists, so that a place on a key can be freed and counted correctly.</li>
+</ul>
+
+<p>The purposes are the trial and the licence you asked for, the limit of three machines for each key, and protection against abuse. The legal basis is the performance of the contract you enter by using the software under its licence (GDPR Article 6(1)(b)) and our legitimate interest in preventing abuse and keeping the service secure (Article 6(1)(f)).</p>
+
+<h2 id="payments">4. Payments</h2>
+
+<p>Payments, VAT, invoices and refunds are handled by Polar Software, Inc. (<a href="https://polar.sh">polar.sh</a>), the merchant of record, and its payment processors. When you buy, you give your payment details and e-mail address to Polar under Polar's own privacy policy, and Polar is an independent controller of that data. As the seller we can see in Polar's dashboard your e-mail address, country and subscription status. Penstock never sees your card number. Signing in on a new machine asks Polar to e-mail you a code.</p>
+
+<h2 id="website">5. This website</h2>
+
+<ul>
+  <li>No cookies, no advertising and no social trackers. The fonts are served from this site.</li>
+  <li>The site is hosted on {{config:hosting.name}}, which keeps its own server logs under its own policy.</li>
+  <li>{{analytics-note}}</li>
+  <li>A Buy button is a link to Polar's checkout. Opening it sends you to a page that Polar operates under its own policy.</li>
+  <li>The links to the marketplaces, to GitHub and to npm lead to sites with their own policies. We see only the aggregate download and page-view counts they show us.</li>
+</ul>
+
+<h2 id="support">6. Support and e-mail</h2>
+
+<p>If you write to {{contact}} or open an issue on <a href="{{issues}}">GitHub</a>, we use what you send only to answer you and to reproduce the problem. A GitHub issue is public. Do not post a diagram you do not want to share. A file sent by e-mail is used only to reproduce the problem.</p>
+
+<h2 id="recipients">7. Who else handles data</h2>
+
+<ul>
+  <li><strong>Cloudflare, Inc.</strong> runs the licence service and its database. It acts as a processor on our behalf.</li>
+  <li><strong>Polar Software, Inc.</strong> is the merchant of record. It is an independent controller for payments and holds licence keys and activations.</li>
+  <li><strong>{{config:hosting.name}}</strong> hosts this website.</li>
+</ul>
+
+<p>These providers can process data outside the European Economic Area. They describe the safeguards they use, such as standard contractual clauses, in their own documentation. We do not sell or share personal data with anyone else.</p>
+
+<h2 id="rights">8. Your rights</h2>
+
+<p>Under the GDPR you can ask for access to your data, for correction, for erasure, for restriction, for a portable copy, and you can object to processing that is based on our legitimate interest. Write to {{contact}}. We answer within one month.</p>
+
+<p>The licence service keys its records by hashes that we cannot link to a person on our own. To find yours we will tell you what we need from you, for example the licence key or the machine. You can free a machine yourself at any time by signing out in your tool, which releases its place on the key.</p>
+
+<p>You can complain to the supervisory authority. For Poland it is the President of the Personal Data Protection Office (UODO), <a href="https://uodo.gov.pl">uodo.gov.pl</a>. You may also complain to the authority of the country where you live or work.</p>
+
+<h2 id="children-and-changes">9. Children and changes</h2>
+
+<p>Penstock is a tool for professionals and is not directed at children. If this policy changes, the date at the top changes.</p>
+
+<h2 id="contact">10. Contact</h2>
+
+<p>{{vendor}}, {{contact}}. See <a href="../about/">About and contact</a>. The technical detail behind this page is on <a href="@guide/security.html">Security and privacy</a> and <a href="@guide/sign-in.html">Buying and signing in</a>. The terms of sale are on <a href="../terms/">Terms</a>.</p>

@@ -33,7 +33,7 @@
   <div class="bar">
     <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
     <nav aria-label="Site">
-      <a href="../guide/getting-started.html" class="keep">Get started</a>
+      <a href="../install/" class="keep">Install</a>
       <a href="../guide/" class="keep" aria-current="true">Guide</a>
       <details class="products">
         <summary>Products</summary>
@@ -43,7 +43,8 @@
           <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
         </div>
       </details>
-      <a href="../guide/plans.html">Plans</a>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
     </nav>
   </div>
@@ -57,7 +58,6 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
-      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -136,6 +136,7 @@
     <ul>
       <li><a href="../guide/plans.html">Plans and licence</a></li>
       <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/licence-troubleshooting.html">Licence troubleshooting</a></li>
       <li><a href="../guide/security.html" aria-current="page">Security and privacy</a></li>
       <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
       <li><a href="../guide/faq.html">Questions and answers</a></li>
@@ -174,7 +175,7 @@
   <li>Your diagrams leave your machine only when <strong>you</strong> deploy them, to the engine <strong>you</strong> configured.</li>
   <li>Passwords and secrets go to the secret store of your tool, never to a project file, and never to the web page inside the editor.</li>
   <li>The AI chat is optional and starts an agent only when you turn it on. The agent runs on your own account, and every change it wants to make to your project is asked before it happens. See <a href="#the-ai-chat">The AI chat</a>.</li>
-  <li>This website sets no cookies and loads nothing from other sites. Opening the checkout is the one time a visitor's browser talks to a third party, and only after pressing a Buy button. See <a href="#checkout">Opening the checkout</a>.</li>
+  <li>This website sets no cookies. It runs no analytics and loads nothing from other addresses. Pressing a Buy button sends the browser to Polar's checkout. See <a href="#this-website">This website</a> and <a href="#checkout">Opening the checkout</a>.</li>
 </ul>
 
 <h2 id="everything-that-talks-to-the-network"><a href="#everything-that-talks-to-the-network">Everything that talks to the network</a></h2>
@@ -330,7 +331,7 @@
 <p>The Buy buttons on the <a href="plans.html">Plans page</a> are links to a Polar checkout page. Pressing one opens Polar's page, either in a new page or, where the site has switched it on, in a frame over this one. Either way it is Polar's page that loads. Polar sees the visit, and whatever you type there goes to Polar. Penstock never sees your card.</p>
 
 <ul>
-  <li><strong>Nothing else on this site contacts a third party.</strong> No page loads a font, a script, an image, a counter or a stylesheet from another site. Reading the guide, the rules and the licence sends nothing to anyone but the server that hosts this site (GitHub Pages).</li>
+  <li><strong>Nothing else on this site contacts a third party</strong>, apart from what <a href="#this-website">This website</a> says about analytics. No page loads a font, an image or a stylesheet from another site.</li>
   <li><strong>The prices are read at build time</strong>, when the site is generated, and are part of the page. Your browser does not ask Polar for them.</li>
   <li><strong>The access token stays with the owner.</strong> It is used only on the machine that builds the site. It is never in the site or in the repository.</li>
   <li><strong>Without JavaScript the Buy button still works.</strong> It is an ordinary link.</li>
@@ -339,7 +340,7 @@
 
 <h2 id="this-website"><a href="#this-website">This website</a></h2>
 
-<p>The pages you are reading are plain HTML and one style sheet. They set no cookies and load no fonts, images or code from other sites. The font, JetBrains Mono, is served from this site. Nothing tracks visitors. GitHub, which hosts the site, keeps its own server logs. Apart from the checkout above, the only links that leave this site are ordinary links that you click.</p>
+<p>The pages you are reading are plain HTML and one style sheet. They set no cookies and load no fonts, images or code from other sites. The fonts are served from this site. It runs no analytics and loads nothing from other addresses. GitHub, which hosts the site, keeps its own server logs. The <a href="../privacy/">privacy policy</a> has the whole of it. Apart from the checkout above, the only links that leave this site are ordinary links that you click.</p>
 
 <h2 id="report-a-vulnerability"><a href="#report-a-vulnerability">Report a vulnerability</a></h2>
 
@@ -352,7 +353,7 @@
 <p class="host-name">JetBrains</p>
 <ul>
   <li>Secrets are kept in the <strong>IDE password safe</strong>, once for each profile.</li>
-  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a trusted project. From IDE 2025.2 the IDE's own <span class="ui">Trust Project</span> decides, and Penstock never overrides it. On 2024.2 and 2025.1 Penstock asks itself, in a dialog that names the command, and keeps the answer in <code>~/.penstock/trusted-projects.json</code>. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
+  <li>The Run Penstock commands in the tool window, and the <code>preDeploy</code> and <code>postDeploy</code> hooks of an IDE deploy, run only in a trusted project. From IDE 2025.2 the IDE's own <span class="ui">Trust Project</span> decides, and Penstock never overrides it. Before 2025.2 Penstock asks itself, in a dialog that names the command, and keeps the answer in <code>~/.penstock/trusted-projects.json</code>. Without a <code>penstockw</code> in the project, the IDE runs <code>npx @kern0x1b/penstock-cli</code>, which downloads the command from npm the first time.</li>
   <li>A private certificate must be trusted by the Java runtime of the IDE. Penstock never skips the check.</li>
   <li>The connector download uses the IDE proxy settings.</li>
 </ul>
@@ -398,7 +399,7 @@
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
-<a class="prev" href="../guide/sign-in.html"><span>Previous</span>Buying and signing in</a>
+<a class="prev" href="../guide/licence-troubleshooting.html"><span>Previous</span>Licence troubleshooting</a>
 <a class="next" href="../guide/troubleshooting.html"><span>Next</span>Troubleshooting</a>
 </nav>
 </main>
@@ -407,23 +408,30 @@
 <footer>
   <div class="links">
     <a href="../">Home</a>
-    <a href="../guide/getting-started.html">Get started</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
     <a href="../guide/">Guide</a>
     <a href="../jetbrains/">JetBrains</a>
     <a href="../vscode/">VS Code</a>
     <a href="../cli/">Command line</a>
-    <a href="../guide/plans.html">Plans</a>
-    <a href="https://plugins.jetbrains.com/plugin/25710-camunda-bpmn-editor">Marketplace</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
     <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
     <a href="../license/">Licence</a>
     <a href="../notices/">Third-party notices</a>
     <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
   </div>
   <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
   <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
-  <p>This site sets no cookies and loads nothing from other sites. It runs no scripts. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
-  <p>Copyright 2024-2026 kern0x1b. All rights reserved.</p>
+  <p>This site sets no cookies and loads nothing from other sites. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
 </footer>
 
 </body>

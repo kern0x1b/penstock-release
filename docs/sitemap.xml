@@ -4,6 +4,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/about/</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/cli/</loc>
   </url>
   <url>
@@ -16,7 +19,16 @@
     <loc>https://kern0x1b.github.io/penstock-release/cli/mcp.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/cli/quick-start.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/cli/web.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/faq/</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/for-teams/</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/</loc>
@@ -100,13 +112,13 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/import.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/licence-troubleshooting.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/migration.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/monitor.html</loc>
-  </url>
-  <url>
-    <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-desktop.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-web.html</loc>
@@ -181,6 +193,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/validation.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/install/</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/jetbrains/</loc>
   </url>
   <url>
@@ -194,6 +209,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/jetbrains/licence.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/jetbrains/quick-start.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/jetbrains/rename.html</loc>
@@ -221,6 +239,12 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/notices/</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/pricing/</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/privacy/</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/</loc>
@@ -691,6 +715,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/rules/table-table-unread</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/terms/</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/vscode/</loc>
   </url>
   <url>
@@ -701,6 +728,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/vscode/licence.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/vscode/quick-start.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/vscode/shortcuts.html</loc>

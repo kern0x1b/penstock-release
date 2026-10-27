@@ -1,0 +1,33 @@
+{
+  "contact": {
+    "email": "oleksandr.havrysh5@gmail.com",
+    "issues": "https://github.com/kern0x1b/penstock-release/issues"
+  },
+  "vendor": {
+    "name": "Oleksandr Havrysh",
+    "kind": "individual",
+    "country": "Poland",
+    "countryNote": "European Union",
+    "marketplaceStatus": "Trader on the JetBrains Marketplace"
+  },
+  "analytics": {
+    "cloudflareToken": ""
+  },
+  "stores": {
+    "openVsx": ""
+  },
+  "retention": {
+    "trialIpDays": 90
+  },
+  "refund": {
+    "firstPaymentDays": 30,
+    "renewalDays": 14
+  },
+  "updated": "27 October 2026",
+  "hosting": {
+    "name": "GitHub Pages"
+  },
+  "facts": {
+    "jetbrainsDownloads": "29,000+"
+  }
+}

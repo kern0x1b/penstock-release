@@ -1,65 +1,90 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO, STORES, root, shell } from './site.mjs';
-import { buyLinksHtml, priceSummaryHtml } from './plans.mjs';
+import { CONFIG, CONTACT, REPO, SITE, STORES, VENDOR, root, shell } from './site.mjs';
+import { checkoutUrl } from './plans.mjs';
+import { NODE, priceText } from './build-site-pages.mjs';
 import { readPrices } from './fetch-prices.mjs';
 
-const NODE = 'Node.js 22.22.2 or later in 22, 24.15.0 or later in 24, or 26 and later';
+const proof = [CONFIG.facts?.jetbrainsDownloads ? `${CONFIG.facts.jetbrainsDownloads} downloads on the JetBrains Marketplace` : '', 'No telemetry', 'Camunda 7, Camunda 8, Operaton, CIB seven'].filter(Boolean);
+
+const price = (tier, interval) => priceText(tier, interval);
 
 const body = `<main id="content">
 <div class="wide">
 
 <section class="hero">
-  <h1>Edit, check and deploy BPMN diagrams where you already work.</h1>
-  <p class="lede">Penstock is a visual editor for BPMN, DMN and Camunda forms, for Camunda 7, Camunda 8, Operaton and CIB seven. It runs in JetBrains IDEs and in VS Code, and a command line runs the same checks in your pipeline. Diagrams stay in your project, next to the code.</p>
+  <p class="eyebrow">Formerly Camunda BPMN Editor. Same plugin, same installs, new name.</p>
+  <h1>The BPMN editor that lives in your IDE.</h1>
+  <p class="lede">Draw, check, test and deploy BPMN, DMN and forms for Camunda 7 and 8, next to your code. Free to use, with no time limit. Pro if you want more.</p>
   <div class="cta">
-    <a class="btn" href="guide/getting-started.html">Get started</a>
-    <a class="btn quiet" href="guide/">Read the guide</a>
+    <a class="btn" href="${STORES.jetbrains}">Install for JetBrains</a>
+    <a class="btn" href="${STORES.vscode}">Install for VS Code</a>
+    <a class="btn quiet" href="${STORES.npm}">npm i -g CLI</a>
   </div>
-  <p class="tools-line">Free. Every new machine gets 30 days of Pro, with nothing to sign up for.</p>
+  <p class="tools-line">Works in IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and VS Code, and on the command line. <a href="install/">All install options</a> | <a href="pricing/">Pricing</a> | <a href="guide/getting-started.html">Ten-minute quick start</a></p>
+  <p class="tools-line">${proof.join(' | ')}</p>
 </section>
 
-<figure class="shot">
+<figure class="shot" id="demo">
   <img src="img/editor-overview.png" alt="A Camunda 8 diagram open in the editor, with a service task selected, its properties in the sidebar and the raw XML one tab away">
-  <figcaption>A diagram open in the editor: the toolbar on top, the palette beside the canvas, the properties of the selected task in the sidebar, and the XML one tab away.</figcaption>
+  <figcaption>Open a .bpmn file, run Check, deploy to a local engine. No window switching. The toolbar on top, the palette beside the canvas, the properties of the selected task in the sidebar, and the XML one tab away.</figcaption>
 </figure>
+
+<section class="band" id="plans">
+  <h2>Free, with no time limit. Pro when you want more.</h2>
+  <p class="prose-note">Everything you need to model, check and deploy is free. Pro adds what only Penstock does.</p>
+  <div class="cards">
+    <div class="card"><strong>Free</strong><span>Visual BPMN, DMN and form editors. Properties panels for each engine. Check and bpmnlint. Deploy and Monitor. Token simulation. Export, share and import. Camunda 7 to 8 analysis. MCP tools that list, show and check.</span></div>
+    <div class="card"><strong>Pro, ${price('pro', 'month')} a month or ${price('pro', 'year')} a year</strong><span>Auto layout. Flow analysis. Code links. Scenarios and test-case runs. Visual diagram diff. Camunda 7 to 8 conversion. Sending messages in the AI chat. MCP tools that analyse and edit.</span></div>
+    <div class="card"><strong>Team, ${price('team', 'month')} per seat a month</strong><span>Everything in Pro, inside your pipeline as well: the review bot on pull requests, reports, baselines and SARIF.</span></div>
+  </div>
+  <p class="prose-note">Every new machine starts with 30 days of Pro. No sign-up, no card. <a href="pricing/">See the full comparison, refunds and VAT</a>. <a href="pricing/#if-you-used-the-old-plugin">Used Camunda BPMN Editor before?</a></p>
+</section>
+
+<section class="band" id="tasks">
+  <h2>What do you want to do?</h2>
+  <div class="cards">
+    <a class="card" href="guide/migration.html"><strong>Move from Camunda 7 to 8</strong><span>See what does not carry over, convert, and get a report. The analysis is free.</span></a>
+    <a class="card" href="cli/ci.html"><strong>Check BPMN on every pull request</strong><span>The free check in GitHub, GitLab, Azure, Bitbucket and Gitea pipelines.</span></a>
+    <a class="card" href="cli/mcp.html"><strong>Let your AI assistant read diagrams</strong><span>An MCP server for AI assistants, and an AI chat in the editors with the agent of your choice.</span></a>
+    <a class="card" href="for-teams/"><strong>Review diagrams as a team</strong><span>A review bot, pull request reports, baselines and SARIF.</span></a>
+    <a class="card" href="guide/scenarios.html"><strong>Test a process</strong><span>Plan every way through a process and run the test cases on a local engine.</span></a>
+    <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to the worker that runs it, and back.</span></a>
+  </div>
+</section>
 
 <section class="band" id="install">
   <h2>Install it in your tool</h2>
   <p class="prose-note">The features, the licence and the trial are the same in all three.</p>
   <div class="cards install">
-    <div class="card"><strong><a href="${STORES.jetbrains}">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2024.2. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/installing.html">More on installing</a>.</span></div>
-    <div class="card"><strong><a href="${STORES.vscode}">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or press Install on the <a href="${STORES.vscode}">Marketplace page</a>. <a href="vscode/installing.html">More on installing</a>.</span></div>
-    <div class="card"><strong><a href="${STORES.npm}">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs ${NODE}. <a href="cli/">More on the command line</a>.</span></div>
+    <div class="card"><strong><a href="${STORES.jetbrains}">JetBrains IDEs</a></strong><span>Any JetBrains IDE from 2023.1. Open <span class="ui">Settings | Plugins | Marketplace</span>, search for <code>Penstock</code> and press <span class="ui">Install</span>. <a href="jetbrains/quick-start.html">Quick start</a>.</span></div>
+    <div class="card"><strong><a href="${STORES.vscode}">VS Code</a></strong><span>Run <code>code --install-extension penstock.penstock</code>, or press Install on the <a href="${STORES.vscode}">Marketplace page</a>. <a href="vscode/quick-start.html">Quick start</a>.</span></div>
+    <div class="card"><strong><a href="${STORES.npm}">Command line</a></strong><span>Run <code>npm install -g @kern0x1b/penstock-cli</code>, or try it once with <code>npx @kern0x1b/penstock-cli</code>. It needs ${NODE}. <a href="cli/quick-start.html">Quick start</a>.</span></div>
   </div>
-  <p class="prose-note">Then follow <a href="guide/getting-started.html">Get started</a>: from nothing installed to a checked, deployed process in about ten minutes.</p>
+  <p class="prose-note">Then follow <a href="guide/getting-started.html">Get started</a>: from nothing installed to a checked, deployed process in about ten minutes. <a href="install/">All install options</a>.</p>
 </section>
 
-<section class="band" id="features">
-  <h2>From drawing to running</h2>
-  <p class="prose-note">One guide, written once. It describes the same editor in every tool.</p>
+<section class="band" id="trust">
+  <h2>What you can rely on</h2>
   <div class="cards">
-    <a class="card" href="guide/bpmn-editor.html"><strong>Draw and edit</strong><span>Visual editors for BPMN, DMN and forms, with a properties panel for each engine. Every change is written to the file at once.</span></a>
-    <a class="card" href="guide/diagram-check.html"><strong>Check your work</strong><span>Drawing problems, bpmnlint rules and, with Pro, how the process runs and where it can get stuck.</span></a>
-    <a class="card" href="guide/scenarios.html"><strong>Test and run</strong><span>Plan every way through a process, run the test cases on a local engine, deploy in one click and watch the instances.</span></a>
-    <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to the worker that runs it, and back. Find the tasks nothing implements.</span></a>
-    <a class="card" href="guide/migration.html"><strong>Share and move</strong><span>One offline HTML file to send. Import from draw.io, Visio, Signavio and Bizagi. Convert Camunda 7 to Camunda 8.</span></a>
-    <a class="card" href="cli/"><strong>In your pipeline</strong><span>The same checks from a terminal or a pull request, and an MCP server for AI assistants.</span></a>
+    <a class="card" href="guide/security.html"><strong>No telemetry</strong><span>Nothing leaves your machine except a deployment to your own engine, the licence check and, if you use it, your AI agent.</span></a>
+    <a class="card" href="guide/sign-in.html"><strong>Licence checked offline</strong><span>One signed token, three machines, and it keeps working for up to 30 days without a connection.</span></a>
+    <a class="card" href="about/"><strong>Independent</strong><span>Made by one person, and not affiliated with Camunda.</span></a>
   </div>
 </section>
 
-<section class="band" id="plans">
-  <h2>Free, Pro and Team</h2>
+<section class="band" id="faq">
+  <h2>Questions</h2>
   <div class="prose">
-    <p>Everything a modeller needs is free: the editors, the properties panels, the command palette, the sidebar, templates, token simulation, the check and its lint, deploy, Monitor, export, share and import.</p>
-    <p><strong>Pro</strong> adds what only Penstock does: auto layout, flow analysis, code links, scenarios, the visual diagram diff, converting Camunda 7 to Camunda 8 and more. One rule decides which plan a feature needs: Pro on your machine, Team in a pipeline.</p>
-    <p>Every machine starts with 30 days of Pro. The licence is a signed token that the plugin, the extension and the command line check offline.</p>
-    ${priceSummaryHtml()}
-    <p>Prices are per plan. Team is priced for each seat. <a href="guide/sign-in.html">How buying and signing in work</a>.</p>
-    <div class="cta">
-    ${buyLinksHtml({ primary: false })}
-    </div>
-    <p><a href="guide/plans.html">See exactly what each plan includes</a>. <a href="guide/security.html">See exactly what leaves your machine</a>: nothing but a deployment to your engine, and no telemetry.</p>
+    <details class="faq"><summary>What happened to Camunda BPMN Editor?</summary>
+    <p>It was renamed Penstock in 2026. It is the same plugin from the same author, so it updates in place and nothing needs to be reinstalled.</p></details>
+    <details class="faq"><summary>Is it really free?</summary>
+    <p>Yes, with no time limit. The editors, check, deploy, Monitor, token simulation, export and import are free. Pro and Team are optional.</p></details>
+    <details class="faq"><summary>What happens after the 30-day trial?</summary>
+    <p>The machine goes back to Free. Nothing is deleted, and a Pro feature asks you to buy when you reach it.</p></details>
+    <details class="faq"><summary>Does it send my diagrams anywhere?</summary>
+    <p>No. A diagram goes only to the engine you deploy to, and to the AI agent you choose if you use the AI chat. There is no telemetry.</p></details>
+    <p><a href="faq/">More questions</a></p>
   </div>
 </section>
 
@@ -68,56 +93,72 @@ const body = `<main id="content">
   <div class="table-wrap"><table class="facts">
     <tbody>
     <tr><td>VS Code</td><td>The extension <code>penstock.penstock</code>, for VS Code 1.88 or later.</td></tr>
-    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2024.2 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
+    <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2023.1 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
     <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, and plain BPMN 2.0.</td></tr>
     <tr><td>Command line</td><td>${NODE}.</td></tr>
-    <tr><td>Licence</td><td>Free, with 30 days of Pro on every new machine. One licence covers the JetBrains plugin, the VS Code extension and the command line. Read the <a href="license/">end user licence</a> and the <a href="notices/">third-party notices</a>.</td></tr>
-    <tr><td>Bugs and requests</td><td><a href="${REPO}/issues">GitHub issues</a>. A <code>.bpmn</code> file that shows the problem saves the most time.</td></tr>
+    <tr><td>Licence</td><td>Free, with 30 days of Pro on every new machine. One licence covers the JetBrains plugin, the VS Code extension and the command line. Read the <a href="license/">end user licence</a>, the <a href="terms/">terms</a> and the <a href="notices/">third-party notices</a>.</td></tr>
+    <tr><td>Bugs and requests</td><td><a href="${CONTACT.issues}">GitHub issues</a>. A <code>.bpmn</code> file that shows the problem saves the most time.</td></tr>
+    <tr><td>Questions</td><td><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></td></tr>
     <tr><td>Vulnerabilities</td><td>Reported privately. See <a href="${REPO}/blob/main/SECURITY.md">SECURITY.md</a>. Please do not open a public issue.</td></tr>
     <tr><td>Changelog</td><td><a href="${REPO}/blob/main/CHANGELOG.md">CHANGELOG.md</a></td></tr>
     </tbody>
   </table></div>
 </section>
 
+<section class="band" id="try">
+  <h2>Try it on your own diagram.</h2>
+  <div class="cta">
+    <a class="btn" href="${STORES.jetbrains}">Install for JetBrains</a>
+    <a class="btn" href="${STORES.vscode}">Install for VS Code</a>
+    <a class="btn quiet" href="pricing/">Pricing</a>
+  </div>
+</section>
+
 </div>
 </main>`;
 
 const prices = readPrices();
-const offers = [
-  {
-    '@type': 'Offer',
-    name: 'Free',
-    price: '0',
-    priceCurrency: 'USD',
-  },
-];
+const offers = [{ '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' }];
 for (const plan of Object.values(prices.plans ?? {})) {
-  for (const price of plan.prices ?? []) {
-    const val = (price.amount / 100).toFixed(2);
-    const intervalLabel = price.interval === 'month' ? 'Monthly' : price.interval === 'year' ? 'Yearly' : price.interval;
+  for (const entry of plan.prices ?? []) {
     offers.push({
       '@type': 'Offer',
-      name: intervalLabel ? `${plan.name} (${intervalLabel})` : plan.name,
-      price: val,
-      priceCurrency: price.currency.toUpperCase(),
-      ...(price.interval === 'month' ? { billingDuration: 'P1M' } : price.interval === 'year' ? { billingDuration: 'P1Y' } : {}),
+      name: `${plan.name}, ${entry.interval === 'month' ? 'monthly' : 'yearly'}${plan.seat ? ', per seat' : ''}`,
+      price: (entry.amount / 100).toFixed(2),
+      priceCurrency: entry.currency.toUpperCase(),
+      availability: 'https://schema.org/InStock',
+      url: checkoutUrl(prices, plan),
     });
   }
 }
 
+const publisher = { '@type': 'Person', name: VENDOR.name, url: `${SITE}/about/` };
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Penstock',
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Windows, macOS, Linux',
-  offers,
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Penstock',
+      alternateName: ['Camunda BPMN Editor'],
+      url: `${SITE}/`,
+      description: 'BPMN, DMN and form editor for Camunda 7 and Camunda 8 inside JetBrains IDEs and VS Code, with a command line for pipelines.',
+      image: `${SITE}/og-image.png`,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Windows, macOS, Linux',
+      softwareRequirements: `JetBrains IDE 2023.1 or later, VS Code 1.88 or later, ${NODE}`,
+      installUrl: STORES.jetbrains,
+      downloadUrl: STORES.vscode,
+      publisher,
+      offers,
+    },
+    { '@type': 'WebSite', name: 'Penstock', url: `${SITE}/`, publisher },
+  ],
 };
 
 const html = shell({
   depth: 0,
-  title: 'Penstock - BPMN, DMN and form editor for Camunda in JetBrains IDEs and VS Code',
-  description: 'Penstock edits BPMN, DMN and forms for Camunda 7, Camunda 8, Operaton and CIB seven inside JetBrains IDEs and VS Code, with checks, deployment, tests, auto layout and a command line.',
+  title: 'Penstock: BPMN and DMN editor for Camunda in your IDE',
+  description: 'Edit, check and deploy BPMN, DMN and forms for Camunda 7 and 8 inside IntelliJ and VS Code. Free to use with no time limit, with an optional Pro plan.',
   canonical: '',
   body,
   wrap: 'bare',

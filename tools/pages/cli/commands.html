@@ -1208,7 +1208,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <pre><code>penstock trust [path] [--list] [--forget] [--yes]</code></pre>
 
-<p>Lets a project's <code>penstock.yaml</code> run shell commands on this machine. A hook of <code>check</code>, <code>layout</code> or <code>deploy</code> asks for this first, and a project with no <code>penstock.yaml</code> is not trusted at all. In a terminal, <code>penstock trust</code> asks once for the project the path is in, which is the current folder by default, and records it in <code>~/.penstock/trusted-projects.json</code>, keyed by its real path. The IDE plugin reads and writes the same file on IDE 2024.2 and 2025.1, so a project trusted in one is trusted in both there.</p>
+<p>Lets a project's <code>penstock.yaml</code> run shell commands on this machine. A hook of <code>check</code>, <code>layout</code> or <code>deploy</code> asks for this first, and a project with no <code>penstock.yaml</code> is not trusted at all. In a terminal, <code>penstock trust</code> asks once for the project the path is in, which is the current folder by default, and records it in <code>~/.penstock/trusted-projects.json</code>, keyed by its real path. The IDE plugin reads and writes the same file on IDEs before 2025.2, so a project trusted in one is trusted in both there.</p>
 <ul>
   <li><code>--list</code> prints every trusted project with the date.</li>
   <li><code>--forget</code> takes the project back.</li>

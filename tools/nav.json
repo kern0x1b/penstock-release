@@ -34,7 +34,8 @@
             {
               "slug": "penstock-desktop",
               "title": "Penstock Desktop",
-              "about": "The same editor in its own application window."
+              "about": "The same editor in its own application window.",
+              "draft": true
             },
             {
               "slug": "example-project",
@@ -308,6 +309,11 @@
               "about": "Trial, checkout, sign in, education, pipelines."
             },
             {
+              "slug": "licence-troubleshooting",
+              "title": "Licence troubleshooting",
+              "about": "Bought Pro but it is not active, a proxy or firewall, working offline, no code in the mail."
+            },
+            {
               "slug": "security",
               "title": "Security and privacy",
               "about": "What leaves your machine, and when."
@@ -345,6 +351,11 @@
               "slug": "installing",
               "title": "Installing in JetBrains",
               "about": "Put Penstock into your IDE and check that it works."
+            },
+            {
+              "slug": "quick-start",
+              "title": "Quick start in JetBrains",
+              "about": "Install, open a diagram, check it and deploy it, on one screen."
             },
             {
               "slug": "where-things-are",
@@ -432,6 +443,11 @@
               "about": "Put Penstock into VS Code and check that it works."
             },
             {
+              "slug": "quick-start",
+              "title": "Quick start in VS Code",
+              "about": "Install, open a diagram, check it and deploy it, on one screen."
+            },
+            {
               "slug": "where-things-are",
               "title": "Where things are in VS Code",
               "about": "The editor, the sidebar, the command palette, the status bar and Problems."
@@ -487,6 +503,11 @@
               "about": "Install, run, and use it in a script."
             },
             {
+              "slug": "quick-start",
+              "title": "Quick start on the command line",
+              "about": "Install, write the example, check it and deploy it, in a terminal."
+            },
+            {
               "slug": "web",
               "title": "penstock web",
               "about": "The editors in a browser, served from your machine."
@@ -526,10 +547,116 @@
       "title": "Desktop",
       "kind": "host",
       "enabled": false,
-      "announce": true,
+      "announce": false,
       "summary": "A desktop app is planned.",
       "groups": [],
       "where": "in the desktop app"
     }
-  ]
+  ],
+  "site": {
+    "top": [
+      {
+        "label": "Install",
+        "href": "install/",
+        "key": "site/install",
+        "keep": true
+      },
+      {
+        "label": "Guide",
+        "href": "guide/",
+        "section": "guide",
+        "keep": true
+      },
+      {
+        "products": true
+      },
+      {
+        "label": "Pricing",
+        "href": "pricing/",
+        "key": "site/pricing"
+      },
+      {
+        "label": "For teams",
+        "href": "for-teams/",
+        "key": "site/for-teams"
+      }
+    ],
+    "footer": [
+      {
+        "label": "Home",
+        "href": ""
+      },
+      {
+        "label": "Install",
+        "href": "install/"
+      },
+      {
+        "label": "Pricing",
+        "href": "pricing/"
+      },
+      {
+        "label": "Guide",
+        "href": "guide/"
+      },
+      {
+        "hosts": true
+      },
+      {
+        "label": "FAQ",
+        "href": "faq/"
+      },
+      {
+        "label": "For teams",
+        "href": "for-teams/"
+      },
+      {
+        "label": "About and contact",
+        "href": "about/"
+      },
+      {
+        "label": "JetBrains Marketplace",
+        "store": "jetbrains"
+      },
+      {
+        "label": "VS Code Marketplace",
+        "store": "vscode"
+      },
+      {
+        "label": "Open VSX",
+        "store": "openvsx"
+      },
+      {
+        "label": "npm",
+        "store": "npm"
+      },
+      {
+        "label": "Support",
+        "issues": true
+      },
+      {
+        "label": "Changelog",
+        "href": "https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md"
+      },
+      {
+        "label": "Privacy",
+        "href": "privacy/"
+      },
+      {
+        "label": "Terms",
+        "href": "terms/"
+      },
+      {
+        "label": "Licence",
+        "href": "license/"
+      },
+      {
+        "label": "Third-party notices",
+        "href": "notices/"
+      },
+      {
+        "label": "Security policy",
+        "href": "https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md"
+      }
+    ]
+  }
 }
