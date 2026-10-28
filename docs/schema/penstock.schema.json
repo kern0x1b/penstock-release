@@ -14,7 +14,9 @@
         "camunda-7",
         "camunda-8",
         "operaton",
-        "cib-seven"
+        "cib-seven",
+        "flowable",
+        "activiti"
       ]
     },
     "scriptType": {
@@ -39,6 +41,26 @@
       "items": {
         "type": "string"
       }
+    },
+    "palette": {
+      "description": "The elements the BPMN palette offers, for a project that uses only some of them. The tools (hand, lasso, space, connect) always stay. Without it the whole palette is shown.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "start-event",
+          "intermediate-event",
+          "end-event",
+          "gateway",
+          "task",
+          "data-object",
+          "data-store",
+          "sub-process",
+          "participant",
+          "group"
+        ]
+      },
+      "uniqueItems": true
     },
     "lint": {
       "description": "Which bpmnlint rules the check and penstock lint apply. Without it, .bpmnlintrc in the project root, or bpmnlint:recommended when there is none.",
@@ -88,6 +110,29 @@
                 "number"
               ]
             }
+          }
+        }
+      }
+    },
+    "variables": {
+      "description": "How the variables a step reads are checked against the code that sets them. The Pro part needs Penstock Pro on a developer machine and Team in a pipeline; without it nothing is reported.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "description": "off; fields, which reports a field the type of a variable does not have (the default); or names, which also reports a name nothing sets and that is not an input.",
+          "type": "string",
+          "enum": [
+            "off",
+            "fields",
+            "names"
+          ]
+        },
+        "inputs": {
+          "description": "Variables the process is started with from outside. A name listed here is not reported as set by nothing.",
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
@@ -237,7 +282,9 @@
             "camunda-7",
             "camunda-8",
             "operaton",
-            "cib-seven"
+            "cib-seven",
+            "flowable",
+            "activiti"
           ]
         },
         "scriptType": {
@@ -262,6 +309,26 @@
           "items": {
             "type": "string"
           }
+        },
+        "palette": {
+          "description": "The elements the BPMN palette offers, for a project that uses only some of them. The tools (hand, lasso, space, connect) always stay. Without it the whole palette is shown.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "start-event",
+              "intermediate-event",
+              "end-event",
+              "gateway",
+              "task",
+              "data-object",
+              "data-store",
+              "sub-process",
+              "participant",
+              "group"
+            ]
+          },
+          "uniqueItems": true
         },
         "lint": {
           "description": "Which bpmnlint rules the check and penstock lint apply. Without it, .bpmnlintrc in the project root, or bpmnlint:recommended when there is none.",
@@ -311,6 +378,29 @@
                     "number"
                   ]
                 }
+              }
+            }
+          }
+        },
+        "variables": {
+          "description": "How the variables a step reads are checked against the code that sets them. The Pro part needs Penstock Pro on a developer machine and Team in a pipeline; without it nothing is reported.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "check": {
+              "description": "off; fields, which reports a field the type of a variable does not have (the default); or names, which also reports a name nothing sets and that is not an input.",
+              "type": "string",
+              "enum": [
+                "off",
+                "fields",
+                "names"
+              ]
+            },
+            "inputs": {
+              "description": "Variables the process is started with from outside. A name listed here is not reported as set by nothing.",
+              "type": "array",
+              "items": {
+                "type": "string"
               }
             }
           }

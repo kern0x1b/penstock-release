@@ -215,6 +215,12 @@ scriptType: groovy       # none | groovy | javascript
 elementTemplates:
   - templates/connectors
 
+palette:                 # only these in the BPMN palette; leave out for all
+  - start-event
+  - task
+  - gateway
+  - end-event
+
 linked:
   - ../order-workers
 
@@ -254,6 +260,7 @@ profiles:
   <tr><td><code>engine</code></td><td>Which engine the diagrams are for: <code>classic</code>, <code>camunda-7</code>, <code>camunda-8</code>, <code>operaton</code>, <code>cib-seven</code>, <code>flowable</code> or <code>activiti</code>. It decides the palette, the properties panel and what deploy does. Flowable and Activiti are not deployed to. See <a href="engine-profiles.html">Engines</a>.</td></tr>
   <tr><td><code>scriptType</code></td><td>Default language of scripts: <code>none</code>, <code>groovy</code> or <code>javascript</code>. For Camunda 7, Operaton and CIB seven only. See <a href="scripts.html">Scripts in their own tab</a>.</td></tr>
   <tr><td><code>elementTemplates</code></td><td>A list of files and folders with element templates, relative to the project root. A <code>.camunda/element-templates</code> folder next to a diagram or above it is read without being listed. See <a href="element-templates.html">Element templates</a>.</td></tr>
+  <tr><td><code>palette</code></td><td>A list that limits the BPMN palette to some elements: <code>start-event</code>, <code>intermediate-event</code>, <code>end-event</code>, <code>gateway</code>, <code>task</code>, <code>data-object</code>, <code>data-store</code>, <code>sub-process</code>, <code>participant</code> and <code>group</code>. The hand, lasso, space and connect tools always stay. Without the key, or with an empty list, the whole palette is shown. A name that is not on the list is reported with the line of that entry, like any other problem in the file. It changes the palette island only; <span class="ui">Create element</span> is still there. See <a href="elements.html">BPMN elements</a>.</td></tr>
   <tr><td><code>linked</code></td><td>A list of other repositories, relative to the project root. Their diagrams, workers, delegates and beans count as part of this project. A path that is not checked out is skipped. See <a href="code-links.html">Code links</a>.</td></tr>
   <tr><td><code>lint.configPath</code></td><td>The <code>.bpmnlintrc</code> to use, relative to the project root. Without it: <code>.bpmnlintrc</code> in the root, or <code>bpmnlint:recommended</code>. See <a href="validation.html">Validation</a>.</td></tr>
   <tr><td><code>lint.clientBundlePath</code></td><td>A bundle of rules from bpmnlint plugins, for the editor. Needed only when <code>.bpmnlintrc</code> uses a plugin.</td></tr>

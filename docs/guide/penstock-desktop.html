@@ -279,7 +279,7 @@
 
 <dl class="problems">
   <dt>"The editor engine stopped".</dt>
-  <dd>The server of that window ended. <em>Your unsaved changes are still in the window.</em> Press <span class="ui">Restart</span>. The page keeps its unsaved changes and carries on against the new server.</dd>
+  <dd>The server of that window ended. A server that ends by itself is started again once, after a second, on the same port, so the open page keeps its unsaved changes and carries on without a message. If the new one cannot start, or stops again, the window shows this screen and waits. <em>Your unsaved changes are still in the window.</em> Press <span class="ui">Restart</span>. A project that cannot run never loops.</dd>
   <dt>"Unable to start the editor".</dt>
   <dd>The server did not start for that project. <span class="ui">Details</span> shows the reason. Press <span class="ui">Restart</span>, or <span class="ui">Open another project&hellip;</span> to choose a different folder.</dd>
   <dt>"The editor window stopped".</dt>

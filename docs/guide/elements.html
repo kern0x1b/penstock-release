@@ -199,6 +199,8 @@
   </tbody>
 </table></div></div>
 
+<p>A project can show fewer entries. The <code>palette</code> list in <a href="settings.html"><code>penstock.yaml</code></a> keeps only the entries it names, from <code>start-event</code>, <code>intermediate-event</code>, <code>end-event</code>, <code>gateway</code>, <code>task</code>, <code>data-object</code>, <code>data-store</code>, <code>sub-process</code>, <code>participant</code> and <code>group</code>. The four tools at the top always stay, and <span class="ui">Create element</span> still opens the catalogue. Without the list the whole palette is shown.</p>
+
 <h2 id="the-catalogue"><a href="#the-catalogue">The catalogue</a></h2>
 
 <h3 id="tasks"><a href="#tasks">Tasks</a></h3>
@@ -289,7 +291,7 @@
 
 <dl class="problems">
   <dt>I cannot find an element in the palette.</dt>
-  <dd>Use <span class="ui">Create element</span>. It has every element.</dd>
+  <dd>Use <span class="ui">Create element</span>. It has every element. If an entry the table above lists is missing, the project may limit the palette with <code>palette</code> in <code>penstock.yaml</code>.</dd>
   <dt>My boundary event will not attach.</dt>
   <dd>Drop it on the border of a task or sub-process, not inside.</dd>
   <dt>I need a Camunda-specific task, for example a connector.</dt>

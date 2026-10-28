@@ -828,7 +828,7 @@ penstock diff main --images              # pictures with changes coloured</code>
 src/main/resources/order-process.bpmn
   changed  ServiceTask "Charge the card" charge_card (name)</code></pre>
 
-<p>Lists added, removed and changed elements by name, and says <em>only the drawing moved</em> when that is all. Without a reference it compares against <code>HEAD~1</code>. <code>--out</code> chooses where the pictures go, <code>.penstock/images</code> by default. It needs a Git repository for a reference.</p>
+<p>Lists added, removed and changed elements by name, and says <em>only the drawing moved</em> when that is all. It compares BPMN diagrams, DMN decision files (by rule and cell id) and Camunda forms (by component id), and refuses two files of different kinds. With a reference it lists the changed <code>.dmn</code> and <code>.form</code> files too; <code>--images</code> draws BPMN only. Without a reference it compares against <code>HEAD~1</code>. <code>--out</code> chooses where the pictures go, <code>.penstock/images</code> by default. It needs a Git repository for a reference.</p>
 
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
@@ -1404,7 +1404,7 @@ penstock edit orders.bpmn remove Task_legacy</code></pre>
 
 <h2 id="mcp"><a href="#mcp">mcp</a></h2>
 
-<p><strong>Serve BPMN diagrams to an AI agent over MCP. Reading a diagram and checking it are free; flow analysis, scenarios, code links and editing need a licence.</strong></p>
+<p><strong>Serve BPMN, DMN and form files to an AI agent over MCP. Reading, searching, comparing, checking, drawing as an image and the migration analysis are free; flow analysis, scenarios, code links, layout, creating and editing need a licence.</strong></p>
 
 <pre><code>penstock mcp [--project &lt;dir&gt;] [--config]</code></pre>
 

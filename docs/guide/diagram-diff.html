@@ -157,6 +157,7 @@
 <li><a href="#why-it-is-a-picture">Why it is a picture</a></li>
 <li><a href="#what-is-compared">What is compared</a></li>
 <li><a href="#on-the-command-line">On the command line</a></li>
+<li><a href="#decisions-and-forms">Decisions and forms</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#what-it-does-not-do">What it does not do</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -164,7 +165,7 @@
 </nav>
 <h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-<p>When you compare two versions of a <code>.bpmn</code> file, Penstock shows the two diagrams side by side: <em>Before</em> on the left, <em>After</em> on the right. Both are read-only.</p>
+<p>When you compare two versions of a <code>.bpmn</code> file, Penstock shows the two diagrams side by side: <em>Before</em> on the left, <em>After</em> on the right. Both are read-only. A DMN decision file or a Camunda form has no pictures; the command line and the MCP server list what changed in it, as described below.</p>
 
 <h2 id="steps"><a href="#steps">Steps</a></h2>
 
@@ -203,7 +204,7 @@
 <h2 id="what-is-compared"><a href="#what-is-compared">What is compared</a></h2>
 
 <ul>
-  <li>BPMN diagrams, <code>.bpmn</code> and <code>.bpmn20.xml</code>. A decision or a form has no visual diff.</li>
+  <li>BPMN diagrams, <code>.bpmn</code> and <code>.bpmn20.xml</code>. A decision or a form has no visual diff, but its changes are listed (see below).</li>
   <li>Elements by id. An element whose id changed shows as removed on the left and added on the right.</li>
   <li>Both versions are read as they are. Nothing is written to either file.</li>
 </ul>
@@ -228,6 +229,10 @@ src/orders/order.bpmn
   changed  UserTask "Approve order" Activity_approve (name)
   and 14 elements only moved on the canvas</code></pre>
 
+<h2 id="decisions-and-forms"><a href="#decisions-and-forms">Decisions and forms</a></h2>
+
+<p><code>penstock diff</code> and the MCP tool <code>diff_diagrams</code> also compare <code>.dmn</code> decision files and <code>.form</code> files, free. A decision table is compared by the ids of its rules and cells, and a form by the ids of its components. Each change is listed as added, removed or changed. A decision shape that only moved, and a form component that was reordered or moved to another group, is listed as moved. <code>penstock diff &lt;ref&gt;</code> lists the changed <code>.dmn</code> and <code>.form</code> files together with the diagrams. Pictures are for BPMN only, and two files of different kinds are refused.</p>
+
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <p>Every changed element is outlined in a colour. The comparison is by meaning, not by text. Penstock reads both versions and sorts each element into a bucket:</p>
@@ -250,7 +255,7 @@ src/orders/order.bpmn
 
 <ul>
   <li>It does not merge. It only shows the difference.</li>
-  <li>It does not compare DMN tables or forms.</li>
+  <li>It does not draw DMN tables or forms, and it does not compare two files of different kinds.</li>
 </ul>
 
 <h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
