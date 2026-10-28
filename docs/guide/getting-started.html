@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html" aria-current="page">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -254,7 +255,7 @@ penstock deploy .</code></pre>
 
 <ol class="steps">
   <li>Open a <code>.bpmn</code> file. If you have none, create a file called <code>process.bpmn</code> and open it. An empty file is fine.</li>
-  <li>If the diagram says nothing about its engine, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span> or <span class="ui">Classic BPMN</span>. The answer is written to <code>penstock.yaml</code> in the project root, which is created if there is none. It is asked once.</li>
+  <li>If the diagram says nothing about its engine, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span>, <span class="ui">Flowable</span>, <span class="ui">Activiti</span> or <span class="ui">Classic BPMN</span>. The answer is written to <code>penstock.yaml</code> in the project root, which is created if there is none. It is asked once.</li>
   <li>Draw. Drag elements from the palette on the left, or click an element and use the small pad next to it. <a href="editing.html">Editing a diagram</a> shows how.</li>
   <li>Select an element and fill in its properties in the <strong>Properties</strong> tab on the right. <a href="properties-panel.html">The properties panel</a> explains the groups.</li>
   <li>Press <span class="ui">Check</span>. Fix what it lists, in the card or in the Problems tab.</li>
@@ -339,7 +340,7 @@ penstock deploy .</code></pre>
 
 <dl class="problems">
   <dt>Deploy is missing from the toolbar.</dt>
-  <dd>Deploy is shown for Camunda 7, Camunda 8, Operaton and CIB seven projects. A Classic BPMN project has none. Change the engine in <code>penstock.yaml</code>.</dd>
+  <dd>Deploy is shown for Camunda 7, Camunda 8, Operaton and CIB seven projects. Classic BPMN, Flowable and Activiti projects have none. Change the engine in <code>penstock.yaml</code>.</dd>
   <dt>The question about the engine did not appear.</dt>
   <dd>It appears only for an empty diagram. A diagram that already says which engine it is for, or a project with <code>engine</code> in <code>penstock.yaml</code>, is not asked.</dd>
   <dt>The example was not written.</dt>

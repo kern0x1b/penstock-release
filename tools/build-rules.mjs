@@ -58,6 +58,12 @@ const FAMILIES = {
     where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>Engine</strong>, the editor marks the element on the canvas, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It checks the diagram against the engine and the version it is written for: the version in the file's <code>modeler:executionPlatformVersion</code>, or the newest one when the file has none. Operaton and CIB seven are checked as Camunda 7. This check is free.</p>
 <p>To turn it off, set <code>${rule.id.replace('compat/', 'camunda-compat/')}</code> or <code>${rule.id}</code> to <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
   },
+  engine: {
+    pro: false,
+    guide: ['validation', 'Validation'],
+    where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>Engine</strong>, the editor marks the element on the canvas, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It runs on diagrams of the Flowable and Activiti profiles, and checks what those engines ignore or cannot run. This check is free.</p>
+<p>To turn it off, set <code>${rule.id}</code> to <code>off</code> in your <code>.bpmnlintrc</code>. See <a href="../guide/validation.html">Validation</a>.</p>`,
+  },
   drawing: {
     pro: false,
     guide: ['diagram-check', 'Diagram check'],

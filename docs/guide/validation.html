@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -155,6 +156,7 @@
 <li><a href="#see-it-working">See it working</a></li>
 <li><a href="#which-rules-apply">Which rules apply</a></li>
 <li><a href="#engine-compatibility-checks">Engine compatibility checks</a></li>
+<li><a href="#flowable-and-activiti">Flowable and Activiti checks</a></li>
 <li><a href="#on-the-command-line">On the command line</a></li>
 <li><a href="#whole-project-checks">Whole-project checks</a></li>
 <li><a href="#custom-rules">Custom rules from a plugin</a></li>
@@ -228,9 +230,25 @@
   <figcaption>An engine compatibility finding, listed under Rules with its compat id.</figcaption>
 </figure>
 
+<h2 id="flowable-and-activiti"><a href="#flowable-and-activiti">Flowable and Activiti checks</a></h2>
+
+<p><span class="tag free">Free</span></p>
+
+<p>A Flowable or an Activiti diagram is not checked against Camunda. Seven <code>engine/*</code> rules look for what those two engines ignore or cannot run, in the editor and in <code>penstock check</code>.</p>
+
+<ul>
+  <li>An extension of another engine, which the engine ignores, so what it sets is lost at run time.</li>
+  <li>An attribute the engine does not know, and an engine attribute on an element that does not take it.</li>
+  <li>An element the engine cannot run.</li>
+  <li>A service task with no class, expression, delegate expression or type.</li>
+  <li>A script task with no script format.</li>
+  <li>FEEL, an expression that starts with <code>=</code>, where the engine reads JUEL, <code>${...}</code>.</li>
+  <li>Each finding has the id <code>engine/&lt;rule&gt;</code>, for example <code>engine/script-format</code>, and a page in <a href="../rules/">Every rule</a>. Set it to <code>off</code> in <code>.bpmnlintrc</code> as <code>engine/&lt;rule&gt;</code> to turn it off. See <a href="engine-profiles.html#flowable-and-activiti">Engines</a>.</li>
+</ul>
+
 <h2 id="on-the-command-line"><a href="#on-the-command-line">On the command line</a></h2>
 
-<p><code>penstock check</code> runs the same rules as one section of its report, beside the drawing, the engine compatibility rules and, on Pro, the flow analysis. <code>penstock check --only rules</code> runs the rules alone. A rule set to <code>error</code> makes the run fail; a warning is reported as a note.</p>
+<p><code>penstock check</code> runs the same rules as one section of its report, beside the drawing, the engine compatibility rules (the <code>engine/*</code> rules on Flowable and Activiti) and, on Pro, the flow analysis. <code>penstock check --only rules</code> runs the rules alone. A rule set to <code>error</code> makes the run fail; a warning is reported as a note.</p>
 
 <p>The older name <code>penstock lint</code> still works and says that it is now <code>penstock check --only rules</code>.</p>
 

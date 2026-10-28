@@ -124,6 +124,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/monitor.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-desktop.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/penstock-web.html</loc>
   </url>
   <url>
@@ -668,6 +671,27 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/drawing-semantic-drift</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-attribute-not-allowed</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-feel-expression</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-foreign-extension</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-script-format</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-service-task-implementation</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-unknown-attribute</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/engine-unsupported-element</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/flow-dead-element</loc>

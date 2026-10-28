@@ -131,6 +131,7 @@
   <tr><td><a href="#scenarios-list"><code>scenarios list</code></a></td><td>Every way through each process.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#scenarios-run"><code>scenarios run</code></a></td><td>Run the test-case files on an engine.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#scenarios-generate"><code>scenarios generate</code></a></td><td>Write the test-case files from the ways through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#test-task"><code>test task</code></a></td><td>Run one element on an engine.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#test-cases"><code>test-cases</code></a></td><td>The command behind <code>scenarios run</code> and <code>scenarios generate</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#junit"><code>junit</code></a></td><td>Write a JUnit test for every way through.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#layout"><code>layout</code></a></td><td>Auto layout.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
@@ -190,7 +191,7 @@
 
 <p><strong>Write a penstock.yaml for this project: the engine it runs on, the rules, the profiles and the deployment. Asked in a terminal when the folder is empty and nothing says otherwise.</strong></p>
 
-<pre><code>penstock init [folder] [--engine camunda-8|camunda-7|operaton|cib-seven|classic] [--ci github|gitea|gitlab|bitbucket|azure] [--hooks]</code></pre>
+<pre><code>penstock init [folder] [--engine camunda-8|camunda-7|operaton|cib-seven|flowable|activiti|classic] [--ci github|gitea|gitlab|bitbucket|azure] [--hooks]</code></pre>
 
 <ol class="steps">
   <li>Writes <code>penstock.yaml</code> with the engine you chose, or guessed from your diagrams. If a file exists, it is kept and the command says so.</li>
@@ -201,8 +202,8 @@
 <div class="table-wrap"><div class="table-wrap"><table class="facts">
   <thead><tr><th>Option</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>--engine &lt;name&gt;</code></td><td>camunda-8, camunda-7, operaton, cib-seven or classic.</td></tr>
-  <tr><td><code>--example &lt;name&gt;</code></td><td>camunda-8 or camunda-7, to write a small runnable project into an empty folder.</td></tr>
+  <tr><td><code>--engine &lt;name&gt;</code></td><td>camunda-8, camunda-7, operaton, cib-seven, flowable, activiti or classic.</td></tr>
+  <tr><td><code>--example &lt;name&gt;</code></td><td>camunda-8, camunda-7, operaton, cib-seven, flowable or activiti, to write a small runnable project into an empty folder.</td></tr>
   <tr><td><code>--ci &lt;name&gt;</code></td><td>github, gitea, gitlab, bitbucket or azure: write a pipeline for the tier this machine has.</td></tr>
   <tr><td><code>--hooks</code></td><td>Install a pre-commit hook that formats and checks staged diagrams.</td></tr>
   <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
@@ -212,6 +213,8 @@
 <p>In a terminal, on an empty folder with no <code>--engine</code>, init asks which engine with a numbered choice. Anywhere else it guesses from the diagrams. <code>--example</code> writes a small runnable project into an <em>empty</em> folder: see <a href="../guide/example-project.html">The example project</a>. <code>--ci</code> also writes a pipeline for the licence on this machine, and <code>forgejo</code> is accepted too although the help does not list it: see <a href="ci.html">Pipelines, reports and the bot</a>. <code>--hooks</code> installs a pre-commit hook that formats and checks the diagrams a commit carries. It lives in <code>.git/hooks</code>, so it is yours, and deleting the file stops it. It runs <code>fmt --write</code> on the staged diagrams, stages the result, and then <code>check --baseline</code>, which needs Pro. Outside a Git repository it says <em>hooks - this is not a git repository</em> and skips the hook, and a pre-commit hook that is not Penstock's is kept as it is.</p>
 
 <p>The hook runs the Penstock command line it finds, in this order: the project's <code>penstockw</code>, <code>penstock</code> on the PATH, then the one in the project's <code>node_modules</code>. Only when none of them is there, and the command line that wrote the hook is a published release, does it ask npm, and then for that exact version. With none installed it prints one line on standard error that says where to install the command line, and lets the commit through.</p>
+
+<p><code>--example flowable</code> and <code>--example activiti</code> write a small order process with a user task, a gateway and two Java delegates, in a project that runs it on an in-memory engine. <code>--engine flowable</code> and <code>--engine activiti</code> write <code>engine: flowable</code> or <code>engine: activiti</code>. With no <code>--engine</code>, init prefers Camunda 8, then Flowable, Activiti, Operaton, CIB seven, Camunda 7 and Classic, among the engines it finds in your diagrams.</p>
 
 <p><strong>Example</strong></p>
 <pre><code>$ penstock init --engine camunda-8</code></pre>
@@ -635,6 +638,45 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   </tbody>
 </table></div></div>
 
+<h3 id="test-task"><a href="#test-task">test task</a></h3>
+
+<p><strong>Run one element of a diagram on the engine the project names, and print what it did.</strong></p>
+
+<pre><code>penstock test task &lt;file.bpmn&gt; --element &lt;id&gt; [--variables &lt;json&gt;] [--complete &lt;json&gt; | --error &lt;code&gt; | --hold] [--id &lt;process&gt;] [--timeout &lt;seconds&gt;]</code></pre>
+
+<p>Deploys the process as a test build, starts an instance with <code>--variables</code> (or <code>--variables-file</code>) over the values the path needs, and completes or mocks every step before the element. Then it completes the element, makes it throw a BPMN error, or leaves it waiting. It prints the state of the element, what it received and sent, the variables, the incidents and the state of the instance. The trace is kept under <code>.penstock/runs</code> and the build is removed afterwards. The engine must be marked for tests, as for <a href="#scenarios-run"><code>scenarios run</code></a>: in a pipeline that is <code>deployment.forTests: true</code>. See <a href="../guide/scenarios.html#test-a-task">Scenarios</a>.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--element &lt;id&gt;</code></td><td>The element to test. Required.</td></tr>
+  <tr><td><code>--variables &lt;json&gt;</code></td><td>Variables the instance starts with, over the ones the path needs.</td></tr>
+  <tr><td><code>--variables-file &lt;file&gt;</code></td><td>The same variables, read from a JSON file.</td></tr>
+  <tr><td><code>--complete &lt;json&gt;</code></td><td>Complete the element with these variables. This is the default when none of the three is given.</td></tr>
+  <tr><td><code>--error &lt;code&gt;</code></td><td>Make the element throw this BPMN error instead of completing.</td></tr>
+  <tr><td><code>--hold</code></td><td>Leave the element waiting, to see what it received.</td></tr>
+  <tr><td><code>--id &lt;process&gt;</code></td><td>Which process, when the file holds more than one.</td></tr>
+  <tr><td><code>--timeout &lt;seconds&gt;</code></td><td>How long one step may take, 30 by default.</td></tr>
+  <tr><td><code>--profile &lt;name&gt;</code></td><td>Use this profile, as PENSTOCK_PROFILE would.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>Use only one of <code>--complete</code>, <code>--error</code> and <code>--hold</code>. A user task cannot throw an error. An element that no way through the process reaches is refused.</p>
+
+<p><strong>Example</strong></p>
+<pre><code>$ penstock test task orders.bpmn --element Approve --variables '{"order": "A-1"}'</code></pre>
+
+<p><strong>Needs:</strong> <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Exit code</th><th>Meaning</th></tr></thead>
+  <tbody>
+  <tr><td><code>0</code></td><td>The run finished.</td></tr>
+  <tr><td><code>1</code></td><td>The run failed, or the engine could not be reached.</td></tr>
+  <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
+  </tbody>
+</table></div></div>
+
 <h3 id="test-cases"><a href="#test-cases">test-cases</a></h3>
 
 <p><strong>The command behind scenarios run and scenarios generate: run the Camunda test-case files of the diagrams against the engine they name, step by step, with the mocks the file asks for. --generate writes those files from the ways through each process instead.</strong></p>
@@ -1023,7 +1065,7 @@ wrote docs/processes/order-process.docx
 <pre><code>$ penstock deploy . --dry-run
 STATUS      ENDPOINT                              FILES    TARGET         DETAILS
 would send  http://localhost:8080/v2/deployments  3 files  order-example  src/main/resources/approve-order.form, src/main/resources/order-process.bpmn, src/main/resources/shipping-method.dmn</code></pre>
-<p>Deploys the processes, decisions and forms to the engine the configuration names. Files are grouped by the target each folder asks for, and a file with no <code>deployment.url</code> is skipped. <code>--wait</code> asks the engine until it shows the definitions: &ldquo;deployed&rdquo; and &ldquo;running&rdquo; are not the same claim, and it prints <code>live order-process v3</code>. Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="../guide/deployment.html">Deployment</a>.</p>
+<p>Deploys the processes, decisions and forms to the engine the configuration names. Files are grouped by the target each folder asks for, and a file with no <code>deployment.url</code> is skipped. A Flowable or Activiti project is not deployed to: deploy says <em>Deploying to Flowable is not supported; deploy with the engine's own tools</em> and writes no request. <code>--wait</code> asks the engine until it shows the definitions: &ldquo;deployed&rdquo; and &ldquo;running&rdquo; are not the same claim, and it prints <code>live order-process v3</code>. Secrets come from <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> and <code>PENSTOCK_TOKEN</code>. Any <code>PENSTOCK_*</code> variable that matches a setting overrides it for the run. Hooks: <code>preDeploy</code>, <code>postDeploy</code>. See <a href="../guide/deployment.html">Deployment</a>.</p>
 <p>The answer is one table with the columns <code>STATUS</code>, <code>ENDPOINT</code>, <code>FILES</code>, <code>TARGET</code> and <code>DETAILS</code>. There is a row for each engine the files go to, and a row for each file that is skipped. The status is <em>would send</em> for a dry run, <em>sent</em> when the engine took the files, <em>fail</em> when it did not, <em>skip</em> for a file with no <code>deployment.url</code>, and <em>note</em> for a warning. What the engine said, and the lines <code>--wait</code> adds, such as <code>live order-process v3</code>, follow in <code>DETAILS</code>. In a terminal the table is aligned and has its header. When the output is piped it is tab-separated and has no header, for a script to cut. When no file has a <code>deployment.url</code>, deploy says <em>Nothing to deploy: no file has a deployment.url.</em> and exits with 1.</p>
 <p>Before anything is sent, deploy says so when <code>deployment.auth.type</code> is <code>basic</code> and there is no <code>PENSTOCK_PASSWORD</code>, rather than letting the engine refuse it. An answer of 401 or 403 says which of <code>deployment.auth</code> in <code>penstock.local.yaml</code>, <code>PENSTOCK_PASSWORD</code>, <code>PENSTOCK_CLIENT_SECRET</code> or <code>PENSTOCK_TOKEN</code> to set. A <code>password:</code> key in <code>penstock.local.yaml</code> is not read.</p>
 

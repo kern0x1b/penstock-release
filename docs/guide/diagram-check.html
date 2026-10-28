@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -236,7 +237,7 @@
   <tr><td>Drawing</td><td>Drawing defects that make a diagram wrong: shapes on top of each other, a connection through a shape, a connection that does not reach its element, an element outside its pool, a boundary event off its host, labels covering each other, a connection that doubles back along itself.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Engine</td><td>A diagram whose namespace is not the one of the engine of the project, for example <em>This is an Operaton project, but the diagram uses the Camunda 7 namespace.</em> The row has a <span class="ui">Fix</span> button that converts the namespace.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Code</td><td>Where the diagram and your code disagree: a task nothing implements, a variable read under a name that is set a letter away, a called process no diagram defines, a form no file provides. Each finding has the file and the line. See <a href="code-links.html">Code links</a>.</td><td><span class="tag pro">Pro</span></td></tr>
-  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>, and the engine compatibility findings, whose ids start with <code>compat/</code>: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>, and the engine compatibility findings, whose ids start with <code>compat/</code>: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. On Flowable and Activiti the ids start with <code>engine/</code>: an extension of another engine, an attribute the engine does not know, an element it cannot run. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram, with a <span class="ui">Convert</span> button. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="ui">Convert</span> is <span class="tag pro">Pro</span></td></tr>
   <tr><td>Readability</td><td>Collapsed by default, with its count on the heading. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
   </tbody>

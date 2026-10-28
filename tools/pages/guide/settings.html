@@ -28,7 +28,7 @@ related: profiles, deployment, files, engine-profiles
 
 <pre><code># yaml-language-server: $schema=https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock.schema.json
 
-engine: camunda-7        # classic | camunda-7 | camunda-8 | operaton | cib-seven
+engine: camunda-7        # classic | camunda-7 | camunda-8 | operaton | cib-seven | flowable | activiti
 scriptType: groovy       # none | groovy | javascript
 
 elementTemplates:
@@ -70,7 +70,7 @@ profiles:
 <div class="table-wrap"><table>
   <thead><tr><th>Key</th><th>What it does</th></tr></thead>
   <tbody>
-  <tr><td><code>engine</code></td><td>Which engine the diagrams are for: <code>classic</code>, <code>camunda-7</code>, <code>camunda-8</code>, <code>operaton</code> or <code>cib-seven</code>. It decides the palette, the properties panel and what deploy does. See <a href="engine-profiles.html">Engines</a>.</td></tr>
+  <tr><td><code>engine</code></td><td>Which engine the diagrams are for: <code>classic</code>, <code>camunda-7</code>, <code>camunda-8</code>, <code>operaton</code>, <code>cib-seven</code>, <code>flowable</code> or <code>activiti</code>. It decides the palette, the properties panel and what deploy does. Flowable and Activiti are not deployed to. See <a href="engine-profiles.html">Engines</a>.</td></tr>
   <tr><td><code>scriptType</code></td><td>Default language of scripts: <code>none</code>, <code>groovy</code> or <code>javascript</code>. For Camunda 7, Operaton and CIB seven only. See <a href="scripts.html">Scripts in their own tab</a>.</td></tr>
   <tr><td><code>elementTemplates</code></td><td>A list of files and folders with element templates, relative to the project root. A <code>.camunda/element-templates</code> folder next to a diagram or above it is read without being listed. See <a href="element-templates.html">Element templates</a>.</td></tr>
   <tr><td><code>linked</code></td><td>A list of other repositories, relative to the project root. Their diagrams, workers, delegates and beans count as part of this project. A path that is not checked out is skipped. See <a href="code-links.html">Code links</a>.</td></tr>

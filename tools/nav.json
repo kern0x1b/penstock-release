@@ -34,8 +34,7 @@
             {
               "slug": "penstock-desktop",
               "title": "Penstock Desktop",
-              "about": "The same editor in its own application window.",
-              "draft": true
+              "about": "The same editor in its own application window."
             },
             {
               "slug": "example-project",
@@ -231,7 +230,7 @@
             {
               "slug": "engine-profiles",
               "title": "Engines",
-              "about": "Camunda 7, Camunda 8, Operaton and CIB seven."
+              "about": "Camunda 7, Camunda 8, Operaton, CIB seven, Flowable and Activiti."
             },
             {
               "slug": "settings",

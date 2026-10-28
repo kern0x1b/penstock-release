@@ -94,7 +94,7 @@
 </nav>
 <h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
 
-<p><strong>MCP</strong> (Model Context Protocol) is a way for an AI assistant to use a program's tools. <code>penstock mcp</code> starts a small server on your machine that talks to the assistant over standard input and output. It offers thirteen tools, the diagrams of the open folders as resources, and two prompts. It reads BPMN diagrams, DMN decision files and Camunda forms. An assistant that edits a diagram can check straight away that it still runs to its end.</p>
+<p><strong>MCP</strong> (Model Context Protocol) is a way for an AI assistant to use a program's tools. <code>penstock mcp</code> starts a small server on your machine that talks to the assistant over standard input and output. It offers fourteen tools, the diagrams of the open folders as resources, and two prompts. It reads BPMN diagrams, DMN decision files and Camunda forms. An assistant that edits a diagram can check straight away that it still runs to its end.</p>
 
 <h2 id="connect-an-ai-assistant"><a href="#connect-an-ai-assistant">Connect an AI assistant</a></h2>
 
@@ -212,6 +212,7 @@
   <tr><td><code>edit_diagram</code></td><td>Changes a diagram through the editor's own modelling. Operations apply together or not at all. An edit that would break the drawing is refused, and so is a write over a diagram that changed on disk while the edit was made. <code>dryRun</code> shows the result without writing. It edits BPMN diagrams only.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><code>layout_diagram</code></td><td>Runs the editor's auto layout on a BPMN diagram and writes the result in one atomic step. Elements and flows stay the same; only positions change. <code>dryRun</code> lists the elements that would move without writing.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><code>run_scenarios</code></td><td>Runs the saved test cases of a project, or of one diagram, as <a href="commands.html#scenarios-run"><code>penstock scenarios run</code></a> does, and returns which passed, failed or were skipped. The engine must be marked for tests. Traces are kept under <code>.penstock/runs</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><code>test_task</code></td><td>Runs one element of a diagram on the local engine the project marks for tests, as <a href="commands.html#test-task"><code>penstock test task</code></a> does: the process is deployed as a test build, the path to the element is completed or mocked, then the element is completed, made to throw a BPMN error or left waiting. It returns the state of the element, what it received and sent, the variables, the incidents and the state of the instance, and removes the build. It takes <code>file</code> and <code>element</code>, and the optional <code>variables</code>, <code>complete</code>, <code>error</code>, <code>hold</code>, <code>process</code> and <code>timeout</code>. Use only one of <code>complete</code>, <code>error</code> and <code>hold</code>. Traces are kept under <code>.penstock/runs</code>.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   </tbody>
 </table></div></div>
 

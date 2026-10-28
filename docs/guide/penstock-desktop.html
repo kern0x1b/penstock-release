@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Penstock Desktop - Penstock</title>
+<meta name="description" content="Penstock Desktop is the editor of Penstock Web in an application window of its own. It has a menu, a folder dialog, recent projects, windows that come back where you left them, and it opens .bpmn, .dmn and .form files from the file manager.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="Penstock Desktop - Penstock">
+<meta property="og:description" content="Penstock Desktop is the editor of Penstock Web in an application window of its own. It has a menu, a folder dialog, recent projects, windows that come back where you left them, and it opens .bpmn, .dmn and .form files from the file manager.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/penstock-desktop.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../install/" class="keep">Install</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details open>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html" aria-current="page">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/licence-troubleshooting.html">Licence troubleshooting</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Start here</p>
+<h1>Penstock Desktop</h1>
+<p class="lede">Penstock Desktop is the editor of Penstock Web in an application window of its own. It has a menu, a folder dialog, recent projects, windows that come back where you left them, and it opens .bpmn, .dmn and .form files from the file manager.</p>
+<p class="meta"><span class="tag free">Free</span> <span>Nothing else to install: Node.js is not needed. A preview for macOS (12 or later), Linux and Windows. Features that are Pro elsewhere are Pro here too.</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-it-is">What it is</a></li>
+<li><a href="#where-it-stands">Where it stands</a></li>
+<li><a href="#install-it">Install it</a></li>
+<li><a href="#open-a-project">Open a project</a></li>
+<li><a href="#windows-2">Windows</a></li>
+<li><a href="#the-menu">The menu</a></li>
+<li><a href="#what-it-shares-with-your-other-tools">What it shares with your other tools</a></li>
+<li><a href="#when-something-goes-wrong">When something goes wrong</a></li>
+</ul>
+</nav>
+<h2 id="what-it-is"><a href="#what-it-is">What it is</a></h2>
+
+<p>Penstock Desktop is the same editor, project tree, tabs and sidebar as <a href="penstock-web.html">Penstock Web</a>, in a window of its own instead of a browser tab. Everything in Penstock Web applies here: the title bar, the sidebar with its actions, the Project tree and the Chats, the editor groups you split and join, saving, comparing with Git, code tabs and the settings. Read that page for the window itself. This page is about what an application adds.</p>
+
+<p>Each window runs its own copy of the local server that <a href="../cli/web.html"><code>penstock web</code></a> starts, inside the application, so there is nothing to install beside it and nothing to start in a terminal. The application loads that server's page and presents its key itself, so the key is never in a link or a cookie. Nothing is sent anywhere.</p>
+
+<h2 id="where-it-stands"><a href="#where-it-stands">Where it stands</a></h2>
+
+<ul>
+  <li><strong>macOS, Linux and Windows.</strong> A disk image for macOS, an AppImage and a deb package for Linux, an installer and a zip for Windows, each for two processor families. The list is under <a href="#install-it">Install it</a>.</li>
+  <li><strong>A preview.</strong> It works, and it is newer than the other ways to use Penstock. Tell us what is missing in <a href="https://github.com/kern0x1b/penstock-release/issues">the issue tracker</a>.</li>
+  <li><strong>Not signed.</strong> We have no code-signing certificate yet, so macOS and Windows show a warning the first time, and the steps below get past it. Each file has its SHA-256 in a <code>.sha256</code> file beside it on the release page.</li>
+  <li><strong>No updater.</strong> The application does not update itself. A newer build is installed over the old one.</li>
+</ul>
+
+<h2 id="install-it"><a href="#install-it">Install it</a></h2>
+
+<p>Every build is on <a href="https://github.com/kern0x1b/penstock-release/releases/latest">the latest release</a>, with a <code>.sha256</code> file beside each one. <code>&lt;version&gt;</code> is the version number. The application is free, with no time limit.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>System</th><th>Processor</th><th>File</th></tr></thead>
+  <tbody>
+  <tr><td rowspan="2">macOS</td><td>Apple silicon (arm64)</td><td><code>Penstock-&lt;version&gt;-mac-arm64.dmg</code></td></tr>
+  <tr><td>Intel (x64)</td><td><code>Penstock-&lt;version&gt;-mac-x64.dmg</code></td></tr>
+  <tr><td rowspan="2">Linux</td><td>x86_64</td><td><code>Penstock-&lt;version&gt;-linux-x86_64.AppImage</code>, <code>Penstock-&lt;version&gt;-linux-amd64.deb</code></td></tr>
+  <tr><td>arm64</td><td><code>Penstock-&lt;version&gt;-linux-arm64.AppImage</code>, <code>Penstock-&lt;version&gt;-linux-arm64.deb</code></td></tr>
+  <tr><td rowspan="2">Windows</td><td>x64</td><td><code>Penstock-&lt;version&gt;-win-x64.exe</code> (installer), <code>Penstock-&lt;version&gt;-win-x64.zip</code></td></tr>
+  <tr><td>arm64</td><td><code>Penstock-&lt;version&gt;-win-arm64.exe</code> (installer), <code>Penstock-&lt;version&gt;-win-arm64.zip</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<p>To check a download, compare the SHA-256 of the file with the one in its <code>.sha256</code> file.</p>
+
+<h3 id="macos"><a href="#macos">macOS</a></h3>
+
+<ol class="steps">
+  <li>Download the <code>.dmg</code> for your Mac, open it, and drag Penstock to Applications.</li>
+  <li>Open Penstock from Applications. macOS says it cannot verify the app. Press <span class="ui">Done</span>, not <span class="ui">Move to Trash</span>.</li>
+  <li>Open <em>System Settings</em>, then <em>Privacy &amp; Security</em>, scroll to <em>Security</em>, and press <span class="ui">Open Anyway</span> next to <em>Penstock was blocked</em>. Confirm with your password. This is asked once.</li>
+  <li>Prefer a terminal? <code>xattr -dr com.apple.quarantine /Applications/Penstock.app</code> does the same.</li>
+</ol>
+
+<p>The icon in the Dock follows the light or dark appearance of the app. On a Mac that supports it, the system also adapts the icon in the Finder.</p>
+
+<h3 id="linux"><a href="#linux">Linux</a></h3>
+
+<ul>
+  <li><strong>AppImage.</strong> Make the file executable and run it: <code>chmod +x Penstock-&lt;version&gt;-linux-x86_64.AppImage</code>, then <code>./Penstock-&lt;version&gt;-linux-x86_64.AppImage</code>. Use the <code>arm64</code> file on an arm64 machine.</li>
+  <li><strong>deb.</strong> On Debian, Ubuntu and their relatives: <code>sudo apt install ./Penstock-&lt;version&gt;-linux-amd64.deb</code>, or the <code>arm64</code> file on an arm64 machine. The package adds a <code>penstock-desktop</code> command and an entry in your application menu. Start it with <code>penstock-desktop</code>, <code>penstock-desktop &lt;folder&gt;</code> or <code>penstock-desktop &lt;file&gt;</code>.</li>
+</ul>
+
+<h3 id="windows"><a href="#windows">Windows</a></h3>
+
+<ol class="steps">
+  <li>Download <code>Penstock-&lt;version&gt;-win-x64.exe</code>, or the <code>arm64</code> one on an arm64 PC, and run it. The installer lets you choose the folder.</li>
+  <li>Windows SmartScreen says it protected your PC, because the installer is not signed. Press <span class="ui">More info</span>, then <span class="ui">Run anyway</span>.</li>
+  <li>Prefer no installer? Unpack the <code>.zip</code> into a folder of your own and start Penstock from it. SmartScreen asks the same question the first time.</li>
+</ol>
+
+<p>Updating is the same again on every system: download the newer build and install it over the old one. Your projects and settings stay where they are.</p>
+
+<h2 id="open-a-project"><a href="#open-a-project">Open a project</a></h2>
+
+<ol class="steps">
+  <li>Start the application. The first window offers <strong>Open a project</strong>: <em>Choose a folder with BPMN diagrams, DMN decisions and forms.</em> with an <span class="ui">Open project&hellip;</span> button and the recent projects under it.</li>
+  <li>Press <span class="ui">Open project&hellip;</span> and choose a folder in the system's own folder dialog. Or pick a recent project.</li>
+  <li>The window shows the name of the project with <em>Opening&hellip;</em> while its server starts, then shows the editor.</li>
+</ol>
+
+<p>A project opens in the window you are in when that window has no project. Otherwise it opens in a window of its own. Opening the same project twice brings its window to the front.</p>
+
+<h3 id="from-the-file-manager-and-from-a-terminal"><a href="#from-the-file-manager-and-from-a-terminal">From the file manager, and from a terminal</a></h3>
+
+<ul>
+  <li>Double-click a <code>.bpmn</code>, <code>.dmn</code> or <code>.form</code> file, or choose Penstock in <em>Open With</em> or the equivalent of your system. The application registers for these three kinds of file. The project it opens is the nearest folder above the file that holds a <code>penstock.yaml</code> or a <code>.git</code>, and the file opens in it. Without either, the file's own folder is the project.</li>
+  <li>Give the application a folder or a file on its command line, which on Linux is <code>penstock-desktop</code> after a deb install. <code>--new-window</code>, or <code>-n</code>, opens a window of its own.</li>
+  <li>There is one application at a time. Starting it again hands the request to the one that is running, and brings its window forward.</li>
+</ul>
+
+<h2 id="windows-2"><a href="#windows-2">Windows</a></h2>
+
+<ul>
+  <li><strong>A window for each project.</strong> <span class="ui">New window</span> opens an empty one. <span class="ui">Close project</span> returns a window to the welcome screen.</li>
+  <li><strong>They come back.</strong> The application remembers its open windows with their position and size, whether they were maximised or full screen, their project and their zoom, and brings them back at the next start. A window that would land off the screen is moved back onto it. A window is never smaller than 720 by 480 pixels.</li>
+  <li><strong>Zoom.</strong> <span class="ui">Zoom in</span>, <span class="ui">Zoom out</span> and <span class="ui">Actual size</span> in the View menu, remembered for each project.</li>
+  <li><strong>Recent projects.</strong> <span class="ui">Open recent</span> in the File menu lists the last ten, and <span class="ui">Clear recent projects</span> empties the list. On macOS, the Dock menu has <span class="ui">New window</span> and the five latest.</li>
+  <li><strong>Closing with unsaved changes.</strong> A window with unsaved files asks <em>Close without saving?</em> with <span class="ui">Discard changes</span> and <span class="ui">Cancel</span>. Quitting asks the same for every window that has them.</li>
+</ul>
+
+<h2 id="the-menu"><a href="#the-menu">The menu</a></h2>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>File</td><td><span class="ui">New file</span>, <span class="ui">New window</span>, <span class="ui">Open project&hellip;</span>, <span class="ui">Open recent</span>, <span class="ui">Close project</span>, <span class="ui">Save</span>, <span class="ui">Reveal in Finder</span>, <span class="ui">Show in Explorer</span> or <span class="ui">Show in file manager</span> (the open file), <span class="ui">Close tab</span>.</td></tr>
+  <tr><td>Edit</td><td><span class="ui">Undo</span>, <span class="ui">Redo</span>, <span class="ui">Cut</span>, <span class="ui">Copy</span>, <span class="ui">Paste</span> and <span class="ui">Select all elements</span>, for the open file. Cut, copy, paste and select all in a diagram work across tabs and windows.</td></tr>
+  <tr><td>View</td><td><span class="ui">Toggle project tree</span>, <span class="ui">Toggle sidebar</span> (the sidebar of the editor), the three zoom commands and full screen.</td></tr>
+  <tr><td>Window</td><td>The system's own window commands.</td></tr>
+  <tr><td>Help</td><td><span class="ui">Keyboard shortcuts</span> and <span class="ui">Penstock website</span>. The application menu has <span class="ui">About Penstock</span>.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>The menu shows the shortcut of each command. The keys for tabs, splits, opening a file and the rest are the ones of <a href="penstock-web.html">Penstock Web</a>, listed under <span class="ui">Keyboard shortcuts</span>. <span class="ui">New file</span> has the usual key for a new document here, not the one of the browser version.</p>
+
+<h2 id="what-it-shares-with-your-other-tools"><a href="#what-it-shares-with-your-other-tools">What it shares with your other tools</a></h2>
+
+<ul>
+  <li><strong>The licence.</strong> <code>~/.penstock/license.json</code>, the same file as the command line, the plugin and the extension. A licence bought or entered in one is in the other. See <a href="sign-in.html">Buying and signing in</a>.</li>
+  <li><strong>Your preferences.</strong> <code>~/.penstock/preferences.json</code>, with the theme, the width of the sidebar, autosave, the AI chat and the agents. See <a href="files.html">Files Penstock reads and writes</a>.</li>
+  <li><strong>The project.</strong> <code>penstock.yaml</code> and the profiles, read from the project folder as everywhere.</li>
+</ul>
+
+<p>The application keeps two things of its own: the position of its windows and the list of recent projects. They are in the application's data folder, not in <code>~/.penstock</code>. The theme is chosen in <span class="ui">Settings</span>, as in Penstock Web.</p>
+
+<h2 id="when-something-goes-wrong"><a href="#when-something-goes-wrong">When something goes wrong</a></h2>
+
+<dl class="problems">
+  <dt>"The editor engine stopped".</dt>
+  <dd>The server of that window ended. <em>Your unsaved changes are still in the window.</em> Press <span class="ui">Restart</span>. The page keeps its unsaved changes and carries on against the new server.</dd>
+  <dt>"Unable to start the editor".</dt>
+  <dd>The server did not start for that project. <span class="ui">Details</span> shows the reason. Press <span class="ui">Restart</span>, or <span class="ui">Open another project&hellip;</span> to choose a different folder.</dd>
+  <dt>"The editor window stopped".</dt>
+  <dd>The window itself failed. Press <span class="ui">Reload</span>.</dd>
+  <dt>A link in the editor opens in a browser.</dt>
+  <dd>Links to web pages, <code>http</code>, <code>https</code> and <code>mailto</code> only, open in your own browser. The window shows only its own editor.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/penstock-web.html">Penstock Web</a> - The editors in a browser tab, on your machine.</li>
+<li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
+<li><a href="../guide/bpmn-editor.html">The BPMN editor</a> - The window, the tabs and how saving works.</li>
+<li><a href="../guide/project-model.html">Your project as a model</a> - Processes, workers, variables, messages, decisions and forms, and how they connect.</li>
+<li><a href="../guide/files.html">Files Penstock reads and writes</a> - Every file, and where it lives.</li>
+<li><a href="../cli/web.html">penstock web</a> - The editors in a browser, served from your machine.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/penstock-web.html"><span>Previous</span>Penstock Web</a>
+<a class="next" href="../guide/example-project.html"><span>Next</span>The example project</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../education/">Education</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies. It counts page views with Cloudflare Web Analytics, which uses no cookies and does not follow you across sites, and loads nothing else from other sites. Its checkout script, on the Plans page, is served from this site. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+</footer>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"0fef6ae618af402593844731b1d2499f"}'></script>
+
+</body>
+</html>

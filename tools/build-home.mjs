@@ -94,7 +94,7 @@ const body = `<main id="content">
     <tbody>
     <tr><td>VS Code</td><td>The extension <code>penstock.penstock</code>, for VS Code 1.88 or later.</td></tr>
     <tr><td>JetBrains IDEs</td><td>Any JetBrains IDE from 2023.1 with JCEF, which the standard downloads bundle: IntelliJ IDEA, WebStorm, PyCharm, GoLand, Rider and the rest.</td></tr>
-    <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, and plain BPMN 2.0.</td></tr>
+    <tr><td>Engines</td><td>Camunda 7, Camunda 8, Operaton, CIB seven, Flowable, Activiti and plain BPMN 2.0.</td></tr>
     <tr><td>Command line</td><td>${NODE}.</td></tr>
     <tr><td>Licence</td><td>Free, with 30 days of Pro on every new machine. One licence covers the JetBrains plugin, the VS Code extension and the command line. Read the <a href="license/">end user licence</a>, the <a href="terms/">terms</a> and the <a href="notices/">third-party notices</a>.</td></tr>
     <tr><td>Bugs and requests</td><td><a href="${CONTACT.issues}">GitHub issues</a>. A <code>.bpmn</code> file that shows the problem saves the most time.</td></tr>

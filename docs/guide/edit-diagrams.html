@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -220,6 +221,7 @@ echo '[{"op":"remove","id":"Task_legacy"}]' | penstock edit orders.bpmn --ops-fi
   <tr><td>All</td><td><code>name</code>, <code>documentation</code> and, on a sequence flow, <code>condition</code></td></tr>
   <tr><td>Camunda 8</td><td>On service, send, business rule and script tasks: <code>jobType</code>, <code>retries</code>. On a user task: <code>assignee</code>, <code>candidateUsers</code>, <code>candidateGroups</code>, <code>formId</code>. On a call activity: <code>processId</code>. On tasks: <code>inputs</code> and <code>outputs</code> as mappings. The condition is a FEEL expression.</td></tr>
   <tr><td>Camunda 7, Operaton, CIB seven</td><td>On service, send, business rule and script tasks: <code>class</code>, <code>delegateExpression</code>, <code>expression</code>, <code>resultVariable</code>, <code>topic</code>. On any element: <code>asyncBefore</code>, <code>asyncAfter</code>. On a user task: <code>assignee</code>, <code>candidateUsers</code>, <code>candidateGroups</code>, <code>formKey</code>. On a call activity: <code>calledElement</code>. On tasks: <code>inputs</code> and <code>outputs</code>.</td></tr>
+  <tr><td>Flowable, Activiti</td><td>On service, send and business rule tasks: <code>class</code>, <code>delegateExpression</code>, <code>expression</code>. <code>resultVariable</code> on service, script and business rule tasks. On tasks, call activities and sub-processes: <code>async</code>. On tasks: <code>skipExpression</code>. On a user task: <code>assignee</code>, <code>candidateUsers</code>, <code>candidateGroups</code>, <code>formKey</code>. On a call activity: <code>calledElement</code>. The condition is a JUEL expression. <code>--schema</code> prints the exact list.</td></tr>
   <tr><td>Classic BPMN</td><td>The common ones only</td></tr>
   </tbody>
 </table></div></div>

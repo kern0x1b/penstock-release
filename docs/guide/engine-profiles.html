@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -170,27 +171,31 @@
   <tr><td>Camunda 8</td><td><code>camunda-8</code></td><td><code>zeebe</code>, bound to <code>http://camunda.org/schema/zeebe/1.0</code></td><td>The REST API of the cluster, for example <code>http://localhost:8080/v2</code></td></tr>
   <tr><td>Operaton</td><td><code>operaton</code></td><td><code>operaton</code>, bound to <code>http://operaton.org/schema/1.0/bpmn</code></td><td>Ends in <code>/engine-rest</code></td></tr>
   <tr><td>CIB seven</td><td><code>cib-seven</code></td><td><code>camunda</code>, the same as Camunda 7</td><td>Ends in <code>/engine-rest</code></td></tr>
+  <tr><td>Flowable (6 and 7)</td><td><code>flowable</code></td><td><code>flowable</code>, bound to <code>http://flowable.org/bpmn</code></td><td>No deployment</td></tr>
+  <tr><td>Activiti (7)</td><td><code>activiti</code></td><td><code>activiti</code>, bound to <code>http://activiti.org/bpmn</code></td><td>No deployment</td></tr>
   </tbody>
 </table></div></div>
 
 <p>Operaton and CIB seven are open-source continuations of Camunda 7. Camunda ended community support for Camunda 7 in October 2025. Penstock calls Camunda 7, Operaton and CIB seven the <em>Camunda 7 family</em>. They share the same editor, the same REST API shape and the same features. The differences are the ones in the table above and in Java packages, listed below.</p>
 
+<p>Flowable and Activiti are separate engines with their own namespaces. They are modelled, edited and checked by Penstock, free, with no time limit, and are not deployed to. See <a href="#flowable-and-activiti">Flowable and Activiti</a> below.</p>
+
 <h2 id="choose-the-engine"><a href="#choose-the-engine">Choose the engine</a></h2>
 
 <figure class="shot">
-  <img src="../img/engine-question.png" alt="An empty editor with the question Which engine runs this diagram? in a card. The line under it says it decides the palette and the properties, and goes into penstock.yaml. Five buttons: Camunda 8, Operaton, CIB seven, Camunda 7 and Classic BPMN" width="1600" height="921">
-  <figcaption>The question above an empty canvas, with the five engines as buttons.</figcaption>
+  <img src="../img/engine-question.png" alt="An empty editor with the question Which engine runs this diagram? in a card. The line under it says it decides the palette and the properties, and goes into penstock.yaml. Seven buttons: Camunda 8, Operaton, CIB seven, Camunda 7, Flowable, Activiti and Classic BPMN" width="1600" height="921">
+  <figcaption>The question above an empty canvas, with the engines as buttons.</figcaption>
 </figure>
 
 <p>You usually do not have to. Penstock finds out in this order:</p>
 
 <ol class="steps">
   <li><code>engine</code> in the nearest <code>penstock.yaml</code>. The file nearest the diagram wins, so a folder can have its own engine.</li>
-  <li>The diagram itself: the execution platform the Camunda Modeler recorded, or the <code>zeebe:</code>, <code>operaton:</code> or <code>camunda:</code> attributes it already has.</li>
-  <li>If the diagram is empty and says nothing, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span> or <span class="ui">Classic BPMN</span>. The answer goes into <code>penstock.yaml</code>, created in the project root if there is none, and the line does not come back.</li>
+  <li>The diagram itself: the execution platform the Camunda Modeler recorded, or the <code>zeebe:</code>, <code>operaton:</code>, <code>flowable:</code>, <code>activiti:</code> or <code>camunda:</code> attributes it already has.</li>
+  <li>If the diagram is empty and says nothing, one line appears above the canvas: <em>Which engine runs this diagram?</em> Press <span class="ui">Camunda 8</span>, <span class="ui">Operaton</span>, <span class="ui">CIB seven</span>, <span class="ui">Camunda 7</span>, <span class="ui">Flowable</span>, <span class="ui">Activiti</span> or <span class="ui">Classic BPMN</span>. The answer goes into <code>penstock.yaml</code>, created in the project root if there is none, and the line does not come back.</li>
 </ol>
 
-<p>Changing the engine takes effect when the diagram editor is reloaded, because the editor is built for it. <code>penstock init --engine camunda-8|camunda-7|operaton|cib-seven|classic</code> says it outright, and plain <code>penstock init</code> guesses the engine from your diagrams. If it finds several, it prefers Camunda 8, then Operaton, CIB seven, Camunda 7 and Classic. If the command line finds no <code>engine</code> at all, it treats a deployment as Camunda 7.</p>
+<p>Changing the engine takes effect when the diagram editor is reloaded, because the editor is built for it. <code>penstock init --engine camunda-8|camunda-7|operaton|cib-seven|flowable|activiti|classic</code> says it outright, and plain <code>penstock init</code> guesses the engine from your diagrams. If it finds several, it prefers Camunda 8, then Flowable, Activiti, Operaton, CIB seven, Camunda 7 and Classic. If the command line finds no <code>engine</code> at all, it treats a deployment as Camunda 7.</p>
 
 <p>The engine is set per folder, not per file: a <code>penstock.yaml</code> that sets <code>engine</code> applies to every diagram under its folder. A project with Camunda 7 and Camunda 8 diagrams needs nothing special, give each folder its own file. Code links keep the two apart: a Camunda 8 job type finds its job worker and never an external task subscription of the same name.</p>
 
@@ -218,19 +223,32 @@
 
 <p>The Camunda 7 editor, unchanged. CIB seven uses the same <code>camunda:</code> namespace as Camunda 7. The difference is in what Penstock writes for you: the Java packages of a generated JUnit test and the engine's own test configuration file. The decision editor's properties panel gives a decision its version tag and its history time to live, as Camunda 7 does.</p>
 
+<h3 id="flowable-and-activiti"><a href="#flowable-and-activiti">Flowable and Activiti</a></h3>
+
+<p>Flowable (6 and 7) and Activiti (7) are profiles of their own. A project says <code>engine: flowable</code> or <code>engine: activiti</code> in <code>penstock.yaml</code>, or Penstock reads it from the <code>flowable:</code> or <code>activiti:</code> namespace of a diagram. Both are free, with no time limit.</p>
+
+<ul>
+  <li><strong>The properties panel</strong> edits the attributes the two engines share: async, exclusive, skip expression, assignee, candidate users and groups, due date, priority, form key, class, expression, delegate expression, result variable and the call activity ones. Their extension elements are read and written: form properties, task and execution listeners, fields and event listeners.</li>
+  <li><strong>The command line.</strong> <code>penstock edit</code> sets and reads the same properties.</li>
+  <li><strong>The check</strong> has seven <code>engine/*</code> rules, listed under <em>Flowable and Activiti</em> in <a href="../rules/">Every rule</a>: an extension of another engine, an attribute the engine does not know or does not allow on that element, an element it cannot run, a service task with no implementation, a script task with no format, and FEEL where the engine reads JUEL.</li>
+  <li><strong>New file</strong> writes an empty process in the engine's namespace. <code>penstock init --example flowable</code> and <code>--example activiti</code> write a small order process with a user task, a gateway and two Java delegates, which runs on an in-memory engine.</li>
+  <li><strong>Deploy is not supported.</strong> <code>penstock deploy</code> says <em>Deploying to Flowable is not supported; deploy with the engine's own tools</em> and sends nothing. Penstock sends a diagram only to the REST API of the Camunda engines. Flowable and Activiti usually run inside the application that uses them, as the example does, so there is no common address to send to. Use the tools your engine comes with.</li>
+  <li><strong>No generated tests.</strong> <code>penstock tests</code> writes none for these two profiles and says so. Scenarios and Test task need a Camunda engine.</li>
+</ul>
+
 <h2 id="what-else-depends-on-the-engine"><a href="#what-else-depends-on-the-engine">What else depends on the engine</a></h2>
 
 <div class="table-wrap"><div class="table-wrap"><table>
-  <thead><tr><th></th><th>Classic</th><th>Camunda 7</th><th>Camunda 8</th><th>Operaton</th><th>CIB seven</th></tr></thead>
+  <thead><tr><th></th><th>Classic</th><th>Camunda 7</th><th>Camunda 8</th><th>Operaton</th><th>CIB seven</th><th>Flowable</th><th>Activiti</th></tr></thead>
   <tbody>
-  <tr><td>Deploy, Scenarios</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-  <tr><td>Migrate to Camunda 8</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-  <tr><td>Connector browser</td><td>No</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr>
-  <tr><td>Transaction boundaries</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-  <tr><td>Element templates</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-  <tr><td>Script editor tab</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-  <tr><td>Java package for code links and tests</td><td>-</td><td><code>org.camunda</code></td><td><code>io.camunda</code></td><td><code>org.operaton</code></td><td><code>org.cibseven</code></td></tr>
-  <tr><td>Test config file in generated tests</td><td>-</td><td><code>camunda.cfg.xml</code></td><td>none</td><td><code>operaton.cfg.xml</code></td><td><code>cibseven.cfg.xml</code></td></tr>
+  <tr><td>Deploy, Scenarios</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Migrate to Camunda 8</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Connector browser</td><td>No</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+  <tr><td>Transaction boundaries</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Element templates</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Script editor tab</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+  <tr><td>Java package for code links and tests</td><td>-</td><td><code>org.camunda</code></td><td><code>io.camunda</code></td><td><code>org.operaton</code></td><td><code>org.cibseven</code></td><td><code>org.flowable</code></td><td><code>org.activiti</code></td></tr>
+  <tr><td>Test config file in generated tests</td><td>-</td><td><code>camunda.cfg.xml</code></td><td>none</td><td><code>operaton.cfg.xml</code></td><td><code>cibseven.cfg.xml</code></td><td>none</td><td>none</td></tr>
   </tbody>
 </table></div></div>
 
@@ -245,7 +263,7 @@
 <h2 id="what-you-see"><a href="#what-you-see">What you see</a></h2>
 
 <ul>
-  <li>The toolbar and the properties panel match the engine. Deploy is there for Camunda 7, Camunda 8, Operaton and CIB seven, and not for Classic.</li>
+  <li>The toolbar and the properties panel match the engine. Deploy is there for Camunda 7, Camunda 8, Operaton and CIB seven, and not for Classic, Flowable or Activiti.</li>
   <li><code>penstock doctor</code> prints <code>engine  camunda-8</code> (or the one you use).</li>
 </ul>
 
@@ -258,6 +276,8 @@
   <dd>The engine comes from the nearest <code>penstock.yaml</code>. A file in a subfolder may say something else. <code>penstock doctor</code> prints the engine that applies.</dd>
   <dt>Deploy says to choose an engine.</dt>
   <dd>The message reads <em>Choose Camunda 7, Camunda 8, Operaton or CIB seven as the engine in penstock.yaml to deploy</em>. Set <code>engine</code>.</dd>
+  <dt>Deploy says it is not supported for Flowable or Activiti.</dt>
+  <dd>That is so. Deploy with the engine's own tools. Penstock still edits and checks the diagram.</dd>
   <dt>I use Operaton but my tool treats my diagram as Camunda 7.</dt>
   <dd>Set <code>engine: operaton</code>. Without it, Penstock reads the diagram: a diagram with <code>operaton:</code> attributes is Operaton, but one with only <code>camunda:</code> attributes is Camunda 7.</dd>
 </dl>

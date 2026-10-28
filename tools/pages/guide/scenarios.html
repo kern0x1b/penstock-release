@@ -142,6 +142,19 @@ related: sidebar, process-tests, flow-analysis, monitor, settings, security, exa
 
 <p>On Camunda 7 the engine keeps a full history, so the table is exact. On Camunda 8 the engine keeps no variable history. The path is exact. What a mock received and sent is known. Decisions are read from the engine. Everything else is the difference between two readings, attributed to the stretch between them, not to one step. The panel says which.</p>
 
+<h2 id="test-a-task">Test one task</h2>
+
+<p>To try one element without writing a scenario, select it and choose <span class="ui">Test task&hellip;</span> in the More menu or the command palette. Pro, and Team in a pipeline. It is shown for Camunda 7, Camunda 8, Operaton and CIB seven.</p>
+
+<ol class="steps">
+  <li>Penstock deploys the process as a test build, as a run does, and starts an instance.</li>
+  <li>It completes or mocks every step on the way to the element, with the variables the path needs.</li>
+  <li>It completes the element, makes it throw a BPMN error, or leaves it waiting.</li>
+  <li>The tab opens on the run: the state of the element, what it received and sent, the variables, the incidents and the state of the instance. The trace is kept under <code>.penstock/runs</code>, and the build is removed afterwards.</li>
+</ol>
+
+<p>The same engine rules apply as for a run: the engine must be marked for tests, and the build never touches what you deployed. On the command line it is <a href="@cli/commands.html#test-task"><code>penstock test task</code></a>, and for an AI assistant the MCP tool <a href="@cli/mcp.html"><code>test_task</code></a>. An element that no path reaches, or a user task asked to throw an error, is refused with a message that says so.</p>
+
 <h2>Run with input</h2>
 
 <p>Use it to try a process by hand.</p>
@@ -204,7 +217,7 @@ related: sidebar, process-tests, flow-analysis, monitor, settings, security, exa
   <dt>The tab is empty.</dt>
   <dd>There is no test-case file for this diagram yet. Press <span class="ui">Generate</span> and review what it plans.</dd>
   <dt>The tab is not there.</dt>
-  <dd>Scenarios is shown for Camunda 7, Camunda 8, Operaton and CIB seven. See <a href="sidebar.html">The sidebar</a>.</dd>
+  <dd>Scenarios is shown for Camunda 7, Camunda 8, Operaton and CIB seven, and not for Flowable, Activiti or Classic BPMN. See <a href="sidebar.html">The sidebar</a>.</dd>
   <dt>The run left builds in my engine.</dt>
   <dd>An interrupted run is cleaned up by the next run, once it is old enough.</dd>
 </dl>

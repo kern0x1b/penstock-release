@@ -58,6 +58,7 @@
       <li><a href="../guide/">Overview</a></li>
       <li><a href="../guide/getting-started.html">Getting started</a></li>
       <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
       <li><a href="../guide/example-project.html">The example project</a></li>
       <li><a href="../guide/glossary.html">Words used in this guide</a></li>
     </ul>
@@ -154,6 +155,7 @@
 <li><a href="#how-to-read-a-rule-page">How to read a rule page</a></li>
 <li><a href="#modelling-rules">Modelling rules</a></li>
 <li><a href="#engine-compatibility">Engine compatibility</a></li>
+<li><a href="#flowable-and-activiti">Flowable and Activiti</a></li>
 <li><a href="#drawing">Drawing</a></li>
 <li><a href="#process-flow">Process flow</a></li>
 <li><a href="#decision-tables">Decision tables</a></li>
@@ -175,7 +177,7 @@
   </tbody>
 </table></div></div>
 
-<p>155 rules in 8 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free.</p>
+<p>162 rules in 9 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#flowable-and-activiti">flowable and activiti</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free.</p>
 
 <h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
 <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
@@ -285,6 +287,21 @@
   <tr><td><a href="compat-variable-name"><code>compat/variable-name</code></a></td><td>Variable name that is not valid</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="compat-version-tag"><code>compat/version-tag</code></a></td><td>Version tag that is empty</td><td><span class="tag error">Error</span></td></tr>
   <tr><td><a href="compat-wait-for-completion"><code>compat/wait-for-completion</code></a></td><td>Compensation that does not wait</td><td><span class="tag error">Error</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="flowable-and-activiti"><a href="#flowable-and-activiti">Flowable and Activiti</a></h2>
+<p>What a Flowable or an Activiti engine ignores or cannot run: an extension of another engine, an attribute the engine does not know, an element it does not support. They run on diagrams of the Flowable and Activiti profiles, in the editor and in <code>penstock check</code>. A finding is called <code>engine/&lt;rule&gt;</code>.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="engine-foreign-extension"><code>engine/foreign-extension</code></a></td><td>Extension of another engine</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="engine-unknown-attribute"><code>engine/unknown-attribute</code></a></td><td>Attribute the engine does not know</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="engine-attribute-not-allowed"><code>engine/attribute-not-allowed</code></a></td><td>Attribute on the wrong kind of element</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="engine-unsupported-element"><code>engine/unsupported-element</code></a></td><td>Element the engine does not support</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="engine-service-task-implementation"><code>engine/service-task-implementation</code></a></td><td>Service task with nothing to run</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="engine-script-format"><code>engine/script-format</code></a></td><td>Script task without a script format</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="engine-feel-expression"><code>engine/feel-expression</code></a></td><td>FEEL expression in a Flowable or Activiti diagram</td><td><span class="tag error">Error</span></td></tr>
   </tbody>
 </table></div></div>
 
