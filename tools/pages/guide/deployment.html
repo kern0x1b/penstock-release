@@ -3,7 +3,7 @@ title: Deployment
 lede: Deploy sends the diagram you are editing to the engine your project names, after one more click that shows exactly what will go where.
 tags: free
 needs: Camunda 7, Camunda 8, Operaton or CIB seven
-related: profiles, settings, security, cli/commands, monitor
+related: profiles, settings, security, cli/commands, monitor, drift-promote
 -->
 <p>Flowable and Activiti are not on this list. Penstock edits and checks their diagrams, and <code>penstock deploy</code> says <em>Deploying to Flowable is not supported; deploy with the engine's own tools</em> and sends nothing. See <a href="engine-profiles.html#flowable-and-activiti">Engines</a>.</p>
 
@@ -22,6 +22,8 @@ related: profiles, settings, security, cli/commands, monitor
   <img src="@img/deploy-popover.png" alt="The Deploy popover open under the Deploy button. The field Profile is set to default, the Engine address is http://localhost:8090/v2, What will be sent lists order-to-cash.bpmn, shipping-decision.dmn and invoice-approval.form, and Edit connection and Deploy are at the foot">
   <figcaption>The popover. It shows the profile, the engine address and the files it will send before anything is deployed.</figcaption>
 </figure>
+
+<p>The popover has <span class="ui">Only what changed</span>, on by default: a resource whose normalised content equals the latest version on the engine is left out and reported as <em>unchanged, skipped</em>, so deploying the same diagram again makes no new version. When the engine cannot be read, everything is sent and the answer says so. On the command line it is <code>penstock deploy --only-changed</code>.</p>
 
 <h2>What the popover tells you</h2>
 
@@ -88,10 +90,15 @@ hooks:
   <tr><td><code>source</code></td><td>Default <code>penstock</code>.</td></tr>
   <tr><td><code>tenantId</code></td><td>Empty means the default tenant.</td></tr>
   <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has, unchanged. On unless <code>false</code>.</td></tr>
+  <tr><td><code>protected</code></td><td>When true, deploying or promoting to this environment needs <code>--confirm &lt;name&gt;</code>. Anything but <code>false</code> protects it, and it is never read from an environment variable. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</td></tr>
   <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
   <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means at once. Camunda 7 family.</td></tr>
   </tbody>
 </table></div>
+
+<h2>Protected environments</h2>
+
+<p>A profile with <code>deployment.protected: true</code> cannot be deployed to by accident. The popover asks you to type the name of the environment, and on the command line <code>penstock deploy</code> needs <code>--confirm &lt;name&gt;</code>. In a pipeline it also needs <code>--approve-file</code>, an approval record that Penstock checks (Team in a pipeline). The record is a document kept in git, not a signature. To see how an environment differs from your files, or to take what runs on dev to prod, read <a href="drift-promote.html">Drift, promote and protected environments</a>.</p>
 
 <h2>What is sent</h2>
 

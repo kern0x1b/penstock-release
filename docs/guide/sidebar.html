@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -179,7 +191,7 @@
   <thead><tr><th>Editor</th><th>Tabs, in order</th></tr></thead>
   <tbody>
   <tr><td>A diagram</td><td>Properties, Chat, Problems, Scenarios, Comments, Code, Monitor, Debug</td></tr>
-  <tr><td>A decision</td><td>Properties, Chat, Problems, Try</td></tr>
+  <tr><td>A decision</td><td>Properties, Chat, Problems, Try, Tests</td></tr>
   <tr><td>A form</td><td>Properties, Chat, Preview, Problems</td></tr>
   </tbody>
 </table></div></div>
@@ -204,6 +216,8 @@
   <tr><td>Monitor</td><td>Diagram</td><td>What the engine is doing with this diagram now: incidents, and the instances waiting at each step. <a href="monitor.html">Monitor</a>.</td></tr>
   <tr><td>Code</td><td>Diagram</td><td>The workers, classes, beans, tests and usages behind the selected step. <a href="code-links.html">Code links</a>.</td></tr>
   <tr><td>Try</td><td>Decision</td><td>Type the values a decision table asks for and see which rules match and what it returns. <a href="dmn-editor.html#try">The DMN editor</a>.</td></tr>
+  <tr><td>Tests</td><td>Decision</td><td>The saved test cases of the decision, run all or one, with the rules no case reaches. <a href="dmn-tests.html">DMN tests</a>.</td></tr>
+  <tr><td>Agents</td><td>Diagram</td><td>Each AI agent of a Camunda 8 diagram with its model, prompts, tools, MCP clients, memory and approval. The order of the tab among the others is not fixed here. <a href="camunda-agents.html">AI agents of Camunda 8</a>.</td></tr>
   <tr><td>Preview</td><td>Form</td><td>The form as a user sees it, beside the JSON it is given and the JSON it would submit. <a href="form-editor.html#preview">The form editor</a>.</td></tr>
   </tbody>
 </table></div></div>

@@ -1,0 +1,52 @@
+<!--
+title: CMMN case models
+lede: Penstock opens CMMN case models from Camunda 7 and Flowable in a read-only viewer, checks them, and draws them as pictures.
+tags: free
+needs: Free, with no time limit. The viewer does not edit.
+related: bpmn-editor, diagram-check, export, cli/commands
+-->
+<h2>What it is</h2>
+
+<p>CMMN is a standard for case models, where the work is not a fixed path but a plan whose items start when something allows them. Penstock opens <code>.cmmn</code> and <code>.cmmn11.xml</code> files in every host. The viewer is free with no time limit.</p>
+
+<h2>What the viewer shows</h2>
+
+<ul>
+  <li>Stages, and human, process, case and decision tasks.</li>
+  <li>Milestones and event listeners.</li>
+  <li>Entry and exit criteria, joined to the plan items they wait for.</li>
+  <li>The required, repeating and manually activated markers.</li>
+</ul>
+
+<p>Elements are drawn where the file puts them. A file without a diagram is laid out from the sentries.</p>
+
+<p>A read-only <span class="ui">Properties</span> tab shows what each element is and what starts it. The viewer says plainly that editing is not supported, and has an <span class="ui">Open as text</span> button.</p>
+
+<h2>The checks</h2>
+
+<p>Six rules in the family <code>cmmn</code> fill the Problems tab of the viewer and run in <code>penstock check</code>, which takes <code>.cmmn</code> files and folders that hold them. Each rule has a page.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th></tr></thead>
+  <tbody>
+  <tr><td><a href="../rules/cmmn-duplicate-id"><code>cmmn/duplicate-id</code></a></td><td>An id used twice.</td></tr>
+  <tr><td><a href="../rules/cmmn-definition-ref-missing"><code>cmmn/definition-ref-missing</code></a></td><td>A plan item with no definition.</td></tr>
+  <tr><td><a href="../rules/cmmn-dangling-sentry-ref"><code>cmmn/dangling-sentry-ref</code></a></td><td>A criterion that points at nothing.</td></tr>
+  <tr><td><a href="../rules/cmmn-dangling-on-part"><code>cmmn/dangling-on-part</code></a></td><td>An on-part that points at nothing.</td></tr>
+  <tr><td><a href="../rules/cmmn-task-without-target"><code>cmmn/task-without-target</code></a></td><td>A task that names nothing to call.</td></tr>
+  <tr><td><a href="../rules/cmmn-no-case-plan-model"><code>cmmn/no-case-plan-model</code></a></td><td>A case without a case plan model.</td></tr>
+  </tbody>
+</table></div>
+
+<p>A case model that would expand without end, such as a stage that contains itself, stages that contain each other or a fan-out of stages, is read once per stage on the path and at most 10000 plan items. The warning <a href="../rules/cmmn-plan-truncated"><code>cmmn/plan-truncated</code></a> says what the viewer left out.</p>
+
+<h2>Draw it as a picture</h2>
+
+<p><code>penstock export</code> draws a case model as SVG or PNG, one file per model. See <a href="export.html">Export</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>I cannot move or add an element.</dt>
+  <dd>The viewer does not edit. Use <span class="ui">Open as text</span> and edit the XML.</dd>
+</dl>

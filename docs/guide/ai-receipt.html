@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AI receipt and auto-repair - Penstock</title>
+<meta name="description" content="Whenever an agent changes your files, Penstock records what changed, what the check says before and after, what the scenarios say, and gives a verdict. When the change brings new errors, Pro hands them back to the agent to fix.">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Penstock">
+<meta property="og:title" content="AI receipt and auto-repair - Penstock">
+<meta property="og:description" content="Whenever an agent changes your files, Penstock records what changed, what the check says before and after, what the scenarios say, and gives a verdict. When the change brings new errors, Pro hands them back to the agent to fix.">
+<meta property="og:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kern0x1b.github.io/penstock-release/og-image.png">
+<link rel="canonical" href="https://kern0x1b.github.io/penstock-release/guide/ai-receipt.html">
+<link rel="preload" href="../fonts/InterVariable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){var d=document,r=d.documentElement,k='penstock-theme';r.classList.add('js');try{var t=localStorage.getItem(k);if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-theme-toggle]');if(b){var n=(r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem(k,n)}catch(x){}return}var o=d.querySelector('.products[open]');if(o&&!o.contains(e.target))o.removeAttribute('open')});d.addEventListener('keydown',function(e){var o=d.querySelector('.products[open]');if(e.key==='Escape'&&o){o.removeAttribute('open');o.querySelector('summary').focus()}})})();</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to the content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="../"><img src="../icon.svg" alt="">Penstock</a>
+    <nav aria-label="Site">
+      <a href="../install/" class="keep">Install</a>
+      <a href="../guide/" class="keep" aria-current="true">Guide</a>
+      <details class="products">
+        <summary>Products</summary>
+        <div class="drop">
+          <a href="../jetbrains/"><strong>JetBrains</strong><span>Install from the Marketplace and find your way around the IDE.</span></a>
+          <a href="../vscode/"><strong>VS Code</strong><span>Install from the Marketplace and find your way around VS Code.</span></a>
+          <a href="../cli/"><strong>Command line</strong><span>The penstock command: every command, pipelines and the MCP server.</span></a>
+        </div>
+      </details>
+      <a href="../pricing/">Pricing</a>
+      <a href="../for-teams/">For teams</a>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch between light and dark" title="Switch between light and dark"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11" /><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="menu" aria-label="Guide">
+    <details>
+    <summary>Start here</summary>
+    <ul>
+      <li><a href="../guide/">Overview</a></li>
+      <li><a href="../guide/getting-started.html">Getting started</a></li>
+      <li><a href="../guide/penstock-web.html">Penstock Web</a></li>
+      <li><a href="../guide/penstock-desktop.html">Penstock Desktop</a></li>
+      <li><a href="../guide/example-project.html">The example project</a></li>
+      <li><a href="../guide/glossary.html">Words used in this guide</a></li>
+    </ul>
+    </details>
+    <details open>
+    <summary>Draw and edit</summary>
+    <ul>
+      <li><a href="../guide/bpmn-editor.html">The BPMN editor</a></li>
+      <li><a href="../guide/toolbar.html">Toolbar and More menu</a></li>
+      <li><a href="../guide/sidebar.html">The sidebar</a></li>
+      <li><a href="../guide/properties-panel.html">Properties panel</a></li>
+      <li><a href="../guide/elements.html">BPMN elements</a></li>
+      <li><a href="../guide/editing.html">Editing a diagram</a></li>
+      <li><a href="../guide/comments.html">Comments</a></li>
+      <li><a href="../guide/script-tab.html">The script tab</a></li>
+      <li><a href="../guide/suggestions.html">Suggestions</a></li>
+      <li><a href="../guide/ai-chat.html">AI chat</a></li>
+      <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html" aria-current="page">AI receipt and auto-repair</a></li>
+      <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
+      <li><a href="../guide/element-templates.html">Element templates</a></li>
+      <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
+      <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
+      <li><a href="../guide/auto-layout.html">Auto layout</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Check your work</summary>
+    <ul>
+      <li><a href="../guide/diagram-check.html">Diagram check</a></li>
+      <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
+      <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
+      <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
+      <li><a href="../guide/token-simulation.html">Token simulation</a></li>
+      <li><a href="../guide/trace-paths.html">Trace paths</a></li>
+      <li><a href="../guide/transaction-boundaries.html">Transaction boundaries</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Test and run</summary>
+    <ul>
+      <li><a href="../guide/scenarios.html">Scenarios</a></li>
+      <li><a href="../guide/debug-process.html">Debug a process</a></li>
+      <li><a href="../guide/timeline.html">Timeline</a></li>
+      <li><a href="../guide/scenario-file.html">The scenario file</a></li>
+      <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
+      <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
+      <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
+      <li><a href="../guide/check-workers.html">Check Workers</a></li>
+      <li><a href="../guide/code-links.html">Code links</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Set up a project</summary>
+    <ul>
+      <li><a href="../guide/engine-profiles.html">Engines</a></li>
+      <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
+      <li><a href="../guide/agents.html">AI agents</a></li>
+      <li><a href="../guide/profiles.html">Profiles</a></li>
+      <li><a href="../guide/project-model.html">Your project as a model</a></li>
+      <li><a href="../guide/files.html">Files Penstock reads and writes</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Share and move</summary>
+    <ul>
+      <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
+      <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
+      <li><a href="../guide/share-html.html">Share as HTML</a></li>
+      <li><a href="../guide/import.html">Import a diagram</a></li>
+      <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
+      <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
+    </ul>
+    </details>
+    <details>
+    <summary>Plans, privacy and help</summary>
+    <ul>
+      <li><a href="../guide/plans.html">Plans and licence</a></li>
+      <li><a href="../guide/sign-in.html">Buying and signing in</a></li>
+      <li><a href="../guide/licence-troubleshooting.html">Licence troubleshooting</a></li>
+      <li><a href="../guide/security.html">Security and privacy</a></li>
+      <li><a href="../guide/troubleshooting.html">Troubleshooting</a></li>
+      <li><a href="../guide/faq.html">Questions and answers</a></li>
+    </ul>
+    </details>
+  </nav>
+<main class="doc" id="content">
+<p class="crumbs"><a href="../guide/">Guide</a> / Draw and edit</p>
+<h1>AI receipt and auto-repair</h1>
+<p class="lede">Whenever an agent changes your files, Penstock records what changed, what the check says before and after, what the scenarios say, and gives a verdict. When the change brings new errors, Pro hands them back to the agent to fix.</p>
+<p class="meta"><span class="tag free">Free</span> <span>A free preview of the verdict and the counts is shown for every change. The full receipt, auto-repair and stored receipts are Pro. The pipeline gate is Team in a pipeline.</span></p>
+<nav class="toc" aria-label="On this page">
+<h2>On this page</h2>
+<ul>
+<li><a href="#what-a-receipt-is">What a receipt is</a></li>
+<li><a href="#auto-repair">Auto-repair</a></li>
+<li><a href="#keeping-receipts">Keeping receipts</a></li>
+<li><a href="#from-the-command-line">From the command line</a></li>
+<li><a href="#what-a-receipt-never-runs-on-its-own">What a receipt never runs on its own</a></li>
+<li><a href="#common-problems">Common problems</a></li>
+</ul>
+</nav>
+<h2 id="what-a-receipt-is"><a href="#what-a-receipt-is">What a receipt is</a></h2>
+
+<p>When an agent changes project files, in the <a href="ai-chat.html">AI chat</a> or through an MCP write tool, Penstock records:</p>
+
+<ul>
+  <li>what changed: each file with a SHA-256 before and after, and the diff in the diagram's own terms;</li>
+  <li>the Check result before and after, with the new findings called out by rule and element id;</li>
+  <li>the scenarios run on the changed diagram, against the previous run;</li>
+  <li>whether auto layout was applied;</li>
+  <li>the connections and secrets findings the change introduced;</li>
+  <li>a verdict: <em>verified</em>, <em>has new findings</em>, or <em>not verified</em> with the reason.</li>
+</ul>
+
+<p>A receipt holds names, hashes and ids. It never holds file contents or secret values. Its format is published as <a href="https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock-receipt.schema.json"><code>penstock-receipt.schema.json</code></a>.</p>
+
+<p>The chat shows the receipt as a card under the answer, for example <em>Verified: 0 new problems, 3 scenarios pass</em>, with chips. The Chat tab shows the full receipt. MCP tool results carry it in a <code>receipt</code> field. A free preview, the verdict and the counts, is shown for every change.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Part</th><th>Plan</th></tr></thead>
+  <tbody>
+  <tr><td>The verdict and the counts for every change</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>The full receipt, stored receipts, <code>--write</code></td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td>Auto-repair</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>check --require-receipt</code></td><td><span class="tag pro">Pro</span> on a developer machine, <span class="tag team">Team in a pipeline</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="auto-repair"><a href="#auto-repair">Auto-repair</a></h2>
+
+<p><span class="tag pro">Pro</span></p>
+
+<p>When a change introduces new Check errors, Penstock hands the findings back to the agent in the same chat turn, or in the tool result for MCP. It does this up to <code>ai.verify.attempts</code> times: 3 by default, 0 turns it off, at most 10. The receipt records each attempt.</p>
+
+<h2 id="keeping-receipts"><a href="#keeping-receipts">Keeping receipts</a></h2>
+
+<p>A receipt is written to <code>.penstock/receipts/&lt;timestamp&gt;-&lt;name&gt;.json</code> only when <code>ai.verify.keepReceipts</code> is <code>true</code>, and then atomically. Nothing is written silently.</p>
+
+<pre><code>ai:
+  verify:
+    attempts: 3
+    keepReceipts: true
+    requireReceipt: false
+    agentPaths:
+      - generated/</code></pre>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>attempts</code></td><td>How many times the agent is handed the new errors. 3 by default, 0 turns it off.</td></tr>
+  <tr><td><code>keepReceipts</code></td><td>Write each receipt to <code>.penstock/receipts</code>. Off by default.</td></tr>
+  <tr><td><code>requireReceipt</code></td><td>In a pipeline, <code>penstock check</code> fails when a change made by an agent has no matching valid receipt. The same as <code>--require-receipt</code>.</td></tr>
+  <tr><td><code>agentPaths</code></td><td>Folders whose files count as made by an agent for the gate, besides commits with an <code>Assisted-by</code> trailer or a <code>Co-authored-by</code> trailer naming an agent.</td></tr>
+  <tr><td><code>agents</code></td><td>The names that make a <code>Co-authored-by</code> trailer count as an agent.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p><code>ai.verify</code> is in the configuration schema and in <code>penstock doctor</code>. See <a href="settings.html">penstock.yaml</a>.</p>
+
+<h2 id="from-the-command-line"><a href="#from-the-command-line">From the command line</a></h2>
+
+<pre><code>penstock receipt verify processes/order.bpmn --against origin/main
+penstock receipt check .penstock/receipts/20261028T100000Z-order.json</code></pre>
+
+<ul>
+  <li><code>receipt verify &lt;file...&gt;</code> makes a receipt without an agent: the files that changed against a git ref (<code>HEAD</code> unless <code>--against</code>). <code>--write</code> keeps it in <code>.penstock/receipts</code>. Exit 0 when the change is verified, 1 when it has new findings or could not be verified.</li>
+  <li><code>receipt check &lt;receipt.json&gt;</code> confirms that the stored hashes still match the files. It does not run the check again. Exit 1 when a file changed, is missing or should not exist.</li>
+  <li><code>penstock check --require-receipt</code> fails when a change made by an agent has no matching valid receipt.</li>
+</ul>
+
+<h2 id="what-a-receipt-never-runs-on-its-own"><a href="#what-a-receipt-never-runs-on-its-own">What a receipt never runs on its own</a></h2>
+
+<p>A receipt never runs what an agent wrote without a person's say.</p>
+
+<ul>
+  <li>The saved scenarios of a change run only on an engine marked <code>deployment.forTests</code>.</li>
+  <li>They do not run when the change adds or changes content that runs (a script, a listener, an expression, a service call), or touches <code>penstock.yaml</code> or the test files. The receipt then says <em>scenarios not run</em> and is not fully verified. <code>penstock receipt verify --run-scenarios</code> runs them on request.</li>
+  <li>Anything Penstock could not fully inspect (too many files, a file too large or unreadable, a changed decision, form, template or case that a run would deploy) holds the scenarios back the same way, and limits the check to the built-in rules.</li>
+  <li>An MCP write runs the scenarios only with <code>scenarios: true</code>.</li>
+  <li>The check in a receipt uses the built-in rules only when the change touches the lint configuration, a rules folder, a plugin, <code>penstock.yaml</code> or <code>package.json</code>, or when the project is not trusted (<code>penstock trust</code>). The receipt says so.</li>
+</ul>
+
+<h2 id="common-problems"><a href="#common-problems">Common problems</a></h2>
+
+<dl class="problems">
+  <dt>The receipt says "scenarios not run".</dt>
+  <dd>The change adds content that runs, or the engine is not marked <code>deployment.forTests</code>. Read the change, then run <code>penstock receipt verify --run-scenarios</code> if you accept it.</dd>
+  <dt>No file appears in <code>.penstock/receipts</code>.</dt>
+  <dd>Set <code>ai.verify.keepReceipts: true</code>, or use <code>--write</code>. Both need Pro.</dd>
+  <dt>The pipeline fails on a missing receipt.</dt>
+  <dd>A commit with an agent trailer, or a file under <code>agentPaths</code>, has no matching valid receipt. Make one with <code>penstock receipt verify</code>.</dd>
+</dl>
+<div class="related">
+<h2>See also</h2>
+<ul>
+<li><a href="../guide/ai-chat.html">AI chat</a> - Ask or steer an AI agent from the foot of the editor.</li>
+<li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a> - See a proposed change on the canvas, and accept or reject it.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
+<li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
+<li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
+</ul>
+</div>
+<nav class="pager" aria-label="Previous and next">
+<a class="prev" href="../guide/review-agent-changes.html"><span>Previous</span>Review the changes an agent proposes</a>
+<a class="next" href="../guide/scripts.html"><span>Next</span>Scripts in their own tab</a>
+</nav>
+</main>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="../">Home</a>
+    <a href="../install/">Install</a>
+    <a href="../pricing/">Pricing</a>
+    <a href="../guide/">Guide</a>
+    <a href="../jetbrains/">JetBrains</a>
+    <a href="../vscode/">VS Code</a>
+    <a href="../cli/">Command line</a>
+    <a href="../faq/">FAQ</a>
+    <a href="../for-teams/">For teams</a>
+    <a href="../education/">Education</a>
+    <a href="../about/">About and contact</a>
+    <a href="https://plugins.jetbrains.com/plugin/25710-penstock">JetBrains Marketplace</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=penstock.penstock">VS Code Marketplace</a>
+    <a href="https://www.npmjs.com/package/@kern0x1b/penstock-cli">npm</a>
+    <a href="https://github.com/kern0x1b/penstock-release/issues">Support</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="../license/">Licence</a>
+    <a href="../notices/">Third-party notices</a>
+    <a href="https://github.com/kern0x1b/penstock-release/blob/main/SECURITY.md">Security policy</a>
+  </div>
+  <p>Penstock was published as Camunda BPMN Editor until 2026. Same plugin, same vendor, new name. It updates in place and nothing needs to be reinstalled.</p>
+  <p>Penstock is an independent product. It is not affiliated with, endorsed by, or sponsored by Camunda Services GmbH. "Camunda" and "BPMN" are used only to describe the process engines and the notation the plugin works with. Camunda is a trademark of Camunda Services GmbH. BPMN is a trademark of the Object Management Group.</p>
+  <p>This site sets no cookies. It counts page views with Cloudflare Web Analytics, which uses no cookies and does not follow you across sites, and loads nothing else from other sites. Its checkout script, on the Plans page, is served from this site. <a href="../privacy/">Privacy</a>. It is set in <a href="https://github.com/rsms/inter">Inter</a> and <a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a>, under the SIL Open Font License 1.1 (<a href="../fonts/OFL-Inter.txt">Inter</a>, <a href="../fonts/OFL.txt">JetBrains Mono</a>).</p>
+  <p>Copyright 2024-2026 Oleksandr Havrysh. All rights reserved. Contact: <a href="mailto:oleksandr.havrysh5@gmail.com">oleksandr.havrysh5@gmail.com</a>.</p>
+</footer>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"0fef6ae618af402593844731b1d2499f"}'></script>
+
+</body>
+</html>

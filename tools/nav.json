@@ -107,6 +107,11 @@
               "about": "See a proposed change on the canvas, and accept or reject it."
             },
             {
+              "slug": "ai-receipt",
+              "title": "AI receipt and auto-repair",
+              "about": "What an agent changed, checked and verified, and how a failed check goes back to it."
+            },
+            {
               "slug": "scripts",
               "title": "Scripts in their own tab",
               "about": "Edit an inline script as a real file in your code editor."
@@ -122,9 +127,19 @@
               "about": "Decision tables, trying a table with values, spreadsheets and the requirements diagram."
             },
             {
+              "slug": "dmn-tests",
+              "title": "DMN tests",
+              "about": "Saved test cases for a decision table, rule coverage and penstock test dmn."
+            },
+            {
               "slug": "form-editor",
               "title": "The form editor",
               "about": "Camunda Forms, drawn, previewed and checked."
+            },
+            {
+              "slug": "cmmn",
+              "title": "CMMN case models",
+              "about": "A read-only viewer for Camunda 7 and Flowable case models, with its own checks."
             },
             {
               "slug": "auto-layout",
@@ -146,6 +161,16 @@
               "title": "Every rule",
               "about": "One page for each check: why it matters and how to fix it.",
               "href": "rules/"
+            },
+            {
+              "slug": "connections",
+              "title": "Connections map",
+              "about": "The secrets and MCP clients a diagram names, and where the project defines them."
+            },
+            {
+              "slug": "camunda-agents",
+              "title": "AI agents of Camunda 8",
+              "about": "Every AI agent task with its model, tools, limits and MCP clients, and its checks."
             },
             {
               "slug": "validation",
@@ -208,9 +233,24 @@
               "about": "Send diagrams to your engine."
             },
             {
+              "slug": "drift-promote",
+              "title": "Drift, promote and protected environments",
+              "about": "Compare an environment with the files, deploy only what changed, promote dev to prod."
+            },
+            {
               "slug": "monitor",
               "title": "Monitor",
               "about": "See what waits at each step, and where the incidents are, right now."
+            },
+            {
+              "slug": "heat-map-replay",
+              "title": "Heat map and replay",
+              "about": "Where instances spend time and fail, and a step-by-step replay of a real instance."
+            },
+            {
+              "slug": "incident-to-fix",
+              "title": "Incident to fix",
+              "about": "Reproduce an incident as a scenario, propose a fix and send it, in one loop."
             },
             {
               "slug": "check-workers",
@@ -236,6 +276,16 @@
               "slug": "settings",
               "title": "penstock.yaml",
               "about": "The one file that describes your project, and every key in it."
+            },
+            {
+              "slug": "policy-pack",
+              "title": "Policy pack",
+              "about": "Your team's rules, conventions and checks in a pinned folder in git."
+            },
+            {
+              "slug": "languages",
+              "title": "Interface languages",
+              "about": "The 18 languages of the editors, the command line and the IDEs."
             },
             {
               "slug": "agents",
@@ -268,6 +318,11 @@
               "about": "Save the diagram as SVG, PNG or PDF."
             },
             {
+              "slug": "evidence-pack",
+              "title": "Evidence pack",
+              "about": "One package for an audit, with a SHA-256 of every file."
+            },
+            {
               "slug": "diagram-diff",
               "title": "Diagram diff",
               "about": "Compare two versions of a diagram, side by side."
@@ -286,6 +341,11 @@
               "slug": "migration",
               "title": "Camunda 7 to 8",
               "about": "See what does not carry over, convert, and write a report."
+            },
+            {
+              "slug": "refactoring",
+              "title": "Refactoring across the project",
+              "about": "Rename a variable, message, job type or process everywhere, or extract a subprocess."
             },
             {
               "slug": "edit-diagrams",
@@ -520,6 +580,16 @@
               "slug": "commands",
               "title": "Every command",
               "about": "Each command with every option and an example."
+            }
+          ]
+        },
+        {
+          "title": "Editors without a plugin",
+          "pages": [
+            {
+              "slug": "lsp",
+              "title": "penstock lsp",
+              "about": "A language server for Zed, Helix, Neovim, Sublime Text, Emacs, Kate and Eclipse."
             }
           ]
         },

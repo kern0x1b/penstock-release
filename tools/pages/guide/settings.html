@@ -95,9 +95,14 @@ profiles:
   <tr><td><code>deployment.changedOnly</code></td><td>Leave out what the engine already has unchanged. On unless you set <code>false</code>.</td></tr>
   <tr><td><code>deployment.activationTime</code></td><td>An ISO 8601 timestamp when the deployment becomes active. Camunda 7 family.</td></tr>
   <tr><td><code>deployment.forTests</code></td><td>Marks an engine that test-case runs may deploy test builds to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
+  <tr><td><code>deployment.protected</code></td><td><code>true</code> marks the environment as protected: <code>deploy</code> and <code>promote</code> to it need <code>--confirm &lt;name&gt;</code>, and in a pipeline also <code>--approve-file</code>, checked in Team. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</td></tr>
   <tr><td><code>deployment.auth.type</code></td><td><code>none</code>, <code>basic</code> or <code>oauth</code>.</td></tr>
   <tr><td><code>deployment.auth.username</code></td><td>The user for <code>basic</code>. Not a secret, so it may be in the file. The password comes from your tool's secret store, or from <code>PENSTOCK_PASSWORD</code> on the command line.</td></tr>
   <tr><td><code>deployment.auth.clientId</code>, <code>tokenUrl</code>, <code>audience</code></td><td>For <code>oauth</code>: the client id, the address of the token endpoint that issues the access token, and the audience the token is for. The client secret comes from your tool's secret store, or from <code>PENSTOCK_CLIENT_SECRET</code> on the command line.</td></tr>
+  <tr><td><code>ai.verify.attempts</code></td><td>How many times the agent is handed the new errors of its change before Penstock stops asking. 3 by default, 0 turns auto-repair off, at most 10. <span class="tag pro">Pro</span> See <a href="ai-receipt.html">AI receipt and auto-repair</a>.</td></tr>
+  <tr><td><code>ai.verify.keepReceipts</code></td><td>Write each receipt to <code>.penstock/receipts/</code>. Off by default: nothing is written without it.</td></tr>
+  <tr><td><code>ai.verify.requireReceipt</code>, <code>ai.verify.agentPaths</code>, <code>ai.verify.agents</code></td><td>Make <code>penstock check</code> fail when a change made by an agent has no valid receipt, which folders count as made by an agent, and which names in a <code>Co-authored-by</code> trailer count as an agent. Pro on your machine, Team in a pipeline.</td></tr>
+  <tr><td><code>policy</code></td><td>A policy pack: a folder (<code>policy: path</code>) or a git address and ref that <code>penstock policy sync</code> fetches. <code>policy.pin</code> holds its pin. See <a href="policy-pack.html">Policy pack</a>.</td></tr>
   <tr><td><code>profile</code></td><td>The profile in force. <code>PENSTOCK_PROFILE</code> wins. See <a href="profiles.html">Profiles</a>.</td></tr>
   <tr><td><code>profiles</code></td><td>Named sets of overrides. See <a href="profiles.html">Profiles</a>.</td></tr>
   </tbody>
@@ -178,12 +183,12 @@ profiles:
 
 <h2 id="language">Language</h2>
 
-<p>The editors, the messages and the command line are in English, German, Spanish, French, Japanese, Korean, Portuguese (Brazil), Russian and simplified Chinese. The pages of this guide and the rule pages are in English.</p>
+<p>The editors, the messages and the command line are in 18 languages: English, German, Spanish, French, Japanese, Korean, Portuguese (Brazil), Russian, simplified Chinese, and, since 26.11.0, Polish, Italian, Dutch, Turkish, Ukrainian, traditional Chinese, Czech, Indonesian and Vietnamese. The nine added in 26.11.0 were translated with a model and have not been reviewed by native speakers. See <a href="languages.html">Interface languages</a>. The pages of this guide and the rule pages are in English.</p>
 
 <ul>
   <li><strong>In an editor</strong> a <code>locale</code> in <code>~/.penstock/preferences.json</code> comes first, if there is one. Without it the language of your tool is used, and without that the one of the browser engine the editor runs in.</li>
   <li><strong>On the command line</strong> it is <code>--lang</code>, then the first of <code>LC_ALL</code>, <code>LC_MESSAGES</code> and <code>LANG</code> that is set and is not <code>C</code> or <code>POSIX</code>.</li>
-  <li>A language Penstock does not have gives English. So does Traditional Chinese (script Hant, or the regions TW, HK and MO), and any Portuguese other than Brazil.</li>
+  <li>A language Penstock does not have gives English, and so does any Portuguese other than Brazil. A regional tag such as <code>nl-BE</code>, <code>pl-PL</code> or <code>it-CH</code> reads as its language. Traditional Chinese uses Taiwan wording and is chosen by <code>zh-TW</code>, <code>zh-HK</code>, <code>zh-MO</code> and <code>zh-Hant</code>; <code>zh-CN</code> and <code>zh-Hans</code> stay simplified.</li>
 </ul>
 
 <p>Only the words Penstock writes are translated. The names in your diagrams, the findings' ids and the keys of <code>penstock.yaml</code> stay as they are.</p>
@@ -206,6 +211,9 @@ profiles:
   <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Commit them. Reviewing them next to code is the point.</td></tr>
   <tr><td>Credentials</td><td>Nothing to commit. They live in the secret store of your tool.</td></tr>
   <tr><td><code>.bpmnlayoutrc</code></td><td>Not read any more. Delete it.</td></tr>
+  <tr><td><code>.penstock/policy/</code>, <code>penstock.policy.lock</code>, <code>.penstock/deployments.json</code></td><td>Commit them: the policy pack, its pin, and the record of what was deployed to each environment, which is the baseline for drift.</td></tr>
+  <tr><td><code>*.dmn.tests.json</code></td><td>Commit them. They are the saved test cases, next to the DMN files.</td></tr>
+  <tr><td><code>.penstock/receipts/</code>, <code>.penstock/migration-selection.json</code></td><td>Written only when you ask for them (<code>ai.verify.keepReceipts</code>, "Save selection"). Commit them if your team wants the record.</td></tr>
   <tr><td><code>penstockw</code>, <code>penstockw.cmd</code>, <code>penstock/wrapper/penstock-wrapper.properties</code></td><td>Commit them, so everyone runs the same version of the command line.</td></tr>
   </tbody>
 </table></div>

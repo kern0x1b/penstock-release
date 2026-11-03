@@ -33,7 +33,7 @@ related: sign-in, files, deployment, scenarios
   </tr>
   <tr>
     <td>Engine questions</td>
-    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="scenarios.html">Scenarios</a>, or Open run.</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a> (including the <a href="heat-map-replay.html">heat map and replay</a>), <a href="scenarios.html">Scenarios</a>, <a href="drift-promote.html">drift</a>, or Open run.</td>
     <td>The engine of the profile in force.</td>
     <td>Requests to the engine's REST API, with the profile's credentials. The tool adds the credentials. The web page in the editor never sees them.</td>
   </tr>
@@ -138,6 +138,18 @@ related: sign-in, files, deployment, scenarios
   <li>The agent gets Penstock's own MCP server, <code>penstock mcp</code>, to read diagrams, rules, scenarios and code links. What the server returns is bounded, and when the client tells it which folders are open, it refuses everything outside them. See <a href="@cli/mcp.html">The MCP server</a>.</li>
   <li>The chats are kept on your machine, one file for each, readable only by you, in <code>~/.penstock/chats</code>. Deleting a chat removes its file.</li>
   <li>The agent session a project shares between windows and tools is reached on <code>127.0.0.1</code> only, with a token that lives in a file only you can read. <code>penstock agent serve</code>, which serves a project's chats to a plugin of your tool, listens on <code>127.0.0.1</code> too.</li>
+</ul>
+
+<h2 id="new-in-26-11">Files from outside, packs and receipts</h2>
+
+<ul>
+  <li><strong>The language server.</strong> <code>penstock lsp</code> talks over standard input and output only. It opens no network connection, runs nothing from the files (custom bpmnlint rules do not run), caps a document at 16 MiB and a file at 200 findings, and reads files only inside the workspace folders of the editor, with symbolic links resolved. See <a href="@cli/lsp.html">penstock lsp</a>.</li>
+  <li><strong>Imported files are untrusted.</strong> A file over 64 MB, or an XML that declares entities or is nested too deep, is refused. The scan of a Camunda Modeler project never follows a link, never leaves the folder and never reads or runs a plugin. See <a href="import.html">Import a diagram</a>.</li>
+  <li><strong>A policy pack is data only.</strong> A plugin, hook or script entry, a symbolic link, a path outside the folder, or a file of another kind refuses the whole pack. <code>policy sync</code> accepts no network share or device path, and git runs with a small environment. See <a href="policy-pack.html">Policy pack</a>.</li>
+  <li><strong>Receipts and evidence hold names, hashes and ids</strong>, never file contents, secret values or an e-mail address. A receipt does not run what an agent wrote: the saved scenarios run only on an engine marked <code>deployment.forTests</code>, and not when the change adds content that runs. The hashes of an evidence pack show that it was changed afterwards; they are not a signature. See <a href="ai-receipt.html">AI receipt and auto-repair</a> and <a href="evidence-pack.html">Evidence pack</a>.</li>
+  <li><strong>Refactoring</strong> writes only inside the project root, follows no link, writes every file whole and puts them all back if one write fails. See <a href="refactoring.html">Refactoring across the project</a>.</li>
+  <li><strong>Heat map, replay and incidents.</strong> The heat map is read-only. Replay and "what if from this token" start an instance only on an engine marked <code>deployment.forTests</code>, and a production connection is refused before anything is sent. Values that look like secrets are shown as <code>&lt;redacted&gt;</code> and replaced by a placeholder in an incident scenario. See <a href="heat-map-replay.html">Heat map and replay</a> and <a href="incident-to-fix.html">Incident to fix</a>.</li>
+  <li><strong>Protected environments.</strong> An environment marked <code>deployment.protected</code> needs its name typed again, and in a pipeline an approval record. The record is a document kept in git, not a signature. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</li>
 </ul>
 
 <h2>Packages that are not pinned never run</h2>

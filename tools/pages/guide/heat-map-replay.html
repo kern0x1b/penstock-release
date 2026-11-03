@@ -1,0 +1,47 @@
+<!--
+title: Heat map and replay
+lede: Paint a diagram by how often, how long and how badly each element ran on the engine, step through a real instance with its variables, and start a new one from a chosen token. Both are read from the engine you already connected.
+tags: pro
+needs: A deployment profile with an address. Replay and what-if start only on an engine marked deployment.forTests.
+related: monitor, timeline, incident-to-fix, deployment, security
+-->
+<h2>Heat map and bottlenecks</h2>
+
+<p><span class="tag pro">Pro</span> <code>heatmap</code></p>
+
+<ol class="steps">
+  <li>Open the <strong>Monitor</strong> tab. See <a href="monitor.html">Monitor</a>.</li>
+  <li>Choose a period: the last hour, day, week or 30 days.</li>
+  <li>The diagram is painted by how often, how long and how badly each element ran. A badge and a tooltip show the visits, the average and 95th percentile duration, the incidents and the failure rate.</li>
+  <li>The <strong>slowest</strong> and <strong>most failing</strong> lists name elements. A click selects the element on the canvas.</li>
+</ol>
+
+<p>It is read-only. It asks the Camunda 7 history REST API, or the Camunda 8 element-instance and incident search, of the connection you already chose, and nothing else. Every read is capped in pages, rows, bytes and time. An answer that is too large, malformed or cut short is shown as <em>partial</em> instead of as a number. The percentile and the rates are computed in Penstock from the rows, never taken from the engine's text.</p>
+
+<h2>Replay a real instance</h2>
+
+<p><span class="tag pro">Pro</span> <code>replay</code></p>
+
+<p>Under the instance list of the <strong>History</strong> section, press <span class="ui">Replay this instance</span>. Penstock steps through what the engine recorded, one element at a time, on the diagram, with the variables at each step. Changed names are marked, and values that look like secrets are shown as <code>&lt;redacted&gt;</code>.</p>
+
+<p>The variables are what the history says on Camunda 7. On Camunda 8 they are the values the instance has now, and the panel says which. The free stepping of the <a href="timeline.html">Timeline</a> stays as it is.</p>
+
+<h2>What if from this token</h2>
+
+<p>Press <span class="ui">What if from this token</span> to start a new instance at the chosen element with the variables you edited. It uses the same start call as the debug and scenario runs.</p>
+
+<div class="callout warn">
+  <span class="label">Only on a test engine</span>
+  <p>It starts only on an engine marked <code>deployment.forTests</code>. On a local engine on this machine it asks first. A production connection is refused, with the reason, before anything is sent. A variable that is still <code>&lt;redacted&gt;</code> stops the start: type its value first. See <a href="security.html">Security and privacy</a>.</p>
+</div>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The heat map says partial.</dt>
+  <dd>The engine's answer was too large, malformed or cut short, or hit a cap. Choose a shorter period.</dd>
+  <dt>What if is refused.</dt>
+  <dd>The connection is not marked <code>deployment.forTests: true</code>. Use a test engine. See <a href="deployment.html">Deployment</a>.</dd>
+  <dt>The replay variables are the current ones.</dt>
+  <dd>On Camunda 8 the engine gives the values the instance has now, not the value at each step. The panel says so.</dd>
+</dl>

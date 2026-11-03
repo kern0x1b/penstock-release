@@ -34,8 +34,8 @@ const body = `<main id="content">
   <h2>Free, with no time limit. Pro when you want more.</h2>
   <p class="prose-note">Everything you need to model, check and deploy is free. Pro adds what only Penstock does.</p>
   <div class="cards">
-    <div class="card"><strong>Free</strong><span>Visual BPMN, DMN and form editors. Properties panels for each engine. Check and bpmnlint. Deploy and Monitor. Token simulation. Visual diagram diff. Export, share and import. Camunda 7 to 8 analysis. MCP tools that list, show and check.</span></div>
-    <div class="card"><strong>Pro, ${price('pro', 'month')} a month or ${price('pro', 'year')} a year</strong><span>Auto layout. Flow analysis. Code links. Scenarios and test-case runs. Camunda 7 to 8 conversion. Sending messages in the AI chat. MCP tools that analyse and edit.</span></div>
+    <div class="card"><strong>Free</strong><span>Visual BPMN, DMN and form editors. Properties panels for each engine. Check and bpmnlint. Deploy and Monitor. Token simulation. Visual diagram diff. Export, share and import. Camunda 7 to 8 analysis. Element template editor. Connections map. CMMN viewer. Language server for other editors. 18 interface languages. MCP tools that list, show and check.</span></div>
+    <div class="card"><strong>Pro, ${price('pro', 'month')} a month or ${price('pro', 'year')} a year</strong><span>Auto layout. Flow analysis. Code links. Scenarios and test-case runs. Camunda 7 to 8 conversion. Sending messages in the AI chat, with a verification receipt. Heat map and replay. Evidence packs, promotion between environments and policy packs. MCP tools that analyse and edit.</span></div>
     <div class="card"><strong>Team, ${price('team', 'month')} per seat a month</strong><span>Everything in Pro, inside your pipeline as well: the review bot on pull requests, reports, baselines and SARIF.</span></div>
   </div>
   <p class="prose-note">Every new machine starts with 30 days of Pro. No sign-up, no card. <a href="pricing/">See the full comparison, refunds and VAT</a>. <a href="pricing/#if-you-used-the-old-plugin">Used Camunda BPMN Editor before?</a></p>
@@ -50,6 +50,9 @@ const body = `<main id="content">
     <a class="card" href="for-teams/"><strong>Review diagrams as a team</strong><span>A review bot, pull request reports, baselines and SARIF.</span></a>
     <a class="card" href="guide/scenarios.html"><strong>Test a process</strong><span>Plan every way through a process and run the test cases on a local engine.</span></a>
     <a class="card" href="guide/code-links.html"><strong>Link diagrams and code</strong><span>Jump from a task to the worker that runs it, and back.</span></a>
+    <a class="card" href="cli/lsp.html"><strong>Use another editor</strong><span>penstock lsp shows findings, hover and completion in Neovim, Helix, Zed, Sublime Text, Emacs, Kate and Eclipse. It is free.</span></a>
+    <a class="card" href="guide/drift-promote.html"><strong>Know what is deployed</strong><span>Compare an environment with your files, deploy only what changed, and promote dev to prod.</span></a>
+    <a class="card" href="guide/evidence-pack.html"><strong>Hand over an audit package</strong><span>Diagrams, checks, test results and a SHA-256 of every file in one zip.</span></a>
   </div>
 </section>
 
@@ -79,7 +82,7 @@ const body = `<main id="content">
     <details class="faq"><summary>What happened to Camunda BPMN Editor?</summary>
     <p>It was renamed Penstock in 2026. It is the same plugin from the same author, so it updates in place and nothing needs to be reinstalled.</p></details>
     <details class="faq"><summary>Is it really free?</summary>
-    <p>Yes, with no time limit. The editors, check, deploy, Monitor, token simulation, export and import are free. Pro and Team are optional.</p></details>
+    <p>Yes, with no time limit. The editors, check, deploy, Monitor, token simulation, export, import, the element template editor, the connections map, the CMMN viewer and the language server are free. Pro and Team are optional.</p></details>
     <details class="faq"><summary>What happens after the 30-day trial?</summary>
     <p>The machine goes back to Free. Nothing is deleted, and a Pro feature asks you to buy when you reach it.</p></details>
     <details class="faq"><summary>Does it send my diagrams anywhere?</summary>

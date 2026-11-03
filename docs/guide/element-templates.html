@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html" aria-current="page">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -156,6 +168,8 @@
 <li><a href="#where-penstock-finds-templates">Where Penstock finds templates</a></li>
 <li><a href="#apply-a-template">Apply a template</a></li>
 <li><a href="#templates-from-your-worker-code">Templates from your worker code</a></li>
+<li><a href="#the-template-editor">The template editor</a></li>
+<li><a href="#templates-from-an-api-description">Templates from an API description</a></li>
 <li><a href="#the-connector-browser">The connector browser</a></li>
 <li><a href="#what-you-see">What you see</a></li>
 <li><a href="#common-problems">Common problems</a></li>
@@ -209,6 +223,54 @@
 
 <p>A template says which worker it came from. One whose variables no longer match that worker is marked, and the step names the gap in the code check. From a template you can also write a job worker, in Java Spring, Node or Python, through the same generator the Camunda 7 to Camunda 8 conversion uses. In a terminal, <code>penstock templates generate</code> writes one template for every worker in the project, and <code>--check</code> writes nothing and fails when a template has drifted. See <a href="code-links.html">Code links</a>.</p>
 
+
+<h2 id="the-template-editor"><a href="#the-template-editor">The template editor</a></h2>
+<p><span class="tag free">Free</span></p>
+
+<p>A template file opens in a form over the JSON, free with no time limit, for Camunda 8 and Camunda 7 template files. It has fields for the name, id, version, what it applies to, the groups and the properties, each with its type, binding, constraints, FEEL mode, choices and conditions. A live preview shows the properties panel the template produces, and a <span class="ui">Source</span> view shows the JSON. The file is checked against the template schema as you type, and every key the form does not know is kept.</p>
+
+<p>The editor opens in Penstock Web and Desktop and in the plugins.</p>
+
+<div class="hosts">
+<p class="hosts-title">When the template editor opens, by tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<p class="host-name">JetBrains</p>
+<p>It opens in place of the text for JSON files in <code>element-templates</code>, <code>.camunda/element-templates</code> and <code>resources/element-templates</code>, and for no other JSON.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>It opens in place of the text for JSON files in <code>element-templates</code>, <code>.camunda/element-templates</code> and <code>resources/element-templates</code>, and for no other JSON.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p class="unavailable">Not available on the command line. The command line has no editor. penstock templates check prints the same diagnosis.</p>
+</section>
+</div>
+</div>
+
+<h3 id="why-not-loaded"><a href="#why-not-loaded">Why not loaded</a></h3>
+
+<p>Beside the editor, the <span class="ui">Why not loaded</span> screen lists every template file in the project. It says whether Camunda Desktop Modeler and Web Modeler would load it, and gives the exact reason when not: an invalid schema, a wrong <code>$schema</code> version, an <code>engines.camunda</code> mismatch, a duplicate id and version, a wrong folder, a bad <code>appliesTo</code> or binding.</p>
+
+<p>In a terminal, <code>penstock templates check</code> prints the same diagnosis: a table of files with the Desktop Modeler and Web Modeler verdicts, then <code>path:line</code> reasons. It exits 1 when a template does not load, answers <code>--format json</code>, and is free.</p>
+
+<h2 id="templates-from-an-api-description"><a href="#templates-from-an-api-description">Templates from an API description</a></h2>
+<p><span class="tag pro">Pro</span></p>
+
+<pre><code>penstock templates generate petstore.yaml --write</code></pre>
+
+<p>Given an OpenAPI 3 file (JSON or YAML), a Swagger 2.0 file or a Postman collection, <code>penstock templates generate &lt;file&gt;</code> makes one REST connector template per operation. The inputs are typed from the parameters and the request body. Authentication comes from the security schemes as <code>secrets.</code> placeholders. Each template has a result expression and error handling.</p>
+
+<ul>
+  <li>It prints what it would write and writes nothing without <code>--write</code>. It never leaves a half-written file, and it refuses a path outside the project or a symlink. <code>--out &lt;dir&gt;</code> chooses the folder; the default is <code>.camunda/element-templates</code>.</li>
+  <li>Without a licence the first 3 operations are previewed free.</li>
+  <li>It never copies spec text as a live reference: a bare <code>secrets.</code> in a description, summary, label or tag is broken as well as <code>{{</code>, and values that start with <code>=</code> stay FEEL strings.</li>
+  <li>Generated secret names are <code>PENSTOCK_&lt;API&gt;__&lt;FIELD&gt;</code>: a prefix owned by the tool, with a double underscore between the namespace and the field. <code>--secret-prefix &lt;NAME&gt;</code> (capitals, digits, underscores) chooses the namespace. A name that your connector-secrets or <code>.env</code> files already define is warned about, by name only.</li>
+  <li>The list of secret names to create is shown in the dialog of the template editor before and after writing.</li>
+</ul>
+
+<p>The <code>generate_templates</code> MCP tool does the same for an agent, confined to the roots the client gave. It takes a <code>secretPrefix</code> argument and returns the names in a <code>secrets</code> array. In the <span class="ui">Why not loaded</span> screen, <span class="ui">Generate templates from an API description…</span> previews the first 3 operations. With Pro it writes every template into <code>.camunda/element-templates</code>, asking before it replaces a file. See <a href="../cli/mcp.html">The MCP server</a>.</p>
 
 <h2 id="the-connector-browser"><a href="#the-connector-browser">The connector browser</a></h2>
 
@@ -285,6 +347,7 @@ penstock connectors --refresh       # ask GitHub now</code></pre>
 <h2>See also</h2>
 <ul>
 <li><a href="../guide/properties-panel.html">Properties panel</a> - Edit the selected element, group by group.</li>
+<li><a href="../guide/connections.html">Connections map</a> - The secrets and MCP clients a diagram names, and where the project defines them.</li>
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
 <li><a href="../guide/settings.html">penstock.yaml</a> - The one file that describes your project, and every key in it.</li>
 </ul>

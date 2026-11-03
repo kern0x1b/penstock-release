@@ -3,7 +3,7 @@ title: Diagram check
 lede: The check lists everything wrong with your diagram, points at each problem on the canvas, and says why it matters and how to fix it.
 tags: free
 needs: How it runs and Code need Pro
-related: validation, flow-analysis, auto-layout, sidebar, cli/commands
+related: connections, camunda-agents, cmmn, validation, flow-analysis, auto-layout, sidebar, cli/commands
 -->
 <h2>Run it</h2>
 
@@ -59,7 +59,7 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
 
 <p>Each check has a stable id, such as <code>drawing/overlap</code>, <code>bpmnlint/label-required</code> or <code>form/key-clash</code>, a line on why it matters and a line on how to fix it. The same id travels with the finding everywhere else it is reported: <code>penstock check --format json</code>, SARIF and GitHub annotations all carry the id and the address of its page, so a finding in a pull request leads back to the same page the editor showed.</p>
 
-<p>The catalogue is generated from the rule definitions, so an id never changes meaning. Every check has its own page under <a href="../rules/">Every rule</a>, grouped by what it is about, and you can read them all without opening a diagram.</p>
+<p>The catalogue is generated from the rule definitions, so an id never changes meaning. Every check, 185 rules in 12 groups, has its own page under <a href="../rules/">Every rule</a>, grouped by what it is about, and you can read them all without opening a diagram.</p>
 
 <h2>The groups</h2>
 
@@ -80,8 +80,13 @@ related: validation, flow-analysis, auto-layout, sidebar, cli/commands
   <tr><td>Rules</td><td>What bpmnlint reports, with your <code>.bpmnlintrc</code> or, when there is none, <code>bpmnlint:recommended</code>, and the engine compatibility findings, whose ids start with <code>compat/</code>: a service task with no job type, an element or an expression the chosen version cannot run, a process with no history time to live. On Flowable and Activiti the ids start with <code>engine/</code>: an extension of another engine, an attribute the engine does not know, an element it cannot run. Each line has the message, the element and the rule name. See <a href="validation.html">Validation</a>.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Migrate to Camunda 8</td><td>What does not carry over, in a Camunda 7, Operaton or CIB seven diagram, with a <span class="ui">Convert</span> button. See <a href="migration.html">Camunda 7 to 8</a>.</td><td><span class="tag free">Free</span> to look, <span class="ui">Convert</span> is <span class="tag pro">Pro</span></td></tr>
   <tr><td>Readability</td><td>Collapsed by default, with its count on the heading. Crossings, lines on top of each other, detours, diagonal segments, a label adrift from what it names. A hand-drawn diagram always has some, so zero is not the goal. Open it when a diagram is hard to follow.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Connections</td><td>A secret nothing defines, a secret without the runtime prefix, an MCP client nobody configured, Spring properties renamed or removed in Camunda 8.8, and, in Pro, a secret or key defined for one environment and missing in another. See <a href="connections.html">Connections map</a>.</td><td><span class="tag free">Free</span>, comparing environments <span class="tag pro">Pro</span></td></tr>
+  <tr><td>AI agents</td><td>What is wrong with an AI agent of Camunda 8: no limit on model calls, a tool without a description, a key typed into the diagram, an MCP client nobody configured. See <a href="camunda-agents.html">AI agents of Camunda 8</a>.</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Case models</td><td>Findings in a CMMN case model: an id used twice, a plan item with no definition, a criterion that points at nothing. They show in the Problems tab of the case model viewer and in <code>penstock check</code>. See <a href="cmmn.html">CMMN case models</a>.</td><td><span class="tag free">Free</span></td></tr>
   </tbody>
 </table></div>
+
+<p>Connections, AI agents and case models are separate groups of rules, each with its own pages. The rows are listed last here and do not say where the Problems tab puts them.</p>
 
 <p>Without Pro, the flow group is one row that says how many such problems it found and offers to buy it. The same analysis is the flow section of <code>penstock check</code>, or <code>penstock check --only flow</code> on its own.</p>
 

@@ -3,7 +3,7 @@ title: Monitor
 lede: Monitor shows what the engine is doing with this diagram right now: how many instances wait at each step, where the incidents are, what an expression gives on a real instance, and which variable names the model and the engine disagree on. It also looks back at finished instances, and starts, cancels, retries and messages instances when you ask.
 tags: free
 needs: A deployment profile with an address
-related: sidebar, timeline, check-workers, deployment, scenarios, debug-process
+related: sidebar, timeline, check-workers, deployment, scenarios, debug-process, heat-map-replay, incident-to-fix, drift-promote
 -->
 <h2>Read it</h2>
 
@@ -37,6 +37,14 @@ related: sidebar, timeline, check-workers, deployment, scenarios, debug-process
 </table></div>
 
 <p>Other messages: <em>No instance of order-process is running on prod.</em>, <em>Nothing is waiting or has an incident on prod.</em> and <em>order-process is not deployed.</em> followed by <em>It is not on prod yet. Deploy the diagram to see its instances.</em> The tab says which address was asked and when, and <em>The engine could not be read.</em> when it got no answer.</p>
+
+<h2>Heat map, replay and incidents</h2>
+
+<ul>
+  <li>Choose a period in the tab and the diagram is painted by how often, how long and how badly each element ran. <span class="tag pro">Pro</span> See <a href="heat-map-replay.html">Heat map and replay</a>.</li>
+  <li><span class="ui">Replay this instance</span> in the History section steps through a real instance with its variables, and <span class="ui">What if from this token</span> starts a new one on a test engine. <span class="tag pro">Pro</span></li>
+  <li><span class="ui">Reproduce as scenario</span> on an incident builds a scenario that reproduces it, and <span class="ui">Fix end to end&hellip;</span> runs the loop from reproduce to retry. Previewing the scenario is free; the rest is <span class="tag pro">Pro</span>. See <a href="incident-to-fix.html">Incident to fix</a>.</li>
+</ul>
 
 <h2>Instances that are over</h2>
 

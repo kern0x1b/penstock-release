@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -182,6 +194,9 @@
   <dt id="ci">CI, pipeline</dt>
   <dd>A program on a server that runs your checks every time you push code. Penstock treats a run as a pipeline when the environment variable <code>CI</code> is set. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>
 
+  <dt id="cmmn">CMMN, case model</dt>
+  <dd>Case Management Model and Notation: a standard for work that has no fixed order, drawn as a case plan with stages, tasks, milestones and criteria. Penstock shows <code>.cmmn</code> files of Camunda 7 and Flowable in a read-only viewer. See <a href="cmmn.html">CMMN case models</a>.</dd>
+
   <dt id="comment">Comment</dt>
   <dd>A short note on one element of a diagram, kept in the file. See <a href="comments.html">Comments</a>.</dd>
 
@@ -197,11 +212,17 @@
   <dt id="drd">DRD, requirements diagram</dt>
   <dd>The diagram of a DMN file that shows which decisions need which other decisions and inputs. See <a href="dmn-editor.html">The DMN editor</a>.</dd>
 
+  <dt id="drift">Drift</dt>
+  <dd>The difference between your files and what an environment has deployed: in sync, local ahead, engine ahead, differs, only local or only on the engine. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</dd>
+
   <dt id="element-template">Element template</dt>
   <dd>A JSON file that describes a ready-made task, for example "send an e-mail". You pick it, fill in a few fields and the task is configured. See <a href="element-templates.html">Element templates</a>.</dd>
 
   <dt id="engine">Engine</dt>
   <dd>The server that runs your processes. Penstock supports Camunda 7, Camunda 8, Operaton and CIB seven, and edits and checks Flowable and Activiti. See <a href="engine-profiles.html">Engines</a>.</dd>
+
+  <dt id="evidence-pack">Evidence pack</dt>
+  <dd>One zip or folder for an audit: the diagrams, the check and test results and a SHA-256 of every file. A checksum, not a signature. See <a href="evidence-pack.html">Evidence pack</a>.</dd>
 
   <dt id="external-task">External task, topic</dt>
   <dd>A Camunda 7 way to do the work of a service task outside the engine. The task names a topic. A worker asks the engine for tasks on that topic.</dd>
@@ -233,11 +254,17 @@
   <dt id="juel">JUEL</dt>
   <dd>The expression language of Camunda 7. An example is <code>${amount &gt; 100}</code>.</dd>
 
+  <dt id="lsp">LSP, language server</dt>
+  <dd>A standard way for an editor to ask a program for findings, hover, definitions and completion. <code>penstock lsp</code> is one, so editors without a Penstock plugin can use it. See <a href="../cli/lsp.html">penstock lsp</a>.</dd>
+
   <dt id="monitor">Monitor</dt>
   <dd>A view that shows what the engine is doing with this diagram right now: how many instances wait at each step and where the incidents are. See <a href="monitor.html">Monitor</a>.</dd>
 
   <dt id="mcp">MCP</dt>
   <dd>Model Context Protocol. A way for an AI assistant to use a program's tools. <code>penstock mcp</code> lets an assistant read, check and edit your diagrams, and is the server the AI chat gives its agent. See <a href="../cli/mcp.html">The MCP server</a>.</dd>
+
+  <dt id="policy-pack">Policy pack</dt>
+  <dd>A pinned folder in git with a team's rules, conventions, palette, element templates and required checks. See <a href="policy-pack.html">Policy pack</a>.</dd>
 
   <dt id="problems-tab">Problems tab</dt>
   <dd>The tab of the sidebar that lists every finding of the check, in groups. See <a href="diagram-check.html">Diagram check</a> and <a href="sidebar.html">The sidebar</a>.</dd>
@@ -250,6 +277,9 @@
 
   <dt id="profile">Profile</dt>
   <dd>Two different things share this word. An <em>engine profile</em> is the kind of diagram Penstock builds: Classic, Camunda 7 or Camunda 8. A <em>deployment profile</em> is a named set of settings in <code>penstock.yaml</code>, such as <code>prod</code>. See <a href="engine-profiles.html">Engines</a> and <a href="profiles.html">Profiles</a>.</dd>
+
+  <dt id="receipt">Receipt, verification receipt</dt>
+  <dd>The record of what an AI change did to the project: the files, the check before and after, the scenarios and a verdict. It holds names, hashes and ids, not file contents. See <a href="ai-receipt.html">AI receipt and auto-repair</a>.</dd>
 
   <dt id="sarif">SARIF</dt>
   <dd>A file format for tool findings that GitHub reads and shows as notes on a pull request. See <a href="../cli/ci.html">Pipelines, reports and the bot</a>.</dd>

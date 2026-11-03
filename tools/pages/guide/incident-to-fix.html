@@ -1,0 +1,62 @@
+<!--
+title: Incident to fix
+lede: Turn an incident from the Monitor tab into a scenario that reproduces it, hand it to the AI chat for a fix, and run the whole loop: reproduce, fix, check, send, retry.
+tags: pro
+needs: Previewing the scenario is free. Saving and running it, and the loop, are Pro, and need an engine marked deployment.forTests.
+related: monitor, scenarios, ai-chat, ai-receipt, heat-map-replay, cli/commands
+-->
+<h2>Reproduce as a scenario</h2>
+
+<p>In the Monitor tab, press <span class="ui">Reproduce as scenario</span> on an incident. Penstock builds a scenario in the Camunda Process Test format that starts the process with the instance's variables, drives the path the instance took, and ends on an incident of the same type at the same element, with the message pattern.</p>
+
+<ul>
+  <li>Anything that looks like a secret is replaced by a placeholder. The names stay, and a note says so.</li>
+  <li>Previewing the scenario is <span class="tag free">Free</span>, with no time limit.</li>
+  <li>Saving it next to the diagram's other scenarios, and running it on the engine marked for tests, are <span class="tag pro">Pro</span>. The run says <em>reproduced</em> or <em>did not reproduce</em>.</li>
+</ul>
+
+<p>The message pattern is matched without a backtracking regular expression for the patterns Penstock writes, so a very long or hostile incident message cannot hang the matcher. Patterns you write by hand still run as regular expressions.</p>
+
+<h2>Propose a fix</h2>
+
+<p><span class="tag pro">Pro</span></p>
+
+<p><span class="ui">Propose a fix</span> hands the reproducing scenario, the redacted incident message and variables and the diagram to the <a href="ai-chat.html">AI chat</a>, with a prepared prompt. When the agent proposes a diagram change, the scenario is run again on the proposed diagram. <em>Scenario now passes</em> or <em>still fails</em> is shown next to the ghost proposal and in the agent's question.</p>
+
+<p>That check does not run AI-written content by itself. It belongs to the chat that proposed the fix and is used once. It runs by itself only on an engine marked <code>deployment.forTests</code> (or a local one already confirmed for tests), and says so otherwise. When the proposal adds or changes any script, listener, expression, condition, mapping, timer, service call or connector reference, it waits for a <span class="ui">Check this fix</span> button next to the proposal that says what was added.</p>
+
+<h2>Fix end to end</h2>
+
+<p><span class="tag pro">Pro</span> <code>incident-loop</code></p>
+
+<p><span class="ui">Fix end to end&hellip;</span> in the incident dialog shows five steps and runs them in order, stopping at the first one that does not hold:</p>
+
+<ol class="steps">
+  <li>Reproduce the incident with its scenario on an engine marked for tests.</li>
+  <li>Take the fix from the editor.</li>
+  <li>Check that the scenario now ends without the incident.</li>
+  <li>Send only the changed file to the connection.</li>
+  <li>Retry the failed work. On Camunda 8 the job gets one retry and then the incident is resolved. On Camunda 7 the failed job or external task is given one.</li>
+</ol>
+
+<p><strong>Rehearse</strong> is the default and changes nothing on the engine. <strong>Run for real</strong> asks before the deploy and again before the retry, asks once more on a connection marked <code>deployment.protected</code>, and does not retry when the engine already had the file. A fix that does not pass the scenario is never sent.</p>
+
+<h2>From the command line</h2>
+
+<pre><code>penstock incident scenario 2251799813685249
+penstock incident scenario 2251799813685249 --write --run</code></pre>
+
+<p>The argument is the instance key or the incident key. It prints the scenario as a dry run. <code>--write</code> saves it atomically inside the project, and <code>--run</code> runs it on the engine and says whether the incident reproduced. Reading the incident and previewing are free; <code>--write</code> and <code>--run</code> are Pro. Exit 0 when the scenario was made, and with <code>--run</code> it reproduced; 1 when the incident or diagram could not be found, the file could not be written, or it did not reproduce.</p>
+
+<p>The <code>incident_to_scenario</code> MCP tool does the same for an agent, confined to the roots the client gave.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>Run or the loop is refused.</dt>
+  <dd>The engine is not marked <code>deployment.forTests: true</code>. A shared or production engine is refused. See <a href="scenarios.html">Scenarios</a>.</dd>
+  <dt>The scenario did not reproduce the incident.</dt>
+  <dd>The incident may depend on something the variables do not carry, such as an external system. Edit the scenario by hand. See <a href="scenario-file.html">The scenario file</a>.</dd>
+  <dt>"Check this fix" waits.</dt>
+  <dd>The proposal adds content that runs. Read what was added, then press the button.</dd>
+</dl>

@@ -33,7 +33,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
 
 <pre><code>./penstockw check .
 ./penstockw update          # pin the latest version
-./penstockw update 26.9.0   # pin a version you choose</code></pre>
+./penstockw update 26.11.0   # pin a version you choose</code></pre>
 
 <p><code>update</code> pins the version, downloads it, and replaces the wrapper scripts with the ones that version ships. You can also edit <code>version=</code> in the properties file by hand. A company registry or a tarball goes in <code>distribution=</code> in the same file.</p>
 
@@ -62,9 +62,22 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   <tr><td>See what changed</td><td><code>penstock diff main</code></td></tr>
   <tr><td>Get pictures</td><td><code>penstock export . --out docs/img</code></td></tr>
   <tr><td>Share a diagram as one file</td><td><code>penstock share process.bpmn</code></td></tr>
-  <tr><td>Import from draw.io or Visio</td><td><code>penstock import diagram.drawio</code></td></tr>
-  <tr><td>Plan the move to Camunda 8</td><td><code>penstock migrate .</code></td></tr>
+  <tr><td>Import from draw.io, Visio, Signavio, Bizagi or Flowable</td><td><code>penstock import diagram.drawio</code></td></tr>
+  <tr><td>Read a Camunda Modeler project</td><td><code>penstock import ./project --from modeler</code></td></tr>
+  <tr><td>Plan the move to Camunda 8</td><td><code>penstock migrate .</code>, then <code>penstock migrate plan</code></td></tr>
   <tr><td>Run scenarios</td><td><code>penstock scenarios run .</code></td></tr>
+  <tr><td>Run the test cases of decision tables</td><td><code>penstock test dmn decisions</code></td></tr>
+  <tr><td>See the secrets and MCP clients the diagrams need</td><td><code>penstock connections</code></td></tr>
+  <tr><td>List the AI agents of Camunda 8</td><td><code>penstock agents</code></td></tr>
+  <tr><td>Compare the files with an environment</td><td><code>penstock drift --env prod</code></td></tr>
+  <tr><td>Deploy only what changed</td><td><code>penstock deploy . --only-changed</code></td></tr>
+  <tr><td>Take what dev runs to prod</td><td><code>penstock promote --from dev --to prod</code></td></tr>
+  <tr><td>Rename a variable or a job type everywhere</td><td><code>penstock refactor rename variable orderId order_id</code></td></tr>
+  <tr><td>Turn an incident into a scenario</td><td><code>penstock incident scenario &lt;key&gt;</code></td></tr>
+  <tr><td>Verify a change an agent made</td><td><code>penstock receipt verify order.bpmn</code></td></tr>
+  <tr><td>Keep your team's rules in git</td><td><code>penstock policy show</code></td></tr>
+  <tr><td>Build a package for an audit</td><td><code>penstock evidence build</code></td></tr>
+  <tr><td>Show Penstock in an editor without a plugin</td><td><code>penstock lsp --stdio</code>, see <a href="lsp.html">penstock lsp</a></td></tr>
   <tr><td>Open the editors in a browser</td><td><code>penstock web ./processes</code></td></tr>
   <tr><td>Let an AI assistant use the diagrams</td><td><code>penstock mcp --config</code></td></tr>
   <tr><td>Start an AI agent with the Penstock tools</td><td><code>penstock agent claude</code></td></tr>
@@ -74,7 +87,7 @@ npx @kern0x1b/penstock-cli doctor</code></pre>
   </tbody>
 </table></div>
 
-<p>Every command, with every option, an example, what it needs and its exit codes, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>. <code>penstock web</code> is described on <a href="web.html">its own page</a>, and the tools an AI assistant gets are on <a href="mcp.html">The MCP server</a>.</p>
+<p>Every command, with every option, an example, what it needs and its exit codes, is in <a href="commands.html">Every command</a>. Pipelines and the pull request bot are in <a href="ci.html">Pipelines, reports and the bot</a>. <code>penstock web</code> is described on <a href="web.html">its own page</a>, the tools an AI assistant gets are on <a href="mcp.html">The MCP server</a>, and the language server for editors without a plugin is on <a href="lsp.html">penstock lsp</a>.</p>
 
 <h2>The editors in a browser</h2>
 

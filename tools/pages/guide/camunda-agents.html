@@ -1,0 +1,74 @@
+<!--
+title: AI agents of Camunda 8
+lede: Every AI agent task and agent sub-process of a Camunda 8 project, read in one place: its model, limits, memory, tools and MCP clients, with checks for what is wrong.
+tags: free, pro
+needs: Reading and checking are free, with no time limit. Writing a migration and the agent scenario are Pro.
+related: connections, agents, ai-chat, cli/commands, cli/mcp
+-->
+<h2>Not the same as the agents of the AI chat</h2>
+
+<p>This page is about the AI agents you draw in a Camunda 8 process, the AI agent task and the AI agent sub-process. They run in the engine. The page <a href="agents.html">AI agents</a> is about the programs that answer the <a href="ai-chat.html">AI chat</a> in the editor. The two are unrelated.</p>
+
+<h2>See the agents of a project</h2>
+
+<p>Free, with no time limit.</p>
+
+<pre><code>penstock agents [folder] [--format text|json]</code></pre>
+
+<p>It lists every AI agent task and agent sub-process with:</p>
+
+<ul>
+  <li>the model and the provider, the limits and the memory;</li>
+  <li>the tools, with the <code>fromAi()</code> parameters the model fills in;</li>
+  <li>the MCP clients the agent uses, and whether their configuration is found;</li>
+  <li>the tool filters.</li>
+</ul>
+
+<p>It prints only names, never values. It exits 0 when no agent has an error, and 1 when an agent has an error or the folder does not exist. The <code>agents</code> MCP tool does the same for an AI assistant.</p>
+
+<h2>The Agents tab and screen</h2>
+
+<p>The sidebar of the BPMN editor has an <strong>Agents</strong> tab. An <strong>Agents</strong> screen shows the whole project. Each agent has its model, prompts (FEEL highlighted), tools with their <code>fromAi()</code> parameters, MCP clients with the status the <a href="connections.html">connections map</a> gives, memory, response format and human approval. The Problems tab shows the agent findings too. Penstock Web has a sidebar entry. This is free, with no time limit.</p>
+
+{{host:agents-where|Where the Agents screen is, by tool}}
+
+<h2>The checks</h2>
+
+<p>Nine rules in the family <code>agents</code>, each with a page. They also run in <code>penstock check</code>.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="../rules/agents-no-model-call-limit"><code>agents/no-model-call-limit</code></a></td><td>No limit on model calls.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-tool-without-description"><code>agents/tool-without-description</code></a></td><td>A tool without a description.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-fromai-incomplete"><code>agents/fromai-incomplete</code></a></td><td>A <code>fromAi</code> parameter without a type or description.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-tool-filter-matches-nothing"><code>agents/tool-filter-matches-nothing</code></a></td><td>A tool filter that matches nothing.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-duplicate-tool-names"><code>agents/duplicate-tool-names</code></a></td><td>Two tools or clients with the same name.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-adhoc-without-agent"><code>agents/adhoc-without-agent</code></a></td><td>A tool container no agent uses.</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="../rules/agents-mcp-client-no-config"><code>agents/mcp-client-no-config</code></a></td><td>An MCP client nobody configured.</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="../rules/agents-plain-text-secret"><code>agents/plain-text-secret</code></a></td><td>An API key typed into the diagram.</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="../rules/agents-deprecated-template"><code>agents/deprecated-template</code></a></td><td>A deprecated template version.</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div>
+
+<h2>Move agents to the 8.10 templates</h2>
+<p><span class="tag pro">Pro</span> to write</p>
+
+<pre><code>penstock migrate agents [paths] [--write] [--format text|json]</code></pre>
+
+<p>It moves agent elements from the 8.9 and older template versions to the 8.10 agent task and agent sub-process templates, by the migration rules the new templates declare. It is a dry run by default. An element whose mapping cannot be proven is left untouched and listed with the reason. The first 3 elements of the preview are free. <code>--write</code> replaces the files atomically and is part of Pro. The <code>migrate_agents</code> MCP tool does the same for an agent.</p>
+
+<p>On an agent card, <span class="ui">Migrate to the 8.10 template</span> rewrites that agent in the open diagram after a confirmation. Save the diagram to keep it. <span class="ui">Make scenario</span> next to it adds the scenario with a stubbed model. Both are Pro, and what cannot be proven is left untouched and said so.</p>
+
+<h2>A scenario with the model stubbed</h2>
+
+<pre><code>penstock agents scenario processes/support.bpmn --write</code></pre>
+
+<p>For an AI agent process it makes a scenario in which the agent job is completed with a canned answer, and it asserts that the agent completes and that no tool runs. For an agent sub-process it writes the <code>COMPLETE_JOB_AD_HOC_SUB_PROCESS</code> step that Camunda Process Test runs. Previewing is free. <code>--write</code> adds the scenario to the diagram's scenarios and is part of Pro, and Team in a pipeline. <code>--agent &lt;id&gt;</code> limits it to one agent. See <a href="scenarios.html">Scenarios</a>.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The command lists no agent.</dt>
+  <dd>It reads Camunda 8 files with AI agent task or agent sub-process elements. Check the folder and the engine of the project.</dd>
+</dl>

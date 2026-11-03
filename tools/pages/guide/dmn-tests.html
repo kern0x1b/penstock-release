@@ -1,0 +1,64 @@
+<!--
+title: DMN tests
+lede: Save the inputs and the expected outputs of a decision table as test cases, run them in the editor or in a pipeline, and see which rules no case reaches.
+tags: free, pro
+needs: Free with no time limit for 3 cases per decision. More cases, junit output, a minimum coverage and any run in a pipeline are Pro.
+related: dmn-editor, process-tests, scenarios, plans, cli/commands, cli/mcp
+-->
+<h2>What it is</h2>
+
+<p>A test case says: for these inputs the decision must give these outputs. Penstock keeps the cases of a decision table next to the DMN file and runs them with the same evaluation the <a href="dmn-editor.html#try">Try tab</a> uses. Each result names the rules that matched, and a rule coverage block lists the rules no case reaches.</p>
+
+<h2>The Tests tab</h2>
+
+<p>The <span class="ui">Tests</span> tab of the DMN editor sits after Try in the sidebar. It lists the saved cases of the selected decision table, or of a decision with required decisions, as a table with the inputs, the expected outputs, the name and the status.</p>
+
+<ul>
+  <li><span class="ui">Run all</span> runs every case. Each row can also be run alone.</li>
+  <li>Each row names the rules that matched. When a case fails, the row shows what was expected against what came out, with <span class="ui">use the actual result as expected</span>.</li>
+  <li><span class="ui">Save as test</span> in the Try tab keeps the values you typed and the result as a new case.</li>
+  <li>The <strong>rule coverage</strong> block lists the rules no case reaches, counted for the hit policy of the table. <span class="ui">Add case from rule N</span> starts a case for a rule that is not covered yet.</li>
+</ul>
+
+<p>Running is free with no time limit for 3 cases per decision. More cases are part of <span class="tag pro">Pro</span>.</p>
+
+<h2>The test file</h2>
+
+<p>Cases are kept in <code>&lt;name&gt;.dmn.tests.json</code>, next to the DMN file. The file carries a schema version, reads well in a diff and has a generated JSON schema, <a href="https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock-dmn-tests.schema.json"><code>penstock-dmn-tests.schema.json</code></a>.</p>
+
+<h2>In a terminal</h2>
+
+<pre><code>penstock test dmn decisions --min-rule-coverage 80 --format junit</code></pre>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>&lt;file|folder&gt;</code></td><td>A DMN file or a folder. It runs the saved cases of every decision table in it.</td></tr>
+  <tr><td><code>--format text|json|junit</code></td><td>How the answer is printed.</td></tr>
+  <tr><td><code>--min-rule-coverage &lt;percent&gt;</code></td><td>Fails when the rule coverage is below this percentage, from 0 to 100.</td></tr>
+  </tbody>
+</table></div>
+
+<p>It exits 0 when every case passed and the coverage, when one was asked for, is met. It exits 1 when a case failed or could not be evaluated, a file could not be read, the coverage is below the minimum, or the run is not allowed here.</p>
+
+<p>A local run of up to 3 cases per decision is free. The <code>junit</code> output, <code>--min-rule-coverage</code> and any run in a pipeline are part of <span class="tag pro">Pro</span> and <span class="tag team">Team in a pipeline</span>. See <a href="@cli/commands.html">Every command</a>.</p>
+
+<h2>For an AI agent</h2>
+
+<p>The <code>test_dmn</code> MCP tool runs and reads the cases for an agent. Saving a case through it is a Pro write. See <a href="@cli/mcp.html">The MCP server</a>.</p>
+
+<h2>What you see</h2>
+
+<ul>
+  <li>A Tests tab with a status for each case and a coverage block.</li>
+  <li>A <code>&lt;name&gt;.dmn.tests.json</code> file beside the decision file.</li>
+</ul>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>A case beyond the third is not run.</dt>
+  <dd>The free run covers 3 cases per decision. More cases need <a href="plans.html">Pro</a>.</dd>
+  <dt>The command exits 1 with the coverage below the minimum.</dt>
+  <dd>Open the Tests tab and read the rules no case reaches. <span class="ui">Add case from rule N</span> starts one.</dd>
+</dl>

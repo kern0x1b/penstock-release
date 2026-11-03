@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -159,6 +171,7 @@
 <li><a href="#scenario-runs-are-safe-by-design">Scenario runs are safe by design</a></li>
 <li><a href="#trust">Trust</a></li>
 <li><a href="#the-ai-chat">The AI chat</a></li>
+<li><a href="#new-in-26-11">Files from outside, packs and receipts</a></li>
 <li><a href="#packages-that-are-not-pinned-never-run">Packages that are not pinned never run</a></li>
 <li><a href="#penstock-web">Penstock Web</a></li>
 <li><a href="#files-penstock-writes">Files Penstock writes</a></li>
@@ -198,7 +211,7 @@
   </tr>
   <tr>
     <td>Engine questions</td>
-    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a>, <a href="scenarios.html">Scenarios</a>, or Open run.</td>
+    <td>Only when you act: <a href="check-workers.html">Check Workers</a>, <a href="monitor.html">Monitor</a> (including the <a href="heat-map-replay.html">heat map and replay</a>), <a href="scenarios.html">Scenarios</a>, <a href="drift-promote.html">drift</a>, or Open run.</td>
     <td>The engine of the profile in force.</td>
     <td>Requests to the engine's REST API, with the profile's credentials. The tool adds the credentials. The web page in the editor never sees them.</td>
   </tr>
@@ -303,6 +316,18 @@
   <li>The agent gets Penstock's own MCP server, <code>penstock mcp</code>, to read diagrams, rules, scenarios and code links. What the server returns is bounded, and when the client tells it which folders are open, it refuses everything outside them. See <a href="../cli/mcp.html">The MCP server</a>.</li>
   <li>The chats are kept on your machine, one file for each, readable only by you, in <code>~/.penstock/chats</code>. Deleting a chat removes its file.</li>
   <li>The agent session a project shares between windows and tools is reached on <code>127.0.0.1</code> only, with a token that lives in a file only you can read. <code>penstock agent serve</code>, which serves a project's chats to a plugin of your tool, listens on <code>127.0.0.1</code> too.</li>
+</ul>
+
+<h2 id="new-in-26-11"><a href="#new-in-26-11">Files from outside, packs and receipts</a></h2>
+
+<ul>
+  <li><strong>The language server.</strong> <code>penstock lsp</code> talks over standard input and output only. It opens no network connection, runs nothing from the files (custom bpmnlint rules do not run), caps a document at 16 MiB and a file at 200 findings, and reads files only inside the workspace folders of the editor, with symbolic links resolved. See <a href="../cli/lsp.html">penstock lsp</a>.</li>
+  <li><strong>Imported files are untrusted.</strong> A file over 64 MB, or an XML that declares entities or is nested too deep, is refused. The scan of a Camunda Modeler project never follows a link, never leaves the folder and never reads or runs a plugin. See <a href="import.html">Import a diagram</a>.</li>
+  <li><strong>A policy pack is data only.</strong> A plugin, hook or script entry, a symbolic link, a path outside the folder, or a file of another kind refuses the whole pack. <code>policy sync</code> accepts no network share or device path, and git runs with a small environment. See <a href="policy-pack.html">Policy pack</a>.</li>
+  <li><strong>Receipts and evidence hold names, hashes and ids</strong>, never file contents, secret values or an e-mail address. A receipt does not run what an agent wrote: the saved scenarios run only on an engine marked <code>deployment.forTests</code>, and not when the change adds content that runs. The hashes of an evidence pack show that it was changed afterwards; they are not a signature. See <a href="ai-receipt.html">AI receipt and auto-repair</a> and <a href="evidence-pack.html">Evidence pack</a>.</li>
+  <li><strong>Refactoring</strong> writes only inside the project root, follows no link, writes every file whole and puts them all back if one write fails. See <a href="refactoring.html">Refactoring across the project</a>.</li>
+  <li><strong>Heat map, replay and incidents.</strong> The heat map is read-only. Replay and "what if from this token" start an instance only on an engine marked <code>deployment.forTests</code>, and a production connection is refused before anything is sent. Values that look like secrets are shown as <code>&lt;redacted&gt;</code> and replaced by a placeholder in an incident scenario. See <a href="heat-map-replay.html">Heat map and replay</a> and <a href="incident-to-fix.html">Incident to fix</a>.</li>
+  <li><strong>Protected environments.</strong> An environment marked <code>deployment.protected</code> needs its name typed again, and in a pipeline an approval record. The record is a document kept in git, not a signature. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</li>
 </ul>
 
 <h2 id="packages-that-are-not-pinned-never-run"><a href="#packages-that-are-not-pinned-never-run">Packages that are not pinned never run</a></h2>

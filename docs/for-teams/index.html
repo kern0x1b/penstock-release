@@ -155,6 +155,9 @@
   <div class="card"><strong>Pull request report</strong><span>The check against the baseline, what changed by element, and pictures with the changes outlined.</span></div>
   <div class="card"><strong>Baselines</strong><span>Fail only on what is new, not on years of old findings.</span></div>
   <div class="card"><strong>SARIF and annotations</strong><span>Findings on the changed lines in your code review and in code scanning.</span></div>
+  <div class="card"><strong>Policy pack in git</strong><span>Rules, conventions, palette, element templates and required checks in a pinned folder. <code>penstock check</code> fails in a pipeline when the pin does not match or a forced rule is weakened. <a href="../guide/policy-pack.html">Policy pack</a>.</span></div>
+  <div class="card"><strong>Protected environments</strong><span>Deploying or promoting to a protected profile needs the environment typed again and, in a pipeline, an approval record kept in git. <a href="../guide/drift-promote.html">Drift, promote and protected environments</a>.</span></div>
+  <div class="card"><strong>Evidence pack and AI receipts</strong><span>One package for an audit, and <code>check --require-receipt</code> to fail a change an agent made without a valid receipt. <a href="../guide/evidence-pack.html">Evidence pack</a>, <a href="../guide/ai-receipt.html">AI receipt</a>.</span></div>
 </div>
 
 <p>The bot is your own pipeline running <code>penstock bot</code>. It supports GitHub, Gitea, Forgejo, GitLab, Azure DevOps and Bitbucket. Azure DevOps and Bitbucket get the review only, without answers to comments. See <a href="../cli/ci.html">Pipelines, reports and the bot</a> for each.</p>

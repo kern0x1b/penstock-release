@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html" aria-current="page">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -158,6 +170,7 @@
 <li><a href="#the-input">The input</a></li>
 <li><a href="#agent-model-thought-level-and-mode">Agent, model, thought level and mode</a></li>
 <li><a href="#the-card-and-the-chat-tab">The card and the Chat tab</a></li>
+<li><a href="#the-verification-receipt">The verification receipt</a></li>
 <li><a href="#questions">Questions</a></li>
 <li><a href="#the-ai-chat-button-and-the-shortcut">The AI chat button and the shortcut</a></li>
 <li><a href="#chats-belong-to-the-project">Chats belong to the project</a></li>
@@ -288,6 +301,10 @@
 
 <p>The <strong>Chat</strong> tab of the <a href="sidebar.html">sidebar</a> holds the same conversation, with the same chips, work rows and questions, and an input of its own at its foot. The expand button and the AI chat button on the toolbar open it. While it is shown, the input at the foot of the editor is hidden. Leave the tab and the card comes back, with the same chat. A question that waits opens the Chat tab when the chat is in the sidebar.</p>
 
+<h2 id="the-verification-receipt"><a href="#the-verification-receipt">The verification receipt</a></h2>
+
+<p>When an agent changes project files, the chat shows a card under the answer, for example <em>Verified: 0 new problems, 3 scenarios pass</em>, with chips. The Chat tab shows the full receipt. The verdict and the counts are free; auto-repair, which hands new Check errors back to the agent in the same turn, is Pro. See <a href="ai-receipt.html">AI receipt and auto-repair</a>.</p>
+
 <h2 id="questions"><a href="#questions">Questions</a></h2>
 
 <p>When the agent wants to write to a file, it stops and asks. The card shows one sentence, <em>Apply 3 changes to order-process.bpmn?</em>, the changes as a list (<code>+</code> added, <code>~</code> changed, <code>-</code> removed), and, for a diagram, what Penstock checked: <em>Check is clean</em>, or how many problems to look at. Then you choose.</p>
@@ -371,6 +388,7 @@
 <ul>
 <li><a href="../guide/agents.html">AI agents</a> - Install, turn on and choose the agent that answers the chat.</li>
 <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a> - See a proposed change on the canvas, and accept or reject it.</li>
+<li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a> - What an agent changed, checked and verified, and how a failed check goes back to it.</li>
 <li><a href="../guide/sidebar.html">The sidebar</a> - The column beside the canvas: properties, scenarios, problems, comments, Monitor and code.</li>
 <li><a href="../guide/toolbar.html">Toolbar and More menu</a> - Every action, and how to pin it to the toolbar.</li>
 <li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>

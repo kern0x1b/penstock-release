@@ -3,7 +3,7 @@ title: The DMN editor
 lede: The DMN editor draws decisions as tables, so business rules live in a file you can review, try with real values, check and deploy.
 tags: free
 needs: The decision table check needs Pro
-related: form-editor, editing, deployment, share-html, flow-analysis, sidebar, trace-paths
+related: dmn-tests, form-editor, editing, deployment, share-html, flow-analysis, sidebar, trace-paths
 -->
 <h2>What it is</h2>
 
@@ -73,7 +73,7 @@ related: form-editor, editing, deployment, share-html, flow-analysis, sidebar, t
 
 <h2>The sidebar of a decision</h2>
 
-<p>The <a href="sidebar.html">sidebar</a> of a decision has three tabs, in this order.</p>
+<p>The <a href="sidebar.html">sidebar</a> of a decision has four tabs, in this order.</p>
 
 <figure class="shot">
   <img src="@img/sidebar-tabs-dmn.png" alt="The tab row of a decision: Properties, open and named, then two icon tabs, the Problems tab and the Try tab">
@@ -85,6 +85,7 @@ related: form-editor, editing, deployment, share-html, flow-analysis, sidebar, t
   <tr><td>Properties</td><td>The id, name and documentation of a decision, in the requirements view. Over a decision table it says that the properties of a decision are edited in the requirements diagram, and offers to open it.</td></tr>
   <tr><td>Problems</td><td>The findings of the decision table check. Until you press <span class="ui">Check</span> it says <em>Check the decisions to see problems here.</em> See below.</td></tr>
   <tr><td>Try</td><td>Runs the open table against values you type. See <a href="#try">Try a decision table</a>.</td></tr>
+  <tr><td>Tests</td><td>The saved test cases of the decision, run with the same evaluation as Try, and the rules no case reaches. See <a href="dmn-tests.html">DMN tests</a>.</td></tr>
   </tbody>
 </table></div>
 
@@ -149,6 +150,10 @@ related: form-editor, editing, deployment, share-html, flow-analysis, sidebar, t
   <img src="@img/dmn-try-cannot-evaluate.png" alt="The Try tab beside the Gift handling table, with Order note Gift for Sam and Order total 120. Rule 3 is marked. The sentence says Rule 3 matches; it returns handling = Standard pack; Penstock cannot evaluate this cell here: starts with(?, "Gift"). The same words repeat in amber, and the output handling Standard pack is below">
   <figcaption>A cell Penstock cannot read is named in the sentence and in amber, not guessed at.</figcaption>
 </figure>
+
+<h2 id="tests">Test a decision table</h2>
+
+<p>The <span class="ui">Tests</span> tab, after Try, keeps the values you try as saved test cases next to the file, runs them all or one at a time, and lists the rules no case reaches. <span class="ui">Save as test</span> in the Try tab turns the current values and result into a case. Running is free with no time limit for 3 cases per decision. More cases are <span class="tag pro">Pro</span>. In a terminal, <code>penstock test dmn</code> runs the same cases. See <a href="dmn-tests.html">DMN tests</a>.</p>
 
 <h2 id="spreadsheets">Decision tables and spreadsheets</h2>
 

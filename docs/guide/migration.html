@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html" aria-current="page">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -148,7 +160,7 @@
 <p class="crumbs"><a href="../guide/">Guide</a> / Share and move</p>
 <h1>Camunda 7 to Camunda 8</h1>
 <p class="lede">The migration assistant shows what in your Camunda 7 project does not carry over to Camunda 8, converts what it can, and writes a report you can hand on.</p>
-<p class="meta"><span class="tag free">Free</span> <span>Looking and the report are free. Converting and worker skeletons need Pro, and Team in a pipeline.</span></p>
+<p class="meta"><span class="tag free">Free</span> <span>Looking, the plan and the report are free. Converting, worker skeletons and the equivalence check need Pro, and Team in a pipeline.</span></p>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ul>
@@ -156,8 +168,11 @@
 <li><a href="#what-is-free-and-what-is-pro">What is free and what is Pro</a></li>
 <li><a href="#see-what-does-not-carry-over">See what does not carry over</a></li>
 <li><a href="#what-it-looks-at">What it looks at</a></li>
+<li><a href="#the-migration-workspace">The migration workspace</a></li>
 <li><a href="#convert">Convert</a></li>
 <li><a href="#the-report">The report</a></li>
+<li><a href="#check-that-the-converted-process-behaves-the-same">Check that the converted process behaves the same</a></li>
+<li><a href="#ai-agents">AI agents</a></li>
 <li><a href="#what-it-does-not-do">What it does not do</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -177,6 +192,10 @@
   <tr><td>The migration report, as Markdown and one HTML page</td><td><span class="tag free">Free</span></td></tr>
   <tr><td>Converting a diagram, decision or form, with the preview</td><td><span class="tag pro">Pro</span>, Team in a pipeline</td></tr>
   <tr><td>Job worker skeletons written from your delegates</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td>The migration workspace and <code>penstock migrate plan</code>: every change, with a class and a reason</td><td><span class="tag free">Free</span></td></tr>
+  <tr><td>Writing only the changes you accepted (<code>migrate apply --write</code>)</td><td><span class="tag pro">Pro</span></td></tr>
+  <tr><td><code>penstock migrate verify</code>: the same scenarios on both engines, compared</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span>. The first 3 scenarios are free.</td></tr>
+  <tr><td><code>penstock migrate agents</code>: AI agents to the 8.10 templates</td><td>Preview free, first 3 elements. <code>--write</code>: <span class="tag pro">Pro</span></td></tr>
   </tbody>
 </table></div></div>
 
@@ -279,6 +298,48 @@ Job workers to write: 2</code></pre>
   <li><strong>The Java code.</strong> Each delegate, external task handler and listener is followed to its source and to what it becomes.</li>
 </ul>
 
+<h2 id="the-migration-workspace"><a href="#the-migration-workspace">The migration workspace</a></h2>
+
+<p>The workspace lists every change the conversion to Camunda 8 would make, per file and, for BPMN, per element. Each change shows what it is now, what it becomes, a class and the reason, with a checkbox, a live count and an effort estimate.</p>
+
+<div class="table-wrap"><div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td>Converted automatically</td><td>The result means the same.</td></tr>
+  <tr><td>Converted with a changed meaning</td><td>Penstock converts it; you decide whether the new meaning is right.</td></tr>
+  <tr><td>Needs a person</td><td>It cannot be converted exactly.</td></tr>
+  <tr><td>Left as is</td><td>It carries over unchanged.</td></tr>
+  </tbody>
+</table></div></div>
+
+<p>In Penstock Web it is in the command palette.</p>
+
+<div class="hosts">
+<p class="hosts-title">Where the migration workspace is, by tool</p>
+<div class="host-grid">
+<section class="host" aria-label="JetBrains">
+<p class="host-name">JetBrains</p>
+<p>The Migration workspace is in the Penstock tool window and in the <span class="ui">Tools</span> menu.</p>
+</section>
+<section class="host" aria-label="VS Code">
+<p class="host-name">VS Code</p>
+<p>The command <span class="ui">Migration workspace</span>.</p>
+</section>
+<section class="host" aria-label="Command line">
+<p class="host-name">Command line</p>
+<p><code>penstock migrate plan</code> lists the changes with their ids, and <code>penstock migrate apply --only</code> applies a selection. See <a href="../cli/commands.html#migrate">migrate</a>.</p>
+</section>
+</div>
+</div>
+
+<p><span class="ui">Apply selected</span> writes only the accepted changes, atomically. As before, it refuses a file that changed and a symbolic link. A rejected element stays byte for byte as it was. The selection is kept in <code>.penstock/migration-selection.json</code> only when you choose <span class="ui">Save selection</span>.</p>
+
+<pre><code>penstock migrate plan --format json src/orders
+penstock migrate plan --only ID1,ID2 --save-selection
+penstock migrate apply --saved --write
+penstock migrate apply --only ID1,ID2 --exclude ID3 --write</code></pre>
+
+<p><code>migrate plan</code> lists the change ids and writes nothing, except the selection when you ask for <code>--save-selection</code>. <code>migrate apply</code> takes <code>--only</code>, <code>--exclude</code> and <code>--saved</code>. An id the plan does not have, an empty list or an over-long id is refused before anything is written. The <code>migrate_apply</code> MCP tool takes <code>only</code> and <code>exclude</code>.</p>
+
 <h2 id="convert"><a href="#convert">Convert</a></h2>
 <p><span class="tag pro">Pro</span></p>
 
@@ -342,6 +403,28 @@ wrote migration-report.html</code></pre>
 <p>The HTML is one self-contained page for a manager: scope, what the move costs (job workers to write, expressions to rewrite, scripts to replace, listeners to move, forms to rebuild, called processes, decisions), files with their status, and the code.</p>
 
 
+<h2 id="check-that-the-converted-process-behaves-the-same"><a href="#check-that-the-converted-process-behaves-the-same">Check that the converted process behaves the same</a></h2>
+
+<p><span class="tag pro">Pro</span> The first 3 scenarios are free.</p>
+
+<pre><code>penstock migrate verify --original-profile c7-test --converted-profile c8-test src/orders</code></pre>
+
+<p>It runs the project's saved <a href="scenarios.html">scenarios</a> on the original Camunda 7 diagram (or Operaton, or CIB seven) on one test engine, and on the converted Camunda 8 diagram on another. Per scenario it reports:</p>
+
+<ul>
+  <li><strong>EQUIVALENT</strong>;</li>
+  <li><strong>DIFFERS</strong>, with the first point of divergence and both traces;</li>
+  <li><strong>NOT COMPARABLE</strong>, with the reason.</li>
+</ul>
+
+<p>It compares the element path through the conversion's id map, the final state, the incidents, and the variables by name and value. Exit 0 when every scenario is equivalent, 1 when at least one differs, 2 when something cannot be compared or nothing ran because of a refusal.</p>
+
+<p>Both engines must be marked <code>deployment.forTests</code>. Nothing runs on a shared or production engine. A conversion that adds executable content is refused until you confirm it with <code>--run-unreviewed</code>, or with the button in the workspace, which lists what was added. Secret values never appear in the answer. The workspace shows each result next to the changes it touched, with a totals banner. The <code>migrate_verify</code> MCP tool does the same for an agent.</p>
+
+<h2 id="ai-agents"><a href="#ai-agents">AI agents</a></h2>
+
+<p><code>penstock migrate agents [paths]</code> moves AI agent elements from the 8.9 and older template versions to the 8.10 agent task and agent sub-process templates, by the migration rules the new templates declare. It is a dry run by default. An element whose mapping cannot be proven is left untouched and listed with the reason. The first 3 elements of the preview are free; <code>--write</code> replaces the files atomically and is Pro. The <code>migrate_agents</code> MCP tool does the same. See <a href="camunda-agents.html">AI agents of Camunda 8</a>.</p>
+
 <h2 id="what-it-does-not-do"><a href="#what-it-does-not-do">What it does not do</a></h2>
 
 <ul>
@@ -369,13 +452,15 @@ wrote migration-report.html</code></pre>
 <ul>
 <li><a href="../guide/engine-profiles.html">Engines</a> - Camunda 7, Camunda 8, Operaton, CIB seven, Flowable and Activiti.</li>
 <li><a href="../guide/code-links.html">Code links</a> - Jump between a task and the code that runs it, and find where they disagree.</li>
+<li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a> - Every AI agent task with its model, tools, limits and MCP clients, and its checks.</li>
+<li><a href="../guide/scenarios.html">Scenarios</a> - Run the diagram's scenarios on a local engine and see every step.</li>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 <li><a href="../cli/ci.html">Pipelines, reports and the bot</a> - Checks on every push, and a review comment on pull requests.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/import.html"><span>Previous</span>Import a diagram</a>
-<a class="next" href="../guide/edit-diagrams.html"><span>Next</span>Edit from the command line</a>
+<a class="next" href="../guide/refactoring.html"><span>Next</span>Refactoring across the project</a>
 </nav>
 </main>
 </div>

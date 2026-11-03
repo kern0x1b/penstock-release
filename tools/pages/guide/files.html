@@ -19,6 +19,13 @@ related: settings, security, sign-in
   <tr><td><code>.penstock/images/</code></td><td>Pictures from <code>penstock diff --images</code> and <code>penstock report</code>.</td><td>No</td></tr>
   <tr><td><code>penstock-report.md</code></td><td>The pull request report written by <code>penstock report</code>.</td><td>No</td></tr>
   <tr><td><code>.bpmn</code>, <code>.dmn</code>, <code>.form</code></td><td>Your diagrams, decisions and forms. Penstock edits them in place.</td><td>Yes</td></tr>
+  <tr><td><code>.cmmn</code>, <code>.cmmn11.xml</code></td><td>Case models. Penstock only reads and draws them; it does not edit them. See <a href="cmmn.html">CMMN case models</a>.</td><td>Yes</td></tr>
+  <tr><td><code>&lt;name&gt;.dmn.tests.json</code></td><td>The saved test cases of a DMN file, next to it. See <a href="dmn-tests.html">DMN tests</a>.</td><td>Yes</td></tr>
+  <tr><td><code>.penstock/deployments.json</code></td><td>What was deployed to each environment: a hash and a version for each resource, with no timestamps. The baseline for drift. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</td><td>Yes</td></tr>
+  <tr><td><code>.penstock/policy/</code>, <code>penstock.policy.lock</code></td><td>The policy pack and its pin. See <a href="policy-pack.html">Policy pack</a>.</td><td>Yes</td></tr>
+  <tr><td><code>.penstock/receipts/</code></td><td>Verification receipts of AI changes. Written only with <code>ai.verify.keepReceipts: true</code>. See <a href="ai-receipt.html">AI receipt and auto-repair</a>.</td><td>Your choice</td></tr>
+  <tr><td><code>.penstock/migration-selection.json</code></td><td>The changes you accepted in the migration workspace. Written only when you choose Save selection. See <a href="migration.html">Camunda 7 to Camunda 8</a>.</td><td>Your choice</td></tr>
+  <tr><td>Evidence packs</td><td>A zip or a folder written by <code>penstock evidence build</code>, by default under <code>.penstock</code>. See <a href="evidence-pack.html">Evidence pack</a>.</td><td>Your choice</td></tr>
 
   </tbody>
 </table></div>

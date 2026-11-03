@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html" aria-current="page">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -156,6 +168,7 @@
 <li><a href="#what-the-popover-tells-you">What the popover tells you</a></li>
 <li><a href="#the-connection-dialog">The Connection dialog</a></li>
 <li><a href="#what-is-set-in-penstock-yaml">What is set in penstock.yaml</a></li>
+<li><a href="#protected-environments">Protected environments</a></li>
 <li><a href="#what-is-sent">What is sent</a></li>
 <li><a href="#how-the-request-is-made">How the request is made</a></li>
 <li><a href="#oauth">OAuth</a></li>
@@ -183,6 +196,8 @@
   <img src="../img/deploy-popover.png" alt="The Deploy popover open under the Deploy button. The field Profile is set to default, the Engine address is http://localhost:8090/v2, What will be sent lists order-to-cash.bpmn, shipping-decision.dmn and invoice-approval.form, and Edit connection and Deploy are at the foot" width="1600" height="921">
   <figcaption>The popover. It shows the profile, the engine address and the files it will send before anything is deployed.</figcaption>
 </figure>
+
+<p>The popover has <span class="ui">Only what changed</span>, on by default: a resource whose normalised content equals the latest version on the engine is left out and reported as <em>unchanged, skipped</em>, so deploying the same diagram again makes no new version. When the engine cannot be read, everything is sent and the answer says so. On the command line it is <code>penstock deploy --only-changed</code>.</p>
 
 <h2 id="what-the-popover-tells-you"><a href="#what-the-popover-tells-you">What the popover tells you</a></h2>
 
@@ -249,10 +264,15 @@ hooks:
   <tr><td><code>source</code></td><td>Default <code>penstock</code>.</td></tr>
   <tr><td><code>tenantId</code></td><td>Empty means the default tenant.</td></tr>
   <tr><td><code>changedOnly</code></td><td>Leaves out what the engine already has, unchanged. On unless <code>false</code>.</td></tr>
+  <tr><td><code>protected</code></td><td>When true, deploying or promoting to this environment needs <code>--confirm &lt;name&gt;</code>. Anything but <code>false</code> protects it, and it is never read from an environment variable. See <a href="drift-promote.html">Drift, promote and protected environments</a>.</td></tr>
   <tr><td><code>forTests</code></td><td>Marks an engine that test-case runs may deploy to and answer jobs on. See <a href="scenarios.html">Scenarios</a>.</td></tr>
   <tr><td><code>activationTime</code></td><td>An ISO 8601 timestamp. Empty means at once. Camunda 7 family.</td></tr>
   </tbody>
 </table></div></div>
+
+<h2 id="protected-environments"><a href="#protected-environments">Protected environments</a></h2>
+
+<p>A profile with <code>deployment.protected: true</code> cannot be deployed to by accident. The popover asks you to type the name of the environment, and on the command line <code>penstock deploy</code> needs <code>--confirm &lt;name&gt;</code>. In a pipeline it also needs <code>--approve-file</code>, an approval record that Penstock checks (Team in a pipeline). The record is a document kept in git, not a signature. To see how an environment differs from your files, or to take what runs on dev to prod, read <a href="drift-promote.html">Drift, promote and protected environments</a>.</p>
 
 <h2 id="what-is-sent"><a href="#what-is-sent">What is sent</a></h2>
 
@@ -361,11 +381,12 @@ would send 3 file(s) to http://localhost:8080/v2/deployments as "order-example"
 <li><a href="../guide/security.html">Security and privacy</a> - What leaves your machine, and when.</li>
 <li><a href="../cli/commands.html">Every command</a> - Each command with every option and an example.</li>
 <li><a href="../guide/monitor.html">Monitor</a> - See what waits at each step, and where the incidents are, right now.</li>
+<li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a> - Compare an environment with the files, deploy only what changed, promote dev to prod.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/process-tests.html"><span>Previous</span>Process tests and coverage</a>
-<a class="next" href="../guide/monitor.html"><span>Next</span>Monitor</a>
+<a class="next" href="../guide/drift-promote.html"><span>Next</span>Drift, promote and protected environments</a>
 </nav>
 </main>
 </div>

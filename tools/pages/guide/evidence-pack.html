@@ -1,0 +1,71 @@
+<!--
+title: Evidence pack
+lede: One reviewable package for an audit: every diagram as a picture, the check results, the recorded test results, the AI receipts and a SHA-256 of every file. Building it is Pro; verifying it is free.
+tags: pro
+needs: Building a pack: Pro, and Team in a pipeline. The policy and environments sections: Team. Verifying a pack: free.
+related: ai-receipt, policy-pack, diagram-check, diagram-diff, cli/commands
+-->
+<h2>What it holds</h2>
+
+<ul>
+  <li>every diagram as an SVG;</li>
+  <li>the Check results, as SARIF and as text;</li>
+  <li>the recorded scenario and DMN test results, with rule coverage;</li>
+  <li>the AI receipts, as names and hashes only;</li>
+  <li>with <code>--since</code>, the diagrams that changed since a git ref, drawn in diagram terms with the before and after pictures marked;</li>
+  <li>the connections findings, by name only;</li>
+  <li>the migration report, if the project has one;</li>
+  <li>an inventory with the SHA-256 of every diagram, and an <code>index.html</code>;</li>
+  <li>with the Team plan, the identity and pin status of the <a href="policy-pack.html">policy pack</a> and the declared environments.</li>
+</ul>
+
+<p><code>evidence.json</code> lists every file with its SHA-256, beside the tool version, the time, and the git commit and author name (never an e-mail address). <code>evidence.sha256</code> is the SHA-256 of <code>evidence.json</code>.</p>
+
+<div class="callout warn">
+  <span class="label">Not a signature</span>
+  <p>The seal is an integrity checksum. It shows that the pack was changed afterwards. It is not a signature and not a legal attestation: someone who can rewrite the whole pack can write a new seal, so keep the pack where it cannot be rewritten.</p>
+</div>
+
+<h2>Build a pack</h2>
+
+<pre><code>penstock evidence build --since origin/main --out audit.zip</code></pre>
+
+<div class="table-wrap"><table class="facts">
+  <tbody>
+  <tr><td><code>[folder]</code></td><td>The project. The current folder by default.</td></tr>
+  <tr><td><code>--out &lt;dir|file.zip&gt;</code></td><td>Where the pack goes. A file name ending in <code>.zip</code>, or the folder of the pack. By default under <code>.penstock</code> of the project.</td></tr>
+  <tr><td><code>--format zip|dir</code></td><td>The container: a zip (the default) or a folder.</td></tr>
+  <tr><td><code>--since &lt;git-ref&gt;</code></td><td>Adds what changed since the ref.</td></tr>
+  <tr><td><code>--force</code></td><td>Replaces a pack that is already there. An existing pack is never replaced without it.</td></tr>
+  </tbody>
+</table></div>
+
+<p>A pack never holds a secret value and never reads a file outside the project. A diagram that is a link, is too large or cannot be drawn, or more than 500 diagrams, stops the pack with the reason instead of leaving the diagram out. The zip is written beside its place and renamed into it. Exit 0 means the pack was written and verified; 1 means it was refused or the licence does not allow it.</p>
+
+<h2>In the editors</h2>
+
+{{host:evidence-where|Evidence pack, by tool}}
+
+<ul>
+  <li>Penstock Web and Desktop: <span class="ui">Create evidence pack&hellip;</span> in the <span class="ui">More</span> menu and the command palette of the BPMN, DMN and form editors. A dialog asks for an optional git ref, zip or folder, and whether to replace an earlier pack. It shows progress, then the path of the pack and what the seal is.</li>
+  <li>MCP: the <code>evidence_build</code> tool, which writes only inside the project.</li>
+</ul>
+
+<h2>Verify a pack</h2>
+
+<p><span class="tag free">Free</span></p>
+
+<pre><code>penstock evidence verify audit.zip</code></pre>
+
+<p>It recomputes the hash of every file of a zip or a folder, and names the file that was changed, is missing or was added. It refuses, and exits 1 on, an entry that climbs out of the pack (<code>..</code>, an absolute path, a backslash), a link or special file, an encrypted or oddly compressed entry, a duplicate, and a decompression that would pass its cap. <code>--format json</code> is for a pipeline.</p>
+
+<h2>Common problems</h2>
+
+<dl class="problems">
+  <dt>The build stops and names a diagram.</dt>
+  <dd>That diagram is a link, is too large or cannot be drawn. Fix or remove it. Penstock does not leave it out silently.</dd>
+  <dt>"Already exists".</dt>
+  <dd>Use another <code>--out</code>, or <code>--force</code> to replace the pack.</dd>
+  <dt>Verify says a file was changed.</dt>
+  <dd>The pack does not match its seal any more. Build it again from the source.</dd>
+</dl>

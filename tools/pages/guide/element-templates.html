@@ -3,7 +3,7 @@ title: Element templates
 lede: An element template turns a plain task into a ready-made one, for example "send an e-mail", with a short form of its own.
 tags: free
 needs: Camunda 7 and Camunda 8. The connector browser is for Camunda 8.
-related: properties-panel, security, settings
+related: properties-panel, connections, security, settings
 -->
 <h2>What it is</h2>
 
@@ -54,6 +54,38 @@ related: properties-panel, security, settings
 <p>A template says which worker it came from. One whose variables no longer match that worker is marked, and the step names the gap in the code check. From a template you can also write a job worker, in Java Spring, Node or Python, through the same generator the Camunda 7 to Camunda 8 conversion uses. In a terminal, <code>penstock templates generate</code> writes one template for every worker in the project, and <code>--check</code> writes nothing and fails when a template has drifted. See <a href="code-links.html">Code links</a>.</p>
 
 <!-- image: element-template-from-worker.png, the Create Element Template action on a job worker and the template file it wrote -->
+
+<h2>The template editor</h2>
+<p><span class="tag free">Free</span></p>
+
+<p>A template file opens in a form over the JSON, free with no time limit, for Camunda 8 and Camunda 7 template files. It has fields for the name, id, version, what it applies to, the groups and the properties, each with its type, binding, constraints, FEEL mode, choices and conditions. A live preview shows the properties panel the template produces, and a <span class="ui">Source</span> view shows the JSON. The file is checked against the template schema as you type, and every key the form does not know is kept.</p>
+
+<p>The editor opens in Penstock Web and Desktop and in the plugins.</p>
+
+{{host:templates-editor-where|When the template editor opens, by tool}}
+
+<h3>Why not loaded</h3>
+
+<p>Beside the editor, the <span class="ui">Why not loaded</span> screen lists every template file in the project. It says whether Camunda Desktop Modeler and Web Modeler would load it, and gives the exact reason when not: an invalid schema, a wrong <code>$schema</code> version, an <code>engines.camunda</code> mismatch, a duplicate id and version, a wrong folder, a bad <code>appliesTo</code> or binding.</p>
+
+<p>In a terminal, <code>penstock templates check</code> prints the same diagnosis: a table of files with the Desktop Modeler and Web Modeler verdicts, then <code>path:line</code> reasons. It exits 1 when a template does not load, answers <code>--format json</code>, and is free.</p>
+
+<h2>Templates from an API description</h2>
+<p><span class="tag pro">Pro</span></p>
+
+<pre><code>penstock templates generate petstore.yaml --write</code></pre>
+
+<p>Given an OpenAPI 3 file (JSON or YAML), a Swagger 2.0 file or a Postman collection, <code>penstock templates generate &lt;file&gt;</code> makes one REST connector template per operation. The inputs are typed from the parameters and the request body. Authentication comes from the security schemes as <code>secrets.</code> placeholders. Each template has a result expression and error handling.</p>
+
+<ul>
+  <li>It prints what it would write and writes nothing without <code>--write</code>. It never leaves a half-written file, and it refuses a path outside the project or a symlink. <code>--out &lt;dir&gt;</code> chooses the folder; the default is <code>.camunda/element-templates</code>.</li>
+  <li>Without a licence the first 3 operations are previewed free.</li>
+  <li>It never copies spec text as a live reference: a bare <code>secrets.</code> in a description, summary, label or tag is broken as well as <code>{{</code>, and values that start with <code>=</code> stay FEEL strings.</li>
+  <li>Generated secret names are <code>PENSTOCK_&lt;API&gt;__&lt;FIELD&gt;</code>: a prefix owned by the tool, with a double underscore between the namespace and the field. <code>--secret-prefix &lt;NAME&gt;</code> (capitals, digits, underscores) chooses the namespace. A name that your connector-secrets or <code>.env</code> files already define is warned about, by name only.</li>
+  <li>The list of secret names to create is shown in the dialog of the template editor before and after writing.</li>
+</ul>
+
+<p>The <code>generate_templates</code> MCP tool does the same for an agent, confined to the roots the client gave. It takes a <code>secretPrefix</code> argument and returns the names in a <code>secrets</code> array. In the <span class="ui">Why not loaded</span> screen, <span class="ui">Generate templates from an API description…</span> previews the first 3 operations. With Pro it writes every template into <code>.camunda/element-templates</code>, asking before it replaces a file. See <a href="@cli/mcp.html">The MCP server</a>.</p>
 
 <h2>The connector browser</h2>
 

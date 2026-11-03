@@ -1,8 +1,8 @@
 <!--
 title: Import a diagram
-lede: Turn a draw.io, Visio, Signavio or Bizagi diagram into a BPMN 2.0 file, and get a list of everything that could not be carried over.
+lede: Turn a draw.io, Visio, Signavio, Bizagi or Flowable diagram into a BPMN 2.0 file, open a Camunda Modeler project, and get a list of everything that could not be carried over.
 tags: free
-related: share-html, auto-layout, editing, cli/commands
+related: element-templates, share-html, auto-layout, editing, cli/commands
 -->
 <h2>What can be imported</h2>
 
@@ -13,6 +13,8 @@ related: share-html, auto-layout, editing, cli/commands
   <tr><td>Visio</td><td><code>.vsdx</code></td></tr>
   <tr><td>Signavio</td><td><code>.bpmn</code> exported by Signavio</td></tr>
   <tr><td>Bizagi</td><td><code>.bpmn</code> exported by Bizagi, and a package that holds a BPMN file</td></tr>
+  <tr><td>Flowable</td><td><code>.bpmn</code> written by Flowable, converted to Camunda 7 or Camunda 8</td></tr>
+  <tr><td>Camunda Modeler</td><td>A project folder, read and reported on. See below.</td></tr>
   </tbody>
 </table></div>
 
@@ -23,10 +25,10 @@ related: share-html, auto-layout, editing, cli/commands
 <h2>Steps in the editor</h2>
 
 <ol class="steps">
-  <li>Open any diagram in the editor. Open <span class="ui">More</span> and choose <span class="ui">Import diagram…</span>.</li>
-  <li>A file chooser called <em>Import diagram</em> opens. Pick the file.</li>
-  <li>A second dialog, <em>Save the imported diagram</em>, asks where to put the new BPMN file. It suggests a name: <code>order-process.bpmn</code> from <code>order-process.drawio</code>.</li>
-  <li>The new diagram opens. A report dialog called <em>Diagram imported</em> lists what was and was not carried over.</li>
+  <li>Open any diagram in the editor. Open <span class="ui">More</span> and choose <span class="ui">Import from another tool…</span>. Choose the source and, for Flowable, Camunda 7 or Camunda 8.</li>
+  <li>Pick the file. The report of the import is shown first, <em>Diagram imported</em>, with what was and was not carried over.</li>
+  <li>Press <span class="ui">Save as…</span> and choose where to put the new BPMN file. It suggests a name: <code>order-process.bpmn</code> from <code>order-process.drawio</code>.</li>
+  <li>The new diagram opens.</li>
 </ol>
 
 <figure class="shot">
@@ -61,9 +63,52 @@ related: share-html, auto-layout, editing, cli/commands
 </figure>
 
 
+<div class="table-wrap"><table>
+  <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>--from modeler|signavio|bizagi|flowable</code></td><td>Says which tool the input came from. A file that came from another tool is refused.</td></tr>
+  <tr><td><code>--to camunda8</code></td><td>With a Flowable file: convert to Camunda 8. The default is Camunda 7.</td></tr>
+  <tr><td><code>--report</code></td><td>Writes nothing and only lists what was converted, kept and not mapped.</td></tr>
+  <tr><td><code>-o &lt;file&gt;</code>, <code>--force</code></td><td>The output file, and replacing a file that is already there.</td></tr>
+  </tbody>
+</table></div>
+
 <p>Nothing is written if the file already exists, unless you pass <code>--force</code> or name another output with <code>-o</code>. A file that could not be read writes nothing at all. <code>import</code> is free, so it can run in a pipeline: convert a draw.io file kept in the repository before the check runs.</p>
 
 {{host:import-run|Import from your tool}}
+
+<h2>Flowable files</h2>
+
+<p>A Flowable file is converted to Camunda 7, or to Camunda 8 with <code>--to camunda8</code>. These are converted: assignee, candidate users and groups, due date, form key, class, delegate expression, async, execution and task listeners, fields and form properties. What has no equivalent stays in the file and is listed.</p>
+
+<p>Signavio and Bizagi extensions are no longer cut out. They stay in the file in their own namespaces, and the report says that no engine uses them.</p>
+
+<h2>A Camunda Modeler project</h2>
+
+<p>Free, with no time limit.</p>
+
+<pre><code>penstock import &lt;folder&gt; --from modeler</code></pre>
+
+<p>It reads the project and says what Penstock does with each part:</p>
+
+<ul>
+  <li>The element template folders: <code>.camunda/element-templates</code>, <code>resources/element-templates</code> and the user-level folder. It says which one Penstock reads as it is and which one to list under <code>elementTemplates</code>.</li>
+  <li>The <code>.bpmnlintrc</code> rules: which are known to Penstock Check and which are not.</li>
+  <li>The flags and settings files.</li>
+  <li>The plugins. They are listed only and never run.</li>
+  <li>How many <code>.bpmn</code> files carry <code>camunda:</code> or <code>zeebe:</code> extensions. They are never changed.</li>
+  <li>Which Camunda Modeler shortcuts have a Penstock action. With <code>-o</code> it writes them as a VS Code keymap to merge into <code>keybindings.json</code> by hand. The keymap stays a file to merge by hand; see below for each tool.</li>
+</ul>
+
+{{host:modeler-keymap-where|The Camunda Modeler keymap, by tool}}
+
+<h2>Imported files are untrusted</h2>
+
+<p>A file over 64 MB, and an XML that declares entities or is nested too deep, are refused. The project scan never follows a link, never leaves the folder and never reads or runs a plugin.</p>
+
+<h2>For an AI agent</h2>
+
+<p>The <code>import_diagram</code> MCP tool does the same. It only previews unless <code>write</code> is true, and then writes a new file inside the project root only, never over an existing one without <code>force</code>. See <a href="@cli/mcp.html">The MCP server</a>.</p>
 
 <h2>What you see</h2>
 

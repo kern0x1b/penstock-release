@@ -168,6 +168,24 @@ PENSTOCK_PASSWORD=$CAMUNDA_PASSWORD \
 
 <p>Mark the test engine with <code>deployment.forTests: true</code> on its profile. Then <code>penstock scenarios run . --junit-xml build/test-cases.xml</code> runs them. See <a href="@guide/scenarios.html">Scenarios</a>.</p>
 
+<h2>Policy, receipts and evidence in a pipeline</h2>
+
+<p>When the project has a <a href="@guide/policy-pack.html">policy pack</a>, <code>penstock check</code> in a pipeline (the <code>CI</code> variable, or <code>--ci &lt;pipeline&gt;</code>) fails when the pin is missing or does not match, when the project weakens a forced rule (off, a lower severity) or widens the palette, or when a required check (check, scenarios, DMN tests, receipt) has not run on these files or failed. Enforcing the policy in a pipeline is <span class="tag team">Team in a pipeline</span>; showing it is free. Pin it with <code>penstock policy pin</code> and keep the pin in git.</p>
+
+<p><code>penstock check --require-receipt</code> (or <code>ai.verify.requireReceipt: true</code>) fails when a change made by an agent, a commit with an <code>Assisted-by</code> or agent <code>Co-authored-by</code> trailer or a file under <code>ai.verify.agentPaths</code>, has no matching valid receipt. <code>--base &lt;git-ref&gt;</code> says where the changes are counted from, <code>origin/main</code> by default. <code>penstock receipt check &lt;receipt.json&gt;</code> confirms the stored hashes still match the files. These are <span class="tag pro">Pro</span> on a developer machine and <span class="tag team">Team in a pipeline</span>. See <a href="@guide/ai-receipt.html">AI receipt and auto-repair</a>.</p>
+
+<p><code>penstock evidence build --since origin/main --out audit.zip</code> writes one package for an audit, and <code>penstock evidence verify audit.zip</code> (free) recomputes every hash later and exits with 1 when a file was changed, is missing or was added. The seal is an integrity checksum and not a signature: keep the pack where it cannot be rewritten. See <a href="@guide/evidence-pack.html">Evidence pack</a>.</p>
+
+<h2>Drift, promote and protected environments in a pipeline</h2>
+
+<p><code>penstock drift --env prod</code> exits with 0 when everything is in sync, 1 on drift, and 2 when an environment is unknown or cannot be read, so a scheduled job can fail on drift. It is free for one environment; <code>--against</code> is Pro, and Team in a pipeline. <code>penstock deploy --only-changed</code> leaves out what the engine already has, so deploying the same diagram again makes no new version.</p>
+
+<p><code>penstock promote --from dev --to prod</code> is a dry run unless <code>--write</code> is given. A profile with <code>deployment.protected: true</code> needs <code>--confirm &lt;name&gt;</code> for <code>deploy</code> and <code>promote</code>, and in a pipeline also <code>--approve-file</code>, an approval record (JSON with the environment, the hash of every file, <code>approvedBy</code>, <code>approvedAt</code> and <code>validUntil</code>) that is checked in Team. The record is a document kept in git, not a signature or a cryptographic proof. See <a href="@guide/drift-promote.html">Drift, promote and protected environments</a>.</p>
+
+<h2>DMN tests in CI</h2>
+
+<p><code>penstock test dmn decisions --format junit --min-rule-coverage 80</code> runs the saved cases of the decision tables, writes JUnit, and exits with 1 when a case fails or the rule coverage is below the minimum. A local run of up to 3 cases per decision is free; junit output, <code>--min-rule-coverage</code> and any run in a pipeline are <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span>. See <a href="@guide/dmn-tests.html">DMN tests</a>.</p>
+
 <h2>What you see</h2>
 
 <ul>

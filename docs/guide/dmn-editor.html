@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html" aria-current="page">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -160,6 +172,7 @@
 <li><a href="#the-toolbar">The toolbar</a></li>
 <li><a href="#the-sidebar-of-a-decision">The sidebar of a decision</a></li>
 <li><a href="#try">Try a decision table</a></li>
+<li><a href="#tests">Test a decision table</a></li>
 <li><a href="#spreadsheets">Decision tables and spreadsheets</a></li>
 <li><a href="#the-decision-table-check">The decision table check</a></li>
 <li><a href="#documentation-of-a-decision">Documentation of a decision</a></li>
@@ -235,7 +248,7 @@
 
 <h2 id="the-sidebar-of-a-decision"><a href="#the-sidebar-of-a-decision">The sidebar of a decision</a></h2>
 
-<p>The <a href="sidebar.html">sidebar</a> of a decision has three tabs, in this order.</p>
+<p>The <a href="sidebar.html">sidebar</a> of a decision has four tabs, in this order.</p>
 
 <figure class="shot">
   <img src="../img/sidebar-tabs-dmn.png" alt="The tab row of a decision: Properties, open and named, then two icon tabs, the Problems tab and the Try tab" width="440" height="45" loading="lazy" decoding="async">
@@ -247,6 +260,7 @@
   <tr><td>Properties</td><td>The id, name and documentation of a decision, in the requirements view. Over a decision table it says that the properties of a decision are edited in the requirements diagram, and offers to open it.</td></tr>
   <tr><td>Problems</td><td>The findings of the decision table check. Until you press <span class="ui">Check</span> it says <em>Check the decisions to see problems here.</em> See below.</td></tr>
   <tr><td>Try</td><td>Runs the open table against values you type. See <a href="#try">Try a decision table</a>.</td></tr>
+  <tr><td>Tests</td><td>The saved test cases of the decision, run with the same evaluation as Try, and the rules no case reaches. See <a href="dmn-tests.html">DMN tests</a>.</td></tr>
   </tbody>
 </table></div></div>
 
@@ -310,6 +324,10 @@
   <img src="../img/dmn-try-cannot-evaluate.png" alt="The Try tab beside the Gift handling table, with Order note Gift for Sam and Order total 120. Rule 3 is marked. The sentence says Rule 3 matches; it returns handling = Standard pack; Penstock cannot evaluate this cell here: starts with(?, "Gift"). The same words repeat in amber, and the output handling Standard pack is below" width="1600" height="921" loading="lazy" decoding="async">
   <figcaption>A cell Penstock cannot read is named in the sentence and in amber, not guessed at.</figcaption>
 </figure>
+
+<h2 id="tests"><a href="#tests">Test a decision table</a></h2>
+
+<p>The <span class="ui">Tests</span> tab, after Try, keeps the values you try as saved test cases next to the file, runs them all or one at a time, and lists the rules no case reaches. <span class="ui">Save as test</span> in the Try tab turns the current values and result into a case. Running is free with no time limit for 3 cases per decision. More cases are <span class="tag pro">Pro</span>. In a terminal, <code>penstock test dmn</code> runs the same cases. See <a href="dmn-tests.html">DMN tests</a>.</p>
 
 <h2 id="spreadsheets"><a href="#spreadsheets">Decision tables and spreadsheets</a></h2>
 
@@ -400,6 +418,7 @@
 <div class="related">
 <h2>See also</h2>
 <ul>
+<li><a href="../guide/dmn-tests.html">DMN tests</a> - Saved test cases for a decision table, rule coverage and penstock test dmn.</li>
 <li><a href="../guide/form-editor.html">The form editor</a> - Camunda Forms, drawn, previewed and checked.</li>
 <li><a href="../guide/editing.html">Editing a diagram</a> - The canvas, the palette, copy and paste, undo, the minimap.</li>
 <li><a href="../guide/deployment.html">Deployment</a> - Send diagrams to your engine.</li>
@@ -411,7 +430,7 @@
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/element-templates.html"><span>Previous</span>Element templates</a>
-<a class="next" href="../guide/form-editor.html"><span>Next</span>The form editor</a>
+<a class="next" href="../guide/dmn-tests.html"><span>Next</span>DMN tests</a>
 </nav>
 </main>
 </div>

@@ -16,6 +16,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/cli/commands.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/cli/lsp.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/cli/mcp.html</loc>
   </url>
   <url>
@@ -43,19 +46,31 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/ai-chat.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/ai-receipt.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/auto-layout.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/bpmn-editor.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/camunda-agents.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/check-workers.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/cmmn.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/code-links.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/comments.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/connections.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/debug-process.html</loc>
@@ -73,6 +88,12 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/dmn-editor.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/dmn-tests.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/drift-promote.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/edit-diagrams.html</loc>
   </url>
   <url>
@@ -86,6 +107,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/engine-profiles.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/evidence-pack.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/example-project.html</loc>
@@ -112,7 +136,16 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/glossary.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/heat-map-replay.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/import.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/incident-to-fix.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/languages.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/licence-troubleshooting.html</loc>
@@ -133,6 +166,9 @@
     <loc>https://kern0x1b.github.io/penstock-release/guide/plans.html</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/policy-pack.html</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/process-tests.html</loc>
   </url>
   <url>
@@ -143,6 +179,9 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/properties-panel.html</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/guide/refactoring.html</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/guide/review-agent-changes.html</loc>
@@ -256,6 +295,33 @@
     <loc>https://kern0x1b.github.io/penstock-release/rules/</loc>
   </url>
   <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-adhoc-without-agent</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-deprecated-template</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-duplicate-tool-names</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-fromai-incomplete</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-mcp-client-no-config</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-no-model-call-limit</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-plain-text-secret</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-tool-filter-matches-nothing</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/agents-tool-without-description</loc>
+  </url>
+  <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/bpmnlint-ad-hoc-sub-process</loc>
   </url>
   <url>
@@ -338,6 +404,27 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/bpmnlint-superfluous-termination</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-dangling-on-part</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-dangling-sentry-ref</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-definition-ref-missing</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-duplicate-id</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-no-case-plan-model</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-plan-truncated</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/cmmn-task-without-target</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/code-bean-missing</loc>
@@ -605,6 +692,27 @@
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/compat-zeebe-user-task</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-key-missing-in-env</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-mcp-client-undefined</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-property-removed</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-property-renamed</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-secret-missing-in-env</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-secret-prefix</loc>
+  </url>
+  <url>
+    <loc>https://kern0x1b.github.io/penstock-release/rules/connections-secret-undefined</loc>
   </url>
   <url>
     <loc>https://kern0x1b.github.io/penstock-release/rules/convention-defaults</loc>

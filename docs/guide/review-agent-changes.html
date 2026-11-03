@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html" aria-current="page">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -154,6 +166,7 @@
 <ul>
 <li><a href="#what-it-is">What it is</a></li>
 <li><a href="#review-a-proposal">Review a proposal</a></li>
+<li><a href="#the-receipt">The receipt</a></li>
 <li><a href="#the-picture-and-the-source">The picture and the source</a></li>
 <li><a href="#the-proposal-on-the-canvas">The proposal on the canvas</a></li>
 <li><a href="#what-penstock-checks-before-it-allows">What Penstock checks before it allows</a></li>
@@ -178,6 +191,10 @@
 </ol>
 
 <p>The note next to the buttons says that undo takes an allowed change back. An answer to a write holds for that one question and is not remembered: there is no <em>Always</em>.</p>
+
+<h2 id="the-receipt"><a href="#the-receipt">The receipt</a></h2>
+
+<p>After a change is written, Penstock records a verification receipt: what changed, the Check result before and after with the new findings named, the scenarios run, and a verdict. The chat shows it as a card under the answer, and Pro hands new errors back to the agent to fix. See <a href="ai-receipt.html">AI receipt and auto-repair</a>.</p>
 
 <h2 id="the-picture-and-the-source"><a href="#the-picture-and-the-source">The picture and the source</a></h2>
 
@@ -270,11 +287,12 @@
 <li><a href="../guide/edit-diagrams.html">Edit from the command line</a> - Change a diagram from a script or an assistant, with the editor's own modelling.</li>
 <li><a href="../guide/diagram-check.html">Diagram check</a> - The card that lists what is wrong.</li>
 <li><a href="../cli/mcp.html">The MCP server</a> - Let an AI assistant read, check and edit your diagrams.</li>
+<li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a> - What an agent changed, checked and verified, and how a failed check goes back to it.</li>
 </ul>
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/ai-chat.html"><span>Previous</span>AI chat</a>
-<a class="next" href="../guide/scripts.html"><span>Next</span>Scripts in their own tab</a>
+<a class="next" href="../guide/ai-receipt.html"><span>Next</span>AI receipt and auto-repair</a>
 </nav>
 </main>
 </div>

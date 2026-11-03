@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -218,16 +230,21 @@
 <a class="card" href="../guide/suggestions.html"><strong>Suggestions</strong><span>The next element and the next value, offered when Penstock is sure.</span></a>
 <a class="card" href="../guide/ai-chat.html"><strong>AI chat</strong><span>Ask or steer an AI agent from the foot of the editor.</span></a>
 <a class="card" href="../guide/review-agent-changes.html"><strong>Review the changes an agent proposes</strong><span>See a proposed change on the canvas, and accept or reject it.</span></a>
+<a class="card" href="../guide/ai-receipt.html"><strong>AI receipt and auto-repair</strong><span>What an agent changed, checked and verified, and how a failed check goes back to it.</span></a>
 <a class="card" href="../guide/scripts.html"><strong>Scripts in their own tab</strong><span>Edit an inline script as a real file in your code editor.</span></a>
 <a class="card" href="../guide/element-templates.html"><strong>Element templates</strong><span>Ready-made tasks and connectors.</span></a>
 <a class="card" href="../guide/dmn-editor.html"><strong>The DMN editor</strong><span>Decision tables, trying a table with values, spreadsheets and the requirements diagram.</span></a>
+<a class="card" href="../guide/dmn-tests.html"><strong>DMN tests</strong><span>Saved test cases for a decision table, rule coverage and penstock test dmn.</span></a>
 <a class="card" href="../guide/form-editor.html"><strong>The form editor</strong><span>Camunda Forms, drawn, previewed and checked.</span></a>
+<a class="card" href="../guide/cmmn.html"><strong>CMMN case models</strong><span>A read-only viewer for Camunda 7 and Flowable case models, with its own checks.</span></a>
 <a class="card" href="../guide/auto-layout.html"><strong>Auto layout</strong><span>Tidy a diagram in one click.</span></a>
 </div>
 <h2 id="check-your-work"><a href="#check-your-work">Check your work</a></h2>
 <div class="cards">
 <a class="card" href="../guide/diagram-check.html"><strong>Diagram check</strong><span>The card that lists what is wrong.</span></a>
 <a class="card" href="../rules/"><strong>Every rule</strong><span>One page for each check: why it matters and how to fix it.</span></a>
+<a class="card" href="../guide/connections.html"><strong>Connections map</strong><span>The secrets and MCP clients a diagram names, and where the project defines them.</span></a>
+<a class="card" href="../guide/camunda-agents.html"><strong>AI agents of Camunda 8</strong><span>Every AI agent task with its model, tools, limits and MCP clients, and its checks.</span></a>
 <a class="card" href="../guide/validation.html"><strong>Validation with bpmnlint</strong><span>The modelling rules, and how to change them.</span></a>
 <a class="card" href="../guide/flow-analysis.html"><strong>Flow analysis</strong><span>Deadlocks, dead steps and loops, found before you run anything.</span></a>
 <a class="card" href="../guide/token-simulation.html"><strong>Token simulation</strong><span>Watch a token walk through the process.</span></a>
@@ -242,7 +259,10 @@
 <a class="card" href="../guide/scenario-file.html"><strong>The scenario file</strong><span>The test-case format, the instructions Penstock runs and refuses, and x-penstock.</span></a>
 <a class="card" href="../guide/process-tests.html"><strong>Process tests and coverage</strong><span>A JUnit test for every way through a process.</span></a>
 <a class="card" href="../guide/deployment.html"><strong>Deployment</strong><span>Send diagrams to your engine.</span></a>
+<a class="card" href="../guide/drift-promote.html"><strong>Drift, promote and protected environments</strong><span>Compare an environment with the files, deploy only what changed, promote dev to prod.</span></a>
 <a class="card" href="../guide/monitor.html"><strong>Monitor</strong><span>See what waits at each step, and where the incidents are, right now.</span></a>
+<a class="card" href="../guide/heat-map-replay.html"><strong>Heat map and replay</strong><span>Where instances spend time and fail, and a step-by-step replay of a real instance.</span></a>
+<a class="card" href="../guide/incident-to-fix.html"><strong>Incident to fix</strong><span>Reproduce an incident as a scenario, propose a fix and send it, in one loop.</span></a>
 <a class="card" href="../guide/check-workers.html"><strong>Check Workers</strong><span>Ask the engine whether anything picks up your tasks.</span></a>
 <a class="card" href="../guide/code-links.html"><strong>Code links</strong><span>Jump between a task and the code that runs it, and find where they disagree.</span></a>
 </div>
@@ -250,6 +270,8 @@
 <div class="cards">
 <a class="card" href="../guide/engine-profiles.html"><strong>Engines</strong><span>Camunda 7, Camunda 8, Operaton, CIB seven, Flowable and Activiti.</span></a>
 <a class="card" href="../guide/settings.html"><strong>penstock.yaml</strong><span>The one file that describes your project, and every key in it.</span></a>
+<a class="card" href="../guide/policy-pack.html"><strong>Policy pack</strong><span>Your team's rules, conventions and checks in a pinned folder in git.</span></a>
+<a class="card" href="../guide/languages.html"><strong>Interface languages</strong><span>The 18 languages of the editors, the command line and the IDEs.</span></a>
 <a class="card" href="../guide/agents.html"><strong>AI agents</strong><span>Install, turn on and choose the agent that answers the chat.</span></a>
 <a class="card" href="../guide/profiles.html"><strong>Profiles</strong><span>Named settings for dev, test and prod.</span></a>
 <a class="card" href="../guide/project-model.html"><strong>Your project as a model</strong><span>Processes, workers, variables, messages, decisions and forms, and how they connect.</span></a>
@@ -258,10 +280,12 @@
 <h2 id="share-and-move"><a href="#share-and-move">Share and move</a></h2>
 <div class="cards">
 <a class="card" href="../guide/export.html"><strong>Export</strong><span>Save the diagram as SVG, PNG or PDF.</span></a>
+<a class="card" href="../guide/evidence-pack.html"><strong>Evidence pack</strong><span>One package for an audit, with a SHA-256 of every file.</span></a>
 <a class="card" href="../guide/diagram-diff.html"><strong>Diagram diff</strong><span>Compare two versions of a diagram, side by side.</span></a>
 <a class="card" href="../guide/share-html.html"><strong>Share as HTML</strong><span>One offline file anyone can open.</span></a>
 <a class="card" href="../guide/import.html"><strong>Import a diagram</strong><span>Bring in draw.io, Visio, Signavio and Bizagi files.</span></a>
 <a class="card" href="../guide/migration.html"><strong>Camunda 7 to 8</strong><span>See what does not carry over, convert, and write a report.</span></a>
+<a class="card" href="../guide/refactoring.html"><strong>Refactoring across the project</strong><span>Rename a variable, message, job type or process everywhere, or extract a subprocess.</span></a>
 <a class="card" href="../guide/edit-diagrams.html"><strong>Edit from the command line</strong><span>Change a diagram from a script or an assistant, with the editor's own modelling.</span></a>
 </div>
 <h2 id="plans-privacy-and-help"><a href="#plans-privacy-and-help">Plans, privacy and help</a></h2>

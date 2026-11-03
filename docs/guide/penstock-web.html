@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -158,6 +170,7 @@
 <li><a href="#tabs-groups-and-splits">Tabs, groups and splits</a></li>
 <li><a href="#saving-and-changes-made-elsewhere">Saving, and changes made elsewhere</a></li>
 <li><a href="#code-and-comparing-with-git">Code, and comparing with Git</a></li>
+<li><a href="#project-screens">Project screens</a></li>
 <li><a href="#settings-and-the-licence">Settings and the licence</a></li>
 <li><a href="#common-problems">Common problems</a></li>
 </ul>
@@ -267,6 +280,10 @@
   <li><strong>Rename a linked name.</strong> After you rename a job type, a topic or a class, Penstock offers to rename it in the other files that write it, with a plan to review and a check that nothing changed in between. It is a Pro feature.</li>
   <li><strong>Templates and import.</strong> Connector templates are installed into the project and diagrams are imported into it from the page, and copy and paste works between tabs.</li>
 </ul>
+
+<h2 id="project-screens"><a href="#project-screens">Project screens</a></h2>
+
+<p>Some screens belong to the whole project, not to one file. In Penstock Web they are in the command palette and the sidebar: <strong>Drift</strong> (environments as columns, resources as rows, a chip per state), <strong>Policy</strong>, the <strong>Migration workspace</strong>, <strong>Connections</strong> (a node of the sidebar with a finding for every problem, and an action that opens the map) and <strong>Agents</strong>. The <span class="ui">More</span> menu and the palette of the BPMN, DMN and form editors also have <span class="ui">Create evidence pack&hellip;</span> and <span class="ui">Refactor&hellip;</span>. See <a href="drift-promote.html">Drift, promote and protected environments</a>, <a href="policy-pack.html">Policy pack</a>, <a href="migration.html">Camunda 7 to Camunda 8</a>, <a href="connections.html">Connections map</a>, <a href="camunda-agents.html">AI agents of Camunda 8</a>, <a href="evidence-pack.html">Evidence pack</a> and <a href="refactoring.html">Refactoring across the project</a>. A <code>.cmmn</code> file opens in a read-only viewer (<a href="cmmn.html">CMMN case models</a>), and JSON files in the element template folders open in the <a href="element-templates.html">element template editor</a>.</p>
 
 <h2 id="settings-and-the-licence"><a href="#settings-and-the-licence">Settings and the licence</a></h2>
 

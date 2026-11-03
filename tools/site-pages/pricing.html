@@ -18,7 +18,7 @@ checkout: true
 
 <h2 id="if-you-used-the-old-plugin">If you used Camunda BPMN Editor before</h2>
 
-<p>Penstock is the same plugin under a new name. It updated in place, so nothing needed to be reinstalled. The version number jumped from 2.4.1 to 26.9.0 because releases are now numbered by the calendar: <code>26.10.2</code> is the second release of October 2026.</p>
+<p>Penstock is the same plugin under a new name. It updated in place, so nothing needed to be reinstalled. The version number jumped from 2.4.1 to 26.9.0 because releases are now numbered by the calendar: <code>26.11.0</code> is the first release of November 2026.</p>
 
 <p>What the plugin did then is still free: the BPMN, DMN and form editors, the properties panels, element templates, token simulation, bpmnlint, the check, deploy, Monitor, export and the tool window. Everything new since 2.4.1 that only Penstock does, such as flow analysis, code links, scenarios and the AI chat, is Pro.</p>
 
@@ -31,6 +31,7 @@ checkout: true
   <li>A Pro feature shows a short message that says what it does and offers to buy or to sign in. Nothing is deleted and no file is changed.</li>
   <li>The trial is per machine. The licence service keeps its start date, so reinstalling does not start a second one.</li>
   <li>A pipeline gets no trial: a run where <code>CI</code> is set is Free unless it has a Team key.</li>
+  <li>When the trial has just started on a fresh install, Penstock shows one welcome, once: <em>Try every Pro feature free for 30 days</em>. It says that the main Free features stay free, with no time limit, and nothing is lost, and it has a button to the plans. It is never shown to someone who already had Penstock, a trial, a licence or a token, after the trial ended, or in a pipeline.</li>
 </ul>
 
 <h2 id="compare">Compare plans</h2>
@@ -39,21 +40,31 @@ checkout: true
   <thead><tr><th>What</th><th>Free</th><th>Pro, on your machine</th><th>Team, in a pipeline</th></tr></thead>
   <tbody>
   <tr class="group"><th colspan="4">Draw and edit</th></tr>
-  <tr><td>BPMN, DMN and form editors, properties panels, element templates, command palette</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>BPMN, DMN and form editors, properties panels, element templates and the element template editor, command palette, 18 interface languages</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Auto layout</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>AI chat with the agent of your choice</td><td>You can see the input. Sending a message needs Pro.</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Refactoring: renaming one name across the project (<code>refactor rename</code>)</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Bulk renames and extracting a subprocess into its own process (<code>refactor bulk</code>, <code>refactor extract</code>)</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr class="group"><th colspan="4">Check</th></tr>
+  <tr><td>Other editors: <code>penstock lsp</code> language server</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Connections map and its rules, CMMN case model viewer and its rules, AI agents of Camunda 8 and their rules</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Comparing the connections of two environments (<code>connections --env --against</code>)</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Policy pack: showing the active policy; writing it (<code>policy init</code>, <code>add-rule</code>, <code>pin</code>, <code>verify</code>, <code>sync</code>)</td><td>Showing is included. Writing is not.</td><td class="yes">Included</td><td class="yes">Included, and enforced in a pipeline</td></tr>
   <tr><td>The check: drawing problems and bpmnlint rules, token simulation</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Flow analysis, decision table check, modelling conventions</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr class="group"><th colspan="4">Test and run</th></tr>
   <tr><td>Deploy and Monitor</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Scenarios (test-case runs on a local engine), debug a process</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Drift of one environment, <code>deploy --only-changed</code>, DMN tests (3 cases per decision), incident scenario preview, and the verdict of an AI receipt</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Drift between two environments, <code>promote</code>, more than 3 DMN test cases per decision, <code>test dmn</code> JUnit output and minimum coverage, saving and running an incident scenario, Fix end to end, heat map, replay, auto-repair and the full AI receipt, <code>check --require-receipt</code></td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Code links between tasks and workers, Check Workers, coverage on the diagram</td><td>Not included. Going from a Camunda 7 delegate to its class is free.</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr class="group"><th colspan="4">Share and move</th></tr>
-  <tr><td>Export, share as one HTML file, import from draw.io, Visio, Signavio and Bizagi</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Export, share as one HTML file, import from draw.io, Visio, Signavio, Bizagi, Flowable and Camunda Modeler projects, verifying an evidence pack</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Camunda 7 to 8 analysis and report</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
-  <tr><td>Camunda 7 to 8 conversion</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Camunda 7 to 8 conversion, <code>migrate verify</code> beyond its first 3 scenarios, and <code>migrate agents --write</code></td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>Visual diagram diff in version control</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Building an evidence pack (<code>evidence build</code>); its policy and environments sections are Team</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
+  <tr><td>Element templates from an API description (<code>templates generate</code>); the first 3 operations are previewed free</td><td>Preview only</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr class="group"><th colspan="4">AI assistants and MCP</th></tr>
   <tr><td>MCP tools that only read: list, show and check diagrams</td><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
   <tr><td>MCP tools that analyse flow, list scenarios, check code links and edit diagrams</td><td>Not included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
