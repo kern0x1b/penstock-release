@@ -1,0 +1,756 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock-receipt.schema.json",
+  "title": "Penstock verification receipt",
+  "description": "What Penstock verified about a change an AI agent, or a person, made to the project files: hashes and names, never file contents or secret values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "createdAt",
+    "source",
+    "tool",
+    "agent",
+    "files",
+    "checks",
+    "scenarios",
+    "executable",
+    "layout",
+    "connections",
+    "attempts",
+    "maxAttempts",
+    "exhausted",
+    "verdict"
+  ],
+  "properties": {
+    "schema": {
+      "const": "penstock-receipt/1",
+      "description": "The version of this format."
+    },
+    "createdAt": {
+      "type": "string",
+      "maxLength": 40,
+      "description": "When the receipt was made, ISO 8601."
+    },
+    "source": {
+      "enum": [
+        "chat",
+        "mcp",
+        "cli"
+      ],
+      "description": "chat: the AI chat; mcp: a tool of the MCP server; cli: penstock receipt verify."
+    },
+    "tool": {
+      "oneOf": [
+        {
+          "type": "string",
+          "maxLength": 100
+        },
+        {
+          "enum": [
+            null
+          ]
+        }
+      ]
+    },
+    "agent": {
+      "oneOf": [
+        {
+          "type": "string",
+          "maxLength": 100
+        },
+        {
+          "enum": [
+            null
+          ]
+        }
+      ]
+    },
+    "files": {
+      "type": "array",
+      "maxItems": 200,
+      "description": "The files the change touched, relative to the project root, with the SHA-256 before and after.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "change",
+          "before",
+          "after",
+          "diff",
+          "formattingOnly"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "kind": {
+            "enum": [
+              "process",
+              "decision",
+              "form",
+              "case",
+              "template",
+              "tests",
+              "config",
+              "other"
+            ]
+          },
+          "change": {
+            "enum": [
+              "added",
+              "removed",
+              "changed"
+            ]
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$",
+                "description": "SHA-256 of the file, as 64 lowercase hexadecimal characters."
+              },
+              {
+                "enum": [
+                  null
+                ]
+              }
+            ]
+          },
+          "after": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$",
+                "description": "SHA-256 of the file, as 64 lowercase hexadecimal characters."
+              },
+              {
+                "enum": [
+                  null
+                ]
+              }
+            ]
+          },
+          "diff": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "added",
+                  "removed",
+                  "changed",
+                  "moved",
+                  "addedElements",
+                  "removedElements",
+                  "changedElements"
+                ],
+                "properties": {
+                  "added": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000000
+                  },
+                  "removed": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000000
+                  },
+                  "changed": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000000
+                  },
+                  "moved": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000000
+                  },
+                  "addedElements": {
+                    "type": "array",
+                    "maxItems": 25,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "maxLength": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "maxLength": 100
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 400
+                        }
+                      }
+                    }
+                  },
+                  "removedElements": {
+                    "type": "array",
+                    "maxItems": 25,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "maxLength": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "maxLength": 100
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 400
+                        }
+                      }
+                    }
+                  },
+                  "changedElements": {
+                    "type": "array",
+                    "maxItems": 25,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "type"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "maxLength": 200
+                        },
+                        "type": {
+                          "type": "string",
+                          "maxLength": 100
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 400
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "enum": [
+                  null
+                ]
+              }
+            ]
+          },
+          "formattingOnly": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ran",
+        "reason",
+        "before",
+        "after",
+        "fresh",
+        "freshCount",
+        "resolved"
+      ],
+      "properties": {
+        "ran": {
+          "type": "boolean"
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "enum": [
+                "failed"
+              ]
+            },
+            {
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "rules": {
+          "enum": [
+            "project",
+            "built-in"
+          ],
+          "description": "Whether the check applied the project rules, or the built-in rules only."
+        },
+        "rulesReason": {
+          "oneOf": [
+            {
+              "enum": [
+                "project-changed",
+                "untrusted",
+                "not-inspected"
+              ]
+            },
+            {
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "errors",
+            "warnings",
+            "notes"
+          ],
+          "properties": {
+            "errors": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "warnings": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "notes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          }
+        },
+        "after": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "errors",
+            "warnings",
+            "notes"
+          ],
+          "properties": {
+            "errors": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "warnings": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "notes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          }
+        },
+        "fresh": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "rule",
+              "severity",
+              "elements",
+              "message"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "rule": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "severity": {
+                "enum": [
+                  "error",
+                  "warning",
+                  "note"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "message": {
+                "type": "string",
+                "maxLength": 200
+              }
+            }
+          },
+          "description": "The findings the change introduced."
+        },
+        "freshCount": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "errors",
+            "warnings",
+            "notes"
+          ],
+          "properties": {
+            "errors": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "warnings": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "notes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          }
+        },
+        "resolved": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        }
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason",
+        "results",
+        "passed",
+        "failed"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ran",
+            "skipped"
+          ]
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "enum": [
+                "no-processes",
+                "not-licensed",
+                "no-cases",
+                "no-engine",
+                "not-for-tests",
+                "failed",
+                "stopped",
+                "executable-added",
+                "project-changed",
+                "not-asked",
+                "deployable-changed",
+                "not-inspected"
+              ]
+            },
+            {
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "about": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024
+            },
+            {
+              "enum": [
+                null
+              ]
+            }
+          ]
+        },
+        "results": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "diagram",
+              "name",
+              "outcome",
+              "previous"
+            ],
+            "properties": {
+              "diagram": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "name": {
+                "type": "string",
+                "maxLength": 400
+              },
+              "outcome": {
+                "enum": [
+                  "passed",
+                  "failed",
+                  "skipped"
+                ]
+              },
+              "previous": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "passed",
+                      "failed",
+                      "skipped"
+                    ]
+                  },
+                  {
+                    "enum": [
+                      null
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        }
+      }
+    },
+    "executable": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "kind",
+          "element"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "kind": {
+            "enum": [
+              "script",
+              "listener",
+              "service",
+              "connector",
+              "expression",
+              "other"
+            ]
+          },
+          "element": {
+            "type": "string",
+            "maxLength": 200
+          }
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applied",
+        "moved"
+      ],
+      "properties": {
+        "applied": {
+          "type": "boolean"
+        },
+        "moved": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        }
+      }
+    },
+    "connections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "introduced"
+      ],
+      "properties": {
+        "introduced": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "rule",
+              "severity",
+              "elements",
+              "message"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "rule": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "severity": {
+                "enum": [
+                  "error",
+                  "warning",
+                  "note"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              },
+              "message": {
+                "type": "string",
+                "maxLength": 200
+              }
+            }
+          }
+        }
+      }
+    },
+    "attempts": {
+      "type": "array",
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "n",
+          "at",
+          "newErrors",
+          "newFindings",
+          "handedBack"
+        ],
+        "properties": {
+          "n": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000000
+          },
+          "at": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "newErrors": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000000
+          },
+          "newFindings": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000000
+          },
+          "handedBack": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "maxAttempts": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "exhausted": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reasons"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "verified",
+            "findings",
+            "not-verified"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "maxItems": 11,
+          "items": {
+            "enum": [
+              "new-errors",
+              "new-warnings",
+              "scenario-failed",
+              "executable-added",
+              "connections-introduced",
+              "unreadable",
+              "too-many-files",
+              "too-large",
+              "check-failed",
+              "built-in-rules",
+              "scenarios-withheld"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

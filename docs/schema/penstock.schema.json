@@ -137,6 +137,51 @@
         }
       }
     },
+    "ai": {
+      "description": "How a change an AI agent makes is verified, and what a pipeline requires of it.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "verify": {
+          "description": "The verification receipt of an AI change: the check before and after, the diff in the diagram's own terms, the scenarios, and the verdict. The auto-repair loop, stored receipts and the pipeline gate are part of Penstock Pro, and Team in a pipeline.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "attempts": {
+              "description": "How many times the agent is handed the new errors of its change to fix them before Penstock stops asking. 3 by default, 0 turns the loop off, at most 10.",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10,
+              "default": 3
+            },
+            "keepReceipts": {
+              "description": "Write each receipt to .penstock/receipts/<timestamp>-<name>.json. Off by default: nothing is written without it.",
+              "type": "boolean",
+              "default": false
+            },
+            "requireReceipt": {
+              "description": "In a pipeline, penstock check fails when a change made by an agent has no matching receipt, as with --require-receipt.",
+              "type": "boolean",
+              "default": false
+            },
+            "agentPaths": {
+              "description": "Folders, relative to the project root, whose files count as made by an agent for the pipeline gate, besides the commits that carry an Assisted-by trailer or a Co-authored-by trailer naming an agent.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "agents": {
+              "description": "Names that make a Co-authored-by trailer count as an agent. Without it: claude, anthropic, copilot, codex, openai, gemini, cursor, opencode, aider and devin.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "tests": {
       "description": "Where `penstock junit` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
       "type": "object",
@@ -218,6 +263,10 @@
         },
         "forTests": {
           "description": "This engine is for tests: Penstock may deploy test builds and answer jobs on it when it runs test cases.",
+          "type": "boolean"
+        },
+        "protected": {
+          "description": "This environment is protected: penstock promote and penstock deploy refuse it without --confirm <environment name>, and in a pipeline promote also needs an approval record (--approve-file). Anything but false protects it. It is not read from an environment variable.",
           "type": "boolean"
         },
         "activationTime": {
@@ -405,6 +454,51 @@
             }
           }
         },
+        "ai": {
+          "description": "How a change an AI agent makes is verified, and what a pipeline requires of it.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verify": {
+              "description": "The verification receipt of an AI change: the check before and after, the diff in the diagram's own terms, the scenarios, and the verdict. The auto-repair loop, stored receipts and the pipeline gate are part of Penstock Pro, and Team in a pipeline.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "attempts": {
+                  "description": "How many times the agent is handed the new errors of its change to fix them before Penstock stops asking. 3 by default, 0 turns the loop off, at most 10.",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10,
+                  "default": 3
+                },
+                "keepReceipts": {
+                  "description": "Write each receipt to .penstock/receipts/<timestamp>-<name>.json. Off by default: nothing is written without it.",
+                  "type": "boolean",
+                  "default": false
+                },
+                "requireReceipt": {
+                  "description": "In a pipeline, penstock check fails when a change made by an agent has no matching receipt, as with --require-receipt.",
+                  "type": "boolean",
+                  "default": false
+                },
+                "agentPaths": {
+                  "description": "Folders, relative to the project root, whose files count as made by an agent for the pipeline gate, besides the commits that carry an Assisted-by trailer or a Co-authored-by trailer naming an agent.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "agents": {
+                  "description": "Names that make a Co-authored-by trailer count as an agent. Without it: claude, anthropic, copilot, codex, openai, gemini, cursor, opencode, aider and devin.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "tests": {
           "description": "Where `penstock junit` writes the tests it generates. By default each diagram gets them in its own module - the nearest folder with a Gradle or Maven build - in the language and package that module already uses.",
           "type": "object",
@@ -486,6 +580,10 @@
             },
             "forTests": {
               "description": "This engine is for tests: Penstock may deploy test builds and answer jobs on it when it runs test cases.",
+              "type": "boolean"
+            },
+            "protected": {
+              "description": "This environment is protected: penstock promote and penstock deploy refuse it without --confirm <environment name>, and in a pipeline promote also needs an approval record (--approve-file). Anything but false protects it. It is not read from an environment variable.",
               "type": "boolean"
             },
             "activationTime": {

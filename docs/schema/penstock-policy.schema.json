@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock-policy.schema.json",
+  "title": "Penstock policy pack",
+  "description": "The policy.json at the top of a policy pack folder (.penstock/policy by default). A pack is data only: it holds the rules, severities, conventions, palette, element templates and baselines a team shares, and penstock policy pin records a hash of every file in the folder so that a change to any of them is seen. Nothing in a pack is run, and a plugin or script entry is refused.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "version"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "The address of this schema, for editors."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "The name editors and findings show, for example acme-bpmn-standards. Letters, digits, dots, dashes and underscores."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000,
+      "description": "The version of the policy; raise it when the pack changes."
+    },
+    "rules": {
+      "type": "object",
+      "maxProperties": 500,
+      "description": "The bpmnlint rules the pack sets, by rule name as it is written in .bpmnlintrc, for example label-required or camunda-compat/user-task-form.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "error",
+              "warn",
+              "off"
+            ],
+            "description": "error, warn or off."
+          },
+          "forced": {
+            "type": "boolean",
+            "description": "When true the project may not turn the rule off or lower its severity, and a pipeline fails if it does. Not allowed together with off."
+          }
+        }
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The conventions for ids and for the defaults of new elements, as penstock.yaml has them. The project may add to them.",
+      "properties": {
+        "ids": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fromName": {
+              "type": "boolean",
+              "description": "Name the id of a new element after its name."
+            },
+            "pattern": {
+              "type": "string",
+              "maxLength": 120,
+              "description": "The id pattern, with {Type} and {Name}. It is a template, never a regular expression."
+            }
+          }
+        },
+        "defaults": {
+          "type": "object",
+          "description": "Properties a new element of a type starts with, by BPMN type.",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        }
+      }
+    },
+    "palette": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "The most the palette may offer. A project may narrow it and a pipeline fails when it widens it.",
+      "items": {
+        "enum": [
+          "start-event",
+          "intermediate-event",
+          "end-event",
+          "gateway",
+          "task",
+          "data-object",
+          "data-store",
+          "sub-process",
+          "participant",
+          "group"
+        ]
+      }
+    },
+    "templates": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      },
+      "description": "Folders or files of the pack, relative to it, that hold element templates; they are added to the project's element templates."
+    },
+    "baselines": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      },
+      "description": "Files of the pack, relative to it, in the format of penstock-baseline.json; findings they accept are not reported."
+    },
+    "requiredChecks": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What a pipeline requires before penstock check passes with this policy.",
+      "properties": {
+        "check": {
+          "type": "boolean",
+          "description": "The check itself passes. On unless set to false."
+        },
+        "scenarios": {
+          "type": "boolean",
+          "description": "penstock scenarios run was run on the current files and passed."
+        },
+        "dmnTests": {
+          "type": "boolean",
+          "description": "penstock test dmn was run on the current files and passed."
+        },
+        "receipt": {
+          "type": "boolean",
+          "description": "Every change an agent made has a valid receipt."
+        }
+      }
+    }
+  }
+}

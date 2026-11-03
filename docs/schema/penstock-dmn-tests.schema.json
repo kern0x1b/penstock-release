@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/kern0x1b/penstock-release/main/docs/schema/penstock-dmn-tests.schema.json",
+  "title": "Penstock DMN test cases",
+  "description": "Saved test cases for the decision tables of a DMN file, kept next to it as <name>.dmn.tests.json. Penstock runs them on the decision table and shows which rules each case matched.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "cases"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "The address of this schema, for editors."
+    },
+    "schema": {
+      "const": "penstock-dmn-tests/1",
+      "description": "The version of this format."
+    },
+    "cases": {
+      "type": "array",
+      "maxItems": 1000,
+      "description": "One entry per test case, run in this order.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "decision",
+          "inputs",
+          "expected"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "What the case shows."
+          },
+          "decision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "The id of the decision, which can be a decision table or a decision that requires others."
+          },
+          "inputs": {
+            "type": "object",
+            "maxProperties": 100,
+            "propertyNames": {
+              "maxLength": 200
+            },
+            "additionalProperties": {},
+            "description": "The values the decision starts with, by the input expression of each decision table; a name with a dot reaches into an object."
+          },
+          "expected": {
+            "type": "object",
+            "maxProperties": 100,
+            "propertyNames": {
+              "maxLength": 200
+            },
+            "additionalProperties": {},
+            "description": "The outputs the decision must give, by output name. Only the outputs listed are compared; none listed means no rule may match."
+          },
+          "rules": {
+            "type": "array",
+            "maxItems": 500,
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "description": "Optional: the numbers of the rules that must be the ones applied, counted from 1."
+          }
+        }
+      }
+    }
+  }
+}
