@@ -90,6 +90,24 @@ const FAMILIES = {
     guide: ['code-links', 'Code links'],
     where: () => `<p>The <strong>Problems</strong> tab lists it under <strong>Code</strong>. In a terminal, <code>penstock code</code> reports it with the file and line. This check is part of Penstock Pro, and Team in a pipeline.</p>`,
   },
+  connections: {
+    pro: false,
+    proIds: ['connections/secret-missing-in-env', 'connections/key-missing-in-env'],
+    guide: ['connections', 'Connections map'],
+    where: (rule) => `<p>The <strong>Problems</strong> tab lists it under <strong>Connections</strong>, the Connections screen shows it beside the map, and <code>penstock check --only connections</code> reports it as <code>${rule.id}</code>. It also appears in the SARIF and GitHub outputs. ${
+      FAMILIES.connections.proIds.includes(rule.id) ? 'Comparing two environments is part of Penstock Pro, and Team in a pipeline.' : 'This check is free.'
+    }</p>`,
+  },
+  agents: {
+    pro: false,
+    guide: ['camunda-agents', 'AI agents of Camunda 8'],
+    where: (rule) => `<p>The <strong>Problems</strong> tab of the BPMN editor lists it, the Agents tab shows it on the agent it belongs to, and <code>penstock check</code> reports it as <code>${rule.id}</code>. It runs on <code>.bpmn</code> files and is free.</p>`,
+  },
+  cmmn: {
+    pro: false,
+    guide: ['cmmn', 'CMMN case models'],
+    where: (rule) => `<p>The <strong>Problems</strong> tab of the case model viewer lists it, and <code>penstock check</code> reports it as <code>${rule.id}</code> for every <code>.cmmn</code> file. It is free.</p>`,
+  },
   convention: {
     pro: true,
     guide: ['settings', 'penstock.yaml'],
@@ -119,7 +137,7 @@ const familyOf = (rule) => rule.id.split('/')[0];
 for (const rule of rules) {
   const family = FAMILIES[familyOf(rule)];
   const [guideSlug, guideTitle] = family.guide;
-  const levelTags = [rule.severity, ...(family.pro ? ['pro'] : [])].join(',');
+  const levelTags = [rule.severity, ...(family.pro || family.proIds?.includes(rule.id) ? ['pro'] : [])].join(',');
   const body = `<h2>Why it matters</h2>
 <p>${inline(rule.why)}</p>
 
@@ -178,7 +196,7 @@ const familyOfSection = (section) => FAMILIES[section.ids[0].split('/')[0]];
 const groupLink = (section) => `<a href="#${slugOf(section.title)}">${escapeHtml(section.title.toLowerCase())}</a>`;
 const paidGroups = sections.filter((section) => familyOfSection(section).pro);
 const paidNames = paidGroups.map((section) => escapeHtml(section.title.toLowerCase()));
-const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: ${sections.map(groupLink).join(', ')}. The groups ${paidNames.length > 1 ? `${paidNames.slice(0, -1).join(', ')}, and ${paidNames.at(-1)}` : paidNames.join('')} are part of Pro. The rest is free.</p>`;
+const groupsSentence = `<p>${rules.length} rules in ${sections.length} groups: ${sections.map(groupLink).join(', ')}. The groups ${paidNames.length > 1 ? `${paidNames.slice(0, -1).join(', ')}, and ${paidNames.at(-1)}` : paidNames.join('')} are part of Pro. The rest is free, except that comparing two environments in the connections group is Pro.</p>`;
 
 const indexBody = `<h2>How to read a rule page</h2>
 

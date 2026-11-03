@@ -77,10 +77,13 @@
       <li><a href="../guide/suggestions.html">Suggestions</a></li>
       <li><a href="../guide/ai-chat.html">AI chat</a></li>
       <li><a href="../guide/review-agent-changes.html">Review the changes an agent proposes</a></li>
+      <li><a href="../guide/ai-receipt.html">AI receipt and auto-repair</a></li>
       <li><a href="../guide/scripts.html">Scripts in their own tab</a></li>
       <li><a href="../guide/element-templates.html">Element templates</a></li>
       <li><a href="../guide/dmn-editor.html">The DMN editor</a></li>
+      <li><a href="../guide/dmn-tests.html">DMN tests</a></li>
       <li><a href="../guide/form-editor.html">The form editor</a></li>
+      <li><a href="../guide/cmmn.html">CMMN case models</a></li>
       <li><a href="../guide/auto-layout.html">Auto layout</a></li>
     </ul>
     </details>
@@ -89,6 +92,8 @@
     <ul>
       <li><a href="../guide/diagram-check.html">Diagram check</a></li>
       <li><a href="../rules/" aria-current="page">Every rule</a></li>
+      <li><a href="../guide/connections.html">Connections map</a></li>
+      <li><a href="../guide/camunda-agents.html">AI agents of Camunda 8</a></li>
       <li><a href="../guide/validation.html">Validation with bpmnlint</a></li>
       <li><a href="../guide/flow-analysis.html">Flow analysis</a></li>
       <li><a href="../guide/token-simulation.html">Token simulation</a></li>
@@ -105,7 +110,10 @@
       <li><a href="../guide/scenario-file.html">The scenario file</a></li>
       <li><a href="../guide/process-tests.html">Process tests and coverage</a></li>
       <li><a href="../guide/deployment.html">Deployment</a></li>
+      <li><a href="../guide/drift-promote.html">Drift, promote and protected environments</a></li>
       <li><a href="../guide/monitor.html">Monitor</a></li>
+      <li><a href="../guide/heat-map-replay.html">Heat map and replay</a></li>
+      <li><a href="../guide/incident-to-fix.html">Incident to fix</a></li>
       <li><a href="../guide/check-workers.html">Check Workers</a></li>
       <li><a href="../guide/code-links.html">Code links</a></li>
     </ul>
@@ -115,6 +123,8 @@
     <ul>
       <li><a href="../guide/engine-profiles.html">Engines</a></li>
       <li><a href="../guide/settings.html">penstock.yaml</a></li>
+      <li><a href="../guide/policy-pack.html">Policy pack</a></li>
+      <li><a href="../guide/languages.html">Interface languages</a></li>
       <li><a href="../guide/agents.html">AI agents</a></li>
       <li><a href="../guide/profiles.html">Profiles</a></li>
       <li><a href="../guide/project-model.html">Your project as a model</a></li>
@@ -125,10 +135,12 @@
     <summary>Share and move</summary>
     <ul>
       <li><a href="../guide/export.html">Export</a></li>
+      <li><a href="../guide/evidence-pack.html">Evidence pack</a></li>
       <li><a href="../guide/diagram-diff.html">Diagram diff</a></li>
       <li><a href="../guide/share-html.html">Share as HTML</a></li>
       <li><a href="../guide/import.html">Import a diagram</a></li>
       <li><a href="../guide/migration.html">Camunda 7 to 8</a></li>
+      <li><a href="../guide/refactoring.html">Refactoring across the project</a></li>
       <li><a href="../guide/edit-diagrams.html">Edit from the command line</a></li>
     </ul>
     </details>
@@ -161,6 +173,9 @@
 <li><a href="#decision-tables">Decision tables</a></li>
 <li><a href="#forms">Forms</a></li>
 <li><a href="#diagrams-and-code">Diagrams and code</a></li>
+<li><a href="#connections">Connections</a></li>
+<li><a href="#ai-agents">AI agents</a></li>
+<li><a href="#cmmn-case-models">CMMN case models</a></li>
 <li><a href="#modelling-conventions">Modelling conventions</a></li>
 </ul>
 </nav>
@@ -177,7 +192,7 @@
   </tbody>
 </table></div></div>
 
-<p>162 rules in 9 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#flowable-and-activiti">flowable and activiti</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free.</p>
+<p>185 rules in 12 groups: <a href="#modelling-rules">modelling rules</a>, <a href="#engine-compatibility">engine compatibility</a>, <a href="#flowable-and-activiti">flowable and activiti</a>, <a href="#drawing">drawing</a>, <a href="#process-flow">process flow</a>, <a href="#decision-tables">decision tables</a>, <a href="#forms">forms</a>, <a href="#diagrams-and-code">diagrams and code</a>, <a href="#connections">connections</a>, <a href="#ai-agents">ai agents</a>, <a href="#cmmn-case-models">cmmn case models</a>, <a href="#modelling-conventions">modelling conventions</a>. The groups process flow, decision tables, diagrams and code, and modelling conventions are part of Pro. The rest is free, except that comparing two environments in the connections group is Pro.</p>
 
 <h2 id="modelling-rules"><a href="#modelling-rules">Modelling rules</a></h2>
 <p>The bpmnlint rules that run on every BPMN diagram, in the editor and in <code>penstock check</code>. Which ones run, and how strictly, is set in <code>.bpmnlintrc</code>.</p>
@@ -403,6 +418,53 @@
   </tbody>
 </table></div></div>
 
+<h2 id="connections"><a href="#connections">Connections</a></h2>
+<p>The configuration around a diagram that is not in the diagram: the secrets and MCP clients it names, and the environment files, Docker Compose files, Helm values and Spring Boot properties that are meant to supply them. A finding is called <code>connections/&lt;rule&gt;</code>. Comparing two environments is part of Penstock Pro, and Team in a pipeline.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="connections-secret-undefined"><code>connections/secret-undefined</code></a></td><td>Secret that no file of the project defines</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="connections-secret-prefix"><code>connections/secret-prefix</code></a></td><td>Secret that is defined without the configured prefix</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="connections-mcp-client-undefined"><code>connections/mcp-client-undefined</code></a></td><td>MCP client that no configuration defines</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="connections-property-renamed"><code>connections/property-renamed</code></a></td><td>Property with its Camunda 8.7 name</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="connections-property-removed"><code>connections/property-removed</code></a></td><td>Property that Camunda 8.8 no longer reads</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="connections-secret-missing-in-env"><code>connections/secret-missing-in-env</code></a></td><td>Secret defined in one environment and missing in another</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="connections-key-missing-in-env"><code>connections/key-missing-in-env</code></a></td><td>Setting defined in one environment and missing in another</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="ai-agents"><a href="#ai-agents">AI agents</a></h2>
+<p>What is wrong with an AI agent of Camunda 8: a loop with no limit, a tool the model cannot understand, a secret written into the diagram, an MCP client nothing configures, an element template that 8.10 has replaced. They run on <code>.bpmn</code> files in the editor and in <code>penstock check</code>. A finding is called <code>agents/&lt;rule&gt;</code>. Rewriting an old agent to the 8.10 templates is <code>penstock migrate agents</code>, which writes with Penstock Pro.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="agents-no-model-call-limit"><code>agents/no-model-call-limit</code></a></td><td>AI agent without a limit on model calls</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-tool-without-description"><code>agents/tool-without-description</code></a></td><td>Tool of an AI agent without a description</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-fromai-incomplete"><code>agents/fromai-incomplete</code></a></td><td>fromAi() parameter without a description or a type</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-tool-filter-matches-nothing"><code>agents/tool-filter-matches-nothing</code></a></td><td>MCP tool filter that lets nothing through</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-duplicate-tool-names"><code>agents/duplicate-tool-names</code></a></td><td>Two tools of an agent with the same name</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-adhoc-without-agent"><code>agents/adhoc-without-agent</code></a></td><td>Tool container that no agent uses</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="agents-mcp-client-no-config"><code>agents/mcp-client-no-config</code></a></td><td>MCP client of an agent that no configuration defines</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="agents-plain-text-secret"><code>agents/plain-text-secret</code></a></td><td>API key or secret written into the diagram</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="agents-deprecated-template"><code>agents/deprecated-template</code></a></td><td>Agent on a deprecated 8.9 element template</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="cmmn-case-models"><a href="#cmmn-case-models">CMMN case models</a></h2>
+<p>What is wrong in a Camunda 7 or Flowable case model: a reference that points at nothing, an id used twice, a task with nothing to run. They run on <code>.cmmn</code> files in the viewer and in <code>penstock check</code>. A finding is called <code>cmmn/&lt;rule&gt;</code>.</p>
+<div class="table-wrap"><div class="table-wrap"><table>
+  <thead><tr><th>Rule</th><th>What</th><th>Level</th></tr></thead>
+  <tbody>
+  <tr><td><a href="cmmn-duplicate-id"><code>cmmn/duplicate-id</code></a></td><td>Id used twice</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="cmmn-definition-ref-missing"><code>cmmn/definition-ref-missing</code></a></td><td>Plan item that points at no definition</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="cmmn-dangling-sentry-ref"><code>cmmn/dangling-sentry-ref</code></a></td><td>Criterion that points at a sentry that is not there</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="cmmn-dangling-on-part"><code>cmmn/dangling-on-part</code></a></td><td>Sentry that waits for a plan item that is not there</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="cmmn-task-without-target"><code>cmmn/task-without-target</code></a></td><td>Task that names nothing to run</td><td><span class="tag warning">Advice</span></td></tr>
+  <tr><td><a href="cmmn-no-case-plan-model"><code>cmmn/no-case-plan-model</code></a></td><td>Case without a case plan model</td><td><span class="tag error">Error</span></td></tr>
+  <tr><td><a href="cmmn-plan-truncated"><code>cmmn/plan-truncated</code></a></td><td>Plan that is shown only in part</td><td><span class="tag warning">Advice</span></td></tr>
+  </tbody>
+</table></div></div>
+
 <h2 id="modelling-conventions"><a href="#modelling-conventions">Modelling conventions</a></h2>
 <p>Conventions the editor applies while modelling, so a team does not have to remember them. They are set under <code>conventions</code> in <code>penstock.yaml</code>.</p>
 <div class="table-wrap"><div class="table-wrap"><table>
@@ -421,7 +483,7 @@
 </div>
 <nav class="pager" aria-label="Previous and next">
 <a class="prev" href="../guide/diagram-check.html"><span>Previous</span>Diagram check</a>
-<a class="next" href="../guide/validation.html"><span>Next</span>Validation with bpmnlint</a>
+<a class="next" href="../guide/connections.html"><span>Next</span>Connections map</a>
 </nav>
 </main>
 </div>
