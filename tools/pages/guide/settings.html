@@ -132,6 +132,20 @@ profiles:
 <pre><code>auth:
   username: ${BPM_USER:ci}</code></pre>
 
+<h2 id="environment-variables">Environment variables</h2>
+
+<p>Besides the keys above, which <code>PENSTOCK_*</code> variables can set, a few variables are not settings of the project:</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
+  <tbody>
+  <tr><td><code>PENSTOCK_DEPLOYMENT_TENANTID</code></td><td>The same as <code>deployment.tenantId</code>: the tenant to deploy to.</td></tr>
+  <tr><td><code>PENSTOCK_DEPLOYMENT_FORTESTS</code></td><td>The same as <code>deployment.forTests</code>: marks the engine as one that test runs may use.</td></tr>
+  <tr><td><code>PENSTOCK_HTTP_TIMEOUT_MS</code></td><td>How long, in milliseconds, a call of the review bot to the code host waits. 30000 by default.</td></tr>
+  <tr><td><code>PENSTOCK_AGENT_GRACE_MS</code>, <code>PENSTOCK_AGENT_QUIET_MS</code></td><td>For <code>penstock agent serve</code>: the grace period (5000 milliseconds by default) after which a chat nobody attends is let go, and the quiet period (10 minutes by default). A positive whole number of milliseconds; anything else is ignored.</td></tr>
+  </tbody>
+</table></div>
+
 <h2>Rules the editor applies for you</h2>
 
 <p>Camunda advises readable technical ids. Put your convention in the file and the editor applies it. <span class="tag pro">Pro</span></p>

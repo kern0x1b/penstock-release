@@ -59,10 +59,10 @@ const walk = (prefix, node) => {
 walk('', schema);
 
 const { FEATURES, featureTitle } = await load('libs/core/src/node/features.ts');
-const GATED = { 'auto-layout': 'Auto layout', 'flow-analysis': 'Flow analysis', docs: 'docs', paths: 'scenarios list', tests: 'junit', 'code-links': 'code links', 'element-templates': 'templates generate', 'changes-pictures': 'diff --images', edit: 'edit', 'pr-report': 'report', bot: 'review bot', baseline: 'baseline', 'ci-annotations': 'SARIF', 'test-runs': 'scenarios run', 'test-case-generation': 'scenarios generate', migration: 'migrate convert' };
+const GATED = { 'auto-layout': 'Auto layout', 'flow-analysis': 'Flow analysis', docs: 'docs', paths: 'scenarios list', tests: 'junit', 'code-links': 'code links', 'element-templates': 'templates generate', 'changes-pictures': 'diff --images', edit: 'edit', 'pr-report': 'report', bot: 'review bot', baseline: 'baseline', 'ci-annotations': 'SARIF', 'test-runs': 'scenarios run', 'test-case-generation': 'scenarios generate', migration: 'migrate convert', 'variable-checks': 'variable checks', 'api-templates': 'API description', 'connections-environments': 'connections --env --against', 'incident-scenario': 'incident scenario', 'agent-tools': 'agents scenario', 'ai-receipt': 'AI receipt', 'dmn-tests': 'DMN tests', 'migration-proof': 'migrate verify', 'policy-pack': 'policy pack', promotion: 'promote', 'audit-evidence': 'evidence build', heatmap: 'heat map', replay: 'replay', 'incident-loop': 'Fix end to end', 'refactor-bulk': 'refactor bulk', 'ai-chat': 'AI chat' };
 for (const feature of FEATURES) add('tier-gate', `${feature}: ${featureTitle(feature)}`, 'libs/core/src/node/features.ts', [`T:${GATED[feature]}`], { tier: 'Pro', only: ['guide/plans.html'] });
 
-const EDITOR_GATES = { AUTO_LAYOUT: 'Auto layout', CODE_LINKS: 'code links', CONVENTIONS: 'Modelling conventions', FLOW_ANALYSIS: 'Flow analysis', MIGRATION: 'Converting Camunda 7', TEST_RUNS: 'Scenarios' };
+const EDITOR_GATES = { AUTO_LAYOUT: 'Auto layout', CODE_LINKS: 'code links', CONVENTIONS: 'Modelling conventions', FLOW_ANALYSIS: 'Flow analysis', MIGRATION: 'Converting Camunda 7', TEST_RUNS: 'Scenarios', AI_CHAT: 'AI chat', VARIABLE_CHECKS: 'variable checks', API_TEMPLATES: 'API description', CONNECTIONS_ENVIRONMENTS: 'connections --env --against', INCIDENT_SCENARIO: 'incident scenario', AGENT_TOOLS: 'agents scenario', AI_RECEIPT: 'AI receipt', DMN_TESTS: 'DMN tests', MIGRATION_PROOF: 'migrate verify', POLICY_PACK: 'policy pack', PROMOTION: 'promote', AUDIT_EVIDENCE: 'evidence build', HEATMAP: 'heat map', INCIDENT_LOOP: 'Fix end to end', REFACTOR_BULK: 'refactor bulk' };
 const gates = read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/license/PenstockLicenseService.kt');
 for (const [, name] of gates.matchAll(/^\s+([A-Z_]+)\(Tier\.PRO,/gm)) add('tier-gate', `editor: ${name}`, 'apps/jetbrains/.../PenstockLicenseService.kt', [`T:${EDITOR_GATES[name] ?? name}`], { tier: 'Pro', only: ['guide/plans.html'] });
 
@@ -71,7 +71,7 @@ for (const key of ENGINE_KEYS) add('engine', `${key}: ${profileOf(key).label}`, 
 
 for (const [file, editor] of [['editorTabs', 'bpmn'], ['form', 'form'], ['dmn', 'dmn']]) {
   for (const [, id] of read(`libs/webview/src/features/${file}/tabs.tsx`).matchAll(/\{ id: '([\w-]+)', icon/g)) {
-    const title = { try: 'Try', scenarios: 'Scenarios' }[id] ?? id[0].toUpperCase() + id.slice(1);
+    const title = { try: 'Try', scenarios: 'Scenarios', aiagents: 'Agents' }[id] ?? id[0].toUpperCase() + id.slice(1);
     add('sidebar-tab', `${editor} editor: ${id}`, `libs/webview/src/features/${file}/tabs.tsx`, [`L:${title}`, `T:${title} tab`], { only: ['guide/sidebar.html'] });
   }
 }
@@ -90,8 +90,8 @@ for (const [, id, title] of catalogue.matchAll(/^  (\w+): \{\n    title: '([^']+
 
 const PRESENT = { recentActions: ['A:recent&action'], showCommentBadges: ['T:comment badges'], toolbarPinned: ['A:pin&action'], toolbarUnpinned: ['A:pin&action'] };
 const PREFERENCES = { toolbarPinned: 'pin', toolbarUnpinned: 'pin', recentActions: 'Recent', rendering: 'Sketchy', toolWindowTree: 'flat', toolWindowGroupByFiles: 'file by file', tourSeen: 'tour', sidebarWidth: 'sidebar', sidebarByEditor: 'sidebar', showCommentBadges: 'comment badges', locale: 'language' };
-for (const [, key] of read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt').matchAll(/^\s+(\w+) = json\./gm)) {
-  add('preference', key, 'apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt', [`A:preferences.json&${PREFERENCES[key]}`, `T:${key}`, ...(PRESENT[key] ?? [])]);
+for (const [, key] of read('apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/config/PreferencesFile.kt').matchAll(/^\s+(\w+) = json\./gm)) {
+  add('preference', key, 'apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/config/PreferencesFile.kt', [`A:preferences.json&${PREFERENCES[key]}`, `T:${key}`, ...(PRESENT[key] ?? [])]);
 }
 
 const environment = new Set();
@@ -135,7 +135,7 @@ const CURATED = [
   ['project-file', '.penstock-diff/*.bpmn (VS Code diff)', 'apps/vscode/package.json', '.penstock-diff', ['T:.penstock-diff', 'T:Compare with']],
   ['project-file', 'penstockw and penstockw.cmd wrapper', 'apps/cli/src/wrapper.ts', 'penstockw', ['T:penstockw']],
   ['project-file', '.gitea and .forgejo workflows written by init', 'apps/cli/src/init.ts', '.forgejo', ['T:forgejo']],
-  ['user-file', '~/.penstock/preferences.json', 'apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/preferences/PreferencesFile.kt', 'preferences.json', ['T:preferences.json']],
+  ['user-file', '~/.penstock/preferences.json', 'apps/jetbrains/src/main/kotlin/jetbrains/bpmn/editor/config/PreferencesFile.kt', 'preferences.json', ['T:preferences.json']],
   ['user-file', '~/.penstock/trusted-projects.json', 'apps/cli/src/trust.ts', 'trusted-projects.json', ['T:trusted-projects.json']],
   ['project-file', 'penstock.local.yaml', 'libs/core/src/node/load.ts', 'penstock.local.yaml', ['T:penstock.local.yaml']],
   ['project-file', 'penstock-report.md', 'apps/cli/src/index.ts', 'penstock-report.md', ['T:penstock-report.md']],

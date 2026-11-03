@@ -18,6 +18,7 @@ related: index, ci, mcp, guide/settings
   <tr><td><a href="#migrate-verify"><code>migrate verify</code></a></td><td>Run the scenarios on both versions and compare.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span>. The first 3 scenarios are free.</td></tr>
   <tr><td><a href="#migrate-agents"><code>migrate agents</code></a></td><td>Move AI agents to the 8.10 templates.</td><td>Free preview. <code>--write</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#code"><code>code</code></a></td><td>Diagrams against code.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
+  <tr><td><a href="#facts"><code>facts</code></a></td><td>Worker contracts of files on standard input, for the editors.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
   <tr><td><a href="#templates"><code>templates generate</code></a></td><td>Write an element template for every job worker, or for every operation of an API description.</td><td><span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span>. The first 3 operations of an API description are previewed free.</td></tr>
   <tr><td><a href="#templates-check"><code>templates check</code></a></td><td>Say which template files load in Camunda Modeler, and check them against the workers.</td><td><span class="tag free">Free</span></td></tr>
   <tr><td><a href="#connections"><code>connections</code></a></td><td>Secrets and MCP clients the diagrams name.</td><td>Free. <code>--against</code>: <span class="tag pro">Pro</span>, <span class="tag team">Team in a pipeline</span></td></tr>
@@ -485,6 +486,16 @@ ok    src/main/resources/shipping-method.dmn</code></pre>
   <tr><td><code>2</code></td><td>The CLI itself failed, not the command; the message says what.</td></tr>
   </tbody>
 </table></div>
+
+<h2 id="facts">facts</h2>
+
+<p><strong>Print the worker contracts that a list of files holds, as JSON.</strong></p>
+
+<pre><code>penstock facts &lt; files.json</code></pre>
+
+<p>Reads <code>{"files": [{"path": "...", "text": "..."}]}</code> on standard input and prints the worker contracts in them as one line of JSON and nothing else. The editors use it to read Python, Go, C# and Scala workers that they cannot read themselves, so you rarely run it by hand. It has no options of its own. Code links are part of Penstock Pro, and Team in a pipeline.</p>
+
+<p>Exit codes: <code>0</code> the contracts were printed, <code>1</code> the input is not a list of files, <code>2</code> the command line itself failed.</p>
 
 <h2 id="code">code</h2>
 
