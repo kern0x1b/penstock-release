@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 Report suspected vulnerabilities in Penstock to
-**157722763+kern0x1b@users.noreply.github.com**. Do not open a public issue and do not post
+**hello@getpenstock.com**. Do not open a public issue and do not post
 details on the JetBrains Marketplace page.
 
 Include whatever you have: affected plugin version and IDE build, steps to reproduce, and the

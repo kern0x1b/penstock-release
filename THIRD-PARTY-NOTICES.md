@@ -14,7 +14,7 @@ version 2.1 or later. It is bundled unmodified as a separate file
 For a period of three years from the date you received this software, the
 vendor will provide, on request and for no more than the cost of physical
 distribution, the complete corresponding source code of `libavoid-js`.
-Contact: 157722763+kern0x1b@users.noreply.github.com
+Contact: hello@getpenstock.com
 
 ## Components with license terms reproduced in full
 
