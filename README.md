@@ -28,9 +28,9 @@ repository exists so that the things users need are public and permanent:
 | [CHANGELOG.md](CHANGELOG.md) | Release history |
 | [SECURITY.md](SECURITY.md) | How to report a vulnerability |
 
-## Schemas and pictures
+## Schemas
 
-The site lives at <https://getpenstock.com/>. This repository still serves two things from `docs/` on GitHub Pages and raw GitHub URLs, because released versions of Penstock point at them: the JSON schemas in `docs/schema` (written into `penstock.yaml` and test files), and the pictures in `docs/img` that the marketplace listings load. Every other address under `kern0x1b.github.io/penstock-release/` redirects to the same page on getpenstock.com.
+The site lives at <https://getpenstock.com/>. This repository keeps the JSON schemas in `docs/schema` because files written by released versions of Penstock (`penstock.yaml`, test files) point at their raw GitHub URLs. Every address under `kern0x1b.github.io/penstock-release/` redirects to the same page on getpenstock.com.
 
 ## Reporting a problem
 
